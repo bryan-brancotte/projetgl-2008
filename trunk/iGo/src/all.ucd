@@ -181,13 +181,13 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" name="LanguageIO" location="24,253" size="120,29" id="tools/LanguageIO" runTimeClassModel="isNvLangue(),getCles(),LanguageIO(Ljava.lang.String;Z),lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),LanguageIO(Ljava.lang.String;),getLanguage(),LanguageIO(),getLanguages(),containsLanguageKey(Ljava.lang.String;)">
+    <children xsi:type="editmodel:ClassEditModel" name="LanguageXML" location="26,268" size="134,29" id="tools/LanguageXML" runTimeClassModel="LanguageXML(Ljava.lang.String;),isNvLangue(),getCles(),LanguageXML(),lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),getLanguage(),getLanguages(),LanguageXML(Ljava.lang.String;Z),containsLanguageKey(Ljava.lang.String;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Language&lt;-tools/LanguageIO" source="//@children.5/@children.4" target="//@children.4/@children.0" targetEnd="//@children.5/@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@children.4/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="120,24" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="0,4"/>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Language&lt;-tools/LanguageXML" source="//@children.5/@children.4" target="//@children.4/@children.0" targetEnd="//@children.5/@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@children.4/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="134,16" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,11"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
