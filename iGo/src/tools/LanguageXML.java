@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class LanguageIO implements Language {
+public class LanguageXML implements Language {
 
 	protected static final String PATH_LANGUAGE = "/languages/all.xml";
 
@@ -28,7 +28,7 @@ public class LanguageIO implements Language {
 
 	protected boolean nvLangue = false;
 
-	public LanguageIO() {
+	public LanguageXML() {
 		super();
 		correspondanceKeyWord = new HashMap<String, String>();
 		langues = new HashMap<String, String>();
@@ -36,7 +36,7 @@ public class LanguageIO implements Language {
 		setLanguage((new Locale(System.getProperty("user.language"))).getDisplayLanguage());
 	}
 
-	public LanguageIO(String lang) {
+	public LanguageXML(String lang) {
 		super();
 		correspondanceKeyWord = new HashMap<String, String>();
 		langues = new HashMap<String, String>();
@@ -44,7 +44,7 @@ public class LanguageIO implements Language {
 		setLanguage(lang);
 	}
 
-	public LanguageIO(String lang, boolean forceChoixLangue) {
+	public LanguageXML(String lang, boolean forceChoixLangue) {
 		super();
 		correspondanceKeyWord = new HashMap<String, String>();
 		langues = new HashMap<String, String>();
