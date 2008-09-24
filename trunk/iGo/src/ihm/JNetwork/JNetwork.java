@@ -1,4 +1,4 @@
-package ihm.JReseau;
+package ihm.JNetwork;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,13 +14,13 @@ public class JNetwork extends JComponent {
 
 	/**
 	 * @uml.property   name="mouseListeners"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="jReseau:ihm.JReseau.JNetworkMouseListener"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="jReseau:ihm.JNetwork.JNetworkMouseListener"
 	 */
 	private Collection<JNetworkMouseListener> mouseListeners;
 
 	/**
 	 * @uml.property   name="reseauModel"
-	 * @uml.associationEnd   inverse="jReseau:ihm.JReseau.JNetworkModel"
+	 * @uml.associationEnd   inverse="jReseau:ihm.JNetwork.JNetworkModel"
 	 */
 	private JNetworkModel reseauModel;
 

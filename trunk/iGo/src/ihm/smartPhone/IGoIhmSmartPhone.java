@@ -2,7 +2,7 @@ package ihm.smartPhone;
 
 import iGoMaster.IHM;
 import ihm.JMenuDock.JMenuDock;
-import ihm.JReseau.JNetwork;
+import ihm.JNetwork.JNetwork;
 
 
 public class IGoIhmSmartPhone implements IHM {
@@ -31,9 +31,9 @@ public class IGoIhmSmartPhone implements IHM {
 		this.menuDock = menuDock;
 	}
 
-	/** 
-	 * @uml.property name="master"
-	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.smartPhone.Master"
+	/**
+	 * @uml.property   name="master"
+	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:ihm.smartPhone.Master"
 	 */
 	private Master master;
 
@@ -57,7 +57,7 @@ public class IGoIhmSmartPhone implements IHM {
 
 	/**
 	 * @uml.property   name="reseau"
-	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:ihm.JReseau.JNetwork"
+	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:ihm.JNetwork.JNetwork"
 	 */
 	private JNetwork reseau;
 

@@ -1,4 +1,4 @@
-package ihm.JReseau;
+package ihm.JNetwork;
 
 
 public interface JNetworkModel {

@@ -3,10 +3,11 @@ package iGoMaster;
 import java.util.Observable;
 import java.util.Observer;
 
-import graphReseau.IGraphReseau;
+import graphNetwork.IGraphNetwork;
+import graphNetwork.PathInGraph;
 import ihm.smartPhone.Master;
 import main.GraphReader;
-import graphReseau.PathInGraph;
+import main.GraphNetwork;
 
 public class IGoMaster implements Master, Observer{
 
@@ -98,16 +99,16 @@ public class IGoMaster implements Master, Observer{
 
 	/**
 	 * @uml.property   name="graphReseau"
-	 * @uml.associationEnd   inverse="iGoMaster:graphReseau.IGraphReseau"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.IGraphReseau"
 	 */
-	private IGraphReseau graphReseau;
+	private IGraphNetwork graphReseau;
 
 	/**
 	 * Getter of the property <tt>graphReseau</tt>
 	 * @return  Returns the graphReseau.
 	 * @uml.property  name="graphReseau"
 	 */
-	public IGraphReseau getGraphReseau() {
+	public IGraphNetwork getGraphReseau() {
 		return graphReseau;
 	}
 
@@ -116,7 +117,7 @@ public class IGoMaster implements Master, Observer{
 	 * @param graphReseau  The graphReseau to set.
 	 * @uml.property  name="graphReseau"
 	 */
-	public void setGraphReseau(IGraphReseau graphReseau) {
+	public void setGraphReseau(IGraphNetwork graphReseau) {
 		this.graphReseau = graphReseau;
 	}
 
@@ -176,7 +177,7 @@ public class IGoMaster implements Master, Observer{
 
 	/**
 	 * @uml.property   name="mesParcours"
-	 * @uml.associationEnd   inverse="iGoMaster:graphReseau.PathInGraph"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.PathInGraph"
 	 */
 	private PathInGraph mesParcours;
 
@@ -196,6 +197,30 @@ public class IGoMaster implements Master, Observer{
 	 */
 	public void setMesParcours(PathInGraph mesParcours) {
 		this.mesParcours = mesParcours;
+	}
+
+	/**
+	 * @uml.property  name="graphNetwork"
+	 * @uml.associationEnd  inverse="iGoMaster:main.GraphNetwork"
+	 */
+	private GraphNetwork graphNetwork;
+
+	/**
+	 * Getter of the property <tt>graphNetwork</tt>
+	 * @return  Returns the graphNetwork.
+	 * @uml.property  name="graphNetwork"
+	 */
+	public GraphNetwork getGraphNetwork() {
+		return graphNetwork;
+	}
+
+	/**
+	 * Setter of the property <tt>graphNetwork</tt>
+	 * @param graphNetwork  The graphNetwork to set.
+	 * @uml.property  name="graphNetwork"
+	 */
+	public void setGraphNetwork(GraphNetwork graphNetwork) {
+		this.graphNetwork = graphNetwork;
 	}
 
 }
