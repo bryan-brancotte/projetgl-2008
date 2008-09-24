@@ -14,13 +14,13 @@ public class JNetwork extends JComponent {
 
 	/**
 	 * @uml.property   name="mouseListeners"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="jReseau:ihm.JNetwork.JNetworkMouseListener"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="jNetwork:ihm.JNetwork.JNetworkMouseListener"
 	 */
 	private Collection<JNetworkMouseListener> mouseListeners;
 
 	/**
 	 * @uml.property   name="reseauModel"
-	 * @uml.associationEnd   inverse="jReseau:ihm.JNetwork.JNetworkModel"
+	 * @uml.associationEnd   inverse="jNetwork:ihm.JNetwork.JNetworkModel"
 	 */
 	private JNetworkModel reseauModel;
 
@@ -30,7 +30,7 @@ public class JNetwork extends JComponent {
 	 * @return Returns the reseauModel.
 	 * @uml.property name="reseauModel"
 	 */
-	public JNetworkModel getReseauModel() {
+	public JNetworkModel getNetworkModel() {
 		return reseauModel;
 	}
 
@@ -41,13 +41,13 @@ public class JNetwork extends JComponent {
 	 *            The reseauModel to set.
 	 * @uml.property name="reseauModel"
 	 */
-	public void setReseauModel(JNetworkModel reseauModel) {
+	public void setNetworkModel(JNetworkModel reseauModel) {
 		this.reseauModel = reseauModel;
 	}
 
 	/**
 	 */
-	public void addJReseauMouseListener(JNetworkMouseListener listener) {
+	public void addJNetworkMouseListener(JNetworkMouseListener listener) {
 		if (mouseListeners != null)
 			mouseListeners = new LinkedList<JNetworkMouseListener>();
 		mouseListeners.add(listener);
@@ -55,14 +55,14 @@ public class JNetwork extends JComponent {
 
 	/**
 	 */
-	public void removeJReseauMouseListener(JNetworkMouseListener listener) {
+	public void removeJNetworkMouseListener(JNetworkMouseListener listener) {
 		if (mouseListeners != null)
 			mouseListeners.remove(listener);
 	}
 
 	/**
 	 */
-	public void removeJReseauMouseListener() {
+	public void removeJNetworkMouseListener() {
 		if (mouseListeners != null)
 			mouseListeners.clear();
 	}
