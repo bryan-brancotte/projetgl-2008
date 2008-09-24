@@ -44,84 +44,6 @@ public class IGoMaster implements Master, Observer{
 	}
 
 	/**
-	 * @uml.property   name="algo"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Algo"
-	 */
-	private Algo monAlgo;
-
-	/**
-	 * @uml.property   name="lang"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Language"
-	 */
-	private Language lg;
-
-	/**
-	 * Getter of the property <tt>lang</tt>
-	 * 
-	 * @return Returns the lg.
-	 * @uml.property name="lang"
-	 */
-	public Language getLang() {
-		return lg;
-	}
-
-	/**
-	 * Setter of the property <tt>lang</tt>
-	 * 
-	 * @param lang
-	 *            The lg to set.
-	 * @uml.property name="lang"
-	 */
-	public void setLang(Language lang) {
-		lg = lang;
-	}
-
-	/**
-	 * Getter of the property <tt>algo</tt>
-	 * 
-	 * @return Returns the monAlgo.
-	 * @uml.property name="algo"
-	 */
-	public Algo getAlgo() {
-		return monAlgo;
-	}
-
-	/**
-	 * Setter of the property <tt>algo</tt>
-	 * 
-	 * @param algo
-	 *            The monAlgo to set.
-	 * @uml.property name="algo"
-	 */
-	public void setAlgo(Algo algo) {
-		monAlgo = algo;
-	}
-
-	/**
-	 * @uml.property   name="graphReseau"
-	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.IGraphReseau"
-	 */
-	private IGraphNetwork graphReseau;
-
-	/**
-	 * Getter of the property <tt>graphReseau</tt>
-	 * @return  Returns the graphReseau.
-	 * @uml.property  name="graphReseau"
-	 */
-	public IGraphNetwork getGraphReseau() {
-		return graphReseau;
-	}
-
-	/**
-	 * Setter of the property <tt>graphReseau</tt>
-	 * @param graphReseau  The graphReseau to set.
-	 * @uml.property  name="graphReseau"
-	 */
-	public void setGraphReseau(IGraphNetwork graphReseau) {
-		this.graphReseau = graphReseau;
-	}
-
-	/**
 	 * @uml.property   name="graphReader"
 	 * @uml.associationEnd   inverse="iGoMaster:main.GraphReader"
 	 */
@@ -221,6 +143,54 @@ public class IGoMaster implements Master, Observer{
 	 */
 	public void setGraphNetwork(GraphNetwork graphNetwork) {
 		this.graphNetwork = graphNetwork;
+	}
+
+	/**
+	 * @uml.property  name="lang"
+	 * @uml.associationEnd  inverse="iGoMaster:iGoMaster.Language"
+	 */
+	private Language lang;
+
+	/**
+	 * Getter of the property <tt>lang</tt>
+	 * @return  Returns the lang.
+	 * @uml.property  name="lang"
+	 */
+	public Language getLang() {
+		return lang;
+	}
+
+	/**
+	 * Setter of the property <tt>lang</tt>
+	 * @param lang  The lang to set.
+	 * @uml.property  name="lang"
+	 */
+	public void setLang(Language lang) {
+		this.lang = lang;
+	}
+
+	/**
+	 * @uml.property  name="algo"
+	 * @uml.associationEnd  inverse="iGoMaster:iGoMaster.Algo"
+	 */
+	private Algo algo;
+
+	/**
+	 * Getter of the property <tt>algo</tt>
+	 * @return  Returns the algo.
+	 * @uml.property  name="algo"
+	 */
+	public Algo getAlgo() {
+		return algo;
+	}
+
+	/**
+	 * Setter of the property <tt>algo</tt>
+	 * @param algo  The algo to set.
+	 * @uml.property  name="algo"
+	 */
+	public void setAlgo(Algo algo) {
+		this.algo = algo;
 	}
 
 }
