@@ -1,4 +1,4 @@
-package graphReseau;
+package graphNetwork;
 
 
 public class PathInGraph {

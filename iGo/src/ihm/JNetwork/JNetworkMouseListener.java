@@ -1,4 +1,4 @@
-package ihm.JReseau;
+package ihm.JNetwork;
 
 import java.awt.event.MouseListener;
 

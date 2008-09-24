@@ -1,4 +1,4 @@
-package outils;
+package tools;
 
 import iGoMaster.EventInfoNetwork;
 
