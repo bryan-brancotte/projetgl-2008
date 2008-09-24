@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="all" size="1318,917" id="main" metadata="uml2-1.0" initialized="true" zoom="0.75" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="all" size="1318,917" id="main" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledY="23" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
   <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.4/@children.5/@sourceConnections.5" name="Observer" location="555,100" size="99,95" id="java.util/Observer" runTimeClassModel="update(Ljava.util.Observable;Ljava.lang.Object;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="63,18">
@@ -140,7 +140,7 @@
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="tools" location="14,232" size="192,376" id="tools">
+  <children xsi:type="editmodel:PackageEditModel" name="tools" location="14,232" size="192,377" id="tools">
     <children xsi:type="editmodel:ClassEditModel" name="Dykstra" location="38,196" size="88,29" id="tools/Dykstra" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -206,36 +206,32 @@
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="ihm.smartPhone" location="745,88" size="205,774" id="ihm.smartPhone">
-    <children xsi:type="editmodel:ClassEditModel" name="JNetworkModelImpl" location="29,637" size="168,67" id="ihm.smartPhone/JNetworkModelImpl" runTimeClassModel="setGraphReseau">
+  <children xsi:type="editmodel:PackageEditModel" name="ihm.smartPhone" location="745,88" size="213,774" id="ihm.smartPhone">
+    <children xsi:type="editmodel:ClassEditModel" name="JNetworkModelImpl" location="29,637" size="168,29" id="ihm.smartPhone/JNetworkModelImpl" runTimeClassModel="setGraphReseau">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <children xsi:type="editmodel:CompartmentEditModel" size="101,18">
-        <children xsi:type="editmodel:MethodEditModel" name="setGraphReseau"/>
-      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="101,18"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ihm.JNetwork/JNetworkModel&lt;-ihm.smartPhone/JNetworkModelImpl" source="//@children.7/@children.0" target="//@children.9/@children.2" targetEnd="//@children.7/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="158,67" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="158,29" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="0,10"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="main/GraphNetwork@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl" source="//@children.7/@children.0" target="//@children.6/@children.1" targetEnd="//@children.7/@children.0/@sourceConnections.1/@children.1" label="//@children.7/@children.0/@sourceConnections.1/@children.2" sourceEnd="//@children.7/@children.0/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="jNetworkModelImpl" location="0,60" id="main/GraphNetwork@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|ihm.smartPhone/JNetworkModelImpl#jNetworkModelImpl" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="graphNetwork" location="133,5" id="main/GraphNetwork@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|main/GraphNetwork#graphNetwork" multiplicityLabel="//@children.7/@children.0/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.7/@children.0/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - graphNetwork" location="671,763" size="79,14" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="671,791" size="18,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="jNetworkModelImpl" location="10,29" id="main/GraphNetwork@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|ihm.smartPhone/JNetworkModelImpl#jNetworkModelImpl" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="graphNetwork" location="133,10" id="main/GraphNetwork@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|main/GraphNetwork#graphNetwork" multiplicityLabel="//@children.7/@children.0/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.7/@children.0/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - graphNetwork" location="671,796" size="79,14" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="671,768" size="18,14" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.0 //@children.8/@children.1/@sourceConnections.1 //@children.7/@children.2/@sourceConnections.0 //@children.10/@sourceConnections.1" name="IGoIhmSmartPhone" location="13,333" size="167,67" id="ihm.smartPhone/IGoIhmSmartPhone" runTimeClassModel="setReseau">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.2 //@children.8/@children.1/@sourceConnections.1 //@children.7/@children.2/@sourceConnections.0 //@children.10/@sourceConnections.1" name="IGoIhmSmartPhone" location="13,333" size="167,29" id="ihm.smartPhone/IGoIhmSmartPhone" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <children xsi:type="editmodel:CompartmentEditModel" size="71,18">
-        <children xsi:type="editmodel:MethodEditModel" name="setReseau"/>
-      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="71,18"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/IHM&lt;-ihm.smartPhone/IGoIhmSmartPhone" source="//@children.7/@children.1" target="//@children.4/@children.4" targetEnd="//@children.7/@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="0,18" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="78,24"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,14" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="78,20"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:IndicationEditModel" autoLocated="true" source="//@children.7/@children.1" target="//@children.11" targetEnd="//@children.7/@children.1/@sourceConnections.1/@children.1" sourceEnd="//@children.7/@children.1/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" location="167,3" attachSource="true"/>
@@ -253,7 +249,7 @@
           <children xsi:type="editmodel:LabelEditModel" name=" - master" location="817,351" size="43,14" anchorKind="FirstPart"/>
           <children xsi:type="editmodel:LabelEditModel" name="0..1" location="785,351" size="18,14" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="iGoIhmSmartPhone" location="29,-3" id="ihm.smartPhone/Master@master+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.smartPhone/IGoIhmSmartPhone#iGoIhmSmartPhone"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="iGoIhmSmartPhone" location="29,-2" id="ihm.smartPhone/Master@master+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.smartPhone/IGoIhmSmartPhone#iGoIhmSmartPhone"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
@@ -283,53 +279,49 @@
           <children xsi:type="editmodel:LabelEditModel" name=" - menuDock" location="1133,289" size="60,14" anchorKind="FirstPart"/>
           <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1101,289" size="18,14" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="iGoIhmSmartPhone" location="135,-3" id="ihm.JMenuDock/JMenuDock@menuDock+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.smartPhone/IGoIhmSmartPhone#iGoIhmSmartPhone"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="iGoIhmSmartPhone" location="135,-2" id="ihm.JMenuDock/JMenuDock@menuDock+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.smartPhone/IGoIhmSmartPhone#iGoIhmSmartPhone"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="ihm.JNetwork" location="1010,440" size="278,416" id="ihm.JNetwork">
-    <children xsi:type="editmodel:ClassEditModel" name="JNetwork" location="60,215" size="202,103" id="ihm.JNetwork/JNetwork" runTimeClassModel="addJReseauMouseListener(Lihm.JNetwork.JNetworkMouseListener;),removeJReseauMouseListener(),removeJReseauMouseListener(Lihm.JNetwork.JNetworkMouseListener;)">
+  <children xsi:type="editmodel:PackageEditModel" name="ihm.JNetwork" location="1010,440" size="278,417" id="ihm.JNetwork">
+    <children xsi:type="editmodel:ClassEditModel" name="JNetwork" location="60,215" size="101,29" id="ihm.JNetwork/JNetwork" runTimeClassModel="addJNetworkMouseListener(Lihm.JNetwork.JNetworkMouseListener;),removeJNetworkMouseListener(Lihm.JNetwork.JNetworkMouseListener;),removeJNetworkMouseListener()">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <children xsi:type="editmodel:CompartmentEditModel" size="179,54">
-        <children xsi:type="editmodel:MethodEditModel" name="addJReseauMouseListener" id="ihm.JNetwork/JNetwork#addJReseauMouseListener(Lihm.JNetwork.JNetworkMouseListener;)"/>
-        <children xsi:type="editmodel:MethodEditModel" name="removeJReseauMouseListener" id="ihm.JNetwork/JNetwork#removeJReseauMouseListener()"/>
-        <children xsi:type="editmodel:MethodEditModel" name="removeJReseauMouseListener" id="ihm.JNetwork/JNetwork#removeJReseauMouseListener(Lihm.JNetwork.JNetworkMouseListener;)"/>
-      </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <sourceConnections xsi:type="editmodel:AssociationEditModel" id="ihm.JNetwork/JNetwork@reseau+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone" source="//@children.9/@children.0" target="//@children.7/@children.1" targetEnd="//@children.9/@children.0/@sourceConnections.0/@children.2" label="//@children.9/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.9/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ihm.JNetwork/JNetworkModel@reseauModel+ihm.JNetwork/JNetwork@jNetwork" source="//@children.9/@children.0" target="//@children.9/@children.2" targetEnd="//@children.9/@children.0/@sourceConnections.0/@children.2" label="//@children.9/@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.9/@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="reseau" location="0,10" id="ihm.JNetwork/JNetwork@reseau+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.JNetwork/JNetwork#reseau" attachSource="true" multiplicityLabel="//@children.9/@children.0/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.9/@children.0/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - reseau" location="1018,680" size="44,14" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1044,652" size="18,14" anchorKind="FirstPart"/>
-        </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="iGoIhmSmartPhone" location="91,67" id="ihm.JNetwork/JNetwork@reseau+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.smartPhone/IGoIhmSmartPhone#iGoIhmSmartPhone"/>
-      </sourceConnections>
-      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ihm.JNetwork/JNetworkModel@reseauModel+ihm.JNetwork/JNetwork@jReseau" source="//@children.9/@children.0" target="//@children.9/@children.2" targetEnd="//@children.9/@children.0/@sourceConnections.1/@children.2" label="//@children.9/@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.9/@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="jReseau" location="92,103" id="ihm.JNetwork/JNetworkModel@reseauModel+ihm.JNetwork/JNetwork@jReseau|ihm.JNetwork/JNetwork#jReseau" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="reseauModel" location="69,0" id="ihm.JNetwork/JNetworkModel@reseauModel+ihm.JNetwork/JNetwork@jReseau|ihm.JNetwork/JNetworkModel#reseauModel" multiplicityLabel="//@children.9/@children.0/@sourceConnections.1/@children.2/@children.1" roleLabel="//@children.9/@children.0/@sourceConnections.1/@children.2/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - reseauModel" location="1168,780" size="72,14" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1136,780" size="18,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="jNetwork" location="61,29" id="ihm.JNetwork/JNetworkModel@reseauModel+ihm.JNetwork/JNetwork@jNetwork|ihm.JNetwork/JNetwork#jNetwork" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="reseauModel" location="38,0" id="ihm.JNetwork/JNetworkModel@reseauModel+ihm.JNetwork/JNetwork@jNetwork|ihm.JNetwork/JNetworkModel#reseauModel" multiplicityLabel="//@children.9/@children.0/@sourceConnections.0/@children.2/@children.1" roleLabel="//@children.9/@children.0/@sourceConnections.0/@children.2/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - reseauModel" location="1137,771" size="72,14" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1105,771" size="18,14" anchorKind="LastPart"/>
         </children>
       </sourceConnections>
-      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ihm.JNetwork/JNetworkMouseListener@mouseListeners+ihm.JNetwork/JNetwork@jReseau" source="//@children.9/@children.0" target="//@children.9/@children.1" targetEnd="//@children.9/@children.0/@sourceConnections.2/@children.2" label="//@children.9/@children.0/@sourceConnections.2/@children.0" sourceEnd="//@children.9/@children.0/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan">
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ihm.JNetwork/JNetworkMouseListener@mouseListeners+ihm.JNetwork/JNetwork@jNetwork" source="//@children.9/@children.0" target="//@children.9/@children.1" targetEnd="//@children.9/@children.0/@sourceConnections.1/@children.2" label="//@children.9/@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.9/@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="jReseau" location="87,0" id="ihm.JNetwork/JNetworkMouseListener@mouseListeners+ihm.JNetwork/JNetwork@jReseau|ihm.JNetwork/JNetwork#jReseau" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="mouseListeners" location="105,43" id="ihm.JNetwork/JNetworkMouseListener@mouseListeners+ihm.JNetwork/JNetwork@jReseau|ihm.JNetwork/JNetworkMouseListener#mouseListeners" multiplicityLabel="//@children.9/@children.0/@sourceConnections.2/@children.2/@children.1" roleLabel="//@children.9/@children.0/@sourceConnections.2/@children.2/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - mouseListeners" location="1163,579" size="87,14" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="1145,579" size="4,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="jNetwork" location="50,0" id="ihm.JNetwork/JNetworkMouseListener@mouseListeners+ihm.JNetwork/JNetwork@jNetwork|ihm.JNetwork/JNetwork#jNetwork" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="mouseListeners" location="68,43" id="ihm.JNetwork/JNetworkMouseListener@mouseListeners+ihm.JNetwork/JNetwork@jNetwork|ihm.JNetwork/JNetworkMouseListener#mouseListeners" multiplicityLabel="//@children.9/@children.0/@sourceConnections.1/@children.2/@children.1" roleLabel="//@children.9/@children.0/@sourceConnections.1/@children.2/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - mouseListeners" location="1127,569" size="87,14" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="1109,569" size="4,14" anchorKind="LastPart"/>
         </children>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" id="ihm.JNetwork/JNetwork@reseau+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone" source="//@children.9/@children.0" target="//@children.7/@children.1" targetEnd="//@children.9/@children.0/@sourceConnections.2/@children.2" label="//@children.9/@children.0/@sourceConnections.2/@children.0" sourceEnd="//@children.9/@children.0/@sourceConnections.2/@children.1" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="reseau" location="-1,13" id="ihm.JNetwork/JNetwork@reseau+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.JNetwork/JNetwork#reseau" attachSource="true" multiplicityLabel="//@children.9/@children.0/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.9/@children.0/@sourceConnections.2/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - reseau" location="1018,675" size="44,14" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1044,647" size="18,14" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="iGoIhmSmartPhone" location="91,28" id="ihm.JNetwork/JNetwork@reseau+ihm.smartPhone/IGoIhmSmartPhone@iGoIhmSmartPhone|ihm.smartPhone/IGoIhmSmartPhone#iGoIhmSmartPhone"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.2 //@children.11/@sourceConnections.0" name="JNetworkMouseListener" location="42,80" size="193,43" id="ihm.JNetwork/JNetworkMouseListener" runTimeClassModel="">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.1 //@children.11/@sourceConnections.0" name="JNetworkMouseListener" location="42,80" size="193,43" id="ihm.JNetwork/JNetworkMouseListener" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.1 //@children.7/@children.0/@sourceConnections.0" name="JNetworkModel" location="83,353" size="140,43" id="ihm.JNetwork/JNetworkModel" runTimeClassModel="">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.0 //@children.7/@children.0/@sourceConnections.0" name="JNetworkModel" location="83,353" size="140,43" id="ihm.JNetwork/JNetworkModel" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
