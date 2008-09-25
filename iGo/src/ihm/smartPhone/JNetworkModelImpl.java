@@ -1,35 +1,10 @@
 package ihm.smartPhone;
 
 import ihm.JNetwork.JNetworkModel;
-import graphNetwork.IGraphNetwork;
 import main.GraphNetwork;
 
 
 public class JNetworkModelImpl implements JNetworkModel {
-
-	/**
-	 * @uml.property   name="graphReseau"
-	 * @uml.associationEnd   inverse="jReseauModelImpl:graphNetwork.IGraphReseau"
-	 */
-	private IGraphNetwork graphReseau;
-
-	/**
-	 * Getter of the property <tt>graphReseau</tt>
-	 * @return  Returns the graphReseau.
-	 * @uml.property  name="graphReseau"
-	 */
-	public IGraphNetwork getGraphReseau() {
-		return graphReseau;
-	}
-
-	/**
-	 * Setter of the property <tt>graphReseau</tt>
-	 * @param graphReseau  The graphReseau to set.
-	 * @uml.property  name="graphReseau"
-	 */
-	public void setGraphReseau(IGraphNetwork graphReseau) {
-		this.graphReseau = graphReseau;
-	}
 
 	/**
 	 * @uml.property  name="graphNetwork"
