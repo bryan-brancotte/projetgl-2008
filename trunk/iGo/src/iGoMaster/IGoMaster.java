@@ -1,13 +1,13 @@
 package iGoMaster;
 
+import graphNetwork.PathInGraph;
+import ihm.smartPhone.Master;
+
 import java.util.Observable;
 import java.util.Observer;
 
-import graphNetwork.IGraphNetwork;
-import graphNetwork.PathInGraph;
-import ihm.smartPhone.Master;
-import main.GraphReader;
 import main.GraphNetwork;
+import main.GraphReader;
 
 public class IGoMaster implements Master, Observer{
 
