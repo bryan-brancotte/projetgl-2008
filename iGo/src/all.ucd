@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="all" size="1318,917" id="main" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledY="23" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="all" size="1318,917" id="main" metadata="uml2-1.0" initialized="true" zoom="0.75" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
   <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.4/@children.5/@sourceConnections.3" name="Observer" location="555,100" size="99,95" id="java.util/Observer" runTimeClassModel="update(Ljava.util.Observable;Ljava.lang.Object;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="63,18">
@@ -176,8 +176,8 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Configuration&lt;-tools/ConfigurationXML" source="//@children.5/@children.3" target="//@children.4/@children.6" targetEnd="//@children.5/@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@children.3/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="156,23" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="0,6"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="156,22" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,5"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
@@ -186,8 +186,8 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Language&lt;-tools/LanguageXML" source="//@children.5/@children.4" target="//@children.4/@children.0" targetEnd="//@children.5/@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@children.4/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="134,17" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="0,12"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="134,16" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,11"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
@@ -207,7 +207,7 @@
     </children>
   </children>
   <children xsi:type="editmodel:PackageEditModel" name="ihm.smartPhone" location="745,88" size="213,774" id="ihm.smartPhone">
-    <children xsi:type="editmodel:ClassEditModel" name="JNetworkModelImpl" location="29,637" size="168,29" id="ihm.smartPhone/JNetworkModelImpl" runTimeClassModel="setGraphReseau">
+    <children xsi:type="editmodel:ClassEditModel" name="JNetworkModelImpl" location="29,637" size="168,29" id="ihm.smartPhone/JNetworkModelImpl" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="101,18"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
