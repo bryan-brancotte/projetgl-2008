@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="all" size="1336,981" id="main" metadata="uml2-1.0" initialized="true" zoom="0.8173307701110182" scrolledX="-3" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="all" size="1336,981" id="main" metadata="uml2-1.0" initialized="true" zoom="0.8173307701110182" scrolledX="-3" scrolledY="106" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
   <children xsi:type="editmodel:NotepadEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.0" location="435,194" size="102,24" fontInfo="Arial-8-0" note="est observé par">
     <sourceConnections xsi:type="editmodel:IndicationEditModel" source="//@children.0" target="//@children.2/@children.4" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="62,23" attachSource="true"/>
@@ -126,11 +126,13 @@
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="graphNetwork" location="250,664" size="457,297" id="graphNetwork">
-    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.3/@children.2/@sourceConnections.0 //@children.4/@children.0/@sourceConnections.1" name="GraphNetworkReader" location="262,195" size="179,81" id="graphNetwork/GraphNetworkReader" runTimeClassModel="getStationsFake()">
+  <children xsi:type="editmodel:PackageEditModel" name="graphNetwork" location="250,664" size="457,318" id="graphNetwork">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.3/@children.2/@sourceConnections.0 //@children.4/@children.0/@sourceConnections.1" name="GraphNetworkReader" location="262,195" size="179,117" id="graphNetwork/GraphNetworkReader" runTimeClassModel="getStation(),getRoute(),getService()">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <children xsi:type="editmodel:CompartmentEditModel" size="107,18">
-        <children xsi:type="editmodel:MethodEditModel" name="getStationsFake" id="graphNetwork/GraphNetworkReader#getStationsFake()"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="107,54">
+        <children xsi:type="editmodel:MethodEditModel" name="getStation" id="graphNetwork/GraphNetworkReader#getStation()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getRoute" id="graphNetwork/GraphNetworkReader#getRoute()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getService" id="graphNetwork/GraphNetworkReader#getService()"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
@@ -141,10 +143,10 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.2/@children.4/@sourceConnections.7" name="GraphNetworkBuilder" location="252,75" size="179,81" id="graphNetwork/GraphNetworkBuilder" runTimeClassModel="addStationFake(Ljava.lang.Object;)">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.2/@children.4/@sourceConnections.7" name="GraphNetworkBuilder" location="252,75" size="179,81" id="graphNetwork/GraphNetworkBuilder" runTimeClassModel="reset()">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="104,18">
-        <children xsi:type="editmodel:MethodEditModel" name="addStationFake" id="graphNetwork/GraphNetworkBuilder#addStationFake(Ljava.lang.Object;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="reset" id="graphNetwork/GraphNetworkBuilder#reset()"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="graphNetwork/GraphNetworkReader&lt;-graphNetwork/GraphNetworkBuilder" source="//@children.3/@children.2" target="//@children.3/@children.0" targetEnd="//@children.3/@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@children.2/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
@@ -165,9 +167,9 @@
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/GraphNetworkReader@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl" source="//@children.4/@children.0" target="//@children.3/@children.0" targetEnd="//@children.4/@children.0/@sourceConnections.1/@children.1" label="//@children.4/@children.0/@sourceConnections.1/@children.2" sourceEnd="//@children.4/@children.0/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="jNetworkModelImpl" location="0,19" id="graphNetwork/GraphNetworkReader@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|ihm.smartPhone/JNetworkModelImpl#jNetworkModelImpl" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="graphNetwork" location="179,45" id="graphNetwork/GraphNetworkReader@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|graphNetwork/GraphNetworkReader#graphNetwork" multiplicityLabel="//@children.4/@children.0/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.4/@children.0/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - graphNetwork" location="697,909" size="79,14" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="697,881" size="18,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="graphNetwork" location="179,64" id="graphNetwork/GraphNetworkReader@graphNetwork+ihm.smartPhone/JNetworkModelImpl@jNetworkModelImpl|graphNetwork/GraphNetworkReader#graphNetwork" multiplicityLabel="//@children.4/@children.0/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.4/@children.0/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - graphNetwork" location="697,914" size="79,14" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="697,886" size="18,14" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
       </sourceConnections>

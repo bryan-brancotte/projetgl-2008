@@ -1,6 +1,5 @@
 package tools.streamInFolder.graphReaderFolder;
 
-import Collection;
 import java.util.LinkedList;
 
 public class KindRoute {
