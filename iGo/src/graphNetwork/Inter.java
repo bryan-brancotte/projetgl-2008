@@ -149,6 +149,13 @@ public abstract class Inter {
 		/**
 		 */
 		public abstract String getKindOfInter();
+
+			
+			/**
+			 */
+			public Station getOtherStation(Station station){
+				return null;
+			}
 		
 
 }
