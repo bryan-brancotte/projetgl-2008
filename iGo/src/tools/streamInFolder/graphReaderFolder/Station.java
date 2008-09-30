@@ -5,29 +5,6 @@ import java.util.Collection;
 
 public class Station {
 
-	/**
-	 * @uml.property  name="ID"
-	 */
-	private int id;
-
-	/**
-	 * Getter of the property <tt>ID</tt>
-	 * @return  Returns the id.
-	 * @uml.property  name="ID"
-	 */
-	public int getID() {
-		return id;
-	}
-
-	/**
-	 * Setter of the property <tt>ID</tt>
-	 * @param ID  The id to set.
-	 * @uml.property  name="ID"
-	 */
-	public void setID(int id) {
-		this.id = id;
-	}
-
 	/** 
 	 * Getter of the property <tt>Name</tt>
 	 * @return  Returns the name.
@@ -74,5 +51,27 @@ public class Station {
 	 * @uml.property  name="name"
 	 */
 	private String name1 = "";
+	/**
+	 * @uml.property  name="id"
+	 */
+	private int id1;
+
+	/** 
+	 * Getter of the property <tt>ID</tt>
+	 * @return  Returns the id.
+	 * @uml.property  name="id"
+	 */
+	public int getId() {
+		return id1;
+	}
+
+	/** 
+	 * Setter of the property <tt>ID</tt>
+	 * @param ID  The id to set.
+	 * @uml.property  name="id"
+	 */
+	public void setId(int id) {
+		id1 = id;
+	}
 
 }

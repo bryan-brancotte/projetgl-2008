@@ -54,27 +54,27 @@ public class Station {
 	}
 
 	/**
-	 * @uml.property  name="interStation"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="stationA:graphNetwork.InterStation"
+	 * @uml.property  name="interchange"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="stationA:graphNetwork.Inter"
 	 */
-	private Collection interStation;
+	private Collection interchange;
 
 	/**
-	 * Getter of the property <tt>interStation</tt>
-	 * @return  Returns the interStation.
-	 * @uml.property  name="interStation"
+	 * Getter of the property <tt>interchange</tt>
+	 * @return  Returns the interchange.
+	 * @uml.property  name="interchange"
 	 */
-	public Collection getInterStation() {
-		return interStation;
+	public Collection getInterchange() {
+		return interchange;
 	}
 
 	/**
-	 * Setter of the property <tt>interStation</tt>
-	 * @param interStation  The interStation to set.
-	 * @uml.property  name="interStation"
+	 * Setter of the property <tt>interchange</tt>
+	 * @param interchange  The interchange to set.
+	 * @uml.property  name="interchange"
 	 */
-	public void setInterStation(Collection interStation) {
-		this.interStation = interStation;
+	public void setInterchange(Collection interchange) {
+		this.interchange = interchange;
 	}
 
 }

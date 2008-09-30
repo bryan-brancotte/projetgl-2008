@@ -3,29 +3,6 @@ package tools.streamInFolder.graphReaderFolder;
 
 public class Service {
 
-	/**
-	 * @uml.property  name="ID"
-	 */
-	private int id;
-
-	/**
-	 * Getter of the property <tt>ID</tt>
-	 * @return  Returns the id.
-	 * @uml.property  name="ID"
-	 */
-	public int getID() {
-		return id;
-	}
-
-	/**
-	 * Setter of the property <tt>ID</tt>
-	 * @param ID  The id to set.
-	 * @uml.property  name="ID"
-	 */
-	public void setID(int id) {
-		this.id = id;
-	}
-
 	/** 
 	 * Getter of the property <tt>ShortDescription</tt>
 	 * @return  Returns the shortDescription.
@@ -48,5 +25,27 @@ public class Service {
 	 * @uml.property  name="shortDescription"
 	 */
 	private String description = "";
+	/**
+	 * @uml.property  name="id"
+	 */
+	private int id1;
+
+	/** 
+	 * Getter of the property <tt>ID</tt>
+	 * @return  Returns the id.
+	 * @uml.property  name="id"
+	 */
+	public int getId() {
+		return id1;
+	}
+
+	/** 
+	 * Setter of the property <tt>ID</tt>
+	 * @param ID  The id to set.
+	 * @uml.property  name="id"
+	 */
+	public void setId(int id) {
+		id1 = id;
+	}
 
 }
