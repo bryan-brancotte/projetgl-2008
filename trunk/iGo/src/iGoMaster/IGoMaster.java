@@ -1,13 +1,14 @@
 package iGoMaster;
 
+import graphNetwork.GraphNetworkReader;
 import graphNetwork.PathInGraph;
 import ihm.smartPhone.Master;
 
 import java.util.Observable;
 import java.util.Observer;
 
-import main.GraphNetwork;
 import main.GraphReader;
+import graphNetwork.GraphNetworkBuilder;
 
 public class IGoMaster implements Master, Observer{
 
@@ -98,41 +99,17 @@ public class IGoMaster implements Master, Observer{
 	}
 
 	/**
-	 * @uml.property   name="mesParcours"
-	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.PathInGraph"
+	 * @uml.property   name="graphNetwork"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkReader"
 	 */
-	private PathInGraph mesParcours;
-
-	/**
-	 * Getter of the property <tt>mesParcours</tt>
-	 * @return  Returns the mesParcours.
-	 * @uml.property  name="mesParcours"
-	 */
-	public PathInGraph getMesParcours() {
-		return mesParcours;
-	}
-
-	/**
-	 * Setter of the property <tt>mesParcours</tt>
-	 * @param mesParcours  The mesParcours to set.
-	 * @uml.property  name="mesParcours"
-	 */
-	public void setMesParcours(PathInGraph mesParcours) {
-		this.mesParcours = mesParcours;
-	}
-
-	/**
-	 * @uml.property  name="graphNetwork"
-	 * @uml.associationEnd  inverse="iGoMaster:main.GraphNetwork"
-	 */
-	private GraphNetwork graphNetwork;
+	private GraphNetworkReader graphNetwork;
 
 	/**
 	 * Getter of the property <tt>graphNetwork</tt>
 	 * @return  Returns the graphNetwork.
 	 * @uml.property  name="graphNetwork"
 	 */
-	public GraphNetwork getGraphNetwork() {
+	public GraphNetworkReader getGraphNetwork() {
 		return graphNetwork;
 	}
 
@@ -141,7 +118,7 @@ public class IGoMaster implements Master, Observer{
 	 * @param graphNetwork  The graphNetwork to set.
 	 * @uml.property  name="graphNetwork"
 	 */
-	public void setGraphNetwork(GraphNetwork graphNetwork) {
+	public void setGraphNetwork(GraphNetworkReader graphNetwork) {
 		this.graphNetwork = graphNetwork;
 	}
 
@@ -191,6 +168,54 @@ public class IGoMaster implements Master, Observer{
 	 */
 	public void setAlgo(Algo algo) {
 		this.algo = algo;
+	}
+
+	/**
+	 * @uml.property  name="pathInGraph"
+	 * @uml.associationEnd  inverse="iGoMaster:graphNetwork.PathInGraph"
+	 */
+	private PathInGraph pathInGraph;
+
+	/**
+	 * Getter of the property <tt>pathInGraph</tt>
+	 * @return  Returns the pathInGraph.
+	 * @uml.property  name="pathInGraph"
+	 */
+	public PathInGraph getPathInGraph() {
+		return pathInGraph;
+	}
+
+	/**
+	 * Setter of the property <tt>pathInGraph</tt>
+	 * @param pathInGraph  The pathInGraph to set.
+	 * @uml.property  name="pathInGraph"
+	 */
+	public void setPathInGraph(PathInGraph pathInGraph) {
+		this.pathInGraph = pathInGraph;
+	}
+
+	/**
+	 * @uml.property  name="graphNetworkBuilder"
+	 * @uml.associationEnd  inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
+	 */
+	private GraphNetworkBuilder graphNetworkBuilder;
+
+	/**
+	 * Getter of the property <tt>graphNetworkBuilder</tt>
+	 * @return  Returns the graphNetworkBuilder.
+	 * @uml.property  name="graphNetworkBuilder"
+	 */
+	public GraphNetworkBuilder getGraphNetworkBuilder() {
+		return graphNetworkBuilder;
+	}
+
+	/**
+	 * Setter of the property <tt>graphNetworkBuilder</tt>
+	 * @param graphNetworkBuilder  The graphNetworkBuilder to set.
+	 * @uml.property  name="graphNetworkBuilder"
+	 */
+	public void setGraphNetworkBuilder(GraphNetworkBuilder graphNetworkBuilder) {
+		this.graphNetworkBuilder = graphNetworkBuilder;
 	}
 
 }

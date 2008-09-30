@@ -1,23 +1,23 @@
 package ihm.smartPhone;
 
+import graphNetwork.GraphNetworkReader;
 import ihm.JNetwork.JNetworkModel;
-import main.GraphNetwork;
 
 
 public class JNetworkModelImpl implements JNetworkModel {
 
 	/**
-	 * @uml.property  name="graphNetwork"
-	 * @uml.associationEnd  inverse="jNetworkModelImpl:main.GraphNetwork"
+	 * @uml.property   name="graphNetwork"
+	 * @uml.associationEnd   inverse="jNetworkModelImpl:graphNetwork.GraphNetworkReader"
 	 */
-	private GraphNetwork graphNetwork;
+	private GraphNetworkReader graphNetwork;
 
 	/**
 	 * Getter of the property <tt>graphNetwork</tt>
 	 * @return  Returns the graphNetwork.
 	 * @uml.property  name="graphNetwork"
 	 */
-	public GraphNetwork getGraphNetwork() {
+	public GraphNetworkReader getGraphNetwork() {
 		return graphNetwork;
 	}
 
@@ -26,7 +26,7 @@ public class JNetworkModelImpl implements JNetworkModel {
 	 * @param graphNetwork  The graphNetwork to set.
 	 * @uml.property  name="graphNetwork"
 	 */
-	public void setGraphNetwork(GraphNetwork graphNetwork) {
+	public void setGraphNetwork(GraphNetworkReader graphNetwork) {
 		this.graphNetwork = graphNetwork;
 	}
 
