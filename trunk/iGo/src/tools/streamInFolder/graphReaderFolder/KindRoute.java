@@ -1,4 +1,4 @@
-package interpretationFichierXML;
+package tools.streamInFolder.graphReaderFolder;
 
 
 public enum KindRoute {
