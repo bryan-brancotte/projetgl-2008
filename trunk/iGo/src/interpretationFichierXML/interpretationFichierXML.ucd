@@ -118,7 +118,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" location="55,445" size="293,31" fontInfo="Arial-8-0" note="CamelCase non respecté car j'ai suivit le fichier du prof.&#xD;&#xA;Si on décide de s'en servir, on écrira ça correctement."/>
+  <children xsi:type="editmodel:NotepadEditModel" location="15,360" size="293,38" fontInfo="Arial-8-0" note="CamelCase non respecté car j'ai suivit le fichier du prof.&#xD;&#xA;Si on décide de s'en servir, on écrira ça correctement."/>
   <diagramOptions xsi:type="options:ClassDiagramOptions" level="-1" showScope="InPackage" properties="wireOptions=1;Product=eUML2"/>
   <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
     <leftRuler/>
