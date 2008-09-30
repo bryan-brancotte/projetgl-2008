@@ -1,4 +1,4 @@
-package tools;
+package tools.Algorithm;
 
 import iGoMaster.Algo;
 
