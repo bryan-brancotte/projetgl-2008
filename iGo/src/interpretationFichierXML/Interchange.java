@@ -6,30 +6,6 @@ import java.util.Collection;
 public class Interchange {
 
 	/**
-	 * @uml.property  name="Start"
-	 * @uml.associationEnd  inverse="interchange:interpretationFichierXML.Couple"
-	 */
-	private Couple start;
-
-	/**
-	 * Getter of the property <tt>Start</tt>
-	 * @return  Returns the start.
-	 * @uml.property  name="Start"
-	 */
-	public Couple getStart() {
-		return start;
-	}
-
-	/**
-	 * Setter of the property <tt>Start</tt>
-	 * @param Start  The start to set.
-	 * @uml.property  name="Start"
-	 */
-	public void setStart(Couple start) {
-		this.start = start;
-	}
-
-	/**
 	 * @uml.property  name="Endlist"
 	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="interchange:interpretationFichierXML.Couple"
 	 */
@@ -51,29 +27,6 @@ public class Interchange {
 	 */
 	public void setEndlist(Collection endlist) {
 		this.endlist = endlist;
-	}
-
-	/**
-	 * @uml.property  name="Free"
-	 */
-	private boolean free;
-
-	/**
-	 * Getter of the property <tt>Free</tt>
-	 * @return  Returns the free.
-	 * @uml.property  name="Free"
-	 */
-	public boolean isFree() {
-		return free;
-	}
-
-	/**
-	 * Setter of the property <tt>Free</tt>
-	 * @param Free  The free to set.
-	 * @uml.property  name="Free"
-	 */
-	public void setFree(boolean free) {
-		this.free = free;
 	}
 
 	/**
@@ -120,6 +73,54 @@ public class Interchange {
 	 */
 	public void setTime(byte time) {
 		this.time = time;
+	}
+
+	/**
+	 * @uml.property  name="stationStart"
+	 * @uml.associationEnd  inverse="interchange:interpretationFichierXML.Station"
+	 */
+	private Station stationStart;
+
+	/**
+	 * Getter of the property <tt>stationStart</tt>
+	 * @return  Returns the stationStart.
+	 * @uml.property  name="stationStart"
+	 */
+	public Station getStationStart() {
+		return stationStart;
+	}
+
+	/**
+	 * Setter of the property <tt>stationStart</tt>
+	 * @param stationStart  The stationStart to set.
+	 * @uml.property  name="stationStart"
+	 */
+	public void setStationStart(Station stationStart) {
+		this.stationStart = stationStart;
+	}
+
+	/**
+	 * @uml.property  name="routeStart"
+	 * @uml.associationEnd  inverse="interchange:interpretationFichierXML.Route"
+	 */
+	private Route routeStart;
+
+	/**
+	 * Getter of the property <tt>routeStart</tt>
+	 * @return  Returns the routeStart.
+	 * @uml.property  name="routeStart"
+	 */
+	public Route getRouteStart() {
+		return routeStart;
+	}
+
+	/**
+	 * Setter of the property <tt>routeStart</tt>
+	 * @param routeStart  The routeStart to set.
+	 * @uml.property  name="routeStart"
+	 */
+	public void setRouteStart(Route routeStart) {
+		this.routeStart = routeStart;
 	}
 
 }
