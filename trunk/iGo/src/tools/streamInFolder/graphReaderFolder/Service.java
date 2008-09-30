@@ -26,27 +26,27 @@ public class Service {
 		this.id = id;
 	}
 
-	/**
-	 * @uml.property  name="ShortDescription"
-	 */
-	private String shortDescription = "";
-
-	/**
+	/** 
 	 * Getter of the property <tt>ShortDescription</tt>
 	 * @return  Returns the shortDescription.
-	 * @uml.property  name="ShortDescription"
+	 * @uml.property  name="shortDescription"
 	 */
 	public String getShortDescription() {
-		return shortDescription;
+		return description;
+	}
+
+	/** 
+	 * Setter of the property <tt>ShortDescription</tt>
+	 * @param ShortDescription  The shortDescription to set.
+	 * @uml.property  name="shortDescription"
+	 */
+	public void setShortDescription(String shortDescription) {
+		description = shortDescription;
 	}
 
 	/**
-	 * Setter of the property <tt>ShortDescription</tt>
-	 * @param ShortDescription  The shortDescription to set.
-	 * @uml.property  name="ShortDescription"
+	 * @uml.property  name="shortDescription"
 	 */
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
+	private String description = "";
 
 }

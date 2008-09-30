@@ -51,73 +51,71 @@ public class Couple {
 		this.route = route;
 	}
 
-	/**
-	 * @uml.property  name="Free"
-	 */
-	private boolean free;
-
-	/**
+	/** 
 	 * Getter of the property <tt>Free</tt>
 	 * @return  Returns the free.
-	 * @uml.property  name="Free"
+	 * @uml.property  name="free"
 	 */
 	public boolean isFree() {
-		return free;
+		return free1;
 	}
 
-	/**
+	/** 
 	 * Setter of the property <tt>Free</tt>
 	 * @param Free  The free to set.
-	 * @uml.property  name="Free"
+	 * @uml.property  name="free"
 	 */
 	public void setFree(boolean free) {
-		this.free = free;
+		free1 = free;
 	}
 
-	/**
-	 * @uml.property  name="Pedestrian"
-	 */
-	private boolean pedestrian;
-
-	/**
+	/** 
 	 * Getter of the property <tt>Pedestrian</tt>
 	 * @return  Returns the pedestrian.
-	 * @uml.property  name="Pedestrian"
+	 * @uml.property  name="pedestrian"
 	 */
 	public boolean isPedestrian() {
-		return pedestrian;
+		return pedestrian1;
 	}
 
-	/**
+	/** 
 	 * Setter of the property <tt>Pedestrian</tt>
 	 * @param Pedestrian  The pedestrian to set.
-	 * @uml.property  name="Pedestrian"
+	 * @uml.property  name="pedestrian"
 	 */
 	public void setPedestrian(boolean pedestrian) {
-		this.pedestrian = pedestrian;
+		pedestrian1 = pedestrian;
 	}
 
-	/**
-	 * @uml.property  name="Time"
-	 */
-	private byte time;
-
-	/**
+	/** 
 	 * Getter of the property <tt>Time</tt>
 	 * @return  Returns the time.
-	 * @uml.property  name="Time"
+	 * @uml.property  name="time"
 	 */
 	public byte getTime() {
-		return time;
+		return time1;
+	}
+
+	/** 
+	 * Setter of the property <tt>Time</tt>
+	 * @param Time  The time to set.
+	 * @uml.property  name="time"
+	 */
+	public void setTime(byte time) {
+		time1 = time;
 	}
 
 	/**
-	 * Setter of the property <tt>Time</tt>
-	 * @param Time  The time to set.
-	 * @uml.property  name="Time"
+	 * @uml.property  name="free"
 	 */
-	public void setTime(byte time) {
-		this.time = time;
-	}
+	private boolean free1;
+	/**
+	 * @uml.property  name="pedestrian"
+	 */
+	private boolean pedestrian1;
+	/**
+	 * @uml.property  name="time"
+	 */
+	private byte time1;
 
 }

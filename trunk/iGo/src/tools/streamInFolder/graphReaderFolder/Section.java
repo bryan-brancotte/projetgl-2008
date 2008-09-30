@@ -21,27 +21,22 @@ public class Section {
 		return sectionStationsList;
 	}
 
-	/**
-	 * @uml.property  name="TimeBetweenStations"
-	 */
-	private byte timeBetweenStations;
-
-	/**
+	/** 
 	 * Getter of the property <tt>TimeBetweenStations</tt>
 	 * @return  Returns the timeBetweenStations.
-	 * @uml.property  name="TimeBetweenStations"
+	 * @uml.property  name="timeBetweenStations"
 	 */
 	public byte getTimeBetweenStations() {
-		return timeBetweenStations;
+		return betweenStations;
 	}
 
-	/**
+	/** 
 	 * Setter of the property <tt>TimeBetweenStations</tt>
 	 * @param TimeBetweenStations  The timeBetweenStations to set.
-	 * @uml.property  name="TimeBetweenStations"
+	 * @uml.property  name="timeBetweenStations"
 	 */
 	public void setTimeBetweenStations(byte timeBetweenStations) {
-		this.timeBetweenStations = timeBetweenStations;
+		betweenStations = timeBetweenStations;
 	}
 
 	/** 
@@ -52,5 +47,10 @@ public class Section {
 	public void setSectionStationsList(LinkedList sectionStationsList) {
 		this.sectionStationsList = sectionStationsList;
 	}
+
+	/**
+	 * @uml.property  name="timeBetweenStations"
+	 */
+	private byte betweenStations;
 
 }
