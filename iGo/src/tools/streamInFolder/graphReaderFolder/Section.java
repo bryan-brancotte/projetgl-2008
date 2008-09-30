@@ -1,4 +1,4 @@
-package interpretationFichierXML;
+package tools.streamInFolder.graphReaderFolder;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -6,9 +6,9 @@ import java.util.LinkedList;
 
 public class Section {
 
-	/** 
-	 * @uml.property name="SectionStationsList"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="section:interpretationFichierXML.Station"
+	/**
+	 * @uml.property   name="SectionStationsList"
+	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="section:tools.streamInFolder.graphReaderFolder.Station"
 	 */
 	private LinkedList sectionStationsList;
 

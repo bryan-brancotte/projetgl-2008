@@ -1,4 +1,4 @@
-package interpretationFichierXML;
+package tools.streamInFolder.graphReaderFolder;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -29,9 +29,9 @@ public class Route {
 		this.id = id;
 	}
 
-	/** 
-	 * @uml.property name="RouteSectionsList"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="route:interpretationFichierXML.Section"
+	/**
+	 * @uml.property   name="RouteSectionsList"
+	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="route:tools.streamInFolder.graphReaderFolder.Section"
 	 */
 	private LinkedList routeSectionsList;
 
@@ -45,8 +45,8 @@ public class Route {
 	}
 
 	/**
-	 * @uml.property  name="Kind"
-	 * @uml.associationEnd  inverse="route:interpretationFichierXML.KindRoute"
+	 * @uml.property   name="Kind"
+	 * @uml.associationEnd   inverse="route:tools.streamInFolder.graphReaderFolder.KindRoute"
 	 */
 	private KindRoute kind;
 

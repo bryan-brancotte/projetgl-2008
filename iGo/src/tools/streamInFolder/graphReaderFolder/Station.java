@@ -1,4 +1,4 @@
-package interpretationFichierXML;
+package tools.streamInFolder.graphReaderFolder;
 
 import java.util.Collection;
 
@@ -51,9 +51,9 @@ public class Station {
 		this.name = name;
 	}
 
-	/** 
-	 * @uml.property name="StationServicesList"
-	 * @uml.associationEnd multiplicity="(0 -1)" inverse="station:interpretationFichierXML.Service"
+	/**
+	 * @uml.property   name="StationServicesList"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="station:tools.streamInFolder.graphReaderFolder.Service"
 	 */
 	private Collection stationServicesList;
 
