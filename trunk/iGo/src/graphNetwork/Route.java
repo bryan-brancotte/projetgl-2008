@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package graphNetwork;
 
 import java.util.Collection;
 
@@ -6,8 +6,8 @@ import java.util.Collection;
 public class Route {
 
 	/**
-	 * @uml.property  name="station"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="route:tools.streamInFolder.graphReaderFolder.Station"
+	 * @uml.property   name="station"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="route:graphNetwork.Station"
 	 */
 	private Collection station;
 
