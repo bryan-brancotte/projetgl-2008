@@ -1,17 +1,17 @@
-package tools.streamInFolder.graphReaderFolder;
+package graphNetwork;
 
 
 public class Interchange {
 
-	/** 
-	 * @uml.property name="stationB"
-	 * @uml.associationEnd inverse="interchange:tools.streamInFolder.graphReaderFolder.Station"
+	/**
+	 * @uml.property   name="stationB"
+	 * @uml.associationEnd   inverse="interchange:graphNetwork.Station"
 	 */
 	private Station station;
 
 	/**
-	 * @uml.property  name="stationA"
-	 * @uml.associationEnd  inverse="interchange:tools.streamInFolder.graphReaderFolder.Station"
+	 * @uml.property   name="stationA"
+	 * @uml.associationEnd   inverse="interchange:graphNetwork.Station"
 	 */
 	private Station stationA;
 
@@ -52,8 +52,8 @@ public class Interchange {
 	}
 
 	/**
-	 * @uml.property  name="routeA"
-	 * @uml.associationEnd  inverse="interchange:tools.streamInFolder.graphReaderFolder.Route"
+	 * @uml.property   name="routeA"
+	 * @uml.associationEnd   inverse="interchange:graphNetwork.Route"
 	 */
 	private Route routeA;
 
@@ -75,9 +75,9 @@ public class Interchange {
 		this.routeA = routeA;
 	}
 
-	/** 
-	 * @uml.property name="routeB"
-	 * @uml.associationEnd inverse="interchange:tools.streamInFolder.graphReaderFolder.Route"
+	/**
+	 * @uml.property   name="routeB"
+	 * @uml.associationEnd   inverse="interchange:graphNetwork.Route"
 	 */
 	private Route routeB;
 

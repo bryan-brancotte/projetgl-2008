@@ -1,11 +1,11 @@
-package tools.streamInFolder.graphReaderFolder;
+package graphNetwork;
 
 
 public class Station {
 
 	/**
-	 * @uml.property  name="route"
-	 * @uml.associationEnd  inverse="station:tools.streamInFolder.graphReaderFolder.Route"
+	 * @uml.property   name="route"
+	 * @uml.associationEnd   inverse="station:graphNetwork.Route"
 	 */
 	private Route route;
 
@@ -28,8 +28,8 @@ public class Station {
 	}
 
 	/**
-	 * @uml.property  name="service"
-	 * @uml.associationEnd  inverse="station:tools.streamInFolder.graphReaderFolder.Service"
+	 * @uml.property   name="service"
+	 * @uml.associationEnd   inverse="station:graphNetwork.Service"
 	 */
 	private Service service;
 
