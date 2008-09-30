@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="937,628" id="graphNetwork" metadata="uml2-1.0" initialized="true" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
-  <children xsi:type="editmodel:ClassEditModel" name="Interchange" location="345,345" size="118,29" id="graphNetwork/Interchange" runTimeClassModel="">
+  <children xsi:type="editmodel:ClassEditModel" name="Interchange" location="390,345" size="118,29" id="graphNetwork/Interchange" runTimeClassModel="">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -38,7 +38,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:InterfaceEditModel" name="PathInGraph" location="300,8" size="122,43" id="graphNetwork/PathInGraph" runTimeClassModel="">
+  <children xsi:type="editmodel:InterfaceEditModel" name="PathInGraph" location="285,15" size="122,43" id="graphNetwork/PathInGraph" runTimeClassModel="">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -51,7 +51,7 @@
     <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/Station@station+graphNetwork/Route@route" source="//@children.2" target="//@children.4" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
       <children xsi:type="editmodel:AssociationEndEditModel" name="route" location="250,18" id="graphNetwork/Station@station+graphNetwork/Route@route|graphNetwork/Route#route" attachSource="true" multiplicityLabel="//@children.2/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@sourceConnections.0/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - route" location="723,480" size="35,14" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name=" + route" location="723,480" size="37,14" anchorKind="FirstPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="0..1" location="723,452" size="18,14" anchorKind="FirstPart"/>
       </children>
       <children xsi:type="editmodel:AssociationEndEditModel" name="station" location="255,17" id="graphNetwork/Station@station+graphNetwork/Route@route|graphNetwork/Station#station" multiplicityLabel="//@children.2/@sourceConnections.0/@children.2/@children.1" roleLabel="//@children.2/@sourceConnections.0/@children.2/@children.0" navigable="true">
@@ -65,13 +65,13 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/Station@station+graphNetwork/Service@service" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.0/@children.2" label="//@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/Service@service+graphNetwork/Station@station" source="//@children.3" target="//@children.4" targetEnd="//@children.3/@sourceConnections.0/@children.2" label="//@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="service" location="90,15" id="graphNetwork/Station@station+graphNetwork/Service@service|graphNetwork/Service#service" attachSource="true" multiplicityLabel="//@children.3/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.3/@sourceConnections.0/@children.1/@children.0" navigable="true">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="service" location="90,15" id="graphNetwork/Service@service+graphNetwork/Station@station|graphNetwork/Service#service" attachSource="true" multiplicityLabel="//@children.3/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.3/@sourceConnections.0/@children.1/@children.0" navigable="true">
         <children xsi:type="editmodel:LabelEditModel" name=" - service" location="487,147" size="46,14" anchorKind="FirstPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="0..1" location="487,175" size="18,14" anchorKind="FirstPart"/>
       </children>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="station" location="63,0" id="graphNetwork/Station@station+graphNetwork/Service@service|graphNetwork/Station#station"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="station" location="63,0" id="graphNetwork/Service@service+graphNetwork/Station@station|graphNetwork/Station#station"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
@@ -79,23 +79,23 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/InterStation@interStation+graphNetwork/Station@stationA" source="//@children.4" target="//@children.8" targetEnd="//@children.4/@sourceConnections.0/@children.1" label="//@children.4/@sourceConnections.0/@children.2" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="stationA" location="135,0" id="graphNetwork/InterStation@interStation+graphNetwork/Station@stationA|graphNetwork/Station#stationA" attachSource="true" multiplicityLabel="//@children.4/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.4/@sourceConnections.0/@children.0/@children.0" navigable="true">
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/Station@stationA+graphNetwork/InterStation@interStation" source="//@children.4" target="//@children.8" targetEnd="//@children.4/@sourceConnections.0/@children.1" label="//@children.4/@sourceConnections.0/@children.2" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="stationA" location="135,0" id="graphNetwork/Station@stationA+graphNetwork/InterStation@interStation|graphNetwork/Station#stationA" attachSource="true" multiplicityLabel="//@children.4/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.4/@sourceConnections.0/@children.0/@children.0" navigable="true">
         <children xsi:type="editmodel:LabelEditModel" name=" - stationA" location="547,204" size="50,14" anchorKind="FirstPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="0..1" location="611,204" size="18,14" anchorKind="FirstPart"/>
       </children>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="interStation" location="0,26" id="graphNetwork/InterStation@interStation+graphNetwork/Station@stationA|graphNetwork/InterStation#interStation" multiplicityLabel="//@children.4/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.4/@sourceConnections.0/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - interStation" location="619,79" size="64,14" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="interStation" location="0,26" id="graphNetwork/Station@stationA+graphNetwork/InterStation@interStation|graphNetwork/InterStation#interStation" multiplicityLabel="//@children.4/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.4/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" + interStation" location="617,79" size="66,14" anchorKind="LastPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="*" location="679,107" size="4,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
-    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="graphNetwork/InterStation@interStation1+graphNetwork/Station@stationB" source="//@children.4" target="//@children.8" targetEnd="//@children.4/@sourceConnections.1/@children.1" label="//@children.4/@sourceConnections.1/@children.2" sourceEnd="//@children.4/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="stationB" location="241,0" id="graphNetwork/InterStation@interStation1+graphNetwork/Station@stationB|graphNetwork/Station#stationB" attachSource="true" multiplicityLabel="//@children.4/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.4/@sourceConnections.1/@children.0/@children.0" navigable="true">
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="graphNetwork/Station@stationB+graphNetwork/InterStation@interStation1" source="//@children.4" target="//@children.8" targetEnd="//@children.4/@sourceConnections.1/@children.1" label="//@children.4/@sourceConnections.1/@children.2" sourceEnd="//@children.4/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="stationB" location="241,0" id="graphNetwork/Station@stationB+graphNetwork/InterStation@interStation1|graphNetwork/Station#stationB" attachSource="true" multiplicityLabel="//@children.4/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.4/@sourceConnections.1/@children.0/@children.0" navigable="true">
         <children xsi:type="editmodel:LabelEditModel" name=" - stationB" location="717,204" size="49,14" anchorKind="FirstPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="0..1" location="685,204" size="18,14" anchorKind="FirstPart"/>
       </children>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="interStation1" location="20,57" id="graphNetwork/InterStation@interStation1+graphNetwork/Station@stationB|graphNetwork/InterStation#interStation1"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="interStation1" location="20,57" id="graphNetwork/Station@stationB+graphNetwork/InterStation@interStation1|graphNetwork/InterStation#interStation1"/>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
@@ -157,14 +157,19 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.4/@sourceConnections.1 //@children.4/@sourceConnections.0" name="InterStation" location="690,74" size="178,57" id="graphNetwork/InterStation" runTimeClassModel="timeBetweenStations">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.4/@sourceConnections.1 //@children.4/@sourceConnections.0 //@children.8/@sourceConnections.0" name="InterStation" location="690,74" size="178,57" id="graphNetwork/InterStation" runTimeClassModel="timeBetweenStations">
     <children xsi:type="editmodel:CompartmentEditModel" size="155,18">
       <children xsi:type="editmodel:AttributeEditModel" name="timeBetweenStations" id="graphNetwork/InterStation#timeBetweenStations"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="graphNetwork/InterStation&lt;-graphNetwork/InterStation" source="//@children.8" target="//@children.8" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,10" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="10,0" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
+  <children xsi:type="editmodel:NotepadEditModel" location="341,615" size="124,24" fontInfo="Arial-8-0" note="station->interchange"/>
   <diagramOptions xsi:type="options:ClassDiagramOptions" level="-1" showScope="InPackage" properties="wireOptions=1;Product=eUML2"/>
   <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
     <leftRuler/>
