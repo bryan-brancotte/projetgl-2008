@@ -1,4 +1,4 @@
-package tools;
+package tools.streamInFolder;
 
 import iGoMaster.EventInfoNetwork;
 
