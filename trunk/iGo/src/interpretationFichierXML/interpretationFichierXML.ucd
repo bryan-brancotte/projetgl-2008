@@ -74,42 +74,46 @@
     </children>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="Interchange" location="45,210" size="118,29" id="interpretationFichierXML/Interchange" runTimeClassModel="">
+  <children xsi:type="editmodel:ClassEditModel" name="Interchange" location="30,195" size="137,93" id="interpretationFichierXML/Interchange" runTimeClassModel="Time,Pedestrian,Free">
+    <children xsi:type="editmodel:CompartmentEditModel" size="114,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="Free" id="interpretationFichierXML/Interchange#Free"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="Pedestrian" id="interpretationFichierXML/Interchange#Pedestrian"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="Time" id="interpretationFichierXML/Interchange#Time"/>
+    </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interpretationFichierXML/Couple@Start+interpretationFichierXML/Interchange@interchange" source="//@children.5" target="//@children.6" targetEnd="//@children.5/@sourceConnections.0/@children.1" label="//@children.5/@sourceConnections.0/@children.2" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="interchange" location="118,19" id="interpretationFichierXML/Couple@Start+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Interchange#interchange" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="Start" location="10,0" id="interpretationFichierXML/Couple@Start+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Couple#Start" multiplicityLabel="//@children.5/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.5/@sourceConnections.0/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - Start" location="272,217" size="33,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="240,217" size="18,14" anchorKind="LastPart"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="interpretationFichierXML/Couple@Endlist+interpretationFichierXML/Interchange@interchange" source="//@children.5" target="//@children.6" targetEnd="//@children.5/@sourceConnections.0/@children.1" label="//@children.5/@sourceConnections.0/@children.2" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="interchange" location="137,78" id="interpretationFichierXML/Couple@Endlist+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Interchange#interchange" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="Endlist" location="25,29" id="interpretationFichierXML/Couple@Endlist+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Couple#Endlist" multiplicityLabel="//@children.5/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.5/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - Endlist" location="272,246" size="41,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="254,246" size="4,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
-    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interpretationFichierXML/Couple@Endlist+interpretationFichierXML/Interchange@interchange" source="//@children.5" target="//@children.6" targetEnd="//@children.5/@sourceConnections.1/@children.1" label="//@children.5/@sourceConnections.1/@children.2" sourceEnd="//@children.5/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="interchange" location="108,29" id="interpretationFichierXML/Couple@Endlist+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Interchange#interchange" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="Endlist" location="0,26" id="interpretationFichierXML/Couple@Endlist+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Couple#Endlist" multiplicityLabel="//@children.5/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.5/@sourceConnections.1/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - Endlist" location="207,271" size="41,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="*" location="244,243" size="4,14" anchorKind="LastPart"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="interpretationFichierXML/Couple@Start+interpretationFichierXML/Interchange@interchange" source="//@children.5" target="//@children.6" targetEnd="//@children.5/@sourceConnections.1/@children.1" label="//@children.5/@sourceConnections.1/@children.2" sourceEnd="//@children.5/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="interchange" location="137,31" id="interpretationFichierXML/Couple@Start+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Interchange#interchange" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="Start" location="0,16" id="interpretationFichierXML/Couple@Start+interpretationFichierXML/Interchange@interchange|interpretationFichierXML/Couple#Start" multiplicityLabel="//@children.5/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.5/@sourceConnections.1/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - Start" location="200,205" size="33,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="215,233" size="18,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.5/@sourceConnections.0 //@children.5/@sourceConnections.1" name="Couple" location="255,238" size="87,29" id="interpretationFichierXML/Couple" runTimeClassModel="">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.5/@sourceConnections.0 //@children.5/@sourceConnections.1" name="Couple" location="240,210" size="87,29" id="interpretationFichierXML/Couple" runTimeClassModel="">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="interpretationFichierXML/Station@Station+interpretationFichierXML/Couple@couple" source="//@children.6" target="//@children.1" targetEnd="//@children.6/@sourceConnections.0/@children.1" label="//@children.6/@sourceConnections.0/@children.2" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="couple" location="87,10" id="interpretationFichierXML/Station@Station+interpretationFichierXML/Couple@couple|interpretationFichierXML/Couple#couple" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="Station" location="10,75" id="interpretationFichierXML/Station@Station+interpretationFichierXML/Couple@couple|interpretationFichierXML/Station#Station" multiplicityLabel="//@children.6/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.0/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - Station" location="407,172" size="43,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="375,172" size="18,14" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="couple" location="77,0" id="interpretationFichierXML/Station@Station+interpretationFichierXML/Couple@couple|interpretationFichierXML/Couple#couple" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="Station" location="0,65" id="interpretationFichierXML/Station@Station+interpretationFichierXML/Couple@couple|interpretationFichierXML/Station#Station" multiplicityLabel="//@children.6/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - Station" location="340,134" size="43,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="365,162" size="18,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" id="interpretationFichierXML/Route@Route+interpretationFichierXML/Couple@couple" source="//@children.6" target="//@children.3" targetEnd="//@children.6/@sourceConnections.1/@children.1" label="//@children.6/@sourceConnections.1/@children.2" sourceEnd="//@children.6/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="couple" location="63,29" id="interpretationFichierXML/Route@Route+interpretationFichierXML/Couple@couple|interpretationFichierXML/Couple#couple" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="couple" location="87,16" id="interpretationFichierXML/Route@Route+interpretationFichierXML/Couple@couple|interpretationFichierXML/Couple#couple" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" name="Route" location="0,29" id="interpretationFichierXML/Route@Route+interpretationFichierXML/Couple@couple|interpretationFichierXML/Route#Route" multiplicityLabel="//@children.6/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.1/@children.1/@children.0" navigable="true">
         <children xsi:type="editmodel:LabelEditModel" name=" - Route" location="390,426" size="38,14" anchorKind="LastPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="0..1" location="410,398" size="18,14" anchorKind="LastPart"/>
@@ -118,7 +122,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" location="15,360" size="293,38" fontInfo="Arial-8-0" note="CamelCase non respecté car j'ai suivit le fichier du prof.&#xD;&#xA;Si on décide de s'en servir, on écrira ça correctement."/>
+  <children xsi:type="editmodel:NotepadEditModel" location="45,489" size="293,38" fontInfo="Arial-8-0" note="CamelCase non respecté car j'ai suivit le fichier du prof.&#xD;&#xA;Si on décide de s'en servir, on écrira ça correctement."/>
   <diagramOptions xsi:type="options:ClassDiagramOptions" level="-1" showScope="InPackage" properties="wireOptions=1;Product=eUML2"/>
   <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
     <leftRuler/>
