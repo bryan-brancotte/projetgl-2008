@@ -19,4 +19,12 @@ public interface PathInGraph {
 	 */
 	public void setInter(LinkedList<Inter> inter);
 
+		
+		/**
+			 * Retourne un chaine décrivant le chemin à faire station par station
+			 */
+			public abstract String toString();
+			
+		
+
 }
