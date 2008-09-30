@@ -28,27 +28,22 @@ public class Station {
 		this.id = id;
 	}
 
-	/**
-	 * @uml.property  name="Name"
-	 */
-	private String name = "";
-
-	/**
+	/** 
 	 * Getter of the property <tt>Name</tt>
 	 * @return  Returns the name.
-	 * @uml.property  name="Name"
+	 * @uml.property  name="name"
 	 */
 	public String getName() {
-		return name;
+		return name1;
 	}
 
-	/**
+	/** 
 	 * Setter of the property <tt>Name</tt>
 	 * @param Name  The name to set.
-	 * @uml.property  name="Name"
+	 * @uml.property  name="name"
 	 */
 	public void setName(String name) {
-		this.name = name;
+		name1 = name;
 	}
 
 	/**
@@ -74,5 +69,10 @@ public class Station {
 	public void setStationServicesList(Collection stationServicesList) {
 		this.stationServicesList = stationServicesList;
 	}
+
+	/**
+	 * @uml.property  name="name"
+	 */
+	private String name1 = "";
 
 }

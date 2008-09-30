@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="937,628" id="tools.streamInFolder.graphReaderFolder" metadata="uml2-1.0" initialized="true" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@sourceConnections.0 //@children.9/@sourceConnections.0" name="Service" location="210,60" size="156,75" id="tools.streamInFolder.graphReaderFolder/Service" runTimeClassModel="ShortDescription,ID">
-    <children xsi:type="editmodel:CompartmentEditModel" size="133,36">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="interpretationFichierXML" size="937,628" id="tools.streamInFolder.graphReaderFolder" metadata="uml2-1.0" initialized="true" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@sourceConnections.0 //@children.9/@sourceConnections.0" name="Service" location="210,60" size="155,75" id="tools.streamInFolder.graphReaderFolder/Service" runTimeClassModel="shortDescription,ID">
+    <children xsi:type="editmodel:CompartmentEditModel" size="132,36">
       <children xsi:type="editmodel:AttributeEditModel" name="ID" id="tools.streamInFolder.graphReaderFolder/Service#ID"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="ShortDescription" id="tools.streamInFolder.graphReaderFolder/Service#ShortDescription"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="shortDescription" id="tools.streamInFolder.graphReaderFolder/Service#shortDescription"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.5/@sourceConnections.0 //@children.6/@sourceConnections.1 //@children.2/@sourceConnections.0 //@children.9/@sourceConnections.1" name="Station" location="540,105" size="103,75" id="tools.streamInFolder.graphReaderFolder/Station" runTimeClassModel="Name,ID">
-    <children xsi:type="editmodel:CompartmentEditModel" size="80,36">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.5/@sourceConnections.0 //@children.6/@sourceConnections.1 //@children.2/@sourceConnections.0 //@children.9/@sourceConnections.1" name="Station" location="540,105" size="102,75" id="tools.streamInFolder.graphReaderFolder/Station" runTimeClassModel="name,ID">
+    <children xsi:type="editmodel:CompartmentEditModel" size="79,36">
       <children xsi:type="editmodel:AttributeEditModel" name="ID" id="tools.streamInFolder.graphReaderFolder/Station#ID"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="Name" id="tools.streamInFolder.graphReaderFolder/Station#Name"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="name" id="tools.streamInFolder.graphReaderFolder/Station#name"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="tools.streamInFolder.graphReaderFolder/Service@StationServicesList+tools.streamInFolder.graphReaderFolder/Station@station" source="//@children.1" target="//@children.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" label="//@children.1/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" name="station" location="0,14" id="tools.streamInFolder.graphReaderFolder/Service@StationServicesList+tools.streamInFolder.graphReaderFolder/Station@station|tools.streamInFolder.graphReaderFolder/Station#station" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="StationServicesList" location="156,59" id="tools.streamInFolder.graphReaderFolder/Service@StationServicesList+tools.streamInFolder.graphReaderFolder/Station@station|tools.streamInFolder.graphReaderFolder/Service#StationServicesList" multiplicityLabel="//@children.1/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@sourceConnections.0/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - StationServicesList" location="373,98" size="103,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="*" location="373,126" size="4,14" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="StationServicesList" location="155,59" id="tools.streamInFolder.graphReaderFolder/Service@StationServicesList+tools.streamInFolder.graphReaderFolder/Station@station|tools.streamInFolder.graphReaderFolder/Service#StationServicesList" multiplicityLabel="//@children.1/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - StationServicesList" location="372,98" size="103,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="372,126" size="4,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.0" name="Section" location="675,241" size="174,57" id="tools.streamInFolder.graphReaderFolder/Section" runTimeClassModel="TimeBetweenStations">
-    <children xsi:type="editmodel:CompartmentEditModel" size="151,18">
-      <children xsi:type="editmodel:AttributeEditModel" name="TimeBetweenStations" id="tools.streamInFolder.graphReaderFolder/Section#TimeBetweenStations"/>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.0" name="Section" location="675,241" size="171,57" id="tools.streamInFolder.graphReaderFolder/Section" runTimeClassModel="timeBetweenStations">
+    <children xsi:type="editmodel:CompartmentEditModel" size="148,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="timeBetweenStations" id="tools.streamInFolder.graphReaderFolder/Section#timeBetweenStations"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" id="tools.streamInFolder.graphReaderFolder/Station@SectionStationsList+tools.streamInFolder.graphReaderFolder/Section@section" source="//@children.2" target="//@children.1" targetEnd="//@children.2/@sourceConnections.0/@children.1" label="//@children.2/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="section" location="61,-1" id="tools.streamInFolder.graphReaderFolder/Station@SectionStationsList+tools.streamInFolder.graphReaderFolder/Section@section|tools.streamInFolder.graphReaderFolder/Section#section" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="SectionStationsList" location="102,49" id="tools.streamInFolder.graphReaderFolder/Station@SectionStationsList+tools.streamInFolder.graphReaderFolder/Section@section|tools.streamInFolder.graphReaderFolder/Station#SectionStationsList" multiplicityLabel="//@children.2/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@sourceConnections.0/@children.1/@children.0" navigable="true" orderingKind="1">
-        <children xsi:type="editmodel:LabelEditModel" name=" - SectionStationsList" location="650,133" size="102,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="*" location="650,161" size="4,14" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="section" location="59,-1" id="tools.streamInFolder.graphReaderFolder/Station@SectionStationsList+tools.streamInFolder.graphReaderFolder/Section@section|tools.streamInFolder.graphReaderFolder/Section#section" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="SectionStationsList" location="101,49" id="tools.streamInFolder.graphReaderFolder/Station@SectionStationsList+tools.streamInFolder.graphReaderFolder/Section@section|tools.streamInFolder.graphReaderFolder/Station#SectionStationsList" multiplicityLabel="//@children.2/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@sourceConnections.0/@children.1/@children.0" navigable="true" orderingKind="1">
+        <children xsi:type="editmodel:LabelEditModel" name=" - SectionStationsList" location="649,133" size="102,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="649,161" size="4,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
@@ -66,7 +66,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:EnumerationEditModel" targetConnections="//@children.3/@sourceConnections.1" name="KindRoute" location="720,465" size="108,107" id="tools.streamInFolder.graphReaderFolder/KindRoute" runTimeClassModel="Regional_Rail%,Trolley%,Metro%">
+  <children xsi:type="editmodel:EnumerationEditModel" targetConnections="//@children.3/@sourceConnections.1" name="KindRoute" location="720,465" size="108,107" id="tools.streamInFolder.graphReaderFolder/KindRoute" runTimeClassModel="Metro%,Trolley%,Regional_Rail%">
     <children xsi:type="editmodel:CompartmentEditModel" size="83,54">
       <children xsi:type="editmodel:EnumerationLiteralEditModel" name="Metro" id="tools.streamInFolder.graphReaderFolder/KindRoute#Metro%"/>
       <children xsi:type="editmodel:EnumerationLiteralEditModel" name="Trolley" id="tools.streamInFolder.graphReaderFolder/KindRoute#Trolley%"/>
@@ -104,11 +104,11 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.5/@sourceConnections.2" name="Couple" location="360,223" size="137,93" id="tools.streamInFolder.graphReaderFolder/Couple" runTimeClassModel="Time,Pedestrian,Free">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.5/@sourceConnections.2" name="Couple" location="360,223" size="137,93" id="tools.streamInFolder.graphReaderFolder/Couple" runTimeClassModel="time,free,pedestrian">
     <children xsi:type="editmodel:CompartmentEditModel" size="114,54">
-      <children xsi:type="editmodel:AttributeEditModel" name="Free" id="tools.streamInFolder.graphReaderFolder/Couple#Free"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="Pedestrian" id="tools.streamInFolder.graphReaderFolder/Couple#Pedestrian"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="Time" id="tools.streamInFolder.graphReaderFolder/Couple#Time"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="free" id="tools.streamInFolder.graphReaderFolder/Couple#free"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pedestrian" id="tools.streamInFolder.graphReaderFolder/Couple#pedestrian"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="time" id="tools.streamInFolder.graphReaderFolder/Couple#time"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -122,9 +122,9 @@
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" id="tools.streamInFolder.graphReaderFolder/Station@Station+tools.streamInFolder.graphReaderFolder/Couple@couple" source="//@children.6" target="//@children.1" targetEnd="//@children.6/@sourceConnections.1/@children.1" label="//@children.6/@sourceConnections.1/@children.2" sourceEnd="//@children.6/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" name="couple" location="134,17" id="tools.streamInFolder.graphReaderFolder/Station@Station+tools.streamInFolder.graphReaderFolder/Couple@couple|tools.streamInFolder.graphReaderFolder/Couple#couple" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="Station" location="10,74" id="tools.streamInFolder.graphReaderFolder/Station@Station+tools.streamInFolder.graphReaderFolder/Couple@couple|tools.streamInFolder.graphReaderFolder/Station#Station" multiplicityLabel="//@children.6/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.1/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - Station" location="557,187" size="43,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="525,187" size="18,14" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="Station" location="9,74" id="tools.streamInFolder.graphReaderFolder/Station@Station+tools.streamInFolder.graphReaderFolder/Couple@couple|tools.streamInFolder.graphReaderFolder/Station#Station" multiplicityLabel="//@children.6/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.1/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - Station" location="556,187" size="43,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="524,187" size="18,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
@@ -146,9 +146,9 @@
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" id="tools.streamInFolder.graphReaderFolder/Station@station+tools.streamInFolder.graphReaderFolder/Network@network" source="//@children.9" target="//@children.1" targetEnd="//@children.9/@sourceConnections.1/@children.1" label="//@children.9/@sourceConnections.1/@children.2" sourceEnd="//@children.9/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" name="network" location="94,10" id="tools.streamInFolder.graphReaderFolder/Station@station+tools.streamInFolder.graphReaderFolder/Network@network|tools.streamInFolder.graphReaderFolder/Network#network" attachSource="true"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="station" location="93,0" id="tools.streamInFolder.graphReaderFolder/Station@station+tools.streamInFolder.graphReaderFolder/Network@network|tools.streamInFolder.graphReaderFolder/Station#station" multiplicityLabel="//@children.9/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.9/@sourceConnections.1/@children.1/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name=" - station" location="640,84" size="42,14" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="*" location="622,84" size="4,14" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="station" location="92,0" id="tools.streamInFolder.graphReaderFolder/Station@station+tools.streamInFolder.graphReaderFolder/Network@network|tools.streamInFolder.graphReaderFolder/Station#station" multiplicityLabel="//@children.9/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.9/@sourceConnections.1/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - station" location="639,84" size="42,14" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="621,84" size="4,14" anchorKind="LastPart"/>
       </children>
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
     </sourceConnections>
