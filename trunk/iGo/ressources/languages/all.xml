@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	<root>
 		<languages>
-		<lang balise="ENGLISH" erasable="0" value="English"/>
-		<lang balise="FRANCAIS" erasable="0" value="Français"/>
+		<lang balise="ENGLISH" value="English"/>
+		<lang balise="FRANCAIS" value="Français"/>
 		<!-- <lang balise="CHINESE" erasable="1" value="Chinese 中国"/>-->
 		<!-- When &#10; appears in the file, it mean an end of line. Keep it in the translation for a better good looking ;)-->
 		</languages>
