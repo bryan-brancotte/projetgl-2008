@@ -5,18 +5,6 @@ import java.util.Collection;
 
 public class GraphNetwork implements GraphNetworkBuilder {
 
-	@Override
-	public void addStationFake(Object object) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Collection getStationsFake() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
 	 * @uml.property  name="service"
 	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Service"
@@ -28,6 +16,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 * @return  Returns the service.
 	 * @uml.property  name="service"
 	 */
+	@Override
 	public Collection getService() {
 		return service;
 	}
@@ -52,6 +41,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 * @return  Returns the station.
 	 * @uml.property  name="station"
 	 */
+	@Override
 	public Collection getStation() {
 		return station;
 	}
@@ -76,6 +66,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 * @return  Returns the route.
 	 * @uml.property  name="route"
 	 */
+	@Override
 	public Route getRoute() {
 		return route;
 	}
@@ -87,6 +78,12 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 */
 	public void setRoute(Route route) {
 		this.route = route;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
