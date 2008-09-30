@@ -2,7 +2,7 @@ package graphNetwork;
 
 import java.util.Collection;
 
-public interface GraphNetworkReader {
+public interface GraphNetworkReader{
 
 	/**
 	 * Getter of services. Give all the Services avaible in the network.

@@ -5,9 +5,12 @@ package graphNetwork;
 public interface GraphNetworkBuilder extends GraphNetworkReader {
 
 		
-		/**
-		 */
-		public abstract void reset();
+			
+			/** 
+			 * Do a complet reset of the GraphNetworkBuilder
+			 */
+			public abstract void reset();
+			
 		
 		
 
