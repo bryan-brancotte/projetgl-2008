@@ -5,13 +5,13 @@ import java.util.Collection;
 
 public class Station {
 
-	/**
-	 * @uml.property   name="route"
-	 * @uml.associationEnd   inverse="station:graphNetwork.Route"
+	/** 
+	 * @uml.property name="route"
+	 * @uml.associationEnd inverse="station:graphNetwork.Route"
 	 */
 	private Route route;
 
-	/**
+	/** 
 	 * Getter of the property <tt>route</tt>
 	 * @return  Returns the route.
 	 * @uml.property  name="route"
@@ -20,7 +20,7 @@ public class Station {
 		return route;
 	}
 
-	/**
+	/** 
 	 * Setter of the property <tt>route</tt>
 	 * @param route  The route to set.
 	 * @uml.property  name="route"
