@@ -2,7 +2,6 @@ package graphNetwork;
 
 
 import java.util.LinkedList;
-import java.util.Collection;
 
 public class Station implements StationR {
 
@@ -80,8 +79,8 @@ public class Station implements StationR {
 		return id;
 	}
 
-	public Collection<InterR> getInterchangeR() {
-		return new LinkedList<InterR>(this.getInter());
+	public InterR[] getInterchangeR() {
+		return this.getInter().toArray(new InterR[0]);
 	}
 
 	public ServiceR getServiceR() {

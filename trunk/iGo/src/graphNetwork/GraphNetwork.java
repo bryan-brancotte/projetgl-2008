@@ -19,6 +19,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 * @uml.property name="stations"
 	 */
 	public LinkedList<Station> getStations() {
+
 		return stations;
 	}
 
@@ -83,10 +84,6 @@ public class GraphNetwork implements GraphNetworkBuilder {
 		this.routes = routes;
 	}
 
-	public Collection<RouteR> getRoutesR() {
-		return new LinkedList<RouteR>(this.getRoutes());
-	}
-
 	public void endBuilding() {
 		// TODO Auto-generated method stub
 
@@ -97,11 +94,15 @@ public class GraphNetwork implements GraphNetworkBuilder {
 
 	}
 
-	public Collection<ServiceR> getServicesR() {
-		return new LinkedList<ServiceR>(this.getServices());
+	public RouteR[] getRoutesR() {
+		return this.getRoutes().toArray(new RouteR[0]);
 	}
 
-	public Collection<StationR> getStationsR() {
-		return new LinkedList<StationR>(this.getStations());
+	public ServiceR[] getServicesR() {
+		return this.getServices().toArray(new ServiceR[0]);
+	}
+
+	public StationR[] getStationsR() {
+		return this.getStations().toArray(new StationR[0]);
 	}
 }

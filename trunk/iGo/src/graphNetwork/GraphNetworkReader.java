@@ -1,6 +1,5 @@
 package graphNetwork;
 
-import java.util.Collection;
 
 public interface GraphNetworkReader {
 
@@ -9,19 +8,19 @@ public interface GraphNetworkReader {
 	 * 
 	 * @return Returns the services.
 	 */
-	public Collection<ServiceR> getServicesR();
+	public ServiceR[] getServicesR();
 
 	/**
 	 * Getter of stations. Give all the stations of the network.
 	 * 
 	 * @return Returns the stations.
 	 */
-	public Collection<StationR> getStationsR();
+	public StationR[] getStationsR();
 
 	/**
 	 * Getter of routes. Give all the route (line) of the network.
 	 * 
 	 * @return Returns the routes.
 	 */
-	public Collection<RouteR> getRoutesR();
+	public RouteR[] getRoutesR();
 }

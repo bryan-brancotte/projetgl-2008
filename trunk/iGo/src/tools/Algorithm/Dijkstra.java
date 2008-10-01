@@ -10,7 +10,6 @@ public class Dijkstra implements Algo {
 
 	@Override
 	public PathInGraph findPath(StationR origine, StationR destination, GraphNetworkReader graph) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
