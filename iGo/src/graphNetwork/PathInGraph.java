@@ -13,7 +13,7 @@ public interface PathInGraph   {
 	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List"
 	 *                     inverse="pathInGraph:graphNetwork.Inter"
 	 */
-	public Inter[] getInter();
+	public InterR[] getInter();
 
 	/**
 	 * Retourne le coût du trajet

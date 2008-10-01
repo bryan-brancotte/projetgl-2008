@@ -7,7 +7,7 @@
     </sourceConnections>
   </children>
   <children xsi:type="editmodel:PackageEditModel" name="iGoMaster" location="378,76" size="463,645" id="iGoMaster">
-    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.4/@sourceConnections.1 //@children.8/@children.1/@sourceConnections.0" name="Language" location="36,273" size="201,171" id="iGoMaster/Language" runTimeClassModel="nOT_YET_A_LANGUAGE,lg(Ljava.lang.String;),dEFAULT_LANGUAGE,setLanguage(Ljava.lang.String;),getLanguage(),getLanguages()">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.4/@sourceConnections.1 //@children.8/@children.1/@sourceConnections.0" name="Language" location="36,273" size="201,171" id="iGoMaster/Language" runTimeClassModel="nOT_YET_A_LANGUAGE,dEFAULT_LANGUAGE,lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),getLanguage(),getLanguages()">
       <children xsi:type="editmodel:CompartmentEditModel" size="178,36">
         <children xsi:type="editmodel:AttributeEditModel" name="dEFAULT_LANGUAGE" id="iGoMaster/Language#dEFAULT_LANGUAGE"/>
         <children xsi:type="editmodel:AttributeEditModel" name="nOT_YET_A_LANGUAGE" id="iGoMaster/Language#nOT_YET_A_LANGUAGE"/>
@@ -113,7 +113,7 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.4/@sourceConnections.0 //@children.8/@children.0/@sourceConnections.0" name="Configuration" location="79,453" size="128,171" id="iGoMaster/Configuration" runTimeClassModel="save(),getValue(Ljava.lang.String;),getParamsKey(),setValue(Ljava.lang.String;Ljava.lang.String;),reload(),getLanguage()">
+    <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.1/@children.4/@sourceConnections.0 //@children.8/@children.0/@sourceConnections.0" name="Configuration" location="79,453" size="128,171" id="iGoMaster/Configuration" runTimeClassModel="save(),getParamsKey(),getValue(Ljava.lang.String;),setValue(Ljava.lang.String;Ljava.lang.String;),reload(),getLanguage()">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="100,108">
         <children xsi:type="editmodel:MethodEditModel" name="getParamsKey" id="iGoMaster/Configuration#getParamsKey()"/>
@@ -145,9 +145,9 @@
     <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.2/@children.2/@sourceConnections.0 //@children.3/@children.0/@sourceConnections.1" name="GraphNetworkReader" location="498,113" size="179,117" id="graphNetwork/GraphNetworkReader" runTimeClassModel="getStation(),getRoute(),getService()">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="82,54">
-        <children xsi:type="editmodel:MethodEditModel" name="getStation" id="graphNetwork/GraphNetworkReader#getStation()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getStation" id="graphNetwork/GraphNetworkReader#getStations()"/>
         <children xsi:type="editmodel:MethodEditModel" name="getRoute" id="graphNetwork/GraphNetworkReader#getRoute()"/>
-        <children xsi:type="editmodel:MethodEditModel" name="getService" id="graphNetwork/GraphNetworkReader#getService()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getService" id="graphNetwork/GraphNetworkReader#getServices()"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
@@ -304,7 +304,7 @@
     </sourceConnections>
   </children>
   <children xsi:type="editmodel:PackageEditModel" name="tools.xmlFeature" location="-136,375" size="272,525" id="tools.xmlFeature">
-    <children xsi:type="editmodel:ClassEditModel" name="ConfigurationXML" location="32,293" size="224,211" id="tools.xmlFeature/ConfigurationXML" runTimeClassModel="save(),getValue(Ljava.lang.String;),getParamsKey(),setValue(Ljava.lang.String;Ljava.lang.String;),reload(),getLanguage(),ConfigurationXML()">
+    <children xsi:type="editmodel:ClassEditModel" name="ConfigurationXML" location="32,293" size="224,211" id="tools.xmlFeature/ConfigurationXML" runTimeClassModel="save(),getParamsKey(),getValue(Ljava.lang.String;),setValue(Ljava.lang.String;Ljava.lang.String;),reload(),getLanguage(),ConfigurationXML()">
       <children xsi:type="editmodel:CompartmentEditModel" size="201,36">
         <children xsi:type="editmodel:AttributeEditModel" name="pATH_TO_CONFIG_HOME_DIR" id="tools.xmlFeature/ConfigurationXML#pATH_TO_CONFIG_HOME_DIR"/>
         <children xsi:type="editmodel:AttributeEditModel" name="cONFIG_FILE" id="tools.xmlFeature/ConfigurationXML#cONFIG_FILE"/>
@@ -325,7 +325,7 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" name="LanguageXML" location="44,36" size="161,229" id="tools.xmlFeature/LanguageXML" runTimeClassModel="LanguageXML(Ljava.lang.String;),getCles(),isNvLangue(),LanguageXML(),lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),getLanguage(),getLanguages(),LanguageXML(Ljava.lang.String;Z),containsLanguageKey(Ljava.lang.String;)">
+    <children xsi:type="editmodel:ClassEditModel" name="LanguageXML" location="44,36" size="161,229" id="tools.xmlFeature/LanguageXML" runTimeClassModel="LanguageXML(Ljava.lang.String;),isNvLangue(),getCles(),LanguageXML(),lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),getLanguage(),getLanguages(),LanguageXML(Ljava.lang.String;Z),containsLanguageKey(Ljava.lang.String;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="138,180">
         <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" id="tools.xmlFeature/LanguageXML#LanguageXML(Ljava.lang.String;)"/>

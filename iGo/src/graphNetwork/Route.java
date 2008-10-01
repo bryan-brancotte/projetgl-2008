@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 
-public class Route implements RouteReader {
+public class Route implements RouteR {
 
 	/** 
 	 * @uml.property name="station"
@@ -12,10 +12,8 @@ public class Route implements RouteReader {
 	 */
 	private Collection<Station> station;
 
-	/** 
-	 * Getter of the property <tt>station</tt>
-	 * @return  Returns the station.
-	 * @uml.property  name="station"
+	/* (non-Javadoc)
+	 * @see graphNetwork.RouteR#getStation()
 	 */
 	public Collection<Station> getStation() {
 		return station;
@@ -37,6 +35,9 @@ public class Route implements RouteReader {
 
 	/* (non-Javadoc)
 	 * @see graphNetwork.RouteReader#getId()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.RouteR#getId()
 	 */
 	public String getId() {
 		return id;

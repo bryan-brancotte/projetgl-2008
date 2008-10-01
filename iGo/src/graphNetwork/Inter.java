@@ -8,13 +8,13 @@ public abstract class Inter {
 	 * @uml.property name="stationB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
 	 */
-	private StationReader station;
+	private Station station;
 
 	/**
 	 * @uml.property name="stationA"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
 	 */
-	private StationReader stationA;
+	private Station stationA;
 
 	/**
 	 * Getter of the property <tt>stationA</tt>
@@ -22,7 +22,7 @@ public abstract class Inter {
 	 * @return Returns the stationA.
 	 * @uml.property name="stationA"
 	 */
-	public StationReader getStationA() {
+	public Station getStationA() {
 		return stationA;
 	}
 
@@ -33,7 +33,7 @@ public abstract class Inter {
 	 *            The stationA to set.
 	 * @uml.property name="stationA"
 	 */
-	public void setStationA(StationReader stationA) {
+	public void setStationA(Station stationA) {
 		this.stationA = stationA;
 	}
 
@@ -43,7 +43,7 @@ public abstract class Inter {
 	 * @return Returns the station.
 	 * @uml.property name="stationB"
 	 */
-	public StationReader getStationB() {
+	public Station getStationB() {
 		return station;
 	}
 
@@ -54,7 +54,7 @@ public abstract class Inter {
 	 *            The station to set.
 	 * @uml.property name="stationB"
 	 */
-	public void setStationB(StationReader stationB) {
+	public void setStationB(Station stationB) {
 		station = stationB;
 	}
 
@@ -62,7 +62,7 @@ public abstract class Inter {
 	 * @uml.property name="routeA"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private RouteReader routeA;
+	private RouteR routeA;
 
 	/**
 	 * Getter of the property <tt>routeA</tt>
@@ -70,7 +70,7 @@ public abstract class Inter {
 	 * @return Returns the routeA.
 	 * @uml.property name="routeA"
 	 */
-	public RouteReader getRouteA() {
+	public RouteR getRouteA() {
 		return routeA;
 	}
 
@@ -81,7 +81,7 @@ public abstract class Inter {
 	 *            The routeA to set.
 	 * @uml.property name="routeA"
 	 */
-	public void setRouteA(RouteReader routeA) {
+	public void setRouteA(RouteR routeA) {
 		this.routeA = routeA;
 	}
 
@@ -89,7 +89,7 @@ public abstract class Inter {
 	 * @uml.property name="routeB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private RouteReader routeB;
+	private RouteR routeB;
 
 	/**
 	 * Getter of the property <tt>routeB</tt>
@@ -97,7 +97,7 @@ public abstract class Inter {
 	 * @return Returns the routeB.
 	 * @uml.property name="routeB"
 	 */
-	public RouteReader getRouteB() {
+	public RouteR getRouteB() {
 		return routeB;
 	}
 
@@ -108,7 +108,7 @@ public abstract class Inter {
 	 *            The routeB to set.
 	 * @uml.property name="routeB"
 	 */
-	public void setRouteB(RouteReader routeB) {
+	public void setRouteB(RouteR routeB) {
 		this.routeB = routeB;
 	}
 
@@ -117,24 +117,11 @@ public abstract class Inter {
 	 */
 	private byte timeBetweenStations;
 
-	/**
-	 * Getter of the property <tt>timeBetweenStations</tt>
-	 * 
-	 * @return Returns the timeBetweenStations.
-	 * @uml.property name="timeBetweenStations"
+	/* (non-Javadoc)
+	 * @see graphNetwork.InterR#getTimeBetweenStations()
 	 */
 	public byte getTimeBetweenStations() {
 		return timeBetweenStations;
-	}
-
-	/**
-	 */
-	public abstract String getKindOfInter();
-
-	/**
-	 */
-	public StationReader getOtherStation(StationReader station) {
-		return null;
 	}
 
 	/**
@@ -142,11 +129,8 @@ public abstract class Inter {
 	 */
 	private float cost;
 
-	/**
-	 * Getter of the property <tt>cost</tt>
-	 * 
-	 * @return Returns the cost.
-	 * @uml.property name="cost"
+	/* (non-Javadoc)
+	 * @see graphNetwork.InterR#getCost()
 	 */
 	public float getCost() {
 		return cost;
