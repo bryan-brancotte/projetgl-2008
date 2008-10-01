@@ -1,7 +1,6 @@
 package graphNetwork;
 
 
-import java.util.Collection;
 
 public interface StationR {
 
@@ -9,7 +8,7 @@ public interface StationR {
 
 	public abstract ServiceR getServiceR();
 
-	public abstract Collection<InterR> getInterchangeR();
+	public abstract InterR[] getInterchangeR();
 
 	public abstract String getName();
 
