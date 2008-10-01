@@ -1,6 +1,6 @@
 package iGoMaster;
 
 
-public interface IHM {
+public interface Master {
 
 }

@@ -2,33 +2,38 @@ package graphNetwork;
 
 public abstract class Inter {
 
+	private boolean lock = false;
+
 	/**
 	 * @uml.property name="stationB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
 	 */
-	private Station station;
+	private StationReader station;
 
-	/** 
+	/**
 	 * @uml.property name="stationA"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
 	 */
-	private Station stationA;
+	private StationReader stationA;
 
-	/** 
+	/**
 	 * Getter of the property <tt>stationA</tt>
+	 * 
 	 * @return Returns the stationA.
 	 * @uml.property name="stationA"
 	 */
-	public Station getStationA() {
+	public StationReader getStationA() {
 		return stationA;
 	}
 
-	/** 
+	/**
 	 * Setter of the property <tt>stationA</tt>
-	 * @param stationA The stationA to set.
-	 * @uml.property  name="stationA"
+	 * 
+	 * @param stationA
+	 *            The stationA to set.
+	 * @uml.property name="stationA"
 	 */
-	public void setStationA(Station stationA) {
+	public void setStationA(StationReader stationA) {
 		this.stationA = stationA;
 	}
 
@@ -38,7 +43,7 @@ public abstract class Inter {
 	 * @return Returns the station.
 	 * @uml.property name="stationB"
 	 */
-	public Station getStationB() {
+	public StationReader getStationB() {
 		return station;
 	}
 
@@ -49,7 +54,7 @@ public abstract class Inter {
 	 *            The station to set.
 	 * @uml.property name="stationB"
 	 */
-	public void setStationB(Station stationB) {
+	public void setStationB(StationReader stationB) {
 		station = stationB;
 	}
 
@@ -57,7 +62,7 @@ public abstract class Inter {
 	 * @uml.property name="routeA"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private Route routeA;
+	private RouteReader routeA;
 
 	/**
 	 * Getter of the property <tt>routeA</tt>
@@ -65,7 +70,7 @@ public abstract class Inter {
 	 * @return Returns the routeA.
 	 * @uml.property name="routeA"
 	 */
-	public Route getRouteA() {
+	public RouteReader getRouteA() {
 		return routeA;
 	}
 
@@ -76,7 +81,7 @@ public abstract class Inter {
 	 *            The routeA to set.
 	 * @uml.property name="routeA"
 	 */
-	public void setRouteA(Route routeA) {
+	public void setRouteA(RouteReader routeA) {
 		this.routeA = routeA;
 	}
 
@@ -84,7 +89,7 @@ public abstract class Inter {
 	 * @uml.property name="routeB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private Route routeB;
+	private RouteReader routeB;
 
 	/**
 	 * Getter of the property <tt>routeB</tt>
@@ -92,7 +97,7 @@ public abstract class Inter {
 	 * @return Returns the routeB.
 	 * @uml.property name="routeB"
 	 */
-	public Route getRouteB() {
+	public RouteReader getRouteB() {
 		return routeB;
 	}
 
@@ -103,7 +108,7 @@ public abstract class Inter {
 	 *            The routeB to set.
 	 * @uml.property name="routeB"
 	 */
-	public void setRouteB(Route routeB) {
+	public void setRouteB(RouteReader routeB) {
 		this.routeB = routeB;
 	}
 
@@ -123,6 +128,31 @@ public abstract class Inter {
 	}
 
 	/**
+	 */
+	public abstract String getKindOfInter();
+
+	/**
+	 */
+	public StationReader getOtherStation(StationReader station) {
+		return null;
+	}
+
+	/**
+	 * @uml.property name="cost"
+	 */
+	private float cost;
+
+	/**
+	 * Getter of the property <tt>cost</tt>
+	 * 
+	 * @return Returns the cost.
+	 * @uml.property name="cost"
+	 */
+	public float getCost() {
+		return cost;
+	}
+
+	/**
 	 * Setter of the property <tt>timeBetweenStations</tt>
 	 * 
 	 * @param timeBetweenStations
@@ -130,39 +160,21 @@ public abstract class Inter {
 	 * @uml.property name="timeBetweenStations"
 	 */
 	public void setTimeBetweenStations(byte timeBetweenStations) {
+		if (lock)
+			return;
 		this.timeBetweenStations = timeBetweenStations;
 	}
 
 	/**
-	 */
-	public abstract String getKindOfInter();
-
-	/**
-	 */
-	public Station getOtherStation(Station station) {
-		return null;
-	}
-
-	/**
-	 * @uml.property  name="cost"
-	 */
-	private float cost;
-
-	/**
-	 * Getter of the property <tt>cost</tt>
-	 * @return  Returns the cost.
-	 * @uml.property  name="cost"
-	 */
-	public float getCost() {
-		return cost;
-	}
-
-	/**
 	 * Setter of the property <tt>cost</tt>
-	 * @param cost  The cost to set.
-	 * @uml.property  name="cost"
+	 * 
+	 * @param cost
+	 *            The cost to set.
+	 * @uml.property name="cost"
 	 */
 	public void setCost(float cost) {
+		if (lock)
+			return;
 		this.cost = cost;
 	}
 

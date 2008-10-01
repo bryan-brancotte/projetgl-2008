@@ -1,30 +1,32 @@
 package graphNetwork;
 
-import java.util.LinkedList;
-
-
-public interface PathInGraph {
+public interface PathInGraph   {
 
 	/**
-	 * @return  Returns the inter.
-	 * @uml.property  name="inter"
-	 * @uml.associationEnd  multiplicity="(0 -1)" ordering="true" container="java.util.LinkedList" inverse="pathInGraph:graphNetwork.Inter"
+	 * Retourne un chaine décrivant le chemin à faire station par station
 	 */
-	public LinkedList<Inter> getInter();
+	public String toString();
 
 	/**
-	 * Setter of the property <tt>inter</tt>
-	 * @param inter  The inter to set.
-	 * @uml.property  name="inter"
+	 * @return Returns the inter.
+	 * @uml.property name="inter"
+	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List"
+	 *                     inverse="pathInGraph:graphNetwork.Inter"
 	 */
-	public void setInter(LinkedList<Inter> inter);
+	public Inter[] getInter();
 
-		
-		/**
-			 * Retourne un chaine décrivant le chemin à faire station par station
-			 */
-			public abstract String toString();
-			
-		
+	/**
+	 * Retourne le coût du trajet
+	 * 
+	 * @return le coût
+	 */
+	public float getCost();
+
+	/**
+	 * Retourne la durée du trajet
+	 * 
+	 * @return le temps
+	 */
+	public byte getTime();
 
 }

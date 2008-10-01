@@ -1,6 +1,6 @@
 package ihm.smartPhone;
 
 
-public interface Master {
+public interface IHM {
 
 }

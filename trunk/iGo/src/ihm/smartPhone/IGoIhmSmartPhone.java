@@ -1,6 +1,6 @@
 package ihm.smartPhone;
 
-import iGoMaster.IHM;
+import iGoMaster.Master;
 import ihm.JMenuDock.JMenuDock;
 import ihm.JNetwork.JNetwork;
 
@@ -33,7 +33,7 @@ public class IGoIhmSmartPhone implements IHM {
 
 	/**
 	 * @uml.property   name="master"
-	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:ihm.smartPhone.Master"
+	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:iGoMaster.Master"
 	 */
 	private Master master;
 
