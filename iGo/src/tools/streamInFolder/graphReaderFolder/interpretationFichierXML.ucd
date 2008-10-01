@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="interpretationFichierXML" size="937,624" id="tools.streamInFolder.graphReaderFolder" metadata="uml2-1.0" initialized="true" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="interpretationFichierXML" size="937,628" id="tools.streamInFolder.graphReaderFolder" metadata="uml2-1.0" initialized="true" tag="1000" key="32303038303431342D313030302069476F2F4272616E636F74746520427279616E">
   <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@sourceConnections.0 //@children.7/@sourceConnections.0" name="Service" location="210,60" size="155,75" id="tools.streamInFolder.graphReaderFolder/Service" runTimeClassModel="id,shortDescription">
     <children xsi:type="editmodel:CompartmentEditModel" size="132,36">
       <children xsi:type="editmodel:AttributeEditModel" name="shortDescription" id="tools.streamInFolder.graphReaderFolder/Service#shortDescription"/>
@@ -122,7 +122,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" location="496,435" size="91,30" fontInfo="Arial-8-0" note="Route==Line"/>
+  <children xsi:type="editmodel:NotepadEditModel" location="641,374" size="91,30" fontInfo="Arial-8-0" note="Route==Line"/>
   <children xsi:type="editmodel:ClassEditModel" name="Network" location="45,15" size="94,29" id="tools.streamInFolder.graphReaderFolder/Network" runTimeClassModel="">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -161,18 +161,23 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.1" name="KindRoute" location="680,450" size="161,121" id="tools.streamInFolder.graphReaderFolder/KindRoute" runTimeClassModel="addKind(Ljava.lang.String;),kind,getKinds()">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.1" name="KindRoute" location="680,450" size="161,139" id="tools.streamInFolder.graphReaderFolder/KindRoute" runTimeClassModel="addKind(Ljava.lang.String;),kindOf,getKind(Ljava.lang.String;),getKinds()">
     <children xsi:type="editmodel:CompartmentEditModel" size="138,36">
-      <children xsi:type="editmodel:AttributeEditModel" name="kind" id="tools.streamInFolder.graphReaderFolder/KindRoute#kind"/>
       <children xsi:type="editmodel:AttributeEditModel" name="kinds" id="tools.streamInFolder.graphReaderFolder/KindRoute#kinds"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="kindOf" id="tools.streamInFolder.graphReaderFolder/KindRoute#kindOf"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="72,36">
+    <children xsi:type="editmodel:CompartmentEditModel" size="72,54">
       <children xsi:type="editmodel:MethodEditModel" name="addKind" id="tools.streamInFolder.graphReaderFolder/KindRoute#addKind(Ljava.lang.String;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getKinds" id="tools.streamInFolder.graphReaderFolder/KindRoute#getKinds()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getKind" id="tools.streamInFolder.graphReaderFolder/KindRoute#getKind(Ljava.lang.String;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
+  <children xsi:type="editmodel:NotepadEditModel" location="116,424" size="167,52" fontInfo="Arial-8-0" note="pedestrian WTF?&#xD;&#xA;Y a t-il des changements où&#xD;&#xA;il n'y a pas de voie piettonne?"/>
+  <children xsi:type="editmodel:NotepadEditModel" location="116,490" size="244,24" fontInfo="Arial-8-0" note="Handicapé nule-part. pedestrian == handi ???"/>
+  <children xsi:type="editmodel:NotepadEditModel" location="123,532" size="278,66" fontInfo="Arial-8-0" note="                      WTF&#xD;&#xA;Route ID string? On donne des lettre pour les lignes?&#xD;&#xA;Pas de tarifs&#xD;&#xA;C'est quoi byte? (je vais chercher)"/>
+  <children xsi:type="editmodel:NotepadEditModel" location="424,497" size="88,24" fontInfo="Arial-8-0" note="Surdef du =="/>
   <diagramOptions xsi:type="options:ClassDiagramOptions" level="-1" showScope="InPackage" properties="wireOptions=1;Product=eUML2"/>
   <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
     <leftRuler/>

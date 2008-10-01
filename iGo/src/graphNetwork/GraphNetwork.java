@@ -2,88 +2,69 @@ package graphNetwork;
 
 import java.util.Collection;
 
-
 public class GraphNetwork implements GraphNetworkBuilder {
 
 	/**
-	 * @uml.property  name="service"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Service"
+	 * @uml.property name="service"
+	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Service"
 	 */
-	private Collection service;
+	private Collection<Service> service;
 
 	/**
 	 * Getter of the property <tt>service</tt>
-	 * @return  Returns the service.
-	 * @uml.property  name="service"
+	 * 
+	 * @return Returns the service.
+	 * @uml.property name="service"
 	 */
 	@Override
-	public Collection getService() {
+	public Collection<ServiceReader> getService() {
 		return service;
 	}
 
 	/**
-	 * Setter of the property <tt>service</tt>
-	 * @param service  The service to set.
-	 * @uml.property  name="service"
+	 * @uml.property name="station"
+	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
 	 */
-	public void setService(Collection service) {
-		this.service = service;
-	}
-
-	/**
-	 * @uml.property  name="station"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
-	 */
-	private Collection station;
+	private Collection<Station> station;
 
 	/**
 	 * Getter of the property <tt>station</tt>
-	 * @return  Returns the station.
-	 * @uml.property  name="station"
+	 * 
+	 * @return Returns the station.
+	 * @uml.property name="station"
 	 */
 	@Override
-	public Collection getStation() {
+	public Collection<StationReader> getStation() {
 		return station;
 	}
 
 	/**
-	 * Setter of the property <tt>station</tt>
-	 * @param station  The station to set.
-	 * @uml.property  name="station"
-	 */
-	public void setStation(Collection station) {
-		this.station = station;
-	}
-
-	/** 
 	 * @uml.property name="route"
-	 * @uml.associationEnd inverse="graphNetwork:graphNetwork.Route"
+	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Route"
 	 */
-	private Route route;
+	private Collection<Route> route;
 
-	/** 
+	/**
 	 * Getter of the property <tt>route</tt>
-	 * @return  Returns the route.
-	 * @uml.property  name="route"
+	 * 
+	 * @return Returns the route.
+	 * @uml.property name="route"
 	 */
 	@Override
-	public Route getRoute() {
+	public Collection<RouteReader> getRoute() {
 		return route;
-	}
-
-	/** 
-	 * Setter of the property <tt>route</tt>
-	 * @param route  The route to set.
-	 * @uml.property  name="route"
-	 */
-	public void setRoute(Route route) {
-		this.route = route;
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void endBuilding() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
