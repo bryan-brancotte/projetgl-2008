@@ -1,6 +1,7 @@
 package graphNetwork;
 
-public abstract class Inter {
+
+public abstract class Inter implements InterR {
 
 	private boolean lock = false;
 
@@ -12,13 +13,12 @@ public abstract class Inter {
 
 	/**
 	 * @uml.property name="stationA"
-	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
+	 * @uml.associationEnd inverse="inter:graphNetwork.Station"
 	 */
 	private Station stationA;
 
 	/**
 	 * Getter of the property <tt>stationA</tt>
-	 * 
 	 * @return Returns the stationA.
 	 * @uml.property name="stationA"
 	 */
@@ -28,9 +28,8 @@ public abstract class Inter {
 
 	/**
 	 * Setter of the property <tt>stationA</tt>
-	 * 
 	 * @param stationA
-	 *            The stationA to set.
+	 *        The stationA to set.
 	 * @uml.property name="stationA"
 	 */
 	public void setStationA(Station stationA) {
@@ -51,7 +50,7 @@ public abstract class Inter {
 	 * Setter of the property <tt>stationB</tt>
 	 * 
 	 * @param stationB
-	 *            The station to set.
+	 *        The station to set.
 	 * @uml.property name="stationB"
 	 */
 	public void setStationB(Station stationB) {
@@ -78,7 +77,7 @@ public abstract class Inter {
 	 * Setter of the property <tt>routeA</tt>
 	 * 
 	 * @param routeA
-	 *            The routeA to set.
+	 *        The routeA to set.
 	 * @uml.property name="routeA"
 	 */
 	public void setRouteA(RouteR routeA) {
@@ -97,7 +96,9 @@ public abstract class Inter {
 	 * @return Returns the routeB.
 	 * @uml.property name="routeB"
 	 */
-	public RouteR getRouteB() {
+	public RouteR getRouteB()
+
+	{
 		return routeB;
 	}
 
@@ -105,7 +106,7 @@ public abstract class Inter {
 	 * Setter of the property <tt>routeB</tt>
 	 * 
 	 * @param routeB
-	 *            The routeB to set.
+	 *        The routeB to set.
 	 * @uml.property name="routeB"
 	 */
 	public void setRouteB(RouteR routeB) {
@@ -117,7 +118,8 @@ public abstract class Inter {
 	 */
 	private byte timeBetweenStations;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see graphNetwork.InterR#getTimeBetweenStations()
 	 */
 	public byte getTimeBetweenStations() {
@@ -129,7 +131,8 @@ public abstract class Inter {
 	 */
 	private float cost;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see graphNetwork.InterR#getCost()
 	 */
 	public float getCost() {
@@ -140,12 +143,11 @@ public abstract class Inter {
 	 * Setter of the property <tt>timeBetweenStations</tt>
 	 * 
 	 * @param timeBetweenStations
-	 *            The timeBetweenStations to set.
+	 *        The timeBetweenStations to set.
 	 * @uml.property name="timeBetweenStations"
 	 */
 	public void setTimeBetweenStations(byte timeBetweenStations) {
-		if (lock)
-			return;
+		if (lock) return;
 		this.timeBetweenStations = timeBetweenStations;
 	}
 
@@ -153,13 +155,40 @@ public abstract class Inter {
 	 * Setter of the property <tt>cost</tt>
 	 * 
 	 * @param cost
-	 *            The cost to set.
+	 *        The cost to set.
 	 * @uml.property name="cost"
 	 */
 	public void setCost(float cost) {
-		if (lock)
-			return;
+		if (lock) return;
 		this.cost = cost;
+	}
+
+	public String getKindOfInter() {
+		return null;
+	}
+
+	/**
+	 */
+	public Route getOtherRoute(StationR me) {
+		return this.getOtherStation(me).getRoute();
+	}
+
+	/**
+	 */
+	public Station getOtherStation(StationR me) {
+		if (me.getId() == this.getStationA().getId()) {
+			return this.getStationB();
+		} else {
+			return this.getStationA();
+		}
+	}
+
+	public RouteR getOtherRouteR(StationR me) {
+		return this.getOtherRoute(me);
+	}
+
+	public StationR getOtherStationR(StationR me) {
+		return this.getOtherStation(me);
 	}
 
 }
