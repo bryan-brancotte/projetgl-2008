@@ -57,9 +57,8 @@ public class Route implements RouteR {
 		this.id = id;
 	}
 
-	@Override
-	public Collection<StationReader> getStationReader() {
-		return new LinkedList<StationReader>(station);
+	public Collection<StationR> getStationsR() {
+		return new LinkedList<StationR>(station);
 	}
 
 }

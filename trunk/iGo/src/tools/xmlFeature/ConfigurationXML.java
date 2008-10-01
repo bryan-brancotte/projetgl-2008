@@ -1,5 +1,7 @@
 package tools.xmlFeature;
 
+import iGoMaster.Configuration;
+
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,10 +23,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
-import divers.ENV;
-
-import iGoMaster.Configuration;
 
 public class ConfigurationXML implements Configuration {
 
@@ -69,7 +67,7 @@ public class ConfigurationXML implements Configuration {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Cannot creat a new configuration file\n"
-						+ System.getProperty("user.home") + ENV.PATH_EVOLUFACE + ENV.CONFIG_FILE, "Killing error",
+						+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
 						JOptionPane.ERROR_MESSAGE);
 				System.exit(1);
 			}
@@ -86,7 +84,7 @@ public class ConfigurationXML implements Configuration {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Cannot creat a new configuration file\n"
-							+ System.getProperty("user.home") + ENV.PATH_EVOLUFACE + ENV.CONFIG_FILE, "Killing error",
+							+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
 							JOptionPane.ERROR_MESSAGE);
 					System.exit(1);
 				}
@@ -117,8 +115,7 @@ public class ConfigurationXML implements Configuration {
 
 			Source source = new DOMSource(document);
 			// Cration du fichier de sortie
-			Result resultat = new StreamResult(new File(System.getProperty("user.home") + ENV.PATH_EVOLUFACE
-					+ ENV.CONFIG_FILE));
+			Result resultat = new StreamResult(new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE));
 
 			// Configuration du transformer
 			TransformerFactory fabrique = TransformerFactory.newInstance();
@@ -146,9 +143,9 @@ public class ConfigurationXML implements Configuration {
 	}
 
 	protected void makeConfigDefaut() throws Exception {
-		File conf = new File(System.getProperty("user.home") + ENV.PATH_EVOLUFACE);
+		File conf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR );
 		conf.mkdir();
-		conf = new File(System.getProperty("user.home") + ENV.PATH_EVOLUFACE + ENV.CONFIG_FILE);
+		conf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE);
 		conf.createNewFile();
 		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 		Element root, elt;

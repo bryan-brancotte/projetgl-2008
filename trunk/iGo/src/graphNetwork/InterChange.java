@@ -26,10 +26,4 @@ public class InterChange extends Inter {
 		this.pedestrian = pedestrian;
 	}
 
-	@Override
-	public String getKindOfInter() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

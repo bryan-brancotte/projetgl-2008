@@ -25,7 +25,7 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="113,54">
       <children xsi:type="editmodel:MethodEditModel" name="getId" id="graphNetwork/Route#getId()"/>
       <children xsi:type="editmodel:MethodEditModel" name="Route" id="graphNetwork/Route#Route(Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getStationReader" id="graphNetwork/Route#getStationReader()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getStationReader" id="graphNetwork/Route#getStationsR()"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" id="graphNetwork/Station@station+graphNetwork/Route@route" source="//@children.1" target="//@children.3" targetEnd="//@children.1/@sourceConnections.0/@children.2" label="//@children.1/@sourceConnections.0/@children.0" sourceEnd="//@children.1/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">

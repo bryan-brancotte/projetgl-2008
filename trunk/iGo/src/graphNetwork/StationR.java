@@ -1,41 +1,18 @@
 package graphNetwork;
 
+
 import java.util.Collection;
 
 public interface StationR {
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getRoute()
-	 */
-	public abstract RouteR getRoute();
+	public abstract RouteR getRouteR();
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getService()
-	 */
-	public abstract ServiceR getService();
+	public abstract ServiceR getServiceR();
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getInterchange()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getInterchange()
-	 */
-	public abstract Collection getInterchange();
+	public abstract Collection<InterR> getInterchangeR();
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getName()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getName()
-	 */
 	public abstract String getName();
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getId()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getId()
-	 */
 	public abstract int getId();
 
 }

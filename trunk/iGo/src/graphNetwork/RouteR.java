@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public interface RouteR {
 	
-	public abstract Collection<Station> getStation();
+	public abstract Collection<StationR> getStationsR();
 
 	public abstract String getId();
 
