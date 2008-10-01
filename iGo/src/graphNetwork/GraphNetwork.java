@@ -1,48 +1,87 @@
 package graphNetwork;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class GraphNetwork implements GraphNetworkBuilder {
 
 	@Override
 	public void endBuilding() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public Collection<RouteR> getRoutes() {
+	public Collection<RouteR> getRoutesR() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<ServiceR> getServices() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<ServiceR> getServicesR() {
+		return new LinkedList<ServiceR>(this.getServices());
 	}
 
 	@Override
-	public Collection<StationR> getStations() {
+	public Collection<StationR> getStationsR() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/**
-	 * @uml.property  name="stations"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
+	 * @uml.property name="stations"
+	 * @uml.associationEnd multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
 	 */
-	private Collection stations;
+	private LinkedList<Station> stations;
 
+	/**
+	 * Getter of the property <tt>stations</tt>
+	 * 
+	 * @return Returns the stations.
+	 * @uml.property name="stations"
+	 */
+	public LinkedList<Station> getStations() {
+		return stations;
+	}
 
-	public Collection<Station> getStationsW() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Setter of the property <tt>stations</tt>
+	 * 
+	 * @param stations
+	 *            The stations to set.
+	 * @uml.property name="stations"
+	 */
+	public void setStations(Collection<Station> stations) {
+		this.stations = new LinkedList<Station>(stations);
+	}
+
+	/**
+	 * @uml.property  name="services"
+	 * @uml.associationEnd  multiplicity="(0 -1)" ordering="true" inverse="graphNetwork:graphNetwork.Service"
+	 */
+	private LinkedList<Service> services;
+
+	/**
+	 * Getter of the property <tt>services</tt>
+	 * @return  Returns the services.
+	 * @uml.property  name="services"
+	 */
+	public LinkedList<Service> getServices() {
+		return services;
+	}
+
+	/**
+	 * Setter of the property <tt>services</tt>
+	 * @param services  The services to set.
+	 * @uml.property  name="services"
+	 */
+	public void setServices(LinkedList<Service> services) {
+		this.services = services;
 	}
 }
