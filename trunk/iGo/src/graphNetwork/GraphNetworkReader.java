@@ -9,19 +9,19 @@ public interface GraphNetworkReader {
 	 * 
 	 * @return Returns the services.
 	 */
-	public Collection<ServiceReader> getService();
+	public Collection<ServiceR> getServices();
 
 	/**
 	 * Getter of stations. Give all the stations of the network.
 	 * 
 	 * @return Returns the stations.
 	 */
-	public Collection<StationReader> getStation();
+	public Collection<StationR> getStations();
 
 	/**
 	 * Getter of routes. Give all the route (line) of the network.
 	 * 
 	 * @return Returns the routes.
 	 */
-	public Collection<RouteReader> getRoute();
+	public Collection<RouteR> getRoutes();
 }

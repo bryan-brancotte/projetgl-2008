@@ -1,6 +1,6 @@
 package graphNetwork;
 
-public class Service implements ServiceReader {
+public class Service implements ServiceReader, ServiceR {
 
 	/** 
 	 * @uml.property name="shortDescription"
@@ -9,6 +9,12 @@ public class Service implements ServiceReader {
 
 	/* (non-Javadoc)
 	 * @see graphNetwork.ServiceReader#getShortDescription()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.ServiceReader#getShortDescription()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.ServiceR#getShortDescription()
 	 */
 	public String getShortDescription() {
 		return shortDescription;
@@ -21,6 +27,12 @@ public class Service implements ServiceReader {
 
 	/* (non-Javadoc)
 	 * @see graphNetwork.ServiceReader#getId()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.ServiceReader#getId()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.ServiceR#getId()
 	 */
 	public String getId() {
 		return id;

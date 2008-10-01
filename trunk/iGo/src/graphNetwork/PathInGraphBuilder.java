@@ -7,7 +7,7 @@ public class PathInGraphBuilder implements PathInGraph {
 	protected LinkedList<Inter> inter;
 
 	@Override
-	public Inter[] getInter() {
+	public InterR[] getInter() {
 		// TODO Auto-generated method stub
 		return inter.toArray(new Inter[0]);
 	}
@@ -38,7 +38,7 @@ public class PathInGraphBuilder implements PathInGraph {
 	 * 
 	 * @param inter element to add at the begining
 	 */
-	public void addFront(Inter inter) {
+	public void addFront(InterR inter) {
 	}
 
 	/**

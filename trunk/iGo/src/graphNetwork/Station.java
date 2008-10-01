@@ -2,21 +2,21 @@ package graphNetwork;
 
 import java.util.Collection;
 
-public class Station implements StationReader {
+public class Station {
 
 	/**
 	 * @uml.property name="route"
 	 * @uml.associationEnd inverse="station:graphNetwork.Route"
 	 */
-	private RouteReader route;
+	private RouteR route;
 
-	/**
-	 * Getter of the property <tt>route</tt>
-	 * 
-	 * @return Returns the route.
-	 * @uml.property name="route"
+	/* (non-Javadoc)
+	 * @see graphNetwork.Station#getRoute()
 	 */
-	public RouteReader getRoute() {
+	/* (non-Javadoc)
+	 * @see graphNetwork.StationR#getRoute()
+	 */
+	public RouteR getRoute() {
 		return route;
 	}
 
@@ -27,7 +27,7 @@ public class Station implements StationReader {
 	 *            The route to set.
 	 * @uml.property name="route"
 	 */
-	public void setRoute(RouteReader route) {
+	public void setRoute(RouteR route) {
 		this.route = route;
 	}
 
@@ -35,15 +35,12 @@ public class Station implements StationReader {
 	 * @uml.property name="service"
 	 * @uml.associationEnd inverse="station:graphNetwork.Service"
 	 */
-	private ServiceReader service;
+	private Service service;
 
-	/**
-	 * Getter of the property <tt>service</tt>
-	 * 
-	 * @return Returns the service.
-	 * @uml.property name="service"
+	/* (non-Javadoc)
+	 * @see graphNetwork.Station#getService()
 	 */
-	public ServiceReader getService() {
+	public Service getService() {
 		return service;
 	}
 
@@ -54,7 +51,7 @@ public class Station implements StationReader {
 	 *            The service to set.
 	 * @uml.property name="service"
 	 */
-	public void setService(ServiceReader service) {
+	public void setService(Service service) {
 		this.service = service;
 	}
 
@@ -65,7 +62,13 @@ public class Station implements StationReader {
 	private Collection interchange;
 
 	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getInterchange()
+	 * @see graphNetwork.Station#getInterchange()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.Station#getInterchange()
+	 */
+	/* (non-Javadoc)
+	 * @see graphNetwork.StationR#getInterchange()
 	 */
 	public Collection getInterchange() {
 		return interchange;
@@ -86,10 +89,7 @@ public class Station implements StationReader {
 	 * @uml.property name="name" readOnly="true"
 	 */
 	private String name = "";
-
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getName()
-	 */
+	
 	public String getName() {
 		return name;
 	}
@@ -98,10 +98,7 @@ public class Station implements StationReader {
 	 * @uml.property name="id" readOnly="true"
 	 */
 	private int id;
-
-	/* (non-Javadoc)
-	 * @see graphNetwork.StationReader#getId()
-	 */
+	
 	public int getId() {
 		return id;
 	}
