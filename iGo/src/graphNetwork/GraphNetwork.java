@@ -84,4 +84,28 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	public void setServices(LinkedList<Service> services) {
 		this.services = services;
 	}
+
+	/**
+	 * @uml.property  name="routes"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Route"
+	 */
+	private Collection routes;
+
+	/**
+	 * Getter of the property <tt>routes</tt>
+	 * @return  Returns the routes.
+	 * @uml.property  name="routes"
+	 */
+	public Collection getRoutes() {
+		return routes;
+	}
+
+	/**
+	 * Setter of the property <tt>routes</tt>
+	 * @param routes  The routes to set.
+	 * @uml.property  name="routes"
+	 */
+	public void setRoutes(Collection routes) {
+		this.routes = routes;
+	}
 }
