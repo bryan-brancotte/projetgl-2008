@@ -5,29 +5,11 @@ import java.util.LinkedList;
 
 public class Route implements RouteR {
 
-	/**
-	 * @uml.property name="station"
-	 * @uml.associationEnd multiplicity="(0 -1)" inverse="route:graphNetwork.Station"
+	/** 
+	 * @uml.property name="stations"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="routes:graphNetwork.Station"
 	 */
-	private LinkedList<Station> station;
-
-	/*
-	 * (non-Javadoc)
-	 * @see graphNetwork.RouteR#getStation()
-	 */
-	public LinkedList<Station> getStation() {
-		return station;
-	}
-
-	/**
-	 * Setter of the property <tt>station</tt>
-	 * @param station
-	 *        The station to set.
-	 * @uml.property name="station"
-	 */
-	public void setStation(LinkedList<Station> station) {
-		this.station = station;
-	}
+	private LinkedList stations;
 
 	/**
 	 * @uml.property name="id"
@@ -62,7 +44,49 @@ public class Route implements RouteR {
 	}
 
 	public StationR[] getStationsR() {
-		return this.getStation().toArray(new StationR[0]);
+		return this.getStations().toArray(new StationR[0]);
+	}
+
+	/** 
+	 * Getter of the property <tt>stations</tt>
+	 * @return  Returns the station.
+	 * @uml.property  name="stations"
+	 */
+	public LinkedList getStations() {
+		return stations;
+	}
+
+	/** 
+	 * Setter of the property <tt>stations</tt>
+	 * @param stations  The station to set.
+	 * @uml.property  name="stations"
+	 */
+	public void setStations(LinkedList stations) {
+		this.stations = stations;
+	}
+
+	/**
+	 * @uml.property  name="kindRoute"
+	 * @uml.associationEnd  inverse="route:graphNetwork.KindRoute"
+	 */
+	private KindRoute kindRoute;
+
+	/**
+	 * Getter of the property <tt>kindRoute</tt>
+	 * @return  Returns the kindRoute.
+	 * @uml.property  name="kindRoute"
+	 */
+	public KindRoute getKindRoute() {
+		return kindRoute;
+	}
+
+	/**
+	 * Setter of the property <tt>kindRoute</tt>
+	 * @param kindRoute  The kindRoute to set.
+	 * @uml.property  name="kindRoute"
+	 */
+	public void setKindRoute(KindRoute kindRoute) {
+		this.kindRoute = kindRoute;
 	}
 
 }

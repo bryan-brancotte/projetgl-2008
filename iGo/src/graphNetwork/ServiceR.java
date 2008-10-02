@@ -10,12 +10,9 @@ public interface ServiceR {
 	 */
 	public abstract String getShortDescription();
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getId()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getId()
-	 */
-	public abstract String getId();
+		
+		
+		public abstract int getId();
+		
 
 }

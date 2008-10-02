@@ -1,10 +1,8 @@
 package graphNetwork;
 
-
-
 public interface StationR {
 
-	public abstract RouteR getRouteR();
+	public abstract RouteR[] getRoutesR();
 
 	public abstract ServiceR getServiceR();
 

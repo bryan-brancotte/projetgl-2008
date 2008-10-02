@@ -1,36 +1,8 @@
 package graphNetwork;
 
-
 import java.util.LinkedList;
 
 public class Station implements StationR {
-
-	/**
-	 * @uml.property name="route"
-	 * @uml.associationEnd inverse="station:graphNetwork.Route"
-	 */
-	private Route route;
-
-	/**
-	 * 
-	 * @return
-	 */
-	public Route getRoute() {
-		return route;
-	}
-
-	/**
-	 * Setter of the property <tt>route</tt>
-	 * 
-	 * @param route
-	 *        The route to set.
-	 * @uml.property name="route"
-	 */
-	public void setRoute(Route route)
-
-	{
-		this.route = route;
-	}
 
 	/**
 	 * @uml.property name="service"
@@ -46,7 +18,7 @@ public class Station implements StationR {
 	 * Setter of the property <tt>service</tt>
 	 * 
 	 * @param service
-	 *        The service to set.
+	 *            The service to set.
 	 * @uml.property name="service"
 	 */
 	public void setService(Service service)
@@ -95,8 +67,35 @@ public class Station implements StationR {
 		this.inter = inter;
 	}
 
-	public RouteR getRouteR() {
-		return this.getRoute();
+	public RouteR[] getRoutesR() {
+		return this.getRoutes().toArray(new RouteR[0]);
+	}
+
+	/**
+	 * @uml.property name="routes"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="stations:graphNetwork.Route"
+	 */
+	private LinkedList<Route> routes;
+
+	/**
+	 * Getter of the property <tt>routes</tt>
+	 * 
+	 * @return Returns the routes.
+	 * @uml.property name="routes"
+	 */
+	public LinkedList<Route> getRoutes() {
+		return routes;
+	}
+
+	/**
+	 * Setter of the property <tt>routes</tt>
+	 * 
+	 * @param routes
+	 *            The routes to set.
+	 * @uml.property name="routes"
+	 */
+	public void setRoutes(LinkedList<Route> routes) {
+		this.routes = routes;
 	}
 
 }
