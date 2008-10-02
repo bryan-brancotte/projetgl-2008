@@ -1,6 +1,5 @@
 package graphNetwork;
 
-import PathInGraphBuilder;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
