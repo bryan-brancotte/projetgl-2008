@@ -2,7 +2,7 @@ package graphNetwork;
 
 import java.util.LinkedList;
 
-public class Station implements StationR {
+public class Station implements StationReader {
 
 	/**
 	 * @uml.property name="service"
@@ -51,11 +51,11 @@ public class Station implements StationR {
 		return id;
 	}
 
-	public InterR[] getInterchangeR() {
-		return this.getInter().toArray(new InterR[0]);
+	public InterReader[] getInterchangeR() {
+		return this.getInter().toArray(new InterReader[0]);
 	}
 
-	public ServiceR getServiceR() {
+	public ServiceReader getServiceR() {
 		return this.getService();
 	}
 
@@ -67,8 +67,8 @@ public class Station implements StationR {
 		this.inter = inter;
 	}
 
-	public RouteR[] getRoutesR() {
-		return this.getRoutes().toArray(new RouteR[0]);
+	public RouteReader[] getRoutesR() {
+		return this.getRoutes().toArray(new RouteReader[0]);
 	}
 
 	/**

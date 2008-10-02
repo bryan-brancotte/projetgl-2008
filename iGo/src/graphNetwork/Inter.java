@@ -1,7 +1,7 @@
 package graphNetwork;
 
 
-public abstract class Inter implements InterR {
+public abstract class Inter implements InterReader {
 
 	private boolean lock = false;
 
@@ -61,7 +61,7 @@ public abstract class Inter implements InterR {
 	 * @uml.property name="routeA"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private RouteR routeA;
+	private RouteReader routeA;
 
 	/**
 	 * Getter of the property <tt>routeA</tt>
@@ -69,7 +69,7 @@ public abstract class Inter implements InterR {
 	 * @return Returns the routeA.
 	 * @uml.property name="routeA"
 	 */
-	public RouteR getRouteA() {
+	public RouteReader getRouteA() {
 		return routeA;
 	}
 
@@ -80,7 +80,7 @@ public abstract class Inter implements InterR {
 	 *        The routeA to set.
 	 * @uml.property name="routeA"
 	 */
-	public void setRouteA(RouteR routeA) {
+	public void setRouteA(RouteReader routeA) {
 		this.routeA = routeA;
 	}
 
@@ -88,7 +88,7 @@ public abstract class Inter implements InterR {
 	 * @uml.property name="routeB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private RouteR routeB;
+	private RouteReader routeB;
 
 	/**
 	 * Getter of the property <tt>routeB</tt>
@@ -96,7 +96,7 @@ public abstract class Inter implements InterR {
 	 * @return Returns the routeB.
 	 * @uml.property name="routeB"
 	 */
-	public RouteR getRouteB()
+	public RouteReader getRouteB()
 
 	{
 		return routeB;
@@ -109,7 +109,7 @@ public abstract class Inter implements InterR {
 	 *        The routeB to set.
 	 * @uml.property name="routeB"
 	 */
-	public void setRouteB(RouteR routeB) {
+	public void setRouteB(RouteReader routeB) {
 		this.routeB = routeB;
 	}
 
@@ -169,13 +169,13 @@ public abstract class Inter implements InterR {
 
 	/**
 	 */
-	public Route getOtherRoute(StationR me) {
-		return this.getOtherStation(me).getRoute();
+	public Route getOtherRoute(StationReader me) {
+		return null;//this.getOtherStation(me).getRoute();
 	}
 
 	/**
 	 */
-	public Station getOtherStation(StationR me) {
+	public Station getOtherStation(StationReader me) {
 		if (me.getId() == this.getStationA().getId()) {
 			return this.getStationB();
 		} else {
@@ -183,11 +183,11 @@ public abstract class Inter implements InterR {
 		}
 	}
 
-	public RouteR getOtherRouteR(StationR me) {
+	public RouteReader getOtherRouteR(StationReader me) {
 		return this.getOtherRoute(me);
 	}
 
-	public StationR getOtherStationR(StationR me) {
+	public StationReader getOtherStationR(StationReader me) {
 		return this.getOtherStation(me);
 	}
 

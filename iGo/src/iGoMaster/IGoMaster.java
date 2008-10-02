@@ -1,7 +1,7 @@
 package iGoMaster;
 
 import graphNetwork.GraphNetworkReader;
-import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphReader;
 
 import ihm.smartPhone.IHM;
 
@@ -13,8 +13,8 @@ import graphNetwork.GraphNetworkBuilder;
 public class IGoMaster implements Master, Observer {
 
 	/**
-	 * @uml.property name="ihm"
-	 * @uml.associationEnd inverse="iGoMaster:ihm.smartPhone.IHM"
+	 * @uml.property   name="ihm"
+	 * @uml.associationEnd   inverse="iGoMaster:ihm.smartPhone.IHM"
 	 */
 	private IHM ihm;
 
@@ -45,8 +45,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="graphReader"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
+	 * @uml.property   name="graphReader"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
 	 */
 	private GraphNetworkReceiver graphReader;
 
@@ -78,8 +78,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="config"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Configuration"
+	 * @uml.property   name="config"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Configuration"
 	 */
 	private Configuration config;
 
@@ -105,8 +105,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="graphNetwork"
-	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkReader"
+	 * @uml.property   name="graphNetwork"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkReader"
 	 */
 	private GraphNetworkReader graphNetwork;
 
@@ -132,8 +132,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="lang"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Language"
+	 * @uml.property   name="lang"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Language"
 	 */
 	private Language lang;
 
@@ -159,8 +159,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="algo"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Algo"
+	 * @uml.property   name="algo"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Algo"
 	 */
 	private Algo algo;
 
@@ -186,10 +186,10 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="pathInGraph"
-	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.PathInGraph"
+	 * @uml.property   name="pathInGraph"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.PathInGraphReader"
 	 */
-	private PathInGraph pathInGraph;
+	private PathInGraphReader pathInGraph;
 
 	/**
 	 * Getter of the property <tt>pathInGraph</tt>
@@ -197,7 +197,7 @@ public class IGoMaster implements Master, Observer {
 	 * @return Returns the pathInGraph.
 	 * @uml.property name="pathInGraph"
 	 */
-	public PathInGraph getPathInGraph() {
+	public PathInGraphReader getPathInGraph() {
 		return pathInGraph;
 	}
 
@@ -208,13 +208,13 @@ public class IGoMaster implements Master, Observer {
 	 *            The pathInGraph to set.
 	 * @uml.property name="pathInGraph"
 	 */
-	public void setPathInGraph(PathInGraph pathInGraph) {
+	public void setPathInGraph(PathInGraphReader pathInGraph) {
 		this.pathInGraph = pathInGraph;
 	}
 
 	/**
-	 * @uml.property name="graphNetworkBuilder"
-	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
+	 * @uml.property   name="graphNetworkBuilder"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
 	 */
 	private GraphNetworkBuilder graphNetworkBuilder;
 

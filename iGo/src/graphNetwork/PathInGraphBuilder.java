@@ -2,12 +2,12 @@ package graphNetwork;
 
 import java.util.LinkedList;
 
-public class PathInGraphBuilder implements PathInGraph {
+public class PathInGraphBuilder implements PathInGraphReader {
 
 	protected LinkedList<Inter> inter;
 
 	@Override
-	public InterR[] getInter() {
+	public InterReader[] getInter() {
 		// TODO Auto-generated method stub
 		return inter.toArray(new Inter[0]);
 	}
@@ -38,7 +38,7 @@ public class PathInGraphBuilder implements PathInGraph {
 	 * 
 	 * @param inter element to add at the begining
 	 */
-	public void addFront(InterR inter) {
+	public void addFront(InterReader inter) {
 	}
 
 	/**

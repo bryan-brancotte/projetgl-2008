@@ -1,16 +1,17 @@
 package tools.Algorithm;
 
 import graphNetwork.GraphNetworkReader;
-import graphNetwork.PathInGraph;
-import graphNetwork.StationR;
+import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphReader;
+import graphNetwork.StationReader;
 import iGoMaster.Algo;
-
 
 public class Dijkstra implements Algo {
 
 	@Override
-	public PathInGraph findPath(StationR origine, StationR destination, GraphNetworkReader graph) {
+	public PathInGraphReader findPath(StationReader origine, StationReader destination, GraphNetworkReader graph,
+			PathInGraphBuilder pathInGraphBuilder) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

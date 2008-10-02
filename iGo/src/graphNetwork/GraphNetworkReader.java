@@ -7,21 +7,21 @@ public interface GraphNetworkReader {
 	 * 
 	 * @return Returns the services.
 	 */
-	public ServiceR[] getServicesR();
+	public ServiceReader[] getServicesR();
 
 	/**
 	 * Getter of stations. Give all the stations of the network in readOnlyMode.
 	 * 
 	 * @return Returns the stations.
 	 */
-	public StationR[] getStationsR();
+	public StationReader[] getStationsR();
 
 	/**
 	 * Getter of routes. Give all the route (line) of the network in readOnlyMode.
 	 * 
 	 * @return Returns the routes.
 	 */
-	public RouteR[] getRoutesR();
+	public RouteReader[] getRoutesR();
 
 	/**
 	 * Search and return in readOnlyMode the service who have this id.
@@ -30,7 +30,7 @@ public interface GraphNetworkReader {
 	 *            the id of the service to find
 	 * @return the service
 	 */
-	public abstract ServiceR getServiceR(int id);
+	public abstract ServiceReader getServiceR(int id);
 
 	/**
 	 * Return the first service in readOnlyMode who have this name.
@@ -39,7 +39,7 @@ public interface GraphNetworkReader {
 	 *            the name of the service to find
 	 * @return the service
 	 */
-	public abstract ServiceR getServiceR(String name);
+	public abstract ServiceReader getServiceR(String name);
 
 	/**
 	 * Search and return in readOnlyMode the station who have this id.
@@ -48,7 +48,7 @@ public interface GraphNetworkReader {
 	 *            the id of the station to find
 	 * @return the service
 	 */
-	public abstract StationR getStationR(int id);
+	public abstract StationReader getStationR(int id);
 
 	/**
 	 * Return the first station in readOnlyMode who have this name.
@@ -57,7 +57,7 @@ public interface GraphNetworkReader {
 	 *            the name of the station to find
 	 * @return the service
 	 */
-	public abstract StationR getStationR(String name);
+	public abstract StationReader getStationR(String name);
 
 	/**
 	 * Search and return in readOnlyMode the route who have this id.
@@ -66,7 +66,7 @@ public interface GraphNetworkReader {
 	 *            the id of the route to find
 	 * @return the route
 	 */
-	public abstract RouteR getRouteR(int id);
+	public abstract RouteReader getRouteR(int id);
 
 	/**
 	 * Return the first route in readOnlyMode who have this name.
@@ -75,5 +75,5 @@ public interface GraphNetworkReader {
 	 *            the name of the route to find
 	 * @return the route
 	 */
-	public abstract RouteR getRouteR(String name);
+	public abstract RouteReader getRouteR(String name);
 }

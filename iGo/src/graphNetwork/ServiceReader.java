@@ -1,6 +1,6 @@
 package graphNetwork;
 
-public interface ServiceR {
+public interface ServiceReader {
 
 	/* (non-Javadoc)
 	 * @see graphNetwork.ServiceReader#getShortDescription()

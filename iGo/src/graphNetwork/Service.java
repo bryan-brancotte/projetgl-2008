@@ -1,6 +1,6 @@
 package graphNetwork;
 
-public class Service implements ServiceR {
+public class Service implements ServiceReader {
 
 	/**
 	 * @uml.property name="shortDescription"
