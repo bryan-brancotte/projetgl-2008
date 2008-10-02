@@ -1,15 +1,14 @@
 package graphNetwork;
 
-
 import java.util.LinkedList;
 
-public class Route implements RouteR {
+public class Route implements RouteReader {
 
-	/** 
+	/**
 	 * @uml.property name="stations"
 	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="routes:graphNetwork.Station"
 	 */
-	private LinkedList stations;
+	private LinkedList<Station> stations;
 
 	/**
 	 * @uml.property name="id"
@@ -18,10 +17,12 @@ public class Route implements RouteR {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see graphNetwork.RouteReader#getId()
 	 */
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see graphNetwork.RouteR#getId()
 	 */
 	public String getId() {
@@ -35,46 +36,51 @@ public class Route implements RouteR {
 
 	/**
 	 * Setter of the property <tt>id</tt>
+	 * 
 	 * @param id
-	 *        The id to set.
+	 *            The id to set.
 	 * @uml.property name="id"
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public StationR[] getStationsR() {
-		return this.getStations().toArray(new StationR[0]);
+	public StationReader[] getStationsR() {
+		return null;// this.getStations().toArray(new StationR[0]);
 	}
 
-	/** 
+	/**
 	 * Getter of the property <tt>stations</tt>
-	 * @return  Returns the station.
-	 * @uml.property  name="stations"
+	 * 
+	 * @return Returns the station.
+	 * @uml.property name="stations"
 	 */
-	public LinkedList getStations() {
+	public LinkedList<Station> getStations() {
 		return stations;
 	}
 
-	/** 
+	/**
 	 * Setter of the property <tt>stations</tt>
-	 * @param stations  The station to set.
-	 * @uml.property  name="stations"
+	 * 
+	 * @param stations
+	 *            The station to set.
+	 * @uml.property name="stations"
 	 */
-	public void setStations(LinkedList stations) {
+	public void setStations(LinkedList<Station> stations) {
 		this.stations = stations;
 	}
 
 	/**
-	 * @uml.property  name="kindRoute"
-	 * @uml.associationEnd  inverse="route:graphNetwork.KindRoute"
+	 * @uml.property name="kindRoute"
+	 * @uml.associationEnd inverse="route:graphNetwork.KindRoute"
 	 */
 	private KindRoute kindRoute;
 
 	/**
 	 * Getter of the property <tt>kindRoute</tt>
-	 * @return  Returns the kindRoute.
-	 * @uml.property  name="kindRoute"
+	 * 
+	 * @return Returns the kindRoute.
+	 * @uml.property name="kindRoute"
 	 */
 	public KindRoute getKindRoute() {
 		return kindRoute;
@@ -82,8 +88,10 @@ public class Route implements RouteR {
 
 	/**
 	 * Setter of the property <tt>kindRoute</tt>
-	 * @param kindRoute  The kindRoute to set.
-	 * @uml.property  name="kindRoute"
+	 * 
+	 * @param kindRoute
+	 *            The kindRoute to set.
+	 * @uml.property name="kindRoute"
 	 */
 	public void setKindRoute(KindRoute kindRoute) {
 		this.kindRoute = kindRoute;

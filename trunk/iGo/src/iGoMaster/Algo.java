@@ -1,14 +1,22 @@
 package iGoMaster;
 
-
 import graphNetwork.GraphNetworkReader;
-import graphNetwork.PathInGraph;
-import graphNetwork.StationR;
+import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphReader;
+import graphNetwork.StationReader;
 
 public interface Algo {
 
+	// TODO
 	/**
+	 * 
+	 * @param origine
+	 * @param destination
+	 * @param graph
+	 * @param pathInGraphBuilder
+	 * @return
 	 */
-	public abstract PathInGraph findPath(StationR origine, StationR destination, GraphNetworkReader graph);
+	public abstract PathInGraphReader findPath(StationReader origine, StationReader destination,
+			GraphNetworkReader graph, PathInGraphBuilder pathInGraphBuilder);
 
 }

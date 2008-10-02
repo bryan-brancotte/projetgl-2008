@@ -1,6 +1,6 @@
 package graphNetwork;
 
-public interface PathInGraph   {
+public interface PathInGraphReader   {
 
 	/**
 	 * Retourne un chaine décrivant le chemin à faire station par station
@@ -13,7 +13,7 @@ public interface PathInGraph   {
 	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List"
 	 *                     inverse="pathInGraph:graphNetwork.Inter"
 	 */
-	public InterR[] getInter();
+	public InterReader[] getInter();
 
 	/**
 	 * Retourne le coût du trajet

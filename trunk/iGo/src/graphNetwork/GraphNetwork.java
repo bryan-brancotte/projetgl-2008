@@ -99,7 +99,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public RouteR[] getRoutesR() {
+	public RouteReader[] getRoutesR() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -128,7 +128,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public ServiceR[] getServicesR() {
+	public ServiceReader[] getServicesR() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -158,7 +158,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public StationR[] getStationsR() {
+	public StationReader[] getStationsR() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -211,37 +211,37 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public RouteR getRouteR(int id) {
+	public RouteReader getRouteR(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RouteR getRouteR(String name) {
+	public RouteReader getRouteR(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ServiceR getServiceR(int id) {
+	public ServiceReader getServiceR(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ServiceR getServiceR(String name) {
+	public ServiceReader getServiceR(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StationR getStationR(int id) {
+	public StationReader getStationR(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StationR getStationR(String name) {
+	public StationReader getStationR(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

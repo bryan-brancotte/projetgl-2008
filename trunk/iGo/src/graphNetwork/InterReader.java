@@ -1,16 +1,16 @@
 package graphNetwork;
 
 
-public interface InterR {
+public interface InterReader {
 
 	public abstract byte getTimeBetweenStations();
 
 	public abstract String getKindOfInter();
 
-	public abstract StationR getOtherStationR(StationR me);
+	public abstract StationReader getOtherStationR(StationReader me);
 
 	public abstract float getCost();
 
-	public abstract RouteR getOtherRouteR(StationR me);
+	public abstract RouteReader getOtherRouteR(StationReader me);
 
 }
