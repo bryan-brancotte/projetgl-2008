@@ -2,43 +2,31 @@ package graphNetwork;
 
 public class Service implements ServiceR {
 
-	/** 
+	/**
 	 * @uml.property name="shortDescription"
 	 */
 	private String shortDescription = "";
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getShortDescription()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getShortDescription()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceR#getShortDescription()
-	 */
 	public String getShortDescription() {
 		return shortDescription;
 	}
 
-	/** 
+	/**
 	 * @uml.property name="id"
 	 */
-	private String id = "";
+	private int id;
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getId()
+	/**
+	 * Getter of the property <tt>id</tt>
+	 * 
+	 * @return Returns the id.
+	 * @uml.property name="id"
 	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getId()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceR#getId()
-	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public Service(String shortDescription, String id) {
+	public Service(String shortDescription, int id) {
 		super();
 		this.shortDescription = shortDescription;
 		this.id = id;
@@ -46,8 +34,10 @@ public class Service implements ServiceR {
 
 	/**
 	 * Setter of the property <tt>shortDescription</tt>
-	 * @param shortDescription  The shortDescription to set.
-	 * @uml.property  name="shortDescription"
+	 * 
+	 * @param shortDescription
+	 *            The shortDescription to set.
+	 * @uml.property name="shortDescription"
 	 */
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
@@ -55,10 +45,12 @@ public class Service implements ServiceR {
 
 	/**
 	 * Setter of the property <tt>id</tt>
-	 * @param id  The id to set.
-	 * @uml.property  name="id"
+	 * 
+	 * @param id
+	 *            The id to set.
+	 * @uml.property name="id"
 	 */
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

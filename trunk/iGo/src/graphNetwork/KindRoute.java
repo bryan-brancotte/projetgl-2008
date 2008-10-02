@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package graphNetwork;
 
 import java.util.LinkedList;
 

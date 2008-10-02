@@ -1,63 +1,13 @@
 package graphNetwork;
 
+import graphNetwork.exception.StationNotOnRoadException;
+import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.MissingResourceException;
 
 public class GraphNetwork implements GraphNetworkBuilder {
-
-	/**
-	 * @uml.property name="stations"
-	 * @uml.associationEnd multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
-	 */
-	private LinkedList<Station> stations;
-
-	/**
-	 * Getter of the property <tt>stations</tt>
-	 * 
-	 * @return Returns the stations.
-	 * @uml.property name="stations"
-	 */
-	public LinkedList<Station> getStations() {
-
-		return stations;
-	}
-
-	/**
-	 * Setter of the property <tt>stations</tt>
-	 * 
-	 * @param stations
-	 *        The stations to set.
-	 * @uml.property name="stations"
-	 */
-	public void setStations(Collection<Station> stations) {
-		this.stations = new LinkedList<Station>(stations);
-	}
-
-	/**
-	 * @uml.property name="services"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="graphNetwork:graphNetwork.Service"
-	 */
-	private LinkedList<Service> services;
-
-	/**
-	 * Getter of the property <tt>services</tt>
-	 * @return Returns the services.
-	 * @uml.property name="services"
-	 */
-	public LinkedList<Service> getServices() {
-		return services;
-	}
-
-	/**
-	 * Setter of the property <tt>services</tt>
-	 * @param services
-	 *        The services to set.
-	 * @uml.property name="services"
-	 */
-	public void setServices(LinkedList<Service> services) {
-		this.services = services;
-	}
 
 	/**
 	 * @uml.property name="routes"
@@ -66,43 +16,250 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	private LinkedList<Route> routes;
 
 	/**
+	 * @uml.property name="services"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="graphNetwork:graphNetwork.Service"
+	 */
+	private LinkedList<Service> services;
+
+	/**
+	 * @uml.property name="stations"
+	 * @uml.associationEnd multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
+	 */
+	private LinkedList<Station> stations;
+
+	@Override
+	public Route addRoute(Route nvRoute) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Route addRoute(String id, String name) throws ViolationOfUnicityInIdentificationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Service addService(int id, String name) throws ViolationOfUnicityInIdentificationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Service addService(Service nvService) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addServiceToStation(Station station, Service service) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Station addStation(int id, String name) throws ViolationOfUnicityInIdentificationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Station addStation(Station nvStation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addStationToRoute(Route origine, Station stationToAdd, byte time) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Collection<Inter> getInters(Station stationA, Station stationB) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Route getRoute(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Route getRoute(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
 	 * Getter of the property <tt>routes</tt>
+	 * 
 	 * @return Returns the routes.
 	 * @uml.property name="routes"
 	 */
+	@Override
 	public LinkedList<Route> getRoutes() {
 		return routes;
 	}
 
+	@Override
+	public RouteR[] getRoutesR() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Service getService(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Service getService(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Getter of the property <tt>services</tt>
+	 * 
+	 * @return Returns the services.
+	 * @uml.property name="services"
+	 */
+	@Override
+	public LinkedList<Service> getServices() {
+		return services;
+	}
+
+	@Override
+	public ServiceR[] getServicesR() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Station getStation(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Station getStation(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Getter of the property <tt>stations</tt>
+	 * 
+	 * @return Returns the stations.
+	 * @uml.property name="stations"
+	 */
+	@Override
+	public LinkedList<Station> getStations() {
+
+		return stations;
+	}
+
+	@Override
+	public StationR[] getStationsR() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void linkStation(Route routeOrigin, Station stationOrigin, Route routeDestination,
+			Station stationDestination, float cost, byte time, boolean pedestrian) throws StationNotOnRoadException,
+			MissingResourceException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+
+	}
+
 	/**
 	 * Setter of the property <tt>routes</tt>
+	 * 
 	 * @param routes
-	 *        The routes to set.
+	 *            The routes to set.
 	 * @uml.property name="routes"
 	 */
 	public void setRoutes(LinkedList<Route> routes) {
 		this.routes = routes;
 	}
 
-	public void endBuilding() {
+	/**
+	 * Setter of the property <tt>services</tt>
+	 * 
+	 * @param services
+	 *            The services to set.
+	 * @uml.property name="services"
+	 */
+	public void setServices(LinkedList<Service> services) {
+		this.services = services;
+	}
+
+	/**
+	 * Setter of the property <tt>stations</tt>
+	 * 
+	 * @param stations
+	 *            The stations to set.
+	 * @uml.property name="stations"
+	 */
+	public void setStations(Collection<Station> stations) {
+		this.stations = new LinkedList<Station>(stations);
+	}
+
+	@Override
+	public RouteR getRouteR(int id) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
-	public void reset() {
+	@Override
+	public RouteR getRouteR(String name) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
-	public RouteR[] getRoutesR() {
-		return this.getRoutes().toArray(new RouteR[0]);
+	@Override
+	public ServiceR getServiceR(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public ServiceR[] getServicesR() {
-		return this.getServices().toArray(new ServiceR[0]);
+	@Override
+	public ServiceR getServiceR(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public StationR[] getStationsR() {
-		return this.getStations().toArray(new StationR[0]);
+	@Override
+	public StationR getStationR(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StationR getStationR(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Route addRoute(String id, String name, String kinfOf) throws ViolationOfUnicityInIdentificationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<String> getKinds() {
+		return KindRoute.getKinds();
 	}
 }
