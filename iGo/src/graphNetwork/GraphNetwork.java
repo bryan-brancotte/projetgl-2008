@@ -34,12 +34,6 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public Route addRoute(String id, String name) throws ViolationOfUnicityInIdentificationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Service addService(int id, String name) throws ViolationOfUnicityInIdentificationException {
 		// TODO Auto-generated method stub
 		return null;
