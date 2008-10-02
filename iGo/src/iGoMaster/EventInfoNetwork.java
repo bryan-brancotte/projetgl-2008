@@ -14,11 +14,8 @@ public abstract class EventInfoNetwork extends Observable {
 	 */
 	public abstract void stopWatching();
 
-		
-		/**
-		 */
-		public int getStatus(){
-			return 0;
-		}
+	/**
+	 */
+	public abstract EventInfoNetWorkStatus getStatus() ;
 
 }

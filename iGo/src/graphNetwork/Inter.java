@@ -1,9 +1,6 @@
 package graphNetwork;
 
-
 public abstract class Inter implements InterReader {
-
-	private boolean lock = false;
 
 	/**
 	 * @uml.property name="stationB"
@@ -19,6 +16,7 @@ public abstract class Inter implements InterReader {
 
 	/**
 	 * Getter of the property <tt>stationA</tt>
+	 * 
 	 * @return Returns the stationA.
 	 * @uml.property name="stationA"
 	 */
@@ -28,8 +26,9 @@ public abstract class Inter implements InterReader {
 
 	/**
 	 * Setter of the property <tt>stationA</tt>
+	 * 
 	 * @param stationA
-	 *        The stationA to set.
+	 *            The stationA to set.
 	 * @uml.property name="stationA"
 	 */
 	public void setStationA(Station stationA) {
@@ -50,7 +49,7 @@ public abstract class Inter implements InterReader {
 	 * Setter of the property <tt>stationB</tt>
 	 * 
 	 * @param stationB
-	 *        The station to set.
+	 *            The station to set.
 	 * @uml.property name="stationB"
 	 */
 	public void setStationB(Station stationB) {
@@ -77,7 +76,7 @@ public abstract class Inter implements InterReader {
 	 * Setter of the property <tt>routeA</tt>
 	 * 
 	 * @param routeA
-	 *        The routeA to set.
+	 *            The routeA to set.
 	 * @uml.property name="routeA"
 	 */
 	public void setRouteA(RouteReader routeA) {
@@ -106,7 +105,7 @@ public abstract class Inter implements InterReader {
 	 * Setter of the property <tt>routeB</tt>
 	 * 
 	 * @param routeB
-	 *        The routeB to set.
+	 *            The routeB to set.
 	 * @uml.property name="routeB"
 	 */
 	public void setRouteB(RouteReader routeB) {
@@ -120,6 +119,7 @@ public abstract class Inter implements InterReader {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see graphNetwork.InterR#getTimeBetweenStations()
 	 */
 	public byte getTimeBetweenStations() {
@@ -133,6 +133,7 @@ public abstract class Inter implements InterReader {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see graphNetwork.InterR#getCost()
 	 */
 	public float getCost() {
@@ -143,11 +144,10 @@ public abstract class Inter implements InterReader {
 	 * Setter of the property <tt>timeBetweenStations</tt>
 	 * 
 	 * @param timeBetweenStations
-	 *        The timeBetweenStations to set.
+	 *            The timeBetweenStations to set.
 	 * @uml.property name="timeBetweenStations"
 	 */
 	public void setTimeBetweenStations(byte timeBetweenStations) {
-		if (lock) return;
 		this.timeBetweenStations = timeBetweenStations;
 	}
 
@@ -155,11 +155,10 @@ public abstract class Inter implements InterReader {
 	 * Setter of the property <tt>cost</tt>
 	 * 
 	 * @param cost
-	 *        The cost to set.
+	 *            The cost to set.
 	 * @uml.property name="cost"
 	 */
 	public void setCost(float cost) {
-		if (lock) return;
 		this.cost = cost;
 	}
 
@@ -168,25 +167,27 @@ public abstract class Inter implements InterReader {
 	}
 
 	/**
+	 * return the other station of an inter. You have to give one station to give the other
+	 * 
+	 * @param me
+	 *            the station you know in the inter
+	 * @return the other station, or null of the specified station isn't one of the two station
 	 */
-	public Route getOtherRoute(StationReader me) {
-		return null;//this.getOtherStation(me).getRoute();
+	public Station getOtherStation(StationReader me) {
+		if (me.getId() == this.getStationA().getId())
+			return this.getStationB();
+		if (me.getId() == this.getStationB().getId())
+			return this.getStationB();
+		return null;
 	}
 
 	/**
+	 * return the other station of an inter in readOnly mode. You have to give one station to give the other
+	 * 
+	 * @param me
+	 *            the station or stationReader you know in the inter
+	 * @return the other stationReader, or null of the specified station isn't one of the two station
 	 */
-	public Station getOtherStation(StationReader me) {
-		if (me.getId() == this.getStationA().getId()) {
-			return this.getStationB();
-		} else {
-			return this.getStationA();
-		}
-	}
-
-	public RouteReader getOtherRouteR(StationReader me) {
-		return this.getOtherRoute(me);
-	}
-
 	public StationReader getOtherStationR(StationReader me) {
 		return this.getOtherStation(me);
 	}

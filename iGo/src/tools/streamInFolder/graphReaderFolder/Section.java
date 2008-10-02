@@ -10,14 +10,14 @@ public class Section {
 	 * @uml.property   name="SectionStationsList"
 	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="section:tools.streamInFolder.graphReaderFolder.Station"
 	 */
-	private LinkedList sectionStationsList;
+	private LinkedList<Service> sectionStationsList;
 
 	/** 
 	 * Getter of the property <tt>SectionStationsList</tt>
 	 * @return  Returns the sectionStationsList.
 	 * @uml.property  name="SectionStationsList"
 	 */
-	public LinkedList getSectionStationsList() {
+	public LinkedList<Service> getSectionStationsList() {
 		return sectionStationsList;
 	}
 
@@ -44,7 +44,7 @@ public class Section {
 	 * @param SectionStationsList  The sectionStationsList to set.
 	 * @uml.property  name="SectionStationsList"
 	 */
-	public void setSectionStationsList(LinkedList sectionStationsList) {
+	public void setSectionStationsList(LinkedList<Service> sectionStationsList) {
 		this.sectionStationsList = sectionStationsList;
 	}
 

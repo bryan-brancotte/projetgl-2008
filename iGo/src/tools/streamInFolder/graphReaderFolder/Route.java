@@ -10,14 +10,14 @@ public class Route {
 	 * @uml.property   name="RouteSectionsList"
 	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="route:tools.streamInFolder.graphReaderFolder.Section"
 	 */
-	private LinkedList routeSectionsList;
+	private LinkedList<Route> routeSectionsList;
 
 	/** 
 	 * Getter of the property <tt>RouteSectionsList</tt>
 	 * @return  Returns the routeSectionsList.
 	 * @uml.property  name="RouteSectionsList"
 	 */
-	public LinkedList getRouteSectionsList() {
+	public LinkedList<Route> getRouteSectionsList() {
 		return routeSectionsList;
 	}
 
@@ -26,7 +26,7 @@ public class Route {
 	 * @param RouteSectionsList  The routeSectionsList to set.
 	 * @uml.property  name="RouteSectionsList"
 	 */
-	public void setRouteSectionsList(LinkedList routeSectionsList) {
+	public void setRouteSectionsList(LinkedList<Route> routeSectionsList) {
 		this.routeSectionsList = routeSectionsList;
 	}
 

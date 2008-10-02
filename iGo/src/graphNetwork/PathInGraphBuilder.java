@@ -1,5 +1,6 @@
 package graphNetwork;
 
+import String;
 import java.util.LinkedList;
 
 public class PathInGraphBuilder implements PathInGraphReader {
@@ -46,5 +47,18 @@ public class PathInGraphBuilder implements PathInGraphReader {
 	 */
 	public void flush() {
 	}
+
+		
+		/**
+		 */
+		public String exportPath(){
+			return "";	
+		}
+
+			
+			/**
+			 */
+			public void importPath(String pathInString){
+			}
 
 }
