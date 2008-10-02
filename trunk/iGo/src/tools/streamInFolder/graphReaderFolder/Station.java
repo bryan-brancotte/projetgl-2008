@@ -27,14 +27,14 @@ public class Station {
 	 * @uml.property   name="StationServicesList"
 	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="station:tools.streamInFolder.graphReaderFolder.Service"
 	 */
-	private Collection stationServicesList;
+	private Collection<Service> stationServicesList;
 
 	/** 
 	 * Getter of the property <tt>StationServicesList</tt>
 	 * @return  Returns the stationServicesList.
 	 * @uml.property  name="StationServicesList"
 	 */
-	public Collection getStationServicesList() {
+	public Collection<Service> getStationServicesList() {
 		return stationServicesList;
 	}
 
@@ -43,7 +43,7 @@ public class Station {
 	 * @param StationServicesList  The stationServicesList to set.
 	 * @uml.property  name="StationServicesList"
 	 */
-	public void setStationServicesList(Collection stationServicesList) {
+	public void setStationServicesList(Collection<Service> stationServicesList) {
 		this.stationServicesList = stationServicesList;
 	}
 

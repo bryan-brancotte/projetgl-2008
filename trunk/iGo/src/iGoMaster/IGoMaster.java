@@ -239,4 +239,28 @@ public class IGoMaster implements Master, Observer {
 		this.graphNetworkBuilder = graphNetworkBuilder;
 	}
 
+	/**
+	 * @uml.property  name="eventInfoNetwork"
+	 * @uml.associationEnd  inverse="iGoMaster:iGoMaster.EventInfoNetwork"
+	 */
+	private EventInfoNetwork eventInfoNetwork;
+
+	/**
+	 * Getter of the property <tt>eventInfoNetwork</tt>
+	 * @return  Returns the eventInfoNetwork.
+	 * @uml.property  name="eventInfoNetwork"
+	 */
+	public EventInfoNetwork getEventInfoNetwork() {
+		return eventInfoNetwork;
+	}
+
+	/**
+	 * Setter of the property <tt>eventInfoNetwork</tt>
+	 * @param eventInfoNetwork  The eventInfoNetwork to set.
+	 * @uml.property  name="eventInfoNetwork"
+	 */
+	public void setEventInfoNetwork(EventInfoNetwork eventInfoNetwork) {
+		this.eventInfoNetwork = eventInfoNetwork;
+	}
+
 }

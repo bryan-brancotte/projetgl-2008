@@ -9,14 +9,14 @@ public class Interchange {
 	 * @uml.property   name="Endlist"
 	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="interchange:tools.streamInFolder.graphReaderFolder.Couple"
 	 */
-	private Collection endlist;
+	private Collection<Couple> endlist;
 
 	/**
 	 * Getter of the property <tt>Endlist</tt>
 	 * @return  Returns the endlist.
 	 * @uml.property  name="Endlist"
 	 */
-	public Collection getEndlist() {
+	public Collection<Couple> getEndlist() {
 		return endlist;
 	}
 
@@ -25,7 +25,7 @@ public class Interchange {
 	 * @param Endlist  The endlist to set.
 	 * @uml.property  name="Endlist"
 	 */
-	public void setEndlist(Collection endlist) {
+	public void setEndlist(Collection<Couple> endlist) {
 		this.endlist = endlist;
 	}
 

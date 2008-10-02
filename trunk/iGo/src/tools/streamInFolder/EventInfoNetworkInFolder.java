@@ -1,5 +1,6 @@
 package tools.streamInFolder;
 
+import iGoMaster.EventInfoNetWorkStatus;
 import iGoMaster.EventInfoNetwork;
 import iGoMaster.exception.ImpossibleStartingException;
 
@@ -15,4 +16,9 @@ public class EventInfoNetworkInFolder extends EventInfoNetwork {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public EventInfoNetWorkStatus getStatus() {
+		//TODO statu en fonction de l'état du thread de veille
+		return EventInfoNetWorkStatus.OFFLINE;
+	}
 }
