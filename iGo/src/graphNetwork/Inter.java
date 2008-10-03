@@ -60,7 +60,7 @@ public abstract class Inter implements InterReader {
 	 * @uml.property name="routeA"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private RouteReader routeA;
+	private Route routeA;
 
 	/**
 	 * Getter of the property <tt>routeA</tt>
@@ -68,7 +68,7 @@ public abstract class Inter implements InterReader {
 	 * @return Returns the routeA.
 	 * @uml.property name="routeA"
 	 */
-	public RouteReader getRouteA() {
+	public Route getRouteA() {
 		return routeA;
 	}
 
@@ -79,7 +79,7 @@ public abstract class Inter implements InterReader {
 	 *            The routeA to set.
 	 * @uml.property name="routeA"
 	 */
-	public void setRouteA(RouteReader routeA) {
+	public void setRouteA(Route routeA) {
 		this.routeA = routeA;
 	}
 
@@ -87,7 +87,7 @@ public abstract class Inter implements InterReader {
 	 * @uml.property name="routeB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
 	 */
-	private RouteReader routeB;
+	private Route routeB;
 
 	/**
 	 * Getter of the property <tt>routeB</tt>
@@ -95,7 +95,7 @@ public abstract class Inter implements InterReader {
 	 * @return Returns the routeB.
 	 * @uml.property name="routeB"
 	 */
-	public RouteReader getRouteB()
+	public Route getRouteB()
 
 	{
 		return routeB;
@@ -108,7 +108,7 @@ public abstract class Inter implements InterReader {
 	 *            The routeB to set.
 	 * @uml.property name="routeB"
 	 */
-	public void setRouteB(RouteReader routeB) {
+	public void setRouteB(Route routeB) {
 		this.routeB = routeB;
 	}
 
@@ -177,7 +177,7 @@ public abstract class Inter implements InterReader {
 		if (me.getId() == this.getStationA().getId())
 			return this.getStationB();
 		if (me.getId() == this.getStationB().getId())
-			return this.getStationB();
+			return this.getStationA();
 		return null;
 	}
 
@@ -190,6 +190,33 @@ public abstract class Inter implements InterReader {
 	 */
 	public StationReader getOtherStationR(StationReader me) {
 		return this.getOtherStation(me);
+	}
+
+	/**
+	 * return the route of other station of an inter. You have to give one station to give the other
+	 * 
+	 * @param me
+	 *            the station you know in the inter
+	 * @return the route of other station, or null of the specified station isn't one of the two station
+	 */
+	public Route getOtherRoute(StationReader me) {
+		if (me.getId() == this.getStationA().getId())
+			return this.getRouteB();
+		if (me.getId() == this.getStationB().getId())
+			return this.getRouteA();
+		return null;
+	}
+
+	/**
+	 * return the route of the other station of an inter in readOnly mode. You have to give one station to give the
+	 * other
+	 * 
+	 * @param me
+	 *            the station or stationReader you know in the inter
+	 * @return the route of other stationReader, or null of the specified station isn't one of the two station
+	 */
+	public RouteReader getOtherRouteR(StationReader me) {
+		return this.getOtherRoute(me);
 	}
 
 }
