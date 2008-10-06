@@ -1,7 +1,7 @@
 package iGoMaster;
 
 public enum EventInfoNetWorkStatus {
-	NO_NEW_UPDATE(1), STOPPED(2), STARTED(3), OFFLINE(4);
+	NO_NEW_UPDATE(1), STOPPED(2), STARTED(3), OFFLINE(4), NEW_UPDATE(5);
 
 	protected int val;
 

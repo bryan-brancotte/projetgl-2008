@@ -8,10 +8,9 @@ public interface PathInGraphReader   {
 	public String toString();
 
 	/**
-	 * @return Returns the inter.
-	 * @uml.property name="inter"
-	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List"
-	 *                     inverse="pathInGraph:graphNetwork.Inter"
+	 * @return   Returns the inter.
+	 * @uml.property   name="inter"
+	 * @uml.associationEnd   readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List" inverse="pathInGraph:graphNetwork.InterStation"
 	 */
 	public InterReader[] getInter();
 

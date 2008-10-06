@@ -97,4 +97,25 @@ public class Route implements RouteReader {
 		this.kindRoute = kindRoute;
 	}
 
+	/**
+	 * @uml.property name="enable"
+	 */
+	private boolean enable;
+
+	@Override
+	public boolean isEnable() {
+		return enable;
+	}
+
+	/**
+	 * Setter of the property <tt>enable</tt>
+	 * 
+	 * @param enable
+	 *            The enable to set.
+	 * @uml.property name="enable"
+	 */
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
 }

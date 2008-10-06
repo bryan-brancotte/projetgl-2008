@@ -1,6 +1,6 @@
 package graphNetwork;
 
-public abstract class Inter implements InterReader {
+public class Inter implements InterReader {
 
 	/**
 	 * @uml.property name="stationB"
@@ -217,6 +217,48 @@ public abstract class Inter implements InterReader {
 	 */
 	public RouteReader getOtherRouteR(StationReader me) {
 		return this.getOtherRoute(me);
+	}
+
+	/**
+	 * @uml.property  name="pedestrian"
+	 */
+	private boolean pedestrian;
+
+	/**
+	 * Getter of the property <tt>pedestrian</tt>
+	 * @return  Returns the pedestrian.
+	 * @uml.property  name="pedestrian"
+	 */
+	public boolean isPedestrian() {
+		return pedestrian;
+	}
+
+	/**
+	 * Setter of the property <tt>pedestrian</tt>
+	 * @param pedestrian  The pedestrian to set.
+	 * @uml.property  name="pedestrian"
+	 */
+	public void setPedestrian(boolean pedestrian) {
+		this.pedestrian = pedestrian;
+	}
+
+	/**
+	 * @uml.property  name="enable"
+	 */
+	private boolean enable;
+
+	@Override
+	public boolean isEnable() {
+		return enable;
+	}
+
+	/**
+	 * Setter of the property <tt>enable</tt>
+	 * @param enable  The enable to set.
+	 * @uml.property  name="enable"
+	 */
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
 
 }
