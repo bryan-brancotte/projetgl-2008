@@ -44,11 +44,6 @@ public interface Configuration {
 	public Collection<String> getParamsKey();
 
 	/**
-	 * Recharge la configuration,en cas de modification externe des fichiers de configurations
-	 */
-	public void reload();
-
-	/**
 	 * Enregistre dans le fichier de configuration les paramètres
 	 */
 	public void save();

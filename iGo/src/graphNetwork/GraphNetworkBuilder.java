@@ -230,10 +230,8 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 */
 	public abstract java.util.Collection<String> getKinds();
 
-		
-		/**
-		 */
-		public abstract PathInGraphBuilder getInstancePathInGraphBuilder();
-		
+	/**
+	 */
+	public abstract PathInGraphBuilder getInstancePathInGraphBuilder();
 
 }

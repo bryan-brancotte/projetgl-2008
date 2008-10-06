@@ -55,8 +55,7 @@ public class ConfigurationXML implements Configuration {
 			return "";
 		return ret;
 	}
-
-	@Override
+ 
 	public void reload() {
 		File ficConf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE);
 		if (!ficConf.exists()) {

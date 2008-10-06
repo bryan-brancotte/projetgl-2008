@@ -2,17 +2,16 @@ package graphNetwork;
 
 public interface ServiceReader {
 
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getShortDescription()
-	 */
-	/* (non-Javadoc)
-	 * @see graphNetwork.ServiceReader#getShortDescription()
+	/**
+	 * get a short desciption of the service
+	 * @return
 	 */
 	public abstract String getShortDescription();
 
-		
-		
-		public abstract int getId();
-		
+	/**
+	 * get the description
+	 * @return
+	 */
+	public abstract int getId();
 
 }
