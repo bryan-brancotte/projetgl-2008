@@ -1,6 +1,6 @@
 package graphNetwork;
 
-public interface PathInGraphReader   {
+public interface PathInGraphReader {
 
 	/**
 	 * Retourne un chaine décrivant le chemin à faire station par station
@@ -8,9 +8,10 @@ public interface PathInGraphReader   {
 	public String toString();
 
 	/**
-	 * @return   Returns the inter.
-	 * @uml.property   name="inter"
-	 * @uml.associationEnd   readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List" inverse="pathInGraph:graphNetwork.InterStation"
+	 * @return Returns the inter.
+	 * @uml.property name="inter"
+	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List"
+	 *                     inverse="pathInGraph:graphNetwork.InterStation"
 	 */
 	public InterReader[] getInter();
 
@@ -27,5 +28,11 @@ public interface PathInGraphReader   {
 	 * @return le temps
 	 */
 	public byte getTime();
+
+	/**
+	 * Exporte sous forme textuelle le chemin décrit dans l'objet
+	 * @return le chemin
+	 */
+	public abstract String exportPath();
 
 }
