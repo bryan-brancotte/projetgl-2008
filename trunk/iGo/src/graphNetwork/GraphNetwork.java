@@ -253,12 +253,22 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public Collection<String> getKinds() {
-		return KindRoute.getKinds();
+	public PathInGraphBuilder getInstancePathInGraphBuilder() {
+		return new PathInGraph(this);
 	}
 
 	@Override
-	public PathInGraphBuilder getInstancePathInGraphBuilder() {
+	public void addKind(String newKindOf) {
+		KindRoute.addKind(newKindOf);
+	}
+
+	@Override
+	public KindRouteReader getKindFromString(String kindOf) {
+		return KindRouteReader.getKindFromString(kindOf);
+	}
+
+	@Override
+	public KindRouteReader[] getKinds() {
 		// TODO Auto-generated method stub
 		return null;
 	}

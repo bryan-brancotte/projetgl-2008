@@ -1,5 +1,8 @@
 package graphNetwork;
 
+import KindRouteReader;
+import String;
+
 public interface GraphNetworkReader {
 
 	/**
@@ -76,4 +79,16 @@ public interface GraphNetworkReader {
 	 * @return the route
 	 */
 	public abstract RouteReader getRouteR(String name);
+
+		
+		/**
+		 */
+		public abstract KindRouteReader getKindFromString(String kindOf);
+
+			
+			/**
+			 */
+			public abstract KindRouteReader[] getKinds();
+			
+		
 }

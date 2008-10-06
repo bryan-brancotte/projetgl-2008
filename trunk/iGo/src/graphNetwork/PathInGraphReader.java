@@ -6,14 +6,12 @@ public interface PathInGraphReader {
 	 * Retourne un chaine décrivant le chemin à faire station par station
 	 */
 	public String toString();
-
+	
 	/**
-	 * @return Returns the inter.
-	 * @uml.property name="inter"
-	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" ordering="true" container="java.util.List"
-	 *                     inverse="pathInGraph:graphNetwork.InterStation"
+	 * 
+	 * @return
 	 */
-	public InterReader[] getInter();
+	public InterReader[] getInterR();
 
 	/**
 	 * Retourne le coût du trajet
@@ -34,5 +32,7 @@ public interface PathInGraphReader {
 	 * @return le chemin
 	 */
 	public abstract String exportPath();
+	
+	public abstract GraphNetworkReader getGraphR();
 
 }

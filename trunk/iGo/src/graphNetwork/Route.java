@@ -15,16 +15,6 @@ public class Route implements RouteReader {
 	 */
 	private String id = "";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see graphNetwork.RouteReader#getId()
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see graphNetwork.RouteR#getId()
-	 */
 	public String getId() {
 		return id;
 	}
@@ -83,6 +73,17 @@ public class Route implements RouteReader {
 	 * @uml.property name="kindRoute"
 	 */
 	public KindRoute getKindRoute() {
+		return kindRoute;
+	}
+
+	/**
+	 * Getter of the property <tt>kindRoute</tt>
+	 * 
+	 * @return Returns the kindRoute.
+	 * @uml.property name="kindRoute"
+	 */
+	@Override
+	public KindRouteReader getKindRouteR() {
 		return kindRoute;
 	}
 
