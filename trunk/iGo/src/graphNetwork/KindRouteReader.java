@@ -5,11 +5,10 @@ import java.util.Collection;
 public abstract class KindRouteReader {
 
 	/**
-	 * get the textual kind
-	 * 
-	 * @return the kind
+	 * @uml.property name="kinds"
+	 * @uml.associationEnd multiplicity="(0 -1)" inverse="kindRouteReader1:graphNetwork.KindRouteReader"
 	 */
-	public abstract String getKindOf();
+	protected static Collection<KindRouteReader> kinds;
 
 	/**
 	 * get the object KindRoute of the kind given in parameter.
@@ -22,6 +21,9 @@ public abstract class KindRouteReader {
 		return null;
 	}
 
+	/**
+	 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof KindRoute) {
@@ -32,10 +34,11 @@ public abstract class KindRouteReader {
 	}
 
 	/**
-	 * @uml.property name="kinds"
-	 * @uml.associationEnd multiplicity="(0 -1)" inverse="kindRouteReader1:graphNetwork.KindRouteReader"
+	 * get the textual kind
+	 * 
+	 * @return the kind
 	 */
-	protected static Collection<KindRouteReader> kinds;
+	public abstract String getKindOf();
 
 	/**
 	 * Getter of the property <tt>kinds</tt>

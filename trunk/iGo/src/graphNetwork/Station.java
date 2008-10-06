@@ -1,22 +1,18 @@
 package graphNetwork;
 
 import java.util.LinkedList;
-import java.util.Collection;
 
 public class Station implements StationReader {
 
-	/** 
-	 * @uml.property name="service"
-	 * @uml.associationEnd multiplicity="(0 -1)" inverse="station:graphNetwork.Service"
+	/**
+	 * @uml.property name="enable"
 	 */
-	private LinkedList<Service> service;
+	private boolean enable;
 
-	/** 
-	 * @uml.property  name="service"
+	/**
+	 * @uml.property name="id" readOnly="true"
 	 */
-	public LinkedList<Service> getService() {
-		return service;
-	}
+	private int id;
 
 	/**
 	 * @uml.property name="inter"
@@ -25,49 +21,40 @@ public class Station implements StationReader {
 	private LinkedList<Inter> inter;
 
 	/**
-	 * @uml.property   name="name" readOnly="true"
+	 * @uml.property name="name" readOnly="true"
 	 */
 	private String name = "";
 
-	public String getName() {
-		return name;
-	}
+	/**
+	 * @uml.property name="routes"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="stations:graphNetwork.Route"
+	 */
+	private LinkedList<Route> routes;
 
 	/**
-	 * @uml.property   name="id" readOnly="true"
+	 * @uml.property name="service"
+	 * @uml.associationEnd multiplicity="(0 -1)" inverse="station:graphNetwork.Service"
 	 */
-	private int id;
-
-	public int getId() {
-		return id;
-	}
-
-	public InterReader[] getInterchangeR() {
-		return this.getInter().toArray(new InterReader[0]);
-	}
+	private LinkedList<Service> service;
 
 	@Override
-	public ServiceReader[] getServiceR() {
-		return this.getService().toArray(new ServiceReader[0]);
+	public int getId() {
+		return id;
 	}
 
 	public LinkedList<Inter> getInter() {
 		return this.inter;
 	}
 
-	public void setInter(LinkedList<Inter> inter) {
-		this.inter = inter;
+	@Override
+	public InterReader[] getInterchangeR() {
+		return this.getInter().toArray(new InterReader[0]);
 	}
 
-	public RouteReader[] getRoutesR() {
-		return this.getRoutes().toArray(new RouteReader[0]);
+	@Override
+	public String getName() {
+		return name;
 	}
-
-	/**
-	 * @uml.property   name="routes"
-	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="stations:graphNetwork.Route"
-	 */
-	private LinkedList<Route> routes;
 
 	/**
 	 * Getter of the property <tt>routes</tt>
@@ -77,6 +64,43 @@ public class Station implements StationReader {
 	 */
 	public LinkedList<Route> getRoutes() {
 		return routes;
+	}
+
+	@Override
+	public RouteReader[] getRoutesR() {
+		return this.getRoutes().toArray(new RouteReader[0]);
+	}
+
+	/**
+	 * @uml.property name="service"
+	 */
+	public LinkedList<Service> getService() {
+		return service;
+	}
+
+	@Override
+	public ServiceReader[] getServiceR() {
+		return this.getService().toArray(new ServiceReader[0]);
+	}
+
+	@Override
+	public boolean isEnable() {
+		return enable;
+	}
+
+	/**
+	 * Setter of the property <tt>enable</tt>
+	 * 
+	 * @param enable
+	 *            true if you can steep down
+	 * @uml.property name="enable"
+	 */
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	public void setInter(LinkedList<Inter> inter) {
+		this.inter = inter;
 	}
 
 	/**
@@ -91,28 +115,11 @@ public class Station implements StationReader {
 	}
 
 	/**
-	 * @uml.property  name="enable"
-	 */
-	private boolean enable;
-	
-	@Override
-	public boolean isEnable() {
-		return enable;
-	}
-
-	/**
-	 * Setter of the property <tt>enable</tt> 
-	 * @param enable  true if you can steep down
-	 * @uml.property  name="enable"
-	 */
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-
-	/** 
 	 * Setter of the property <tt>service</tt>
-	 * @param service The service to set.
-	 * @uml.property  name="service"
+	 * 
+	 * @param service
+	 *            The service to set.
+	 * @uml.property name="service"
 	 */
 	public void setService(LinkedList<Service> service) {
 		this.service = service;

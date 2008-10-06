@@ -1,6 +1,5 @@
 package graphNetwork;
 
-import String;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
@@ -9,6 +8,13 @@ import java.util.LinkedList;
 import java.util.MissingResourceException;
 
 public interface GraphNetworkBuilder extends GraphNetworkReader {
+
+	/**
+	 * 
+	 * Add a new kind to the existing kinds 
+	 * @param newKindOf the name of the new kinds
+	 */
+	public abstract void addKind(String newKindOf);
 
 	/**
 	 * Add a new route to the routes' collection.
@@ -107,6 +113,12 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 *            the time between the previous station ans this one
 	 */
 	public abstract void addStationToRoute(Route origine, Station stationToAdd, byte time);
+
+	/**
+	 * Get a new instance of a PathInGraphBuilder linked to this graph
+	 * @return the new instance of the PathInGraph
+	 */
+	public abstract PathInGraphBuilder getInstancePathInGraphBuilder();
 
 	/**
 	 * Return the Inters which are between Station A and B
@@ -223,15 +235,5 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * Do a complet reset of the GraphNetworkBuilder
 	 */
 	public abstract void reset();
-
-	/**
-	 */
-	public abstract PathInGraphBuilder getInstancePathInGraphBuilder();
-
-		
-		/**
-		 */
-		public abstract void addKind(String newKindOf);
-		
 
 }

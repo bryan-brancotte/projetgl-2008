@@ -1,23 +1,32 @@
 package graphNetwork;
 
-import KindRouteReader;
-import String;
-
 public interface GraphNetworkReader {
 
 	/**
-	 * Getter of services. Give all the Services avaible in the network in readOnlyMode.
-	 * 
-	 * @return Returns the services.
 	 */
-	public ServiceReader[] getServicesR();
+	public abstract KindRouteReader getKindFromString(String kindOf);
 
 	/**
-	 * Getter of stations. Give all the stations of the network in readOnlyMode.
-	 * 
-	 * @return Returns the stations.
 	 */
-	public StationReader[] getStationsR();
+	public abstract KindRouteReader[] getKinds();
+
+	/**
+	 * Search and return in readOnlyMode the route who have this id.
+	 * 
+	 * @param id
+	 *            the id of the route to find
+	 * @return the route
+	 */
+	public abstract RouteReader getRouteR(int id);
+
+	/**
+	 * Return the first route in readOnlyMode who have this name.
+	 * 
+	 * @param name
+	 *            the name of the route to find
+	 * @return the route
+	 */
+	public abstract RouteReader getRouteR(String name);
 
 	/**
 	 * Getter of routes. Give all the route (line) of the network in readOnlyMode.
@@ -45,6 +54,13 @@ public interface GraphNetworkReader {
 	public abstract ServiceReader getServiceR(String name);
 
 	/**
+	 * Getter of services. Give all the Services avaible in the network in readOnlyMode.
+	 * 
+	 * @return Returns the services.
+	 */
+	public ServiceReader[] getServicesR();
+
+	/**
 	 * Search and return in readOnlyMode the station who have this id.
 	 * 
 	 * @param id
@@ -63,32 +79,10 @@ public interface GraphNetworkReader {
 	public abstract StationReader getStationR(String name);
 
 	/**
-	 * Search and return in readOnlyMode the route who have this id.
+	 * Getter of stations. Give all the stations of the network in readOnlyMode.
 	 * 
-	 * @param id
-	 *            the id of the route to find
-	 * @return the route
+	 * @return Returns the stations.
 	 */
-	public abstract RouteReader getRouteR(int id);
+	public StationReader[] getStationsR();
 
-	/**
-	 * Return the first route in readOnlyMode who have this name.
-	 * 
-	 * @param name
-	 *            the name of the route to find
-	 * @return the route
-	 */
-	public abstract RouteReader getRouteR(String name);
-
-		
-		/**
-		 */
-		public abstract KindRouteReader getKindFromString(String kindOf);
-
-			
-			/**
-			 */
-			public abstract KindRouteReader[] getKinds();
-			
-		
 }

@@ -28,7 +28,18 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	private LinkedList<Station> stations;
 
 	@Override
+	public void addKind(String newKindOf) {
+		KindRoute.addKind(newKindOf);
+	}
+
+	@Override
 	public Route addRoute(Route nvRoute) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Route addRoute(String id, String name, String kinfOf) throws ViolationOfUnicityInIdentificationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -70,7 +81,23 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
+	public PathInGraphBuilder getInstancePathInGraphBuilder() {
+		return new PathInGraph(this);
+	}
+
+	@Override
 	public Collection<Inter> getInters(Station stationA, Station stationB) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public KindRouteReader getKindFromString(String kindOf) {
+		return KindRouteReader.getKindFromString(kindOf);
+	}
+
+	@Override
+	public KindRouteReader[] getKinds() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -83,6 +110,18 @@ public class GraphNetwork implements GraphNetworkBuilder {
 
 	@Override
 	public Route getRoute(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RouteReader getRouteR(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RouteReader getRouteR(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -116,6 +155,18 @@ public class GraphNetwork implements GraphNetworkBuilder {
 		return null;
 	}
 
+	@Override
+	public ServiceReader getServiceR(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServiceReader getServiceR(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Getter of the property <tt>services</tt>
 	 * 
@@ -141,6 +192,18 @@ public class GraphNetwork implements GraphNetworkBuilder {
 
 	@Override
 	public Station getStation(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StationReader getStationR(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StationReader getStationR(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -208,68 +271,5 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 */
 	public void setStations(Collection<Station> stations) {
 		this.stations = new LinkedList<Station>(stations);
-	}
-
-	@Override
-	public RouteReader getRouteR(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public RouteReader getRouteR(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceReader getServiceR(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ServiceReader getServiceR(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StationReader getStationR(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StationReader getStationR(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Route addRoute(String id, String name, String kinfOf) throws ViolationOfUnicityInIdentificationException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PathInGraphBuilder getInstancePathInGraphBuilder() {
-		return new PathInGraph(this);
-	}
-
-	@Override
-	public void addKind(String newKindOf) {
-		KindRoute.addKind(newKindOf);
-	}
-
-	@Override
-	public KindRouteReader getKindFromString(String kindOf) {
-		return KindRouteReader.getKindFromString(kindOf);
-	}
-
-	@Override
-	public KindRouteReader[] getKinds() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

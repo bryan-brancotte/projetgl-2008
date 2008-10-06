@@ -3,18 +3,11 @@ package graphNetwork;
 public interface StationReader {
 
 	/**
-	 * give an array of all the routes in the station.
+	 * get the station's id
 	 * 
-	 * @return array of all the route. there's no information of order.
+	 * @return the id
 	 */
-	public abstract RouteReader[] getRoutesR();
-
-	/**
-	 * give all the services avaibles in the station (coffe, sauna,...)
-	 * 
-	 * @return array of the services avaibles
-	 */
-	public abstract ServiceReader[] getServiceR();
+	public abstract int getId();
 
 	/**
 	 * return all the intersection linked to this station
@@ -31,11 +24,18 @@ public interface StationReader {
 	public abstract String getName();
 
 	/**
-	 * get the station's id
+	 * give an array of all the routes in the station.
 	 * 
-	 * @return the id
+	 * @return array of all the route. there's no information of order.
 	 */
-	public abstract int getId();
+	public abstract RouteReader[] getRoutesR();
+
+	/**
+	 * give all the services avaibles in the station (coffe, sauna,...)
+	 * 
+	 * @return array of the services avaibles
+	 */
+	public abstract ServiceReader[] getServiceR();
 
 	/**
 	 * Allow to know if the station is enable, that mean if you can stepp down on this station

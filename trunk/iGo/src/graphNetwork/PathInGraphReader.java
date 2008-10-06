@@ -3,16 +3,11 @@ package graphNetwork;
 public interface PathInGraphReader {
 
 	/**
-	 * Retourne un chaine décrivant le chemin à faire station par station
+	 * Exporte sous forme textuelle le chemin décrit dans l'objet
+	 * @return le chemin
 	 */
-	public String toString();
+	public abstract String exportPath();
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public InterReader[] getInterR();
-
 	/**
 	 * Retourne le coût du trajet
 	 * 
@@ -21,18 +16,28 @@ public interface PathInGraphReader {
 	public float getCost();
 
 	/**
+	 * Retourne le graph dans lequel le path est valide
+	 * @return l'object graph en lecture seul
+	 */
+	public abstract GraphNetworkReader getGraphR();
+
+	/**
+	 * Retourne l'ensemble des inter qui constitue le chemin, dans l'ordre à utiliser
+	 * @return
+	 */
+	public InterReader[] getInterR();
+
+	/**
 	 * Retourne la durée du trajet
 	 * 
 	 * @return le temps
 	 */
 	public byte getTime();
-
-	/**
-	 * Exporte sous forme textuelle le chemin décrit dans l'objet
-	 * @return le chemin
-	 */
-	public abstract String exportPath();
 	
-	public abstract GraphNetworkReader getGraphR();
+	/**
+	 * Retourne un chaine décrivant le chemin à faire station par station
+	 * @return chaine equivalent
+	 */
+	public String toString();
 
 }

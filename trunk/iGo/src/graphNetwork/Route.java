@@ -5,66 +5,40 @@ import java.util.LinkedList;
 public class Route implements RouteReader {
 
 	/**
-	 * @uml.property name="stations"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="routes:graphNetwork.Station"
+	 * @uml.property name="enable"
 	 */
-	private LinkedList<Station> stations;
+	private boolean enable;
 
 	/**
 	 * @uml.property name="id"
 	 */
 	private String id = "";
 
-	public String getId() {
-		return id;
-	}
-
-	public Route(String id) {
-		super();
-		this.id = id;
-	}
-
-	/**
-	 * Setter of the property <tt>id</tt>
-	 * 
-	 * @param id
-	 *            The id to set.
-	 * @uml.property name="id"
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public StationReader[] getStationsR() {
-		return null;// this.getStations().toArray(new StationR[0]);
-	}
-
-	/**
-	 * Getter of the property <tt>stations</tt>
-	 * 
-	 * @return Returns the station.
-	 * @uml.property name="stations"
-	 */
-	public LinkedList<Station> getStations() {
-		return stations;
-	}
-
-	/**
-	 * Setter of the property <tt>stations</tt>
-	 * 
-	 * @param stations
-	 *            The station to set.
-	 * @uml.property name="stations"
-	 */
-	public void setStations(LinkedList<Station> stations) {
-		this.stations = stations;
-	}
-
 	/**
 	 * @uml.property name="kindRoute"
 	 * @uml.associationEnd inverse="route:graphNetwork.KindRoute"
 	 */
 	private KindRoute kindRoute;
+
+	/**
+	 * @uml.property name="stations"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="routes:graphNetwork.Station"
+	 */
+	private LinkedList<Station> stations;
+
+	/**
+	 * Construct a new object with a specified id.
+	 * 
+	 * @param id
+	 */
+	public Route(String id) {
+		super();
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
+	}
 
 	/**
 	 * Getter of the property <tt>kindRoute</tt>
@@ -88,20 +62,19 @@ public class Route implements RouteReader {
 	}
 
 	/**
-	 * Setter of the property <tt>kindRoute</tt>
+	 * Getter of the property <tt>stations</tt>
 	 * 
-	 * @param kindRoute
-	 *            The kindRoute to set.
-	 * @uml.property name="kindRoute"
+	 * @return Returns the station.
+	 * @uml.property name="stations"
 	 */
-	public void setKindRoute(KindRoute kindRoute) {
-		this.kindRoute = kindRoute;
+	public LinkedList<Station> getStations() {
+		return stations;
 	}
 
-	/**
-	 * @uml.property name="enable"
-	 */
-	private boolean enable;
+	@Override
+	public StationReader[] getStationsR() {
+		return this.getStations().toArray(new StationReader[0]);
+	}
 
 	@Override
 	public boolean isEnable() {
@@ -117,6 +90,39 @@ public class Route implements RouteReader {
 	 */
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	/**
+	 * Setter of the property <tt>id</tt>
+	 * 
+	 * @param id
+	 *            The id to set.
+	 * @uml.property name="id"
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * Setter of the property <tt>kindRoute</tt>
+	 * 
+	 * @param kindRoute
+	 *            The kindRoute to set.
+	 * @uml.property name="kindRoute"
+	 */
+	public void setKindRoute(KindRoute kindRoute) {
+		this.kindRoute = kindRoute;
+	}
+
+	/**
+	 * Setter of the property <tt>stations</tt>
+	 * 
+	 * @param stations
+	 *            The station to set.
+	 * @uml.property name="stations"
+	 */
+	public void setStations(LinkedList<Station> stations) {
+		this.stations = stations;
 	}
 
 }
