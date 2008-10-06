@@ -23,4 +23,11 @@ public interface RouteReader {
 	 */
 	public boolean isEnable();
 
+	/**
+	 * return the route's kind in readOnly mode
+	 * 
+	 * @return the kind
+	 */
+	public KindRouteReader getKindRouteR();
+
 }

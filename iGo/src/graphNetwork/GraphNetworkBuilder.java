@@ -1,5 +1,6 @@
 package graphNetwork;
 
+import String;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
@@ -224,14 +225,13 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	public abstract void reset();
 
 	/**
-	 * Return the all the kinds.
-	 * 
-	 * @return all the kind created
-	 */
-	public abstract java.util.Collection<String> getKinds();
-
-	/**
 	 */
 	public abstract PathInGraphBuilder getInstancePathInGraphBuilder();
+
+		
+		/**
+		 */
+		public abstract void addKind(String newKindOf);
+		
 
 }

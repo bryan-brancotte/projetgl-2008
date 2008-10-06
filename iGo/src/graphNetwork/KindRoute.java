@@ -2,7 +2,7 @@ package graphNetwork;
 
 import java.util.LinkedList;
 
-public class KindRoute {
+public class KindRoute extends KindRouteReader {
 
 	/**
 	 */
@@ -16,12 +16,6 @@ public class KindRoute {
 
 	/**
 	 */
-	public static java.util.Collection<String> getKinds() {
-		return null;
-	}
-
-	/**
-	 */
 	private KindRoute() {
 	}
 
@@ -31,11 +25,11 @@ public class KindRoute {
 	private String kindOf = "";
 
 	/**
-	 * Getter of the property <tt>kind</tt>
+	 * get the textual kind
 	 * 
-	 * @return Returns the kind.
-	 * @uml.property name="kindOf"
+	 * @return the kind
 	 */
+	@Override
 	public String getKindOf() {
 		return kindOf;
 	}
@@ -49,17 +43,6 @@ public class KindRoute {
 	 */
 	public void setKindOf(String kindOf) {
 		this.kindOf = kindOf;
-	}
-
-	/**
-	 * get the object KindRoute of the kind given in parameter.
-	 * 
-	 * @param kind
-	 *            name of the kind we are looking for
-	 * @return the KindRoute if we found it, else we return null;
-	 */
-	public static KindRoute getKind(String kind) {
-		return null;
 	}
 
 	/**

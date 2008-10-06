@@ -8,7 +8,7 @@ public interface PathInGraphBuilder extends PathInGraphReader {
 	 * @param inter
 	 *            element to add at the end
 	 */
-	public abstract void add(Inter inter);
+	public abstract void addLast(Inter inter);
 
 	/**
 	 * Add at the begining of the path a inter
