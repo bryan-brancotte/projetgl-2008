@@ -3,11 +3,10 @@ package graphNetwork;
 public interface InterReader {
 
 	/**
-	 * Get the time between the two station.
-	 * 
-	 * @return time in second
+	 * Get the cost to passe $$threw the inter
+	 * @return the cost in local $$current
 	 */
-	public abstract byte getTimeBetweenStations();
+	public abstract float getCost();
 
 	/**
 	 * Get the kind of intersection
@@ -15,6 +14,15 @@ public interface InterReader {
 	 * @return the kind {pedestrian, rolling, wheel chair?}
 	 */
 	public abstract String getKindOfInter();
+
+	/**
+	 * By giving one of the station, you obtain the route of the other station of the intersection
+	 * 
+	 * @param me
+	 *            the station you know
+	 * @return the route of the other station, or nothing if the station given is not in the intersection
+	 */
+	public abstract RouteReader getOtherRouteR(StationReader me);
 
 	/**
 	 * By giving one of the station, you obtain the other station of the intersection
@@ -26,19 +34,11 @@ public interface InterReader {
 	public abstract StationReader getOtherStationR(StationReader me);
 
 	/**
-	 * Get the cost to passe $$threw the inter
-	 * @return the cost in local $$current
-	 */
-	public abstract float getCost();
-
-	/**
-	 * By giving one of the station, you obtain the route of the other station of the intersection
+	 * Get the time between the two station.
 	 * 
-	 * @param me
-	 *            the station you know
-	 * @return the route of the other station, or nothing if the station given is not in the intersection
+	 * @return time in second
 	 */
-	public abstract RouteReader getOtherRouteR(StationReader me);
+	public abstract byte getTimeBetweenStations();
 
 	/**
 	 * Allow to know if the inter is enable, that mean if you can use it

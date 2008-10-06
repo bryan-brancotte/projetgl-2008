@@ -5,24 +5,42 @@ import java.util.LinkedList;
 public class KindRoute extends KindRouteReader {
 
 	/**
+	 * @uml.property name="kinds"
 	 */
-	public static void addKind(String kind) {
+	protected static LinkedList<KindRoute> kinds;
+
+	/**
+	 * Add a new kind to the collection of kind if this kind doesn't existe.
+	 * @param kind the name of the new kind
+	 * @return true if we could add the kind to the collection. If the kind already existe, we hadn't add it.
+	 */
+	public static boolean addKind(String kind) {
+		return true;
 	}
 
 	/**
-	 * @uml.property name="kinds"
+	 * Reset all the kind, erase all the kind known, and get ready for having new kind.
 	 */
-	protected static LinkedList<String> kinds;
-
-	/**
-	 */
-	private KindRoute() {
+	public static void reset() {
 	}
 
 	/**
 	 * @uml.property name="kindOf"
 	 */
 	private String kindOf = "";
+
+	/**
+	 * Default Construcutor. It's defined as private to prevente from uncontrolled allocation of KindRoute
+	 */
+	private KindRoute() {
+	}
+
+	/**
+	 * Build a new KindRoute and add it to the collection of kind
+	 */
+	private KindRoute(String kindOf) {
+		kinds.add(this);
+	}
 
 	/**
 	 * get the textual kind
@@ -32,23 +50,6 @@ public class KindRoute extends KindRouteReader {
 	@Override
 	public String getKindOf() {
 		return kindOf;
-	}
-
-	/**
-	 * Setter of the property <tt>kind</tt>
-	 * 
-	 * @param kind
-	 *            The kind to set.
-	 * @uml.property name="kindOf"
-	 */
-	public void setKindOf(String kindOf) {
-		this.kindOf = kindOf;
-	}
-
-	/**
-	 * Reset all the kind, erase all the kind known, and get ready for having new kind.
-	 */
-	public static void reset() {
 	}
 
 }

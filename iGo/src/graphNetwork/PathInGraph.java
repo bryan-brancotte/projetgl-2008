@@ -4,10 +4,34 @@ import java.util.LinkedList;
 
 public class PathInGraph implements PathInGraphBuilder {
 
+	/**
+	 * @uml.property name="inter"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="pathInGraph:graphNetwork.Inter"
+	 */
+	private LinkedList<Inter> inter;
+
+	@SuppressWarnings("unused")
+	private PathInGraph() {
+	}
+
+	public PathInGraph(GraphNetworkBuilder graph) {
+	}
+
 	@Override
-	public InterReader[] getInterR() {
-		// TODO Auto-generated method stub
-		return inter.toArray(new Inter[0]);
+	public void addFront(InterReader inter) {
+	}
+
+	@Override
+	public void addLast(Inter inter) {
+		this.inter.addLast(inter);
+	}
+
+	public String exportPath() {
+		return "";
+	}
+
+	@Override
+	public void flush() {
 	}
 
 	@Override
@@ -17,50 +41,10 @@ public class PathInGraph implements PathInGraphBuilder {
 	}
 
 	@Override
-	public byte getTime() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void addLast(Inter inter) {
-		this.inter.addLast(inter);
-	}
-
-	public void addFront(InterReader inter) {
-	}
-
-	public void flush() {
-	}
-
-	public String exportPath() {
-		return "";
-	}
-
-	public void importPath(String pathInString) {
-	}
-
-	public PathInGraph(GraphNetworkBuilder graph) {
-	}
-
-	@SuppressWarnings("unused")
-	private PathInGraph() {
-	}
-
-	public String toString() {
-		return "";
-	}
-
-	@Override
 	public GraphNetworkReader getGraphR() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	/**
-	 * @uml.property name="inter"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="pathInGraph:graphNetwork.Inter"
-	 */
-	private LinkedList<Inter> inter;
 
 	/**
 	 * Getter of the property <tt>inter</tt>
@@ -72,6 +56,22 @@ public class PathInGraph implements PathInGraphBuilder {
 		return inter;
 	}
 
+	@Override
+	public InterReader[] getInterR() {
+		// TODO Auto-generated method stub
+		return inter.toArray(new Inter[0]);
+	}
+
+	@Override
+	public byte getTime() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void importPath(String pathInString) {
+	}
+
 	/**
 	 * Setter of the property <tt>inter</tt>
 	 * 
@@ -81,6 +81,11 @@ public class PathInGraph implements PathInGraphBuilder {
 	 */
 	public void setInter(LinkedList<Inter> inter) {
 		this.inter = inter;
+	}
+
+	@Override
+	public String toString() {
+		return "";
 	}
 
 }
