@@ -38,7 +38,7 @@ public interface InterReader {
 	 * 
 	 * @return time in second
 	 */
-	public abstract byte getTimeBetweenStations();
+	public abstract int getTimeBetweenStations();
 
 	/**
 	 * Allow to know if the inter is enable, that mean if you can use it

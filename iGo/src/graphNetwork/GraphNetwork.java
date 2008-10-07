@@ -21,6 +21,11 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	 */
 	private LinkedList<Service> services;
 
+	public GraphNetwork() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * @uml.property name="stations"
 	 * @uml.associationEnd multiplicity="(0 -1)" inverse="graphNetwork:graphNetwork.Station"
@@ -75,7 +80,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public void addStationToRoute(Route origine, Station stationToAdd, byte time) {
+	public void addStationToRoute(Route origine, Station stationToAdd, int time) {
 		// TODO Auto-generated method stub
 
 	}
@@ -228,7 +233,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 
 	@Override
 	public void linkStation(Route routeOrigin, Station stationOrigin, Route routeDestination,
-			Station stationDestination, float cost, byte time, boolean pedestrian) throws StationNotOnRoadException,
+			Station stationDestination, float cost, int time, boolean pedestrian) throws StationNotOnRoadException,
 			MissingResourceException {
 		// TODO Auto-generated method stub
 

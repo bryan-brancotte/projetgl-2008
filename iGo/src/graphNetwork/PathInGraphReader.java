@@ -32,7 +32,7 @@ public interface PathInGraphReader {
 	 * 
 	 * @return le temps
 	 */
-	public byte getTime();
+	public int getTime();
 	
 	/**
 	 * Retourne un chaine décrivant le chemin à faire station par station

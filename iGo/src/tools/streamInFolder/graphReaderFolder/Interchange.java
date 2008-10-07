@@ -55,14 +55,14 @@ public class Interchange {
 	/**
 	 * @uml.property  name="Time"
 	 */
-	private byte time;
+	private int time;
 
 	/**
 	 * Getter of the property <tt>Time</tt>
 	 * @return  Returns the time.
 	 * @uml.property  name="Time"
 	 */
-	public byte getTime() {
+	public int getTime() {
 		return time;
 	}
 
@@ -71,7 +71,7 @@ public class Interchange {
 	 * @param Time  The time to set.
 	 * @uml.property  name="Time"
 	 */
-	public void setTime(byte time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 

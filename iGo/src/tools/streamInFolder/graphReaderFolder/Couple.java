@@ -92,7 +92,7 @@ public class Couple {
 	 * @return  Returns the time.
 	 * @uml.property  name="time"
 	 */
-	public byte getTime() {
+	public int getTime() {
 		return time1;
 	}
 
@@ -101,7 +101,7 @@ public class Couple {
 	 * @param Time  The time to set.
 	 * @uml.property  name="time"
 	 */
-	public void setTime(byte time) {
+	public void setTime(int time) {
 		time1 = time;
 	}
 
@@ -116,6 +116,6 @@ public class Couple {
 	/**
 	 * @uml.property  name="time"
 	 */
-	private byte time1;
+	private int time1;
 
 }

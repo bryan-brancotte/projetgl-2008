@@ -7,6 +7,11 @@ import iGoMaster.exception.GraphReceptionException;
 
 public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
+	public GraphNetworkReceiverFolder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 */
 	public boolean updateGraph() {

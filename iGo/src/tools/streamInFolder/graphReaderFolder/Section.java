@@ -26,7 +26,7 @@ public class Section {
 	 * @return  Returns the timeBetweenStations.
 	 * @uml.property  name="timeBetweenStations"
 	 */
-	public byte getTimeBetweenStations() {
+	public int getTimeBetweenStations() {
 		return betweenStations;
 	}
 
@@ -35,7 +35,7 @@ public class Section {
 	 * @param TimeBetweenStations  The timeBetweenStations to set.
 	 * @uml.property  name="timeBetweenStations"
 	 */
-	public void setTimeBetweenStations(byte timeBetweenStations) {
+	public void setTimeBetweenStations(int timeBetweenStations) {
 		betweenStations = timeBetweenStations;
 	}
 
@@ -51,6 +51,6 @@ public class Section {
 	/**
 	 * @uml.property  name="timeBetweenStations"
 	 */
-	private byte betweenStations;
+	private int betweenStations;
 
 }

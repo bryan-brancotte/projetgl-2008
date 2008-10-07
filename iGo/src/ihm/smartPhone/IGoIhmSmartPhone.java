@@ -7,6 +7,11 @@ import ihm.JNetwork.JNetwork;
 
 public class IGoIhmSmartPhone implements IHM {
 
+	public IGoIhmSmartPhone() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * @uml.property  name="menuDock"
 	 * @uml.associationEnd  inverse="iGoIhmSmartPhone:ihm.JMenuDock.JMenuDock"
