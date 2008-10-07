@@ -63,7 +63,7 @@ public class PathInGraph implements PathInGraphBuilder {
 	}
 
 	@Override
-	public byte getTime() {
+	public int getTime() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

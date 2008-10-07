@@ -8,6 +8,11 @@ import iGoMaster.Algo;
 
 public class Dijkstra implements Algo {
 
+	public Dijkstra() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public PathInGraphReader findPath(StationReader origine, StationReader destination, GraphNetworkReader graph,
 			PathInGraphBuilder pathInGraphBuilder) {

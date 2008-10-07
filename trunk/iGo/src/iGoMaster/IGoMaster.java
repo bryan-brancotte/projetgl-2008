@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.PathInGraphBuilder;
 
 public class IGoMaster implements Master, Observer {
 
@@ -45,10 +46,10 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="graphReader"
+	 * @uml.property   name="graphReceiver"
 	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
 	 */
-	private GraphNetworkReceiver graphReader;
+	private GraphNetworkReceiver graphReceiver;
 
 	/**
 	 * Getter of the property <tt>graphReader</tt>
@@ -57,7 +58,7 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property name="graphReader"
 	 */
 	public GraphNetworkReceiver getGraphReader() {
-		return graphReader;
+		return graphReceiver;
 	}
 
 	/**
@@ -67,8 +68,8 @@ public class IGoMaster implements Master, Observer {
 	 *            The graphReader to set.
 	 * @uml.property name="graphReader"
 	 */
-	public void setGraphReader(GraphNetworkReceiver graphReader) {
-		this.graphReader = graphReader;
+	public void setGraphReader(GraphNetworkReceiver graphReceiver) {
+		this.graphReceiver = graphReceiver;
 	}
 
 	@Override
@@ -102,33 +103,6 @@ public class IGoMaster implements Master, Observer {
 	 */
 	public void setConfig(Configuration config) {
 		this.config = config;
-	}
-
-	/**
-	 * @uml.property   name="graphNetwork"
-	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkReader"
-	 */
-	private GraphNetworkReader graphNetwork;
-
-	/**
-	 * Getter of the property <tt>graphNetwork</tt>
-	 * 
-	 * @return Returns the graphNetwork.
-	 * @uml.property name="graphNetwork"
-	 */
-	public GraphNetworkReader getGraphNetwork() {
-		return graphNetwork;
-	}
-
-	/**
-	 * Setter of the property <tt>graphNetwork</tt>
-	 * 
-	 * @param graphNetwork
-	 *            The graphNetwork to set.
-	 * @uml.property name="graphNetwork"
-	 */
-	public void setGraphNetwork(GraphNetworkReader graphNetwork) {
-		this.graphNetwork = graphNetwork;
 	}
 
 	/**
@@ -186,33 +160,6 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="pathInGraph"
-	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.PathInGraphReader"
-	 */
-	private PathInGraphReader pathInGraph;
-
-	/**
-	 * Getter of the property <tt>pathInGraph</tt>
-	 * 
-	 * @return Returns the pathInGraph.
-	 * @uml.property name="pathInGraph"
-	 */
-	public PathInGraphReader getPathInGraph() {
-		return pathInGraph;
-	}
-
-	/**
-	 * Setter of the property <tt>pathInGraph</tt>
-	 * 
-	 * @param pathInGraph
-	 *            The pathInGraph to set.
-	 * @uml.property name="pathInGraph"
-	 */
-	public void setPathInGraph(PathInGraphReader pathInGraph) {
-		this.pathInGraph = pathInGraph;
-	}
-
-	/**
 	 * @uml.property   name="graphNetworkBuilder"
 	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
 	 */
@@ -260,6 +207,18 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property  name="eventInfoNetwork"
 	 */
 	public void setEventInfoNetwork(EventInfoNetwork eventInfoNetwork) {
+		this.eventInfoNetwork = eventInfoNetwork;
+	}
+
+	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
+			GraphNetworkBuilder graphNetworkBuilder, EventInfoNetwork eventInfoNetwork) {
+		super();
+		this.ihm = ihm;
+		this.graphReceiver = graphReceiver;
+		this.config = config;
+		this.lang = lang;
+		this.algo = algo;
+		this.graphNetworkBuilder = graphNetworkBuilder;
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
 

@@ -8,12 +8,12 @@ public class Inter implements InterReader {
 	private float cost;
 
 	/**
-	 * @uml.property  name="enable"
+	 * @uml.property name="enable"
 	 */
 	private boolean enable;
 
 	/**
-	 * @uml.property  name="pedestrian"
+	 * @uml.property name="pedestrian"
 	 */
 	private boolean pedestrian;
 
@@ -44,7 +44,7 @@ public class Inter implements InterReader {
 	/**
 	 * @uml.property name="timeBetweenStations"
 	 */
-	private byte timeBetweenStations;
+	private int timeBetweenStations;
 
 	/*
 	 * (non-Javadoc)
@@ -161,7 +161,7 @@ public class Inter implements InterReader {
 	 * @see graphNetwork.InterR#getTimeBetweenStations()
 	 */
 	@Override
-	public byte getTimeBetweenStations() {
+	public int getTimeBetweenStations() {
 		return timeBetweenStations;
 	}
 
@@ -172,8 +172,9 @@ public class Inter implements InterReader {
 
 	/**
 	 * Getter of the property <tt>pedestrian</tt>
-	 * @return  Returns the pedestrian.
-	 * @uml.property  name="pedestrian"
+	 * 
+	 * @return Returns the pedestrian.
+	 * @uml.property name="pedestrian"
 	 */
 	public boolean isPedestrian() {
 		return pedestrian;
@@ -192,8 +193,10 @@ public class Inter implements InterReader {
 
 	/**
 	 * Setter of the property <tt>enable</tt>
-	 * @param enable  The enable to set.
-	 * @uml.property  name="enable"
+	 * 
+	 * @param enable
+	 *            The enable to set.
+	 * @uml.property name="enable"
 	 */
 	public void setEnable(boolean enable) {
 		this.enable = enable;
@@ -201,8 +204,10 @@ public class Inter implements InterReader {
 
 	/**
 	 * Setter of the property <tt>pedestrian</tt>
-	 * @param pedestrian  The pedestrian to set.
-	 * @uml.property  name="pedestrian"
+	 * 
+	 * @param pedestrian
+	 *            The pedestrian to set.
+	 * @uml.property name="pedestrian"
 	 */
 	public void setPedestrian(boolean pedestrian) {
 		this.pedestrian = pedestrian;
@@ -259,7 +264,7 @@ public class Inter implements InterReader {
 	 *            The timeBetweenStations to set.
 	 * @uml.property name="timeBetweenStations"
 	 */
-	public void setTimeBetweenStations(byte timeBetweenStations) {
+	public void setTimeBetweenStations(int timeBetweenStations) {
 		this.timeBetweenStations = timeBetweenStations;
 	}
 

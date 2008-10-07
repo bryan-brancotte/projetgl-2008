@@ -6,6 +6,11 @@ import iGoMaster.exception.ImpossibleStartingException;
 
 public class EventInfoNetworkInFolder extends EventInfoNetwork {
 
+	public EventInfoNetworkInFolder() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void startWatching() throws ImpossibleStartingException {
 		// TODO Auto-generated method stub

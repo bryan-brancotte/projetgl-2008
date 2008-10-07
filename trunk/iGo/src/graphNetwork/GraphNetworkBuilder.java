@@ -112,7 +112,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @param time
 	 *            the time between the previous station ans this one
 	 */
-	public abstract void addStationToRoute(Route origine, Station stationToAdd, byte time);
+	public abstract void addStationToRoute(Route origine, Station stationToAdd, int time);
 
 	/**
 	 * Get a new instance of a PathInGraphBuilder linked to this graph
@@ -228,7 +228,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 *             throwed if one of the object is null
 	 */
 	public abstract void linkStation(Route routeOrigin, Station stationOrigin, Route routeDestination,
-			Station stationDestination, float cost, byte time, boolean pedestrian) throws StationNotOnRoadException,
+			Station stationDestination, float cost, int time, boolean pedestrian) throws StationNotOnRoadException,
 			MissingResourceException;
 
 	/**
