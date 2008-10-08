@@ -16,9 +16,9 @@
    inkscape:version="0.46"
    sodipodi:docname="iGo.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="D:\Cours\2008-09_GL\Logo\iGo_255.png"
-   inkscape:export-xdpi="19.125"
-   inkscape:export-ydpi="19.125"
+   inkscape:export-filename="D:\Cours\2008-09_GL\document\images\logo\iGo_transparent.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
    version="1.0">
   <defs
      id="defs4">
@@ -189,7 +189,7 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Back"
-     style="display:inline"
+     style="display:none"
      transform="translate(-78.715127,-138.04282)"
      sodipodi:insensitive="true">
     <rect
@@ -215,7 +215,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      style="display:inline"
-     transform="translate(-78.715127,-138.04282)">
+     transform="translate(-78.715127,-138.04282)"
+     sodipodi:insensitive="true">
     <path
        style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#a7a7a7;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;marker-start:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 1324.5675,317.00285 L 1182.4195,355.48967 L 1031.875,389.23718 L 977.89535,461.14321 L 923.91571,533.04923 C 923.91571,533.04923 679.60989,684.69351 664.94203,686.41953 L 394.9474,718.19078 L 136.50445,761.45677 L -40.438348,870.26611"
@@ -595,7 +596,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="tour blanc"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
     <rect
        style="opacity:1;fill:url(#linearGradient3278);fill-opacity:1;stroke:none;stroke-width:16;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
