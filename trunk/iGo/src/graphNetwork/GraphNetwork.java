@@ -277,4 +277,10 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	public void setStations(Collection<Station> stations) {
 		this.stations = new LinkedList<Station>(stations);
 	}
+
+	@Override
+	public void resetEnables() {
+		// TODO Auto-generated method stub
+		
+	}
 }
