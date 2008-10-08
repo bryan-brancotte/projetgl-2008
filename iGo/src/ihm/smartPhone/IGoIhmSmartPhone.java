@@ -4,8 +4,12 @@ import iGoMaster.Master;
 import ihm.JMenuDock.JMenuDock;
 import ihm.JNetwork.JNetwork;
 
-
 public class IGoIhmSmartPhone implements IHM {
+
+	public IGoIhmSmartPhone(Master master) {
+		super();
+		this.master = master;
+	}
 
 	public IGoIhmSmartPhone() {
 		super();
@@ -13,15 +17,16 @@ public class IGoIhmSmartPhone implements IHM {
 	}
 
 	/**
-	 * @uml.property  name="menuDock"
-	 * @uml.associationEnd  inverse="iGoIhmSmartPhone:ihm.JMenuDock.JMenuDock"
+	 * @uml.property name="menuDock"
+	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.JMenuDock.JMenuDock"
 	 */
 	private JMenuDock menuDock;
 
 	/**
 	 * Getter of the property <tt>menuDock</tt>
-	 * @return  Returns the menuDock.
-	 * @uml.property  name="menuDock"
+	 * 
+	 * @return Returns the menuDock.
+	 * @uml.property name="menuDock"
 	 */
 	public JMenuDock getMenuDock() {
 		return menuDock;
@@ -29,47 +34,53 @@ public class IGoIhmSmartPhone implements IHM {
 
 	/**
 	 * Setter of the property <tt>menuDock</tt>
-	 * @param menuDock  The menuDock to set.
-	 * @uml.property  name="menuDock"
+	 * 
+	 * @param menuDock
+	 *            The menuDock to set.
+	 * @uml.property name="menuDock"
 	 */
 	public void setMenuDock(JMenuDock menuDock) {
 		this.menuDock = menuDock;
 	}
 
 	/**
-	 * @uml.property   name="master"
-	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:iGoMaster.Master"
+	 * @uml.property name="master"
+	 * @uml.associationEnd inverse="iGoIhmSmartPhone:iGoMaster.Master"
 	 */
 	private Master master;
 
-	/** 
+	/**
 	 * Getter of the property <tt>master</tt>
-	 * @return  Returns the master.
-	 * @uml.property  name="master"
+	 * 
+	 * @return Returns the master.
+	 * @uml.property name="master"
 	 */
 	public Master getMaster() {
 		return master;
 	}
 
-	/** 
+	/**
 	 * Setter of the property <tt>master</tt>
-	 * @param master  The master to set.
-	 * @uml.property  name="master"
+	 * 
+	 * @param master
+	 *            The master to set.
+	 * @uml.property name="master"
 	 */
 	public void setMaster(Master master) {
 		this.master = master;
 	}
 
 	/**
-	 * @uml.property   name="reseau"
-	 * @uml.associationEnd   inverse="iGoIhmSmartPhone:ihm.JNetwork.JNetwork"
+	 * @uml.property name="reseau"
+	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.JNetwork.JNetwork"
 	 */
 	private JNetwork reseau;
 
 	/**
 	 * Getter of the property <tt>reseau</tt>
-	 * @return  Returns the reseau.
-	 * @uml.property  name="reseau"
+	 * 
+	 * @return Returns the reseau.
+	 * @uml.property name="reseau"
 	 */
 	public JNetwork getReseau() {
 		return reseau;
@@ -77,8 +88,10 @@ public class IGoIhmSmartPhone implements IHM {
 
 	/**
 	 * Setter of the property <tt>reseau</tt>
-	 * @param reseau  The reseau to set.
-	 * @uml.property  name="reseau"
+	 * 
+	 * @param reseau
+	 *            The reseau to set.
+	 * @uml.property name="reseau"
 	 */
 	public void setReseau(JNetwork reseau) {
 		this.reseau = reseau;

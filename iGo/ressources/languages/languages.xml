@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+	<root>
+		<languages>
+			<lang balise="ENGLISH" value="English"/>
+			<lang balise="FRANCAIS" value="Français"/>
+			<!-- <lang balise="CHINESE" value="Chinese 中国"/>-->
+			<!-- When &#10; appears in the file, it mean an end of line. Keep it in the translation for a better good looking ;)-->
+		</languages>
+		<fields>
+			<!--Nommage des balises : Première lettre de chaque mot en majuscule, tout 
+			les mots sont collés. Dans le cas d'un Err_NomException, concervé la même 
+			mise en forme de l'exception que celle du code. Exemple : Err_SAXException-->
+			<ProgName>
+				<FRANCAIS value="EvoluFace"/>
+				<ENGLISH value="EvoluFace"/>
+			</ProgName>
+			<!--HomeDocName will be a directory name, be carful of how you name it-->
+			<HomeDirectoryName>
+				<FRANCAIS value="EvoluFaceDoc"/>
+				<ENGLISH value="EvoluFaceDoc"/>
+			</HomeDirectoryName>
+			<WelcomeMessage>
+				<FRANCAIS value="Bienvenue dans EvoluFace"/>
+				<ENGLISH value="Welcome in EvoluFace"/>
+				<CHINESE value="你好"/>
+			</WelcomeMessage>
+			<File>
+				<FRANCAIS value="Fichier"/>
+				<ENGLISH value="File"/>
+			</File>
+			<Edition>
+				<FRANCAIS value="Edition"/>
+				<ENGLISH value="Edition"/>
+			</Edition>
+			<Open>
+				<FRANCAIS value="Ouvrir"/>
+				<ENGLISH value="Open"/>
+			</Open>
+			<AdvancedOpen>
+				<FRANCAIS value="Ouvrir (avancé)"/>
+				<ENGLISH value="Open (advenced)"/>
+			</AdvancedOpen>
+			<Reload>
+				<FRANCAIS value="Recharger..."/>
+				<ENGLISH value="Reload..."/>
+			</Reload>
+			<KeyUnknown>
+				<FRANCAIS value="ClefInconnue"/>
+				<ENGLISH value="KeyUnkwon"/>
+			</KeyUnknown>
+			<Err_SAXException>
+				<FRANCAIS value="Fichier XML non valide"/>
+				<ENGLISH value="XML file invalid"/>
+			</Err_SAXException>
+			<Err_Open>
+				<FRANCAIS value="Erreur dans l'ouverture du fichier"/>
+				<ENGLISH value="Can't open file"/>
+			</Err_Open>
+			<Err_New>
+				<FRANCAIS value="Erreur dans la création d'un nouveau fichier"/>
+				<ENGLISH value="Can't creat file"/>
+			</Err_New>
+			<Err_IOException>
+				<FRANCAIS value="Le fichier est absent ou inaccessible"/>
+				<ENGLISH value="The file is missing or not reachable"/>
+			</Err_IOException>
+			<Err_ParserConfigurationException>
+				<FRANCAIS value="Erreur dans le parseur"/>
+				<ENGLISH value="Error in the XML parser"/>
+			</Err_ParserConfigurationException>
+			<Err_TransformerException>
+				<FRANCAIS value="Erreur durant la conversion de l'arbre XML vers le fichier XML"/>
+				<ENGLISH value="Error during the conversion from XML tree to XML file"/>
+			</Err_TransformerException>
+			<Err_DOMException>
+				<FRANCAIS value="Erreur liée au fichier XML"/>
+				<ENGLISH value="Error due to the XML file"/>
+			</Err_DOMException>
+			<Copy>
+				<FRANCAIS value="Copier"/>
+				<ENGLISH value="Copy"/>
+			</Copy>
+			<Paste>
+				<FRANCAIS value="Coller"/>
+				<ENGLISH value="Paste"/>
+			</Paste>
+			<Delete>
+				<FRANCAIS value="Supprimer"/>
+				<ENGLISH value="Delete"/>
+			</Delete>
+			<Size>
+				<FRANCAIS value="Taille"/>
+				<ENGLISH value="Size"/>
+			</Size>
+			<Configure>
+				<FRANCAIS value="Configuration"/>
+				<ENGLISH value="Configure"/>
+			</Configure>
+			<Save>
+				<FRANCAIS value="Enregistrer"/>
+				<ENGLISH value="Save"/>
+			</Save>
+			<Close>
+				<FRANCAIS value="Fermer"/>
+				<ENGLISH value="Close"/>
+			</Close>
+			<SaveAs>
+				<FRANCAIS value="Enregistrer sous"/>
+				<ENGLISH value="Save as"/>
+			</SaveAs>
+			<Ok>
+				<FRANCAIS value="OK"/>
+				<ENGLISH value="OK"/>
+			</Ok>
+			<Cancel>
+				<FRANCAIS value="Annuler"/>
+				<ENGLISH value="Cancel"/>
+			</Cancel>
+			<Language>
+				<FRANCAIS value="Langue"/>
+				<ENGLISH value="Language"/>
+			</Language>
+			<Quit>
+				<FRANCAIS value="Quitter"/>
+				<ENGLISH value="Quit"/>
+			</Quit>
+			<DoYouWantToQuit>
+				<FRANCAIS value="Voulez vous quitter l'application ?"/>
+				<ENGLISH value="Do you want to quit ?"/>
+			</DoYouWantToQuit>
+			<Yes>
+				<FRANCAIS value="Oui"/>
+				<ENGLISH value="Yes"/>
+			</Yes>
+			<No>
+				<FRANCAIS value="Non"/>
+				<ENGLISH value="No"/>
+			</No>
+		</fields>
+	</root>
+

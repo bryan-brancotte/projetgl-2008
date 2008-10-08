@@ -236,4 +236,11 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 */
 	public abstract void reset();
 
+		
+		/**
+		 * Reset all the component to the state "enable"
+		 */
+		public abstract void resetEnables();
+		
+
 }

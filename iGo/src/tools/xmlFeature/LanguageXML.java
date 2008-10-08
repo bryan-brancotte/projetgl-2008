@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 
 public class LanguageXML implements Language {
 
-	protected static final String PATH_LANGUAGE = "/languages/all.xml";
+	protected static final String PATH_LANGUAGE = "/languages/languages.xml";
 
 	protected HashMap<String, String> correspondanceKeyWord;
 
