@@ -4,7 +4,9 @@ import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.exception.ImpossibleStartingException;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Vector;
 
 public abstract class EventInfoNetworkWatcher extends Observable {
 
@@ -24,6 +26,8 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	 * give the actual status of the EventInfoNetwork
 	 * 
 	 * @return the actual status
+	 * @uml.property name="status"
+	 * @uml.associationEnd readOnly="true" inverse="eventInfoNetworkWatcher:iGoMaster.EventInfoNetWorkWatcherStatus"
 	 */
 	public abstract EventInfoNetWorkWatcherStatus getStatus();
 
@@ -41,6 +45,15 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	 * 
 	 * @return the collection of the new event, or a void collection if there nothing
 	 */
-	public abstract Collection<EventInfo> getNewEventInfo();
+	public Collection<EventInfo> getNewEventInfo() {
+		return new Vector<EventInfo>(eventInfosNotApplied);
+	}
+
+	/**
+	 * @uml.property name="eventInfosNotApplied"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true"
+	 *                     inverse="eventInfoNetworkWatcherInFolder:iGoMaster.EventInfo"
+	 */
+	protected LinkedList<EventInfo> eventInfosNotApplied;
 
 }
