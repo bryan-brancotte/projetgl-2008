@@ -7,7 +7,6 @@ import iGoMaster.EventInfoNetworkWatcher;
 import iGoMaster.exception.ImpossibleStartingException;
 
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Vector;
 
 public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
@@ -39,31 +38,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 	}
 
-	/**
-	 * @uml.property  name="eventInfos"
-	 */
-	private LinkedList<EventInfo> eventInfos;
-
-	/**
-	 * Getter of the property <tt>eventInfos</tt>
-	 * @return  Returns the eventInfos.
-	 * @uml.property  name="eventInfos"
-	 */
-	public LinkedList<EventInfo> getEventInfos() {
-		return eventInfos;
-	}
-
-	/**
-	 * Setter of the property <tt>eventInfos</tt>
-	 * @param eventInfos  The eventInfos to set.
-	 * @uml.property  name="eventInfos"
-	 */
-	public void setEventInfos(LinkedList<EventInfo> eventInfos) {
-		this.eventInfos = eventInfos;
-	}
-
 	@Override
 	public Collection<EventInfo> getNewEventInfo() {
-		return new Vector<EventInfo>(eventInfos);
+		return new Vector<EventInfo>(eventInfosNotApplied);
 	}
 }

@@ -1,10 +1,10 @@
-package graphNetwork;
+package tools.streamInFolder;
 
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
 
-public class EventInfoStationOnARoute implements EventInfo{
+public class EventInfoStation implements EventInfo {
 
 	@Override
 	public void applyInfo() {
@@ -19,7 +19,7 @@ public class EventInfoStationOnARoute implements EventInfo{
 	}
 
 	@Override
-	public KindEventInfoNetwork getKind() {
+	public KindEventInfoNetwork getKindEventInfoNetwork() {
 		// TODO Auto-generated method stub
 		return null;
 	}
