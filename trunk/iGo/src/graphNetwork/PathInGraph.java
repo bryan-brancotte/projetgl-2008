@@ -100,4 +100,10 @@ public class PathInGraph implements PathInGraphBuilder {
 		return false;
 	}
 
+	@Override
+	public boolean isStillAvaible(InterReader inter) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
