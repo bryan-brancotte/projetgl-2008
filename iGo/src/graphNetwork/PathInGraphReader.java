@@ -48,9 +48,16 @@ public interface PathInGraphReader {
 	/**
 	 * Check that we still can use this path.
 	 * 
-	 * @return true if all intersection an change are still activated
+	 * @return true if all intersection and change are still activated
 	 */
 	public abstract boolean isStillAvaible();
+
+	/**
+	 * Check that we still can use this path from where we are.
+	 * 
+	 * @return true if all intersection an change are still activated after this intersection
+	 */
+	public abstract boolean isStillAvaible(InterReader inter);
 
 	/**
 	 * Return the first inter in the path which after this one, you can use still use the path without problem
