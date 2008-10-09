@@ -1,15 +1,10 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetworkReader;
-import graphNetwork.PathInGraphReader;
-
+import graphNetwork.GraphNetworkBuilder;
 import ihm.smartPhone.IHM;
 
 import java.util.Observable;
 import java.util.Observer;
-
-import graphNetwork.GraphNetworkBuilder;
-import graphNetwork.PathInGraphBuilder;
 
 public class IGoMaster implements Master, Observer {
 
@@ -187,17 +182,17 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property  name="eventInfoNetwork"
-	 * @uml.associationEnd  inverse="iGoMaster:iGoMaster.EventInfoNetwork"
+	 * @uml.property   name="eventInfoNetwork"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
 	 */
-	private EventInfoNetwork eventInfoNetwork;
+	private EventInfoNetworkWatcher eventInfoNetwork;
 
 	/**
 	 * Getter of the property <tt>eventInfoNetwork</tt>
 	 * @return  Returns the eventInfoNetwork.
 	 * @uml.property  name="eventInfoNetwork"
 	 */
-	public EventInfoNetwork getEventInfoNetwork() {
+	public EventInfoNetworkWatcher getEventInfoNetwork() {
 		return eventInfoNetwork;
 	}
 
@@ -206,12 +201,12 @@ public class IGoMaster implements Master, Observer {
 	 * @param eventInfoNetwork  The eventInfoNetwork to set.
 	 * @uml.property  name="eventInfoNetwork"
 	 */
-	public void setEventInfoNetwork(EventInfoNetwork eventInfoNetwork) {
+	public void setEventInfoNetwork(EventInfoNetworkWatcher eventInfoNetwork) {
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
 
 	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
-			GraphNetworkBuilder graphNetworkBuilder, EventInfoNetwork eventInfoNetwork) {
+			GraphNetworkBuilder graphNetworkBuilder, EventInfoNetworkWatcher eventInfoNetwork) {
 		super();
 		this.ihm = ihm;
 		this.graphReceiver = graphReceiver;

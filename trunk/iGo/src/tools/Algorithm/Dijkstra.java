@@ -8,6 +8,9 @@ import iGoMaster.Algo;
 
 public class Dijkstra implements Algo {
 
+	/**
+	 * Default builder of this algorithm
+	 */
 	public Dijkstra() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -19,4 +22,11 @@ public class Dijkstra implements Algo {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/**
+	 * Run the algorithme after all the checking have been done
+	 */
+	protected void runAlgorithm() {
+	}
+
 }

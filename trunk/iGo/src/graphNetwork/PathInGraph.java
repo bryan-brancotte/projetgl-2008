@@ -88,4 +88,16 @@ public class PathInGraph implements PathInGraphBuilder {
 		return "";
 	}
 
+	@Override
+	public InterReader getFirstInterInTheLastAvaiblePart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isStillAvaible() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -33,7 +33,7 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.10/@children.1/@sourceConnections.0" name="EventInfoNetwork" location="17,47" size="153,29" id="iGoMaster/EventInfoNetwork" runTimeClassModel="">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.10/@children.1/@sourceConnections.0" name="EventInfoNetwork" location="17,47" size="153,29" id="iGoMaster/EventInfoNetworkWatcher" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
@@ -370,11 +370,11 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" name="EventInFolder" location="24,57" size="130,29" id="tools.streamInFolder/EventInfoNetworkInFolder" runTimeClassModel="">
+    <children xsi:type="editmodel:ClassEditModel" name="EventInFolder" location="24,57" size="130,29" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder" runTimeClassModel="">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfoNetwork&lt;-tools.streamInFolder/EventInfoNetworkInFolder" source="//@children.10/@children.1" target="//@children.1/@children.3" targetEnd="//@children.10/@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfoNetworkWatcher&lt;-tools.streamInFolder/EventInfoNetworkWatcherInFolder" source="//@children.10/@children.1" target="//@children.1/@children.3" targetEnd="//@children.10/@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" location="130,12" attachSource="true"/>
         <children xsi:type="editmodel:AssociationEndEditModel" location="0,12"/>
       </sourceConnections>
