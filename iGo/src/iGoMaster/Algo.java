@@ -1,5 +1,6 @@
 package iGoMaster;
 
+import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetworkReader;
 import graphNetwork.PathInGraphBuilder;
 import graphNetwork.PathInGraphReader;
@@ -19,9 +20,10 @@ public interface Algo {
 	 *            le graph où l'on évolut
 	 * @param pathInGraphBuilder
 	 *            l'objet qui va contenir le chemin.
+	 * @param criterious
+	 *            le critère pour la comparaison à utiliser
 	 * @return l'objet contenant le chemin
 	 */
 	public abstract PathInGraphReader findPath(StationReader origine, StationReader destination,
-			GraphNetworkReader graph, PathInGraphBuilder pathInGraphBuilder);
-
+			GraphNetworkReader graph, PathInGraphBuilder pathInGraphBuilder, CriteriousForTheLowerPath criterious);
 }
