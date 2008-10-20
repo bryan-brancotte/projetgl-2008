@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:SequenceDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="1.startingProgram" size="1562,1618" metadata="uml2-1.0" initialized="true" scrolledX="371" scrolledY="1277" tag="1000" key="32303037303533312D313030302069476F2F746F6E79">
+<editmodel:SequenceDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="1.startingProgram" size="1586,1618" metadata="uml2-1.0" initialized="true" scrolledY="1113" tag="1000" key="32303037303533312D313030302069476F2F746F6E79">
   <children xsi:type="editmodel:ActorEditModel" location="15,20" size="100,1578" itemName="Utilisateur">
     <children xsi:type="editmodel:ActivationEditModel" location="42,131" size="16,1337" sequenceItemContainer="//@children.0" length="1337">
       <sourceConnections xsi:type="editmodel:SequenceMessageEditModel" name="main" id="main/Main#main([Ljava.lang.String;)" source="//@children.0/@children.0" target="//@children.1/@children.0" targetEnd="//@children.0/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual" associatedMethod="main(String)" associatedSequenceNumber="1">
@@ -250,10 +250,10 @@
   <children xsi:type="editmodel:FrameEditModel" location="149,170" size="449,586" type="par">
     <children xsi:type="editmodel:FrameCompartmentEditModel" location="1,20" size="447,566" condition=""/>
   </children>
-  <children xsi:type="editmodel:InstanceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.2" name="EventInfoNetworkWatcherInFolder" location="687,761" size="173,837" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" itemName="" creatingActivation="//@children.5/@children.0" creation="true">
-    <children xsi:type="editmodel:ActivationEditModel" location="78,80" size="16,40" sequenceItemContainer="//@children.5"/>
+  <children xsi:type="editmodel:InstanceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.2" name="GraphNetworkReceiverFolder" location="687,761" size="173,837" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" itemName="" creatingActivation="//@children.5/@children.0" creation="true">
+    <children xsi:type="editmodel:ActivationEditModel" location="78,80" size="16,69" sequenceItemContainer="//@children.5" length="69"/>
   </children>
-  <children xsi:type="editmodel:InstanceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.3" name="GraphNetworkReceiverFolder" location="869,893" size="193,705" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder" itemName="" creatingActivation="//@children.6/@children.0" creation="true">
+  <children xsi:type="editmodel:InstanceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.3" name="EventInfoNetworkWatcherInFolder" location="869,893" size="193,705" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder" itemName="" creatingActivation="//@children.6/@children.0" creation="true">
     <children xsi:type="editmodel:ActivationEditModel" location="88,80" size="16,40" sequenceItemContainer="//@children.6"/>
   </children>
   <children xsi:type="editmodel:InstanceEditModel" targetConnections="//@children.1/@children.0/@sourceConnections.4" name="GraphNetwork" location="1110,983" size="120,615" id="graphNetwork/GraphNetwork" itemName="" creatingActivation="//@children.7/@children.0" creation="true">

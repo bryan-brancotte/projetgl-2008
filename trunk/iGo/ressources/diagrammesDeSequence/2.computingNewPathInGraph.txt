@@ -1,0 +1,9 @@
+Dans ce diagramme est détaillé, la création d'un nouveau parcours :
+
+  - chargement de la configuration enregistrée dans un fichier XML s'il existe sinon création d'un fichier de configuration standard
+  - chargement de la langue utilisée (une gestion multi-langages est directement implémentée pour un déploiement international simplifié)
+  - Notification de recherche à GraphNetworkReceiver afin de vérifier une version plus récente du réseau que celle enregistrée dans le mobile.
+  - Notification de recherche à EventInfoNetworkReceiver afin de récupérer l'ensemble des informations sur le réseau.
+  - | Génération du Graph du réseau.
+  	| Lancement du splash screen iGo
+  - Accueil de iGo
