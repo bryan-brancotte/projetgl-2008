@@ -36,11 +36,6 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 */
-	public void start() {
-	}
-
-	/**
 	 * @uml.property   name="graphReceiver"
 	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
 	 */

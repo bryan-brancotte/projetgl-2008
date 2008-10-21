@@ -30,4 +30,13 @@ public interface RouteReader {
 	 */
 	public boolean isEnable();
 
+	/**
+	 * Return the status of the station for this route, and in général.
+	 * 
+	 * @param idStation
+	 * @return false If the station is disabled on this route, or disable in général. true if it enable for this route,
+	 *         and in général.
+	 */
+	public abstract boolean isStationEnable(int idStation);
+
 }

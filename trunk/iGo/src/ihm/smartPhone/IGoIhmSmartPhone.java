@@ -1,5 +1,6 @@
 package ihm.smartPhone;
 
+import String;
 import iGoMaster.Master;
 import ihm.JMenuDock.JMenuDock;
 import ihm.JNetwork.JNetwork;
@@ -96,5 +97,17 @@ public class IGoIhmSmartPhone implements IHM {
 	public void setReseau(JNetwork reseau) {
 		this.reseau = reseau;
 	}
+
+		
+		/**
+		 */
+		public void startSplashScreen(){
+		}
+
+			
+			/**
+			 */
+			public void showMessageSplashScreen(String message){
+			}
 
 }
