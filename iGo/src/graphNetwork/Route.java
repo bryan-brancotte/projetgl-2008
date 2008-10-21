@@ -1,6 +1,8 @@
 package graphNetwork;
 
+import Station;
 import java.util.LinkedList;
+import java.util.Collection;
 
 public class Route implements RouteReader {
 
@@ -124,5 +126,22 @@ public class Route implements RouteReader {
 	public void setStations(LinkedList<Station> stations) {
 		this.stations = stations;
 	}
+
+	/**
+	 * Set the station who have the id given in parameter to the status stationEnable if the staion is on this route
+	 * 
+	 * @param station
+	 *            the station to enable/disable
+	 * @param stationEnable
+	 *            enable or disable the station
+	 */
+	public void setStationEnable(int idStation, boolean stationEnable) {
+	}
+
+	/**
+	 * @uml.property  name="stationDisabled"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="route:graphNetwork.Station"
+	 */
+	private Collection stationDisabled;
 
 }
