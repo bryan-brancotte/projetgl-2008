@@ -4,6 +4,7 @@ public interface InterReader {
 
 	/**
 	 * Get the cost to passe $$threw the inter
+	 * 
 	 * @return the cost in local $$current
 	 */
 	public abstract float getCost();
@@ -46,5 +47,20 @@ public interface InterReader {
 	 * @return true if you can use it
 	 */
 	public boolean isEnable();
+
+	/**
+	 * Allow to know if we have to go out from one station to reache the second
+	 * 
+	 * @return true if you have to go out from one station to reach the other
+	 */
+	public boolean isPedestrian();
+
+	/**
+	 * Allow to know the kind of inter : if it's an inter between to station by a route, or an inter where you have to
+	 * step down from your train/subway,...
+	 * 
+	 * @return true if it's an inter on a Route (you stay in your train/subway/trolley to use it)
+	 */
+	public boolean isRouteLink();
 
 }
