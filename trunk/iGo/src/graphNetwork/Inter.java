@@ -170,12 +170,7 @@ public class Inter implements InterReader {
 		return enable;
 	}
 
-	/**
-	 * Getter of the property <tt>pedestrian</tt>
-	 * 
-	 * @return Returns the pedestrian.
-	 * @uml.property name="pedestrian"
-	 */
+	@Override
 	public boolean isPedestrian() {
 		return pedestrian;
 	}
@@ -266,6 +261,30 @@ public class Inter implements InterReader {
 	 */
 	public void setTimeBetweenStations(int timeBetweenStations) {
 		this.timeBetweenStations = timeBetweenStations;
+	}
+
+	/**
+	 * a variable to know if the inter is rail between to station or an inter were you have to step down from you
+	 * train/subway/...
+	 * 
+	 * @uml.property name="routeLink"
+	 */
+	private boolean routeLink;
+
+	@Override
+	public boolean isRouteLink() {
+		return routeLink;
+	}
+
+	/**
+	 * Setter of the property <tt>routeLink</tt>
+	 * 
+	 * @param routeLink
+	 *            The routeLink to set.
+	 * @uml.property name="routeLink"
+	 */
+	public void setRouteLink(boolean routeLink) {
+		this.routeLink = routeLink;
 	}
 
 }
