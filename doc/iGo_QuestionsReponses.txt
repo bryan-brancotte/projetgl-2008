@@ -1,0 +1,71 @@
+Dans cette page, nous regroupons toutes les questions posées au MOA et aux profs. 
+
+Ajouter les question en haut de page.
+
+0 questions non résolues
+
+
+Q 11> Le choix des préférences de trajet s'applique t'il sur toutes les stations intermédiaires, ou uniquement une ? Ce choix s'applique t'il également sur la station de départ et la station d'arrivée ? (imprécision dans le cahier des charges)
+
+R> l'acces handicape est le seul qui doit etre present pour chaque etape (etape = depart, fin, changements, et stations intermediaires specifiees par l'utilisateur). L'ensemble des autres services ne sont nécessaires qu'a l'une des stations etapes. Dans le cadre du projet GL (lot 1), seuls les services presents dnas le fichier du reseau qui vous a ete envoye sont a prendre en consideration.
+
+
+Q 10>(reformulé de la question 9) Vous nous avez fournit l'ensemble des coût seulement par e-mail ce qui fait que, contrairement au réseaux, ils ne peuvent être changés automatiquement. Nous obligeons donc l'utilisateur à modifier les coûts via une interface. Nous pensons qu'il serait mieux que l'utilisateur n'ai pas à gérer cela, et que ce soit le groupe SEPTA qui met à jours les tarifs.
+
+R>La gestion des cout n'est pas a prendre en compte dans le cadre du lot 1 (aucune IHM pour la gestion des couts n'est a prevoir). Vous devez neanmoins etre capables d'evaluer le cout d'ajouter une telle fonctionalite dans votre systeme.
+
+
+Q 09>Les différents coût n'apparaissent pas dans le fichier du réseau, comment nous seront-ils fournis?
+
+R>(26 Septembre) les tarifs
+
+R>(11 Octobre) La réponse que nous vous avions donné sur les tarifications des changements (cf. votre email du 26 Septembre) devrait contenir tous les parametres à prendre en compte (?).[Question 4]
+
+
+Q 08>Que signifie pedestrian lors d'un changement dans une station ? Existe-il des changements autres qu'à pieds?
+
+R>Dans les changements "pedestrian" entre station 1 et 2 l'utilisateur est obligé de sortir de la station 1 pour rentrer dans la station 2 (les deux stations sont généralement très proches mais elles ne communiquent pas directement). Ces changements sont donc generalement un peu plus long à faire que les interconnexions classiques de voie à voie mais ils n'impliquent pas de surcout different d'un changement classique.
+
+
+Q 07>ID de route en string? il manque d'ailleur un nom.
+
+R> l'ID est le nom...
+
+
+Q 06>Le temps est en byte [-128;127], est-ce correct? Quelle est l'unité de temps ? En utilisant ce type, nous avons une précision temporelle réduite
+
+R>Non, un entier (positif) serait plus adéquat. On n'indiquera ici qu'un temps en minutes. Le temps d'un changement ou entre deux stations d'une ligne ne devrait pas depasser 30 minutes (un cas extreme déjà). On considère que l'on n'a pas besoin d'une précision plus forte qu'à la minute près
+
+
+Q 05>L'information sur les stations accessible aux handicapés n'apparaît pas, pourquoi?
+
+R>C'est devenu un service
+
+
+Q 04>Lors du passage d'un tram (ou métro), à un train, de combien est la surtaxe ($2+$0.75 ou $2+$1?) ? Et dans l'autre sens ?
+
+R>Si le trajet comporte une portion (meme en fin de trajet) qui doit etre faite en train, il coute au minimum $5
++ $1 pour chaque changement de train à train ou de train à metro (ou tram)
++ $0.75 pour chaque changement de metro (ou tram) à metro (ou tram)
+* Si le trajet ne comporte que des portions à faire en tram ou metro, il coute au minimum $2 + changements à $0.75 (sauf changements gratuits)
+Note : Le tarif prend en compte le risque qu'a l'utilisateur de se perdre, aucune sur-taxation n'aura lieu  a posteriori.
+Résumé : 
+tram=métro
+train->train 1$
+train->métro 1$
+métro->train 5$
+métro->métro 0.75$
+
+Q 03>Le réseau et les évènements du réseau seront-ils sur le même flux XML ?
+
+R>Dans deux fichiers différents (ils ont été fournit)
+
+
+Q 02>Qui est le client? Une personne physique? La société de transport du sud de la Pennsylvanie ? La mairie de Philadelphie ?
+
+R>C'est une société (fictive bien entendu) qui regroupe SEPTA (transport du sud de la Pennsylvanie) et d'autres sociétés de transports de la region de Philadelphie (on exclut ici les compagnies de bus).
+
+
+Q 01>Est-ce que le fichier XML contenant le schéma du réseau intègrera des informations (latitude, longitude), permettant de dessiner une carte du réseau? Les lignes contiendront-elles une information sur leur couleur ?
+
+R>Pas de localisation pas de couleur
