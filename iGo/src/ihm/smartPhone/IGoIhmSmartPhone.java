@@ -1,6 +1,5 @@
 package ihm.smartPhone;
 
-import String;
 import iGoMaster.Master;
 import ihm.JMenuDock.JMenuDock;
 import ihm.JNetwork.JNetwork;

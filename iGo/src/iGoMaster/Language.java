@@ -21,16 +21,16 @@ public interface Language {
 	public static final String NOT_YET_A_LANGUAGE = "Loading...";
 
 	/**
-	 * Retourne pour une clé donnée la valeur dans la langue sélectionné de cette clé
+	 * Retourne pour une clÃ© donnÃ©e la valeur dans la langue sÃ©lectionnÃ© de cette clÃ©
 	 * 
 	 * @param key
-	 *            clé de la chaine voulut dans la langue active
+	 *            clÃ© de la chaine voulut dans la langue active
 	 * @return la chaine dans la langue voulut
 	 */
 	public String lg(String key);
 
 	/**
-	 * Définit la langue active. Si la langue n'est pas connut, la langue DEFAULT_LANGUAGE sera utilisé
+	 * DÃ©finit la langue active. Si la langue n'est pas connut, la langue DEFAULT_LANGUAGE sera utilisÃ©
 	 * 
 	 * @param Name
 	 *            Nom de la langue

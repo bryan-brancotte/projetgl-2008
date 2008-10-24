@@ -11,6 +11,11 @@ import java.util.Vector;
 
 public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
+	protected EventInfoNetWorkWatcherStatus status = EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
+	
+	/**
+	 * 
+	 */
 	public EventInfoNetworkWatcherInFolder() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,8 +33,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 	@Override
 	public EventInfoNetWorkWatcherStatus getStatus() {
-		// TODO statu en fonction de l'état du thread de veille
-		return EventInfoNetWorkWatcherStatus.OFFLINE;
+		// TODO statu en fonction de l'Ã©tat du thread de veille
+		return EventInfoNetWorkWatcherStatus.STOPPED;
 	}
 
 	@Override

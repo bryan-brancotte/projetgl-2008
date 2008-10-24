@@ -1,8 +1,6 @@
 package graphNetwork;
 
-import Station;
 import java.util.LinkedList;
-import java.util.Collection;
 
 public class Route implements RouteReader {
 
@@ -139,9 +137,17 @@ public class Route implements RouteReader {
 	}
 
 	/**
-	 * @uml.property  name="stationDisabled"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="route:graphNetwork.Station"
+	 * @uml.property name="stationDisabled"
+	 * @uml.associationEnd multiplicity="(0 -1)" inverse="route:graphNetwork.Station"
 	 */
-	private Collection stationDisabled;
+	private LinkedList<Station> stationDisabled;
+
+	@Override
+	public boolean isStationEnable(int idStation) {
+		// TODO Auto-generated method stub
+		if (stationDisabled == null)
+			stationDisabled = null;
+		return false;
+	}
 
 }

@@ -1,6 +1,5 @@
 package tools.streamInFolder.graphReaderFolder;
 
-import java.util.Collection;
 import java.util.LinkedList;
 
 

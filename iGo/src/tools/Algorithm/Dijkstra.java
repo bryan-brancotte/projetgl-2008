@@ -1,5 +1,6 @@
 package tools.Algorithm;
 
+import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetworkReader;
 import graphNetwork.PathInGraphBuilder;
 import graphNetwork.PathInGraphReader;
@@ -16,17 +17,17 @@ public class Dijkstra implements Algo {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public PathInGraphReader findPath(StationReader origine, StationReader destination, GraphNetworkReader graph,
-			PathInGraphBuilder pathInGraphBuilder) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
 	 * Run the algorithme after all the checking have been done
 	 */
 	protected void runAlgorithm() {
+	}
+
+	@Override
+	public PathInGraphReader findPath(StationReader origine, StationReader destination, GraphNetworkReader graph,
+			PathInGraphBuilder pathInGraphBuilder, CriteriousForTheLowerPath criterious) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
