@@ -34,7 +34,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	@Override
 	public EventInfoNetWorkWatcherStatus getStatus() {
 		// TODO statu en fonction de l'état du thread de veille
-		return EventInfoNetWorkWatcherStatus.STOPPED;
+		return EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
 	}
 
 	@Override
