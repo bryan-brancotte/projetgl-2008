@@ -1,5 +1,6 @@
 package graphNetwork;
 
+
 public interface GraphNetworkReader {
 
 	/**
@@ -84,5 +85,14 @@ public interface GraphNetworkReader {
 	 * @return Returns the stations.
 	 */
 	public StationReader[] getStationsR();
+
+	/**
+	 * Return the cost to go from the outside to the network by this kind of route.
+	 * 
+	 * @param kind
+	 *            the kind of your entry point
+	 * @return the cost, or 0 if the cost is unkown
+	 */
+	public abstract float getEntryCost(KindRouteReader kind);
 
 }

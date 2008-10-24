@@ -8,6 +8,13 @@ import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Vector;
 
+/**
+ * This interaface provides services to see the differents events about the network. Events likes station closed
+ * temporarly, station re-opened,...
+ * 
+ * @author Brancotte Bryan
+ * 
+ */
 public abstract class EventInfoNetworkWatcher extends Observable {
 
 	/**

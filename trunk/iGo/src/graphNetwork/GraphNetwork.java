@@ -283,4 +283,10 @@ public class GraphNetwork implements GraphNetworkBuilder {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public float getEntryCost(KindRouteReader kind) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

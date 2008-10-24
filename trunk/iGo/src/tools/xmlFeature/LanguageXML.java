@@ -29,11 +29,7 @@ public class LanguageXML implements Language {
 	protected boolean nvLangue = false;
 
 	public LanguageXML() {
-		super();
-		correspondanceKeyWord = new HashMap<String, String>();
-		langues = new HashMap<String, String>();
-		LoadLanguages();
-		setLanguage((new Locale(System.getProperty("user.language"))).getDisplayLanguage());
+		this((new Locale(System.getProperty("user.language"))).getDisplayLanguage());
 	}
 
 	public LanguageXML(String lang) {
