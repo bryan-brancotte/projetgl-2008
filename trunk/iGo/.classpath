@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="ressources"/>
 	<classpathentry kind="src" path="junit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Cours/2008-09_GL/iGo/junit/junit-4.4.jar"/>
+	<classpathentry kind="lib" path="junit/junit-4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
