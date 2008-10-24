@@ -1,4 +1,6 @@
-package graphNetwork;
+package iGoMaster;
+
+import graphNetwork.KindRouteReader;
 
 
 public class GraphNetworkCostReceiverHardWrited implements GraphNetworkCostReceiver {
