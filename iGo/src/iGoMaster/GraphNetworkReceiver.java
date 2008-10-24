@@ -1,7 +1,6 @@
 package iGoMaster;
 
 import graphNetwork.GraphNetworkBuilder;
-import graphNetwork.GraphNetworkCostReceiver;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 

@@ -9,8 +9,8 @@ import java.util.Observer;
 public class IGoMaster implements Master, Observer {
 
 	/**
-	 * @uml.property   name="ihm"
-	 * @uml.associationEnd   inverse="iGoMaster:ihm.smartPhone.IHM"
+	 * @uml.property name="ihm"
+	 * @uml.associationEnd inverse="iGoMaster:ihm.smartPhone.IHM"
 	 */
 	private IHM ihm;
 
@@ -36,8 +36,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="graphReceiver"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
+	 * @uml.property name="graphReceiver"
+	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
 	 */
 	private GraphNetworkReceiver graphReceiver;
 
@@ -69,8 +69,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="config"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Configuration"
+	 * @uml.property name="config"
+	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Configuration"
 	 */
 	private Configuration config;
 
@@ -96,8 +96,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="lang"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Language"
+	 * @uml.property name="lang"
+	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Language"
 	 */
 	private Language lang;
 
@@ -123,8 +123,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="algo"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Algo"
+	 * @uml.property name="algo"
+	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Algo"
 	 */
 	private Algo algo;
 
@@ -150,8 +150,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="graphNetworkBuilder"
-	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
+	 * @uml.property name="graphNetworkBuilder"
+	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
 	 */
 	private GraphNetworkBuilder graphNetworkBuilder;
 
@@ -177,15 +177,16 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property   name="eventInfoNetwork"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
+	 * @uml.property name="eventInfoNetwork"
+	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
 	 */
 	private EventInfoNetworkWatcher eventInfoNetwork;
 
 	/**
 	 * Getter of the property <tt>eventInfoNetwork</tt>
-	 * @return  Returns the eventInfoNetwork.
-	 * @uml.property  name="eventInfoNetwork"
+	 * 
+	 * @return Returns the eventInfoNetwork.
+	 * @uml.property name="eventInfoNetwork"
 	 */
 	public EventInfoNetworkWatcher getEventInfoNetwork() {
 		return eventInfoNetwork;
@@ -193,15 +194,18 @@ public class IGoMaster implements Master, Observer {
 
 	/**
 	 * Setter of the property <tt>eventInfoNetwork</tt>
-	 * @param eventInfoNetwork  The eventInfoNetwork to set.
-	 * @uml.property  name="eventInfoNetwork"
+	 * 
+	 * @param eventInfoNetwork
+	 *            The eventInfoNetwork to set.
+	 * @uml.property name="eventInfoNetwork"
 	 */
 	public void setEventInfoNetwork(EventInfoNetworkWatcher eventInfoNetwork) {
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
 
 	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
-			GraphNetworkBuilder graphNetworkBuilder, EventInfoNetworkWatcher eventInfoNetwork) {
+			GraphNetworkBuilder graphNetworkBuilder, EventInfoNetworkWatcher eventInfoNetwork,
+			GraphNetworkCostReceiver graphNetworkCostReceiver) {
 		super();
 		this.ihm = ihm;
 		this.graphReceiver = graphReceiver;
@@ -210,6 +214,34 @@ public class IGoMaster implements Master, Observer {
 		this.algo = algo;
 		this.graphNetworkBuilder = graphNetworkBuilder;
 		this.eventInfoNetwork = eventInfoNetwork;
+		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
+	}
+
+	/**
+	 * @uml.property name="graphNetworkCostReceiver"
+	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.GraphNetworkCostReceiver"
+	 */
+	private GraphNetworkCostReceiver graphNetworkCostReceiver;
+
+	/**
+	 * Getter of the property <tt>graphNetworkCostReceiver</tt>
+	 * 
+	 * @return Returns the graphNetworkCostReceiver.
+	 * @uml.property name="graphNetworkCostReceiver"
+	 */
+	public GraphNetworkCostReceiver getGraphNetworkCostReceiver() {
+		return graphNetworkCostReceiver;
+	}
+
+	/**
+	 * Setter of the property <tt>graphNetworkCostReceiver</tt>
+	 * 
+	 * @param graphNetworkCostReceiver
+	 *            The graphNetworkCostReceiver to set.
+	 * @uml.property name="graphNetworkCostReceiver"
+	 */
+	public void setGraphNetworkCostReceiver(GraphNetworkCostReceiver graphNetworkCostReceiver) {
+		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
 	}
 
 }

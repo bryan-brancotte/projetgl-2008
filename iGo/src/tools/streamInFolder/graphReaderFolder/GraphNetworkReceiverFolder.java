@@ -3,8 +3,8 @@ package tools.streamInFolder.graphReaderFolder;
 import java.util.Collection;
 
 import graphNetwork.GraphNetworkBuilder;
-import graphNetwork.GraphNetworkCostReceiver;
 import iGoMaster.AvaibleNetwork;
+import iGoMaster.GraphNetworkCostReceiver;
 import iGoMaster.GraphNetworkReceiver;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
