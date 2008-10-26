@@ -24,8 +24,9 @@ public class EventInfoNetworkWatcherInFolderTest {
 	}
 
 	/**
-	 * Test si la langue par défaut es bien mise si on utilise une langue inconnue
-	 * @throws ImpossibleStartingException 
+	 * Test de démarrage effectif du watcher
+	 * 
+	 * @throws ImpossibleStartingException si le démarage ne marche pas
 	 */
 	@Test
 	public void demarrageDuWatcher() throws ImpossibleStartingException {
@@ -34,7 +35,7 @@ public class EventInfoNetworkWatcherInFolderTest {
 	}
 
 	/**
-	 * Test si la langue par défaut es bien mise si on utilise une langue inconnue
+	 * Test d'arrêt effectif du watcher
 	 */
 	@Test
 	public void arretDuWatcher() {
