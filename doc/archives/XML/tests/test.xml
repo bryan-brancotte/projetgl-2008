@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Network xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Users\olivier\Documents\Altova\XMLSpy2008\Examples\testschema.xsd">
+	<ServicesList>
+		<Service>
+			<ID>1</ID>
+			<Name>bla bla bla</Name>
+		</Service>
+		<Service>
+			<ID>2</ID>
+			<Name>pipi</Name>
+		</Service>
+	</ServicesList>
+	<Station>
+		<IDStation>
+1
+</IDStation>
+		<ServiceStation>
+			<ID>2</ID>
+			<ID>1</ID>
+		</ServiceStation>
+	</Station>
+</Network>
