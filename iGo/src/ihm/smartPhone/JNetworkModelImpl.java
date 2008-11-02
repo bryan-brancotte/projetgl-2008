@@ -1,7 +1,7 @@
 package ihm.smartPhone;
 
 import graphNetwork.GraphNetworkReader;
-import ihm.JNetwork.JNetworkModel;
+import ihm.network.JNetworkModel;
 
 
 public class JNetworkModelImpl implements JNetworkModel {
