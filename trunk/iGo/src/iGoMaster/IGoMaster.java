@@ -244,4 +244,16 @@ public class IGoMaster implements Master, Observer {
 		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
 	}
 
+	@Override
+	public String lg(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

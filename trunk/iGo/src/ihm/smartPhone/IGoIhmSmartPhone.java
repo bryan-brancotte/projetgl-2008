@@ -1,46 +1,154 @@
 package ihm.smartPhone;
 
 import iGoMaster.Master;
-import ihm.JMenuDock.JMenuDock;
-import ihm.JNetwork.JNetwork;
+import ihm.network.Network;
+import ihm.smartPhone.composants.LowerBar;
+import ihm.smartPhone.composants.UpperBar;
+import ihm.smartPhone.listener.MyWindowStateListener;
+import ihm.smartPhone.statePanel.IhmReceivingPanelState;
+import ihm.smartPhone.statePanel.IhmReceivingStates;
+import ihm.smartPhone.statePanel.LoadTravelPanel;
+import ihm.smartPhone.statePanel.MainPanel;
+import ihm.smartPhone.statePanel.NewTravelPanel;
+import ihm.smartPhone.statePanel.SettingsPanel;
+import ihm.smartPhone.statePanel.SplashScreenPanel;
+import ihm.smartPhone.statePanel.TravelGraphicDisplayPanel;
+import ihm.smartPhone.statePanel.VoidPanel;
+import ihm.smartPhone.tools.IGoFlowLayout;
+import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.SizeAdapteur;
+import ihm.smartPhone.tools.iGoSmartPhoneSkin;
+import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
-public class IGoIhmSmartPhone implements IHM {
+import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
+import javax.swing.JOptionPane;
+
+public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
+
+	private static final long serialVersionUID = 1L;
+
+	protected IGoFlowLayout sizeAdapteur = null;
+
+	protected UpperBar upperBar;
+	protected int oldSizeLine = -1;
+	protected Panel centerPanel;
+	protected LowerBar lowerBar;
+	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
+	protected SplashScreenPanel splashScreenPanel = null;
+	protected MainPanel mainPanel = null;
+	protected LoadTravelPanel loadTravelPanel = null;
+	protected SettingsPanel settingsPanel = null;
+	protected NewTravelPanel newTravelPanel = null;
+	protected TravelGraphicDisplayPanel travelGraphicPanel = null;
+	protected boolean quitMessage = false;
+	protected iGoSmartPhoneSkin skin;
+
+	/**
+	 * Constructeur de l'interface. Le master est requit car il sert imédiatement.
+	 * 
+	 * @param master
+	 *            le master, celui qui fournira entre autre les traductions
+	 */
 	public IGoIhmSmartPhone(Master master) {
-		super();
+		this(master, iGoSmartPhoneSkin.WHITE_WITH_LINE);
+	}
+
+	public IGoIhmSmartPhone(Master master, iGoSmartPhoneSkin skin) {
+		super(master.lg("ProgName"));
+		this.skin = skin;
+		sizeAdapteur = new IGoFlowLayout(skin.isDisplayLine());
+		System.out.println(sizeAdapteur);
+		this.setLayout(sizeAdapteur);
+
+		this.setBackground(skin.getColorLine());
 		this.master = master;
-	}
+		this.setSize(sizeAdapteur.getWidth(), sizeAdapteur.getHeight());
+		this.setLocation((SizeAdapteur.screenWidth - sizeAdapteur.getWidth()) / 3,
+				(SizeAdapteur.screenHeigth - sizeAdapteur.getHeight()) / 3);
+		if (sizeAdapteur.isFullScreen()) {
+			this.setExtendedState(Frame.MAXIMIZED_BOTH);
+			this.setUndecorated(true);
+		}
 
-	public IGoIhmSmartPhone() {
-		super();
-		// TODO Auto-generated constructor stub
+		/***************************************************************************************************************
+		 * Préparation des trois zones de données
+		 * 
+		 * Barre supérieure
+		 */
+		upperBar = new UpperBar(this, false);
+		upperBar.setBackground(skin.getColorInside());
+		this.add(upperBar);
+
+		/***************************************************************************************************************
+		 * Zone principale
+		 */
+		centerPanel = new Panel(new BorderLayout(0, 0));
+		centerPanel.setBackground(skin.getColorInside());
+		centerPanel.add(new VoidPanel(this));
+		this.add(centerPanel);
+
+		/***************************************************************************************************************
+		 * Barre inférieure
+		 */
+		lowerBar = new LowerBar(this, false);
+		lowerBar.setBackground(skin.getColorInside());
+		this.add(lowerBar);
+
+		/***************************************************************************************************************
+		 * Procédure d'arret en cas de pression de la croix rouge.
+		 */
+		this.addWindowListener(new WindowListener() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				((IGoIhmSmartPhone) e.getSource()).stop();
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+			}
+		});
+		this.addWindowStateListener(new MyWindowStateListener<IGoIhmSmartPhone>(this) {
+
+			@Override
+			public void windowStateChanged(WindowEvent e) {
+				sizeAdapteur.setFullScreen(e.getNewState() == Frame.MAXIMIZED_BOTH);
+			}
+		});
 	}
 
 	/**
-	 * @uml.property name="menuDock"
-	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.JMenuDock.JMenuDock"
+	 * Le constructeur par défaut est déclaré en private afin d'empécher son utilisation par des classes extérieurs, ou
+	 * héritantes.
 	 */
-	private JMenuDock menuDock;
-
-	/**
-	 * Getter of the property <tt>menuDock</tt>
-	 * 
-	 * @return Returns the menuDock.
-	 * @uml.property name="menuDock"
-	 */
-	public JMenuDock getMenuDock() {
-		return menuDock;
-	}
-
-	/**
-	 * Setter of the property <tt>menuDock</tt>
-	 * 
-	 * @param menuDock
-	 *            The menuDock to set.
-	 * @uml.property name="menuDock"
-	 */
-	public void setMenuDock(JMenuDock menuDock) {
-		this.menuDock = menuDock;
+	@SuppressWarnings("unused")
+	@Deprecated
+	private IGoIhmSmartPhone() {
 	}
 
 	/**
@@ -72,9 +180,9 @@ public class IGoIhmSmartPhone implements IHM {
 
 	/**
 	 * @uml.property name="reseau"
-	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.JNetwork.JNetwork"
+	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.network.Network"
 	 */
-	private JNetwork reseau;
+	private Network reseau;
 
 	/**
 	 * Getter of the property <tt>reseau</tt>
@@ -82,7 +190,7 @@ public class IGoIhmSmartPhone implements IHM {
 	 * @return Returns the reseau.
 	 * @uml.property name="reseau"
 	 */
-	public JNetwork getReseau() {
+	public Network getReseau() {
 		return reseau;
 	}
 
@@ -93,20 +201,245 @@ public class IGoIhmSmartPhone implements IHM {
 	 *            The reseau to set.
 	 * @uml.property name="reseau"
 	 */
-	public void setReseau(JNetwork reseau) {
+	public void setReseau(Network reseau) {
 		this.reseau = reseau;
 	}
 
-		
-		/**
-		 */
-		public void startSplashScreen(){
+	@Override
+	public void start(boolean bySplashScreen, int step) {
+		if (checkSplashScreenPanel())
+			splashScreenPanel.setMaxStepInSplashScreen(step);
+		if (bySplashScreen)
+			this.setActualState(IhmReceivingStates.SPLASH_SCREEN);
+		else
+			this.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+		this.setVisible(true);
+	}
+
+	public void start(boolean bySplashScreen) {
+		start(bySplashScreen, -1);
+	}
+
+	public String lg(String key) {
+		return master.lg(key);
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		upperBar.repaint();
+		lowerBar.repaint();
+		centerPanel.repaint();
+		super.paint(g);
+	}
+
+	@Override
+	public void showMessageSplashScreen(String message) {
+		if (actualState == IhmReceivingStates.SPLASH_SCREEN) {
+			if (checkSplashScreenPanel())
+				splashScreenPanel.incrementStepInSplashScreen();
+			lowerBar.setMainTitle(message, FontSizeKind.INTERMEDIATE);
+			lowerBar.repaint();
 		}
+	}
 
-			
-			/**
-			 */
-			public void showMessageSplashScreen(String message){
+	@Override
+	public void endSplashScreen() {
+		if (actualState == IhmReceivingStates.SPLASH_SCREEN) {
+			setActualState(IhmReceivingStates.MAIN_INTERFACE);
+		}
+	}
+
+	@Override
+	public int getMaxStepInSplashScreen() {
+		if (checkSplashScreenPanel())
+			return splashScreenPanel.getMaxStepInSplashScreen();
+		return -1;
+	}
+
+	@Override
+	public int getStepInSplashScreen() {
+		if (checkSplashScreenPanel())
+			return splashScreenPanel.getStepInSplashScreen();
+		return -1;
+	}
+
+	@Override
+	public void setMaxStepInSplashScreen(int step) {
+		if (checkSplashScreenPanel())
+			splashScreenPanel.setMaxStepInSplashScreen(step);
+	}
+
+	@Override
+	public void setStepInSplashScreen(int step) {
+		if (checkSplashScreenPanel())
+			splashScreenPanel.setStepInSplashScreen(step);
+	}
+
+	protected boolean checkSplashScreenPanel() {
+		if (splashScreenPanel != null)
+			return true;
+		if ((actualState == IhmReceivingStates.SPLASH_SCREEN) || (actualState == IhmReceivingStates.UNKNOWN)) {
+			splashScreenPanel = new SplashScreenPanel(this, upperBar, lowerBar);
+			return true;
+		}
+		return false;
+	}
+
+	protected void checkMainPanel() {
+		if (mainPanel == null)
+			mainPanel = new MainPanel(this, upperBar, lowerBar);
+	}
+
+	protected void checkLoadTravelPanel() {
+		if (loadTravelPanel == null)
+			loadTravelPanel = new LoadTravelPanel(this, upperBar, lowerBar, null);
+	}
+
+	protected void checkSettingsPanel() {
+		if (settingsPanel == null)
+			settingsPanel = new SettingsPanel(this, upperBar, lowerBar, null);
+	}
+
+	protected void checkGraphicPanel() {
+		if (travelGraphicPanel == null)
+			travelGraphicPanel = new TravelGraphicDisplayPanel(this, upperBar, lowerBar,null);
+	}
+
+	protected void checkNewTravelPanel() {
+		if (newTravelPanel == null)
+			newTravelPanel = new NewTravelPanel(this, upperBar, lowerBar);
+	}
+
+	@Override
+	public void stop() {
+		this.endInterface();
+	}
+
+	protected boolean endInterface() {
+		if (quitMessage && (JOptionPane.showConfirmDialog(this, master.lg("DoYouWantToQuit")) == JOptionPane.NO_OPTION))
+			return false;
+		this.setVisible(false);
+		this.dispose();
+		this.master.stop();
+		return true;
+	}
+
+	@Override
+	public iGoSmartPhoneSkin getSkin() {
+		return skin;
+	}
+
+	@Override
+	public SizeAdapteur getSizeAdapteur() {
+		return sizeAdapteur;
+	}
+
+	@Override
+	public IhmReceivingStates getActualState() {
+		return actualState;
+	}
+
+	@Override
+	public void setActualState(IhmReceivingStates actualState) {
+		if (actualState == this.actualState)
+			return;
+		if (actualState != IhmReceivingStates.SPLASH_SCREEN)
+			splashScreenPanel = null;
+
+		if (actualState == IhmReceivingStates.SPLASH_SCREEN) {
+			this.actualState = IhmReceivingStates.SPLASH_SCREEN;
+			centerPanel.removeAll();
+			try {
+				checkSplashScreenPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkSplashScreenPanel();
 			}
+			centerPanel.add(splashScreenPanel);
+			splashScreenPanel.giveControle();
+			centerPanel.validate();
+		} else if (actualState == IhmReceivingStates.MAIN_INTERFACE) {
+			this.actualState = IhmReceivingStates.MAIN_INTERFACE;
+			centerPanel.removeAll();
+			try {
+				checkMainPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkMainPanel();
+			}
+			centerPanel.add(mainPanel);
+			mainPanel.giveControle();
+			centerPanel.validate();
+		} else if (actualState == IhmReceivingStates.NEW_TRAVEL) {
+			this.actualState = IhmReceivingStates.NEW_TRAVEL;
+			centerPanel.removeAll();
+			try {
+				checkNewTravelPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkNewTravelPanel();
+			}
+			centerPanel.add(newTravelPanel);
+			newTravelPanel.giveControle();
+			centerPanel.validate();
+		} else if (actualState == IhmReceivingStates.LOAD_TRAVEL) {
+			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
+			centerPanel.removeAll();
+			try {
+				checkLoadTravelPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkLoadTravelPanel();
+			}
+			centerPanel.add(loadTravelPanel);
+			loadTravelPanel.giveControle();
+			centerPanel.validate();
+		} else if (actualState == IhmReceivingStates.SETTINGS) {
+			this.actualState = IhmReceivingStates.SETTINGS;
+			centerPanel.removeAll();
+			try {
+				checkSettingsPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkSettingsPanel();
+			}
+			centerPanel.add(settingsPanel);
+			settingsPanel.giveControle();
+			centerPanel.validate();
+		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+			cleanPanelsStates(false);
+			this.actualState = IhmReceivingStates.PREVISU_TRAVEL_GRAPHIC_MODE;
+			centerPanel.removeAll();
+			try {
+				checkGraphicPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkGraphicPanel();
+			}
+			centerPanel.add(travelGraphicPanel);
+			travelGraphicPanel.giveControle();
+			centerPanel.validate();
+		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) {
+			cleanPanelsStates(false);
+		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL_GRAPHIC_MODE) {
 
+		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE) {
+			cleanPanelsStates(false);
+		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL_TEXT_MODE) {
+
+		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_TEXT_MODE) {
+			cleanPanelsStates(false);
+		}
+	}
+
+	protected void cleanPanelsStates(boolean dueToAnError) {
+		// TODO trouver un façon d'invoquer le GC
+		if (dueToAnError)
+			ImageLoader.setFastLoadingOfImages(false);
+		splashScreenPanel = null;
+		loadTravelPanel = null;
+		settingsPanel = null;
+		mainPanel = null;
+		travelGraphicPanel=null;
+	}
 }

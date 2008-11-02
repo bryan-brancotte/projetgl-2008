@@ -1,4 +1,4 @@
-package ihm.smartPhone;
+package ihm.smartPhone.composants;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -18,7 +18,7 @@ import java.awt.Insets;
  * Company: UNSA
  * </p>
  * 
- * @author APPIETTO Christophe - ARNAUD Jean-Michel - EL MAHRATI Hassan [prev Jerôme GAHIDE - Lucas CHARBIT - Gabriel
+ * @author APPIETTO Christophe - ARNAUD Jean-Michel - EL MAHRATI Hassan [prev Jerï¿½me GAHIDE - Lucas CHARBIT - Gabriel
  *         ZERBIB - Xavier GALBOIS]
  * @version 2.0
  */
@@ -152,11 +152,11 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 	}
 
 	public void layoutContainer(Container target) {
-		Insets insets = target.getInsets();
-		int maxheight = target.getSize().height - (insets.top + insets.bottom + vgap * 2);
-		int maxwidth = target.getSize().width - (insets.left + insets.right + hgap * 2);
+		//Insets insets = target.getInsets();
+		int maxheight = target.getSize().height - (/*insets.top + insets.bottom + */vgap * 2);
+		int maxwidth = target.getSize().width - (/*insets.left + insets.right +*/ hgap * 2);
 		int numcomp = target.getComponentCount();
-		int x = insets.left + hgap;
+		int x = /*insets.left +*/ hgap;
 		int y = 0;
 		int colw = 0, start = 0;
 
@@ -175,7 +175,7 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 				}
 
 				if (y + d.height > maxheight) {
-					placethem(target, x, insets.top + vgap, colw, maxheight - y, start, i);
+					placethem(target, x, /*insets.top */+ vgap, colw, maxheight - y, start, i);
 					y = d.height;
 					x += hgap + colw;
 					colw = d.width;
@@ -188,6 +188,6 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 				}
 			}
 		}
-		placethem(target, x, insets.top + vgap, colw, maxheight - y, start, numcomp);
+		placethem(target, x, /*insets.top */+ vgap, colw, maxheight - y, start, numcomp);
 	} 
 }
