@@ -1,7 +1,6 @@
 package ihm.smartPhone;
 
 import iGoMaster.Master;
-import ihm.network.Network;
 import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.UpperBar;
 import ihm.smartPhone.listener.MyWindowStateListener;
@@ -22,12 +21,13 @@ import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JOptionPane;
+
+import tools.streamInFolder.graphReaderFolder.Network;
 
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
@@ -222,14 +222,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	public String lg(String key) {
 		return master.lg(key);
-	}
-
-	@Override
-	public void paint(Graphics g) {
-		upperBar.repaint();
-		lowerBar.repaint();
-		centerPanel.repaint();
-		super.paint(g);
 	}
 
 	@Override

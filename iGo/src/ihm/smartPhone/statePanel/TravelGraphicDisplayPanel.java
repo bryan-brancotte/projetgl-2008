@@ -13,6 +13,8 @@ import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JOptionPane;
 
@@ -37,16 +39,34 @@ public class TravelGraphicDisplayPanel extends PanelState {
 
 	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
 
+	protected LinkedList<Color> colorList;
+
+	protected Semaphore renderingLockDown = new Semaphore(1);
+
+	int x = 0;
+
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar);
 		this.travel = travelForDisplayPanel;
 		if (travel == null)
 			travel = new TravelForTravelPanelExemple();
+		colorList = new LinkedList<Color>();
+		colorList.add(Color.cyan);
+		colorList.add(Color.magenta);
+		colorList.add(Color.yellow);
+		colorList.add(Color.lightGray);
+		colorList.add(Color.red);
+		colorList.add(Color.blue);
+		// colorList.add(Color.green);
+		// colorList.add(Color.orange);
 	}
 
 	@Override
 	public void paint(Graphics g) {
+		
+		if (!renderingLockDown.tryAcquire())
+			return;
 		/***************************************************************************************************************
 		 * On regarde si la taille à changer, dans ce cas on modifie le buffer en conséquence
 		 */
@@ -55,10 +75,6 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			buffer = image.getGraphics();
 		}
 
-		// buffer.drawOval(0, 0, father.getSizeAdapteur().getSizeLargeFont(),
-		// father.getSizeAdapteur().getSizeLargeFont());
-		// buffer.drawOval(father.getSizeAdapteur().getSizeLargeFont(), 0, father.getSizeAdapteur().getSizeSmallFont(),
-		// father.getSizeAdapteur().getSizeSmallFont());
 		SectionOfTravel section;
 		Iterator<SectionOfTravel> iterTravel = travel.getTravel();
 
@@ -67,12 +83,8 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		int idToKeep;
 		int length;
 		polygon.reset();
-		polygon.addPoint(getWidth() / 8, father.getSizeAdapteur().getSizeLargeFont());
+		polygon.addPoint(getWidth() / 2, father.getSizeAdapteur().getSizeLargeFont());
 		polygon.addPoint(0, 0);
-		// polygon.addPoint(getWidth() / 4 + father.getSizeAdapteur().getSizeIntermediateFont() / 2, father
-		// .getSizeAdapteur().getSizeLargeFont() / 2);
-		// polygon.addPoint(getWidth() / 4 - father.getSizeAdapteur().getSizeIntermediateFont() / 2, father
-		// .getSizeAdapteur().getSizeLargeFont() / 2);
 		polygon.addPoint(polygon.xpoints[1], polygon.ypoints[1]);
 		polygon.addPoint(polygon.xpoints[0], polygon.ypoints[0]);
 
@@ -86,18 +98,9 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				/ 2 - getHeigthString(travel.getOrigine(), buffer, father.getSizeAdapteur().getSmallFont()) / 2);
 		while (iterTravel.hasNext()) {
 			section = iterTravel.next();
-			switch (orientation % 3) {
-			case 0:
-				buffer.setColor(Color.blue);
-				break;
-			case 1:
-				buffer.setColor(Color.green);
-				break;
-			case 2:
-				buffer.setColor(Color.orange);
-				break;
-			}
-			length = section.getTimeSection() * 6;
+			buffer.setColor(colorList.getFirst());
+			colorList.addLast(colorList.removeFirst());
+			length = section.getTimeSection() * father.getSizeAdapteur().getSizeSmallFont()/3 ;
 			if (orientation % 2 == 0) {
 				idToKeep = 2;
 				idToModify = 0;
@@ -107,34 +110,46 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			}
 			polygon.xpoints[idToKeep] = polygon.xpoints[idToKeep + 1] / 2 + polygon.xpoints[idToKeep] / 2;
 			polygon.ypoints[idToKeep] = polygon.ypoints[idToKeep + 1] / 2 + polygon.ypoints[idToKeep] / 2;
+			polygon.xpoints[idToKeep + 1] = polygon.xpoints[idToKeep];
+			polygon.ypoints[idToKeep + 1] = polygon.ypoints[idToKeep];
 			int hypo;
+			int sizeDemiInter = father.getSizeAdapteur().getSizeIntermediateFont() / 2;
 			hypo = (father.getSizeAdapteur().getSizeLargeFont() * 4);
 			hypo *= hypo;
 			hypo += length * length;
 			hypo = (int) Math.sqrt(hypo);
+			double cos, sin;
+
+			cos = 0;
+			sin = 1;
 			switch (orientation % 3) {
 			case 0:
-				polygon.xpoints[idToKeep + 1] = polygon.xpoints[idToKeep] + father.getSizeAdapteur().getSizeIntermediateFont() / 2;
-				polygon.xpoints[idToKeep] = polygon.xpoints[idToKeep] - father.getSizeAdapteur().getSizeIntermediateFont() / 2 ;
-				polygon.ypoints[idToKeep + 1] = polygon.ypoints[idToKeep];
-				polygon.ypoints[idToKeep] = polygon.ypoints[idToKeep];
+				polygon.xpoints[idToKeep] += -sizeDemiInter /* sin */;
+				// polygon.ypoints[idToKeep] += sizeDemiInter * cos;
+				polygon.xpoints[idToKeep + 1] += sizeDemiInter /* sin */;
+				// polygon.ypoints[idToKeep + 1] += sizeDemiInter * cos;
 				break;
 			case 1:
-				polygon.xpoints[idToKeep + 1] = polygon.xpoints[idToKeep] + father.getSizeAdapteur().getSizeIntermediateFont() / 2 * father.getSizeAdapteur().getSizeLargeFont() * 4/hypo;
-				polygon.xpoints[idToKeep] = polygon.xpoints[idToKeep] - father.getSizeAdapteur().getSizeIntermediateFont() / 2 * father.getSizeAdapteur().getSizeLargeFont() * 4/hypo;
-				polygon.ypoints[idToKeep + 1] = polygon.ypoints[idToKeep] + father.getSizeAdapteur().getSizeIntermediateFont() / 2 * length/hypo;
-				polygon.ypoints[idToKeep] = polygon.ypoints[idToKeep] - father.getSizeAdapteur().getSizeIntermediateFont() / 2 * length/hypo;
+				cos = (double) father.getSizeAdapteur().getSizeLargeFont() * 4.0 / (double) hypo;
+				sin = (double) length / (double) hypo;
+				polygon.xpoints[idToKeep] += -sizeDemiInter * sin;
+				polygon.ypoints[idToKeep] += sizeDemiInter * cos;
+				polygon.xpoints[idToKeep + 1] += sizeDemiInter * sin;
+				polygon.ypoints[idToKeep + 1] += -sizeDemiInter * cos;
 				break;
 			case 2:
-				polygon.xpoints[idToKeep + 1] = polygon.xpoints[idToKeep] - father.getSizeAdapteur().getSizeIntermediateFont() / 2 * father.getSizeAdapteur().getSizeLargeFont() * 4/hypo;
-				polygon.xpoints[idToKeep] = polygon.xpoints[idToKeep] + father.getSizeAdapteur().getSizeIntermediateFont() / 2 * father.getSizeAdapteur().getSizeLargeFont() * 4/hypo;
-				polygon.ypoints[idToKeep + 1] = polygon.ypoints[idToKeep] - father.getSizeAdapteur().getSizeIntermediateFont() / 2 * length/hypo;
-				polygon.ypoints[idToKeep] = polygon.ypoints[idToKeep] + father.getSizeAdapteur().getSizeIntermediateFont() / 2 * length/hypo;
+				cos = -(double) father.getSizeAdapteur().getSizeLargeFont() * 4.0 / (double) hypo;
+				sin = (double) length / (double) hypo;
+				polygon.xpoints[idToKeep] += -sizeDemiInter * sin;
+				polygon.ypoints[idToKeep] += sizeDemiInter * cos;
+				polygon.xpoints[idToKeep + 1] += sizeDemiInter * sin;
+				polygon.ypoints[idToKeep + 1] += -sizeDemiInter * cos;
 				break;
 			}
+
 			switch (orientation % 3) {
 			case 0:
-				polygon.xpoints[idToModify] = polygon.xpoints[idToModify + 1];
+				polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1];
 				polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
 				polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep];
 				polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
@@ -156,10 +171,9 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
 				break;
 			}
-			//
 			// switch (orientation % 3) {
 			// case 0:
-			// polygon.xpoints[idToModify] = polygon.xpoints[idToModify + 1];
+			// polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1];
 			// polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
 			// polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep];
 			// polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
@@ -185,10 +199,10 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			buffer.setColor(father.getSkin().getColorLetter());
 			buffer.drawPolygon(polygon);
 			drawDelayedOval(buffer, polygon.xpoints[idToModify] / 2 + polygon.xpoints[idToModify + 1] / 2
-					- father.getSizeAdapteur().getSizeLargeFont() / 2, polygon.ypoints[idToModify]
-					- father.getSizeAdapteur().getSizeLargeFont() / 2, father.getSizeAdapteur().getSizeLargeFont(),
-					father.getSizeAdapteur().getSizeLargeFont());
-			System.out.println(section.getNameChangement());
+					- father.getSizeAdapteur().getSizeLargeFont() / 2, polygon.ypoints[idToModify] / 2
+					+ polygon.ypoints[idToModify + 1] / 2 - father.getSizeAdapteur().getSizeLargeFont() / 2, father
+					.getSizeAdapteur().getSizeLargeFont(), father.getSizeAdapteur().getSizeLargeFont());
+			// System.out.println(section.getNameChangement());
 			orientation = (++orientation % 6);
 		}
 
@@ -197,9 +211,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		 * dessin du nouvelle affichage
 		 */
 		g.drawImage(image, 0, 0, this);
-	}
-
-	protected void drawPolygoneRoute(int idToModify, int orientation, int length) {
+		renderingLockDown.release();
 	}
 
 	protected void drawDelayedOval(Graphics g, int x, int y, int width, int heigth) {

@@ -24,13 +24,13 @@ public interface SizeAdapteur {
 	public int getWidth();
 
 	public int getSizeLargeFont();
-	
+
 	public int getSizeIntermediateFont();
 
 	public int getSizeSmallFont();
 
 	public Font getLargeFont();
-	
+
 	public Font getIntermediateFont();
 
 	public Font getSmallFont();
@@ -42,7 +42,6 @@ public interface SizeAdapteur {
 	public int getSizeLine();
 
 	public boolean isEnableSizeLine();
-	
 
 	public enum FontSizeKind {
 		LARGE(1), INTERMEDIATE(2), SMALL(3);

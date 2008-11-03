@@ -8,6 +8,7 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.concurrent.Semaphore;
 
 /**
  * <p>
@@ -25,11 +26,14 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	private static final long serialVersionUID = 1L;
 	protected static final int maxHeightForScalling = 640;
 
-	//public static final int DEFAULT_HEIGTH = 220;public static final int DEFAULT_WIDTH = 140;/*
-	//public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
-	//public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 240;/*
-	public static final int DEFAULT_HEIGTH = 558;public static final int DEFAULT_WIDTH = 406;/*
-	public static final int DEFAULT_HEIGTH = 1200;public static final int DEFAULT_WIDTH = 1600;/**/
+	// public static final int DEFAULT_HEIGTH = 220;public static final int DEFAULT_WIDTH = 140;/*
+	// public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
+	// public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 240;/*
+	public static final int DEFAULT_HEIGTH = 558;
+	public static final int DEFAULT_WIDTH = 406;/***********************************************************************
+												 * public static final int DEFAULT_HEIGTH = 1200;public static final int
+												 * DEFAULT_WIDTH = 1600;/
+												 **********************************************************************/
 
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 
@@ -49,6 +53,9 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected int sizeLine;
 	protected boolean fullScreen = false;
 	protected static float corectionOfFontSize = (float) 1.6;
+
+	protected Semaphore lookForALook = new Semaphore(1);
+	protected boolean keepLook = false;
 
 	/**
 	 * Constructeur avec l'affichage des ligne par défaut (à true). On définit la résolution
@@ -104,7 +111,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		largeFont = new Font("Large", Font.PLAIN, 1);
 		intermediateFont = largeFont;
 		smallFont = largeFont;
-		recalculate(height);
+		recalculate(height); 
 	}
 
 	/**
@@ -138,7 +145,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		if (this.sizeSmallFont < 8)
 			this.sizeSmallFont = 8;
 		this.sizeUpperBar = (int) (val * 0.13);
-		this.sizeLowerBar = (int) (val * 0.07);//0.07
+		this.sizeLowerBar = (int) (val * 0.07);// 0.07
 		if (this.sizeLowerBar < 24)
 			this.sizeLowerBar = 24;
 		this.sizeLine = (int) (val * 0.0042);
@@ -149,8 +156,8 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		if (intermediateFont.getSize() != sizeIntermediateFont)
 			intermediateFont = new Font("Intermediat", Font.PLAIN, sizeIntermediateFont);
 		if (smallFont.getSize() != sizeSmallFont)
-			smallFont = new Font("Small", Font.PLAIN, sizeSmallFont); 
-		//System.out.println(this);
+			smallFont = new Font("Small", Font.PLAIN, sizeSmallFont);
+		// System.out.println(this); 
 	}
 
 	/**
@@ -191,6 +198,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	 * @param Container
 	 *            le conteneur où se trouve les objets.
 	 */
+	@Override
 	public void layoutContainer(Container target) {
 		this.width = target.getWidth();
 		this.height = target.getHeight();
@@ -204,9 +212,9 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 				placethem(c, target.getInsets().left, height - target.getInsets().bottom - sizeLowerBar, insideWidth,
 						sizeLowerBar);
 			} else if (target.getComponentCount() == 3) {
-				placethem(c, target.getInsets().left, target.getInsets().top + getSizeLine() + sizeUpperBar, insideWidth,
-						height - sizeLowerBar - 2 * getSizeLine() - target.getInsets().top - target.getInsets().bottom
-								- sizeUpperBar);
+				placethem(c, target.getInsets().left, target.getInsets().top + getSizeLine() + sizeUpperBar,
+						insideWidth, height - sizeLowerBar - 2 * getSizeLine() - target.getInsets().top
+								- target.getInsets().bottom - sizeUpperBar);
 			}
 		}
 	}
