@@ -32,7 +32,7 @@ public class MainPanel extends PanelState {
 	/**
 	 * L'unique constructeur de cette classe. On a besoin l'ihm qui l'heberge afin d'afficher les bonnes couleurs via le
 	 * getSkin() et les bonnes tailles via le getSizeAdapteur().
-	 * 
+	 * 	
 	 * @param ihm
 	 *            l'ihm réceptrice
 	 * @param upperBar
