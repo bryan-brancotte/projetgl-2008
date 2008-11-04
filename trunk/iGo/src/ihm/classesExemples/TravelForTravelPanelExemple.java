@@ -201,12 +201,11 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 
 	@Override
 	public int getTotalTime() {
-		return 72;
-	}
-
-	@Override
-	public float getRemainingCost() {
-		return 22F;
+		int ret = 0;
+		for(SectionOfTravel section : travel){
+			ret+= section.getTimeSection()+section.getEnddingChangementTime();
+		}
+		return ret;
 	}
 
 	@Override

@@ -38,6 +38,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 	protected static Rectangle delArea = null;
 	protected static Rectangle allArea = null;
 	protected boolean insideMe;
+	
+	//protected Graphics2D buffer;
 
 	/**
 	 * Surcharge de la méthode finalize afin de comptabilisé le nombre d'instance encore présentes en mémoire. Si
@@ -181,7 +183,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		 */
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
-			buffer = image.getGraphics();
+			buffer = /*(Graphics2D)/**/ image.getGraphics();
+			//buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			buffer.setColor(father.getSkin().getColorLetter());
 			fontInter = father.getSizeAdapteur().getIntermediateFont();
 			fontSmall = father.getSizeAdapteur().getSmallFont();

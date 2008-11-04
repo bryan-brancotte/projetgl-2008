@@ -28,7 +28,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	public abstract Route addRoute(Route nvRoute) throws ViolationOfUnicityInIdentificationException;
 
 	/**
-	 * Create a new route, and it to the routes' collection.
+	 * Create a new route, and add it to the routes' collection.
 	 * 
 	 * @param id
 	 *            the id of the route, it must be a none used id
@@ -102,7 +102,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	public abstract Station addStation(Station nvStation) throws ViolationOfUnicityInIdentificationException;
 
 	/**
-	 * Add to the specified route, a station at the end. The time between the old last station and this one is also
+	 * Add to the specified route, a station at the end. The time between the previous last station and this one is also
 	 * specified in the argument. If station is already in the road, we do nothing.
 	 * 
 	 * @param origine
@@ -217,7 +217,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @param stationDestination
 	 *            to where the link go.
 	 * @param cost
-	 *            How many € to use it.
+	 *            How many â‚¬ to use it.
 	 * @param time
 	 *            How much time to use it.
 	 * @param pedestrian

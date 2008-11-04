@@ -51,6 +51,8 @@ public class UpperBar extends AbstractBar {
 	 */
 	public UpperBar(IGoIhmSmartPhone ihm, boolean demo) {
 		super(ihm);
+		leftCmdArea = new Rectangle();
+		rigthCmdArea = new Rectangle();
 		if (demo) {
 			setCenterIcone("iGo");
 			setMainTitle("mainTitle");
@@ -62,8 +64,6 @@ public class UpperBar extends AbstractBar {
 		} else {
 			clearMessage();
 		}
-		leftCmdArea = new Rectangle();
-		rigthCmdArea = new Rectangle();
 		MouseListenerClickAndMoveInArea l = new MouseListenerClickAndMoveInArea(this);
 		l.addInteractiveArea(leftCmdArea, new CodeExecutor() {
 			@Override
@@ -297,6 +297,7 @@ public class UpperBar extends AbstractBar {
 		leftCmdActionListener = l;
 		this.leftCmd = leftCmd;
 		this.leftCmdSize = fontKindSize;
+		this.leftCmdArea.setBounds(0,0,0,0);
 	}
 
 	/**
@@ -321,6 +322,7 @@ public class UpperBar extends AbstractBar {
 		rigthCmdActionListener = l;
 		this.rigthCmd = rigthCmd;
 		this.rigthCmdSize = fontKindSize;
+		this.rigthCmdArea.setBounds(0,0,0,0);
 	}
 
 	/**

@@ -264,7 +264,7 @@ public class Inter implements InterReader {
 	}
 
 	/**
-	 * a variable to know if the inter is rail between to station or an inter were you have to step down from you
+	 * a variable to know if the inter is rail between two station or an inter were you have to step down from you
 	 * train/subway/...
 	 * 
 	 * @uml.property name="routeLink"

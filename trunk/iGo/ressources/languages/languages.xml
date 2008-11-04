@@ -99,10 +99,6 @@
 				<FRANCAIS value="Temps total"/>
 				<ENGLISH value="Total time"/>
 			</TotalTime>
-			<RemainingCost>
-				<FRANCAIS value="Coût restant"/>
-				<ENGLISH value="Remaining cost"/>
-			</RemainingCost>
 			<RemainingTime>
 				<FRANCAIS value="Temps restant"/>
 				<ENGLISH value="Remaining time"/>

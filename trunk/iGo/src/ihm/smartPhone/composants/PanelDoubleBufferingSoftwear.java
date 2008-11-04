@@ -13,6 +13,33 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
 	protected Panel me = this;
 
+//	private SemaphorePaint renderingClamp = null;
+//
+//	private boolean enableRenderingClamp = false;
+//
+//	protected boolean isEnableRenderingClamp() {
+//		return enableRenderingClamp;
+//	}
+//
+//	protected void setEnableRenderingClamp(boolean enableRenderingClamp) {
+//		this.enableRenderingClamp = enableRenderingClamp;
+//		if (this.enableRenderingClamp)
+//			renderingClamp = new SemaphorePaint();
+//		else
+//			renderingClamp = null;
+//	}
+//
+//	protected boolean tryAcquireRenderingClamp() {
+//		if (!enableRenderingClamp)
+//			return true;
+//		return renderingClamp.tryAcquire();
+//	}
+//
+//	protected void releaseRenderingClamp() {
+//		if (enableRenderingClamp)
+//			renderingClamp.release();
+//	}
+
 	/**
 	 * Surdéfinition de la fonction de redessinement de l'objet.
 	 */
@@ -63,4 +90,32 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 		return image;
 	}
 
+//	class SemaphorePaint extends Thread {
+//		private Semaphore renderingClamp = new Semaphore(1);
+//
+//		public SemaphorePaint() {
+//			super();
+//		}
+//
+//		public boolean tryAcquire() {
+//			return renderingClamp.tryAcquire();
+//		}
+//
+//		public void release() {
+//			(new ExecMultiThread<Semaphore>(this.renderingClamp) {
+//
+//				@Override
+//				public void run() {
+//					try {
+//						sleep(100);
+//					} catch (InterruptedException e) {
+//					}
+//					this.origine.release();
+//				}
+//			}).start();
+//
+//			// renderingClamp.release();
+//			//
+//		}
+//	}
 }

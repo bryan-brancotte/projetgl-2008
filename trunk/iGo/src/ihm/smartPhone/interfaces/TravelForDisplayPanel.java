@@ -40,13 +40,6 @@ public interface TravelForDisplayPanel {
 	public int getRemainingTime();
 
 	/**
-	 * Retourne le coût restant pour ce trajet.
-	 * 
-	 * @return
-	 */
-	public float getRemainingCost();
-
-	/**
 	 * Demande un mise à jours du contenue.
 	 * 
 	 * @return true si un changement à été effectué
