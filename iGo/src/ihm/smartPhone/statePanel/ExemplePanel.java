@@ -1,12 +1,12 @@
 package ihm.smartPhone.statePanel;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.UpperBar;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
+
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ExemplePanel extends PanelState {
 	
@@ -18,7 +18,7 @@ public class ExemplePanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
-		g.drawString(this.getClass().getName(), 0, this.getHeight());
+		(g).drawString(this.getClass().getName(), 0, this.getHeight());
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class LowerBar extends AbstractBar {
 
 	private static final long serialVersionUID = 1L;
 	protected int oldHeigth = -1;
-	
+
 	protected String mainTitle;
 	protected FontSizeKind mainTitleSize;
 	protected String leftTitle;
@@ -56,6 +56,9 @@ public class LowerBar extends AbstractBar {
 	 */
 	public LowerBar(IGoIhmSmartPhone ihm, boolean demo) {
 		super(ihm);
+		iconeCmdArea = new Rectangle();
+		leftCmdArea = new Rectangle();
+		rigthCmdArea = new Rectangle();
 		if (demo) {
 			setCenterIcone("button_save", null);
 			setMainTitle("mainTitle");
@@ -68,9 +71,6 @@ public class LowerBar extends AbstractBar {
 		} else {
 			clearMessage();
 		}
-		iconeCmdArea = new Rectangle();
-		leftCmdArea = new Rectangle();
-		rigthCmdArea = new Rectangle();
 		MouseListenerClickAndMoveInArea l = new MouseListenerClickAndMoveInArea(this);
 		l.addInteractiveArea(leftCmdArea, new CodeExecutor() {
 			@Override
@@ -118,9 +118,9 @@ public class LowerBar extends AbstractBar {
 				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
 						.getImage();
 			}
-			iconeCmdArea.setBounds(this.getWidth() / 2 - imageIcone.getWidth(null) / 2, 1, imageIcone
-					.getHeight(null), imageIcone.getWidth(null));
-			g.drawImage(imageIcone, iconeCmdArea.x, iconeCmdArea.y, null);
+			iconeCmdArea.setBounds(this.getWidth() / 2 - imageIcone.getWidth(null) / 2, 1, imageIcone.getHeight(null),
+					imageIcone.getWidth(null));
+			(g).drawImage(imageIcone, iconeCmdArea.x, iconeCmdArea.y, null);
 			oldHeigth = this.getHeight();
 		}
 	}
@@ -164,7 +164,8 @@ public class LowerBar extends AbstractBar {
 					g, font));
 
 		if ((rigthValueSize == fontKindSize) && (rigthValue != ""))
-			g.drawString(rigthValue, 3 * this.getWidth() / 4 - getWidthString(rigthValue, g, font) / 2, this.getHeight()
+			g.drawString(rigthValue, 3 * this.getWidth() / 4 - getWidthString(rigthValue, g, font) / 2, this
+					.getHeight()
 					/ 2 + getHeigthString(rigthValue, g, font) / 2);
 
 		if ((leftCmdSize == fontKindSize) && (leftCmd != "")) {
@@ -342,6 +343,7 @@ public class LowerBar extends AbstractBar {
 		leftCmdActionListener = l;
 		this.leftCmd = leftCmd;
 		this.leftCmdSize = fontKindSize;
+		this.leftCmdArea.setBounds(0, 0, 0, 0);
 	}
 
 	/**
@@ -366,6 +368,7 @@ public class LowerBar extends AbstractBar {
 		rigthCmdActionListener = l;
 		this.rigthCmd = rigthCmd;
 		this.rigthCmdSize = fontKindSize;
+		this.rigthCmdArea.setBounds(0, 0, 0, 0);
 	}
 
 	/**
@@ -390,8 +393,9 @@ public class LowerBar extends AbstractBar {
 			this.icone = icone;
 		} else {
 			this.icone = "";
-			oldHeigth=-1;
+			oldHeigth = -1;
 			imageIcone = null;
+			this.iconeCmdArea.setBounds(0, 0, 0, 0);
 		}
 	}
 

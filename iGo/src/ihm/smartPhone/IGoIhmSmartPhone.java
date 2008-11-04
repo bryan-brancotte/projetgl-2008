@@ -335,8 +335,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public void setActualState(IhmReceivingStates actualState) {
 		if (actualState == this.actualState)
 			return;
-		if (actualState != IhmReceivingStates.SPLASH_SCREEN)
+		if (actualState != IhmReceivingStates.SPLASH_SCREEN){
 			splashScreenPanel = null;
+		}
 
 		if (actualState == IhmReceivingStates.SPLASH_SCREEN) {
 			this.actualState = IhmReceivingStates.SPLASH_SCREEN;
