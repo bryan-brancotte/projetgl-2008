@@ -5,7 +5,6 @@ import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
-import ihm.smartPhone.listener.MouseListenerSimplificated;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
@@ -47,8 +47,17 @@ public class TravelGraphicDisplayPanel extends PanelState {
 
 	protected float xImg;
 	protected float yImg;
+	/**
+	 * La hauteur de l'image représentant le réseau
+	 */
 	protected int heigthImage;
+	/**
+	 * La largueur de l'image représentant le réseau
+	 */
 	protected int widthImage;
+	/**
+	 * L'échelle de l'image
+	 */
 	protected float scallImg = 0.25F;
 
 	protected int xLastPointeur;
@@ -74,6 +83,9 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		colorList.add(Color.blue);
 		colorList.add(Color.green);
 		colorList.add(Color.orange);
+		/***************************************************************************************************************
+		 * Listener de déplacement de la sourirs
+		 */
 		this.addMouseMotionListener(new MouseMotionListener() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -104,7 +116,10 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				me.repaint();
 			}
 		});
-		this.addMouseListener(new MouseListenerSimplificated<TravelGraphicDisplayPanel>(this) {
+		/***************************************************************************************************************
+		 * Listener de clic de la souris
+		 */
+		this.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -119,7 +134,18 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
 		});
+		/***************************************************************************************************************
+		 * Listener de molette souris
+		 */
 		this.addMouseWheelListener(new MouseWheelListener() {
 
 			@Override
@@ -130,9 +156,12 @@ public class TravelGraphicDisplayPanel extends PanelState {
 					scallImg /= 1.02;
 				else
 					return;
-				repaint(); 
+				repaint();
 			}
 		});
+		/***************************************************************************************************************
+		 * Listener de clavier
+		 */
 		this.addKeyListener(new KeyListener() {
 
 			@Override
@@ -191,31 +220,33 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			public void keyTyped(KeyEvent e) {
 			}
 		});
-		// this.setEnableRenderingClamp(true);
 	}
 
 	@Override
 	public void paint(Graphics g) {
+		// Un mutex est placé afin de ne pas lancer plusieur paint en même temps (et gagner du temps). Ce mutex a
+		// autrefois éviter des execution inutils, mais ne semble plus être utils désormais. Il est laissé an attendant
+		// un optimisation
 		if (!renderingClamp.tryAcquire()) {
 			System.out.println("acquire OFF");
 			return;
 		}
+		// on demande un reconstruction de l'image
 		buildImage();
+		// on efface l'écran puis on dessine cette image
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.drawImage(image, (int) xImg, (int) yImg, null);
 		renderingClamp.release();
 	}
 
 	public void buildImage() {
-		sizeLarge = 44;
-		sizeQuadLarge = 176;
-		sizeDemiLine = 12;
-		sizeLarge *= scallImg;
-		sizeQuadLarge *= scallImg;
-		sizeDemiLine *= scallImg;
+		// on définit les tailles étalons, et on les met à l'échem
+		sizeLarge = (int) (44 * scallImg);
+		sizeQuadLarge = (int) (176 * scallImg);
+		sizeDemiLine = (int) (12 * scallImg);
 
 		/***************************************************************************************************************
-		 * On regarde si la taille à changer, dans ce cas on modifie le buffer en conséquence
+		 * On regarde si la taille de l'image a changer (via un zoom par exemple) et on reconstruit l'image.
 		 */
 		if ((buffer == null) || (image.getWidth(null) != sizeQuadLarge * 4)
 				|| (image.getHeight(null) != travel.getTotalTime() * sizeLarge / 3)) {
@@ -356,6 +387,21 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		}
 	}
 
+	/**
+	 * Procédure permettant de dessiner un oval, avec un appelle de retard : lorsqu'on appelle la fonction, l'oval
+	 * effectivement dessiné est celui du prédédent appelle.
+	 * 
+	 * @param g
+	 *            le Graphics om l'on va dessiner l'oval, s'il est null, on dessine tout de même le précédent oval
+	 * @param x
+	 *            l'abscisse de l'oval
+	 * @param y
+	 *            l'ordonnée de l'oval
+	 * @param width
+	 *            la largueur de l'oval
+	 * @param heigth
+	 *            la hauteur de l'oval
+	 */
 	protected void drawDelayedOval(Graphics g, int x, int y, int width, int heigth) {
 		if (ovalToDrawDelayed.g != null) {
 			ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
@@ -372,6 +418,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		ovalToDrawDelayed.heigth = heigth;
 	}
 
+	// TODO
 	public void setActualState(IhmReceivingStates actualState) {
 		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
 			this.actualState = actualState;
@@ -445,6 +492,13 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		lowerBar.repaint();
 	}
 
+	/**
+	 * Classe équivalent à un structure en C/C++, on permet de stocker de façon regroupé plusieurs variable relative au
+	 * dessin d'un futur oval
+	 * 
+	 * @author Brancotte Bryan
+	 * 
+	 */
 	protected class OvalToDraw {
 		public Graphics g;
 		public int x;
