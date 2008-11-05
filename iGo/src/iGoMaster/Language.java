@@ -3,10 +3,9 @@ package iGoMaster;
 import java.util.Collection;
 
 /**
- * Interface permetant d'utiliser le programme en plusieur langue
+ * Interface permetant d'utiliser le programme en plusieurs langues
  * 
- * @author Brancotte Bryan
- * 
+ * @author iGo
  */
 public interface Language {
 

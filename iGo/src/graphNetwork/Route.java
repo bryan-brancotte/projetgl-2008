@@ -2,6 +2,10 @@ package graphNetwork;
 
 import java.util.LinkedList;
 
+/**
+ *  
+ * @author iGo
+ */
 public class Route implements RouteReader {
 
 	/**

@@ -2,6 +2,10 @@ package graphNetwork;
 
 import java.util.Collection;
 
+/**
+ *  
+ * @author iGo
+ */
 public abstract class KindRouteReader {
 
 	/**

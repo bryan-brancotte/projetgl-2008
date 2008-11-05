@@ -5,7 +5,10 @@ import ihm.smartPhone.IHM;
 
 import java.util.Observable;
 import java.util.Observer;
-
+/**
+ *  
+ * @author iGo
+ */
 public class IGoMaster implements Master, Observer {
 
 	/**

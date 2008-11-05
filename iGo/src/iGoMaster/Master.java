@@ -1,12 +1,15 @@
 package iGoMaster;
-
+/**
+ *  
+ * @author iGo
+ */
 public interface Master {
 
 	/**
-	 * Retourne pour une clÃ© donnÃ©e la valeur dans la langue sÃ©lectionnÃ© de cette clÃ©
+	 * Retourne pour une clé donnée la valeur dans la langue sélectionné de cette clé
 	 * 
 	 * @param key
-	 *            clÃ© de la chaine voulut dans la langue active
+	 *            clé de la chaine voulut dans la langue active
 	 * @return la chaine dans la langue voulut
 	 */
 	public String lg(String key);

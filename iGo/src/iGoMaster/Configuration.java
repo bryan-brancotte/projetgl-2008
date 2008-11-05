@@ -3,9 +3,8 @@ package iGoMaster;
 import java.util.Collection;
 
 /**
- * 
- * @author Brancotte Bryan
- * 
+ *  
+ * @author iGo
  */
 public interface Configuration {
 

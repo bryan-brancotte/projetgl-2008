@@ -1,6 +1,9 @@
 package iGoMaster;
 
-
+/**
+ *  
+ * @author iGo
+ */
 public interface AvaibleNetwork {
 
 	/**

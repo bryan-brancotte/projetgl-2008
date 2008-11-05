@@ -9,28 +9,28 @@ import java.util.Observable;
 import java.util.Vector;
 
 /**
- * This interaface provides services to see the differents events about the network. Events likes station closed
- * temporarly, station re-opened,...
  * 
- * @author Brancotte Bryan
+ * Cette interface fournit les différents services afin de visualiser les évènements survenus sur le réseau
+ * 
+ * @author iGo
  * 
  */
 public abstract class EventInfoNetworkWatcher extends Observable {
 
 	/**
-	 * Start the watching process of the EventInfoNetwork
+	 * Démarre la surveillance des évènements
 	 * 
 	 * @throws ImpossibleStartingException
 	 */
 	public abstract void startWatching() throws ImpossibleStartingException;
 
 	/**
-	 * Stop the watching process of the EventInfoNetwork
+	 * Arrête la surveillance des évènements
 	 */
 	public abstract void stopWatching();
 
 	/**
-	 * give the actual status of the EventInfoNetwork
+	 * Permet d'obtenir le status de la surveillance des évènements
 	 * 
 	 * @return the actual status
 	 * @uml.property name="status"
@@ -39,18 +39,19 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	public abstract EventInfoNetWorkWatcherStatus getStatus();
 
 	/**
-	 * Apply change on the graphNetworkBuilder
+	 * Applique les changements sur un graphe
 	 * 
-	 * @param graph
-	 *            the graph where we'll apply the change
+	 * @param graph le graphe sur lequel les changements vont être appliqués
 	 */
 	public abstract void applyInfo(GraphNetworkBuilder graph);
 
 	/**
-	 * Allow to obtain all the new informations givent on the network. If the EventInfoNetworkWatcher is loading the new
-	 * EventInfo in the collection, the getNewEventInfo will block until the loading is done
 	 * 
-	 * @return the collection of the new event, or a void collection if there nothing
+	 * Permet d'obtenir toutes les nouvelles informations sur le réseau.
+	 * Si le EventInfoNetworkWatcher est en train de charger un EventInfo en même temps,
+	 * Cette fonction sera bloquante jusqu'à ce que le chargement soit effectué.
+	 * 
+	 * @return Une collection avec les nouveaux évènements, ou null si aucun évènement n'est survenu
 	 */
 	public Collection<EventInfo> getNewEventInfo() {
 		return new Vector<EventInfo>(eventInfosNotApplied);

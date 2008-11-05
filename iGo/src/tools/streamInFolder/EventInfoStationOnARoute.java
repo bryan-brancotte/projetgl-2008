@@ -4,7 +4,10 @@ import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
-
+/**
+ * Evènement relatif à une station sur une ligne
+ *
+ */
 public class EventInfoStationOnARoute implements EventInfo{
 	/**
 	 * @uml.property  name="id"

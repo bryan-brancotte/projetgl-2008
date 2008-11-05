@@ -5,7 +5,10 @@ import graphNetwork.GraphNetworkReader;
 import graphNetwork.PathInGraphBuilder;
 import graphNetwork.PathInGraphReader;
 import graphNetwork.StationReader;
-
+/**
+ *  
+ * @author iGo
+ */
 public interface Algo {
 
 	/**
