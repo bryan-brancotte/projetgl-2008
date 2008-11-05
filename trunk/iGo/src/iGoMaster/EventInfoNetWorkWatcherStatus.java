@@ -1,24 +1,27 @@
 package iGoMaster;
-
+/**
+ *  
+ * @author iGo
+ */
 public enum EventInfoNetWorkWatcherStatus {
 	/**
-	 * Aucune nouvelle mise √† jours detect√©, o√π la mise √† jours est toujours en cours de traitement.
+	 * Aucune nouvelle mise ‡ jour detectÈe, ou alors la mise ‡ jour est toujours en cours de traitement.
 	 */
 	NO_NEW_UPDATE(1),
 	/**
-	 * Une nouvelle mise √† jours est disponible.
+	 * Une nouvelle mise ‡†jour est disponible.
 	 */
 	NEW_UPDATE(2),
 	/**
-	 * Le EventInfoNetWorkWatcher est d√©marr√©, il regarde afin de trouver d'autre mise √† jours.
+	 * Le EventInfoNetWorkWatcher est dÈmarrÈ, il regarde afin de trouver d'autre mises ‡ jour.
 	 */
 	STARTED(3),
 	/**
-	 * Le EventInfoNetWorkWatcher est arret√©, il ne regarde pas pour trouver d'autre mise √† jours.
+	 * Le EventInfoNetWorkWatcher est arretÈ, il ne regarde pas pour trouver d'autre mises ‡ jour.
 	 */
 	STOPPED(4),
 	/**
-	 * Statu inconnu. Il traduit une compl√®te ignorance de l'√©tat actuel.
+	 * Status inconnu
 	 */
 	UNKNOWN_STATUS(5);
 
@@ -33,7 +36,7 @@ public enum EventInfoNetWorkWatcherStatus {
 	}
 
 	/**
-	 * Surcharge de equals pour s'assur√© que la comparaison sera bien faite.
+	 * Surcharge de equals pour s'assurer que la comparaison sera bien faite.
 	 */
 	public boolean equals(EventInfoNetWorkWatcherStatus ev) {
 		return (this.getValue() == ev.getValue());

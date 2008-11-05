@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.MissingResourceException;
 
+/** 
+* @author iGo
+*/
 public interface GraphNetworkBuilder extends GraphNetworkReader {
 
 	/**

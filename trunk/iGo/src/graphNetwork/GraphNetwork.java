@@ -7,6 +7,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.MissingResourceException;
 
+/**
+ *  
+ * @author iGo
+ */
 public class GraphNetwork implements GraphNetworkBuilder {
 
 	/**

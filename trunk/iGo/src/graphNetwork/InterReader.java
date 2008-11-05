@@ -1,5 +1,9 @@
 package graphNetwork;
 
+/**
+ *  
+ * @author iGo
+ */
 public interface InterReader {
 
 	/**

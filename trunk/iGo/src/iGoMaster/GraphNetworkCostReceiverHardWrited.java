@@ -2,7 +2,10 @@ package iGoMaster;
 
 import graphNetwork.KindRouteReader;
 
-
+/**
+ *  
+ * @author iGo
+ */
 public class GraphNetworkCostReceiverHardWrited implements GraphNetworkCostReceiver {
 
 	@Override

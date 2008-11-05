@@ -5,7 +5,10 @@ import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 
 import java.util.Collection;
-
+/**
+ *  
+ * @author iGo
+ */
 public interface GraphNetworkReceiver {
 
 	/**

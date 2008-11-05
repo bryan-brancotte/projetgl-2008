@@ -1,5 +1,8 @@
 package graphNetwork.exception;
-
+/**
+ *  
+ * @author iGo
+ */
 public class StationNotOnRoadException extends Exception {
 
 	/**

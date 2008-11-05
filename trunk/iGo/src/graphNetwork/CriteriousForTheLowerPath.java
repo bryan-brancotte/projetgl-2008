@@ -5,12 +5,7 @@ package graphNetwork;
  * n'en ai connaissance. Ces choix seront par exemple le coût, le temps, le changement, ...
  * Son utilisation est semblable au wrapper
  * 
- * @author Brancotte Bryan
- * @author Courtois Rémi
- * @author Girard Pierrick
- * @author Marie Elodie
- * @author Quinio Tony
- * 
+ * @author iGo
  */
 public interface CriteriousForTheLowerPath {
 

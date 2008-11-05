@@ -1,7 +1,10 @@
 package iGoMaster;
 
 import graphNetwork.KindRouteReader;
-
+/**
+ *  
+ * @author iGo
+ */
 public interface GraphNetworkCostReceiver {
 
 	/**

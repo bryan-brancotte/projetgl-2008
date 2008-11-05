@@ -4,6 +4,10 @@ import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
+/**
+ * Evènement relatif à une ligne
+ *
+ */
 public class EventInfoRoute implements EventInfo {
 	/**
 	 * @uml.property name="id"
