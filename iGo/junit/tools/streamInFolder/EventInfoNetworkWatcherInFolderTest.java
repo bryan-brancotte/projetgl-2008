@@ -20,7 +20,7 @@ public class EventInfoNetworkWatcherInFolderTest {
 
 	@Before
 	public void prologueDateTest() {
-		watcher = new EventInfoNetworkWatcherInFolder();
+		watcher = new EventInfoNetworkWatcherInFolder("PATH");
 	}
 
 	/**
