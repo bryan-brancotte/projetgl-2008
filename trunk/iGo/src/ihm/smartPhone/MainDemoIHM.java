@@ -27,7 +27,7 @@ public class MainDemoIHM {
 			public void stop() {
 			}
 
-		//}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
+		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
 		}, iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
 		ihm.start(true,8);
 		int t = 100;
