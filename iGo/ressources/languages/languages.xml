@@ -139,6 +139,10 @@
 				<FRANCAIS value="Destination"/>
 				<ENGLISH value="Destination"/>
 			</Destination>
+			<Free>
+				<FRANCAIS value="Gratuit"/>
+				<ENGLISH value="Free"/>
+			</Free>
 		</fields>
 	</root>
 

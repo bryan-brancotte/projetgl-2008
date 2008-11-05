@@ -40,7 +40,7 @@ public class SplashScreenPanel extends PanelState {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			// on charge aussi le logo en fonction de la taille du panel.
-			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.png"), (int) (this.getWidth() * 0.8),
+			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.256.png"), (int) (this.getWidth() * 0.8),
 					(int) (this.getHeight() * 0.8)).getImage();
 			buffer.setColor(father.getSkin().getColorOutside());
 			buffer.drawImage(logo, this.getWidth() / 2 - logo.getWidth(null) / 2, this.getHeight() / 2
