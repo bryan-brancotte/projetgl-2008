@@ -59,8 +59,13 @@ public class TravelGraphicDisplayPanel extends PanelState {
 	 * L'échelle de l'image
 	 */
 	protected float scallImg = 0.25F;
-
+	/**
+	 * La dernière abscisse du pointeur
+	 */
 	protected int xLastPointeur;
+	/**
+	 * La dernière ordonnée du pointeur
+	 */
 	protected int yLastPointeur;
 
 	protected int sizeDemiLine;
@@ -240,21 +245,24 @@ public class TravelGraphicDisplayPanel extends PanelState {
 	}
 
 	public void buildImage() {
-		// on définit les tailles étalons, et on les met à l'échem
-		sizeLarge = (int) (44 * scallImg);
-		sizeQuadLarge = (int) (176 * scallImg);
-		sizeDemiLine = (int) (12 * scallImg);
+		// on définit les tailles étalons, et on les met à l'échelle
+		// sizeLarge = (int) (44 * scallImg);
+		// sizeQuadLarge = (int) (176 * scallImg);
+		// sizeDemiLine = (int) (12 * scallImg);
+		sizeLarge = (int) (father.getSizeAdapteur().getSizeLargeFont() * 1.8 * scallImg);
+		sizeQuadLarge = 4 * sizeLarge;
+		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * scallImg);
 
 		/***************************************************************************************************************
 		 * On regarde si la taille de l'image a changer (via un zoom par exemple) et on reconstruit l'image.
 		 */
-		if ((buffer == null) || (image.getWidth(null) != sizeQuadLarge * 4)
+		if ((buffer == null) || (image.getWidth(null) != sizeQuadLarge * 5)
 				|| (image.getHeight(null) != travel.getTotalTime() * sizeLarge / 3)) {
 			if (image != null) {
 				xImg += image.getWidth(this) / 2;
 				yImg += image.getHeight(this) / 2;
 			}
-			image = createImage(sizeQuadLarge * 4, travel.getTotalTime() * sizeLarge / 3);
+			image = createImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeLarge / 3);
 			if (buffer != null) {
 				xImg -= image.getWidth(this) / 2;
 				yImg -= image.getHeight(this) / 2;
@@ -360,6 +368,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			buffer.fillPolygon(polygon);
 			drawDelayedOval(buffer, center.x - sizeLarge / 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
 			buffer.drawLine(center.x, center.y, center.x + sizeQuadLarge, center.y);
+			drawInformations(buffer, center.x + sizeQuadLarge, center.y - sizeLarge / 2, section);
 			// System.out.println(section.getNameChangement());
 			orientation = (++orientation % 6);
 		}
@@ -388,11 +397,158 @@ public class TravelGraphicDisplayPanel extends PanelState {
 	}
 
 	/**
+	 * Fonction permettant de dessiner le cadre décrivant le station du changement. Il retourne ensuite l'abscisse
+	 * jusqu'a laquelle on a dessiné.
+	 * 
+	 * @param g
+	 *            le Graphics où l'on va dessiner le rectangle.
+	 * @param x
+	 *            l'abscisse.
+	 * @param y
+	 *            l'ordonné.
+	 * @param section
+	 *            la section que l'on achève.
+	 * @return l'abscisse où l'on a finit de dessiner.
+	 */
+	protected int drawInformationsOld(Graphics g, int xRec, int yRec, SectionOfTravel section) {
+		int x, y, nextX, i;
+		String tmp1, tmp2;
+		// g.setColor(father.getSkin().getColorSubAreaInside());
+		// g.fillRect(xRec, yRec, sizeQuadLarge, sizeLarge);
+		// g.setColor(father.getSkin().getColorLetter());
+		// g.drawRect(xRec, yRec, sizeQuadLarge, sizeLarge);
+		x = xRec + sizeDemiLine * 2;
+		y = yRec + sizeDemiLine / 2 + this.getHeigthString("A", g, g.getFont());
+		g.drawString(section.getNameChangement(), x, y);
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		nextX = 0;
+
+		tmp1 = father.lg("Cost") + " : ";
+		tmp2 = father.lg("Time") + " : ";
+
+		y += sizeDemiLine / 2 + this.getHeigthString(tmp1, g, g.getFont());
+		g.drawString(tmp1, x, y);
+		y += sizeDemiLine / 2 + this.getHeigthString(tmp2, g, g.getFont());
+		g.drawString(tmp2, x, y);
+		nextX = x + this.getWidthString(tmp1, g, g.getFont()) + sizeDemiLine / 2;
+		i = x + this.getWidthString(tmp2, g, g.getFont()) + sizeDemiLine / 2;
+		if (i > nextX)
+			x = i;
+		else
+			x = nextX;
+
+		y = yRec + sizeDemiLine / 2 + this.getHeigthString("A", g, g.getFont());
+		if (section.getEnddingChangementCost() == 0)
+			tmp1 = "free";
+		else
+			tmp1 = section.getEnddingChangementCost() + " " + father.lg("Money");
+		tmp2 = decomposeMinutesIntoHourMinutes(section.getEnddingChangementTime(), father.lg("LetterForHour"), father
+				.lg("LetterForMinute"));
+		y += sizeDemiLine / 2 + this.getHeigthString(tmp1, g, g.getFont());
+		g.drawString(tmp1, x, y);
+		y += sizeDemiLine / 2 + this.getHeigthString(tmp2, g, g.getFont());
+		g.drawString(tmp2, x, y);
+		nextX = x + this.getWidthString(tmp1, g, g.getFont()) + sizeDemiLine * 2;
+		i = x + this.getWidthString(tmp2, g, g.getFont()) + sizeDemiLine * 2;
+		if (i > nextX)
+			nextX = i;
+		i = xRec + sizeDemiLine * 2 + this.getWidthString(section.getNameChangement(), g, g.getFont()) + sizeDemiLine
+				* 2;
+		if (i > nextX)
+			x = i;
+		else
+			x = nextX;
+		g.setColor(father.getSkin().getColorLetter());
+		g.drawRect(xRec, yRec, x - xRec, y + sizeDemiLine - yRec);
+		return 0;
+	}
+
+	/**
+	 * Fonction permettant de dessiner le cadre décrivant le station du changement. Il retourne ensuite l'abscisse
+	 * jusqu'a laquelle on a dessiné.
+	 * 
+	 * @param g
+	 *            le Graphics où l'on va dessiner le rectangle.
+	 * @param x
+	 *            l'abscisse.
+	 * @param y
+	 *            l'ordonné.
+	 * @param section
+	 *            la section que l'on achève.
+	 * @return l'abscisse où l'on a finit de dessiner.
+	 */
+	protected int drawInformations(Graphics g, int xRec, int yRec, SectionOfTravel section) {
+		int x, y, nextX, i;
+		String[] words = new String[6];
+		int[] xs = new int[5];
+		int[] ys = new int[5]; 
+		// g.setColor(father.getSkin().getColorSubAreaInside());
+		// g.fillRect(xRec, yRec, sizeQuadLarge, sizeLarge);
+		// g.setColor(father.getSkin().getColorLetter());
+		// g.drawRect(xRec, yRec, sizeQuadLarge, sizeLarge);
+		x = xRec + sizeDemiLine * 2;
+		y = yRec + sizeDemiLine / 2 + this.getHeigthString("A", g, g.getFont());
+		words[0] = section.getNameChangement();
+		xs[0] = x;
+		ys[0] = y;
+		g.drawString(words[0], xs[0], ys[0]);
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		nextX = 0;
+
+		words[1] = father.lg("Cost") + " : ";
+		words[2] = father.lg("Time") + " : ";
+
+		y += sizeDemiLine / 2 + this.getHeigthString(words[1], g, g.getFont());
+		xs[1] = x;
+		ys[1] = y;
+		g.drawString(words[1], xs[1], ys[1]);
+		y += sizeDemiLine / 2 + this.getHeigthString(words[2], g, g.getFont());
+		xs[2] = x;
+		ys[2] = y;
+		g.drawString(words[2], xs[2], ys[2]);
+		nextX = xs[2] + this.getWidthString(words[1], g, g.getFont()) + sizeDemiLine / 2;
+		i = xs[2] + this.getWidthString(words[2], g, g.getFont()) + sizeDemiLine / 2;
+		if (i > nextX)
+			x = i;
+		else
+			x = nextX;
+
+		y = yRec + sizeDemiLine / 2 + this.getHeigthString("A", g, g.getFont());
+		if (section.getEnddingChangementCost() == 0)
+			words[3] = "free";
+		else
+			words[3] = section.getEnddingChangementCost() + " " + father.lg("Money");
+		words[4] = decomposeMinutesIntoHourMinutes(section.getEnddingChangementTime(), father.lg("LetterForHour"), father
+				.lg("LetterForMinute"));
+		y += sizeDemiLine / 2 + this.getHeigthString(words[3], g, g.getFont());
+		xs[3]=x;
+		ys[3]=y;
+		g.drawString(words[3], xs[3], ys[3]);
+		y += sizeDemiLine / 2 + this.getHeigthString(words[4], g, g.getFont());
+		xs[4]=x;
+		ys[4]=y;
+		g.drawString(words[4], xs[4], ys[4]);
+		nextX = xs[4] + this.getWidthString(words[3], g, g.getFont()) + sizeDemiLine * 2;
+		i = xs[4] + this.getWidthString(words[4], g, g.getFont()) + sizeDemiLine * 2;
+		if (i > nextX)
+			nextX = i;
+		i = xRec + sizeDemiLine * 2 + this.getWidthString(section.getNameChangement(), g, g.getFont()) + sizeDemiLine
+				* 2;
+		if (i > nextX)
+			x = i;
+		else
+			x = nextX;
+		g.setColor(father.getSkin().getColorLetter());
+		g.drawRect(xRec, yRec, x - xRec, y + sizeDemiLine - yRec);
+		return 0;
+	}
+
+	/**
 	 * Procédure permettant de dessiner un oval, avec un appelle de retard : lorsqu'on appelle la fonction, l'oval
 	 * effectivement dessiné est celui du prédédent appelle.
 	 * 
 	 * @param g
-	 *            le Graphics om l'on va dessiner l'oval, s'il est null, on dessine tout de même le précédent oval
+	 *            le Graphics où l'on va dessiner l'oval, s'il est null, on dessine tout de même le précédent oval
 	 * @param x
 	 *            l'abscisse de l'oval
 	 * @param y
