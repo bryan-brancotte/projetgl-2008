@@ -80,8 +80,8 @@
 				<ENGLISH value="h"/>
 			</LetterForHour>
 			<LetterForMinute>
-				<FRANCAIS value="m"/>
-				<ENGLISH value="m"/>
+				<FRANCAIS value="min"/>
+				<ENGLISH value="min"/>
 			</LetterForMinute>
 			<Edit>
 				<FRANCAIS value="Editer"/>

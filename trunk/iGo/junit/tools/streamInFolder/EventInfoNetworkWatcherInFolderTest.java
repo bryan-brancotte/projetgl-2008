@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import streamInFolder.EventInfoNetworkWatcherInFolder;
+import streamInFolder.event.EventInfoNetworkWatcherInFolder;
 
 public class EventInfoNetworkWatcherInFolderTest {
 
