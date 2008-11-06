@@ -1,12 +1,13 @@
-package iGoMaster;
+package streamInFolder.graphCostReaderHardWritten;
 
+import iGoMaster.GraphNetworkCostReceiver;
 import graphNetwork.KindRouteReader;
 
 /**
  *  
  * @author iGo
  */
-public class GraphNetworkCostReceiverHardWrited implements GraphNetworkCostReceiver {
+public class GraphNetworkCostReceiverHardWritten implements GraphNetworkCostReceiver {
 
 	@Override
 	public float getCost(KindRouteReader to) {
