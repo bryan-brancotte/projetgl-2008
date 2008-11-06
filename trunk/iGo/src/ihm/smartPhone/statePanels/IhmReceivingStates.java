@@ -1,4 +1,4 @@
-package ihm.smartPhone.statePanel;
+package ihm.smartPhone.statePanels;
 
 
 public enum IhmReceivingStates {

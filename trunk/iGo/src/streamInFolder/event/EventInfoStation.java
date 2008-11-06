@@ -1,4 +1,4 @@
-package streamInFolder;
+package streamInFolder.event;
 
 import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
