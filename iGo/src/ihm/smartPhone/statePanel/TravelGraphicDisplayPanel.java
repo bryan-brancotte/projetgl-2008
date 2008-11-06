@@ -81,13 +81,13 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		if (travel == null)
 			travel = new TravelForTravelPanelExemple();
 		colorList = new LinkedList<Color>();
-		colorList.add(Color.cyan);
-		colorList.add(Color.magenta);
-		colorList.add(Color.yellow);
-		colorList.add(Color.red);
-		colorList.add(Color.blue);
-		colorList.add(Color.green);
-		colorList.add(Color.orange);
+		addColorAndItsLighted(Color.cyan);
+		addColorAndItsLighted(Color.magenta);
+		addColorAndItsLighted(Color.yellow);
+		addColorAndItsLighted(Color.red);
+		addColorAndItsLighted(Color.blue);
+		addColorAndItsLighted(Color.green);
+		addColorAndItsLighted(Color.orange);
 		/***************************************************************************************************************
 		 * Listener de déplacement de la sourirs
 		 */
@@ -227,6 +227,21 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		});
 	}
 
+	protected void addColorAndItsLighted(Color org) {
+		colorList.add(org);
+		int r = org.getRed(), g = org.getGreen(), b = org.getBlue();
+		r *= .2;
+		if (r > 255)
+			r = 255;
+		g *= .2;
+		if (g > 255)
+			g = 255;
+		b *= .2;
+		if (b > 255)
+			b = 255;
+		colorList.add(new Color(r, g, b));
+	}
+
 	@Override
 	public void paint(Graphics g) {
 		// Un mutex est placé afin de ne pas lancer plusieur paint en même temps (et gagner du temps). Ce mutex a
@@ -262,7 +277,14 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				xImg += image.getWidth(this) / 2;
 				yImg += image.getHeight(this) / 2;
 			}
-			image = createImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeLarge / 4);
+			try {
+				image = createImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeLarge / 4);
+			} catch (OutOfMemoryError e) {
+				scallImg /= 1.05;
+				xImg -= image.getWidth(this) / 2;
+				yImg -= image.getHeight(this) / 2;
+				return;
+			}
 			if (buffer != null) {
 				xImg -= image.getWidth(this) / 2;
 				yImg -= image.getHeight(this) / 2;
@@ -367,11 +389,13 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				break;
 			}
 			buffer.fillPolygon(polygon);
+			buffer.setColor(iterColor.next());
+			buffer.drawPolygon(polygon);
 			drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) / 2,
 					(polygon.ypoints[0] + polygon.ypoints[2]) / 2, section);
 			drawDelayedOval(buffer, center.x - sizeLarge / 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
-			System.out.println(heigthImage + " " + (center.y - sizeLarge / 2)
-					+ (heigthImage > (center.y - sizeLarge / 2)));
+			// System.out.println(heigthImage + " " + (center.y - sizeLarge / 2)
+			// + (heigthImage > (center.y - sizeLarge / 2)));
 			// buffer.drawLine(0, heigthImage, 200, heigthImage);
 			// buffer.drawLine(50, center.y - sizeLarge / 2, 250, center.y - sizeLarge / 2);
 			buffer.setColor(father.getSkin().getColorLetter());
