@@ -27,7 +27,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected static final int maxHeightForScalling = 640;
 
 	// public static final int DEFAULT_HEIGTH = 220;public static final int DEFAULT_WIDTH = 140;/*
-	//public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
+	public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
 	// public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 240;/*
 	public static final int DEFAULT_HEIGTH = 558;public static final int DEFAULT_WIDTH = 406;/*
 	public static final int DEFAULT_HEIGTH = 1200;public static final int DEFAULT_WIDTH = 1600;/**/
