@@ -1,4 +1,4 @@
-package ihm.smartPhone.statePanel;
+package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.UpperBar;

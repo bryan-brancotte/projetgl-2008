@@ -4,8 +4,8 @@ import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea.CodeExecutor;
-import ihm.smartPhone.statePanel.IhmReceivingPanelState;
-import ihm.smartPhone.statePanel.IhmReceivingStates;
+import ihm.smartPhone.statePanels.IhmReceivingPanelState;
+import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Container;

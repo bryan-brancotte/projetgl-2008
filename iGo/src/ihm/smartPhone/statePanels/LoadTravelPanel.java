@@ -1,4 +1,4 @@
-package ihm.smartPhone.statePanel;
+package ihm.smartPhone.statePanels;
 
 import graphNetwork.PathInGraphReader;
 import ihm.smartPhone.composants.LowerBar;
