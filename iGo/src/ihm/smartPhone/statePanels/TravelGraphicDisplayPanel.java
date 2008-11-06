@@ -10,9 +10,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -94,7 +96,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		addColorAndItsLighted(Color.blue);
 		addColorAndItsLighted(Color.green);
 		addColorAndItsLighted(Color.orange);
-		/**
+		/***************************************************************************************************************
 		 * Création de l'image
 		 */
 		buffer = new GraphicsViewPort();
@@ -108,7 +110,14 @@ public class TravelGraphicDisplayPanel extends PanelState {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				buffer.move(e.getX() - xLastPointeur, e.getY() - yLastPointeur);
+				int dx, dy;
+				dx = e.getX() - xLastPointeur;
+				dy = e.getY() - yLastPointeur;
+				if (buffer.getWidthImage() - buffer.getWidthViewPort() < 0)
+					dx = -dx;
+				if (buffer.getHeigthImage() - buffer.getHeigthViewPort() < 0)
+					dy = -dy;
+				buffer.move(dx, dy);
 				xLastPointeur = e.getX();
 				yLastPointeur = e.getY();
 				me.repaint();
@@ -150,11 +159,11 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				if (e.getWheelRotation() > 0)
 					buffer.increasScallImg(1.05F);
-				else if ((e.getWheelRotation() < 0)
-						&& ((buffer.getWidthImage() > getWidth()) || (buffer.getHeigthImage() > getHeight())))
+				else if (e.getWheelRotation() < 0)
 					buffer.decreasScallImg(1.05F);
 				else
 					return;
+				buffer.move(0, 0);
 				repaint();
 			}
 		});
@@ -186,10 +195,6 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				case KeyEvent.VK_KP_DOWN:
 				case KeyEvent.VK_DOWN:
 					buffer.move(0, -getWidth() / 20);
-					// tmp = (getHeight() - buffer.getHeigthImage());
-					// if (buffer.getY() < tmp)
-					// yImg = tmp;
-					// TODO
 					break;
 				case KeyEvent.VK_KP_LEFT:
 				case KeyEvent.VK_LEFT:
@@ -210,6 +215,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				// xImg = 0;
 				// if (yImg > 0)
 				// yImg = 0;
+				buffer.move(0, 0);
 				repaint();
 			}
 
@@ -250,8 +256,9 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		// on demande un reconstruction de l'image
 		buildImage();
 		// on efface l'écran puis on dessine cette image
-		// g.clearRect(0, 0, getWidth(), getHeight());
+		g.clearRect(0, 0, getWidth(), getHeight());
 		g.drawImage(buffer.getImage(), 0, 0, null);
+		// g.drawString("qefzer", 10, 10);
 		renderingClamp.release();
 	}
 
@@ -269,12 +276,10 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		 */
 		if ((buffer.getWidthViewPort() != getWidth()) || (buffer.getHeigthViewPort() != getHeight())) {
 			buffer.setSizeViewPort(getWidth(), getHeight());
-			System.out.println("ViewPort");
 		}
 		if ((buffer.getWidthImage() != sizeQuadLarge * 5)
 				|| (buffer.getHeigthImage() != travel.getTotalTime() * sizeLarge / 4)) {
 			buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeLarge / 4);
-			System.out.println("newImage");
 		} else if (!buffer.isNeededRepaint()) {
 			return;
 		}
@@ -291,15 +296,18 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
 		polygon.reset();
-		center.setLocation(sizeLarge / 2 + 10 + buffer.getX(), sizeLarge / 2 + 10 + buffer.getY());
+		center.setLocation(sizeLarge / 2 + sizeDemiLine + buffer.getX(), sizeLarge / 2 + sizeDemiLine + buffer.getY());
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(0, 0);
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(center.x, center.y);
-
-		buffer.setFont(father.getSizeAdapteur().getSmallFont());
-		buffer.clearRect(0, 0, getWidth(), getHeight());
-		drawDelayedOval(buffer, center.x - sizeLarge / 2 - 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
+		if (heightImageDrawn * 4 / 5 <= buffer.getHeigthViewPort()) {
+			buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
+					(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
+			buffer.setColor(father.getSkin().getColorInside());
+			buffer.clearRect(0, 0, getWidth(), getHeight());
+			drawDelayedOval(buffer, center.x - sizeLarge / 2 - 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
+		}
 		while (iterTravel.hasNext()) {
 			if (!iterColor.hasNext())
 				iterColor = colorList.iterator();
@@ -373,17 +381,18 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				center.setLocation(center.x - sizeQuadLarge, center.y + length);
 				break;
 			}
-			buffer.fillPolygon(polygon);
-			buffer.setColor(iterColor.next());
-			buffer.drawPolygon(polygon);
-			drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) / 2,
-					(polygon.ypoints[0] + polygon.ypoints[2]) / 2, section);
-			drawDelayedOval(buffer, center.x - sizeLarge / 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
+			if (heightImageDrawn * 4 / 5 <= buffer.getHeigthViewPort()) {
+				buffer.fillPolygon(polygon);
+				buffer.setColor(iterColor.next());
+				buffer.drawPolygon(polygon);
+				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) / 2,
+						(polygon.ypoints[0] + polygon.ypoints[2]) / 2, section);
+				drawDelayedOval(buffer, center.x - sizeLarge / 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
+			}
 			// System.out.println(heightImage + " " + (center.y - sizeLarge / 2)
 			// + (heightImage > (center.y - sizeLarge / 2)));
 			// buffer.drawLine(50, center.y - sizeLarge / 2, 250, center.y - sizeLarge / 2);
 			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawLine(0, heightImageDrawn, 200, heightImageDrawn);
 			if (heightImageDrawn > (center.y - sizeLarge / 2)) {
 				buffer.drawLine(center.x, center.y, center.x + sizeLarge * 2, heightImageDrawn + sizeLarge / 4);
 				heightImageDrawn = sizeDemiLine
@@ -393,12 +402,10 @@ public class TravelGraphicDisplayPanel extends PanelState {
 				heightImageDrawn = sizeDemiLine
 						+ drawInformationsStation(buffer, center.x + sizeLarge * 2, center.y - sizeLarge / 2, section);
 			}
+			// buffer.drawLine(0, heightImageDrawn, 200, heightImageDrawn);
 			// System.out.println(section.getNameChangement());
 			orientation = (++orientation % 6);
 		}
-		System.out.println(center.y);
-		System.out.println(heightImageDrawn);
-		buffer.extendsHeight(heightImageDrawn);
 		drawDelayedOval(null, 0, 0, 0, 0);
 	}
 
@@ -467,7 +474,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		words[0] = section.getNameChangement();
 		xs[0] = xRec + sizeDemiLine * 2;
 		ys[0] = yRec + sizeDemiLine / 2 + this.getHeigthString("A", g.getImage().getGraphics(), g.getFont());
-		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		// buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		nextX = 0;
 
 		words[1] = father.lg("Cost") + " : ";
@@ -506,14 +513,16 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			xEnder = i;
 		else
 			xEnder = nextX;
-		g.setColor(father.getSkin().getColorSubAreaInside());
-		g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
-		g.setColor(father.getSkin().getColorLetter());
-		g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
-		for (i = 0; i < 5; i++)
-			g.drawString(words[i], xs[i], ys[i]);
-		// buffer.extendsHeight(ys[4] + sizeDemiLine);
-		// buffer.extendsWidth(xEnder);
+		if (xRec * 4 / 5 <= buffer.getHeigthViewPort()) {
+			g.setColor(father.getSkin().getColorSubAreaInside());
+			g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			g.setColor(father.getSkin().getColorLetter());
+			g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			for (i = 0; i < 5; i++)
+				g.drawString(words[i], xs[i], ys[i]);
+		}
+		buffer.extendsHeight(ys[4] + sizeDemiLine * 2 - buffer.getY());
+		buffer.extendsWidth(xEnder - buffer.getX() + sizeDemiLine);
 		return ys[4] + sizeDemiLine;
 	}
 
@@ -556,7 +565,6 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		ovalToDrawDelayed.height = height;
 	}
 
-	// TODO
 	public void setActualState(IhmReceivingStates actualState) {
 		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
 			this.actualState = actualState;
@@ -664,7 +672,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		/**
 		 * Le buffer de l'image
 		 */
-		protected Graphics buffer = null;
+		protected Graphics2D buffer = null;
 
 		/**
 		 * L'image en elle même
@@ -708,7 +716,7 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		/**
 		 * L'échelle de l'image
 		 */
-		protected float scallImg = 0.25F;
+		protected float scallImg = 1F;
 
 		public int getHeigthImage() {
 			return heightImage;
@@ -736,8 +744,8 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		}
 
 		/**
-		 * Modifie le coefficient de zoom de la valeur indiquée : si le coef est de 2 et que vous appellez scallImg(3)
-		 * le coefficient sera ensuite à 6;
+		 * Modifie le coefficient de zoom de la valeur indiquée : si le coef est de 2 et que vous appellez
+		 * increaseScallImg(3) le coefficient sera ensuite à 6;
 		 * 
 		 * @param coef
 		 *            le coefficient par lequel le coefficient actuelle va être multiplié
@@ -749,16 +757,17 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		}
 
 		/**
-		 * Modifie le coefficient de zoom de la valeur indiquée : si le coef est de 6 et que vous appellez scallImg(3)
-		 * le coefficient sera ensuite à 2;
+		 * Modifie le coefficient de zoom de la valeur indiquée : si le coef est de 6 et que vous appellez
+		 * decreaseScallImg(3) le coefficient sera ensuite à 2;
 		 * 
 		 * @param coef
 		 *            le coefficient par lequel le coefficient actuelle va être divisé
 		 */
 		public void decreasScallImg(float coef) {
+			if (((widthViewPort - widthImage) > 0) && ((heightViewPort - heightImage) > 0))
+				return;
 			scallImg /= coef;
 			neededRepaint = true;
-			// TODO
 		}
 
 		public Graphics getBuffer() {
@@ -770,26 +779,34 @@ public class TravelGraphicDisplayPanel extends PanelState {
 		}
 
 		public void move(int dx, int dy) {
-			x += dx;
-			y += dy;
 			neededRepaint = true;
-			int tmp;
-			// TODO
-			if (dx < 0) {
-				tmp = widthViewPort - widthImage;
+			int tmp = widthViewPort - widthImage;
+			if (tmp > 0) {
+				x -= dx;
+				if (x < 0)
+					x = 0;
+				if (x > tmp)
+					x = tmp;
+			} else {
+				x += dx;
 				if (x < tmp)
 					x = tmp;
+				if (x > 0)
+					x = 0;
 			}
-			if (x > 0) {
-				x = 0;
-			}
-			if (dy < 0) {
-				tmp = heightViewPort - heightImage;
+			tmp = heightViewPort - heightImage;
+			if (tmp > 0) {
+				y -= dy;
+				if (y < 0)
+					y = 0;
+				if (y > tmp)
+					y = tmp;
+			} else {
+				y += dy;
 				if (y < tmp)
 					y = tmp;
-			}
-			if (y > 0) {
-				y = 0;
+				if (y > 0)
+					y = 0;
 			}
 		}
 
@@ -802,7 +819,13 @@ public class TravelGraphicDisplayPanel extends PanelState {
 			this.heightViewPort = height;
 			this.widthViewPort = width;
 			this.image = createImage(this.widthViewPort, this.heightViewPort);
-			this.buffer = this.image.getGraphics();
+			this.buffer = (Graphics2D) this.image.getGraphics();
+
+			this.buffer.setBackground(father.getSkin().getColorInside());
+
+			this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+			this.buffer.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		}
 
 		public void setSizeImage(int width, int height) {
