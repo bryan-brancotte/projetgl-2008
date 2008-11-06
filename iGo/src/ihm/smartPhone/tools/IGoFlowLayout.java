@@ -18,7 +18,7 @@ import java.util.concurrent.Semaphore;
  * Description: Cette classe permet de placer les 3 composant de l'interface d'iGo selon les bonnes tailles et ratio.
  * </p>
  * 
- * @author Brancotte Bryan
+ * @author iGo
  * @version 1.0
  */
 public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {

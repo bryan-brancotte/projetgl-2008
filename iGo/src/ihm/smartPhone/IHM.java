@@ -4,7 +4,7 @@ package ihm.smartPhone;
  * Interface décrivant les fonctionnalités de l'IHM. Tout IHM voulant prétendre à être utiliser par le master doit être
  * conforme à ce cahier des charges.
  * 
- * @author Brancotte Bryan
+ * @author iGo
  * 
  */
 public interface IHM {

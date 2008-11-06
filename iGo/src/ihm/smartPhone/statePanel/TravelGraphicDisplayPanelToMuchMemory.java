@@ -667,7 +667,7 @@ public class TravelGraphicDisplayPanelToMuchMemory extends PanelState {
 	 * Classe équivalent à un structure en C/C++, on permet de stocker de façon regroupé plusieurs variable relative au
 	 * dessin d'un futur oval
 	 * 
-	 * @author Brancotte Bryan
+	 * @author iGo
 	 * 
 	 */
 	protected class OvalToDraw {
