@@ -1,4 +1,4 @@
-package tools.streamInFolder;
+package streamInFolder;
 
 import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 /**
- * Cette classe permet la surveillance d'un dossier qui contiendra les évènements
+ * Cette classe permet la surveillance d'un dossier qui contiendra les ï¿½vï¿½nements
  *
  */
 public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
@@ -19,7 +19,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	
 	/**
 	 * Constructeur d'EventInfoNetworkWatcherInFolder
-	 * @param path Chemin du dossier à surveiller
+	 * @param path Chemin du dossier ï¿½ surveiller
 	 */
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
@@ -27,7 +27,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Démarre la surveillance du dossier
+	 * Dï¿½marre la surveillance du dossier
 	 */
 	@Override
 	public void startWatching() throws ImpossibleStartingException {
@@ -35,7 +35,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Arrête la surveillance du dossier
+	 * Arrï¿½te la surveillance du dossier
 	 */
 	@Override
 	public void stopWatching() {
@@ -47,12 +47,12 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public EventInfoNetWorkWatcherStatus getStatus() {
-		// TODO statu en fonction de l'état du thread de veille
+		// TODO statu en fonction de l'ï¿½tat du thread de veille
 		return EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
 	}
 
 	/**
-	 * Applique les informations contenues dans un évènement
+	 * Applique les informations contenues dans un ï¿½vï¿½nement
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
@@ -61,7 +61,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Renvoie les nouveaux évènements
+	 * Renvoie les nouveaux ï¿½vï¿½nements
 	 */
 	@Override
 	public Collection<EventInfo> getNewEventInfo() {

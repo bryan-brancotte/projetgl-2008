@@ -1,4 +1,4 @@
-package tools.xmlFeature;
+package xmlFeature;
 
 import iGoMaster.Language;
 

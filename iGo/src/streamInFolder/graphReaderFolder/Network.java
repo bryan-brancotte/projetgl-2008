@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 import java.util.Collection;
 
@@ -7,7 +7,7 @@ public class Network {
 
 	/**
 	 * @uml.property   name="service"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:tools.streamInFolder.graphReaderFolder.Service"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:streamInFolder.graphReaderFolder.Service"
 	 */
 	private Collection<Service> service;
 
@@ -31,7 +31,7 @@ public class Network {
 
 	/**
 	 * @uml.property   name="station"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:tools.streamInFolder.graphReaderFolder.Station"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:streamInFolder.graphReaderFolder.Station"
 	 */
 	private Collection<Station> station;
 
@@ -55,7 +55,7 @@ public class Network {
 
 	/**
 	 * @uml.property   name="interchange"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:tools.streamInFolder.graphReaderFolder.Interchange"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:streamInFolder.graphReaderFolder.Interchange"
 	 */
 	private Collection<Interchange> interchange;
 
@@ -79,7 +79,7 @@ public class Network {
 
 	/**
 	 * @uml.property   name="route"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:tools.streamInFolder.graphReaderFolder.Route"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="network:streamInFolder.graphReaderFolder.Route"
 	 */
 	private Collection<Route> route;
 

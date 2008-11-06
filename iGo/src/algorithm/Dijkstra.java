@@ -1,4 +1,4 @@
-package tools.Algorithm;
+package algorithm;
 
 import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetworkReader;

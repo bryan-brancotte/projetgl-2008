@@ -3,7 +3,7 @@ package ihm.smartPhone;
 import iGoMaster.Language;
 import iGoMaster.Master;
 import ihm.smartPhone.tools.iGoSmartPhoneSkin;
-import tools.xmlFeature.LanguageXML;
+import xmlFeature.LanguageXML;
 
 public class MainDemoIHM {
 

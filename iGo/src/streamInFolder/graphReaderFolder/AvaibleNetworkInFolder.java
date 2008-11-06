@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 import iGoMaster.AvaibleNetwork;
 

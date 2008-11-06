@@ -1,15 +1,14 @@
-package tools.streamInFolder;
+package streamInFolder;
 
 import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
 /**
- * Evènement relatif à une station
+ * Evï¿½nement relatif ï¿½ une ligne
  *
  */
-public class EventInfoStation implements EventInfo {
-
+public class EventInfoRoute implements EventInfo {
 	/**
 	 * @uml.property name="id"
 	 */

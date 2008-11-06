@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 import java.util.Collection;
 
@@ -7,7 +7,7 @@ public class Interchange {
 
 	/**
 	 * @uml.property   name="Endlist"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="interchange:tools.streamInFolder.graphReaderFolder.Couple"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="interchange:streamInFolder.graphReaderFolder.Couple"
 	 */
 	private Collection<Couple> endlist;
 
@@ -77,7 +77,7 @@ public class Interchange {
 
 	/**
 	 * @uml.property   name="stationStart"
-	 * @uml.associationEnd   inverse="interchange:tools.streamInFolder.graphReaderFolder.Station"
+	 * @uml.associationEnd   inverse="interchange:streamInFolder.graphReaderFolder.Station"
 	 */
 	private Station stationStart;
 
@@ -101,7 +101,7 @@ public class Interchange {
 
 	/**
 	 * @uml.property   name="routeStart"
-	 * @uml.associationEnd   inverse="interchange:tools.streamInFolder.graphReaderFolder.Route"
+	 * @uml.associationEnd   inverse="interchange:streamInFolder.graphReaderFolder.Route"
 	 */
 	private Route routeStart;
 

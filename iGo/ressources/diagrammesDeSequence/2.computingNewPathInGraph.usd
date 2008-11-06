@@ -336,7 +336,7 @@
       </sourceConnections>
     </children>
   </children>
-  <children xsi:type="editmodel:InstanceEditModel" name="Dijkstra" location="1335,20" size="100,552" id="tools.Algorithm/Dijkstra" itemName="">
+  <children xsi:type="editmodel:InstanceEditModel" name="Dijkstra" location="1335,20" size="100,552" id="algorithm/Dijkstra" itemName="">
     <children xsi:type="editmodel:ActivationEditModel" targetConnections="//@children.9/@children.0/@sourceConnections.0 //@children.10/@children.1/@sourceConnections.0 //@children.10/@children.2/@sourceConnections.0" location="42,312" size="16,130" sequenceItemContainer="//@children.10" recursiveChildren="//@children.10/@children.2 //@children.10/@children.1" length="130">
       <sourceConnections xsi:type="editmodel:ReturnArrowEditModel" source="//@children.10/@children.0" target="//@children.9/@children.0" targetEnd="//@children.10/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
         <children xsi:type="editmodel:SequenceEndEditModel" location="0,130" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.10/@children.0/@sourceConnections.0/@children.0/@children.0" methodLabel="//@children.10/@children.0/@sourceConnections.0/@children.0/@children.1" sequenceNumberLabel="//@children.10/@children.0/@sourceConnections.0/@children.0/@children.2" statementExpression="//@children.10/@children.0/@sourceConnections.0/@children.0/@children.3">
@@ -352,7 +352,7 @@
           <children xsi:type="editmodel:MessageLabelEditModel" size="0,13"/>
         </children>
       </sourceConnections>
-      <sourceConnections xsi:type="editmodel:SelfSequenceMessageEditModel" name="runAlgorithm" id="tools.Algorithm/Dijkstra#runAlgorithm()" source="//@children.10/@children.0" target="//@children.10/@children.2" targetEnd="//@children.10/@children.0/@sourceConnections.1/@children.1" sourceEnd="//@children.10/@children.0/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan" associatedMethod="runAlgorithm()" associatedSequenceNumber="2.1.1.2.1.2" associatedReturnArrow="//@children.10/@children.2/@sourceConnections.0" shouldShowReturnArrow="true">
+      <sourceConnections xsi:type="editmodel:SelfSequenceMessageEditModel" name="runAlgorithm" id="algorithm/Dijkstra#runAlgorithm()" source="//@children.10/@children.0" target="//@children.10/@children.2" targetEnd="//@children.10/@children.0/@sourceConnections.1/@children.1" sourceEnd="//@children.10/@children.0/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan" associatedMethod="runAlgorithm()" associatedSequenceNumber="2.1.1.2.1.2" associatedReturnArrow="//@children.10/@children.2/@sourceConnections.0" shouldShowReturnArrow="true">
         <children xsi:type="editmodel:SequenceEndEditModel" location="16,60" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.10/@children.0/@sourceConnections.1/@children.0/@children.0" methodLabel="//@children.10/@children.0/@sourceConnections.1/@children.0/@children.1" sequenceNumberLabel="//@children.10/@children.0/@sourceConnections.1/@children.0/@children.2" statementExpression="//@children.10/@children.0/@sourceConnections.1/@children.0/@children.3">
           <children xsi:type="editmodel:MessageLabelEditModel" size="84,13" labelValue="[If data are ok]"/>
           <children xsi:type="editmodel:LabelEditModel" name="runAlgorithm()" size="81,13"/>

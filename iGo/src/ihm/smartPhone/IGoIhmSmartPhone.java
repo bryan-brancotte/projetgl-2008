@@ -27,7 +27,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JOptionPane;
 
-import tools.streamInFolder.graphReaderFolder.Network;
+import streamInFolder.graphReaderFolder.Network;
 
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
