@@ -432,91 +432,91 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="Dijkstra" location="247,155" size="192,99" id="tools.Algorithm/Dijkstra" runTimeClassModel="findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;),Dijkstra()">
+  <children xsi:type="editmodel:ClassEditModel" name="Dijkstra" location="247,155" size="192,99" id="algorithm/Dijkstra" runTimeClassModel="findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;),Dijkstra()">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="169,36">
-      <children xsi:type="editmodel:MethodEditModel" name="Dijkstra" id="tools.Algorithm/Dijkstra#Dijkstra()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="findPath" id="tools.Algorithm/Dijkstra#findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="Dijkstra" id="algorithm/Dijkstra#Dijkstra()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="findPath" id="algorithm/Dijkstra#findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Algo&lt;-tools.Algorithm/Dijkstra" source="//@children.14" target="//@children.6" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Algo&lt;-algorithm/Dijkstra" source="//@children.14" target="//@children.6" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="192,50" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,47"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="EventInfoNetworkWatcherInFolder" location="217,863" size="263,189" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder" runTimeClassModel="stopWatching(),getNewEventInfo(),status,applyInfo(LgraphNetwork.GraphNetworkBuilder;),EventInfoNetworkWatcherInFolder(),getStatus(),startWatching()">
+  <children xsi:type="editmodel:ClassEditModel" name="EventInfoNetworkWatcherInFolder" location="217,863" size="263,189" id="streamInFolder/EventInfoNetworkWatcherInFolder" runTimeClassModel="stopWatching(),getNewEventInfo(),status,applyInfo(LgraphNetwork.GraphNetworkBuilder;),EventInfoNetworkWatcherInFolder(),getStatus(),startWatching()">
     <children xsi:type="editmodel:CompartmentEditModel" size="213,18">
-      <children xsi:type="editmodel:AttributeEditModel" name="status" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#status"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="streamInFolder/EventInfoNetworkWatcherInFolder#status"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="240,108">
-      <children xsi:type="editmodel:MethodEditModel" name="EventInfoNetworkWatcherInFolder" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#EventInfoNetworkWatcherInFolder()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getNewEventInfo" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#getNewEventInfo()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getStatus" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#getStatus()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="startWatching" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#startWatching()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="stopWatching" id="tools.streamInFolder/EventInfoNetworkWatcherInFolder#stopWatching()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="EventInfoNetworkWatcherInFolder" id="streamInFolder/EventInfoNetworkWatcherInFolder#EventInfoNetworkWatcherInFolder()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="streamInFolder/EventInfoNetworkWatcherInFolder#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNewEventInfo" id="streamInFolder/EventInfoNetworkWatcherInFolder#getNewEventInfo()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getStatus" id="streamInFolder/EventInfoNetworkWatcherInFolder#getStatus()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="startWatching" id="streamInFolder/EventInfoNetworkWatcherInFolder#startWatching()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="stopWatching" id="streamInFolder/EventInfoNetworkWatcherInFolder#stopWatching()"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/EventInfoNetworkWatcher&lt;-tools.streamInFolder/EventInfoNetworkWatcherInFolder" source="//@children.15" target="//@children.8" targetEnd="//@children.15/@sourceConnections.0/@children.1" sourceEnd="//@children.15/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/EventInfoNetworkWatcher&lt;-streamInFolder/EventInfoNetworkWatcherInFolder" source="//@children.15" target="//@children.8" targetEnd="//@children.15/@sourceConnections.0/@children.1" sourceEnd="//@children.15/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="263,98" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,67"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="GraphNetworkReceiverFolder" location="220,1559" size="286,135" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" runTimeClassModel="getAvaibleNetwork(),GraphNetworkReceiverFolder(),updateGraph(),buildNewGraphNetwork(LgraphNetwork.GraphNetworkBuilder;LiGoMaster.AvaibleNetwork;LiGoMaster.GraphNetworkCostReceiver;)">
+  <children xsi:type="editmodel:ClassEditModel" name="GraphNetworkReceiverFolder" location="220,1559" size="286,135" id="streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" runTimeClassModel="getAvaibleNetwork(),GraphNetworkReceiverFolder(),updateGraph(),buildNewGraphNetwork(LgraphNetwork.GraphNetworkBuilder;LiGoMaster.AvaibleNetwork;LiGoMaster.GraphNetworkCostReceiver;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="263,72">
-      <children xsi:type="editmodel:MethodEditModel" name="updateGraph" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#updateGraph()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="GraphNetworkReceiverFolder" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#GraphNetworkReceiverFolder()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getAvaibleNetwork" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#getAvaibleNetwork()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="buildNewGraphNetwork" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#buildNewGraphNetwork(LgraphNetwork.GraphNetworkBuilder;LiGoMaster.AvaibleNetwork;LiGoMaster.GraphNetworkCostReceiver;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateGraph" id="streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#updateGraph()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="GraphNetworkReceiverFolder" id="streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#GraphNetworkReceiverFolder()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAvaibleNetwork" id="streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#getAvaibleNetwork()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="buildNewGraphNetwork" id="streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder#buildNewGraphNetwork(LgraphNetwork.GraphNetworkBuilder;LiGoMaster.AvaibleNetwork;LiGoMaster.GraphNetworkCostReceiver;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/GraphNetworkReceiver&lt;-tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" source="//@children.16" target="//@children.19" targetEnd="//@children.16/@sourceConnections.0/@children.1" sourceEnd="//@children.16/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/GraphNetworkReceiver&lt;-streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" source="//@children.16" target="//@children.19" targetEnd="//@children.16/@sourceConnections.0/@children.1" sourceEnd="//@children.16/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="286,63" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,47"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="ConfigurationXML" location="235,580" size="215,225" id="tools.xmlFeature/ConfigurationXML" runTimeClassModel="save(),getParamsKey(),getValue(Ljava.lang.String;),setValue(Ljava.lang.String;Ljava.lang.String;),reload(),getLanguage(),ConfigurationXML()">
+  <children xsi:type="editmodel:ClassEditModel" name="ConfigurationXML" location="235,580" size="215,225" id="xmlFeature/ConfigurationXML" runTimeClassModel="save(),getParamsKey(),getValue(Ljava.lang.String;),setValue(Ljava.lang.String;Ljava.lang.String;),reload(),getLanguage(),ConfigurationXML()">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="192,162">
-      <children xsi:type="editmodel:MethodEditModel" name="ConfigurationXML" id="tools.xmlFeature/ConfigurationXML#ConfigurationXML()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getLanguage" id="tools.xmlFeature/ConfigurationXML#getLanguage()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getParamsKey" id="tools.xmlFeature/ConfigurationXML#getParamsKey()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getValue" id="tools.xmlFeature/ConfigurationXML#getValue(Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="loadParam" id="tools.xmlFeature/ConfigurationXML#loadParam(Lorg.w3c.dom.Document;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="makeConfigDefaut" id="tools.xmlFeature/ConfigurationXML#makeConfigDefaut()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="reload" id="tools.xmlFeature/ConfigurationXML#reload()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="save" id="tools.xmlFeature/ConfigurationXML#save()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="setValue" id="tools.xmlFeature/ConfigurationXML#setValue(Ljava.lang.String;Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="ConfigurationXML" id="xmlFeature/ConfigurationXML#ConfigurationXML()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getLanguage" id="xmlFeature/ConfigurationXML#getLanguage()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getParamsKey" id="xmlFeature/ConfigurationXML#getParamsKey()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getValue" id="xmlFeature/ConfigurationXML#getValue(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="loadParam" id="xmlFeature/ConfigurationXML#loadParam(Lorg.w3c.dom.Document;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="makeConfigDefaut" id="xmlFeature/ConfigurationXML#makeConfigDefaut()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="reload" id="xmlFeature/ConfigurationXML#reload()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="save" id="xmlFeature/ConfigurationXML#save()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setValue" id="xmlFeature/ConfigurationXML#setValue(Ljava.lang.String;Ljava.lang.String;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Configuration&lt;-tools.xmlFeature/ConfigurationXML" source="//@children.17" target="//@children.7" targetEnd="//@children.17/@sourceConnections.0/@children.1" sourceEnd="//@children.17/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Configuration&lt;-xmlFeature/ConfigurationXML" source="//@children.17" target="//@children.7" targetEnd="//@children.17/@sourceConnections.0/@children.1" sourceEnd="//@children.17/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
       <children xsi:type="editmodel:AssociationEndEditModel" location="215,113" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,83"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="LanguageXML" location="226,259" size="233,279" id="tools.xmlFeature/LanguageXML" runTimeClassModel="LanguageXML(Ljava.lang.String;),getCles(),isNvLangue(),LanguageXML(),lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),getLanguage(),getLanguages(),LanguageXML(Ljava.lang.String;Z),containsLanguageKey(Ljava.lang.String;)">
+  <children xsi:type="editmodel:ClassEditModel" name="LanguageXML" location="226,259" size="233,279" id="xmlFeature/LanguageXML" runTimeClassModel="LanguageXML(Ljava.lang.String;),getCles(),isNvLangue(),LanguageXML(),lg(Ljava.lang.String;),setLanguage(Ljava.lang.String;),getLanguage(),getLanguages(),LanguageXML(Ljava.lang.String;Z),containsLanguageKey(Ljava.lang.String;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="210,216">
-      <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" location="-77,62" id="tools.xmlFeature/LanguageXML#LanguageXML(Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" id="tools.xmlFeature/LanguageXML#LanguageXML()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" id="tools.xmlFeature/LanguageXML#LanguageXML(Ljava.lang.String;Z)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="LoadLanguage" id="tools.xmlFeature/LanguageXML#LoadLanguage()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="LoadLanguages" id="tools.xmlFeature/LanguageXML#LoadLanguages()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="containsLanguageKey" id="tools.xmlFeature/LanguageXML#containsLanguageKey(Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getCles" id="tools.xmlFeature/LanguageXML#getCles()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getLanguage" id="tools.xmlFeature/LanguageXML#getLanguage()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getLanguages" id="tools.xmlFeature/LanguageXML#getLanguages()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="isNvLangue" id="tools.xmlFeature/LanguageXML#isNvLangue()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="lg" id="tools.xmlFeature/LanguageXML#lg(Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="setLanguage" id="tools.xmlFeature/LanguageXML#setLanguage(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" location="-77,62" id="xmlFeature/LanguageXML#LanguageXML(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" id="xmlFeature/LanguageXML#LanguageXML()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="LanguageXML" id="xmlFeature/LanguageXML#LanguageXML(Ljava.lang.String;Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="LoadLanguage" id="xmlFeature/LanguageXML#LoadLanguage()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="LoadLanguages" id="xmlFeature/LanguageXML#LoadLanguages()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="containsLanguageKey" id="xmlFeature/LanguageXML#containsLanguageKey(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCles" id="xmlFeature/LanguageXML#getCles()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getLanguage" id="xmlFeature/LanguageXML#getLanguage()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getLanguages" id="xmlFeature/LanguageXML#getLanguages()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="isNvLangue" id="xmlFeature/LanguageXML#isNvLangue()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="lg" id="xmlFeature/LanguageXML#lg(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setLanguage" id="xmlFeature/LanguageXML#setLanguage(Ljava.lang.String;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Language&lt;-tools.xmlFeature/LanguageXML" source="//@children.18" target="//@children.10" targetEnd="//@children.18/@sourceConnections.0/@children.1" sourceEnd="//@children.18/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Language&lt;-xmlFeature/LanguageXML" source="//@children.18" target="//@children.10" targetEnd="//@children.18/@sourceConnections.0/@children.1" sourceEnd="//@children.18/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
       <children xsi:type="editmodel:AssociationEndEditModel" location="233,139" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,92"/>
     </sourceConnections>
@@ -744,31 +744,31 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="AvaibleNetworkInFolder" location="255,1712" size="216,107" id="tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder" runTimeClassModel="description,name,path">
+  <children xsi:type="editmodel:ClassEditModel" name="AvaibleNetworkInFolder" location="255,1712" size="216,107" id="streamInFolder.graphReaderFolder/AvaibleNetworkInFolder" runTimeClassModel="description,name,path">
     <children xsi:type="editmodel:CompartmentEditModel" size="106,54">
-      <children xsi:type="editmodel:AttributeEditModel" name="description" id="tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#description"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="name" id="tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#name"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="path" id="tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#path"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="description" id="streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#description"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="name" id="streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#name"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="path" id="streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#path"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/AvaibleNetwork&lt;-tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder" source="//@children.33" target="//@children.32" targetEnd="//@children.33/@sourceConnections.0/@children.1" sourceEnd="//@children.33/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/AvaibleNetwork&lt;-streamInFolder.graphReaderFolder/AvaibleNetworkInFolder" source="//@children.33" target="//@children.32" targetEnd="//@children.33/@sourceConnections.0/@children.1" sourceEnd="//@children.33/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="216,53" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,56"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="EventInfoStationOnARoute" location="233,1127" size="260,135" id="tools.streamInFolder/EventInfoStationOnARoute" runTimeClassModel="id,message,applyInfo(LgraphNetwork.GraphNetworkBuilder;),kindEventInfoNetwork">
+  <children xsi:type="editmodel:ClassEditModel" name="EventInfoStationOnARoute" location="233,1127" size="260,135" id="streamInFolder/EventInfoStationOnARoute" runTimeClassModel="id,message,applyInfo(LgraphNetwork.GraphNetworkBuilder;),kindEventInfoNetwork">
     <children xsi:type="editmodel:CompartmentEditModel" size="237,54">
-      <children xsi:type="editmodel:AttributeEditModel" name="id" id="tools.streamInFolder/EventInfoStationOnARoute#id"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="kindEventInfoNetwork" id="tools.streamInFolder/EventInfoStationOnARoute#kindEventInfoNetwork"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="message" id="tools.streamInFolder/EventInfoStationOnARoute#message"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="streamInFolder/EventInfoStationOnARoute#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="kindEventInfoNetwork" id="streamInFolder/EventInfoStationOnARoute#kindEventInfoNetwork"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="message" id="streamInFolder/EventInfoStationOnARoute#message"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="74,18">
-      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="tools.streamInFolder/EventInfoStationOnARoute#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="streamInFolder/EventInfoStationOnARoute#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfo&lt;-tools.streamInFolder/EventInfoStationOnARoute" source="//@children.34" target="//@children.35" targetEnd="//@children.34/@sourceConnections.0/@children.1" sourceEnd="//@children.34/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfo&lt;-streamInFolder/EventInfoStationOnARoute" source="//@children.34" target="//@children.35" targetEnd="//@children.34/@sourceConnections.0/@children.1" sourceEnd="//@children.34/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="255,66" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,36"/>
     </sourceConnections>
@@ -792,33 +792,33 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="EventInfoRoute" location="233,1269" size="260,135" id="tools.streamInFolder/EventInfoRoute" runTimeClassModel="id,message,applyInfo(LgraphNetwork.GraphNetworkBuilder;),kindEventInfoNetwork">
+  <children xsi:type="editmodel:ClassEditModel" name="EventInfoRoute" location="233,1269" size="260,135" id="streamInFolder/EventInfoRoute" runTimeClassModel="id,message,applyInfo(LgraphNetwork.GraphNetworkBuilder;),kindEventInfoNetwork">
     <children xsi:type="editmodel:CompartmentEditModel" size="237,54">
-      <children xsi:type="editmodel:AttributeEditModel" name="message" id="tools.streamInFolder/EventInfoRoute#message"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="id" id="tools.streamInFolder/EventInfoRoute#id"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="kindEventInfoNetwork" id="tools.streamInFolder/EventInfoRoute#kindEventInfoNetwork"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="message" id="streamInFolder/EventInfoRoute#message"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="streamInFolder/EventInfoRoute#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="kindEventInfoNetwork" id="streamInFolder/EventInfoRoute#kindEventInfoNetwork"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="74,18">
-      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="tools.streamInFolder/EventInfoRoute#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="streamInFolder/EventInfoRoute#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfo&lt;-tools.streamInFolder/EventInfoRoute" source="//@children.36" target="//@children.35" targetEnd="//@children.36/@sourceConnections.0/@children.1" sourceEnd="//@children.36/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfo&lt;-streamInFolder/EventInfoRoute" source="//@children.36" target="//@children.35" targetEnd="//@children.36/@sourceConnections.0/@children.1" sourceEnd="//@children.36/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="260,62" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,72"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="EventInfoStation" location="233,1411" size="260,135" id="tools.streamInFolder/EventInfoStation" runTimeClassModel="id,message,applyInfo(LgraphNetwork.GraphNetworkBuilder;),kindEventInfoNetwork">
+  <children xsi:type="editmodel:ClassEditModel" name="EventInfoStation" location="233,1411" size="260,135" id="streamInFolder/EventInfoStation" runTimeClassModel="id,message,applyInfo(LgraphNetwork.GraphNetworkBuilder;),kindEventInfoNetwork">
     <children xsi:type="editmodel:CompartmentEditModel" size="237,54">
-      <children xsi:type="editmodel:AttributeEditModel" name="message" id="tools.streamInFolder/EventInfoStation#message"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="id" id="tools.streamInFolder/EventInfoStation#id"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="kindEventInfoNetwork" id="tools.streamInFolder/EventInfoStation#kindEventInfoNetwork"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="message" id="streamInFolder/EventInfoStation#message"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="streamInFolder/EventInfoStation#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="kindEventInfoNetwork" id="streamInFolder/EventInfoStation#kindEventInfoNetwork"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="74,18">
-      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="tools.streamInFolder/EventInfoStation#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="streamInFolder/EventInfoStation#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfo&lt;-tools.streamInFolder/EventInfoStation" source="//@children.37" target="//@children.35" targetEnd="//@children.37/@sourceConnections.0/@children.1" sourceEnd="//@children.37/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/EventInfo&lt;-streamInFolder/EventInfoStation" source="//@children.37" target="//@children.35" targetEnd="//@children.37/@sourceConnections.0/@children.1" sourceEnd="//@children.37/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="257,75" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="-2,107"/>
     </sourceConnections>

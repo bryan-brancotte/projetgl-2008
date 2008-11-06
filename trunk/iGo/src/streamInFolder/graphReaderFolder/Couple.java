@@ -1,11 +1,11 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 
 public class Couple {
 
 	/**
 	 * @uml.property   name="Station"
-	 * @uml.associationEnd   inverse="couple:tools.streamInFolder.graphReaderFolder.Station"
+	 * @uml.associationEnd   inverse="couple:streamInFolder.graphReaderFolder.Station"
 	 */
 	private Station station;
 
@@ -29,7 +29,7 @@ public class Couple {
 
 	/**
 	 * @uml.property   name="Route"
-	 * @uml.associationEnd   inverse="couple:tools.streamInFolder.graphReaderFolder.Route"
+	 * @uml.associationEnd   inverse="couple:streamInFolder.graphReaderFolder.Route"
 	 */
 	private Route route;
 

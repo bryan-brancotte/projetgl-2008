@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 import java.util.LinkedList;
 
@@ -7,7 +7,7 @@ public class Route {
 
 	/**
 	 * @uml.property   name="RouteSectionsList"
-	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="route:tools.streamInFolder.graphReaderFolder.Section"
+	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="route:streamInFolder.graphReaderFolder.Section"
 	 */
 	private LinkedList<Route> routeSectionsList;
 
@@ -53,8 +53,8 @@ public class Route {
 	}
 
 	/**
-	 * @uml.property  name="kindRoute"
-	 * @uml.associationEnd  inverse="route:tools.streamInFolder.graphReaderFolder.KindRoute"
+	 * @uml.property   name="kindRoute"
+	 * @uml.associationEnd   inverse="route:streamInFolder.graphReaderFolder.KindRoute"
 	 */
 	private KindRoute kindRoute;
 

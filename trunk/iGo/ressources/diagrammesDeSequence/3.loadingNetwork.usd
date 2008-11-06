@@ -78,7 +78,7 @@
       </sourceConnections>
     </children>
   </children>
-  <children xsi:type="editmodel:InstanceEditModel" name="GraphNetworkReceiverFolder" location="330,20" size="216,1223" id="tools.streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" itemName="">
+  <children xsi:type="editmodel:InstanceEditModel" name="GraphNetworkReceiverFolder" location="330,20" size="216,1223" id="streamInFolder.graphReaderFolder/GraphNetworkReceiverFolder" itemName="">
     <children xsi:type="editmodel:ActivationEditModel" targetConnections="//@children.0/@children.0/@sourceConnections.1" location="100,152" size="16,40" sequenceItemContainer="//@children.1">
       <sourceConnections xsi:type="editmodel:ReturnArrowEditModel" source="//@children.1/@children.0" target="//@children.0/@children.0" targetEnd="//@children.1/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
         <children xsi:type="editmodel:SequenceEndEditModel" location="0,40" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.0" methodLabel="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.1" sequenceNumberLabel="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.2" statementExpression="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.3">
@@ -124,7 +124,7 @@
           <children xsi:type="editmodel:MessageLabelEditModel" size="0,13"/>
         </children>
       </sourceConnections>
-      <sourceConnections xsi:type="editmodel:SequenceMessageEditModel" name="getPath" id="tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#getPath()" source="//@children.1/@children.1" target="//@children.2/@children.0" targetEnd="//@children.1/@children.1/@sourceConnections.2/@children.1" sourceEnd="//@children.1/@children.1/@sourceConnections.2/@children.0" connectionRouterKind="Manual" associatedMethod="getPath(): String" associatedSequenceNumber="1.1" associatedReturnArrow="//@children.2/@children.0/@sourceConnections.0" shouldShowReturnArrow="true">
+      <sourceConnections xsi:type="editmodel:SequenceMessageEditModel" name="getPath" id="streamInFolder.graphReaderFolder/AvaibleNetworkInFolder#getPath()" source="//@children.1/@children.1" target="//@children.2/@children.0" targetEnd="//@children.1/@children.1/@sourceConnections.2/@children.1" sourceEnd="//@children.1/@children.1/@sourceConnections.2/@children.0" connectionRouterKind="Manual" associatedMethod="getPath(): String" associatedSequenceNumber="1.1" associatedReturnArrow="//@children.2/@children.0/@sourceConnections.0" shouldShowReturnArrow="true">
         <children xsi:type="editmodel:SequenceEndEditModel" location="6,35" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.1/@children.1/@sourceConnections.2/@children.0/@children.0" methodLabel="//@children.1/@children.1/@sourceConnections.2/@children.0/@children.1" sequenceNumberLabel="//@children.1/@children.1/@sourceConnections.2/@children.0/@children.2" statementExpression="//@children.1/@children.1/@sourceConnections.2/@children.0/@children.3">
           <children xsi:type="editmodel:MessageLabelEditModel" size="0,13"/>
           <children xsi:type="editmodel:LabelEditModel" name="getPath(): String" size="93,13"/>
@@ -242,7 +242,7 @@
       </sourceConnections>
     </children>
   </children>
-  <children xsi:type="editmodel:InstanceEditModel" name="AvaibleNetworkInFolder" location="522,20" size="182,1223" id="tools.streamInFolder.graphReaderFolder/AvaibleNetworkInFolder" itemName="">
+  <children xsi:type="editmodel:InstanceEditModel" name="AvaibleNetworkInFolder" location="522,20" size="182,1223" id="streamInFolder.graphReaderFolder/AvaibleNetworkInFolder" itemName="">
     <children xsi:type="editmodel:ActivationEditModel" targetConnections="//@children.1/@children.1/@sourceConnections.2" location="83,337" size="16,40" sequenceItemContainer="//@children.2">
       <sourceConnections xsi:type="editmodel:ReturnArrowEditModel" source="//@children.2/@children.0" target="//@children.1/@children.1" targetEnd="//@children.2/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
         <children xsi:type="editmodel:SequenceEndEditModel" location="0,40" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.2/@children.0/@sourceConnections.0/@children.0/@children.0" methodLabel="//@children.2/@children.0/@sourceConnections.0/@children.0/@children.1" sequenceNumberLabel="//@children.2/@children.0/@sourceConnections.0/@children.0/@children.2" statementExpression="//@children.2/@children.0/@sourceConnections.0/@children.0/@children.3">

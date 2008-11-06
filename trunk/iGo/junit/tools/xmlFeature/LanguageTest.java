@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import xmlFeature.LanguageXML;
+
 public class LanguageTest {
 
 	protected Language lang = null;

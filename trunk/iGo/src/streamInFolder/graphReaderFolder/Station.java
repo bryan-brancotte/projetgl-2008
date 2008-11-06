@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 import java.util.Collection;
 
@@ -25,7 +25,7 @@ public class Station {
 
 	/**
 	 * @uml.property   name="StationServicesList"
-	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="station:tools.streamInFolder.graphReaderFolder.Service"
+	 * @uml.associationEnd   multiplicity="(0 -1)" inverse="station:streamInFolder.graphReaderFolder.Service"
 	 */
 	private Collection<Service> stationServicesList;
 

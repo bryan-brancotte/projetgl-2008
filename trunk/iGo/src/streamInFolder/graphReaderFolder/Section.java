@@ -1,4 +1,4 @@
-package tools.streamInFolder.graphReaderFolder;
+package streamInFolder.graphReaderFolder;
 
 import java.util.LinkedList;
 
@@ -7,7 +7,7 @@ public class Section {
 
 	/**
 	 * @uml.property   name="SectionStationsList"
-	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="section:tools.streamInFolder.graphReaderFolder.Station"
+	 * @uml.associationEnd   multiplicity="(0 -1)" ordering="true" inverse="section:streamInFolder.graphReaderFolder.Station"
 	 */
 	private LinkedList<Service> sectionStationsList;
 
