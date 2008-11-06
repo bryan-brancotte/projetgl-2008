@@ -65,7 +65,7 @@ public interface TravelForDisplayPanel {
 	 * Interface décrivant un portion du trajet, un protion du trajet est la partie du trajet qui est sur la même ligne,
 	 * elle commence quand on arrive sur cette ligne et se termine quand on en ressort.
 	 * 
-	 * @author Brancotte Bryan
+	 * @author iGo
 	 * 
 	 */
 	public interface SectionOfTravel {

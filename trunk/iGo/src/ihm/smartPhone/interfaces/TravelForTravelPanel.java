@@ -3,7 +3,7 @@ package ihm.smartPhone.interfaces;
 /**
  * Interface fournissant des informations au sujet d'un trajet.
  * 
- * @author Brancotte Bryan
+ * @author iGo
  * 
  */
 public interface TravelForTravelPanel {
