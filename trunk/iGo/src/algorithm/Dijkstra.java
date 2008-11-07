@@ -29,5 +29,4 @@ public class Dijkstra implements Algo {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

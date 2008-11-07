@@ -35,10 +35,10 @@
 				<FRANCAIS value="Nouveau"/>
 				<ENGLISH value="New"/>
 			</New>
-			<Load>
-				<FRANCAIS value="Charger"/>
-				<ENGLISH value="Load"/>
-			</Load>
+			<MainLoad>
+				<FRANCAIS value="Trajet récent"/>
+				<ENGLISH value="Recent travel"/>
+			</MainLoad>
 			<Settings>
 				<FRANCAIS value="Paramètres"/>
 				<ENGLISH value="Settings"/>
@@ -48,8 +48,8 @@
 				<ENGLISH value="Favorites"/>
 			</Favorites>
 			<LoadTravel>
-				<FRANCAIS value="Charger un trajet"/>
-				<ENGLISH value="Load travel"/>
+				<FRANCAIS value="Charger un trajet récent"/>
+				<ENGLISH value="Load travel récent"/>
 			</LoadTravel>
 			<NewTravel>
 				<FRANCAIS value="Nouveau trajet"/>

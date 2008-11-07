@@ -1,8 +1,8 @@
 package graphNetwork;
 
 /**
- * Cette interface permet via son implementation de définir les critère de choix pour l'algorithme sans que ce dernier
- * n'en ai connaissance. Ces choix seront par exemple le coût, le temps, le changement, ...
+ * Cette interface permet via son implementation de dÃ©finir les critÃ¨re de choix pour l'algorithme sans que ce dernier
+ * n'en ai connaissance. Ces choix seront par exemple le coÃ»t, le temps, le changement, ...
  * Son utilisation est semblable au wrapper
  * 
  * @author iGo

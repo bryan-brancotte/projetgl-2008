@@ -32,7 +32,7 @@ public class MainPanel extends PanelState {
 	/**
 	 * L'unique constructeur de cette classe. On a besoin l'ihm qui l'heberge afin d'afficher les bonnes couleurs via le
 	 * getSkin() et les bonnes tailles via le getSizeAdapteur().
-	 * 	
+	 * 
 	 * @param ihm
 	 *            l'ihm réceptrice
 	 * @param upperBar
@@ -46,7 +46,7 @@ public class MainPanel extends PanelState {
 		imageLoadArea = new Rectangle();
 		imageSettingsArea = new Rectangle();
 		imageFavoritesArea = new Rectangle();
-		
+
 		MouseListenerClickAndMoveInArea l = new MouseListenerClickAndMoveInArea(this);
 		l.addInteractiveArea(imageNewArea, new CodeExecutor() {
 			@Override
@@ -93,24 +93,31 @@ public class MainPanel extends PanelState {
 			buffer = image.getGraphics();
 			buffer.setFont(font = father.getSizeAdapteur().getIntermediateFont());
 			buffer.setColor(father.getSkin().getColorLetter());
-			
-			imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniWidth, miniHeight).getImage();
+
+			if ((imageNew == null) || (miniWidth == imageNewArea.getWidth())
+					|| (miniHeight == imageNewArea.getHeight()))
+				imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniWidth, miniHeight).getImage();
 			halfImagesWidth = imageNew.getWidth(null) / 2;
 			twoThirdImagesHeight = imageNew.getHeight(null) * 2 / 3;
 			imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, imageNew
 					.getWidth(null), imageNew.getHeight(null));
-			
+
+			if ((imageLoad == null) || (miniWidth == imageLoadArea.getWidth())
+					|| (miniHeight == imageLoadArea.getHeight()))
 			imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniWidth, miniHeight).getImage();
 			imageLoadArea.setBounds(miniWidth * 3 - halfImagesWidth, imageNewArea.y, imageNewArea.width,
 					imageNewArea.height);
-			
+
+			if ((imageSettings == null) || (miniWidth == imageSettingsArea.getWidth())
+					|| (miniHeight == imageSettingsArea.getHeight()))
 			imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniWidth, miniHeight).getImage();
 			imageSettingsArea.setBounds(imageNewArea.x, miniHeight * 3 - imageNew.getHeight(null), imageNewArea.width,
 					imageNewArea.height);
-			
+
+			if ((imageFavorites == null) || (miniWidth == imageFavoritesArea.getWidth())
+					|| (miniHeight == imageFavoritesArea.getHeight()))
 			imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniWidth, miniHeight).getImage();
-			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width,
-					imageNewArea.height);
+			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 		} else {
 			halfImagesWidth = imageNew.getWidth(null) / 2;
 			twoThirdImagesHeight = imageNew.getHeight(null) * 2 / 3;
@@ -127,7 +134,7 @@ public class MainPanel extends PanelState {
 		 * Menu "Load"
 		 */
 		buffer.drawImage(imageLoad, imageLoadArea.x, imageLoadArea.y, null);
-		msg = father.lg("Load");
+		msg = father.lg("MainLoad");
 		buffer.drawString(msg, miniWidth * 3 - getWidthString(msg, buffer, font) / 2, miniHeight + twoThirdImagesHeight
 				/ 2 + getHeigthString(msg, buffer, font));
 

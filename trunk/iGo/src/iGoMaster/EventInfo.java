@@ -8,22 +8,22 @@ import graphNetwork.GraphNetworkBuilder;
 public interface EventInfo {
 
 	/**
-	 * Retourne l'identifiant de l'évènement
+	 * Retourne l'identifiant de l'Ã©vÃ¨nement
 	 * 
-	 * @return l'identifiant unique représentant un évènement
+	 * @return l'identifiant unique reprÃ©sentant un Ã©vÃ¨nement
 	 */
 	public abstract int getId();
 
 	/**
-	 * Applique le changement au réseau
+	 * Applique le changement au rÃ©seau
 	 * 
 	 * @param graph
-	 *            le réseau en question
+	 *            le rÃ©seau en question
 	 */
 	public abstract void applyInfo(GraphNetworkBuilder graph);
 
 	/**
-	 * Retourne le message contenu dans l'évènement
+	 * Retourne le message contenu dans l'Ã©vÃ¨nement
 	 * 
 	 * @return le message
 	 */

@@ -13,32 +13,17 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
 	protected Panel me = this;
 
-	// private SemaphorePaint renderingClamp = null;
-	//
-	// private boolean enableRenderingClamp = false;
-	//
-	// protected boolean isEnableRenderingClamp() {
-	// return enableRenderingClamp;
-	// }
-	//
-	// protected void setEnableRenderingClamp(boolean enableRenderingClamp) {
-	// this.enableRenderingClamp = enableRenderingClamp;
-	// if (this.enableRenderingClamp)
-	// renderingClamp = new SemaphorePaint();
-	// else
-	// renderingClamp = null;
-	// }
-	//
-	// protected boolean tryAcquireRenderingClamp() {
-	// if (!enableRenderingClamp)
-	// return true;
-	// return renderingClamp.tryAcquire();
-	// }
-	//
-	// protected void releaseRenderingClamp() {
-	// if (enableRenderingClamp)
-	// renderingClamp.release();
-	// }
+	/**
+	 * On redéfinit cette fonction car son fonctionnement normal provoque un sintillement. Il semblerai que cette
+	 * fonction efface par défaut l'objet g avant d'appeller paint, d'om le sintillement.
+	 * 
+	 * @param g
+	 *            l'objet représentant la zone dessinable d'un panel.
+	 * 
+	 */
+	public void update(Graphics g) {
+		paint(g);
+	}
 
 	/**
 	 * Surdéfinition de la fonction de redessinement de l'objet.

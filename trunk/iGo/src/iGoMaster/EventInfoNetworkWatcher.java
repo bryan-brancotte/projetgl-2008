@@ -10,7 +10,7 @@ import java.util.Vector;
 
 /**
  * 
- * Cette interface fournit les différents services afin de visualiser les évènements survenus sur le réseau
+ * Cette interface fournit les diffÃ©rents services afin de visualiser les Ã©vÃ¨nements survenus sur le rÃ©seau
  * 
  * @author iGo
  * 
@@ -18,19 +18,19 @@ import java.util.Vector;
 public abstract class EventInfoNetworkWatcher extends Observable {
 
 	/**
-	 * Démarre la surveillance des évènements
+	 * DÃ©marre la surveillance des Ã©vÃ¨nements
 	 * 
 	 * @throws ImpossibleStartingException
 	 */
 	public abstract void startWatching() throws ImpossibleStartingException;
 
 	/**
-	 * Arrête la surveillance des évènements
+	 * ArrÃªte la surveillance des Ã©vÃ¨nements
 	 */
 	public abstract void stopWatching();
 
 	/**
-	 * Permet d'obtenir le status de la surveillance des évènements
+	 * Permet d'obtenir le status de la surveillance des Ã©vÃ¨nements
 	 * 
 	 * @return the actual status
 	 * @uml.property name="status"
@@ -41,17 +41,17 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	/**
 	 * Applique les changements sur un graphe
 	 * 
-	 * @param graph le graphe sur lequel les changements vont être appliqués
+	 * @param graph le graphe sur lequel les changements vont Ãªtre appliquÃ©s
 	 */
 	public abstract void applyInfo(GraphNetworkBuilder graph);
 
 	/**
 	 * 
-	 * Permet d'obtenir toutes les nouvelles informations sur le réseau.
-	 * Si le EventInfoNetworkWatcher est en train de charger un EventInfo en même temps,
-	 * Cette fonction sera bloquante jusqu'à ce que le chargement soit effectué.
+	 * Permet d'obtenir toutes les nouvelles informations sur le rÃ©seau.
+	 * Si le EventInfoNetworkWatcher est en train de charger un EventInfo en mÃªme temps,
+	 * Cette fonction sera bloquante jusqu'Ã  ce que le chargement soit effectuÃ©.
 	 * 
-	 * @return Une collection avec les nouveaux évènements, ou null si aucun évènement n'est survenu
+	 * @return Une collection avec les nouveaux Ã©vÃ¨nements, ou null si aucun Ã©vÃ¨nement n'est survenu
 	 */
 	public Collection<EventInfo> getNewEventInfo() {
 		return new Vector<EventInfo>(eventInfosNotApplied);

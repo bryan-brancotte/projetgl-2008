@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 /**
- * Cette classe permet la surveillance d'un dossier qui contiendra les �v�nements
+ * Cette classe permet la surveillance d'un dossier qui contiendra les événements
  *
  */
 public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
@@ -19,7 +19,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	
 	/**
 	 * Constructeur d'EventInfoNetworkWatcherInFolder
-	 * @param path Chemin du dossier � surveiller
+	 * @param path Chemin du dossier à surveiller
 	 */
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
@@ -27,7 +27,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * D�marre la surveillance du dossier
+	 * Démarre la surveillance du dossier
 	 */
 	@Override
 	public void startWatching() throws ImpossibleStartingException {
@@ -35,7 +35,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Arr�te la surveillance du dossier
+	 * Arrête la surveillance du dossier
 	 */
 	@Override
 	public void stopWatching() {
@@ -47,12 +47,12 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public EventInfoNetWorkWatcherStatus getStatus() {
-		// TODO statu en fonction de l'�tat du thread de veille
+		// TODO statu en fonction de l'état du thread de veille
 		return EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
 	}
 
 	/**
-	 * Applique les informations contenues dans un �v�nement
+	 * Applique les informations contenues dans un événement
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
@@ -61,7 +61,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Renvoie les nouveaux �v�nements
+	 * Renvoie les nouveaux événements
 	 */
 	@Override
 	public Collection<EventInfo> getNewEventInfo() {

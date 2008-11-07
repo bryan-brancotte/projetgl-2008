@@ -28,7 +28,7 @@ public interface PathInGraphBuilder extends PathInGraphReader {
 	public abstract void flush();
 
 	/**
-	 * Import depuis un chaîne un chemin, cette chaine doit avoir été faite avec la fonction PathInGraphReader.exportPath()
+	 * Import depuis un chaÃ®ne un chemin, cette chaine doit avoir Ã©tÃ© faite avec la fonction PathInGraphReader.exportPath()
 	 * @param pathInString
 	 */
 	public abstract void importPath(String pathInString);

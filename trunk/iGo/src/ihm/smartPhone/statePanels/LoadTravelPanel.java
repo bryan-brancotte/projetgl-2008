@@ -17,14 +17,14 @@ import java.util.LinkedList;
 public class LoadTravelPanel extends PanelState {
 
 	private static final long serialVersionUID = 1L;
-	
-	protected Panel inside ;
+
+	protected Panel inside;
 
 	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			LinkedList<PathInGraphReader> paths) {
 		super(ihm, upperBar, lowerBar);
 		ScrollPane sp = new ScrollPane();
-		inside = new Panel(); 
+		inside = new Panel();
 		inside.setLayout(new VerticalFlowLayout(VerticalFlowLayout.TOP, true, false));
 		inside.add(new TravelPanel(null, father));
 		inside.add(new TravelPanel(null, father));
@@ -40,7 +40,7 @@ public class LoadTravelPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
-		//g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
+		// g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
 	}
 
 	@Override
