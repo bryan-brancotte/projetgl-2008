@@ -18,7 +18,7 @@ import java.awt.Insets;
  * Company: UNSA
  * </p>
  * 
- * @author APPIETTO Christophe - ARNAUD Jean-Michel - EL MAHRATI Hassan [prev Jer�me GAHIDE - Lucas CHARBIT - Gabriel
+ * @author APPIETTO Christophe - ARNAUD Jean-Michel - EL MAHRATI Hassan [prev Jerôme GAHIDE - Lucas CHARBIT - Gabriel
  *         ZERBIB - Xavier GALBOIS]
  * @version 2.0
  */

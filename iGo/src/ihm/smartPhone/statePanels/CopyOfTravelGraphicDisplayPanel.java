@@ -1,11 +1,13 @@
 package ihm.smartPhone.statePanels;
 
+import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,6 +15,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -24,18 +28,45 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
-public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
+import javax.swing.JOptionPane;
+
+public class CopyOfTravelGraphicDisplayPanel extends PanelState {
+
+	protected Dimension preferredSize = new Dimension(10, 10);
 
 	protected GraphicsViewPort buffer;
 
 	protected int image;
 
+	@Override
+	public Dimension getPreferredSize() {
+		return super.getPreferredSize();
+	}
+
 	private static final long serialVersionUID = 1L;
+
+	protected CopyOfTravelGraphicDisplayPanel me = this;
+	protected TravelForDisplayPanel travel = null;
+	protected IhmReceivingStates actualState = IhmReceivingStates.PREVISU_TRAVEL;
 
 	protected Polygon polygon = new Polygon();
 	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
 	protected LinkedList<Color> colorList;
 
+	// protected float xImg;
+	// protected float yImg;
+	// /**
+	// * La hauteur de l'image représentant le réseau
+	// */
+	// protected int heightImage;
+	// /**
+	// * La largueur de l'image représentant le réseau
+	// */
+	// protected int widthImage;
+	// /**
+	// * L'échelle de l'image
+	// */
+	// protected float scallImg = 0.25F;
 	/**
 	 * La dernière abscisse du pointeur
 	 */
@@ -45,27 +76,18 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected int yLastPointeur;
 
-	/**
-	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la valeur d'une demi largueur de ligne
-	 */
 	protected int sizeDemiLine;
-	/**
-	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est le quadruple de la grande largueur.
-	 */
 	protected int sizeQuadLarge;
-	/**
-	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la grande largueur.
-	 */
 	protected int sizeLarge;
 
-	/**
-	 * Sémaphore 
-	 */
 	protected Semaphore renderingClamp = new Semaphore(1);
 
-	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
+	public CopyOfTravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
-		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
+		super(ihm, upperBar, lowerBar);
+		this.travel = travelForDisplayPanel;
+		if (travel == null)
+			travel = new TravelForTravelPanelExemple();
 		colorList = new LinkedList<Color>();
 		addColorAndItsLighted(Color.cyan);
 		addColorAndItsLighted(Color.magenta);
@@ -227,8 +249,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// Un mutex est placé afin de ne pas lancer plusieur paint en même temps (et gagner du temps). Ce mutex a
 		// autrefois éviter des execution inutils, mais ne semble plus être utils désormais. Il est laissé an attendant
 		// un optimisation
-		// if (!buffer.isNeededRepaint())
-		// return;
+//		if (!buffer.isNeededRepaint())
+//			return;
 		if (!renderingClamp.tryAcquire()) {
 			System.out.println("acquire OFF");
 			return;
@@ -236,7 +258,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// on demande un reconstruction de l'image
 		buildImage();
 		// on efface l'écran puis on dessine cette image
-		// g.clearRect(0, 0, getWidth(), getHeight());
+		//g.clearRect(0, 0, getWidth(), getHeight());
 		g.drawImage(buffer.getImage(), 0, 0, null);
 		buffer.hasBeenDrawn();
 		// g.drawString("qefzer", 10, 10);
@@ -408,8 +430,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * @return l'abscisse où l'on a finit de dessiner.
 	 */
 	protected void drawInformationsRoute(GraphicsViewPort g, int xRec, int yRec, SectionOfTravel section) {
-		// buffer.drawLine(xRec, yRec - 20, xRec, yRec + 20);
-		// buffer.drawLine(xRec - 20, yRec, xRec + 20, yRec);
+//		buffer.drawLine(xRec, yRec - 20, xRec, yRec + 20);
+//		buffer.drawLine(xRec - 20, yRec, xRec + 20, yRec);
 		String[] words = new String[] {
 				section.getNameRoute(),
 				decomposeMinutesIntoHourMinutes(section.getTimeSection(), father.lg("LetterForHour"), father
@@ -421,7 +443,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		Color colorActu = g.getColor();
 		xs[0] = xRec - i;
 		ys[0] = yRec + j;
-		xs[1] = xRec + i + sizeDemiLine * 2;
+		xs[1] = xRec + i + sizeDemiLine*2;
 		ys[1] = ys[0];
 		// g.drawRect(xs[0], ys[0]-2*j, 2*i, 2*j);
 		if (i < j)
@@ -569,6 +591,79 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		ovalToDrawDelayed.y = y;
 		ovalToDrawDelayed.width = width;
 		ovalToDrawDelayed.height = height;
+	}
+
+	public void setActualState(IhmReceivingStates actualState) {
+		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
+			this.actualState = actualState;
+			giveControle();
+		}
+	}
+
+	@Override
+	public void giveControle() {
+		upperBar.clearMessage();
+		if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+			upperBar.setLeftCmd(father.lg("Edit"), new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(null, "Edit soon avaible...");
+				}
+			});
+			upperBar.setRightCmd(father.lg("Start"), new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					me.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+					// father.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+				}
+			});
+			upperBar.setUpperTitle(father.lg("Destination"));
+			upperBar.setMainTitle(travel.getDestination());
+		} else {
+			upperBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(null, "Lost soon avaible...");
+				}
+			});
+			upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(null, "Next soon avaible...");
+				}
+			});
+			upperBar.setUpperTitle(father.lg("NextStop"));
+			upperBar.setMainTitle(travel.getNextStop());
+		}
+		upperBar.repaint();
+
+		lowerBar.clearMessage();
+		if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+			lowerBar.setCenterIcone("button_save", new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(null, "Saving soon avaible...");
+				}
+			});
+			lowerBar.setLeftTitle(father.lg("TotalCost"));
+			lowerBar.setRightTitle(father.lg("TotalTime"));
+			lowerBar.setLeftValue(travel.getTotalCost() + father.lg("Money"));
+			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getTotalTime(), father.lg("LetterForHour"),
+					father.lg("LetterForMinute")));
+		} else {
+			lowerBar.setCenterIcone("home", new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (true || JOptionPane.showConfirmDialog(me, father.lg("DoYouWantToQuitYourActualTravel"), father
+							.lg("ProgName"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+						father.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+				}
+			});
+			lowerBar.setRightTitle(father.lg("RemainingTime"));
+			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getRemainingTime(), father
+					.lg("LetterForHour"), father.lg("LetterForMinute")));
+		}
+		lowerBar.repaint();
 	}
 
 	/**

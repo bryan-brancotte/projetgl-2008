@@ -18,7 +18,7 @@ public enum KindEventInfoNetwork {
 	}
 
 	/**
-	 * Surcharge de equals pour s'assurer que la comparaison sera bien effectuée.
+	 * Surcharge de equals pour s'assurer que la comparaison sera bien effectuÃ©e.
 	 */
 	public boolean equals(KindEventInfoNetwork ev) {
 		return (this.getValue() == ev.getValue());

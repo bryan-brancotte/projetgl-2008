@@ -26,7 +26,7 @@ public abstract class KindRouteReader {
 	}
 
 	/**
-	 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
+	 * Surcharge de equals pour s'assurÃ© que la comparaison sera bien faite.
 	 */
 	@Override
 	public boolean equals(Object obj) {

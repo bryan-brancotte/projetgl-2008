@@ -689,7 +689,7 @@ public class TravelGraphicDisplayPanelToMuchMemory extends PanelState {
 
 	class RenderingThread extends Thread {
 		/**
-		 * Ce thread appelle le rafraichissement de notre fen�tre toutes les 10 milli-secondes
+		 * Ce thread appelle le rafraichissement de notre fenêtre toutes les 10 milli-secondes
 		 */
 		public void run() {
 			while (true) {

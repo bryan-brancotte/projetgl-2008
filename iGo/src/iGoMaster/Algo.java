@@ -12,19 +12,19 @@ import graphNetwork.StationReader;
 public interface Algo {
 
 	/**
-	 * Trouve le meilleur chemin dans le graph passé en paramètre en l'origine et la destination. Il construit le chemin
-	 * dans l'objet pathInGraphBuilder passé en paramètre et le retourne sous la forme d'un objet passeInGraphReader
+	 * Trouve le meilleur chemin dans le graph passÃ© en paramÃ¨tre en l'origine et la destination. Il construit le chemin
+	 * dans l'objet pathInGraphBuilder passÃ© en paramÃ¨tre et le retourne sous la forme d'un objet passeInGraphReader
 	 * 
 	 * @param origine
-	 *            la station de départ
+	 *            la station de dÃ©part
 	 * @param destination
 	 *            la station de fin
 	 * @param graph
-	 *            le graph où l'on évolut
+	 *            le graph oÃ¹ l'on Ã©volut
 	 * @param pathInGraphBuilder
 	 *            l'objet qui va contenir le chemin.
 	 * @param criterious
-	 *            le critère pour la comparaison à utiliser
+	 *            le critÃ¨re pour la comparaison Ã  utiliser
 	 * @return l'objet contenant le chemin
 	 */
 	public abstract PathInGraphReader findPath(StationReader origine, StationReader destination,

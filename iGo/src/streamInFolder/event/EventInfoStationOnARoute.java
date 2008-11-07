@@ -5,7 +5,7 @@ import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
 /**
- * Ev�nement relatif � une station sur une ligne
+ * Evénement relatif à une station sur une ligne
  *
  */
 public class EventInfoStationOnARoute implements EventInfo{
