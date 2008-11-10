@@ -1,4 +1,4 @@
-package tools.streamInFolder;
+package streamInFolder;
 
 import static org.junit.Assert.assertTrue;
 import iGoMaster.EventInfoNetWorkWatcherStatus;
