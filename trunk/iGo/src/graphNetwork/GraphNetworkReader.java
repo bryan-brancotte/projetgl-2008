@@ -1,16 +1,24 @@
 package graphNetwork;
 
 /**
- *  
+ * 
  * @author iGo
  */
 public interface GraphNetworkReader {
 
 	/**
+	 * Retourne le type associé au nom passée en paramètre. Si le type n'existe pas on retourne null.
+	 * 
+	 * @param kindOf
+	 *            le nom du type
+	 * @return le type en lecture seul, ou null si le type n'est pas associé.
 	 */
 	public abstract KindRouteReader getKindFromString(String kindOf);
 
 	/**
+	 * Return the all the kinds in read-only mode
+	 * 
+	 * @return an array with all the kinds
 	 */
 	public abstract KindRouteReader[] getKinds();
 

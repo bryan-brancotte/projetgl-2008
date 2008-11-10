@@ -11,6 +11,8 @@ import ihm.smartPhone.statePanels.MainPanel;
 import ihm.smartPhone.statePanels.NewTravelPanel;
 import ihm.smartPhone.statePanels.SettingsPanel;
 import ihm.smartPhone.statePanels.SplashScreenPanel;
+import ihm.smartPhone.statePanels.TravelArrayDisplayPanel;
+import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
 import ihm.smartPhone.tools.IGoFlowLayout;
@@ -45,7 +47,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected LoadTravelPanel loadTravelPanel = null;
 	protected SettingsPanel settingsPanel = null;
 	protected NewTravelPanel newTravelPanel = null;
-	protected TravelGraphicDisplayPanel travelGraphicPanel = null;
+	protected TravelDisplayPanel travelGraphicPanel = null;
+	protected TravelDisplayPanel travelArrayPanel = null;
 	protected boolean quitMessage = false;
 	protected iGoSmartPhoneSkin skin;
 
@@ -298,8 +301,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	protected void checkTravelArrayDisplayPanel() {
-		if (travelGraphicPanel == null)
-			travelGraphicPanel = new TravelGraphicDisplayPanel(this, upperBar, lowerBar, null);
+		if (travelArrayPanel == null)
+			travelArrayPanel = new TravelArrayDisplayPanel(this, upperBar, lowerBar, null);
 	}
 
 	protected void checkNewTravelPanel() {
@@ -405,7 +408,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			settingsPanel.giveControle();
 			centerPanel.validate();
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
-			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(IhmReceivingStates.GRAPHIC_MODE);
+			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(IhmReceivingStates.GRAPHIC_MODE );
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) {
 			actualState = IhmReceivingStates.EXPERIMENT_TRAVEL.mergeState(IhmReceivingStates.GRAPHIC_MODE);
 		}
@@ -430,13 +433,13 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.actualState = IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE;
 			centerPanel.removeAll();
 			try {
-				checkTravelGraphicDisplayPanel();
+				checkTravelArrayDisplayPanel();
 			} catch (OutOfMemoryError e) {
 				cleanPanelsStates(true);
-				checkTravelGraphicDisplayPanel();
+				checkTravelArrayDisplayPanel();
 			}
-			centerPanel.add(travelGraphicPanel);
-			travelGraphicPanel.giveControle();
+			centerPanel.add(travelArrayPanel);
+			travelArrayPanel.giveControle();
 			centerPanel.validate();
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
 			cleanPanelsStates(false);

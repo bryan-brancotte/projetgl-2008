@@ -51,11 +51,11 @@ public enum IhmReceivingStates {
 		if ((ev == PREVISU_TRAVEL) && (this == GRAPHIC_MODE))
 			return PREVISU_TRAVEL_GRAPHIC_MODE;
 		if ((ev == PREVISU_TRAVEL) && (this == ARRAY_MODE))
-			return PREVISU_TRAVEL_GRAPHIC_MODE;
+			return PREVISU_TRAVEL_ARRAY_MODE;
 		if ((ev == EXPERIMENT_TRAVEL) && (this == GRAPHIC_MODE))
 			return EXPERIMENT_TRAVEL_GRAPHIC_MODE;
 		if ((ev == EXPERIMENT_TRAVEL) && (this == ARRAY_MODE))
-			return EXPERIMENT_TRAVEL_GRAPHIC_MODE;
+			return EXPERIMENT_TRAVEL_ARRAY_MODE;
 		return this;
 	}
 }
