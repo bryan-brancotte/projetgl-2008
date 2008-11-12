@@ -1,6 +1,7 @@
 package iGoMaster;
+
 /**
- *  
+ * 
  * @author iGo
  */
 public interface Master {
@@ -15,10 +16,19 @@ public interface Master {
 	public String lg(String key);
 
 	/**
-	 * lance l'arrÃªt du logiciel. Il est probable que l'appelle de cette mÃ©thode oblige le master Ã  lancer des
-	 * procÃ©dures Ã©quivalents sur les acteurs qu'il peut arretÃ©. pensez donc Ã  protÃ©gÃ© le master contre des appelles en
+	 * lance l'arrêt du logiciel. Il est probable que l'appelle de cette méthode oblige le master à lancer des
+	 * procédures équivalents sur les acteurs qu'il peut arreté. pensez donc à protégé le master contre des appelles en
 	 * boucle.
 	 */
 	public void stop();
+
+	/**
+	 * Retourne pour une clé donnée la valeur du paramètre.
+	 * 
+	 * @param key
+	 *            clé identifiant le paramètre
+	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
+	 */
+	public String config(String key);
 
 }

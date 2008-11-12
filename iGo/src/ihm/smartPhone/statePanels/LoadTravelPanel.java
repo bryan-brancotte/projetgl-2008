@@ -14,6 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+/**
+ * 
+ * @author "iGo"
+ * 
+ */
 public class LoadTravelPanel extends PanelState {
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +27,16 @@ public class LoadTravelPanel extends PanelState {
 
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 
+	/**
+	 * 
+	 * @param ihm
+	 * @param upperBar
+	 * @param lowerBar
+	 * @param actualState
+	 *            est soit IhmReceivingStates.FAVORITES soit IhmReceivingStates.LOAD_TRAVEL, leve une exception
+	 *            NoSuchFieldError si on spécfie un autre type.
+	 * @param paths
+	 */
 	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			IhmReceivingStates actualState, LinkedList<TravelForTravelPanel> paths) {
 		super(ihm, upperBar, lowerBar);

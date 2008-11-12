@@ -45,6 +45,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected Panel centerPanel;
 	protected LowerBar lowerBar;
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
+	/**
+	 * etat préféré pour la prévisualisation et l'expérimentation d'un trajet : IhmReceivingStates.GRAPHIC_MODE ou
+	 * IhmReceivingStates.ARRAY_MODE
+	 */
+	protected IhmReceivingStates preferedState;
 	protected SplashScreenPanel splashScreenPanel = null;
 	protected MainPanel mainPanel = null;
 	protected LoadTravelPanel loadTravelPanel = null;
@@ -82,6 +87,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.setExtendedState(Frame.MAXIMIZED_BOTH);
 			this.setUndecorated(true);
 		}
+		String tmp = this.master.config("GRAPHIC_OR_ARRAY_MODE");
+		if ((tmp == null) || (tmp.compareTo(IhmReceivingStates.GRAPHIC_MODE.toString()) == 0))
+			this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
+		else
+			this.preferedState = IhmReceivingStates.ARRAY_MODE;
 
 		/***************************************************************************************************************
 		 * Préparation des trois zones de données
@@ -294,7 +304,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 			for (int i = 0; i < 5; i++)
 				lst.add(new TravelForTravelPanelExemple());
-			loadTravelPanel = new LoadTravelPanel(this, upperBar, lowerBar,IhmReceivingStates.LOAD_TRAVEL, lst);
+			loadTravelPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.LOAD_TRAVEL, lst);
 		}
 	}
 
@@ -308,7 +318,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					i++;
 				}
 			}
-			favoritesPanel = new LoadTravelPanel(this, upperBar, lowerBar,IhmReceivingStates.FAVORITES, lst);
+			favoritesPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.FAVORITES, lst);
 		}
 	}
 
@@ -442,9 +452,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			settingsPanel.giveControle();
 			centerPanel.validate();
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
-			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(IhmReceivingStates.GRAPHIC_MODE);
+			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(preferedState);
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) {
-			actualState = IhmReceivingStates.EXPERIMENT_TRAVEL.mergeState(IhmReceivingStates.GRAPHIC_MODE);
+			actualState = IhmReceivingStates.EXPERIMENT_TRAVEL.mergeState(preferedState);
 		}
 		System.out.println(actualState);
 		if (actualState == IhmReceivingStates.PREVISU_TRAVEL_GRAPHIC_MODE) {
@@ -488,7 +498,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkTravelArrayDisplayPanel();
 			}
 			centerPanel.add(travelArrayPanel);
-			travelGraphicPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
+			travelArrayPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
 			travelArrayPanel.giveControle();
 			centerPanel.validate();
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
@@ -498,6 +508,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	protected void cleanPanelsStates(boolean dueToAnError) {
 		// TODO trouver un façon d'invoquer le GC
+		// TODO pas forcé ca marche quand même.
 		if (dueToAnError)
 			ImageLoader.setFastLoadingOfImages(false);
 		splashScreenPanel = null;
@@ -505,5 +516,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		settingsPanel = null;
 		mainPanel = null;
 		travelGraphicPanel = null;
+	}
+
+	/**
+	 * Définit l'état préféré pour l'affichage d'un trajet. On a le choix entre IhmReceivingStates.GRAPHIC_MODE et
+	 * IhmReceivingStates.ARRAY_MODE.
+	 * 
+	 * @param actualState
+	 *            le nouvelle état préféré. Si on fournit un état qui n'est pas géré, l'appelle est sans effet
+	 */
+	public void setPreferedStates(IhmReceivingStates actualState) {
+		if (actualState == IhmReceivingStates.GRAPHIC_MODE)
+			this.actualState = IhmReceivingStates.GRAPHIC_MODE;
+		else if (actualState == IhmReceivingStates.ARRAY_MODE)
+			this.actualState = IhmReceivingStates.ARRAY_MODE;
 	}
 }
