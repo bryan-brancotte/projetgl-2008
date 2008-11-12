@@ -1,6 +1,5 @@
 package ihm.smartPhone.composants;
 
-import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea.CodeExecutor;
@@ -38,8 +37,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 	protected static Rectangle delArea = null;
 	protected static Rectangle allArea = null;
 	protected boolean insideMe;
-	
-	//protected Graphics2D buffer;
+
+	// protected Graphics2D buffer;
 
 	/**
 	 * Surcharge de la méthode finalize afin de comptabilisé le nombre d'instance encore présentes en mémoire. Si
@@ -75,8 +74,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 	 * alors on va initialisé l'ensemble des variables statique.
 	 * 
 	 * @param nvTravel
-	 *            le trajet qu'il va décrire. Si nvTravel est à null, on met alors une instance
-	 *            {@link TravelForTravelPanelExemple} à la place.
+	 *            le trajet qu'il va décrire. Si nvTravel est à null, on jete un NullPointerException
 	 * @param ihmFather
 	 *            l'IhmReceivingPanelState qui l'accueil
 	 */
@@ -85,7 +83,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		TravelPanel.father = ihmFather;
 		this.travel = nvTravel;
 		if (travel == null)
-			travel = new TravelForTravelPanelExemple();
+			throw new NullPointerException(
+					"A travelPanel have been created with a TravelForTravelPanel at null. It's strictly forbidden.");
 		try {
 			mutex.acquire();
 		} catch (InterruptedException e1) {
@@ -183,8 +182,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		 */
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
-			buffer = /*(Graphics2D)/**/ image.getGraphics();
-			//buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			buffer = /* (Graphics2D)/* */image.getGraphics();
+			// buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			buffer.setColor(father.getSkin().getColorLetter());
 			fontInter = father.getSizeAdapteur().getIntermediateFont();
 			fontSmall = father.getSizeAdapteur().getSmallFont();
@@ -270,7 +269,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
-		
+
 		/***************************************************************************************************************
 		 * Dessin des images
 		 */

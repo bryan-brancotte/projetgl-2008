@@ -59,9 +59,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	protected int sizeLarge;
 
 	/**
-	 * Sémaphore 
+	 * Sémaphore
 	 */
-	protected Semaphore renderingClamp = new Semaphore(1);
+	protected Semaphore renderingClamp = new Semaphore(1); 
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -483,32 +483,42 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		nextX = 0;
 
-		words[1] = father.lg("Cost") + " : ";
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+			words[1] = father.lg("Cost") + " : ";
 		words[2] = father.lg("Time") + " : ";
 
 		xs[1] = xs[0];
-		ys[1] = ys[0] + sizeDemiLine / 2 + this.getHeigthString(words[1], g.getImage().getGraphics(), g.getFont());
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+			ys[1] = ys[0] + sizeDemiLine / 2 + this.getHeigthString(words[1], g.getImage().getGraphics(), g.getFont());
+		else
+			ys[1] = ys[0];
 		xs[2] = xs[1];
 		ys[2] = ys[1] + sizeDemiLine / 2 + this.getHeigthString(words[2], g.getImage().getGraphics(), g.getFont());
-		nextX = xs[2] + this.getWidthString(words[1], g.getImage().getGraphics(), g.getFont()) + sizeDemiLine / 2;
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+			nextX = xs[2] + this.getWidthString(words[1], g.getImage().getGraphics(), g.getFont()) + sizeDemiLine / 2;
 		i = xs[2] + this.getWidthString(words[2], g.getImage().getGraphics(), g.getFont()) + sizeDemiLine / 2;
 		if (i > nextX)
 			xs[3] = i;
 		else
 			xs[3] = nextX;
 
-		if (section.getEnddingChangementCost() == 0)
-			words[3] = father.lg("Free");
-		else
-			words[3] = section.getEnddingChangementCost() + " " + father.lg("Money");
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+			if (section.getEnddingChangementCost() == 0)
+				words[3] = father.lg("Free");
+			else
+				words[3] = section.getEnddingChangementCost() + " " + father.lg("Money");
 		words[4] = decomposeMinutesIntoHourMinutes(section.getEnddingChangementTime(), father.lg("LetterForHour"),
 				father.lg("LetterForMinute"));
 
 		// xs[3]=x;
-		ys[3] = ys[0] + sizeDemiLine / 2 + this.getHeigthString(words[3], g.getImage().getGraphics(), g.getFont());
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+			ys[3] = ys[0] + sizeDemiLine / 2 + this.getHeigthString(words[3], g.getImage().getGraphics(), g.getFont());
+		else
+			ys[3] = ys[0];
 		xs[4] = xs[3];
 		ys[4] = ys[3] + sizeDemiLine / 2 + this.getHeigthString(words[4], g.getImage().getGraphics(), g.getFont());
-		nextX = xs[4] + this.getWidthString(words[3], g.getImage().getGraphics(), g.getFont()) + sizeDemiLine * 2;
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+			nextX = xs[4] + this.getWidthString(words[3], g.getImage().getGraphics(), g.getFont()) + sizeDemiLine * 2;
 		i = xs[4] + this.getWidthString(words[4], g.getImage().getGraphics(), g.getFont()) + sizeDemiLine * 2;
 		if (i > nextX)
 			nextX = i;
@@ -525,7 +535,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			g.setColor(father.getSkin().getColorLetter());
 			g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
 			for (i = 0; i < 5; i++)
-				g.drawString(words[i], xs[i], ys[i]);
+				if (words[i] != null)
+					g.drawString(words[i], xs[i], ys[i]);
 		}
 		buffer.extendsHeight(ys[4] + sizeDemiLine * 2 - buffer.getY());
 		buffer.extendsWidth(xEnder - buffer.getX() + sizeDemiLine);
