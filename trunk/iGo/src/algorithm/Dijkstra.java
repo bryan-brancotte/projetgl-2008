@@ -7,11 +7,7 @@ import graphNetwork.PathInGraphReader;
 import graphNetwork.StationReader;
 import iGoMaster.Algo;
 
-/**
- * 
- * @author iGo
- *
- */
+
 public class Dijkstra implements Algo {
 
 	/**
