@@ -1,10 +1,10 @@
 package ihm.smartPhone.statePanels;
 
-import graphNetwork.PathInGraphReader;
 import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.TravelPanel;
 import ihm.smartPhone.composants.UpperBar;
 import ihm.smartPhone.composants.VerticalFlowLayout;
+import ihm.smartPhone.interfaces.TravelForTravelPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -20,20 +20,22 @@ public class LoadTravelPanel extends PanelState {
 
 	protected Panel inside;
 
+	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
+
 	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
-			LinkedList<PathInGraphReader> paths) {
+			IhmReceivingStates actualState, LinkedList<TravelForTravelPanel> paths) {
 		super(ihm, upperBar, lowerBar);
 		ScrollPane sp = new ScrollPane();
 		inside = new Panel();
 		inside.setLayout(new VerticalFlowLayout(VerticalFlowLayout.TOP, true, false));
-		inside.add(new TravelPanel(null, father));
-		inside.add(new TravelPanel(null, father));
-		inside.add(new TravelPanel(null, father));
-		inside.add(new TravelPanel(null, father));
-		inside.add(new TravelPanel(null, father));
-		inside.add(new TravelPanel(null, father));
-		inside.add(new TravelPanel(null, father));
+		makeInside(paths);
 		sp.add(inside);
+		if (actualState == IhmReceivingStates.FAVORITES)
+			this.actualState = IhmReceivingStates.FAVORITES;
+		else if (actualState == IhmReceivingStates.LOAD_TRAVEL)
+			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
+		else
+			throw new NoSuchFieldError("the kind " + actualState + " isn't allowed in a LoadTravelPanel");
 		this.setLayout(new BorderLayout());
 		this.add(sp);
 	}
@@ -43,10 +45,24 @@ public class LoadTravelPanel extends PanelState {
 		// g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
 	}
 
+	protected void makeInside(LinkedList<TravelForTravelPanel> paths) {
+		if (paths == null)
+			return;
+		inside.removeAll();
+		for (TravelForTravelPanel t : paths)
+			inside.add(new TravelPanel(t, father));
+	}
+
+	/**
+	 * Donne le controle en concervant la liste actuelle des chemins possibles
+	 */
 	@Override
 	public void giveControle() {
 		upperBar.clearMessage();
-		upperBar.setMainTitle(father.lg("LoadTravel"));
+		if (actualState == IhmReceivingStates.FAVORITES)
+			upperBar.setMainTitle(father.lg("Favorites"));
+		else
+			upperBar.setMainTitle(father.lg("LoadTravel"));
 		upperBar.repaint();
 
 		lowerBar.clearMessage();
@@ -59,4 +75,13 @@ public class LoadTravelPanel extends PanelState {
 		lowerBar.repaint();
 	}
 
+	/**
+	 * Donne le contrôle en spécifiant une nouvelle liste de chemin.
+	 * 
+	 * @param paths
+	 *            la nouvelle liste de chemin
+	 */
+	public void giveControle(LinkedList<TravelForTravelPanel> paths) {
+		makeInside(paths);
+	}
 }

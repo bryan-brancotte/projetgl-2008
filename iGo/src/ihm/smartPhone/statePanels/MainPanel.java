@@ -13,8 +13,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
 public class MainPanel extends PanelState {
 
 	protected Image imageNew = null;
@@ -69,7 +67,7 @@ public class MainPanel extends PanelState {
 		l.addInteractiveArea(imageFavoritesArea, new CodeExecutor() {
 			@Override
 			public void execute() {
-				JOptionPane.showMessageDialog(null, "it could be great? yeah, but it's not avaible yet...");
+				father.setActualState(IhmReceivingStates.FAVORITES);
 			}
 		});
 		this.addMouseListener(l);

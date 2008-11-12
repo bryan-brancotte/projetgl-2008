@@ -95,5 +95,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 					.lg("LetterForHour"), father.lg("LetterForMinute")));
 		}
 		lowerBar.repaint();
+		
+		this.repaint();
 	}
 }
