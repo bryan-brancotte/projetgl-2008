@@ -61,7 +61,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	/**
 	 * Sémaphore
 	 */
-	protected Semaphore renderingClamp = new Semaphore(1); 
+	protected Semaphore renderingClamp = new Semaphore(1);
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -208,18 +208,24 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	}
 
 	protected void addColorAndItsLighted(Color org) {
-		colorList.add(org);
 		int r = org.getRed(), g = org.getGreen(), b = org.getBlue();
-		r *= .2;
+		r *= 1.2;
 		if (r > 255)
 			r = 255;
-		g *= .2;
+		if (r < 25)
+			r = 25;
+		g *= 1.2;
 		if (g > 255)
 			g = 255;
-		b *= .2;
+		if (g < 25)
+			g = 25;
+		b *= 1.2;
 		if (b > 255)
 			b = 255;
+		if (b < 25)
+			b = 25;
 		colorList.add(new Color(r, g, b));
+		colorList.add(org);
 	}
 
 	@Override
@@ -237,6 +243,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		buildImage();
 		// on efface l'écran puis on dessine cette image
 		// g.clearRect(0, 0, getWidth(), getHeight());
+		super.paint(buffer.getBuffer());
 		g.drawImage(buffer.getImage(), 0, 0, null);
 		buffer.hasBeenDrawn();
 		// g.drawString("qefzer", 10, 10);

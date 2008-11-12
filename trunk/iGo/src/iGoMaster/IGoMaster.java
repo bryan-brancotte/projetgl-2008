@@ -259,4 +259,10 @@ public class IGoMaster implements Master, Observer {
 		
 	}
 
+	@Override
+	public String config(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

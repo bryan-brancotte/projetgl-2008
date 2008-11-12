@@ -2,6 +2,7 @@ package ihm.smartPhone;
 
 import iGoMaster.Language;
 import iGoMaster.Master;
+import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.iGoSmartPhoneSkin;
 import xmlFeature.LanguageXML;
 
@@ -25,6 +26,12 @@ public class MainDemoIHM {
 
 			@Override
 			public void stop() {
+			}
+
+			@Override
+			public String config(String key) {
+				//return IhmReceivingStates.ARRAY_MODE.toString();/*
+				return IhmReceivingStates.GRAPHIC_MODE.toString();/**/
 			}
 
 		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*

@@ -4,14 +4,16 @@ import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.composants.LowerBar;
 import ihm.smartPhone.composants.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
+import ihm.smartPhone.tools.ImageLoader;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
 public abstract class TravelDisplayPanel extends PanelState {
-	
+
 	protected TravelDisplayPanel me = this;
 	protected TravelForDisplayPanel travel = null;
 	protected IhmReceivingStates actualState = IhmReceivingStates.PREVISU_TRAVEL;
@@ -29,6 +31,12 @@ public abstract class TravelDisplayPanel extends PanelState {
 			this.actualState = actualState;
 			giveControle();
 		}
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		g.drawImage(ImageLoader.getRessourcesImageIcone("warning", 32,32).getImage(),
+				0, 0, null);
 	}
 
 	@Override
@@ -95,7 +103,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 					.lg("LetterForHour"), father.lg("LetterForMinute")));
 		}
 		lowerBar.repaint();
-		
+
 		this.repaint();
 	}
 }
