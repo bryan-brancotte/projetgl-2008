@@ -19,5 +19,16 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	@Override
 	public void paint(Graphics g) {
 		g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
+		super.paint(g);
+	}
+
+	@Override
+	protected void actionToDoWhenChangeStateIsClicked() {
+		father.setActualState(IhmReceivingStates.GRAPHIC_MODE.mergeState(actualState));
+	}
+
+	@Override
+	protected String getMessageChangeState() {
+		return father.lg("GoToGraphicMode");
 	}
 }
