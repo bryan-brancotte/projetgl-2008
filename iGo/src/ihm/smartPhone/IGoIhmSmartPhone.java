@@ -503,6 +503,18 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.validate();
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
 			cleanPanelsStates(false);
+			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE;
+			centerPanel.removeAll();
+			try {
+				checkTravelArrayDisplayPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkTravelArrayDisplayPanel();
+			}
+			centerPanel.add(travelArrayPanel);
+			travelArrayPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+			travelArrayPanel.giveControle();
+			centerPanel.validate();
 		}
 	}
 

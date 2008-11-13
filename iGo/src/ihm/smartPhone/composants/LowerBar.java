@@ -2,7 +2,7 @@ package ihm.smartPhone.composants;
 
 import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
-import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea.CodeExecutor;
+import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 

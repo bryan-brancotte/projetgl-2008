@@ -1,5 +1,7 @@
 package ihm.smartPhone.listener;
 
+import ihm.smartPhone.tools.CodeExecutor;
+
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Point;
@@ -97,10 +99,6 @@ public class MouseListenerClickAndMoveInArea implements MouseListener, MouseMoti
 
 	public void addInteractiveArea(Rectangle area, CodeExecutor codeExecutor) {
 		this.addInteractiveArea(area, codeExecutor, true);
-	}
-
-	public interface CodeExecutor {
-		public void execute();
 	}
 
 }

@@ -143,6 +143,14 @@
 				<FRANCAIS value="Gratuit"/>
 				<ENGLISH value="Free"/>
 			</Free>
+			<GoToArrayMode>
+				<FRANCAIS value="Mode tableau →"/>
+			<ENGLISH value="Array mode →"/>
+			</GoToArrayMode>
+			<GoToGraphicMode>
+				<FRANCAIS value="Mode graphique →"/>
+				<ENGLISH value="Graphic mode →"/>
+			</GoToGraphicMode>
 		</fields>
 	</root>
 

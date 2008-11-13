@@ -229,6 +229,16 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	}
 
 	@Override
+	protected void actionToDoWhenChangeStateIsClicked() {
+		father.setActualState(IhmReceivingStates.ARRAY_MODE.mergeState(actualState));
+	}
+
+	@Override
+	protected String getMessageChangeState() {
+		return father.lg("GoToArrayMode");
+	}
+
+	@Override
 	public void paint(Graphics g) {
 		// Un mutex est placé afin de ne pas lancer plusieur paint en même temps (et gagner du temps). Ce mutex a
 		// autrefois éviter des execution inutils, mais ne semble plus être utils désormais. Il est laissé an attendant
