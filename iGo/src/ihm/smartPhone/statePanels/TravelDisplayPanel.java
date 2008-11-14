@@ -31,6 +31,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 	protected Rectangle changeStateArea = null;
 
 	protected PopUpMessage popUpMessage;
+	
+	protected int sizeLargeFont = 1;
 
 	public TravelDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -38,9 +40,10 @@ public abstract class TravelDisplayPanel extends PanelState {
 		this.travel = travelForDisplayPanel;
 		if (travel == null)
 			travel = new TravelForTravelPanelExemple();
+		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont();
 		if (imageWarning == null)
-			imageWarning = ImageLoader.getRessourcesImageIcone("warning", father.getSizeAdapteur().getSizeLargeFont(),
-					father.getSizeAdapteur().getSizeLargeFont()).getImage();
+			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont,
+					sizeLargeFont).getImage();
 		iconeWarningArea = new Rectangle(0, 0, 0, 0);
 		changeStateArea = new Rectangle(0, 0, 0, 0);
 
@@ -48,7 +51,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 		clickAndMoveWarningAndArray.addInteractiveArea(iconeWarningArea, new CodeExecutor() {
 			@Override
 			public void execute() {
-				System.out.println("warning");
+				// System.out.println("warning");
+				popUpMessage.define("toto", null);
+				me.repaint();
 			}
 		});
 		clickAndMoveWarningAndArray.addInteractiveArea(changeStateArea, new CodeExecutor() {
@@ -84,13 +89,14 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
-		if (imageWarning.getHeight(null) != father.getSizeAdapteur().getSizeLargeFont())
-			imageWarning = ImageLoader.getRessourcesImageIcone("warning", father.getSizeAdapteur().getSizeLargeFont(),
-					father.getSizeAdapteur().getSizeLargeFont()).getImage();
+		if (imageWarning.getHeight(null) != sizeLargeFont)
+			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont,
+					sizeLargeFont).getImage();
 		g.drawImage(imageWarning, 0, getHeight() - imageWarning.getHeight(null), null);
 		iconeWarningArea.setBounds(0, getHeight() - imageWarning.getHeight(null), imageWarning.getHeight(null),
 				imageWarning.getWidth(null));
-		g.setFont(father.getSizeAdapteur().getIntermediateFont());
+		g.setFont(father.getSizeAdapteur().getSmallFont());/*
+		g.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
 		int w = me.getWidthString(getMessageChangeState(), g, g.getFont());
 		int h = me.getHeigthString(getMessageChangeState(), g, g.getFont());
 		g.setColor(father.getSkin().getColorSubAreaInside());
@@ -182,9 +188,10 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected CodeExecutor actionAfterOkButton;
 		protected boolean activeMessage = false;
 		protected MouseListenerClickAndMoveInArea l;
-		protected Rectangle iconeOKArea;
+		protected Rectangle imageButtonOkArea;
 		protected MouseListener[] ml;
 		protected MouseMotionListener[] mml;
+		protected Image imageButtonOk = null;
 
 		public boolean isActiveMessage() {
 			return activeMessage;
@@ -194,6 +201,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 			this.message = message;
 			this.actionAfterOkButton = actionAfterOkButton;
 			this.activeMessage = true;
+			this.imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok",
+					sizeLargeFont, sizeLargeFont)
+					.getImage();
 			ml = me.getMouseListeners();
 			mml = me.getMouseMotionListeners();
 			for (MouseListener m : ml)
@@ -207,8 +217,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 		public PopUpMessage() {
 			super();
 			this.l = new MouseListenerClickAndMoveInArea(me);
-			this.iconeOKArea = new Rectangle(0, 0, 0, 0);
-			this.l.addInteractiveArea(iconeOKArea, new CodeExecutor() {
+			this.imageButtonOkArea = new Rectangle(0, 0, 0, 0);
+			this.l.addInteractiveArea(imageButtonOkArea, new CodeExecutor() {
 				@Override
 				public void execute() {
 					System.out.println("ok of message");
@@ -220,15 +230,25 @@ public abstract class TravelDisplayPanel extends PanelState {
 						me.addMouseMotionListener(m);
 					if (actionAfterOkButton != null)
 						actionAfterOkButton.execute();
+					activeMessage = false;
+					me.repaint();
 				}
 			});
 		}
 
 		public void paint(Graphics g) {
+			if (imageButtonOk.getHeight(null) != sizeLargeFont)
+				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok",
+						sizeLargeFont, sizeLargeFont)
+						.getImage();
 			g.setColor(father.getSkin().getColorSubAreaInside());
 			g.fillRect(getWidth() / 5, getHeight() / 5, getWidth() * 3 / 5, getHeight() * 3 / 5);
 			g.setColor(father.getSkin().getColorLetter());
 			g.drawRect(getWidth() / 5, getHeight() / 5, getWidth() * 3 / 5, getHeight() * 3 / 5);
+			imageButtonOkArea.setBounds(getWidth() * 4 / 5 - sizeLargeFont * 2,
+					getHeight() * 4 / 5 - sizeLargeFont * 2, father.getSizeAdapteur()
+							.getSizeLargeFont(), sizeLargeFont);
+			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
 		}
 
 		public MouseListenerClickAndMoveInArea getClickAndMoveListener() {
