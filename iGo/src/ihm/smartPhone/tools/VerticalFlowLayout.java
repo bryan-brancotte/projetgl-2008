@@ -1,4 +1,4 @@
-package ihm.smartPhone.composants;
+package ihm.smartPhone.tools;
 
 import java.awt.Component;
 import java.awt.Container;
