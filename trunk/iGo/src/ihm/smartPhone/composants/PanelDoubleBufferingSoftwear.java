@@ -42,7 +42,8 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * @return la hauteur dessiné de la chaine
 	 */
 	protected int getHeigthString(String s, Graphics g, Font f) {
-		return f.getSize();
+	    //return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
+		return f.getSize();/**/
 	}
 
 	/**
@@ -57,7 +58,9 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * @return la longueur dessiné de la chaine
 	 */
 	protected int getWidthString(String s, Graphics g, Font f) {
-		return (int) (s.length() * f.getSize() * 0.45);
+		//return (int) (s.length() * f.getSize() * 0.45);/*
+	    return (int) g.getFontMetrics(f).getStringBounds(s, g).getWidth(); // size of string/**/
+	 
 	}
 
 	protected String decomposeMinutesIntoHourMinutes(int minutes, String sHour, String sMinutes) {
