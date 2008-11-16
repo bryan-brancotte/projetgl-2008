@@ -1,7 +1,7 @@
 package ihm.smartPhone.statePanels;
 
-import ihm.smartPhone.componante.LowerBar;
-import ihm.smartPhone.componante.UpperBar;
+import ihm.smartPhone.component.LowerBar;
+import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.VerticalFlowLayout;
 
 import java.awt.BorderLayout;

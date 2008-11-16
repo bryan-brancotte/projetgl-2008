@@ -1,7 +1,7 @@
 package ihm.smartPhone.tools;
 
-import ihm.smartPhone.componante.LowerBar;
-import ihm.smartPhone.componante.UpperBar;
+import ihm.smartPhone.component.LowerBar;
+import ihm.smartPhone.component.UpperBar;
 
 import java.awt.Component;
 import java.awt.Container;
