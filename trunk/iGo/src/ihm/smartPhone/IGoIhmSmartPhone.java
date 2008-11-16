@@ -1,5 +1,6 @@
 package ihm.smartPhone;
 
+import iGoMaster.IHM;
 import iGoMaster.Master;
 import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.composants.LowerBar;

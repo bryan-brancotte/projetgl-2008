@@ -1,7 +1,14 @@
-package iGoMaster;
+package ihm.smartPhone;
 
 import graphNetwork.GraphNetworkBuilder;
-import ihm.smartPhone.IHM;
+import iGoMaster.Algo;
+import iGoMaster.Configuration;
+import iGoMaster.EventInfoNetworkWatcher;
+import iGoMaster.GraphNetworkCostReceiver;
+import iGoMaster.GraphNetworkReceiver;
+import iGoMaster.IHM;
+import iGoMaster.Language;
+import iGoMaster.Master;
 
 import java.util.Observable;
 import java.util.Observer;
