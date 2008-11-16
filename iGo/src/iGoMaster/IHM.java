@@ -1,4 +1,4 @@
-package ihm.smartPhone;
+package iGoMaster;
 
 /**
  * Interface décrivant les fonctionnalités de l'IHM. Tout IHM voulant prétendre à être utiliser par le master doit être

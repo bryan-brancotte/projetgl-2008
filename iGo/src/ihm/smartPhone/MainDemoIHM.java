@@ -1,5 +1,6 @@
 package ihm.smartPhone;
 
+import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
