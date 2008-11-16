@@ -5,19 +5,19 @@ package iGoMaster;
  */
 public enum EventInfoNetWorkWatcherStatus {
 	/**
-	 * Aucune nouvelle mise à jour detectée, ou alors la mise à jour est toujours en cours de traitement.
+	 * Aucune nouvelle mise a� jour detectee, ou alors la mise a� jour est toujours en cours de traitement.
 	 */
 	NO_NEW_UPDATE(1),
 	/**
-	 * Une nouvelle mise à jour est disponible.
+	 * Une nouvelle mise a�jour est disponible.
 	 */
 	NEW_UPDATE(2),
 	/**
-	 * Le EventInfoNetWorkWatcher est démarré, il regarde afin de trouver d'autre mises à jour.
+	 * Le EventInfoNetWorkWatcher est demarre, il regarde afin de trouver d'autre mises a� jour.
 	 */
 	STARTED(3),
 	/**
-	 * Le EventInfoNetWorkWatcher est arreté, il ne regarde pas pour trouver d'autre mises à jour.
+	 * Le EventInfoNetWorkWatcher est arrete, il ne regarde pas pour trouver d'autre mises a� jour.
 	 */
 	STOPPED(4),
 	/**
