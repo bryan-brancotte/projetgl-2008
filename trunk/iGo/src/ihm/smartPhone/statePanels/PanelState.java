@@ -1,8 +1,8 @@
 package ihm.smartPhone.statePanels;
 
-import ihm.smartPhone.composants.LowerBar;
-import ihm.smartPhone.composants.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.composants.UpperBar;
+import ihm.smartPhone.componante.LowerBar;
+import ihm.smartPhone.componante.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.componante.UpperBar;
 
 public abstract class PanelState extends PanelDoubleBufferingSoftwear {
 

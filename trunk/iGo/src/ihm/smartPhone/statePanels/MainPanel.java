@@ -1,7 +1,7 @@
 package ihm.smartPhone.statePanels;
 
-import ihm.smartPhone.composants.LowerBar;
-import ihm.smartPhone.composants.UpperBar;
+import ihm.smartPhone.componante.LowerBar;
+import ihm.smartPhone.componante.UpperBar;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;

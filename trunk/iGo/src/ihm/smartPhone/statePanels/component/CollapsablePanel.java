@@ -1,4 +1,4 @@
-package ihm.smartPhone.composants;
+package ihm.smartPhone.statePanels.component;
 
 import ihm.smartPhone.tools.ImageLoader;
 
