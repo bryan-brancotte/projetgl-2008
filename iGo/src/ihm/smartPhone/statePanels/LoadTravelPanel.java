@@ -1,9 +1,9 @@
 package ihm.smartPhone.statePanels;
 
-import ihm.smartPhone.composants.LowerBar;
-import ihm.smartPhone.composants.TravelPanel;
-import ihm.smartPhone.composants.UpperBar;
+import ihm.smartPhone.componante.LowerBar;
+import ihm.smartPhone.componante.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+import ihm.smartPhone.statePanels.component.TravelPanel;
 import ihm.smartPhone.tools.VerticalFlowLayout;
 
 import java.awt.BorderLayout;

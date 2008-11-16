@@ -1,8 +1,8 @@
 package ihm.smartPhone.statePanels;
 
 import ihm.classesExemples.TravelForTravelPanelExemple;
-import ihm.smartPhone.composants.LowerBar;
-import ihm.smartPhone.composants.UpperBar;
+import ihm.smartPhone.componante.LowerBar;
+import ihm.smartPhone.componante.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 

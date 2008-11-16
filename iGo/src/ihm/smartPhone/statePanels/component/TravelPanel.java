@@ -1,5 +1,6 @@
-package ihm.smartPhone.composants;
+package ihm.smartPhone.statePanels.component;
 
+import ihm.smartPhone.componante.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
