@@ -10,7 +10,7 @@ import java.util.Vector;
 
 /**
  * 
- * Cette interface fournit les différents services afin de visualiser les évènements survenus sur le réseau
+ * Cette classe abstraite fournit les differents services afin de visualiser les evenements survenus sur le reseau
  * 
  * @author iGo
  * 
@@ -18,19 +18,19 @@ import java.util.Vector;
 public abstract class EventInfoNetworkWatcher extends Observable {
 
 	/**
-	 * Démarre la surveillance des évènements
+	 * Demarre la surveillance des evenements
 	 * 
 	 * @throws ImpossibleStartingException
 	 */
 	public abstract void startWatching() throws ImpossibleStartingException;
 
 	/**
-	 * Arrête la surveillance des évènements
+	 * Arrete la surveillance des evenements
 	 */
 	public abstract void stopWatching();
 
 	/**
-	 * Permet d'obtenir le status de la surveillance des évènements
+	 * Permet d'obtenir le status de la surveillance des evenements
 	 * 
 	 * @return the actual status
 	 * @uml.property name="status"
@@ -47,11 +47,11 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 
 	/**
 	 * 
-	 * Permet d'obtenir toutes les nouvelles informations sur le réseau.
-	 * Si le EventInfoNetworkWatcher est en train de charger un EventInfo en même temps,
-	 * Cette fonction sera bloquante jusqu'à ce que le chargement soit effectué.
+	 * Permet d'obtenir toutes les nouvelles informations sur le reseau.
+	 * Si le EventInfoNetworkWatcher est en train de charger un EventInfo en meme temps,
+	 * Cette fonction sera bloquante jusqu'a� ce que le chargement soit effectue.
 	 * 
-	 * @return Une collection avec les nouveaux évènements, ou null si aucun évènement n'est survenu
+	 * @return Une collection avec les nouveaux evenements, ou null si aucun evenement n'est survenu
 	 */
 	public Collection<EventInfo> getNewEventInfo() {
 		return new Vector<EventInfo>(eventInfosNotApplied);

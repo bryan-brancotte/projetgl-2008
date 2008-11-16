@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 /**
- * Cette classe permet la surveillance d'un dossier qui contiendra les événements
+ * Cette classe permet la surveillance d'un dossier qui contiendra les evenements
  *
  */
 public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
@@ -19,7 +19,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	
 	/**
 	 * Constructeur d'EventInfoNetworkWatcherInFolder
-	 * @param path Chemin du dossier à surveiller
+	 * @param path Chemin du dossier a� surveiller
 	 */
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
@@ -27,7 +27,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Démarre la surveillance du dossier
+	 * Demarre la surveillance du dossier
 	 */
 	@Override
 	public void startWatching() throws ImpossibleStartingException {
@@ -35,7 +35,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Arrête la surveillance du dossier
+	 * Arrete la surveillance du dossier
 	 */
 	@Override
 	public void stopWatching() {
@@ -61,7 +61,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	/**
-	 * Renvoie les nouveaux événements
+	 * Renvoie les nouveaux evenements
 	 */
 	@Override
 	public Collection<EventInfo> getNewEventInfo() {

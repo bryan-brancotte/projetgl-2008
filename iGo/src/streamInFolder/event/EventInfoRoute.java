@@ -5,7 +5,7 @@ import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
 /**
- * Evénement relatif à une ligne
+ * Evenement relatif a une ligne
  *
  */
 public class EventInfoRoute implements EventInfo {
