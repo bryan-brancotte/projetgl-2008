@@ -12,13 +12,13 @@ import ihm.smartPhone.tools.ImageLoader;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 public abstract class TravelDisplayPanel extends PanelState {
 
@@ -206,7 +206,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected MouseListener[] ml;
 		protected MouseMotionListener[] mml;
 		protected Image imageButtonOk = null;
-		protected TextArea textMessageArea;
+		protected JTextArea textMessageArea;
 
 		public boolean isActiveMessage() {
 			return activeMessage;
@@ -254,7 +254,11 @@ public abstract class TravelDisplayPanel extends PanelState {
 				}
 			});
 			panelParent.setLayout(new AbsolutLayout());
-			textMessageArea = new TextArea();
+			textMessageArea = new JTextArea();
+			//textMessageArea.setWrapStyleWord(true);
+			textMessageArea.setLineWrap(true);
+			//textMessageArea.setEnabled(false);
+			//textMessageArea.setBackground(panelParent.getBackground());
 			textMessageArea.setVisible(false);
 
 			panelParent.add(textMessageArea);
