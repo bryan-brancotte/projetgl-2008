@@ -1,24 +1,17 @@
 package graphNetwork;
 
 /**
- *  
+ * 
  * @author iGo
  */
 public interface InterReader {
 
 	/**
-	 * Get the cost to passe $$threw the inter
+	 * Get the cost to passe threw the inter
 	 * 
-	 * @return the cost in local $$current
+	 * @return the cost in local current
 	 */
 	public abstract float getCost();
-
-	/**
-	 * Get the kind of intersection
-	 * 
-	 * @return the kind {pedestrian, rolling, wheel chair?}
-	 */
-	public abstract String getKindOfInter();
 
 	/**
 	 * By giving one of the station, you obtain the route of the other station of the intersection
@@ -46,14 +39,14 @@ public interface InterReader {
 	public abstract int getTimeBetweenStations();
 
 	/**
-	 * Allow to know if the inter is enable, that mean if you can use it
+	 * Allow to know if the inter is enable, that mean if you can use it. By default it's at true.
 	 * 
 	 * @return true if you can use it
 	 */
 	public boolean isEnable();
 
 	/**
-	 * Allow to know if we have to go out from one station to reache the second
+	 * Allow to know if we have to go out from one station to reache the second. By default it's at false.
 	 * 
 	 * @return true if you have to go out from one station to reach the other
 	 */
@@ -61,7 +54,7 @@ public interface InterReader {
 
 	/**
 	 * Allow to know the kind of inter : if it's an inter between to station by a route, or an inter where you have to
-	 * step down from your train/subway,...
+	 * step down from your train/subway,... By default it's at false.
 	 * 
 	 * @return true if it's an inter on a Route (you stay in your train/subway/trolley to use it)
 	 */

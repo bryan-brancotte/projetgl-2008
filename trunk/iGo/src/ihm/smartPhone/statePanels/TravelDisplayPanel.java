@@ -53,21 +53,24 @@ public abstract class TravelDisplayPanel extends PanelState {
 			@Override
 			public void execute() {
 				// System.out.println("warning");
-				popUpMessage
-						.define(
-								"C'est la question que l'on peut se poser après que 2D Boy, développeur du génialissime World "
-										+ "of Goo, ait déclaré que 90 % des personnes qui y ont joué l'ont fait sur une version pirate. "
-										+ "On ne sait trop comment le studio est parvenu à ce chiffre, mais ce qui est certain, c'est "
-										+ "qu'il témoigne d'un véritable malaise dans le milieu du jeu PC. En l'occurrence, ni le manque "
-										+ "d'originalité, ni le prix de vente (de seulement 20 dollars), ni la présence d'un quelconque "
-										+ "système de protection rédhibitoire ne peuvent être invoqués pour justifier de se procurer le "
-										+ "jeu par des voies détournées. Vivrions-nous donc dans une société de profiteurs, même pas "
-										+ "fichus de respecter le travail débordant de créativité d'un petit studio indépendant ? C'est "
-										+ "la question qu'on est en droit de se poser, sans compter que les partisans des DRM trouveront "
-										+ "là matière à justifier des systèmes de protection de plus en plus lourds et de plus en plus "
-										+ "contraignants. Il faudrait vraiment savoir ce que veut le joueur PC. 2D Boy précise que les "
-										+ "ventes effectuées sur Wiiware et sur Steam sauveront heureusement le studio de la banqueroute, "
-										+ "mais cela reste une bien triste nouvelle en ce vendredi après-midi.", null);
+				popUpMessage.define("C'est la question que l'on peut se poser après que 2D Boy, "
+						+ "développeur du génialissime World of Goo, ait déclaré que 90 % "
+						+ "des personnes qui y ont joué l'ont fait sur une version pirate. "
+						+ "On ne sait trop comment le studio est parvenu à ce chiffre, mais "
+						+ "ce qui est certain, c'est qu'il témoigne d'un véritable malaise "
+						+ "dans le milieu du jeu PC. En l'occurrence, ni le manque d'originalité, "
+						+ "ni le prix de vente (de seulement 20 dollars), ni la présence d'un "
+						+ "quelconque système de protection rédhibitoire ne peuvent être invoqués "
+						+ "pour justifier de se procurer le jeu par des voies détournées. "
+						+ "Vivrions-nous donc dans une société de profiteurs, même pas fichus de "
+						+ "respecter le travail débordant de créativité d'un petit studio indépendant ? "
+						+ "C'est la question qu'on est en droit de se poser, sans compter que les "
+						+ "partisans des DRM trouveront là matière à justifier des systèmes de "
+						+ "protection de plus en plus lourds et de plus en plus contraignants. Il "
+						+ "faudrait vraiment savoir ce que veut le joueur PC. 2D Boy précise que les "
+						+ "ventes effectuées sur Wiiware et sur Steam sauveront heureusement le studio "
+						+ "de la banqueroute, mais cela reste une bien triste nouvelle en ce vendredi après-midi.",
+						null);
 				me.repaint();
 			}
 		});
@@ -227,7 +230,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
 			textMessageArea.setVisible(true);
-			textMessageArea.setColumns(10);//textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
+			textMessageArea.setColumns(10);// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
 			textMessageArea.setRows(20);
 			textMessageArea.setText(message);
 		}
@@ -255,10 +258,10 @@ public abstract class TravelDisplayPanel extends PanelState {
 			});
 			panelParent.setLayout(new AbsolutLayout());
 			textMessageArea = new JTextArea();
-			//textMessageArea.setWrapStyleWord(true);
+			// textMessageArea.setWrapStyleWord(true);
 			textMessageArea.setLineWrap(true);
-			//textMessageArea.setEnabled(false);
-			//textMessageArea.setBackground(panelParent.getBackground());
+			// textMessageArea.setEnabled(false);
+			// textMessageArea.setBackground(panelParent.getBackground());
 			textMessageArea.setVisible(false);
 
 			panelParent.add(textMessageArea);

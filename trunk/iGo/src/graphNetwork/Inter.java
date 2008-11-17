@@ -1,7 +1,7 @@
 package graphNetwork;
 
 /**
- *  
+ * 
  * @author iGo
  */
 public class Inter implements InterReader {
@@ -14,12 +14,12 @@ public class Inter implements InterReader {
 	/**
 	 * @uml.property name="enable"
 	 */
-	private boolean enable;
+	private boolean enable = true;
 
 	/**
 	 * @uml.property name="pedestrian"
 	 */
-	private boolean pedestrian;
+	private boolean pedestrian = false;
 
 	/**
 	 * @uml.property name="routeA"
@@ -37,7 +37,7 @@ public class Inter implements InterReader {
 	 * @uml.property name="stationB"
 	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
 	 */
-	private Station station;
+	private Station stationB;
 
 	/**
 	 * @uml.property name="stationA"
@@ -58,10 +58,6 @@ public class Inter implements InterReader {
 	@Override
 	public float getCost() {
 		return cost;
-	}
-
-	public String getKindOfInter() {
-		return null;
 	}
 
 	/**
@@ -156,7 +152,7 @@ public class Inter implements InterReader {
 	 * @uml.property name="stationB"
 	 */
 	public Station getStationB() {
-		return station;
+		return stationB;
 	}
 
 	/*
@@ -253,14 +249,14 @@ public class Inter implements InterReader {
 	 * @uml.property name="stationB"
 	 */
 	public void setStationB(Station stationB) {
-		station = stationB;
+		this.stationB = stationB;
 	}
 
 	/**
 	 * Setter of the property <tt>timeBetweenStations</tt>
 	 * 
 	 * @param timeBetweenStations
-	 *            The timeBetweenStations to set.
+	 *            The timeBetweenStations to set. It must be positive or equal to zero
 	 * @uml.property name="timeBetweenStations"
 	 */
 	public void setTimeBetweenStations(int timeBetweenStations) {
@@ -273,7 +269,7 @@ public class Inter implements InterReader {
 	 * 
 	 * @uml.property name="routeLink"
 	 */
-	private boolean routeLink;
+	private boolean routeLink = false;
 
 	@Override
 	public boolean isRouteLink() {
@@ -289,6 +285,14 @@ public class Inter implements InterReader {
 	 */
 	public void setRouteLink(boolean routeLink) {
 		this.routeLink = routeLink;
+	}
+
+	public Inter(Station stationA, Route routeA, Station stationB, Route routeB) {
+		super();
+		this.routeA = routeA;
+		this.routeB = routeB;
+		this.stationB = stationB;
+		this.stationA = stationA;
 	}
 
 }

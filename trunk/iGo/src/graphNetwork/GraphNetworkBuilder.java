@@ -36,14 +36,12 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @param id
 	 *            the id of the route, it must be a none used id
 	 * @param name
-	 *            the name of the route
-	 * @param name
 	 *            the kind of route it is, a subway, a train, a boat
 	 * @return
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             if you specify a id already used
 	 */
-	public abstract Route addRoute(String id, String name, String kinfOf)
+	public abstract Route addRoute(String id, String kinfOf)
 			throws ViolationOfUnicityInIdentificationException;
 
 	/**

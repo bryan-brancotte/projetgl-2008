@@ -38,6 +38,8 @@ public class Route implements RouteReader {
 	public Route(String id) {
 		super();
 		this.id = id;
+		this.stations = new LinkedList<Station>();
+		this.stationsDisabled = new LinkedList<Station>();
 	}
 
 	public String getId() {
@@ -128,6 +130,10 @@ public class Route implements RouteReader {
 	public void setStations(LinkedList<Station> stations) {
 		this.stations = stations;
 	}
+	
+	public void addStation(Station station){
+		this.stations.add(station);
+	}
 
 	/**
 	 * Set the station who have the id given in parameter to the status stationEnable if the staion is on this route
@@ -141,16 +147,16 @@ public class Route implements RouteReader {
 	}
 
 	/**
-	 * @uml.property name="stationDisabled"
+	 * @uml.property name="stationsDisabled"
 	 * @uml.associationEnd multiplicity="(0 -1)" inverse="route:graphNetwork.Station"
 	 */
-	private LinkedList<Station> stationDisabled;
+	private LinkedList<Station> stationsDisabled;
 
 	@Override
 	public boolean isStationEnable(int idStation) {
 		// TODO Auto-generated method stub
-		if (stationDisabled == null)
-			stationDisabled = null;
+		if (stationsDisabled == null)
+			stationsDisabled = null;
 		return false;
 	}
 
