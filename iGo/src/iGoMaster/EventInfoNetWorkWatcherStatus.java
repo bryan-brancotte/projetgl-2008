@@ -1,23 +1,34 @@
 package iGoMaster;
+
 /**
- *  
+ * 
  * @author iGo
  */
 public enum EventInfoNetWorkWatcherStatus {
 	/**
-	 * Aucune nouvelle mise a� jour detectee, ou alors la mise a� jour est toujours en cours de traitement.
+	 * Aucune nouvelle mise à jour detectee, ou alors la mise à jour est toujours en cours de traitement.Cet état
+	 * implique que l'on le veilleur est démarré.
 	 */
 	NO_NEW_UPDATE(1),
 	/**
-	 * Une nouvelle mise a�jour est disponible.
+	 * Une nouvelle mise à jour est disponible.Cet état implique que l'on le veilleur est démarré.
 	 */
 	NEW_UPDATE(2),
 	/**
-	 * Le EventInfoNetWorkWatcher est demarre, il regarde afin de trouver d'autre mises a� jour.
+	 * Aucune nouvelle mise à jour detectee, ou alors la mise à jour est toujours en cours de traitement.Cet état
+	 * implique que l'on le veilleur est arrété.
+	 */
+	NO_NEW_UPDATE_STOPPED(6),
+	/**
+	 * Une nouvelle mise à jour est disponible.Cet état implique que l'on le veilleur est arrété.
+	 */
+	NEW_UPDATE_STOPPED(7),
+	/**
+	 * Le EventInfoNetWorkWatcher est demarre, il regarde afin de trouver d'autre mises à jour.
 	 */
 	STARTED(3),
 	/**
-	 * Le EventInfoNetWorkWatcher est arrete, il ne regarde pas pour trouver d'autre mises a� jour.
+	 * Le EventInfoNetWorkWatcher est arrete, il ne regarde pas pour trouver d'autre mises à jour.
 	 */
 	STOPPED(4),
 	/**
