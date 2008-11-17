@@ -48,7 +48,7 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public Route addRoute(String id, String name, String kinfOf) throws ViolationOfUnicityInIdentificationException {
+	public Route addRoute(String id, String kinfOf) throws ViolationOfUnicityInIdentificationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
