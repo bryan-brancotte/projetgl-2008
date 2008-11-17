@@ -90,7 +90,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 	}
 
 	/**
-	 * Les classes implémentante donneront ainsi e contenue qu'elle veullent mettre dans le bouton en bas à droite, qui
+	 * Les classes implémentante donneront ainsi le contenue qu'elle veullent mettre dans le bouton en bas à droite, qui
 	 * est normalement utilisé pour passé d'un mode à l'autre
 	 * 
 	 * @return le message à afficher.
