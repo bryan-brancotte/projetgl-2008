@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InterAndInterReaderTest {
+public class InterTest {
 
 	protected GraphNetworkBuilder graph;
 
@@ -21,6 +21,13 @@ public class InterAndInterReaderTest {
 
 	@After
 	public void epilogueDateTest() {
+		stationA = null;
+		stationB = null;
+		stationC = null;
+		routeA = null;
+		routeB = null;
+		graph = null;
+		inter = null;
 	}
 
 	@Before
@@ -40,7 +47,7 @@ public class InterAndInterReaderTest {
 	}
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(InterAndInterReaderTest.class);
+		return new JUnit4TestAdapter(InterTest.class);
 	}
 
 	/**
@@ -95,23 +102,23 @@ public class InterAndInterReaderTest {
 
 	@Test
 	public void setCostAndgetCost() {
-		assertTrue(inter.getCost()==0);
+		assertTrue(inter.getCost() == 0);
 		inter.setCost(56.64F);
-		assertTrue(inter.getCost()==56.64F);
+		assertTrue(inter.getCost() == 56.64F);
 		inter.setCost(-0.786364F);
-		assertTrue(inter.getCost()==-0.786364F);
+		assertTrue(inter.getCost() == -0.786364F);
 	}
 
 	@Test
 	public void setTimeAndgetTime1() {
-		assertTrue(inter.getTimeBetweenStations()==0);
+		assertTrue(inter.getTimeBetweenStations() == 0);
 		inter.setTimeBetweenStations(43);
-		assertTrue(inter.getTimeBetweenStations()==43);
+		assertTrue(inter.getTimeBetweenStations() == 43);
 	}
 
 	@Test(expected = NumberFormatException.class)
 	public void setTimeAndgetTime2() {
-		assertTrue(inter.getTimeBetweenStations()==0);
+		assertTrue(inter.getTimeBetweenStations() == 0);
 		inter.setTimeBetweenStations(-43);
 	}
 
