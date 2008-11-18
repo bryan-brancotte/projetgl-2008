@@ -20,7 +20,7 @@ public class RouteAndRouteReaderTest {
 	@Before
 	public void prologueDateTest() {
 		graph = new GraphNetwork();
-		routeA = new Route("routeA");//, );
+		routeA = new Route("routeA");// , );
 		KindRoute.addKind("Tram");
 		routeA.setKindRoute(KindRoute.getKindFromString("Tram"));
 	}
@@ -34,6 +34,6 @@ public class RouteAndRouteReaderTest {
 	 */
 	@Test
 	public void initialisationCorrect() {
-		routeA.getId().compareTo("routeA");
+		assertTrue(routeA.getId().compareTo("routeA") == 0);
 	}
 }

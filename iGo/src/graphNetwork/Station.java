@@ -3,7 +3,7 @@ package graphNetwork;
 import java.util.LinkedList;
 
 /**
- *  
+ * 
  * @author iGo
  */
 public class Station implements StationReader {
@@ -103,30 +103,16 @@ public class Station implements StationReader {
 		this.enable = enable;
 	}
 
-	public void setInter(LinkedList<Inter> inter) {
-		this.inter = inter;
+	public void addInter(Inter inter) {
+		this.inter.add(inter);
 	}
 
-	/**
-	 * Setter of the property <tt>routes</tt>
-	 * 
-	 * @param routes
-	 *            The routes to set.
-	 * @uml.property name="routes"
-	 */
-	public void setRoutes(LinkedList<Route> routes) {
-		this.routes = routes;
+	public void addRoute(Route routes) {
+		this.routes.add(routes);
 	}
 
-	/**
-	 * Setter of the property <tt>service</tt>
-	 * 
-	 * @param service
-	 *            The service to set.
-	 * @uml.property name="service"
-	 */
-	public void setService(LinkedList<Service> service) {
-		this.service = service;
+	public void addService(Service service) {
+		this.service.add(service);
 	}
 
 	public Station(int id, String name) {
