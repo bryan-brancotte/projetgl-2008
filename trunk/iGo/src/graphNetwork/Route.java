@@ -119,17 +119,6 @@ public class Route implements RouteReader {
 	public void setKindRoute(KindRoute kindRoute) {
 		this.kindRoute = kindRoute;
 	}
-
-	/**
-	 * Setter of the property <tt>stations</tt>
-	 * 
-	 * @param stations
-	 *            The station to set.
-	 * @uml.property name="stations"
-	 */
-	public void setStations(LinkedList<Station> stations) {
-		this.stations = stations;
-	}
 	
 	public void addStation(Station station){
 		this.stations.add(station);

@@ -222,7 +222,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @param time
 	 *            How much time to use it.
 	 * @param pedestrian
-	 *            ?????
+	 *            if you'll have to get out of the first station to go to the second station
 	 * @throws StationNotOnRoadException
 	 *             throwed if a staion is't on it's route
 	 * @throws MissingResourceException

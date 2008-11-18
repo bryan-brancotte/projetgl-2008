@@ -1,5 +1,8 @@
 package graphNetwork;
 
+import graphNetwork.exception.ImpossibleValueException;
+import graphNetwork.exception.StationNotOnRoadException;
+
 /**
  * 
  * @author iGo
@@ -9,7 +12,7 @@ public class Inter implements InterReader {
 	/**
 	 * @uml.property name="cost"
 	 */
-	private float cost;
+	private float cost = 0F;
 
 	/**
 	 * @uml.property name="enable"
@@ -48,7 +51,7 @@ public class Inter implements InterReader {
 	/**
 	 * @uml.property name="timeBetweenStations"
 	 */
-	private int timeBetweenStations;
+	private int timeBetweenStations = 0;
 
 	/*
 	 * (non-Javadoc)
@@ -180,9 +183,11 @@ public class Inter implements InterReader {
 	 * 
 	 * @param cost
 	 *            The cost to set.
+	 * @throws ImpossibleValueException
+	 *             si la valeur fournit est incohérente.
 	 * @uml.property name="cost"
 	 */
-	public void setCost(float cost) {
+	public void setCost(float cost) throws ImpossibleValueException {
 		this.cost = cost;
 	}
 
@@ -257,9 +262,11 @@ public class Inter implements InterReader {
 	 * 
 	 * @param timeBetweenStations
 	 *            The timeBetweenStations to set. It must be positive or equal to zero
+	 * @throws ImpossibleValueException
+	 *             si la valeur fournit est incohérente.
 	 * @uml.property name="timeBetweenStations"
 	 */
-	public void setTimeBetweenStations(int timeBetweenStations) {
+	public void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException{
 		this.timeBetweenStations = timeBetweenStations;
 	}
 
@@ -287,12 +294,41 @@ public class Inter implements InterReader {
 		this.routeLink = routeLink;
 	}
 
-	public Inter(Station stationA, Route routeA, Station stationB, Route routeB) {
+	/**
+	 * Construcuteur d'un intersection, il propose de fournir l'ensemble des informations au sujet de l'intersection en
+	 * une seul fois. L'intersection est par défaut active (theInter.isEnable()==true).
+	 * 
+	 * @param routeA
+	 *            la première route
+	 * @param stationA
+	 *            la station sur la première route
+	 * @param routeB
+	 *            la seconde route
+	 * @param stationB
+	 *            la station sur la second route
+	 * @param cost
+	 *            le coût pour emprunter cette intersection
+	 * @param timeBetweenStations
+	 *            le temps nécessaire pour franchir cette intersection
+	 * @param routeLink
+	 *            est-ce un lien entre deux station de la même ligne, c'est à dire que l'on reste dans le wagon
+	 * @param pedestrian
+	 *            si le lien n'est routeLink, on doit déscendre du wagon, mais devont nous aussi sortir de la sation
+	 *            pour aller à une autre?
+	 * @throws StationNotOnRoadException
+	 *             si une des station fournit n'est pas sur la ligne où elle devrait être
+	 */
+	public Inter(Route routeA, Station stationA, Route routeB, Station stationB, float cost, int timeBetweenStations,
+			boolean routeLink, boolean pedestrian) throws StationNotOnRoadException, ImpossibleValueException {
 		super();
+		this.cost = cost;
+		this.pedestrian = pedestrian;
 		this.routeA = routeA;
 		this.routeB = routeB;
 		this.stationB = stationB;
 		this.stationA = stationA;
+		this.timeBetweenStations = timeBetweenStations;
+		this.routeLink = routeLink;
 	}
 
 }
