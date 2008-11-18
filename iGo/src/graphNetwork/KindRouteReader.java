@@ -3,7 +3,7 @@ package graphNetwork;
 import java.util.Collection;
 
 /**
- *  
+ * 
  * @author iGo
  */
 public abstract class KindRouteReader {
@@ -30,11 +30,10 @@ public abstract class KindRouteReader {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof KindRoute) {
-			return (((KindRoute) obj).getKindOf().compareTo(this.getKindOf()) == 0);
-
+		if ((obj instanceof KindRouteReader) || (obj instanceof KindRoute)) {
+			return (((KindRouteReader) obj).getKindOf().compareTo(this.getKindOf()) == 0);
 		}
-		return super.equals(obj);
+		return false;
 	}
 
 	/**
@@ -50,7 +49,7 @@ public abstract class KindRouteReader {
 	 * @return Returns the kinds.
 	 * @uml.property name="kinds"
 	 */
-	public KindRouteReader[] getKinds() {
+	public static KindRouteReader[] getKindsR() {
 		return kinds.toArray(new KindRouteReader[0]);
 	}
 

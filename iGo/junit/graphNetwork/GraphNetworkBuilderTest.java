@@ -1,5 +1,6 @@
 package graphNetwork;
 
+import static org.junit.Assert.assertTrue;
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.After;
@@ -30,5 +31,6 @@ public class GraphNetworkBuilderTest {
 	 */
 	@Test
 	public void initialisationCorrect(){
+		assertTrue(graph.getKinds().length==0);
 	}
 }
