@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import java.util.Collection;
+
 /**
  * 
  * @author iGo
@@ -96,6 +98,15 @@ public interface GraphNetworkReader {
 	 * @return Returns the stations.
 	 */
 	public StationReader[] getStationsR();
+
+	/**
+	 * Return the Inters which are between Station A and B
+	 * 
+	 * @param stationA
+	 * @param stationB
+	 * @return the inter between A and B
+	 */
+	public abstract InterReader[] getInters(StationReader stationA, StationReader stationB);
 
 	/**
 	 * Return the cost to go from the outside to the network by this kind of route.
