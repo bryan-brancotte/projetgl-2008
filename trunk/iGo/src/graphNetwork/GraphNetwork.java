@@ -293,4 +293,10 @@ public class GraphNetwork implements GraphNetworkBuilder {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public InterReader[] getInters(StationReader stationA, StationReader stationB) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
