@@ -11,7 +11,7 @@ public class Station implements StationReader {
 	/**
 	 * @uml.property name="enable"
 	 */
-	private boolean enable;
+	private boolean enable = true;
 
 	/**
 	 * @uml.property name="id" readOnly="true"
@@ -51,7 +51,7 @@ public class Station implements StationReader {
 	}
 
 	@Override
-	public InterReader[] getInterchangeR() {
+	public InterReader[] getInterR() {
 		return this.getInter().toArray(new InterReader[0]);
 	}
 

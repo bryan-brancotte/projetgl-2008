@@ -18,7 +18,7 @@ public interface StationReader {
 	 * 
 	 * @return an array of the inter
 	 */
-	public abstract InterReader[] getInterchangeR();
+	public abstract InterReader[] getInterR();
 
 	/**
 	 * get the station's name

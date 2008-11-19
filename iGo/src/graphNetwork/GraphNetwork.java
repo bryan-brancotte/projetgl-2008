@@ -101,8 +101,13 @@ public class GraphNetwork implements GraphNetworkBuilder {
 	}
 
 	@Override
-	public KindRouteReader getKindFromString(String kindOf) {
-		return KindRouteReader.getKindFromString(kindOf);
+	public KindRouteReader getKindRFromString(String kindOf) {
+		return getKindFromString(kindOf);
+	}
+
+	@Override
+	public KindRoute getKindFromString(String kindOf) {
+		return KindRoute.getKindFromString(kindOf);
 	}
 
 	@Override

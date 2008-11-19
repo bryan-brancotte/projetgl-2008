@@ -1,6 +1,5 @@
 package graphNetwork;
 
-import java.util.Collection;
 
 /**
  * 
@@ -15,7 +14,7 @@ public interface GraphNetworkReader {
 	 *            le nom du type
 	 * @return le type en lecture seul, ou null si le type n'est pas associé.
 	 */
-	public abstract KindRouteReader getKindFromString(String kindOf);
+	public abstract KindRouteReader getKindRFromString(String kindOf);
 
 	/**
 	 * Return the all the kinds in read-only mode
