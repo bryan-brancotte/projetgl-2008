@@ -6,6 +6,7 @@ import iGoMaster.exception.ImpossibleStartingException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 /**
@@ -63,5 +64,23 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	 *                     inverse="eventInfoNetworkWatcherInFolder:iGoMaster.EventInfo"
 	 */
 	protected LinkedList<EventInfo> eventInfosNotApplied;
+
+		
+		/**
+		 */
+		public void setChanged(){
+		}
+
+			
+			/**
+			 */
+			public void addObserver(Observer o){
+			}
+
+				
+				/**
+				 */
+				public void notifyObservers(){
+				}
 
 }
