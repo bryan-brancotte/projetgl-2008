@@ -19,6 +19,16 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 */
 	public abstract void addKind(String newKindOf);
 
+
+	/**
+	 * Retourne le type associé au nom passée en paramètre. Si le type n'existe pas on retourne null.
+	 * 
+	 * @param kindOf
+	 *            le nom du type
+	 * @return le type en lecture seul, ou null si le type n'est pas associé.
+	 */
+	public abstract KindRoute getKindFromString(String kindOf);
+	
 	/**
 	 * Add a new route to the routes' collection.
 	 * 

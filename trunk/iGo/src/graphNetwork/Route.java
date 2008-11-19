@@ -3,7 +3,7 @@ package graphNetwork;
 import java.util.LinkedList;
 
 /**
- *  
+ * 
  * @author iGo
  */
 public class Route implements RouteReader {
@@ -11,7 +11,7 @@ public class Route implements RouteReader {
 	/**
 	 * @uml.property name="enable"
 	 */
-	private boolean enable;
+	private boolean enable = true;
 
 	/**
 	 * @uml.property name="id"
@@ -31,13 +31,20 @@ public class Route implements RouteReader {
 	private LinkedList<Station> stations;
 
 	/**
-	 * Construct a new object with a specified id.
+	 * Constructeur d'un nouvelle objet avec un id spécifique et un type spécifique. L'unicité de l'id auprès des autre
+	 * instance n'est pas vérifié.
 	 * 
 	 * @param id
+	 *            l'identifiant de cette ligne
+	 * @param kindRoute
+	 *            le type de cette ligne
+	 * @throws NullPointerException
+	 *             une exception est jetté si un des deux paramètre est null
 	 */
-	public Route(String id) {
+	public Route(String id, KindRoute kindRoute) throws NullPointerException {
 		super();
 		this.id = id;
+		this.kindRoute = kindRoute;
 		this.stations = new LinkedList<Station>();
 		this.stationsDisabled = new LinkedList<Station>();
 	}
@@ -119,8 +126,13 @@ public class Route implements RouteReader {
 	public void setKindRoute(KindRoute kindRoute) {
 		this.kindRoute = kindRoute;
 	}
-	
-	public void addStation(Station station){
+
+	/**
+	 * Ajoute un station à cette ligne.
+	 * 
+	 * @param station
+	 */
+	public void addStation(Station station) {
 		this.stations.add(station);
 	}
 
