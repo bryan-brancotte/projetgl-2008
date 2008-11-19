@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="UML3" size="2282,2826" id="graphNetwork" metadata="uml2-1.0" initialized="true" scrolledX="413" scrolledY="480" tag="1000" key="32303037303533312D313030302069476F2F746F6E79">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="UML3" size="2282,2826" id="graphNetwork" metadata="uml2-1.0" initialized="true" scrolledX="351" scrolledY="351" tag="1000" key="32303037303533312D313030302069476F2F746F6E79">
   <children xsi:type="editmodel:ClassEditModel" name="GraphNetwork" location="1573,1722" size="329,679" id="graphNetwork/GraphNetwork" runTimeClassModel="getInstancePathInGraphBuilder(),getRoute(I),getStation(I),resetEnables(),getRoutesR(),getStation(Ljava.lang.String;),getKinds(),getService(Ljava.lang.String;),getEntryCost(LgraphNetwork.KindRouteReader;),addRoute(LgraphNetwork.Route;),addKind(Ljava.lang.String;),getKindRFromString(Ljava.lang.String;),getServicesR(),getInters(LgraphNetwork.Station;LgraphNetwork.Station;),getStationR(Ljava.lang.String;),getRouteR(I),GraphNetwork(),getService(I),addService(LgraphNetwork.Service;),addStationToRoute(LgraphNetwork.Route;LgraphNetwork.Station;I),addStation(LgraphNetwork.Station;),addServiceToStation(LgraphNetwork.Station;LgraphNetwork.Service;),getRoute(Ljava.lang.String;),getStationR(I),getServiceR(Ljava.lang.String;),getRouteR(Ljava.lang.String;),addStation(ILjava.lang.String;),addService(ILjava.lang.String;),linkStation(LgraphNetwork.Route;LgraphNetwork.Station;LgraphNetwork.Route;LgraphNetwork.Station;FIZ),addRoute(Ljava.lang.String;Ljava.lang.String;),getInters(LgraphNetwork.StationReader;LgraphNetwork.StationReader;),reset(),getKindFromString(Ljava.lang.String;),getStationsR(),getServiceR(I)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="306,630">
@@ -298,15 +298,16 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.13/@sourceConnections.0 //@children.9/@sourceConnections.1" name="EventInfoNetworkWatcher" location="561,825" size="245,171" id="iGoMaster/EventInfoNetworkWatcher" runTimeClassModel="stopWatching(),getNewEventInfo(),status,setChanged(),addObserver(Ljava.util.Observer;),applyInfo(LgraphNetwork.GraphNetworkBuilder;),startWatching()">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.13/@sourceConnections.0 //@children.9/@sourceConnections.1" name="EventInfoNetworkWatcher" location="561,825" size="245,189" id="iGoMaster/EventInfoNetworkWatcher" runTimeClassModel="stopWatching(),getNewEventInfo(),setChanged(),notifyObservers(),addObserver(Ljava.util.Observer;),applyInfo(LgraphNetwork.GraphNetworkBuilder;),startWatching()">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <children xsi:type="editmodel:CompartmentEditModel" size="222,108">
+    <children xsi:type="editmodel:CompartmentEditModel" size="222,126">
       <children xsi:type="editmodel:MethodEditModel" name="startWatching" id="iGoMaster/EventInfoNetworkWatcher#startWatching()"/>
       <children xsi:type="editmodel:MethodEditModel" name="stopWatching" id="iGoMaster/EventInfoNetworkWatcher#stopWatching()"/>
       <children xsi:type="editmodel:MethodEditModel" name="applyInfo" id="iGoMaster/EventInfoNetworkWatcher#applyInfo(LgraphNetwork.GraphNetworkBuilder;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getNewEventInfo" id="iGoMaster/EventInfoNetworkWatcher#getNewEventInfo()"/>
       <children xsi:type="editmodel:MethodEditModel" name="setChanged" id="iGoMaster/EventInfoNetworkWatcher#setChanged()"/>
       <children xsi:type="editmodel:MethodEditModel" name="addObserver" id="iGoMaster/EventInfoNetworkWatcher#addObserver(Ljava.util.Observer;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="notifyObservers" id="iGoMaster/EventInfoNetworkWatcher#notifyObservers()"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="iGoMaster/EventInfoNetWorkWatcherStatus@status+iGoMaster/EventInfoNetworkWatcher@eventInfoNetworkWatcher" source="//@children.8" target="//@children.27" targetEnd="//@children.8/@sourceConnections.0/@children.1" label="//@children.8/@sourceConnections.0/@children.2" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
@@ -402,13 +403,13 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.41/@sourceConnections.0" name="IGoIhmSmartPhone" location="1447,644" size="196,459" id="ihm.smartPhone/IGoIhmSmartPhone" runTimeClassModel="getActualState(),setStepInSplashScreen(I),getStepInSplashScreen(),addObserver(Ljava.util.Observer;),lg(Ljava.lang.String;),setActualState(Lihm.smartPhone.statePanels.IhmReceivingStates;),setMaxStepInSplashScreen(I),start(ZI),endSplashScreen(),skin,getMaxStepInSplashScreen(),setPreferedStates(Lihm.smartPhone.statePanels.IhmReceivingStates;),getSkin(),IGoIhmSmartPhone(LiGoMaster.Master;Lihm.smartPhone.tools.iGoSmartPhoneSkin;),IGoIhmSmartPhone(LiGoMaster.Master;),stop(),setChanged(),start(Z),showMessageSplashScreen(Ljava.lang.String;),actualState,getSizeAdapteur(),sizeAdapteur">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.41/@sourceConnections.0" name="IGoIhmSmartPhone" location="1447,644" size="196,477" id="ihm.smartPhone/IGoIhmSmartPhone" runTimeClassModel="getActualState(),setStepInSplashScreen(I),getStepInSplashScreen(),addObserver(Ljava.util.Observer;),lg(Ljava.lang.String;),setActualState(Lihm.smartPhone.statePanels.IhmReceivingStates;),setMaxStepInSplashScreen(I),start(ZI),endSplashScreen(),skin,getMaxStepInSplashScreen(),setPreferedStates(Lihm.smartPhone.statePanels.IhmReceivingStates;),getSkin(),IGoIhmSmartPhone(LiGoMaster.Master;Lihm.smartPhone.tools.iGoSmartPhoneSkin;),IGoIhmSmartPhone(LiGoMaster.Master;),stop(),setChanged(),start(Z),notifyObservers(),showMessageSplashScreen(Ljava.lang.String;),actualState,getSizeAdapteur(),sizeAdapteur">
     <children xsi:type="editmodel:CompartmentEditModel" size="173,54">
       <children xsi:type="editmodel:AttributeEditModel" name="skin" id="ihm.smartPhone/IGoIhmSmartPhone#skin"/>
       <children xsi:type="editmodel:AttributeEditModel" name="actualState" id="ihm.smartPhone/IGoIhmSmartPhone#actualState"/>
       <children xsi:type="editmodel:AttributeEditModel" name="sizeAdapteur" id="ihm.smartPhone/IGoIhmSmartPhone#sizeAdapteur"/>
     </children>
-    <children xsi:type="editmodel:CompartmentEditModel" size="170,342">
+    <children xsi:type="editmodel:CompartmentEditModel" size="170,360">
       <children xsi:type="editmodel:MethodEditModel" name="showMessageSplashScreen" id="ihm.smartPhone/IGoIhmSmartPhone#showMessageSplashScreen(Ljava.lang.String;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="start" id="ihm.smartPhone/IGoIhmSmartPhone#start(Z)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getStepInSplashScreen" id="ihm.smartPhone/IGoIhmSmartPhone#getStepInSplashScreen()"/>
@@ -428,6 +429,7 @@
       <children xsi:type="editmodel:MethodEditModel" name="setPreferedStates" id="ihm.smartPhone/IGoIhmSmartPhone#setPreferedStates(Lihm.smartPhone.statePanels.IhmReceivingStates;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="setChanged" id="ihm.smartPhone/IGoIhmSmartPhone#setChanged()"/>
       <children xsi:type="editmodel:MethodEditModel" name="addObserver" id="ihm.smartPhone/IGoIhmSmartPhone#addObserver(Ljava.util.Observer;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="notifyObservers" id="ihm.smartPhone/IGoIhmSmartPhone#notifyObservers()"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="iGoMaster/IHM&lt;-ihm.smartPhone/IGoIhmSmartPhone" source="//@children.12" target="//@children.40" targetEnd="//@children.12/@sourceConnections.0/@children.1" sourceEnd="//@children.12/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
@@ -529,7 +531,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" targetConnections="//@children.8/@sourceConnections.2" location="825,615" size="152,52" fontInfo="Arial-8-0" note="iGoMaster&#xD;&#xA;observe&#xD;&#xA;EventInfoNetworkWatcher">
+  <children xsi:type="editmodel:NotepadEditModel" targetConnections="//@children.8/@sourceConnections.2" location="825,630" size="152,52" fontInfo="Arial-8-0" note="iGoMaster&#xD;&#xA;observe&#xD;&#xA;EventInfoNetworkWatcher">
     <sourceConnections xsi:type="editmodel:IndicationEditModel" source="//@children.18" target="//@children.11" targetEnd="//@children.18/@sourceConnections.0/@children.1" sourceEnd="//@children.18/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="152,19" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,38"/>
@@ -679,7 +681,7 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:EnumerationEditModel" targetConnections="//@children.8/@sourceConnections.0" name="EventInfoNetWorkWatcherStatus" location="540,1050" size="247,193" id="iGoMaster/EventInfoNetWorkWatcherStatus" runTimeClassModel="STARTED%,UNKNOWN_STATUS%,OFFLINE%,NO_NEW_UPDATE_STOPPED%,STOPPED%,NEW_UPDATE_STOPPED%,NEW_UPDATE%,NO_NEW_UPDATE%">
+  <children xsi:type="editmodel:EnumerationEditModel" targetConnections="//@children.8/@sourceConnections.0" name="EventInfoNetWorkWatcherStatus" location="540,1050" size="247,193" id="iGoMaster/EventInfoNetWorkWatcherStatus" runTimeClassModel="STARTED%,UNKNOWN_STATUS%,NO_NEW_UPDATE_STOPPED%,OFFLINE%,STOPPED%,NEW_UPDATE%,NEW_UPDATE_STOPPED%,NO_NEW_UPDATE%">
     <children xsi:type="editmodel:CompartmentEditModel" size="161,126">
       <children xsi:type="editmodel:EnumerationLiteralEditModel" name="STOPPED" id="iGoMaster/EventInfoNetWorkWatcherStatus#STOPPED%"/>
       <children xsi:type="editmodel:EnumerationLiteralEditModel" name="STARTED" id="iGoMaster/EventInfoNetWorkWatcherStatus#STARTED%"/>
