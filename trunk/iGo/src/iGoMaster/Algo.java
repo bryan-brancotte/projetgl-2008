@@ -1,5 +1,7 @@
 package iGoMaster;
 
+import java.util.Observable;
+
 import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetworkReader;
 import graphNetwork.PathInGraphBuilder;
@@ -11,6 +13,7 @@ import graphNetwork.StationReader;
  */
 public interface Algo {
 
+	
 	/**
 	 * Trouve le meilleur chemin dans le graph passé en paramètre en l'origine et la destination. Il construit le chemin
 	 * dans l'objet pathInGraphBuilder passé en paramètre et le retourne sous la forme d'un objet passeInGraphReader

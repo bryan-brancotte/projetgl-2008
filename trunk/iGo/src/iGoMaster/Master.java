@@ -1,5 +1,7 @@
 package iGoMaster;
 
+import java.util.Observable;
+
 /**
  * 
  * @author iGo
@@ -30,5 +32,11 @@ public interface Master {
 	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
 	 */
 	public String config(String key);
+
+		
+		/**
+		 */
+		public abstract void update(Observable o, Object arg);
+		
 
 }
