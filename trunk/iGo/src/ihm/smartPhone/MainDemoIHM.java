@@ -1,5 +1,7 @@
 package ihm.smartPhone;
 
+import java.util.Observable;
+
 import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
@@ -34,6 +36,12 @@ public class MainDemoIHM {
 			public String config(String key) {
 				//return IhmReceivingStates.ARRAY_MODE.toString();/*
 				return IhmReceivingStates.GRAPHIC_MODE.toString();/**/
+			}
+
+			@Override
+			public void update(Observable o, Object arg) {
+				// TODO Auto-generated method stub
+				
 			}
 
 		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
