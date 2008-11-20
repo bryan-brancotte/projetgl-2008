@@ -7,18 +7,19 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.MissingResourceException;
 
-/** 
-* @author iGo
-*/
+/**
+ * @author iGo
+ */
 public interface GraphNetworkBuilder extends GraphNetworkReader {
 
 	/**
 	 * 
-	 * Add a new kind to the existing kinds 
-	 * @param newKindOf the name of the new kinds
+	 * Add a new kind to the existing kinds
+	 * 
+	 * @param newKindOf
+	 *            the name of the new kinds
 	 */
 	public abstract void addKind(String newKindOf);
-
 
 	/**
 	 * Retourne le type associé au nom passée en paramètre. Si le type n'existe pas on retourne null.
@@ -28,9 +29,10 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @return le type en lecture seul, ou null si le type n'est pas associé.
 	 */
 	public abstract KindRoute getKindFromString(String kindOf);
-	
+
 	/**
-	 * Add a new route to the routes' collection.
+	 * Add a new route to the routes' collection. You shouldn't use this function because GarphNetworkBuilder will to
+	 * the same, and safely. Creat a Route object at your own risk. 
 	 * 
 	 * @param nvRoute
 	 *            the route to add
@@ -38,6 +40,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             if you specify a id already used
 	 */
+	@Deprecated
 	public abstract Route addRoute(Route nvRoute) throws ViolationOfUnicityInIdentificationException;
 
 	/**
@@ -51,8 +54,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             if you specify a id already used
 	 */
-	public abstract Route addRoute(String id, String kinfOf)
-			throws ViolationOfUnicityInIdentificationException;
+	public abstract Route addRoute(String id, String kinfOf) throws ViolationOfUnicityInIdentificationException;
 
 	/**
 	 * Create a new service, and it to the services' collection.
@@ -68,7 +70,8 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	public abstract Service addService(int id, String name) throws ViolationOfUnicityInIdentificationException;
 
 	/**
-	 * Add a new service to the services' collection.
+	 * Add a new service to the services' collection.You shouldn't use this function because GarphNetworkBuilder will to
+	 * the same, and safely. Creat a Service object at your own risk.
 	 * 
 	 * @param nvService
 	 *            the service to add
@@ -76,6 +79,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             if you specify a id already used
 	 */
+	@Deprecated
 	public abstract Service addService(Service nvService) throws ViolationOfUnicityInIdentificationException;
 
 	/**
@@ -102,7 +106,8 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	public abstract Station addStation(int id, String name) throws ViolationOfUnicityInIdentificationException;
 
 	/**
-	 * Add a new station to the stations' collection.
+	 * Add a new station to the stations' collection.You shouldn't use this function because GarphNetworkBuilder will to
+	 * the same, and safely. Creat a Station object at your own risk.
 	 * 
 	 * @param nvStation
 	 *            the new station
@@ -110,6 +115,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             if you specify a id already used
 	 */
+	@Deprecated
 	public abstract Station addStation(Station nvStation) throws ViolationOfUnicityInIdentificationException;
 
 	/**
@@ -127,6 +133,7 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 
 	/**
 	 * Get a new instance of a PathInGraphBuilder linked to this graph
+	 * 
 	 * @return the new instance of the PathInGraph
 	 */
 	public abstract PathInGraphBuilder getInstancePathInGraphBuilder();
@@ -247,11 +254,9 @@ public interface GraphNetworkBuilder extends GraphNetworkReader {
 	 */
 	public abstract void reset();
 
-		
-		/**
-		 * Reset all the component to the state "enable"
-		 */
-		public abstract void resetEnables();
-		
+	/**
+	 * Reset all the component to the state "enable"
+	 */
+	public abstract void resetEnables();
 
 }

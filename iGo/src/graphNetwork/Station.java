@@ -103,14 +103,35 @@ public class Station implements StationReader {
 		this.enable = enable;
 	}
 
+	/**
+	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
+	 * fait, et de façon sûr. Ajouter une Inter manuellement à votre risque et péril.
+	 * 
+	 * @param inter
+	 */
+	@Deprecated
 	public void addInter(Inter inter) {
 		this.inter.add(inter);
 	}
 
+	/**
+	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
+	 * fait, et de façon sûr. Ajouter une Route manuellement à votre risque et péril.
+	 * 
+	 * @param routes
+	 */
+	@Deprecated
 	public void addRoute(Route routes) {
 		this.routes.add(routes);
 	}
 
+	/**
+	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
+	 * fait, et de façon sûr. Ajouter un Service manuellement à votre risque et péril.
+	 * 
+	 * @param service
+	 */
+	@Deprecated
 	public void addService(Service service) {
 		this.service.add(service);
 	}

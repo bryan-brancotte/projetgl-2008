@@ -32,6 +32,7 @@ public class StationAndStationReaderTest {
 	public void epilogueDateTest() {
 	}
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void prologueDateTest() {
 
