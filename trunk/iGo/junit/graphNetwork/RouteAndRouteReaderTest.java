@@ -74,6 +74,7 @@ public class RouteAndRouteReaderTest {
 	/**
 	 * Vérification de l'ajout de station
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void accesseurTest(){
 		assertTrue(routeA.getStations().size()==routeA.getStationsR().length);
@@ -89,7 +90,8 @@ public class RouteAndRouteReaderTest {
 		assertTrue(routeA.getStations().size()==routeA.getStationsR().length);
 		assertTrue(routeA.getStations().size()==2);
 	}
-	
+
+	@SuppressWarnings("deprecation")
 	public void enableDisableStationTest(){
 		routeA.addStation(stationA);
 		routeA.addStation(stationB);

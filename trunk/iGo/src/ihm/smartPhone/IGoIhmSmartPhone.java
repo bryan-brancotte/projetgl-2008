@@ -509,6 +509,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.add(travelArrayPanel);
 			travelArrayPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
 			travelArrayPanel.giveControle();
+			travelArrayPanel.displayPopUpMessage("En cours de création, merci.", null);
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
@@ -524,6 +525,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.add(travelArrayPanel);
 			travelArrayPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			travelArrayPanel.giveControle();
+			travelArrayPanel.displayPopUpMessage("En cours de création, merci.", null);
 			centerPanel.validate();
 			return true;
 		}

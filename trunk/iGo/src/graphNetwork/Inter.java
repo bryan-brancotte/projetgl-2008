@@ -214,45 +214,53 @@ public class Inter implements InterReader {
 	}
 
 	/**
-	 * Setter of the property <tt>routeA</tt>
+	 * Mutateur de routeA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr.
+	 * Définisez la Route manuellement à votre risque et péril.
 	 * 
 	 * @param routeA
 	 *            The routeA to set.
 	 * @uml.property name="routeA"
 	 */
+	@Deprecated
 	public void setRouteA(Route routeA) {
 		this.routeA = routeA;
 	}
 
 	/**
-	 * Setter of the property <tt>routeB</tt>
+	 * Mutateur de routeB. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr.
+	 * Définisez la Route manuellement à votre risque et péril.
 	 * 
 	 * @param routeB
 	 *            The routeB to set.
 	 * @uml.property name="routeB"
 	 */
+	@Deprecated
 	public void setRouteB(Route routeB) {
 		this.routeB = routeB;
 	}
 
 	/**
-	 * Setter of the property <tt>stationA</tt>
+	 * Mutateur de stationA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
+	 * sûr. Définisez la Station manuellement à votre risque et péril.
 	 * 
 	 * @param stationA
 	 *            The stationA to set.
 	 * @uml.property name="stationA"
 	 */
+	@Deprecated
 	public void setStationA(Station stationA) {
 		this.stationA = stationA;
 	}
 
 	/**
-	 * Setter of the property <tt>stationB</tt>
+	 * Mutateur de stationB. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
+	 * sûr. Définisez la Station manuellement à votre risque et péril.
 	 * 
 	 * @param stationB
 	 *            The station to set.
 	 * @uml.property name="stationB"
 	 */
+	@Deprecated
 	public void setStationB(Station stationB) {
 		this.stationB = stationB;
 	}
@@ -266,7 +274,7 @@ public class Inter implements InterReader {
 	 *             si la valeur fournit est incohérente.
 	 * @uml.property name="timeBetweenStations"
 	 */
-	public void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException{
+	public void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException {
 		this.timeBetweenStations = timeBetweenStations;
 	}
 
@@ -284,12 +292,14 @@ public class Inter implements InterReader {
 	}
 
 	/**
-	 * Setter of the property <tt>routeLink</tt>
+	 * Mutateur de routeLink. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
+	 * sûr. Définisez son etat routeLink manuellement à votre risque et péril.
 	 * 
 	 * @param routeLink
 	 *            The routeLink to set.
 	 * @uml.property name="routeLink"
 	 */
+	@Deprecated
 	public void setRouteLink(boolean routeLink) {
 		this.routeLink = routeLink;
 	}

@@ -128,10 +128,12 @@ public class Route implements RouteReader {
 	}
 
 	/**
-	 * Ajoute un station à cette ligne.
+	 * Ajoute un station à cette ligne. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et
+	 * de façon sûr. Ajouter une Station manuellement à votre risque et péril.
 	 * 
 	 * @param station
 	 */
+	@Deprecated
 	public void addStation(Station station) {
 		this.stations.add(station);
 	}

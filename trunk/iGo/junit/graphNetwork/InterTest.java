@@ -163,6 +163,7 @@ public class InterTest {
 		assertTrue(!inter.isPedestrian());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void setRouteLinkAndisRouteLink() {
 		assertTrue(!inter.isRouteLink());
