@@ -105,19 +105,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.add(upperBar);
 
 		/***************************************************************************************************************
+		 * Barre inférieure
+		 */
+		lowerBar = new LowerBar(this, false);
+		lowerBar.setBackground(skin.getColorInside());
+		this.add(lowerBar);
+
+		/***************************************************************************************************************
 		 * Zone principale
 		 */
 		centerPanel = new Panel(new BorderLayout(0, 0));
 		centerPanel.setBackground(skin.getColorInside());
 		centerPanel.add(new VoidPanel(this));
 		this.add(centerPanel);
-
-		/***************************************************************************************************************
-		 * Barre inférieure
-		 */
-		lowerBar = new LowerBar(this, false);
-		lowerBar.setBackground(skin.getColorInside());
-		this.add(lowerBar);
 
 		/***************************************************************************************************************
 		 * Procédure d'arret en cas de pression de la croix rouge.
@@ -531,8 +531,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	protected void cleanPanelsStates(boolean dueToAnError) {
-		// TODO trouver un façon d'invoquer le GC
-		// TODO pas forcé ca marche quand même.
+		// TODO trouver un façon d'invoquer le GC, enfin pas forcé ca marche quand même.
 		if (dueToAnError)
 			ImageLoader.setFastLoadingOfImages(false);
 		splashScreenPanel = null;
@@ -556,21 +555,18 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.actualState = IhmReceivingStates.ARRAY_MODE;
 	}
 
-		
-		/**
-		 */
-		public void setChanged(){
-		}
+	/**
+	 */
+	public void setChanged() {
+	}
 
-			
-			/**
-			 */
-			public void addObserver(Observer o){
-			}
+	/**
+	 */
+	public void addObserver(Observer o) {
+	}
 
-				
-				/**
-				 */
-				public void notifyObservers(){
-				}
+	/**
+	 */
+	public void notifyObservers() {
+	}
 }
