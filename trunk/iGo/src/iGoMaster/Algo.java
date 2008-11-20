@@ -40,4 +40,33 @@ public abstract class Algo extends Observable {
 				public void notifyObserver(){
 				}
 
+
+
+				/**
+				 * @uml.property  name="iGoMaster"
+				 * @uml.associationEnd  inverse="algo1:iGoMaster.IGoMaster"
+				 */
+				private IGoMaster goMaster;
+
+
+
+				/**
+				 * Getter of the property <tt>iGoMaster</tt>
+				 * @return  Returns the goMaster.
+				 * @uml.property  name="iGoMaster"
+				 */
+				public IGoMaster getIGoMaster() {
+					return goMaster;
+				}
+
+
+				/**
+				 * Setter of the property <tt>iGoMaster</tt>
+				 * @param iGoMaster  The goMaster to set.
+				 * @uml.property  name="iGoMaster"
+				 */
+				public void setIGoMaster(IGoMaster goMaster) {
+					this.goMaster = goMaster;
+				}
+
 }
