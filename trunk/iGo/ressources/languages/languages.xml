@@ -24,8 +24,8 @@
 				<ENGLISH value="SEPTA Present"/>
 			</SplashScreenUpperTitle>
 			<iGoVersion>
-				<FRANCAIS value="iGo v1.0"/>
-				<ENGLISH value="iGo v1.0"/>
+				<FRANCAIS value="iGo v0.1"/>
+				<ENGLISH value="iGo v0.1"/>
 			</iGoVersion>
 			<DoYouWantToQuit>
 				<FRANCAIS value="Voulez vous quitter l'application ?"/>

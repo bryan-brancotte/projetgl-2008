@@ -181,18 +181,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				case KeyEvent.VK_KP_RIGHT:
 				case KeyEvent.VK_RIGHT:
 					buffer.move(-getWidth() / 20, 0);
-					// TODO
-					// tmp = (getWidth() - widthImage);
-					// if (xImg < tmp)
-					// xImg = tmp;
 					break;
 				default:
 					return;
 				}
-				// if (xImg > 0)
-				// xImg = 0;
-				// if (yImg > 0)
-				// yImg = 0;
 				buffer.move(0, 0);
 				repaint();
 			}
@@ -295,18 +287,23 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
 		polygon.reset();
+		// on définit le début du dessin
 		center.setLocation(sizeLarge / 2 + sizeDemiLine + buffer.getX(), sizeLarge / 2 + sizeDemiLine + buffer.getY());
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(0, 0);
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(center.x, center.y);
-		if (heightImageDrawn * 4 / 5 <= buffer.getHeigthViewPort()) {
-			buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
-					(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
-			buffer.setColor(father.getSkin().getColorInside());
-			buffer.clearRect(0, 0, getWidth(), getHeight());
+
+		System.out.println("\n\n\n\n\n\n\n\n");
+		// si le dessin bien au dessus du bas de l'image
+		buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
+				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
+		buffer.setColor(father.getSkin().getColorInside());
+		buffer.clearRect(0, 0, getWidth(), getHeight());
+		if (heightImageDrawn * 4 / 5 >= -buffer.getHeigthViewPort()) {
 			drawDelayedOval(buffer, center.x - sizeLarge / 2 - 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
 		}
+		// in parcout les étapes du trajet
 		while (iterTravel.hasNext()) {
 			if (!iterColor.hasNext())
 				iterColor = colorList.iterator();
@@ -381,7 +378,21 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				center.setLocation(center.x - sizeQuadLarge, center.y + length);
 				break;
 			}
-			if (heightImageDrawn * 4 / 5 <= buffer.getHeigthViewPort()) {
+			// TODO check
+			// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
+			// groupemement assez séparé.
+			if ((heightImageDrawn * 4 / 5 > buffer.getHeigthViewPort())) {
+				// au dela de la zone
+				while (iterTravel.hasNext()) {
+					iterTravel.next();
+				}
+				buffer.setColor(iterColor.next());
+			} else if (heightImageDrawn * 4 / 5 < -buffer.getHeigthViewPort()) {
+				// avant la zone
+				buffer.setColor(iterColor.next());
+			} else {
+				// la zone
+				System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
 				buffer.setColor(iterColor.next());
 				buffer.drawPolygon(polygon);
@@ -390,9 +401,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 						(polygon.ypoints[0] + polygon.ypoints[2]) / 2, section);
 				drawDelayedOval(buffer, center.x - sizeLarge / 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
 			}
-			// System.out.println(heightImage + " " + (center.y - sizeLarge / 2)
-			// + (heightImage > (center.y - sizeLarge / 2)));
-			// buffer.drawLine(50, center.y - sizeLarge / 2, 250, center.y - sizeLarge / 2);
 			buffer.setColor(father.getSkin().getColorLetter());
 			if (heightImageDrawn > (center.y - sizeLarge / 2)) {
 				buffer.drawLine(center.x, center.y, center.x + sizeLarge * 2, heightImageDrawn + sizeLarge / 4);
@@ -678,6 +686,19 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 * L'échelle de l'image
 		 */
 		protected float scallImg = 0.2F;
+		
+		/**
+		 * La qualité du dessin
+		 */
+		protected boolean hightQuality = true;
+
+		public boolean isHightQuality() {
+			return hightQuality;
+		}
+
+		public void setHightQuality(boolean hightQuality) {
+			this.hightQuality = hightQuality;
+		}
 
 		public int getHeigthImage() {
 			return heightImage;
@@ -715,7 +736,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		public void increasScallImg(float coef) {
 			scallImg *= coef;
 			neededRepaint = true;
-			// TODO
 		}
 
 		/**
@@ -787,9 +807,26 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			this.buffer.setBackground(father.getSkin().getColorInside());
 
-			this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-			this.buffer.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+			if(this.isHightQuality()){
+				/** Activation de l'anti-aliasing */
+				this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+				/** Demande de rendu de qualité */
+				this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+				this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+				this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+				this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+			}else{
+				/** Désactivation de l'anti-aliasing */
+				this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+				/** Demande de rendu rapide */
+				this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+				this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+				this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+				this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+			}
+			//this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		}
 
 		public void setSizeImage(int width, int height) {

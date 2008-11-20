@@ -14,8 +14,6 @@ public abstract class MouseMotionListenerSimplificated<T> implements MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

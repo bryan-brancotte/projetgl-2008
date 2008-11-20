@@ -14,6 +14,10 @@ public class RouteAndRouteReaderTest {
 	protected Station stationA;
 	protected Station stationB;
 
+
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(RouteAndRouteReaderTest.class);
+	}
 	@After
 	public void epilogueDateTest() {
 	}
@@ -25,10 +29,6 @@ public class RouteAndRouteReaderTest {
 		routeA = new Route("routeA", graph.getKindFromString("TGV"));// , );
 		KindRoute.addKind("Tram");
 		routeA.setKindRoute(KindRoute.getKindFromString("Tram"));
-	}
-
-	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(RouteAndRouteReaderTest.class);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class RouteAndRouteReaderTest {
 		routeA.addStation(stationB);
 		assertTrue(routeA.getStations().size()==routeA.getStationsR().length);
 		assertTrue(routeA.getStations().size()==2);
-		//TODO vérifier le comportement de addStation.
+		//TODO vérifier le comportement de addStation (plusieur fois la même station?)
 		routeA.addStation(stationA);
 		assertTrue(routeA.getStations().size()==routeA.getStationsR().length);
 		assertTrue(routeA.getStations().size()==2);

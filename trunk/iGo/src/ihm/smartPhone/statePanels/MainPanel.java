@@ -5,6 +5,7 @@ import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -102,19 +103,19 @@ public class MainPanel extends PanelState {
 
 			if ((imageLoad == null) || (miniWidth == imageLoadArea.getWidth())
 					|| (miniHeight == imageLoadArea.getHeight()))
-			imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniWidth, miniHeight).getImage();
+				imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniWidth, miniHeight).getImage();
 			imageLoadArea.setBounds(miniWidth * 3 - halfImagesWidth, imageNewArea.y, imageNewArea.width,
 					imageNewArea.height);
 
 			if ((imageSettings == null) || (miniWidth == imageSettingsArea.getWidth())
 					|| (miniHeight == imageSettingsArea.getHeight()))
-			imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniWidth, miniHeight).getImage();
+				imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniWidth, miniHeight).getImage();
 			imageSettingsArea.setBounds(imageNewArea.x, miniHeight * 3 - imageNew.getHeight(null), imageNewArea.width,
 					imageNewArea.height);
 
 			if ((imageFavorites == null) || (miniWidth == imageFavoritesArea.getWidth())
 					|| (miniHeight == imageFavoritesArea.getHeight()))
-			imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniWidth, miniHeight).getImage();
+				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniWidth, miniHeight).getImage();
 			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 		} else {
 			halfImagesWidth = imageNew.getWidth(null) / 2;
@@ -163,6 +164,7 @@ public class MainPanel extends PanelState {
 	public void giveControle() {
 		upperBar.clearMessage();
 		upperBar.setCenterIcone("iGo");
+		upperBar.setRightSubTitle(father.lg("iGoVersion"),FontSizeKind.SMALL);
 		upperBar.repaint();
 
 		lowerBar.clearMessage();

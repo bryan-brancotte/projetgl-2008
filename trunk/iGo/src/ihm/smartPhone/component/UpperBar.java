@@ -18,7 +18,7 @@ public class UpperBar extends AbstractBar {
 
 	private static final long serialVersionUID = 1L;
 	protected int oldHeigth = -1;
-	
+
 	protected String icone;
 	protected Image imageIcone;
 	protected String mainTitle;
@@ -97,12 +97,13 @@ public class UpperBar extends AbstractBar {
 		}
 
 		if (icone != "") {
-			if(oldHeigth!=getHeight())
-			imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2).getImage();
+			if (oldHeigth != getHeight())
+				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
+						.getImage();
 			g.drawImage(imageIcone, this.getWidth() / 2 - imageIcone.getWidth(null) / 2, 1, null);
-			oldHeigth=getHeight();
+			oldHeigth = getHeight();
 		}
-		
+
 		g.setColor(new Color(255 - ihm.getSkin().getColorInside().getRed(), 255 - ihm.getSkin().getColorInside()
 				.getGreen(), 255 - ihm.getSkin().getColorInside().getBlue()));
 		drawStrings(g, FontSizeKind.LARGE);
@@ -142,10 +143,10 @@ public class UpperBar extends AbstractBar {
 					upperTitle, g, font));
 
 		if ((leftSubTitleSize == fontKindSize) && (leftSubTitle != ""))
-			g.drawString(leftSubTitle, 0, this.getHeight());
+			g.drawString(leftSubTitle, 0, this.getHeight() - 1);
 
 		if ((rigthSubTitleSize == fontKindSize) && (rigthSubTitle != ""))
-			g.drawString(rigthSubTitle, this.getWidth() - getWidthString(rigthSubTitle, g, font), this.getHeight());
+			g.drawString(rigthSubTitle, this.getWidth() - getWidthString(rigthSubTitle, g, font), this.getHeight() - 1);
 
 		if ((leftCmdSize == fontKindSize) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
@@ -298,7 +299,7 @@ public class UpperBar extends AbstractBar {
 		leftCmdActionListener = l;
 		this.leftCmd = leftCmd;
 		this.leftCmdSize = fontKindSize;
-		this.leftCmdArea.setBounds(0,0,0,0);
+		this.leftCmdArea.setBounds(0, 0, 0, 0);
 	}
 
 	/**
@@ -323,7 +324,7 @@ public class UpperBar extends AbstractBar {
 		rigthCmdActionListener = l;
 		this.rigthCmd = rigthCmd;
 		this.rigthCmdSize = fontKindSize;
-		this.rigthCmdArea.setBounds(0,0,0,0);
+		this.rigthCmdArea.setBounds(0, 0, 0, 0);
 	}
 
 	/**
@@ -347,7 +348,7 @@ public class UpperBar extends AbstractBar {
 			this.icone = icone;
 		else {
 			this.icone = "";
-			oldHeigth=-1;
+			oldHeigth = -1;
 			imageIcone = null;
 		}
 	}

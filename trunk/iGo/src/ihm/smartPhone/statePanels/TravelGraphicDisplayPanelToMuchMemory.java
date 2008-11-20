@@ -589,7 +589,6 @@ public class TravelGraphicDisplayPanelToMuchMemory extends PanelState {
 		ovalToDrawDelayed.heigth = heigth;
 	}
 
-	// TODO
 	public void setActualState(IhmReceivingStates actualState) {
 		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
 			this.actualState = actualState;
