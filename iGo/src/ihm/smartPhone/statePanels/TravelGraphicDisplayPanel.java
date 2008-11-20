@@ -135,9 +135,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				if (e.getWheelRotation() > 0)
+				if (e.getWheelRotation() < 0)
 					buffer.increasScallImg(1.05F);
-				else if (e.getWheelRotation() < 0)
+				else if (e.getWheelRotation() > 0)
 					buffer.decreasScallImg(1.05F);
 				else
 					return;
@@ -378,7 +378,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				center.setLocation(center.x - sizeQuadLarge, center.y + length);
 				break;
 			}
-			// TODO check
 			// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
 			// groupemement assez séparé.
 			if ((heightImageDrawn * 4 / 5 > buffer.getHeigthViewPort())) {
