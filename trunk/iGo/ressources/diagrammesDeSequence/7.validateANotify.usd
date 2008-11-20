@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:SequenceDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="7.validateANotify" size="1106,773" metadata="uml2-1.0" initialized="true" scrolledX="-3" tag="1000" key="32303038303431342D313030302069476F2F506965727269636B">
-  <children xsi:type="editmodel:ActorEditModel" location="2,20" size="100,661" itemName="InfoNetwork">
+<editmodel:SequenceDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="7.validateANotify" size="1106,701" metadata="uml2-1.0" initialized="true" scrolledX="-3" scrolledY="15" tag="1000" key="32303038303431342D313030302069476F2F506965727269636B">
+  <children xsi:type="editmodel:ActorEditModel" location="2,20" size="100,661" itemName="Ben : Clock">
     <children xsi:type="editmodel:ActivationEditModel" location="42,86" size="16,465" sequenceItemContainer="//@children.0" length="465">
       <sourceConnections xsi:type="editmodel:SequenceMessageEditModel" name="update" id="java.util/Observer#update(Ljava.util.Observable;Ljava.lang.Object;)" source="//@children.0/@children.0" target="//@children.1/@children.0" targetEnd="//@children.0/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual" associatedMethod="update(Observable,Object)" associatedSequenceNumber="1">
         <children xsi:type="editmodel:SequenceEndEditModel" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.0" methodLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.1" sequenceNumberLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.2" statementExpression="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.3">
@@ -18,7 +18,7 @@
       </sourceConnections>
     </children>
   </children>
-  <children xsi:type="editmodel:InstanceEditModel" name="IGoMaster" location="150,20" size="110,661" id="iGoMaster/IGoMaster" itemName="">
+  <children xsi:type="editmodel:InstanceEditModel" name="IGoMaster" location="180,20" size="110,661" id="iGoMaster/IGoMaster" itemName="">
     <children xsi:type="editmodel:ActivationEditModel" targetConnections="//@children.0/@children.0/@sourceConnections.0 //@children.2/@children.0/@sourceConnections.0 //@children.1/@children.1/@sourceConnections.0 //@children.1/@children.2/@sourceConnections.0 //@children.2/@children.1/@sourceConnections.0" location="47,86" size="16,465" sequenceItemContainer="//@children.1" recursiveChildren="//@children.1/@children.1 //@children.1/@children.2" length="465">
       <sourceConnections xsi:type="editmodel:SequenceMessageEditModel" name="getNewEventInfo" id="iGoMaster/EventInfoNetworkWatcher#getNewEventInfo()" source="//@children.1/@children.0" target="//@children.2/@children.0" targetEnd="//@children.1/@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual" associatedMethod="getNewEventInfo(): Collection" associatedSequenceNumber="1.1" associatedReturnArrow="//@children.2/@children.0/@sourceConnections.0" shouldShowReturnArrow="true">
         <children xsi:type="editmodel:SequenceEndEditModel" location="3,19" anchorKind="FixedAtEdge" attachSource="true" userLabel="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.0" methodLabel="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.1" sequenceNumberLabel="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.2" statementExpression="//@children.1/@children.0/@sourceConnections.0/@children.0/@children.3">
@@ -180,10 +180,10 @@
       </sourceConnections>
     </children>
   </children>
-  <children xsi:type="editmodel:FrameEditModel" location="157,249" size="467,106">
-    <children xsi:type="editmodel:FrameCompartmentEditModel" location="1,20" size="465,86" condition="If there's an impact  on the actual path"/>
+  <children xsi:type="editmodel:FrameEditModel" location="187,249" size="437,106">
+    <children xsi:type="editmodel:FrameCompartmentEditModel" location="1,20" size="435,86" condition="If there's an impact  on the actual path"/>
   </children>
-  <children xsi:type="editmodel:FrameEditModel" location="157,430" size="110,107">
+  <children xsi:type="editmodel:FrameEditModel" location="187,430" size="110,107">
     <children xsi:type="editmodel:FrameCompartmentEditModel" location="1,20" size="108,87" condition="If there's an impact  on the actual path"/>
   </children>
   <children xsi:type="editmodel:ActorEditModel" location="630,20" size="100,661" itemName="Antoine:Voyageur">
