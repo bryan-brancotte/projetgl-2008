@@ -63,7 +63,6 @@ public class ConfigurationXML implements Configuration {
 				System.out.println("Missing config file, creating a new one");
 				makeConfigDefaut();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Cannot create a new configuration file\n"
 						+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
@@ -80,7 +79,6 @@ public class ConfigurationXML implements Configuration {
 					System.out.println("Error config file, creating a new one");
 					makeConfigDefaut();
 				} catch (Exception ex) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Cannot create a new configuration file\n"
 							+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",

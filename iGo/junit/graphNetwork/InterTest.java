@@ -50,17 +50,21 @@ public class InterTest {
 			inter = new Inter(routeA, stationA, routeB, stationB, 1.23F, 412, false, false);
 			// graph.linkStation(routeA, stationA, routeB, stationB, 1.23F, 12, false);
 		} catch (ViolationOfUnicityInIdentificationException e) {
-			// TODO Auto-generated catch block
+			System.err.println("problem d'unicité pour un identifiant (Route?Station?)");
 			e.printStackTrace();
+			System.exit(1);
 		} catch (MissingResourceException e) {
-			// TODO Auto-generated catch block
+			System.err.println("une station ou une route n'est pas enregistrer par le graphNetwork");
 			e.printStackTrace();
+			System.exit(1);
 		} catch (StationNotOnRoadException e) {
-			// TODO Auto-generated catch block
+			System.err.println("une station n'est pas mit sur sa route");
 			e.printStackTrace();
+			System.exit(1);
 		} catch (ImpossibleValueException e) {
-			// TODO Auto-generated catch block
+			System.err.println("intolérence envers defs valeur correct : >= 0 pour cout et temps");
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 

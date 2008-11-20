@@ -50,7 +50,7 @@ public class ImageLoader extends Thread {
 		try {
 			old_available.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			((JLabel) target).setIcon(getImageIcone(getClass().getResource("/images/button_cancel.png")));
 			e.printStackTrace();
 		}
 		if (target instanceof JLabel) {
@@ -63,7 +63,6 @@ public class ImageLoader extends Thread {
 			// ((JButton) target).setHorizontalAlignment(horizontalAlignment);
 			target.updateUI();
 		}
-		// System.gc();
 		old_available.release();
 	}
 

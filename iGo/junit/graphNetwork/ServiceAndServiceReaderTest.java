@@ -7,14 +7,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import streamInFolder.EventInfoNetworkWatcherInFolderTest;
-
 public class ServiceAndServiceReaderTest {
 
 	protected GraphNetworkBuilder graph;
 	protected Service serviceCoffe;
 	protected Service serviceNews;
 
+
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(ServiceAndServiceReaderTest.class);
+	}
 	@After
 	public void epilogueDateTest() {
 	}
@@ -24,10 +26,6 @@ public class ServiceAndServiceReaderTest {
 		graph = new GraphNetwork();
 		serviceCoffe = new Service("Coffe", 3);
 		serviceNews = new Service("News", 4);
-	}
-
-	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(EventInfoNetworkWatcherInFolderTest.class);
 	}
 
 	/**

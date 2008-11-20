@@ -24,6 +24,10 @@ public class StationAndStationReaderTest {
 	protected Inter interZ;
 	protected Inter interY;
 
+
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(StationAndStationReaderTest.class);
+	}
 	@After
 	public void epilogueDateTest() {
 	}
@@ -54,22 +58,22 @@ public class StationAndStationReaderTest {
 			stationB.addInter(interZ);
 			stationC.addInter(interZ);
 		} catch (ViolationOfUnicityInIdentificationException e) {
-			// TODO Auto-generated catch block
+			System.err.println("problem d'unicité pour un identifiant (Route?Station?)");
 			e.printStackTrace();
+			System.exit(1);
 		} catch (MissingResourceException e) {
-			// TODO Auto-generated catch block
+			System.err.println("une station ou une route n'est pas enregistrer par le graphNetwork");
 			e.printStackTrace();
+			System.exit(1);
 		} catch (StationNotOnRoadException e) {
-			// TODO Auto-generated catch block
+			System.err.println("une station n'est pas mit sur sa route");
 			e.printStackTrace();
+			System.exit(1);
 		} catch (ImpossibleValueException e) {
-			// TODO Auto-generated catch block
+			System.err.println("intolérence envers defs valeur correct : >= 0 pour cout et temps");
 			e.printStackTrace();
+			System.exit(1);
 		}
-	}
-
-	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(StationAndStationReaderTest.class);
 	}
 
 	/**
