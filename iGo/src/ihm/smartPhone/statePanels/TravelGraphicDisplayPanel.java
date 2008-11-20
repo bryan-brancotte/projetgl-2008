@@ -294,7 +294,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(center.x, center.y);
 
-		System.out.println("\n\n\n\n\n\n\n\n");
+		//System.out.println("\n\n\n\n\n\n\n\n");
 		// si le dessin bien au dessus du bas de l'image
 		buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
@@ -385,13 +385,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				while (iterTravel.hasNext()) {
 					iterTravel.next();
 				}
-				buffer.setColor(iterColor.next());
+				//buffer.setColor(iterColor.next());
 			} else if (heightImageDrawn * 4 / 5 < -buffer.getHeigthViewPort()) {
 				// avant la zone
 				buffer.setColor(iterColor.next());
 			} else {
 				// la zone
-				System.out.println("dessin de " + section.getNameChangement());
+				//System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
 				buffer.setColor(iterColor.next());
 				buffer.drawPolygon(polygon);
