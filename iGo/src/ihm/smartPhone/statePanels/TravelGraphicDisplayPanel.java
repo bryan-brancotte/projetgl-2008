@@ -1,5 +1,6 @@
 package ihm.smartPhone.statePanels;
 
+import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -294,7 +295,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(center.x, center.y);
 
-		//System.out.println("\n\n\n\n\n\n\n\n");
+		// System.out.println("\n\n\n\n\n\n\n\n");
 		// si le dessin bien au dessus du bas de l'image
 		buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
@@ -385,13 +386,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				while (iterTravel.hasNext()) {
 					iterTravel.next();
 				}
-				//buffer.setColor(iterColor.next());
+				// buffer.setColor(iterColor.next());
 			} else if (heightImageDrawn * 4 / 5 < -buffer.getHeigthViewPort()) {
 				// avant la zone
 				buffer.setColor(iterColor.next());
 			} else {
 				// la zone
-				//System.out.println("dessin de " + section.getNameChangement());
+				// System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
 				buffer.setColor(iterColor.next());
 				buffer.drawPolygon(polygon);
@@ -685,19 +686,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 * L'échelle de l'image
 		 */
 		protected float scallImg = 0.2F;
-		
-		/**
-		 * La qualité du dessin
-		 */
-		protected boolean hightQuality = true;
-
-		public boolean isHightQuality() {
-			return hightQuality;
-		}
-
-		public void setHightQuality(boolean hightQuality) {
-			this.hightQuality = hightQuality;
-		}
 
 		public int getHeigthImage() {
 			return heightImage;
@@ -806,15 +794,18 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			this.buffer.setBackground(father.getSkin().getColorInside());
 
-			if(this.isHightQuality()){
-				/** Activation de l'anti-aliasing */
-				this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			
+			if(me.getQuality().getValue()>=IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
 				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-				/** Demande de rendu de qualité */
-				this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-				this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-				this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-				this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+				if(me.getQuality().getValue()>=IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue()) {
+					this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+					if(me.getQuality().getValue()>=IHMGraphicQuality.HIGHER_QUALITY.getValue()) {
+						this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+						this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+						this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+						this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+					}
+				}
 			}else{
 				/** Désactivation de l'anti-aliasing */
 				this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
@@ -825,7 +816,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 				this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
 			}
-			//this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			// this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+			// RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		}
 
 		public void setSizeImage(int width, int height) {
