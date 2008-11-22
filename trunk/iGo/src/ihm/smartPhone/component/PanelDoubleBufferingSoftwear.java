@@ -62,6 +62,20 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	}
 
 	/**
+	 * Retourne pour un chaine donnée sa hauteur dessinée.
+	 * 
+	 * @param s
+	 *            la chaine
+	 * @param g
+	 *            le Graphics où elle sera dessiné
+	 * @return la hauteur dessiné de la chaine
+	 */
+	protected int getHeigthString(String s, Graphics g) {
+	    //return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
+		return g.getFont().getSize();/**/
+	}
+
+	/**
 	 * Retourne pour un chaine donnée sa longueur dessinée.
 	 * 
 	 * @param s
@@ -75,6 +89,21 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	protected int getWidthString(String s, Graphics g, Font f) {
 		//return (int) (s.length() * f.getSize() * 0.45);/*
 	    return (int) g.getFontMetrics(f).getStringBounds(s, g).getWidth(); // size of string/**/
+	 
+	}
+
+	/**
+	 * Retourne pour un chaine donnée sa longueur dessinée.
+	 * 
+	 * @param s
+	 *            la chaine
+	 * @param g
+	 *            le Graphics où elle sera dessiné
+	 * @return la longueur dessiné de la chaine
+	 */
+	protected int getWidthString(String s, Graphics g) {
+		//return (int) (s.length() * f.getSize() * 0.45);/*
+	    return (int) g.getFontMetrics(g.getFont()).getStringBounds(s, g).getWidth(); // size of string/**/
 	 
 	}
 
