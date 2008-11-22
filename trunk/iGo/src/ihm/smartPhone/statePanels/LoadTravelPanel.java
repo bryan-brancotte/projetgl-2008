@@ -1,9 +1,11 @@
 package ihm.smartPhone.statePanels;
 
+import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.statePanels.component.TravelPanel;
+import ihm.smartPhone.statePanels.component.TravelPanelG2D;
 import ihm.smartPhone.tools.VerticalFlowLayout;
 
 import java.awt.BorderLayout;
@@ -64,8 +66,13 @@ public class LoadTravelPanel extends PanelState {
 		if (paths == null)
 			return;
 		inside.removeAll();
-		for (TravelForTravelPanel t : paths)
-			inside.add(new TravelPanel(t, father));
+		if (this.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
+			for (TravelForTravelPanel t : paths)
+				inside.add(new TravelPanelG2D(t, father));
+		} else {
+			for (TravelForTravelPanel t : paths)
+				inside.add(new TravelPanel(t, father));
+		}
 	}
 
 	/**

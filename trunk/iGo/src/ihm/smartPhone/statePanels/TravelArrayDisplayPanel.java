@@ -18,6 +18,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	public void paint(Graphics g) {
+		g.clearRect(0, 0, getWidth(), getHeight());
 		g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
 		super.paint(g);
 	}

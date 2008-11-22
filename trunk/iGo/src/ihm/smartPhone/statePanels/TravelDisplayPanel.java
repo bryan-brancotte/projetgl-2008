@@ -18,6 +18,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public abstract class TravelDisplayPanel extends PanelState {
@@ -209,7 +210,14 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected MouseListener[] ml;
 		protected MouseMotionListener[] mml;
 		protected Image imageButtonOk = null;
+		// TODO utilisation de swing en 1.4???
+		// protected JTextPane textMessageArea;/*
 		protected JTextArea textMessageArea;
+		protected JScrollPane scrollPane;
+
+		/***************************************************************************************************************
+		 * protected JTextArea textMessageArea;/* protected Label textMessageArea;/
+		 **************************************************************************************************************/
 
 		public boolean isActiveMessage() {
 			return activeMessage;
@@ -229,10 +237,14 @@ public abstract class TravelDisplayPanel extends PanelState {
 				me.removeMouseMotionListener(m);
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
-			textMessageArea.setVisible(true);
-			textMessageArea.setColumns(10);// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
-			textMessageArea.setRows(20);
+			// TODO Changing area : scrollPane,textMessageArea
+			scrollPane.setVisible(true);
+			// textMessageArea.setColumns(10);//
+			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
+			// textMessageArea.setRows(20);
 			textMessageArea.setText(message);
+			textMessageArea.validate();
+			scrollPane.validate();
 		}
 
 		public PopUpMessage(TravelDisplayPanel panelParent) {
@@ -252,36 +264,52 @@ public abstract class TravelDisplayPanel extends PanelState {
 					if (actionAfterOkButton != null)
 						actionAfterOkButton.execute();
 					activeMessage = false;
-					textMessageArea.setVisible(false);
+					// TODO Changing area : textMessageArea
+					scrollPane.setVisible(false);
 					me.repaint();
 				}
 			});
 			panelParent.setLayout(new AbsolutLayout());
 			textMessageArea = new JTextArea();
+			textMessageArea.setEditable(false);
 			// textMessageArea.setWrapStyleWord(true);
 			textMessageArea.setLineWrap(true);
+			textMessageArea.setAutoscrolls(false);
+			// textMessageArea.setAutoscrolls(true);
 			// textMessageArea.setEnabled(false);
 			// textMessageArea.setBackground(panelParent.getBackground());
-			textMessageArea.setVisible(false);
+			// textMessageArea.setVisible(false);
+			// scrollPane.setLayout(new BorderLayout());
+			scrollPane = new JScrollPane(textMessageArea);
+			scrollPane.setVisible(false);
+			// Panel p = new Panel();
+			// p.add(textMessageArea);
+			// scrollPane.add(p);
+			// panelParent.add(textMessageArea);
+			panelParent.add(scrollPane);
 
-			panelParent.add(textMessageArea);
 		}
 
 		public void paint(Graphics g) {
+			sizeLargeFont=father.getSizeAdapteur().getSizeLargeFont();
 			if (imageButtonOk.getHeight(null) != sizeLargeFont)
 				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
 						.getImage();
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			g.fillRect(getWidth() / 5, getHeight() / 5, getWidth() * 3 / 5, getHeight() * 3 / 5);
+			g.fillRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRect(getWidth() / 5, getHeight() / 5, getWidth() * 3 / 5, getHeight() * 3 / 5);
-			textMessageArea.setBounds(getWidth() / 5 + 10, getHeight() * 3 / 10, getWidth() * 3 / 5 - 20,
+			g.drawRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
+			// TODO changing area : scrollPane,textMessageArea
+			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 3 / 10, getWidth() * 14 / 16 - 20,
 					getHeight() * 4 / 10);
-			textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());
-			imageButtonOkArea
-					.setBounds(getWidth() * 4 / 5 - sizeLargeFont * 2, getHeight() * 4 / 5 - sizeLargeFont * 2, father
-							.getSizeAdapteur().getSizeLargeFont(), sizeLargeFont);
+			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
+			textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
+			imageButtonOkArea.setBounds(getWidth() * 15 / 16 - sizeLargeFont - 10, getHeight() * 4 / 5 - sizeLargeFont
+					- 10, sizeLargeFont, sizeLargeFont);
+			// imageButtonOkArea.setBounds(getWidth() * 14 / 16, getHeight() * 4 / 5, sizeLargeFont, sizeLargeFont);
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
+			// TODO changing area : scrollPane,textMessageArea
+			scrollPane.repaint();
 		}
 
 		public MouseListenerClickAndMoveInArea getClickAndMoveListener() {

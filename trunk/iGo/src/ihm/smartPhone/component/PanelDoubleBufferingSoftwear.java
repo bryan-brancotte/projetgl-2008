@@ -1,5 +1,7 @@
 package ihm.smartPhone.component;
 
+import iGoMaster.IHMGraphicQuality;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,6 +14,19 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	protected Image image = null;
 
 	protected Panel me = this;
+	
+	/**
+	 * La qualité du dessin
+	 */
+	private IHMGraphicQuality quality = IHMGraphicQuality.HIGHER_QUALITY;
+
+	public IHMGraphicQuality getQuality() {
+		return quality;
+	}
+
+	public void setQuality(IHMGraphicQuality quality) {
+		this.quality = quality;
+	}
 
 	/**
 	 * On redéfinit cette fonction car son fonctionnement normal provoque un sintillement. Il semblerai que cette
