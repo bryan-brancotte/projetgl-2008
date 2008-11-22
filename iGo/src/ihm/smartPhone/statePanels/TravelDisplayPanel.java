@@ -54,7 +54,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			@Override
 			public void execute() {
 				// System.out.println("warning");
-				popUpMessage.define("C'est la question que l'on peut se poser après que 2D Boy, "
+				popUpMessage.define("World of dégout", "C'est la question que l'on peut se poser après que 2D Boy, "
 						+ "développeur du génialissime World of Goo, ait déclaré que 90 % "
 						+ "des personnes qui y ont joué l'ont fait sur une version pirate. "
 						+ "On ne sait trop comment le studio est parvenu à ce chiffre, mais "
@@ -128,8 +128,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 		}
 	}
 
-	public void displayPopUpMessage(String message, CodeExecutor actionAfterOkButton) {
-		popUpMessage.define(message, actionAfterOkButton);
+	public void displayPopUpMessage(String title, String message, CodeExecutor actionAfterOkButton) {
+		popUpMessage.define(title, message, actionAfterOkButton);
 		repaint();
 	}
 
@@ -203,6 +203,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	protected class PopUpMessage {
 		protected String message = "";
+		protected String title = "";
 		protected CodeExecutor actionAfterOkButton;
 		protected boolean activeMessage = false;
 		protected MouseListenerClickAndMoveInArea l;
@@ -219,12 +220,31 @@ public abstract class TravelDisplayPanel extends PanelState {
 		 * protected JTextArea textMessageArea;/* protected Label textMessageArea;/
 		 **************************************************************************************************************/
 
+		/**
+		 * Permet de savoir si le message est actif, i.e : s'il doit être affiché.
+		 * 
+		 * @return true si le message doit être affiché.
+		 */
 		public boolean isActiveMessage() {
 			return activeMessage;
 		}
 
-		public void define(String message, CodeExecutor actionAfterOkButton) {
+		/**
+		 * Définit le message avec les paamèter courant et le marque comme étant à afficher.
+		 * 
+		 * @param title
+		 *            le titre du message. Aucun retour à la ligne n'est effecuté. ne mettez pas un tire trop long
+		 * @param message
+		 *            ce paramètre représent le messag à afficher. Il est mit dans un zone de texte qui gère le retour à
+		 *            la ligne automatique, et la présence d'un barre de défilement si la texte ne rentre pas dans
+		 *            l'esapce prévus.
+		 * @param actionAfterOkButton
+		 *            action effectué après pression du bouton OK. Dans tout les cas, la pression du bouton fera
+		 *            disparaitre le message de l'écran. Vous pouvez ensuite ajouter de l'IHM change d'état.
+		 */
+		public void define(String title, String message, CodeExecutor actionAfterOkButton) {
 			this.message = message;
+			this.title = title;
 			this.actionAfterOkButton = actionAfterOkButton;
 			this.activeMessage = true;
 			this.imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
@@ -247,6 +267,14 @@ public abstract class TravelDisplayPanel extends PanelState {
 			scrollPane.validate();
 		}
 
+		/**
+		 * Constructeur d'un PopUpMessage, on précise le panel qui l'accueil afin de controler les zones clicables dans
+		 * ce panel, mais aussi pour ajouter un composant dans ce panel. Ce panel doit être vide, et le changement du
+		 * layout ne doit pas bous géner. par défaut le message n'est pas dans l'état "à afficher".
+		 * 
+		 * @param panelParent
+		 *            le panel qui accueil le message
+		 */
 		public PopUpMessage(TravelDisplayPanel panelParent) {
 			super();
 			this.l = new MouseListenerClickAndMoveInArea(me);
@@ -264,7 +292,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 					if (actionAfterOkButton != null)
 						actionAfterOkButton.execute();
 					activeMessage = false;
-					// TODO Changing area : textMessageArea
 					scrollPane.setVisible(false);
 					me.repaint();
 				}
@@ -282,16 +309,17 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// scrollPane.setLayout(new BorderLayout());
 			scrollPane = new JScrollPane(textMessageArea);
 			scrollPane.setVisible(false);
-			// Panel p = new Panel();
-			// p.add(textMessageArea);
-			// scrollPane.add(p);
-			// panelParent.add(textMessageArea);
 			panelParent.add(scrollPane);
-
 		}
 
+		/**
+		 * Fonction de dessin du message.
+		 * 
+		 * @param g
+		 *            le Graphics sur lequel il doit dessiner
+		 */
 		public void paint(Graphics g) {
-			sizeLargeFont=father.getSizeAdapteur().getSizeLargeFont();
+			sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont();
 			if (imageButtonOk.getHeight(null) != sizeLargeFont)
 				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
 						.getImage();
@@ -300,14 +328,17 @@ public abstract class TravelDisplayPanel extends PanelState {
 			g.setColor(father.getSkin().getColorLetter());
 			g.drawRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
 			// TODO changing area : scrollPane,textMessageArea
-			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 3 / 10, getWidth() * 14 / 16 - 20,
-					getHeight() * 4 / 10);
+			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 7 / 20, getWidth() * 14 / 16 - 20,
+					getHeight() * 7 / 20);
 			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
 			textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
 			imageButtonOkArea.setBounds(getWidth() * 15 / 16 - sizeLargeFont - 10, getHeight() * 4 / 5 - sizeLargeFont
 					- 10, sizeLargeFont, sizeLargeFont);
 			// imageButtonOkArea.setBounds(getWidth() * 14 / 16, getHeight() * 4 / 5, sizeLargeFont, sizeLargeFont);
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
+			g.setFont(father.getSizeAdapteur().getLargeFont());
+			g.drawString(title, getWidth() / 2 - getWidthString(title, g) / 2, (int) (getHeight() * 5.5 / 20
+					+ getHeigthString(title, g)/2));
 			// TODO changing area : scrollPane,textMessageArea
 			scrollPane.repaint();
 		}
