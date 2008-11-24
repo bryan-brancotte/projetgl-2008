@@ -1,5 +1,7 @@
 package iGoMaster;
 
+import graphNetwork.PathInGraphReader;
+
 /**
  * Interface décrivant les fonctionnalités de l'IHM. Tout IHM voulant prétendre à être utiliser par le master doit être
  * conforme à ce cahier des charges.
@@ -19,7 +21,8 @@ public interface IHM {
 	 *            le nombre d'étape du chargement. Un nombre d'étape inferrieur ou égal à zero sera équivalent à
 	 *            l'appelle de la méthode sans paramètre.
 	 */
-	public void start(boolean bySplashScreen,int step); 
+	public void start(boolean bySplashScreen, int step);
+
 	/**
 	 * Démarre l'interface. On spécifie si on veut passer par l'interface de chargement, ou directement acceder à
 	 * l'interface principale.
@@ -27,7 +30,7 @@ public interface IHM {
 	 * @param bySplashScreen
 	 *            true si on veut passer par l'écran de chargement.
 	 */
-	public void start(boolean bySplashScreen); 
+	public void start(boolean bySplashScreen);
 
 	/**
 	 * Redéfinit le nombre d'étape effectué dans l'écran de chargement. Si l'interface de chargement n'est pas/plus
@@ -83,4 +86,14 @@ public interface IHM {
 	 */
 	public void stop();
 
+	/**
+	 * Fournit à l'IHM un trajet selon les critères qu'elle à choisis.
+	 * 
+	 * @param path
+	 *            ke trajet calculé
+	 * @param message
+	 *            une information textuel pour par exemple signaler qu'on n'a pas pu respecter tout les critères
+	 * @return true si l'IHM s'attendait a cette appelle de fonction, false dans le cas contraire.
+	 */
+	public boolean returnPathAsked(PathInGraphReader path, String message);
 }

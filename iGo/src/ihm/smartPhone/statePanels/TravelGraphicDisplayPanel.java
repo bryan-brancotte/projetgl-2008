@@ -23,7 +23,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.concurrent.Semaphore;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
@@ -47,6 +46,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	protected int yLastPointeur;
 
 	/**
+	 * La plus petite des quatre valeurs étalons du réseau : elle définit la largueur de certains traits.
+	 */
+	protected int sizeLine;
+	/**
 	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la valeur d'une demi largueur de ligne
 	 */
 	protected int sizeDemiLine;
@@ -60,21 +63,34 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	protected int sizeLarge;
 
 	/**
-	 * Sémaphore
+	 * Sémaphore du rendu, permet de ne pas lancer plusieur repaint en paralèlle
 	 */
-	protected Semaphore renderingClamp = new Semaphore(1);
+	//protected Semaphore renderingClamp = new Semaphore(1);
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
 		colorList = new LinkedList<Color>();
+		// TODO couleur correcte...
+		addColorAndItsLighted(new Color(242, 130, 38));// Orange
+		addColorAndItsLighted(new Color(73, 12, 139));// pourpre foncé
+		addColorAndItsLighted(new Color(133, 242, 38));// Vert jeune pousse
+		addColorAndItsLighted(new Color(114, 159, 220));// Bleu clair
+		addColorAndItsLighted(new Color(208, 38, 242));// rose clair
+		addColorAndItsLighted(new Color(12, 52, 139));// Bleu marrine
 		addColorAndItsLighted(Color.cyan);
-		addColorAndItsLighted(Color.magenta);
-		addColorAndItsLighted(Color.yellow);
-		addColorAndItsLighted(Color.red);
-		addColorAndItsLighted(Color.blue);
-		addColorAndItsLighted(Color.green);
-		addColorAndItsLighted(Color.orange);
+		addColorAndItsLighted(new Color(139, 69, 12));// marront
+		addColorAndItsLighted(new Color(12, 128, 139));// Bleu turquoise
+		addColorAndItsLighted(new Color(254, 170, 52));// Orange pastel
+		addColorAndItsLighted(new Color(189, 107, 247));// violet pastel
+		addColorAndItsLighted(new Color(139, 12, 65));// bordeau
+		addColorAndItsLighted(new Color(242, 239, 38));// Jaune
+		addColorAndItsLighted(new Color(141, 207, 80));// Vert clair
+		addColorAndItsLighted(new Color(137, 12, 139));// violet foncé
+		addColorAndItsLighted(new Color(52, 52, 254));// Bleu foncé
+		addColorAndItsLighted(new Color(80, 139, 12));// Vert foncé
+		addColorAndItsLighted(new Color(38, 116, 224));// Bleu
+		addColorAndItsLighted(new Color(137, 38, 242));// pourpre
 		/***************************************************************************************************************
 		 * Création de l'image
 		 */
@@ -238,10 +254,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// un optimisation
 		// if (!buffer.isNeededRepaint())
 		// return;
-		if (!renderingClamp.tryAcquire()) {
-			System.out.println("acquire OFF");
-			return;
-		}
+		//TODO redering mutex retiré
+//		if (!renderingClamp.tryAcquire()) {
+//			System.out.println("acquire OFF");
+//			return;
+//		}
 		// on demande un reconstruction de l'image
 		buildImage();
 		// on efface l'écran puis on dessine cette image
@@ -250,7 +267,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		g.drawImage(buffer.getImage(), 0, 0, null);
 		buffer.hasBeenDrawn();
 		// g.drawString("qefzer", 10, 10);
-		renderingClamp.release();
+		//renderingClamp.release();
 	}
 
 	public void buildImage() {
@@ -261,6 +278,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		sizeLarge = (int) (father.getSizeAdapteur().getSizeLargeFont() * 4 * buffer.getScallImg());
 		sizeQuadLarge = 4 * sizeLarge;
 		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * 3 / 2 * buffer.getScallImg());
+		sizeLine = (int) (father.getSizeAdapteur().getSizeLine() * buffer.getScallImg() * 2.5F);
+		if (sizeLine < 1)
+			sizeLine = 1;
 
 		/***************************************************************************************************************
 		 * On regarde si la taille de l'image a changer (via un zoom par exemple) et on reconstruit l'image.
@@ -453,9 +473,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			i = j;
 		i = (int) (i * 1.3F);
 		g.setColor(father.getSkin().getColorLetter());
-		g.fillOval(xRec - i - father.getSizeAdapteur().getSizeLine(),
-				yRec - i - father.getSizeAdapteur().getSizeLine(), i * 2 + 2 * father.getSizeAdapteur().getSizeLine(),
-				i * 2 + 2 * father.getSizeAdapteur().getSizeLine());
+		g.fillOval(xRec - i - sizeLine, yRec - i - sizeLine, i * 2 + 2 * sizeLine, i * 2 + 2 * sizeLine);
 		g.setColor(colorActu);
 		g.fillOval(xRec - i, yRec - i, i * 2, i * 2);
 		g.setColor(father.getSkin().getColorLetter());
@@ -555,10 +573,30 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		else
 			xEnder = nextX;
 		if (xRec * 4 / 5 <= buffer.getHeigthViewPort()) {
+			// TODO dessin de rectangle avec grandes bordures
+			//ligne de 1
+			// g.setColor(father.getSkin().getColorSubAreaInside());
+			// g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			// g.setColor(father.getSkin().getColorLetter());
+			// g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			
+			//ligne de sizeLine avec 2 fillRect
+//			g.setColor(father.getSkin().getColorLetter());
+//			g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+//			g.setColor(father.getSkin().getColorSubAreaInside());
+//			g.fillRect(xRec + sizeLine, yRec + sizeLine, xEnder - xRec - sizeLine * 2, ys[4] + sizeDemiLine - yRec
+//					- sizeLine * 2);
+//			g.setColor(father.getSkin().getColorLetter());
+			
+			//Ligne de sizeLine avec 1 fill et dessin des lignes.
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			g.fillRect(xRec + sizeLine, yRec + sizeLine, xEnder - xRec - sizeLine * 2, ys[4] + sizeDemiLine - yRec
+					- sizeLine * 2);
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			for(i = 0;i<sizeLine;i++){
+				g.drawLine(xRec+i, yRec , xRec+i, ys[4]);
+				g.drawLine(xEnder-i, yRec , xEnder-i, ys[4]);
+			}
 			for (i = 0; i < 5; i++)
 				if (words[i] != null)
 					g.drawString(words[i], xs[i], ys[i]);
@@ -595,10 +633,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
 					ovalToDrawDelayed.height);
 			ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + father.getSizeAdapteur().getSizeLine(),
-					ovalToDrawDelayed.y + father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.width - 2
-							* father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.height - 2
-							* father.getSizeAdapteur().getSizeLine());
+			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + father.getSizeAdapteur().getSizeLine(),
+			// ovalToDrawDelayed.y + father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.width - 2
+			// * father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.height - 2
+			// * father.getSizeAdapteur().getSizeLine());
+			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + sizeLine, ovalToDrawDelayed.y + sizeLine,
+					ovalToDrawDelayed.width - 2 * sizeLine, ovalToDrawDelayed.height - 2 * sizeLine);
+			// System.out.println(buffer.getScallImg()*5);
 		}
 		ovalToDrawDelayed.g = g;
 		ovalToDrawDelayed.x = x;
@@ -794,26 +835,31 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			this.buffer.setBackground(father.getSkin().getColorInside());
 
-			
-			if(me.getQuality().getValue()>=IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
-				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-				if(me.getQuality().getValue()>=IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue()) {
+			if (me.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
+				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+						RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+				if (me.getQuality().getValue() >= IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue()) {
 					this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-					if(me.getQuality().getValue()>=IHMGraphicQuality.HIGHER_QUALITY.getValue()) {
+					if (me.getQuality().getValue() >= IHMGraphicQuality.HIGHER_QUALITY.getValue()) {
 						this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-						this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-						this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+						this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+								RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+						this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+								RenderingHints.VALUE_FRACTIONALMETRICS_ON);
 						this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 					}
 				}
-			}else{
+			} else {
 				/** Désactivation de l'anti-aliasing */
 				this.buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+				this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+						RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 				/** Demande de rendu rapide */
 				this.buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-				this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-				this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+				this.buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+						RenderingHints.VALUE_COLOR_RENDER_SPEED);
+				this.buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+						RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 				this.buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
 			}
 			// this.buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -869,7 +915,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		}
 
 		public void fillRect(int x, int y, int width, int height) {
-			buffer.drawRect(x, y, width, height);
+			buffer.fillRect(x, y, width, height);
 		}
 
 		public int getX() {

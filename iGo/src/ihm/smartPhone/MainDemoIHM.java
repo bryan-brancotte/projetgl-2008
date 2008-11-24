@@ -44,6 +44,12 @@ public class MainDemoIHM {
 				
 			}
 
+			@Override
+			public boolean askForATravel() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
 		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
 		}, iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
 		ihm.start(true,8);

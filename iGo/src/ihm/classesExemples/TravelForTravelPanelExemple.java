@@ -177,6 +177,492 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 				return 11;
 			}
 		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
 	}
 
 	@Override
