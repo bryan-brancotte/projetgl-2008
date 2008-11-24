@@ -33,10 +33,15 @@ public interface Master {
 	 */
 	public String config(String key);
 
-		
-		/**
-		 */
-		public abstract void update(Observable o, Object arg);
-		
+	/**
+	 */
+	public abstract void update(Observable o, Object arg);
 
+	/**
+	 * Demande au master de lui fournir un trajet respectant les contraintes passés en paramtères.
+	 * 
+	 * @return true si la demande a bien été enregistrer
+	 */
+	//TODO modéliser les contraintes
+	public boolean askForATravel();
 }

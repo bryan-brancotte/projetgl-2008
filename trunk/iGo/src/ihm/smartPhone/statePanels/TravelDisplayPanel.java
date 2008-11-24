@@ -212,7 +212,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected MouseMotionListener[] mml;
 		protected Image imageButtonOk = null;
 		// TODO utilisation de swing en 1.4???
-		// protected JTextPane textMessageArea;/*
+		//protected TextArea textMessageArea;/*
 		protected JTextArea textMessageArea;
 		protected JScrollPane scrollPane;
 
@@ -257,7 +257,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 				me.removeMouseMotionListener(m);
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
-			// TODO Changing area : scrollPane,textMessageArea
 			scrollPane.setVisible(true);
 			// textMessageArea.setColumns(10);//
 			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
@@ -327,7 +326,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 			g.fillRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
 			g.setColor(father.getSkin().getColorLetter());
 			g.drawRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
-			// TODO changing area : scrollPane,textMessageArea
 			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 7 / 20, getWidth() * 14 / 16 - 20,
 					getHeight() * 7 / 20);
 			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
@@ -339,7 +337,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 			g.setFont(father.getSizeAdapteur().getLargeFont());
 			g.drawString(title, getWidth() / 2 - getWidthString(title, g) / 2, (int) (getHeight() * 5.5 / 20
 					+ getHeigthString(title, g)/2));
-			// TODO changing area : scrollPane,textMessageArea
 			scrollPane.repaint();
 		}
 

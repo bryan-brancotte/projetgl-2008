@@ -1,5 +1,6 @@
 package ihm.smartPhone;
 
+import graphNetwork.PathInGraphReader;
 import iGoMaster.IHM;
 import iGoMaster.Master;
 import ihm.classesExemples.TravelForTravelPanelExemple;
@@ -509,7 +510,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.add(travelArrayPanel);
 			travelArrayPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
 			travelArrayPanel.giveControle();
-			travelArrayPanel.displayPopUpMessage("Info","En cours de création, merci.", null);
+			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
@@ -525,15 +526,22 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.add(travelArrayPanel);
 			travelArrayPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			travelArrayPanel.giveControle();
-			travelArrayPanel.displayPopUpMessage("Info","En cours de création, merci.", null);
+			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			centerPanel.validate();
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * effectue un libération des ressources : on casse les lien entre les objets afin de permetre au GC de les effacer
+	 * si besoin est.
+	 * 
+	 * @param dueToAnError
+	 *            true si c'est suite à un erreur de mémoire. dans ce cas on réduit la qualité général de l'application
+	 *            a fin d'éviter que cela ce reproduise.
+	 */
 	protected void cleanPanelsStates(boolean dueToAnError) {
-		// TODO trouver un façon d'invoquer le GC, enfin pas forcé ca marche quand même.
 		if (dueToAnError)
 			ImageLoader.setFastLoadingOfImages(false);
 		splashScreenPanel = null;
@@ -570,5 +578,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	/**
 	 */
 	public void notifyObservers() {
+	}
+
+	@Override
+	public boolean returnPathAsked(PathInGraphReader path, String message) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

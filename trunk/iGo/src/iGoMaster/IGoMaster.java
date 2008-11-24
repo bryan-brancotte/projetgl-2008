@@ -265,4 +265,10 @@ public class IGoMaster implements Master, Observer {
 		return null;
 	}
 
+	@Override
+	public boolean askForATravel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
