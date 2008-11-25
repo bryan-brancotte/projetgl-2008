@@ -61,7 +61,7 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 
 			@Override
 			public String getNameRoute() {
-				return "8";
+				return "FT8";
 			}
 
 			@Override

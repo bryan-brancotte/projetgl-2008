@@ -3,12 +3,37 @@ package ihm.smartPhone.tools;
 import java.awt.Color;
 
 public enum iGoSmartPhoneSkin {
-	WHITE_WITH_LINE(new Color(115, 115, 115), new Color(141, 141, 141), new Color(251, 251, 251), true), BLUE_WITH_LINE(
-			new Color(22, 78, 147), new Color(141, 141, 141), new Color(4, 4, 4), true), BLUE_WITHOUT_LINE(new Color(
-			22, 78, 147), null, new Color(4, 4, 4), false), WHITE_WITHOUT_LINE(new Color(115, 115, 115), null,
-			new Color(251, 251, 251), false), BLACK_WITH_LINE(new Color(115, 115, 115), new Color(141, 141, 141),
-			new Color(4, 4, 4), true), BLACK_WITHOUT_LINE(new Color(115, 115, 115), null, new Color(4, 4, 4), false);
+	/**
+	 * 
+	 */
+	WHITE_WITH_LINE(new Color(115, 115, 115), new Color(141, 141, 141), new Color(251, 251, 251), true),
+	/**
+	 * thème bleu et noir avec ligne séparatrice
+	 */
+	BLUE_WITH_LINE(new Color(22, 78, 147), new Color(141, 141, 141), new Color(251, 251, 251), true),
+	/**
+	 * thème bleu et noir sans ligne séparatrice
+	 */
+	BLUE_WITHOUT_LINE(new Color(22, 78, 147), null, new Color(4, 4, 4), false),
+	/**
+	 * 
+	 */
+	PURPLE_LIGHT_WITH_LINE(new Color(144, 30, 196), new Color(141, 141, 141), new Color(248, 235, 255), true),
+	/**
+	 * 
+	 */
+	WHITE_WITHOUT_LINE(new Color(115, 115, 115), null, new Color(251, 251, 251), false),
+	/**
+	 * 
+	 */
+	BLACK_WITH_LINE(new Color(115, 115, 115), new Color(141, 141, 141), new Color(4, 4, 4), true),
+	/**
+	 * 
+	 */
+	BLACK_WITHOUT_LINE(new Color(115, 115, 115), null, new Color(4, 4, 4), false);
 
+	protected int id;
+	protected static int cpt = 0;
 	protected Color colorOutside;
 	protected Color colorLine;
 	protected Color colorInside;
@@ -41,6 +66,7 @@ public enum iGoSmartPhoneSkin {
 	}
 
 	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, boolean displayLine) {
+		id = iGoSmartPhoneSkin.cpt++;
 		this.colorOutside = colorOutside;
 		this.colorLine = colorLine;
 		this.colorInside = colorInside;
@@ -59,7 +85,6 @@ public enum iGoSmartPhoneSkin {
 	 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
 	 */
 	public boolean equals(iGoSmartPhoneSkin ev) {
-		return (this.getColorOutside() == ev.getColorOutside()) && (this.getColorLine() == ev.getColorLine())
-				&& (this.getColorInside() == ev.getColorInside()) && (this.isDisplayLine() == ev.isDisplayLine());
+		return this.id == ev.id;
 	}
 }

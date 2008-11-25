@@ -44,7 +44,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * La dernière ordonnée du pointeur
 	 */
 	protected int yLastPointeur;
-
 	/**
 	 * La plus petite des quatre valeurs étalons du réseau : elle définit la largueur de certains traits.
 	 */
@@ -65,8 +64,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	/**
 	 * Sémaphore du rendu, permet de ne pas lancer plusieur repaint en paralèlle
 	 */
-	//protected Semaphore renderingClamp = new Semaphore(1);
-
+	// protected Semaphore renderingClamp = new Semaphore(1);
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
@@ -172,12 +170,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				// int tmp;
 				int keyCode = e.getKeyCode();
 				if (e.getKeyChar() == '+') {
-					keyCode = KeyEvent.VK_PLUS;
+					keyCode = KeyEvent.VK_ADD;
 				} else if (e.getKeyChar() == '-') {
 					keyCode = KeyEvent.VK_MINUS;
 				}
 				switch (keyCode) {
-				case KeyEvent.VK_PLUS:
+				case KeyEvent.VK_ADD:
 					buffer.increasScallImg(1.05F);
 					break;
 				case KeyEvent.VK_MINUS:
@@ -254,11 +252,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// un optimisation
 		// if (!buffer.isNeededRepaint())
 		// return;
-		//TODO redering mutex retiré
-//		if (!renderingClamp.tryAcquire()) {
-//			System.out.println("acquire OFF");
-//			return;
-//		}
+		// TODO redering mutex retiré
+		// if (!renderingClamp.tryAcquire()) {
+		// System.out.println("acquire OFF");
+		// return;
+		// }
 		// on demande un reconstruction de l'image
 		buildImage();
 		// on efface l'écran puis on dessine cette image
@@ -267,7 +265,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		g.drawImage(buffer.getImage(), 0, 0, null);
 		buffer.hasBeenDrawn();
 		// g.drawString("qefzer", 10, 10);
-		//renderingClamp.release();
+		// renderingClamp.release();
 	}
 
 	public void buildImage() {
@@ -321,8 +319,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
 		buffer.setColor(father.getSkin().getColorInside());
 		buffer.clearRect(0, 0, getWidth(), getHeight());
-		if (heightImageDrawn * 4 / 5 >= -buffer.getHeigthViewPort()) {
-			drawDelayedOval(buffer, center.x - sizeLarge / 2 - 2, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
+		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
+			drawDelayedOval(buffer, center.x - sizeLarge / 2 - 1, center.y - sizeLarge / 2, sizeLarge, sizeLarge);
 		}
 		// in parcout les étapes du trajet
 		while (iterTravel.hasNext()) {
@@ -342,9 +340,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			}
 			center.setLocation(polygon.xpoints[idToKeep + 1] / 2 + polygon.xpoints[idToKeep] / 2,
 					polygon.ypoints[idToKeep + 1] / 2 + polygon.ypoints[idToKeep] / 2);
-			polygon.xpoints[idToKeep] = center.x;
+			polygon.xpoints[idToKeep] = center.x + 1;
 			polygon.ypoints[idToKeep] = center.y;
-			polygon.xpoints[idToKeep + 1] = center.x;
+			polygon.xpoints[idToKeep + 1] = center.x + 1;
 			polygon.ypoints[idToKeep + 1] = center.y;
 			hypo = sizeQuadLarge * sizeQuadLarge;
 			hypo += length * length;
@@ -401,20 +399,25 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			}
 			// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
 			// groupemement assez séparé.
-			if ((heightImageDrawn * 4 / 5 > buffer.getHeigthViewPort())) {
+			// if ((heightImageDrawn * 4 / 5 > buffer.getHeigthViewPort())) {
+			if (polygon.ypoints[0] > buffer.getHeigthViewPort() + sizeLarge
+					&& polygon.ypoints[2] > buffer.getHeigthViewPort() + sizeLarge) {
 				// au dela de la zone
+				int i = 1;
 				while (iterTravel.hasNext()) {
-					iterTravel.next();
+					iterTravel.next();i++;
 				}
+				System.out.println("Avoided : "+ i);
 				// buffer.setColor(iterColor.next());
-			} else if (heightImageDrawn * 4 / 5 < -buffer.getHeigthViewPort()) {
-				// avant la zone
+				// TODO a améliorer
+			} else if (polygon.ypoints[0] < -sizeLarge && polygon.ypoints[2] < -sizeLarge) {
 				buffer.setColor(iterColor.next());
 			} else {
 				// la zone
 				// System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
 				buffer.setColor(iterColor.next());
+				// TODO garder le contour des lignes?
 				buffer.drawPolygon(polygon);
 				buffer.setColor(lightColor);
 				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) / 2,
@@ -468,7 +471,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		ys[0] = yRec + j;
 		xs[1] = xRec + i + sizeDemiLine * 2;
 		ys[1] = ys[0];
-		// g.drawRect(xs[0], ys[0]-2*j, 2*i, 2*j);
+		g.setColor(Color.red);
+		g.drawLine(xs[0], ys[0], 2 * xRec - xs[0], 2 * yRec - ys[0]);
+		g.drawRect(xs[0], ys[0] - 2 * j, 2 * i, 2 * j);
 		if (i < j)
 			i = j;
 		i = (int) (i * 1.3F);
@@ -574,29 +579,34 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			xEnder = nextX;
 		if (xRec * 4 / 5 <= buffer.getHeigthViewPort()) {
 			// TODO dessin de rectangle avec grandes bordures
-			//ligne de 1
+			// ligne de 1
 			// g.setColor(father.getSkin().getColorSubAreaInside());
 			// g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
 			// g.setColor(father.getSkin().getColorLetter());
 			// g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
-			
-			//ligne de sizeLine avec 2 fillRect
-//			g.setColor(father.getSkin().getColorLetter());
-//			g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
-//			g.setColor(father.getSkin().getColorSubAreaInside());
-//			g.fillRect(xRec + sizeLine, yRec + sizeLine, xEnder - xRec - sizeLine * 2, ys[4] + sizeDemiLine - yRec
-//					- sizeLine * 2);
-//			g.setColor(father.getSkin().getColorLetter());
-			
-			//Ligne de sizeLine avec 1 fill et dessin des lignes.
+
+			// ligne de sizeLine avec 2 fillRect
+			// g.setColor(father.getSkin().getColorLetter());
+			// g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
+			// g.setColor(father.getSkin().getColorSubAreaInside());
+			// g.fillRect(xRec + sizeLine, yRec + sizeLine, xEnder - xRec - sizeLine * 2, ys[4] + sizeDemiLine - yRec
+			// - sizeLine * 2);
+			// g.setColor(father.getSkin().getColorLetter());
+
+			// Ligne de sizeLine avec 1 fill et dessin des lignes.
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			g.fillRect(xRec + sizeLine, yRec + sizeLine, xEnder - xRec - sizeLine * 2, ys[4] + sizeDemiLine - yRec
-					- sizeLine * 2);
+			g.fillRect(xRec + sizeLine, yRec + sizeLine, xEnder - xRec - sizeLine, ys[4] + sizeDemiLine - yRec
+					- sizeLine);
 			g.setColor(father.getSkin().getColorLetter());
-			for(i = 0;i<sizeLine;i++){
-				g.drawLine(xRec+i, yRec , xRec+i, ys[4]);
-				g.drawLine(xEnder-i, yRec , xEnder-i, ys[4]);
+			for (i = 0; i < sizeLine; i++) {
+				g.drawLine(xRec + i, yRec, xRec + i, ys[4] + sizeDemiLine);
+				g.drawLine(xEnder - i, yRec, xEnder - i, ys[4] + sizeDemiLine);
+				g.drawLine(xRec, yRec + i, xEnder, yRec + i);
+				g.drawLine(xRec, ys[4] - i + sizeDemiLine, xEnder, ys[4] - i + sizeDemiLine);
 			}
+			// g.setColor(Color.red);
+			// g.drawLine(xRec + sizeLine * 2, yRec + sizeLine * 2, xEnder - sizeLine * 2, ys[4] + sizeDemiLine -
+			// sizeLine * 2);
 			for (i = 0; i < 5; i++)
 				if (words[i] != null)
 					g.drawString(words[i], xs[i], ys[i]);
