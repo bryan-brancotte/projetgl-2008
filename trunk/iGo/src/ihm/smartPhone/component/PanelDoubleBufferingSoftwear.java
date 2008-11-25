@@ -58,7 +58,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 */
 	protected int getHeigthString(String s, Graphics g, Font f) {
 	    //return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
-		return f.getSize();/**/
+		return (int)(f.getSize()*0.85);/**/
 	}
 
 	/**
