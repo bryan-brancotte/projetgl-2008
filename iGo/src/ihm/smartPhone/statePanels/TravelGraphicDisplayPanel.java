@@ -60,11 +60,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la grande largueur.
 	 */
 	protected int sizeLarge;
-
-	/**
-	 * Sémaphore du rendu, permet de ne pas lancer plusieur repaint en paralèlle
-	 */
-	// protected Semaphore renderingClamp = new Semaphore(1);
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
@@ -241,11 +236,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// un optimisation
 		// if (!buffer.isNeededRepaint())
 		// return;
-		// TODO redering mutex retiré
-		// if (!renderingClamp.tryAcquire()) {
-		// System.out.println("acquire OFF");
-		// return;
-		// }
 		// on demande un reconstruction de l'image
 		buildImage();
 		// on efface l'écran puis on dessine cette image
@@ -254,7 +244,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		g.drawImage(buffer.getImage(), 0, 0, null);
 		buffer.hasBeenDrawn();
 		// g.drawString("qefzer", 10, 10);
-		// renderingClamp.release();
 	}
 
 	public void buildImage() {
