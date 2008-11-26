@@ -216,21 +216,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	protected void addColorAndItsLighted(Color org) {
 		int r = org.getRed(), g = org.getGreen(), b = org.getBlue();
-		r *= 1.2;
-		if (r > 255)
-			r = 255;
-		if (r < 25)
-			r = 25;
-		g *= 1.2;
-		if (g > 255)
-			g = 255;
-		if (g < 25)
-			g = 25;
-		b *= 1.2;
-		if (b > 255)
-			b = 255;
-		if (b < 25)
-			b = 25;
+		// on augmente les composantes de 1.2, et les bornes sur [25,255]
+		r = (r *= 1.2) > 255 ? 255 : r < 25 ? 25 : r;
+		g = (g *= 1.2) > 255 ? 255 : g < 25 ? 25 : g;
+		b = (b *= 1.2) > 255 ? 255 : b < 25 ? 25 : b;
+		System.out.println(r + " " + g + " " + b);
 		colorList.add(new Color(r, g, b));
 		colorList.add(org);
 	}
@@ -274,11 +264,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// sizeQuadLarge = (int) (176 * scallImg);
 		// sizeDemiLine = (int) (12 * scallImg);
 		sizeLarge = (int) (father.getSizeAdapteur().getSizeLargeFont() * 4 * buffer.getScallImg());
-		sizeQuadLarge = 4 * sizeLarge;
+		sizeQuadLarge = sizeLarge << 2;
+		//sizeQuadLarge = sizeLarge *4;
 		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * 3 / 2 * buffer.getScallImg());
 		sizeLine = (int) (father.getSizeAdapteur().getSizeLine() * buffer.getScallImg() * 2.5F);
-		if (sizeLine < 1)
-			sizeLine = 1;
+		sizeLine = sizeLine < 1 ? 1 : sizeLine;
+		// if (sizeLine < 1)
+		// sizeLine = 1;
 
 		/***************************************************************************************************************
 		 * On regarde si la taille de l'image a changer (via un zoom par exemple) et on reconstruit l'image.
@@ -403,13 +395,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			if (polygon.ypoints[0] > buffer.getHeigthViewPort() + sizeLarge
 					&& polygon.ypoints[2] > buffer.getHeigthViewPort() + sizeLarge) {
 				// au dela de la zone
-				int i = 1;
 				while (iterTravel.hasNext()) {
-					iterTravel.next();i++;
+					iterTravel.next();
 				}
-				System.out.println("Avoided : "+ i);
-				// buffer.setColor(iterColor.next());
-				// TODO a améliorer
 			} else if (polygon.ypoints[0] < -sizeLarge && polygon.ypoints[2] < -sizeLarge) {
 				buffer.setColor(iterColor.next());
 			} else {
@@ -472,8 +460,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		xs[1] = xRec + i + sizeDemiLine * 2;
 		ys[1] = ys[0];
 		g.setColor(Color.red);
-		g.drawLine(xs[0], ys[0], 2 * xRec - xs[0], 2 * yRec - ys[0]);
-		g.drawRect(xs[0], ys[0] - 2 * j, 2 * i, 2 * j);
+		// g.drawLine(xs[0], ys[0], 2 * xRec - xs[0], 2 * yRec - ys[0]);
+		g.drawLine(xs[0], ys[0], xRec << 1 - xs[0], yRec << 1 - ys[0]);
+		// g.drawRect(xs[0], ys[0] - 2 * j, 2 * i, 2 * j);
+		g.drawRect(xs[0], ys[0] - j << 1, i << 1, j << 1);
 		if (i < j)
 			i = j;
 		i = (int) (i * 1.3F);
@@ -578,14 +568,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		else
 			xEnder = nextX;
 		if (xRec * 4 / 5 <= buffer.getHeigthViewPort()) {
-			// TODO dessin de rectangle avec grandes bordures
-			// ligne de 1
+			// dessin de rectangle avec grandes bordures
+			// ligne de 1 pxl
 			// g.setColor(father.getSkin().getColorSubAreaInside());
 			// g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
 			// g.setColor(father.getSkin().getColorLetter());
 			// g.drawRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
 
-			// ligne de sizeLine avec 2 fillRect
+			// ligne de sizeLine avec 2 fillRect (tto much time)
 			// g.setColor(father.getSkin().getColorLetter());
 			// g.fillRect(xRec, yRec, xEnder - xRec, ys[4] + sizeDemiLine - yRec);
 			// g.setColor(father.getSkin().getColorSubAreaInside());
