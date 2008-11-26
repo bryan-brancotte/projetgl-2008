@@ -108,7 +108,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	}
 
 	protected String decomposeMinutesIntoHourMinutes(int minutes, String sHour, String sMinutes) {
-		int i = minutes / 60;
+		int i = (int) (minutes * 0.01667);
 		if (i > 0)
 			return i + " " + sHour + (minutes - i * 60) + " " + sMinutes;
 		return minutes + " " + sMinutes;

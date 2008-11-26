@@ -79,8 +79,8 @@ public class MainPanel extends PanelState {
 	 * Surdéfinition de la fonction de redessinement de l'objet.
 	 */
 	public void paint(Graphics g) {
-		int miniWidth = this.getWidth() / 4;
-		int miniHeight = this.getHeight() / 4;
+		int miniWidth = this.getWidth() >> 2;
+		int miniHeight = this.getHeight() >> 2;
 		int halfImagesWidth;
 		int twoThirdImagesHeight;
 		String msg;
@@ -96,8 +96,8 @@ public class MainPanel extends PanelState {
 			if ((imageNew == null) || (miniWidth == imageNewArea.getWidth())
 					|| (miniHeight == imageNewArea.getHeight()))
 				imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniWidth, miniHeight).getImage();
-			halfImagesWidth = imageNew.getWidth(null) / 2;
-			twoThirdImagesHeight = imageNew.getHeight(null) * 2 / 3;
+			halfImagesWidth = imageNew.getWidth(null) >> 1;
+			twoThirdImagesHeight = (int) (imageNew.getHeight(null) * 0.667);
 			imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, imageNew
 					.getWidth(null), imageNew.getHeight(null));
 
@@ -118,31 +118,31 @@ public class MainPanel extends PanelState {
 				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniWidth, miniHeight).getImage();
 			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 		} else {
-			halfImagesWidth = imageNew.getWidth(null) / 2;
-			twoThirdImagesHeight = imageNew.getHeight(null) * 2 / 3;
+			halfImagesWidth = imageNew.getWidth(null) >> 1;
+			twoThirdImagesHeight = (int) (imageNew.getHeight(null) * 0.667);
 		}
 		/***************************************************************************************************************
 		 * Menu "New"
 		 */
 		buffer.drawImage(imageNew, imageNewArea.x, imageNewArea.y, null);
 		msg = father.lg("New");
-		buffer.drawString(msg, miniWidth - getWidthString(msg, buffer, font) / 2, miniHeight + twoThirdImagesHeight / 2
-				+ getHeigthString(msg, buffer, font));
+		buffer.drawString(msg, miniWidth - (getWidthString(msg, buffer, font) >> 1), miniHeight + twoThirdImagesHeight
+				/ 2 + getHeigthString(msg, buffer, font));
 
 		/***************************************************************************************************************
 		 * Menu "Load"
 		 */
 		buffer.drawImage(imageLoad, imageLoadArea.x, imageLoadArea.y, null);
 		msg = father.lg("MainLoad");
-		buffer.drawString(msg, miniWidth * 3 - getWidthString(msg, buffer, font) / 2, miniHeight + twoThirdImagesHeight
-				/ 2 + getHeigthString(msg, buffer, font));
+		buffer.drawString(msg, miniWidth * 3 - (getWidthString(msg, buffer, font) >> 1), miniHeight
+				+ (twoThirdImagesHeight >> 1) + getHeigthString(msg, buffer, font));
 
 		/***************************************************************************************************************
 		 * Menu "Settings"
 		 */
 		buffer.drawImage(imageSettings, imageSettingsArea.x, imageSettingsArea.y, null);
 		msg = father.lg("Settings");
-		buffer.drawString(msg, miniWidth - getWidthString(msg, buffer, font) / 2, miniHeight * 3
+		buffer.drawString(msg, miniWidth - (getWidthString(msg, buffer, font) >> 1), miniHeight * 3
 				+ getHeigthString(msg, buffer, font));
 
 		/***************************************************************************************************************
@@ -150,7 +150,7 @@ public class MainPanel extends PanelState {
 		 */
 		buffer.drawImage(imageFavorites, imageFavoritesArea.x, imageFavoritesArea.y, null);
 		msg = father.lg("Favorites");
-		buffer.drawString(msg, miniWidth * 3 - getWidthString(msg, buffer, font) / 2, miniHeight * 3
+		buffer.drawString(msg, miniWidth * 3 - (getWidthString(msg, buffer, font) >> 1), miniHeight * 3
 				+ getHeigthString(msg, buffer, font));
 
 		/***************************************************************************************************************
@@ -164,7 +164,7 @@ public class MainPanel extends PanelState {
 	public void giveControle() {
 		upperBar.clearMessage();
 		upperBar.setCenterIcone("iGo");
-		upperBar.setRightSubTitle(father.lg("iGoVersion"),FontSizeKind.SMALL);
+		upperBar.setRightSubTitle(father.lg("iGoVersion"), FontSizeKind.SMALL);
 		upperBar.repaint();
 
 		lowerBar.clearMessage();

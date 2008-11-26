@@ -207,7 +207,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		x = father.getSizeAdapteur().getSizeIntermediateFont() + father.getSizeAdapteur().getSizeSmallFont();
 		nextX = 0;
 		buffer.drawString(travel.getName(), x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() >> 1));
 
 		buffer.setFont(fontSmall);
 		buffer.drawString(father.lg("From") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
@@ -216,7 +216,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		if (nextX < i)
 			nextX = i;
 		buffer.drawString(father.lg("To") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7  >>1));
 		i = this.getWidthString(father.lg("To") + " : ", g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
@@ -228,7 +228,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		buffer.drawString(travel.getOrigine(), x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(travel.getDestination(), x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
 
 		/***************************************************************************************************************
 		 * Dessin du coût et du temps
@@ -249,7 +249,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		buffer.drawString(tmp1, x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
 
 		/***************************************************************************************************************
 		 * Dessin du champs coût et temps
@@ -269,7 +269,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		buffer.drawString(tmp1, x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >>1));
 
 		/***************************************************************************************************************
 		 * Dessin des images
@@ -306,8 +306,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 			return;
 		}
 		if ((imageEdit == null) || (imageEdit.getWidth(null) != father.getSizeAdapteur().getSizeIntermediateFont())) {
-			favArea.setBounds(father.getSizeAdapteur().getSizeSmallFont() / 2, father.getSizeAdapteur()
-					.getSizeSmallFont() / 2, father.getSizeAdapteur().getSizeIntermediateFont(), father
+			favArea.setBounds(father.getSizeAdapteur().getSizeSmallFont()  >>1, father.getSizeAdapteur()
+					.getSizeSmallFont()  >>1, father.getSizeAdapteur().getSizeIntermediateFont(), father
 					.getSizeAdapteur().getSizeIntermediateFont());
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", father.getSizeAdapteur().getSizeIntermediateFont(),
 					father.getSizeAdapteur().getSizeIntermediateFont()).getImage();
@@ -324,11 +324,11 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		if (thisDotGetWidth != allArea.width) {
 			editArea.setBounds(thisDotGetWidth - father.getSizeAdapteur().getSizeSmallFont()
 					- father.getSizeAdapteur().getSizeIntermediateFont() * 2, father.getSizeAdapteur()
-					.getSizeSmallFont() / 2, father.getSizeAdapteur().getSizeIntermediateFont(), father
+					.getSizeSmallFont()  >>1, father.getSizeAdapteur().getSizeIntermediateFont(), father
 					.getSizeAdapteur().getSizeIntermediateFont());
-			delArea.setBounds(thisDotGetWidth - father.getSizeAdapteur().getSizeSmallFont() / 2
+			delArea.setBounds(thisDotGetWidth - (father.getSizeAdapteur().getSizeSmallFont()  >>1)
 					- father.getSizeAdapteur().getSizeIntermediateFont(),
-					father.getSizeAdapteur().getSizeSmallFont() / 2,
+					father.getSizeAdapteur().getSizeSmallFont()  >>1,
 					father.getSizeAdapteur().getSizeIntermediateFont(), father.getSizeAdapteur()
 							.getSizeIntermediateFont());
 			allArea.setSize(thisDotGetWidth, thisDotGetHeight);

@@ -101,7 +101,9 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 			allArea = new Rectangle(0, 0, 0, 0);
 		}
 		mutex.release();
-		this.setBackground(father.getSkin().getColorSubAreaInside());
+		this.setBackground(father
+				.getSkin()
+				.getColorSubAreaInside());
 
 		MouseListenerClickAndMoveInArea l = new MouseListenerClickAndMoveInArea(this);
 		l.addInteractiveArea(favArea, new CodeExecutor() {
@@ -185,7 +187,7 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		 */
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
-			buffer =  (Graphics2D)/* */image.getGraphics();
+			buffer = (Graphics2D)image.getGraphics();
 			buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			buffer.setColor(father.getSkin().getColorLetter());
 			fontInter = father.getSizeAdapteur().getIntermediateFont();
@@ -209,7 +211,7 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		x = father.getSizeAdapteur().getSizeIntermediateFont() + father.getSizeAdapteur().getSizeSmallFont();
 		nextX = 0;
 		buffer.drawString(travel.getName(), x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() >> 1));
 
 		buffer.setFont(fontSmall);
 		buffer.drawString(father.lg("From") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
@@ -218,7 +220,7 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		if (nextX < i)
 			nextX = i;
 		buffer.drawString(father.lg("To") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7  >>1));
 		i = this.getWidthString(father.lg("To") + " : ", g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
@@ -230,7 +232,7 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		buffer.drawString(travel.getOrigine(), x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(travel.getDestination(), x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
 
 		/***************************************************************************************************************
 		 * Dessin du coût et du temps
@@ -251,7 +253,7 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		buffer.drawString(tmp1, x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
 
 		/***************************************************************************************************************
 		 * Dessin du champs coût et temps
@@ -268,10 +270,10 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		else
 			x = nextX;
 
-//		buffer.drawString(tmp1, x, father.getSizeAdapteur().getSizeIntermediateFont()
-//				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
-//		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
-//				+ father.getSizeAdapteur().getSizeSmallFont() * 7 / 2);
+		buffer.drawString(tmp1, x, father.getSizeAdapteur().getSizeIntermediateFont()
+				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
+		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >>1));
 
 		/***************************************************************************************************************
 		 * Dessin des images
@@ -308,8 +310,8 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 			return;
 		}
 		if ((imageEdit == null) || (imageEdit.getWidth(null) != father.getSizeAdapteur().getSizeIntermediateFont())) {
-			favArea.setBounds(father.getSizeAdapteur().getSizeSmallFont() / 2, father.getSizeAdapteur()
-					.getSizeSmallFont() / 2, father.getSizeAdapteur().getSizeIntermediateFont(), father
+			favArea.setBounds(father.getSizeAdapteur().getSizeSmallFont()  >>1, father.getSizeAdapteur()
+					.getSizeSmallFont()  >>1, father.getSizeAdapteur().getSizeIntermediateFont(), father
 					.getSizeAdapteur().getSizeIntermediateFont());
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", father.getSizeAdapteur().getSizeIntermediateFont(),
 					father.getSizeAdapteur().getSizeIntermediateFont()).getImage();
@@ -326,11 +328,11 @@ public class TravelPanelG2D extends PanelDoubleBufferingSoftwearG2D {
 		if (thisDotGetWidth != allArea.width) {
 			editArea.setBounds(thisDotGetWidth - father.getSizeAdapteur().getSizeSmallFont()
 					- father.getSizeAdapteur().getSizeIntermediateFont() * 2, father.getSizeAdapteur()
-					.getSizeSmallFont() / 2, father.getSizeAdapteur().getSizeIntermediateFont(), father
+					.getSizeSmallFont()  >>1, father.getSizeAdapteur().getSizeIntermediateFont(), father
 					.getSizeAdapteur().getSizeIntermediateFont());
-			delArea.setBounds(thisDotGetWidth - father.getSizeAdapteur().getSizeSmallFont() / 2
+			delArea.setBounds(thisDotGetWidth - (father.getSizeAdapteur().getSizeSmallFont()  >>1)
 					- father.getSizeAdapteur().getSizeIntermediateFont(),
-					father.getSizeAdapteur().getSizeSmallFont() / 2,
+					father.getSizeAdapteur().getSizeSmallFont()  >>1,
 					father.getSizeAdapteur().getSizeIntermediateFont(), father.getSizeAdapteur()
 							.getSizeIntermediateFont());
 			allArea.setSize(thisDotGetWidth, thisDotGetHeight);
