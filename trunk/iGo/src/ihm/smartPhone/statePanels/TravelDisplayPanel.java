@@ -9,16 +9,19 @@ import ihm.smartPhone.tools.AbsolutLayout;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.Rectangle;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public abstract class TravelDisplayPanel extends PanelState {
@@ -210,16 +213,64 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected Rectangle imageButtonOkArea;
 		protected MouseListener[] ml;
 		protected MouseMotionListener[] mml;
+		protected MouseWheelListener[] mwl;
 		protected Image imageButtonOk = null;
 		// TODO utilisation de swing en 1.4???
-		//protected TextArea textMessageArea;/*
+		// protected TextArea textMessageArea;/*
 		protected JTextArea textMessageArea;
-		protected JScrollPane scrollPane;
+		protected ScrollPane scrollPane;
 
-		/***************************************************************************************************************
-		 * protected JTextArea textMessageArea;/* protected Label textMessageArea;/
-		 **************************************************************************************************************/
-
+		/**
+		 * Constructeur d'un PopUpMessage, on précise le panel qui l'accueil afin de controler les zones clicables dans
+		 * ce panel, mais aussi pour ajouter un composant dans ce panel. Ce panel doit être vide, et le changement du
+		 * layout ne doit pas bous géner. par défaut le message n'est pas dans l'état "à afficher".
+		 * 
+		 * @param panelParent
+		 *            le panel qui accueil le message
+		 */
+		public PopUpMessage(TravelDisplayPanel panelParent) {
+			super();
+			this.l = new MouseListenerClickAndMoveInArea(me);
+			this.imageButtonOkArea = new Rectangle(0, 0, 0, 0);
+			this.l.addInteractiveArea(imageButtonOkArea, new CodeExecutor() {
+				@Override
+				public void execute() {
+					System.out.println("ok of message");
+					me.removeMouseListener(l);
+					me.removeMouseMotionListener(l);
+					for (MouseListener m : ml)
+						me.addMouseListener(m);
+					for (MouseMotionListener m : mml)
+						me.addMouseMotionListener(m);
+					for (MouseWheelListener m : mwl)
+						me.addMouseWheelListener(m);
+					if (actionAfterOkButton != null)
+						actionAfterOkButton.execute();
+					me.requestFocus();
+					activeMessage = false;
+					scrollPane.setVisible(false);
+					me.repaint();
+				}
+			});
+			panelParent.setLayout(new AbsolutLayout());
+			textMessageArea = new JTextArea();
+			textMessageArea.setEditable(false);
+			// textMessageArea.setWrapStyleWord(true);
+			textMessageArea.setLineWrap(true);
+			textMessageArea.setAutoscrolls(false);
+			// textMessageArea.setAutoscrolls(true);
+			// textMessageArea.setEnabled(false);
+			// textMessageArea.setBackground(panelParent.getBackground());
+			// textMessageArea.setVisible(false);
+			// scrollPane.setLayout(new BorderLayout());
+			scrollPane = new ScrollPane();// textMessageArea);
+			Panel inside = new Panel(new BorderLayout(0, 0));
+			inside.add(textMessageArea);
+			scrollPane.add(inside);
+			scrollPane.setVisible(false);
+			panelParent.add(scrollPane);
+		}
+		
 		/**
 		 * Permet de savoir si le message est actif, i.e : s'il doit être affiché.
 		 * 
@@ -251,64 +302,35 @@ public abstract class TravelDisplayPanel extends PanelState {
 					.getImage();
 			ml = me.getMouseListeners();
 			mml = me.getMouseMotionListeners();
+			mwl = me.getMouseWheelListeners();
 			for (MouseListener m : ml)
 				me.removeMouseListener(m);
 			for (MouseMotionListener m : mml)
 				me.removeMouseMotionListener(m);
+			for (MouseWheelListener m : mwl)
+				me.removeMouseWheelListener(m);
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
 			scrollPane.setVisible(true);
+			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 7 / 20, getWidth() * 14 / 16 - 20,
+					getHeight() * 7 / 20);
+			
 			// textMessageArea.setColumns(10);//
 			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
 			// textMessageArea.setRows(20);
 			textMessageArea.setText(message);
-			textMessageArea.validate();
-			scrollPane.validate();
-		}
-
-		/**
-		 * Constructeur d'un PopUpMessage, on précise le panel qui l'accueil afin de controler les zones clicables dans
-		 * ce panel, mais aussi pour ajouter un composant dans ce panel. Ce panel doit être vide, et le changement du
-		 * layout ne doit pas bous géner. par défaut le message n'est pas dans l'état "à afficher".
-		 * 
-		 * @param panelParent
-		 *            le panel qui accueil le message
-		 */
-		public PopUpMessage(TravelDisplayPanel panelParent) {
-			super();
-			this.l = new MouseListenerClickAndMoveInArea(me);
-			this.imageButtonOkArea = new Rectangle(0, 0, 0, 0);
-			this.l.addInteractiveArea(imageButtonOkArea, new CodeExecutor() {
-				@Override
-				public void execute() {
-					System.out.println("ok of message");
-					me.removeMouseListener(l);
-					me.removeMouseMotionListener(l);
-					for (MouseListener m : ml)
-						me.addMouseListener(m);
-					for (MouseMotionListener m : mml)
-						me.addMouseMotionListener(m);
-					if (actionAfterOkButton != null)
-						actionAfterOkButton.execute();
-					activeMessage = false;
-					scrollPane.setVisible(false);
-					me.repaint();
-				}
-			});
-			panelParent.setLayout(new AbsolutLayout());
-			textMessageArea = new JTextArea();
-			textMessageArea.setEditable(false);
-			// textMessageArea.setWrapStyleWord(true);
-			textMessageArea.setLineWrap(true);
-			textMessageArea.setAutoscrolls(false);
-			// textMessageArea.setAutoscrolls(true);
-			// textMessageArea.setEnabled(false);
-			// textMessageArea.setBackground(panelParent.getBackground());
-			// textMessageArea.setVisible(false);
-			// scrollPane.setLayout(new BorderLayout());
-			scrollPane = new JScrollPane(textMessageArea);
-			scrollPane.setVisible(false);
-			panelParent.add(scrollPane);
+			// scrollPane.setBounds(0,0,10,10);
+			// scrollPane.repaint();
+//			 textMessageArea.validate();
+//			 textMessageArea.getParent().validate();
+			 scrollPane.validate();
+//			scrollPane.repaint();
+//			textMessageArea.getParent().repaint();
+//			textMessageArea.repaint();
+//			scrollPane.doLayout();
+//			textMessageArea.getParent().doLayout();
+//			scrollPane.setScrollPosition(0,0);
+//			scrollPane.repaint();
 		}
 
 		/**
@@ -335,8 +357,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// imageButtonOkArea.setBounds(getWidth() * 14 / 16, getHeight() * 4 / 5, sizeLargeFont, sizeLargeFont);
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
 			g.setFont(father.getSizeAdapteur().getLargeFont());
-			g.drawString(title, getWidth() / 2 - getWidthString(title, g) / 2, (int) (getHeight() * 5.5 / 20
-					+ getHeigthString(title, g)/2));
+			g.drawString(title, getWidth() / 2 - getWidthString(title, g) / 2,
+					(int) (getHeight() * 5.5 / 20 + getHeigthString(title, g) / 2));
 			scrollPane.repaint();
 		}
 
