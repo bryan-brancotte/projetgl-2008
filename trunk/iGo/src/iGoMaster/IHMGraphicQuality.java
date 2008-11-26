@@ -10,7 +10,6 @@ public enum IHMGraphicQuality {
 	/**
 	 * Qualité base, on dessine ausi vite que l'on peut
 	 */
-	// TODO le signe pour énoncer un byte
 	AS_FAST_AS_WE_CAN(10),
 	/**
 	 * On s'autorise un antialiasing sur les composants qui pourrais en avoir besoin

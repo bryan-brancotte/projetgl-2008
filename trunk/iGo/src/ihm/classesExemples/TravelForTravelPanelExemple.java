@@ -8,7 +8,7 @@ import ihm.smartPhone.interfaces.TravelForTravelPanel;
 
 public class TravelForTravelPanelExemple implements TravelForTravelPanel, TravelForDisplayPanel {
 
-	protected boolean fav = ((this.hashCode() / 2) * 2 == this.hashCode());
+	protected boolean fav = (((this.hashCode() >> 1) << 1) == this.hashCode());
 	protected String name = "Nom (" + this.hashCode() + ")";
 	protected LinkedList<SectionOfTravel> travel;
 
@@ -688,8 +688,8 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	@Override
 	public int getTotalTime() {
 		int ret = 0;
-		for(SectionOfTravel section : travel){
-			ret+= section.getTimeSection()+section.getEnddingChangementTime();
+		for (SectionOfTravel section : travel) {
+			ret += section.getTimeSection() + section.getEnddingChangementTime();
 		}
 		return ret;
 	}

@@ -84,8 +84,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.setBackground(skin.getColorLine());
 		this.master = master;
 		this.setSize(sizeAdapteur.getWidth(), sizeAdapteur.getHeight());
-		this.setLocation((SizeAdapteur.screenWidth - sizeAdapteur.getWidth()) / 3,
-				(SizeAdapteur.screenHeigth - sizeAdapteur.getHeight()) / 3);
+		this.setLocation((int) ((SizeAdapteur.screenWidth - sizeAdapteur.getWidth())*0.333),
+				(int) ((SizeAdapteur.screenHeigth - sizeAdapteur.getHeight())*0.333));
 		if (sizeAdapteur.isFullScreen()) {
 			this.setExtendedState(Frame.MAXIMIZED_BOTH);
 			this.setUndecorated(true);

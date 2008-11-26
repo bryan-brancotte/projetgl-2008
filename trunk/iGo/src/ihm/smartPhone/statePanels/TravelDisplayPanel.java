@@ -120,11 +120,12 @@ public abstract class TravelDisplayPanel extends PanelState {
 		int w = me.getWidthString(getMessageChangeState(), g, g.getFont());
 		int h = me.getHeigthString(getMessageChangeState(), g, g.getFont());
 		g.setColor(father.getSkin().getColorSubAreaInside());
-		changeStateArea.setBounds(getWidth() - w * 5 / 4 - 2, getHeight() - h * 5 / 4 - 2, w * 5 / 4, h * 5 / 4);
+		changeStateArea.setBounds(getWidth() - (int) (w * 1.25) - 2, getHeight() - (int) (h * 1.25) - 2,
+				(int) (w * 1.25), (int) (h * 1.25));
 		g.fillRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height);
 		g.setColor(father.getSkin().getColorLetter());
 		g.drawRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height);
-		g.drawString(getMessageChangeState(), getWidth() - w * 9 / 8, getHeight() - h / 6 - 2);
+		g.drawString(getMessageChangeState(), changeStateArea.x + 2, getHeight() - (int) (h * 0.1667) - 2);
 		// popUpMessage.define("", null);
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);
@@ -270,7 +271,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			scrollPane.setVisible(false);
 			panelParent.add(scrollPane);
 		}
-		
+
 		/**
 		 * Permet de savoir si le message est actif, i.e : s'il doit être affiché.
 		 * 
@@ -312,25 +313,25 @@ public abstract class TravelDisplayPanel extends PanelState {
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
 			scrollPane.setVisible(true);
-			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 7 / 20, getWidth() * 14 / 16 - 20,
-					getHeight() * 7 / 20);
-			
+			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
+					(int) (getHeight() * 0.35));
+
 			// textMessageArea.setColumns(10);//
 			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
 			// textMessageArea.setRows(20);
 			textMessageArea.setText(message);
 			// scrollPane.setBounds(0,0,10,10);
 			// scrollPane.repaint();
-//			 textMessageArea.validate();
-//			 textMessageArea.getParent().validate();
-			 scrollPane.validate();
-//			scrollPane.repaint();
-//			textMessageArea.getParent().repaint();
-//			textMessageArea.repaint();
-//			scrollPane.doLayout();
-//			textMessageArea.getParent().doLayout();
-//			scrollPane.setScrollPosition(0,0);
-//			scrollPane.repaint();
+			// textMessageArea.validate();
+			// textMessageArea.getParent().validate();
+			scrollPane.validate();
+			// scrollPane.repaint();
+			// textMessageArea.getParent().repaint();
+			// textMessageArea.repaint();
+			// scrollPane.doLayout();
+			// textMessageArea.getParent().doLayout();
+			// scrollPane.setScrollPosition(0,0);
+			// scrollPane.repaint();
 		}
 
 		/**
@@ -345,20 +346,20 @@ public abstract class TravelDisplayPanel extends PanelState {
 				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
 						.getImage();
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			g.fillRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
+			g.fillRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875), (int) (getHeight() * 0.6));
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRect(getWidth() / 16, getHeight() / 5, getWidth() * 14 / 16, getHeight() * 3 / 5);
-			scrollPane.setBounds(getWidth() / 16 + 10, getHeight() * 7 / 20, getWidth() * 14 / 16 - 20,
-					getHeight() * 7 / 20);
+			g.drawRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875), (int) (getHeight() * 0.6));
+			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
+					(int) (getHeight() * 0.35));
 			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
 			textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
-			imageButtonOkArea.setBounds(getWidth() * 15 / 16 - sizeLargeFont - 10, getHeight() * 4 / 5 - sizeLargeFont
-					- 10, sizeLargeFont, sizeLargeFont);
-			// imageButtonOkArea.setBounds(getWidth() * 14 / 16, getHeight() * 4 / 5, sizeLargeFont, sizeLargeFont);
+			imageButtonOkArea.setBounds((getWidth() * 15 >> 4) - sizeLargeFont - 10, (int) (getHeight() * 0.8
+					- sizeLargeFont - 10), sizeLargeFont, sizeLargeFont);
+			// imageButtonOkArea.setBounds(getWidth() * 0.875, getHeight() * 0.8, sizeLargeFont, sizeLargeFont);
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
 			g.setFont(father.getSizeAdapteur().getLargeFont());
-			g.drawString(title, getWidth() / 2 - getWidthString(title, g) / 2,
-					(int) (getHeight() * 5.5 / 20 + getHeigthString(title, g) / 2));
+			g.drawString(title, getWidth() - getWidthString(title, g) >> 1,
+					(int) (getHeight() * 0.275 + (getHeigthString(title, g) >> 1)));
 			scrollPane.repaint();
 		}
 

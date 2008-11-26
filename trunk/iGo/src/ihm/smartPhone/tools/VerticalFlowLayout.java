@@ -136,7 +136,7 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 	private void placethem(Container target, int x, int y, int width, int height, int first, int last) {
 		int align = getAlignment();
 		if (align == VerticalFlowLayout.MIDDLE)
-			y += height / 2;
+			y += height >> 1;
 		if (align == VerticalFlowLayout.BOTTOM)
 			y += height;
 
@@ -144,19 +144,19 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 			Component m = target.getComponent(i);
 			Dimension md = m.getSize();
 			if (m.isVisible()) {
-				int px= x + (width - md.width-hgap/**/) / 2;
-				m.setLocation(px*2/**/, y);
+				int px = x + (width - md.width - hgap/**/>> 1);
+				m.setLocation(px * 2/**/, y);
 				y += vgap + md.height;
 			}
 		}
 	}
 
 	public void layoutContainer(Container target) {
-		//Insets insets = target.getInsets();
-		int maxheight = target.getSize().height - (/*insets.top + insets.bottom + */vgap * 2);
-		int maxwidth = target.getSize().width - (/*insets.left + insets.right +*/ hgap * 2);
+		// Insets insets = target.getInsets();
+		int maxheight = target.getSize().height - (/* insets.top + insets.bottom + */vgap * 2);
+		int maxwidth = target.getSize().width - (/* insets.left + insets.right + */hgap * 2);
 		int numcomp = target.getComponentCount();
-		int x = /*insets.left +*/ hgap;
+		int x = /* insets.left + */hgap;
 		int y = 0;
 		int colw = 0, start = 0;
 
@@ -175,7 +175,7 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 				}
 
 				if (y + d.height > maxheight) {
-					placethem(target, x, /*insets.top */+ vgap, colw, maxheight - y, start, i);
+					placethem(target, x, /* insets.top */+vgap, colw, maxheight - y, start, i);
 					y = d.height;
 					x += hgap + colw;
 					colw = d.width;
@@ -188,6 +188,6 @@ public class VerticalFlowLayout extends FlowLayout implements java.io.Serializab
 				}
 			}
 		}
-		placethem(target, x, /*insets.top */+ vgap, colw, maxheight - y, start, numcomp);
-	} 
+		placethem(target, x, /* insets.top */+vgap, colw, maxheight - y, start, numcomp);
+	}
 }

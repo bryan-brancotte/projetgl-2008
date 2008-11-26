@@ -40,11 +40,11 @@ public class SplashScreenPanel extends PanelState {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			// on charge aussi le logo en fonction de la taille du panel.
-			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.256.png"), (int) (this.getWidth() * 0.8),
-					(int) (this.getHeight() * 0.8)).getImage();
+			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.256.png"),
+					(int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.8)).getImage();
 			buffer.setColor(father.getSkin().getColorOutside());
-			buffer.drawImage(logo, this.getWidth() / 2 - logo.getWidth(null) / 2, this.getHeight() / 2
-					- logo.getHeight(null) / 2 - father.getSizeAdapteur().getSizeSmallFont(), null);
+			buffer.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1,
+					(this.getHeight() - logo.getHeight(null)) >> 1 - father.getSizeAdapteur().getSizeSmallFont(), null);
 		}
 		// si le logo n'est pas définit on le charge en mémoire. On n'a besoin de le charger que si la taille
 		// destination à changé.
@@ -56,28 +56,28 @@ public class SplashScreenPanel extends PanelState {
 		// on l'efface
 		buffer.clearRect(0, 0, getWidth(), getHeight());
 
-		buffer.drawImage(logo, this.getWidth() / 2 - logo.getWidth(null) / 2, this.getHeight() / 2
-				- logo.getHeight(null) / 2 - father.getSizeAdapteur().getSizeSmallFont(), null);
+		buffer.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1,
+				(this.getHeight() - logo.getHeight(null) >> 1) - father.getSizeAdapteur().getSizeSmallFont(), null);
 		// On affiche ensuite la barre de progression
 		if (maxStepInSplashScreen >= 0) {
-			buffer.drawRoundRect(this.getWidth() / 2 - 2 - logo.getWidth(null) / 2, this.getHeight() / 2 - 2
-					+ logo.getHeight(null) / 2, 4 + logo.getWidth(null), 4 + father.getSizeAdapteur()
+			buffer.drawRoundRect((this.getWidth()  - logo.getWidth(null) >>1) - 2, (this.getHeight() 
+					+ logo.getHeight(null) >>1) - 2, 4 + logo.getWidth(null), 4 + father.getSizeAdapteur()
 					.getSizeSmallFont(), 6, 6);
 			int progression;
 			if (stepInSplashScreen < maxStepInSplashScreen)
 				progression = (int) (logo.getWidth(null) * ((float) stepInSplashScreen / maxStepInSplashScreen));
 			else
 				progression = logo.getWidth(null);
-			buffer.fillPolygon(new int[] { this.getWidth() / 2 - logo.getWidth(null) / 2,
-					this.getWidth() / 2 + 1 - logo.getWidth(null) / 2 + progression,
-					this.getWidth() / 2 + 1 - logo.getWidth(null) / 2 + progression,
-					this.getWidth() / 2 - logo.getWidth(null) / 2 },
+			buffer.fillPolygon(new int[] { this.getWidth()   - logo.getWidth(null) >>1,
+					(this.getWidth()   - logo.getWidth(null) >>1) + progression+1,
+					(this.getWidth()    - logo.getWidth(null) >>1) + progression+1,
+					this.getWidth()   - logo.getWidth(null) >>1},
 					new int[] {
-							this.getHeight() / 2 + logo.getHeight(null) / 2,
-							this.getHeight() / 2 + logo.getHeight(null) / 2,
-							this.getHeight() / 2 + logo.getHeight(null) / 2
+							this.getHeight()   + logo.getHeight(null) >>1,
+							this.getHeight()   + logo.getHeight(null) >>1,
+							(this.getHeight()   + logo.getHeight(null) >>1)
 									+ father.getSizeAdapteur().getSizeSmallFont() + 1,
-							this.getHeight() / 2 + logo.getHeight(null) / 2
+							(this.getHeight()  + logo.getHeight(null) >>1)
 									+ father.getSizeAdapteur().getSizeSmallFont() + 1 }, 4);
 		}
 		g.drawImage(image, 0, 0, this);
