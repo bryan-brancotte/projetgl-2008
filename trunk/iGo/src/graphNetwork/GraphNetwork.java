@@ -49,7 +49,7 @@ public class GraphNetwork {
 	 * 
 	 * @return une nouvelle instance de PathInGraph
 	 */
-	public PathInGraph getInstancePathInGraph() {
+	public PathInGraph getInstancePathInGraphBuilder() {
 		return new PathInGraph(this);
 	}
 
