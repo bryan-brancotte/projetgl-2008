@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetworkFactory;
+import graphNetwork.GraphNetworkBuilder;
 
 
 import java.util.Observable;
@@ -156,7 +156,7 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property name="graphNetworkBuilder"
 	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkFactory"
 	 */
-	private GraphNetworkFactory graphNetworkFactory;
+	private GraphNetworkBuilder graphNetworkFactory;
 
 	/**
 	 * Getter of the property <tt>graphNetworkBuilder</tt>
@@ -164,7 +164,7 @@ public class IGoMaster implements Master, Observer {
 	 * @return Returns the graphNetworkBuilder.
 	 * @uml.property name="graphNetworkBuilder"
 	 */
-	public GraphNetworkFactory getGraphNetworkFactory() {
+	public GraphNetworkBuilder getGraphNetworkFactory() {
 		return graphNetworkFactory;
 	}
 
@@ -175,7 +175,7 @@ public class IGoMaster implements Master, Observer {
 	 *            The graphNetworkBuilder to set.
 	 * @uml.property name="graphNetworkBuilder"
 	 */
-	public void setGraphNetworkFactory(GraphNetworkFactory graphNetworkBuilder) {
+	public void setGraphNetworkFactory(GraphNetworkBuilder graphNetworkBuilder) {
 		this.graphNetworkFactory = graphNetworkBuilder;
 	}
 
@@ -207,7 +207,7 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
-			GraphNetworkFactory graphNetworkFactory, EventInfoNetworkWatcher eventInfoNetwork,
+			GraphNetworkBuilder graphNetworkFactory, EventInfoNetworkWatcher eventInfoNetwork,
 			GraphNetworkCostReceiver graphNetworkCostReceiver) {
 		super();
 		this.ihm = ihm;

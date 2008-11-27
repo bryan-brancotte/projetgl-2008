@@ -1,6 +1,6 @@
 package streamInFolder.graphReaderFolder;
 
-import graphNetwork.GraphNetworkFactory;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.AvaibleNetwork;
 import iGoMaster.GraphNetworkCostReceiver;
 import iGoMaster.GraphNetworkReceiver;
@@ -29,7 +29,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	}
 
 	@Override
-	public Thread buildNewGraphNetwork(GraphNetworkFactory graph, AvaibleNetwork networkChosen,
+	public Thread buildNewGraphNetwork(GraphNetworkBuilder graph, AvaibleNetwork networkChosen,
 			GraphNetworkCostReceiver costReceiver) throws GraphReceptionException, GraphConstructionException {
 		// TODO Auto-generated method stub
 		return null;

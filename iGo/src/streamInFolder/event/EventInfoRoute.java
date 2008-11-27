@@ -1,6 +1,6 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetworkFactory;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
@@ -25,7 +25,7 @@ public class EventInfoRoute implements EventInfo {
 	private String message = "";
 
 	@Override
-	public void applyInfo(GraphNetworkFactory graph) {
+	public void applyInfo(GraphNetworkBuilder graph) {
 		// TODO Auto-generated method stub
 
 	}
