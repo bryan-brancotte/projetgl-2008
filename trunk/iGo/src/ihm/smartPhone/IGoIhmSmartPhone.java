@@ -1,6 +1,6 @@
 package ihm.smartPhone;
 
-import graphNetwork.PathInGraphReader;
+import graphNetwork.PathInGraph;
 import iGoMaster.IHM;
 import iGoMaster.Master;
 import ihm.classesExemples.TravelForTravelPanelExemple;
@@ -581,7 +581,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean returnPathAsked(PathInGraphReader path, String message) {
+	public boolean returnPathAsked(PathInGraph path, String message) {
 		// TODO Auto-generated method stub
 		return false;
 	}

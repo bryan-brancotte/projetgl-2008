@@ -1,13 +1,13 @@
 package streamInFolder.graphReaderFolder;
 
-import java.util.Collection;
-
-import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.GraphNetworkFactory;
 import iGoMaster.AvaibleNetwork;
 import iGoMaster.GraphNetworkCostReceiver;
 import iGoMaster.GraphNetworkReceiver;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
+
+import java.util.Collection;
 
 public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
@@ -29,7 +29,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	}
 
 	@Override
-	public Thread buildNewGraphNetwork(GraphNetworkBuilder graph, AvaibleNetwork networkChosen,
+	public Thread buildNewGraphNetwork(GraphNetworkFactory graph, AvaibleNetwork networkChosen,
 			GraphNetworkCostReceiver costReceiver) throws GraphReceptionException, GraphConstructionException {
 		// TODO Auto-generated method stub
 		return null;

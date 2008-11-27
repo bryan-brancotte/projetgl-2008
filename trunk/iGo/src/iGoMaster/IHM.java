@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.PathInGraphReader;
+import graphNetwork.PathInGraph;
 
 /**
  * Interface décrivant les fonctionnalités de l'IHM. Tout IHM voulant prétendre à être utiliser par le master doit être
@@ -95,5 +95,5 @@ public interface IHM {
 	 *            une information textuel pour par exemple signaler qu'on n'a pas pu respecter tout les critères
 	 * @return true si l'IHM s'attendait a cette appelle de fonction, false dans le cas contraire.
 	 */
-	public boolean returnPathAsked(PathInGraphReader path, String message);
+	public boolean returnPathAsked(PathInGraph path, String message);
 }

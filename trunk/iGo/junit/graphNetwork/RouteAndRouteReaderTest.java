@@ -24,7 +24,7 @@ public class RouteAndRouteReaderTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetwork();
+		graph = new GraphNetworkFactory();
 		graph.addKind("TGV");
 		routeA = new Route("routeA", graph.getKindFromString("TGV"));// , );
 		KindRoute.addKind("Tram");

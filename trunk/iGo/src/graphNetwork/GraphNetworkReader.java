@@ -24,25 +24,25 @@ public interface GraphNetworkReader {
 	public abstract KindRouteReader[] getKinds();
 
 	/**
-	 * Search and return in readOnlyMode the route who have this id.
+	 * Search and return the route who have this id.
 	 * 
 	 * @param id
 	 *            the id of the route to find
 	 * @return the route
 	 */
-	public abstract RouteReader getRouteR(int id);
+	public abstract Route  getRoute(int id);
 
 	/**
-	 * Return the first route in readOnlyMode who have this name.
+	 * Return the first route who have this name.
 	 * 
 	 * @param name
 	 *            the name of the route to find
 	 * @return the route
 	 */
-	public abstract RouteReader getRouteR(String name);
+	public abstract Route getRoute(String name);
 
 	/**
-	 * Getter of routes. Give all the route (line) of the network in readOnlyMode.
+	 * Getter of routes. Give all the route (line) of the network.
 	 * 
 	 * @return Returns the routes.
 	 */

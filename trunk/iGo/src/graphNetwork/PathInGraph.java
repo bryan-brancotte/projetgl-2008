@@ -3,10 +3,10 @@ package graphNetwork;
 import java.util.LinkedList;
 
 /**
- *  
+ * 
  * @author iGo
  */
-public class PathInGraph implements PathInGraphBuilder {
+public class PathInGraph {
 
 	/**
 	 * @uml.property name="inter"
@@ -18,15 +18,13 @@ public class PathInGraph implements PathInGraphBuilder {
 	private PathInGraph() {
 	}
 
-	public PathInGraph(GraphNetworkBuilder graph) {
+	protected PathInGraph(GraphNetworkFactory graph) {
 	}
 
-	@Override
-	public void addFront(InterReader inter) {
+	protected void addFront(Inter inter) {
 	}
 
-	@Override
-	public void addLast(Inter inter) {
+	protected void addLast(Inter inter) {
 		this.inter.addLast(inter);
 	}
 
@@ -34,18 +32,15 @@ public class PathInGraph implements PathInGraphBuilder {
 		return "";
 	}
 
-	@Override
-	public void flush() {
+	protected void flush() {
 	}
 
-	@Override
 	public float getCost() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public GraphNetworkReader getGraphR() {
+	public GraphNetworkFactory getGraph() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,52 +55,30 @@ public class PathInGraph implements PathInGraphBuilder {
 		return inter;
 	}
 
-	@Override
-	public InterReader[] getInterR() {
-		// TODO Auto-generated method stub
-		return inter.toArray(new Inter[0]);
-	}
-
-	@Override
 	public int getTime() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public void importPath(String pathInString) {
+	protected void importPath(String pathInString) {
+		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * Setter of the property <tt>inter</tt>
-	 * 
-	 * @param inter
-	 *            The inter to set.
-	 * @uml.property name="inter"
-	 */
-	public void setInter(LinkedList<Inter> inter) {
-		this.inter = inter;
-	}
-
-	@Override
 	public String toString() {
 		return "";
 	}
 
-	@Override
-	public InterReader getFirstInterInTheLastAvaiblePart() {
+	public Inter getFirstInterInTheLastAvaiblePart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean isStillAvaible() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public boolean isStillAvaible(InterReader inter) {
+	public boolean isStillAvaible(Inter inter) {
 		// TODO Auto-generated method stub
 		return false;
 	}

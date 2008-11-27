@@ -1,10 +1,10 @@
 package graphNetwork;
 
 /**
- *  
+ * 
  * @author iGo
  */
-public class Service implements ServiceReader {
+public class Service {
 
 	/**
 	 * @uml.property name="id"
@@ -16,18 +16,12 @@ public class Service implements ServiceReader {
 	 */
 	private String shortDescription = "";
 
-	public Service(String shortDescription, int id) {
+	protected Service(int id, String shortDescription) {
 		super();
-		this.shortDescription = shortDescription;
 		this.id = id;
+		this.shortDescription = shortDescription;
 	}
 
-	/**
-	 * Getter of the property <tt>id</tt>
-	 * 
-	 * @return Returns the id.
-	 * @uml.property name="id"
-	 */
 	public int getId() {
 		return id;
 	}
@@ -36,25 +30,11 @@ public class Service implements ServiceReader {
 		return shortDescription;
 	}
 
-	/**
-	 * Setter of the property <tt>id</tt>
-	 * 
-	 * @param id
-	 *            The id to set.
-	 * @uml.property name="id"
-	 */
-	public void setId(int id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
-	/**
-	 * Setter of the property <tt>shortDescription</tt>
-	 * 
-	 * @param shortDescription
-	 *            The shortDescription to set.
-	 * @uml.property name="shortDescription"
-	 */
-	public void setShortDescription(String shortDescription) {
+	protected void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
 
