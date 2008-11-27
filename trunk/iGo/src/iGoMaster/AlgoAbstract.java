@@ -1,23 +1,38 @@
 package iGoMaster;
 
 import graphNetwork.CriteriousForTheLowerPath;
-import graphNetwork.GraphNetwork;
-import graphNetwork.PathInGraph;
-import graphNetwork.Station;
+import graphNetwork.GraphNetworkReader;
+import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphReader;
+import graphNetwork.StationReader;
 
+
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Algo extends Observable {
+import algorithm.Node;
 
-	public PathInGraph findPath(Station origine,
-			Station destination, GraphNetwork graph,
-			PathInGraph pathInGraphBuilder,
+
+public abstract class AlgoAbstract extends Observable {
+
+
+	/**
+	 * @uml.property name="iGoMaster"
+	 * @uml.associationEnd inverse="algo1:iGoMaster.IGoMaster"
+	 */
+	private IGoMaster goMaster;
+	
+	/************************************************************************/
+	
+	public PathInGraphReader findPath(StationReader origine,
+			StationReader destination, GraphNetworkReader graph,
+			PathInGraphBuilder pathInGraphBuilder,
 			CriteriousForTheLowerPath criterious) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	/**
 		 */
 	public void setChanged() {
@@ -32,12 +47,6 @@ public abstract class Algo extends Observable {
 				 */
 	public void notifyObserver() {
 	}
-
-	/**
-	 * @uml.property name="iGoMaster"
-	 * @uml.associationEnd inverse="algo1:iGoMaster.IGoMaster"
-	 */
-	private IGoMaster goMaster;
 
 	/**
 	 * Getter of the property <tt>iGoMaster</tt>
