@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * 
  * @author iGo
  */
-public class Route implements RouteReader {
+public class Route {
 
 	/**
 	 * @uml.property name="enable"
@@ -41,7 +41,7 @@ public class Route implements RouteReader {
 	 * @throws NullPointerException
 	 *             une exception est jetté si un des deux paramètre est null
 	 */
-	public Route(String id, KindRoute kindRoute) throws NullPointerException {
+	protected Route(String id, KindRoute kindRoute) throws NullPointerException {
 		super();
 		this.id = id;
 		this.kindRoute = kindRoute;
@@ -64,17 +64,6 @@ public class Route implements RouteReader {
 	}
 
 	/**
-	 * Getter of the property <tt>kindRoute</tt>
-	 * 
-	 * @return Returns the kindRoute.
-	 * @uml.property name="kindRoute"
-	 */
-	@Override
-	public KindRouteReader getKindRouteR() {
-		return kindRoute;
-	}
-
-	/**
 	 * Getter of the property <tt>stations</tt>
 	 * 
 	 * @return Returns the station.
@@ -84,12 +73,6 @@ public class Route implements RouteReader {
 		return stations;
 	}
 
-	@Override
-	public StationReader[] getStationsR() {
-		return this.getStations().toArray(new StationReader[0]);
-	}
-
-	@Override
 	public boolean isEnable() {
 		return enable;
 	}
@@ -101,7 +84,7 @@ public class Route implements RouteReader {
 	 *            The enable to set.
 	 * @uml.property name="enable"
 	 */
-	public void setEnable(boolean enable) {
+	protected void setEnable(boolean enable) {
 		this.enable = enable;
 	}
 
@@ -112,7 +95,7 @@ public class Route implements RouteReader {
 	 *            The id to set.
 	 * @uml.property name="id"
 	 */
-	public void setId(String id) {
+	protected void setId(String id) {
 		this.id = id;
 	}
 
@@ -123,7 +106,7 @@ public class Route implements RouteReader {
 	 *            The kindRoute to set.
 	 * @uml.property name="kindRoute"
 	 */
-	public void setKindRoute(KindRoute kindRoute) {
+	protected void setKindRoute(KindRoute kindRoute) {
 		this.kindRoute = kindRoute;
 	}
 
@@ -133,7 +116,6 @@ public class Route implements RouteReader {
 	 * 
 	 * @param station
 	 */
-	@Deprecated
 	public void addStation(Station station) {
 		this.stations.add(station);
 	}
@@ -146,7 +128,7 @@ public class Route implements RouteReader {
 	 * @param stationEnable
 	 *            enable or disable the station
 	 */
-	public void setStationEnable(int idStation, boolean stationEnable) {
+	protected void setStationEnable(int idStation, boolean stationEnable) {
 	}
 
 	/**
@@ -155,7 +137,6 @@ public class Route implements RouteReader {
 	 */
 	private LinkedList<Station> stationsDisabled;
 
-	@Override
 	public boolean isStationEnable(int idStation) {
 		// TODO Auto-generated method stub
 		if (stationsDisabled == null)

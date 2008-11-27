@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.GraphNetworkFactory;
 
 
 import java.util.Observable;
@@ -154,9 +154,9 @@ public class IGoMaster implements Master, Observer {
 
 	/**
 	 * @uml.property name="graphNetworkBuilder"
-	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
+	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkFactory"
 	 */
-	private GraphNetworkBuilder graphNetworkBuilder;
+	private GraphNetworkFactory graphNetworkFactory;
 
 	/**
 	 * Getter of the property <tt>graphNetworkBuilder</tt>
@@ -164,8 +164,8 @@ public class IGoMaster implements Master, Observer {
 	 * @return Returns the graphNetworkBuilder.
 	 * @uml.property name="graphNetworkBuilder"
 	 */
-	public GraphNetworkBuilder getGraphNetworkBuilder() {
-		return graphNetworkBuilder;
+	public GraphNetworkFactory getGraphNetworkFactory() {
+		return graphNetworkFactory;
 	}
 
 	/**
@@ -175,8 +175,8 @@ public class IGoMaster implements Master, Observer {
 	 *            The graphNetworkBuilder to set.
 	 * @uml.property name="graphNetworkBuilder"
 	 */
-	public void setGraphNetworkBuilder(GraphNetworkBuilder graphNetworkBuilder) {
-		this.graphNetworkBuilder = graphNetworkBuilder;
+	public void setGraphNetworkFactory(GraphNetworkFactory graphNetworkBuilder) {
+		this.graphNetworkFactory = graphNetworkBuilder;
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
-			GraphNetworkBuilder graphNetworkBuilder, EventInfoNetworkWatcher eventInfoNetwork,
+			GraphNetworkFactory graphNetworkFactory, EventInfoNetworkWatcher eventInfoNetwork,
 			GraphNetworkCostReceiver graphNetworkCostReceiver) {
 		super();
 		this.ihm = ihm;
@@ -215,7 +215,7 @@ public class IGoMaster implements Master, Observer {
 		this.config = config;
 		this.lang = lang;
 		this.algo = algo;
-		this.graphNetworkBuilder = graphNetworkBuilder;
+		this.graphNetworkFactory = graphNetworkFactory;
 		this.eventInfoNetwork = eventInfoNetwork;
 		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
 	}

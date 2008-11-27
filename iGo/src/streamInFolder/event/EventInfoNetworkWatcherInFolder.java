@@ -1,6 +1,6 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.GraphNetworkFactory;
 import iGoMaster.EventInfo;
 import iGoMaster.EventInfoNetWorkWatcherStatus;
 import iGoMaster.EventInfoNetworkWatcher;
@@ -19,7 +19,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	
 	/**
 	 * Constructeur d'EventInfoNetworkWatcherInFolder
-	 * @param path Chemin du dossier a� surveiller
+	 * @param path Chemin du dossier a� surveiller
 	 */
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
@@ -55,7 +55,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 * Applique les informations contenues dans un événement
 	 */
 	@Override
-	public void applyInfo(GraphNetworkBuilder graph) {
+	public void applyInfo(GraphNetworkFactory graph) {
 		// TODO Auto-generated method stub
 
 	}

@@ -7,7 +7,7 @@ import graphNetwork.exception.StationNotOnRoadException;
  * 
  * @author iGo
  */
-public class Inter implements InterReader {
+public class Inter {
 
 	/**
 	 * @uml.property name="cost"
@@ -53,14 +53,32 @@ public class Inter implements InterReader {
 	 */
 	private int timeBetweenStations = 0;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see graphNetwork.InterR#getCost()
-	 */
-	@Override
+	protected void setCost(float cost) {
+		this.cost = cost;
+	}
+
+	protected void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	protected void setPedestrian(boolean pedestrian) {
+		this.pedestrian = pedestrian;
+	}
+
 	public float getCost() {
 		return cost;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public boolean isPedestrian() {
+		return pedestrian;
+	}
+
+	public int getTimeBetweenStations() {
+		return timeBetweenStations;
 	}
 
 	/**
@@ -70,24 +88,12 @@ public class Inter implements InterReader {
 	 *            the station you know in the inter
 	 * @return the route of other station, or null of the specified station isn't one of the two station
 	 */
-	public Route getOtherRoute(StationReader me) {
+	public Route getOtherRoute(Station me) {
 		if (me.getId() == this.getStationA().getId())
 			return this.getRouteB();
 		if (me.getId() == this.getStationB().getId())
 			return this.getRouteA();
 		return null;
-	}
-
-	/**
-	 * return the route of the other station of an inter in readOnly mode. You have to give one station to give the
-	 * other
-	 * 
-	 * @param me
-	 *            the station or stationReader you know in the inter
-	 * @return the route of other stationReader, or null of the specified station isn't one of the two station
-	 */
-	public RouteReader getOtherRouteR(StationReader me) {
-		return this.getOtherRoute(me);
 	}
 
 	/**
@@ -97,23 +103,12 @@ public class Inter implements InterReader {
 	 *            the station you know in the inter
 	 * @return the other station, or null of the specified station isn't one of the two station
 	 */
-	public Station getOtherStation(StationReader me) {
+	public Station getOtherStation(Station me) {
 		if (me.getId() == this.getStationA().getId())
 			return this.getStationB();
 		if (me.getId() == this.getStationB().getId())
 			return this.getStationA();
 		return null;
-	}
-
-	/**
-	 * return the other station of an inter in readOnly mode. You have to give one station to give the other
-	 * 
-	 * @param me
-	 *            the station or stationReader you know in the inter
-	 * @return the other stationReader, or null of the specified station isn't one of the two station
-	 */
-	public StationReader getOtherStationR(StationReader me) {
-		return this.getOtherStation(me);
 	}
 
 	/**
@@ -158,61 +153,6 @@ public class Inter implements InterReader {
 		return stationB;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see graphNetwork.InterR#getTimeBetweenStations()
-	 */
-	@Override
-	public int getTimeBetweenStations() {
-		return timeBetweenStations;
-	}
-
-	@Override
-	public boolean isEnable() {
-		return enable;
-	}
-
-	@Override
-	public boolean isPedestrian() {
-		return pedestrian;
-	}
-
-	/**
-	 * Setter of the property <tt>cost</tt>
-	 * 
-	 * @param cost
-	 *            The cost to set.
-	 * @throws ImpossibleValueException
-	 *             si la valeur fournit est incohérente.
-	 * @uml.property name="cost"
-	 */
-	public void setCost(float cost) throws ImpossibleValueException {
-		this.cost = cost;
-	}
-
-	/**
-	 * Setter of the property <tt>enable</tt>
-	 * 
-	 * @param enable
-	 *            The enable to set.
-	 * @uml.property name="enable"
-	 */
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-
-	/**
-	 * Setter of the property <tt>pedestrian</tt>
-	 * 
-	 * @param pedestrian
-	 *            The pedestrian to set.
-	 * @uml.property name="pedestrian"
-	 */
-	public void setPedestrian(boolean pedestrian) {
-		this.pedestrian = pedestrian;
-	}
-
 	/**
 	 * Mutateur de routeA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr.
 	 * Définisez la Route manuellement à votre risque et péril.
@@ -221,8 +161,7 @@ public class Inter implements InterReader {
 	 *            The routeA to set.
 	 * @uml.property name="routeA"
 	 */
-	@Deprecated
-	public void setRouteA(Route routeA) {
+	protected void setRouteA(Route routeA) {
 		this.routeA = routeA;
 	}
 
@@ -234,8 +173,7 @@ public class Inter implements InterReader {
 	 *            The routeB to set.
 	 * @uml.property name="routeB"
 	 */
-	@Deprecated
-	public void setRouteB(Route routeB) {
+	protected void setRouteB(Route routeB) {
 		this.routeB = routeB;
 	}
 
@@ -247,8 +185,7 @@ public class Inter implements InterReader {
 	 *            The stationA to set.
 	 * @uml.property name="stationA"
 	 */
-	@Deprecated
-	public void setStationA(Station stationA) {
+	protected void setStationA(Station stationA) {
 		this.stationA = stationA;
 	}
 
@@ -260,8 +197,7 @@ public class Inter implements InterReader {
 	 *            The station to set.
 	 * @uml.property name="stationB"
 	 */
-	@Deprecated
-	public void setStationB(Station stationB) {
+	protected void setStationB(Station stationB) {
 		this.stationB = stationB;
 	}
 
@@ -274,19 +210,16 @@ public class Inter implements InterReader {
 	 *             si la valeur fournit est incohérente.
 	 * @uml.property name="timeBetweenStations"
 	 */
-	public void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException {
+	protected void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException {
 		this.timeBetweenStations = timeBetweenStations;
 	}
 
 	/**
 	 * a variable to know if the inter is rail between two station or an inter were you have to step down from you
 	 * train/subway/...
-	 * 
-	 * @uml.property name="routeLink"
 	 */
 	private boolean routeLink = false;
 
-	@Override
 	public boolean isRouteLink() {
 		return routeLink;
 	}
@@ -295,12 +228,8 @@ public class Inter implements InterReader {
 	 * Mutateur de routeLink. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
 	 * sûr. Définisez son etat routeLink manuellement à votre risque et péril.
 	 * 
-	 * @param routeLink
-	 *            The routeLink to set.
-	 * @uml.property name="routeLink"
 	 */
-	@Deprecated
-	public void setRouteLink(boolean routeLink) {
+	protected void setRouteLink(boolean routeLink) {
 		this.routeLink = routeLink;
 	}
 
@@ -328,8 +257,9 @@ public class Inter implements InterReader {
 	 * @throws StationNotOnRoadException
 	 *             si une des station fournit n'est pas sur la ligne où elle devrait être
 	 */
-	public Inter(Route routeA, Station stationA, Route routeB, Station stationB, float cost, int timeBetweenStations,
-			boolean routeLink, boolean pedestrian) throws StationNotOnRoadException, ImpossibleValueException {
+	protected Inter(Route routeA, Station stationA, Route routeB, Station stationB, float cost,
+			int timeBetweenStations, boolean routeLink, boolean pedestrian) throws StationNotOnRoadException,
+			ImpossibleValueException {
 		super();
 		this.cost = cost;
 		this.pedestrian = pedestrian;

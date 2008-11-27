@@ -37,7 +37,7 @@ public class InterTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetwork();
+		graph = new GraphNetworkFactory();
 		try {
 			stationA = graph.addStation(1, "stationA");
 			stationB = graph.addStation(2, "stationB");

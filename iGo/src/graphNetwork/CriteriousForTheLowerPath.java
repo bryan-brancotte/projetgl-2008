@@ -16,7 +16,7 @@ public interface CriteriousForTheLowerPath {
 	 *            the inter studied
 	 * @return the cost
 	 */
-	public abstract float getFirstCost(InterReader inter);
+	public abstract float getFirstCost(Inter inter);
 
 	/**
 	 * Return the second prefered cost to use on the specified InterReader.
@@ -25,6 +25,6 @@ public interface CriteriousForTheLowerPath {
 	 *            the inter studied
 	 * @return the cost
 	 */
-	public abstract float getSecondCost(InterReader inter);
+	public abstract float getSecondCost(Inter inter);
 
 }

@@ -1,12 +1,13 @@
 package graphNetwork;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  * 
  * @author iGo
  */
-public class Station implements StationReader {
+public class Station {
 
 	/**
 	 * @uml.property name="enable"
@@ -41,66 +42,10 @@ public class Station implements StationReader {
 	 */
 	private LinkedList<Service> service;
 
-	@Override
-	public int getId() {
-		return id;
-	}
-
-	public LinkedList<Inter> getInter() {
-		return this.inter;
-	}
-
-	@Override
-	public InterReader[] getInterR() {
-		return this.getInter().toArray(new InterReader[0]);
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Getter of the property <tt>routes</tt>
-	 * 
-	 * @return Returns the routes.
-	 * @uml.property name="routes"
-	 */
-	public LinkedList<Route> getRoutes() {
-		return routes;
-	}
-
-	@Override
-	public RouteReader[] getRoutesR() {
-		return this.getRoutes().toArray(new RouteReader[0]);
-	}
-
-	/**
-	 * @uml.property name="service"
-	 */
-	public LinkedList<Service> getService() {
-		return service;
-	}
-
-	@Override
-	public ServiceReader[] getServiceR() {
-		return this.getService().toArray(new ServiceReader[0]);
-	}
-
-	@Override
-	public boolean isEnable() {
-		return enable;
-	}
-
-	/**
-	 * Setter of the property <tt>enable</tt>
-	 * 
-	 * @param enable
-	 *            true if you can steep down
-	 * @uml.property name="enable"
-	 */
-	public void setEnable(boolean enable) {
-		this.enable = enable;
+	protected Station(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
 	}
 
 	/**
@@ -109,8 +54,7 @@ public class Station implements StationReader {
 	 * 
 	 * @param inter
 	 */
-	@Deprecated
-	public void addInter(Inter inter) {
+	protected void addInter(Inter inter) {
 		this.inter.add(inter);
 	}
 
@@ -120,8 +64,7 @@ public class Station implements StationReader {
 	 * 
 	 * @param routes
 	 */
-	@Deprecated
-	public void addRoute(Route routes) {
+	protected void addRoute(Route routes) {
 		this.routes.add(routes);
 	}
 
@@ -131,14 +74,43 @@ public class Station implements StationReader {
 	 * 
 	 * @param service
 	 */
-	@Deprecated
-	public void addService(Service service) {
+	protected void addService(Service service) {
 		this.service.add(service);
 	}
 
-	public Station(int id, String name) {
-		super();
+	public int getId() {
+		return id;
+	}
+
+	public Iterator<Inter> getInter() {
+		return this.inter.iterator();
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public Iterator<Route> getRoutes() {
+		return routes.iterator();
+	}
+	
+	public Iterator<Service> getService() {
+		return service.iterator();
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	protected void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	protected void setId(int id) {
 		this.id = id;
+	}
+
+	protected void setName(String name) {
 		this.name = name;
 	}
 

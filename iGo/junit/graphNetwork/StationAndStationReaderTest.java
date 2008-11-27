@@ -36,7 +36,7 @@ public class StationAndStationReaderTest {
 	@Before
 	public void prologueDateTest() {
 
-		graph = new GraphNetwork();
+		graph = new GraphNetworkFactory();
 		try {
 			stationA = new Station(1, "stationA");
 			graph.addStation(stationA);

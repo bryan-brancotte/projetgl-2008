@@ -19,7 +19,7 @@ public class GraphNetworkBuilderTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetwork();
+		graph = new GraphNetworkFactory();
 	}
 
 	public static junit.framework.Test suite() {
