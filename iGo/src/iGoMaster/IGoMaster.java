@@ -5,6 +5,7 @@ import graphNetwork.GraphNetworkBuilder;
 
 import java.util.Observable;
 import java.util.Observer;
+
 /**
  *  
  * @author iGo
@@ -12,8 +13,8 @@ import java.util.Observer;
 public class IGoMaster implements Master, Observer {
 
 	/**
-	 * @uml.property name="ihm"
-	 * @uml.associationEnd inverse="iGoMaster:ihm.smartPhone.IHM"
+	 * @uml.property   name="ihm"
+	 * @uml.associationEnd   inverse="iGoMaster:ihm.smartPhone.IHM"
 	 */
 	private IHM ihm;
 
@@ -39,8 +40,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="graphReceiver"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
+	 * @uml.property   name="graphReceiver"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
 	 */
 	private GraphNetworkReceiver graphReceiver;
 
@@ -72,8 +73,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="config"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Configuration"
+	 * @uml.property   name="config"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Configuration"
 	 */
 	private Configuration config;
 
@@ -99,8 +100,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="lang"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Language"
+	 * @uml.property   name="lang"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Language"
 	 */
 	private Language lang;
 
@@ -126,10 +127,10 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="algo"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.Algo"
+	 * @uml.property   name="algo"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.AlgoAbstract"
 	 */
-	private Algo algo;
+	private AlgoAbstract algo;
 
 	/**
 	 * Getter of the property <tt>algo</tt>
@@ -137,7 +138,7 @@ public class IGoMaster implements Master, Observer {
 	 * @return Returns the algo.
 	 * @uml.property name="algo"
 	 */
-	public Algo getAlgo() {
+	public AlgoAbstract getAlgo() {
 		return algo;
 	}
 
@@ -148,13 +149,18 @@ public class IGoMaster implements Master, Observer {
 	 *            The algo to set.
 	 * @uml.property name="algo"
 	 */
-	public void setAlgo(Algo algo) {
+	public void setAlgo(AlgoAbstract algo) {
 		this.algo = algo;
 	}
 
 	/**
+<<<<<<< .mine
+	 * @uml.property   name="graphNetworkBuilder"
+	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
+=======
 	 * @uml.property name="graphNetworkBuilder"
 	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkFactory"
+>>>>>>> .r494
 	 */
 	private GraphNetworkBuilder graphNetworkFactory;
 
@@ -180,8 +186,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="eventInfoNetwork"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
+	 * @uml.property   name="eventInfoNetwork"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
 	 */
 	private EventInfoNetworkWatcher eventInfoNetwork;
 
@@ -206,7 +212,7 @@ public class IGoMaster implements Master, Observer {
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
 
-	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
+	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, AlgoAbstract algo,
 			GraphNetworkBuilder graphNetworkFactory, EventInfoNetworkWatcher eventInfoNetwork,
 			GraphNetworkCostReceiver graphNetworkCostReceiver) {
 		super();
@@ -221,8 +227,8 @@ public class IGoMaster implements Master, Observer {
 	}
 
 	/**
-	 * @uml.property name="graphNetworkCostReceiver"
-	 * @uml.associationEnd inverse="iGoMaster:iGoMaster.GraphNetworkCostReceiver"
+	 * @uml.property   name="graphNetworkCostReceiver"
+	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkCostReceiver"
 	 */
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 
