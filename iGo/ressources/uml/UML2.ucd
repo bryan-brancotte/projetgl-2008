@@ -255,19 +255,19 @@
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.14/@sourceConnections.0 //@children.40/@sourceConnections.0" name="Algo" location="568,158" size="192,95" id="iGoMaster/Algo" runTimeClassModel="findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)">
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.14/@sourceConnections.0 //@children.40/@sourceConnections.0" name="Algo" location="568,158" size="192,95" id="iGoMaster/AlgoAbstract" runTimeClassModel="findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="169,18">
-      <children xsi:type="editmodel:MethodEditModel" name="findPath" id="iGoMaster/Algo#findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="findPath" id="iGoMaster/AlgoAbstract#findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="iGoMaster/Algo@algo+iGoMaster/IGoMaster@iGoMaster" source="//@children.6" target="//@children.9" targetEnd="//@children.6/@sourceConnections.0/@children.2" label="//@children.6/@sourceConnections.0/@children.0" sourceEnd="//@children.6/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" id="iGoMaster/AlgoAbstract@algo+iGoMaster/IGoMaster@iGoMaster" source="//@children.6" target="//@children.9" targetEnd="//@children.6/@sourceConnections.0/@children.2" label="//@children.6/@sourceConnections.0/@children.0" sourceEnd="//@children.6/@sourceConnections.0/@children.1" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:WireLabelEditModel" size="0,14" anchorKind="MiddlePart"/>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="algo" location="190,33" id="iGoMaster/Algo@algo+iGoMaster/IGoMaster@iGoMaster|iGoMaster/Algo#algo" attachSource="true" multiplicityLabel="//@children.6/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.0/@children.1/@children.0" navigable="true">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="algo" location="190,33" id="iGoMaster/AlgoAbstract@algo+iGoMaster/IGoMaster@iGoMaster|iGoMaster/AlgoAbstract#algo" attachSource="true" multiplicityLabel="//@children.6/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.6/@sourceConnections.0/@children.1/@children.0" navigable="true">
         <children xsi:type="editmodel:LabelEditModel" name=" - algo" location="767,169" size="30,14" anchorKind="FirstPart"/>
         <children xsi:type="editmodel:LabelEditModel" name="0..1" location="767,197" size="18,14" anchorKind="FirstPart"/>
       </children>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="iGoMaster" location="98,0" id="iGoMaster/Algo@algo+iGoMaster/IGoMaster@iGoMaster|iGoMaster/IGoMaster#iGoMaster"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="iGoMaster" location="98,0" id="iGoMaster/AlgoAbstract@algo+iGoMaster/IGoMaster@iGoMaster|iGoMaster/IGoMaster#iGoMaster"/>
     </sourceConnections>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Name" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
@@ -327,7 +327,7 @@
       <children xsi:type="editmodel:AttributeEditModel" name="graphReader" id="iGoMaster/IGoMaster#graphReader"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="79,72">
-      <children xsi:type="editmodel:MethodEditModel" name="IGoMaster" id="iGoMaster/IGoMaster#IGoMaster(Lihm.smartPhone.IHM;LiGoMaster.GraphNetworkReceiver;LiGoMaster.Configuration;LiGoMaster.Language;LiGoMaster.Algo;LgraphNetwork.GraphNetworkBuilder;LiGoMaster.EventInfoNetworkWatcher;LiGoMaster.GraphNetworkCostReceiver;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="IGoMaster" id="iGoMaster/IGoMaster#IGoMaster(Lihm.smartPhone.IHM;LiGoMaster.GraphNetworkReceiver;LiGoMaster.Configuration;LiGoMaster.Language;LiGoMaster.AlgoAbstract;LgraphNetwork.GraphNetworkBuilder;LiGoMaster.EventInfoNetworkWatcher;LiGoMaster.GraphNetworkCostReceiver;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="update" id="iGoMaster/IGoMaster#update(Ljava.util.Observable;Ljava.lang.Object;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="lg" id="iGoMaster/IGoMaster#lg(Ljava.lang.String;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="stop" id="iGoMaster/IGoMaster#stop()"/>
@@ -449,7 +449,7 @@
       <children xsi:type="editmodel:MethodEditModel" name="findPath" id="algorithm/Dijkstra#findPath(LgraphNetwork.StationReader;LgraphNetwork.StationReader;LgraphNetwork.GraphNetworkReader;LgraphNetwork.PathInGraphBuilder;LgraphNetwork.CriteriousForTheLowerPath;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/Algo&lt;-algorithm/Dijkstra" source="//@children.14" target="//@children.6" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="iGoMaster/AlgoAbstract&lt;-algorithm/Dijkstra" source="//@children.14" target="//@children.6" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
       <children xsi:type="editmodel:AssociationEndEditModel" location="192,50" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="0,47"/>
     </sourceConnections>
@@ -646,7 +646,7 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="254,144">
       <children xsi:type="editmodel:MethodEditModel" name="getCost" id="graphNetwork/InterReader#getCost()"/>
       <children xsi:type="editmodel:MethodEditModel" name="getKindOfInter" id="graphNetwork/InterReader#getKindOfInter()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getOtherRouteR" id="graphNetwork/InterReader#getOtherRouteR(LgraphNetwork.StationReader;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getOtherRouteR" id="graphNetwork/InterReader#getRouteR(LgraphNetwork.StationReader;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getOtherStationR" id="graphNetwork/InterReader#getOtherStationR(LgraphNetwork.StationReader;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getTimeBetweenStations" id="graphNetwork/InterReader#getTimeBetweenStations()"/>
       <children xsi:type="editmodel:MethodEditModel" name="isEnable" id="graphNetwork/InterReader#isEnable()"/>
@@ -667,7 +667,11 @@
     <children xsi:type="editmodel:CompartmentEditModel" size="254,180">
       <children xsi:type="editmodel:MethodEditModel" name="getCost" id="graphNetwork/Inter#getCost()"/>
       <children xsi:type="editmodel:MethodEditModel" name="getKindOfInter" id="graphNetwork/Inter#getKindOfInter()"/>
+<<<<<<< .mine
+      <children xsi:type="editmodel:MethodEditModel" name="getOtherRoute" id="graphNetwork/Inter#getRouteR(LgraphNetwork.StationReader;)"/>
+=======
       <children xsi:type="editmodel:MethodEditModel" name="getOtherRoute" id="graphNetwork/Inter#getOtherRoute(LgraphNetwork.Station;)"/>
+>>>>>>> .r494
       <children xsi:type="editmodel:MethodEditModel" name="getOtherRouteR" id="graphNetwork/Inter#getOtherRouteR(LgraphNetwork.StationReader;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getOtherStation" id="graphNetwork/Inter#getOtherStation(LgraphNetwork.Station;)"/>
       <children xsi:type="editmodel:MethodEditModel" name="getOtherStationR" id="graphNetwork/Inter#getOtherStationR(LgraphNetwork.StationReader;)"/>
