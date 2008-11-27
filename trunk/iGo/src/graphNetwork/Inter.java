@@ -88,7 +88,7 @@ public class Inter {
 	 *            the station you know in the inter
 	 * @return the route of other station, or null of the specified station isn't one of the two station
 	 */
-	public Route getRouteR(StationReader me) {
+	public Route getRoute(Station me) {
 		if (me.getId() == this.getStationA().getId())
 			return this.getRouteA();
 		if (me.getId() == this.getStationB().getId())
