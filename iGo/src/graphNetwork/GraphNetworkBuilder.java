@@ -16,15 +16,25 @@ public class GraphNetworkBuilder {
 	/**
 	 * le GraphNetwork courant, celui où on est actuellement en travail
 	 */
-	protected GraphNetwork graphNetwork = null;
+	protected GraphNetwork actualGraphNetwork = null;
 
 	/**
-	 * définit le GraphNetwork passé en paramètre comme le GraphNetwork courant
+	 * retourne l'actuelle GraphNetwork.
 	 * 
-	 * @param graphNetwork
+	 * @return le GraphNetwork courant ou null si'il n'y en a pas.
 	 */
-	public void workOn(GraphNetwork graphNetwork) {
-		this.graphNetwork = graphNetwork;
+	protected GraphNetwork getActualGraphNetwork() {
+		return actualGraphNetwork;
+	}
+
+	/**
+	 * définit le GraphNetwork passé en paramètre comme le GraphNetwork courant.
+	 * 
+	 * @param actualGraphNetwork
+	 *            le futur GraphNetwork courant.
+	 */
+	protected void setActualGraphNetwork(GraphNetwork actualGraphNetwork) {
+		this.actualGraphNetwork = actualGraphNetwork;
 	}
 
 	/**

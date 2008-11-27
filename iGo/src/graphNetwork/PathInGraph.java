@@ -1,5 +1,6 @@
 package graphNetwork;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -12,7 +13,7 @@ public class PathInGraph {
 	 * @uml.property name="inter"
 	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="pathInGraph:graphNetwork.Inter"
 	 */
-	private LinkedList<Inter> inter;
+	protected LinkedList<Inter> inter;
 
 	@SuppressWarnings("unused")
 	private PathInGraph() {
@@ -21,18 +22,8 @@ public class PathInGraph {
 	protected PathInGraph(GraphNetwork graph) {
 	}
 
-	protected void addFront(Inter inter) {
-	}
-
-	protected void addLast(Inter inter) {
-		this.inter.addLast(inter);
-	}
-
 	public String exportPath() {
 		return "";
-	}
-
-	protected void flush() {
 	}
 
 	public float getCost() {
@@ -51,8 +42,8 @@ public class PathInGraph {
 	 * @return Returns the inter.
 	 * @uml.property name="inter"
 	 */
-	public LinkedList<Inter> getInter() {
-		return inter;
+	public Iterator<Inter> getInter() {
+		return inter.iterator();
 	}
 
 	public int getTime() {
