@@ -18,7 +18,7 @@ public class PathInGraph {
 	private PathInGraph() {
 	}
 
-	protected PathInGraph(GraphNetworkFactory graph) {
+	protected PathInGraph(GraphNetwork graph) {
 	}
 
 	protected void addFront(Inter inter) {
@@ -40,7 +40,7 @@ public class PathInGraph {
 		return 0;
 	}
 
-	public GraphNetworkFactory getGraph() {
+	public GraphNetworkBuilder getGraph() {
 		// TODO Auto-generated method stub
 		return null;
 	}

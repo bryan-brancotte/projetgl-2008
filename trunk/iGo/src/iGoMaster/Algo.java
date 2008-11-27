@@ -1,7 +1,7 @@
 package iGoMaster;
 
 import graphNetwork.CriteriousForTheLowerPath;
-import graphNetwork.GraphNetworkReader;
+import graphNetwork.GraphNetwork;
 import graphNetwork.PathInGraph;
 import graphNetwork.Station;
 
@@ -11,7 +11,7 @@ import java.util.Observer;
 public abstract class Algo extends Observable {
 
 	public PathInGraph findPath(Station origine,
-			Station destination, GraphNetworkReader graph,
+			Station destination, GraphNetwork graph,
 			PathInGraph pathInGraphBuilder,
 			CriteriousForTheLowerPath criterious) {
 		// TODO Auto-generated method stub

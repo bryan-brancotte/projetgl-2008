@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetworkFactory;
+import graphNetwork.GraphNetworkBuilder;
 /**
  *  
  * @author iGo
@@ -20,7 +20,7 @@ public interface EventInfo {
 	 * @param graph
 	 *            le reseau en question
 	 */
-	public abstract void applyInfo(GraphNetworkFactory graph);
+	public abstract void applyInfo(GraphNetworkBuilder graph);
 
 	/**
 	 * Retourne le message contenu dans l'evenement

@@ -1,6 +1,6 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetworkFactory;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.EventInfoNetWorkWatcherStatus;
 import iGoMaster.EventInfoNetworkWatcher;
@@ -55,7 +55,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 * Applique les informations contenues dans un événement
 	 */
 	@Override
-	public void applyInfo(GraphNetworkFactory graph) {
+	public void applyInfo(GraphNetworkBuilder graph) {
 		// TODO Auto-generated method stub
 
 	}

@@ -84,7 +84,7 @@ public class Route {
 	 *            The enable to set.
 	 * @uml.property name="enable"
 	 */
-	protected void setEnable(boolean enable) {
+	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
 

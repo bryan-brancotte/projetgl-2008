@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.KindRouteReader;
+import graphNetwork.KindRoute;
 /**
  *  
  * @author iGo
@@ -14,7 +14,7 @@ public interface GraphNetworkCostReceiver {
 	 *            The kindRoute targeted
 	 * @return the cost
 	 */
-	public abstract float getCost(KindRouteReader to);
+	public abstract float getCost(KindRoute to);
 
 	/**
 	 * Return the cost to change from a kindRoute to an other KindRoute. If the cost doesn't existe, the returne cost
@@ -26,6 +26,6 @@ public interface GraphNetworkCostReceiver {
 	 *            the KinfRoute where you go
 	 * @return the cost
 	 */
-	public abstract float getCost(KindRouteReader from, KindRouteReader to);
+	public abstract float getCost(KindRoute from, KindRoute to);
 
 }

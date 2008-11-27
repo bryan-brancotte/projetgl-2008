@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetworkFactory;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 
@@ -26,7 +26,7 @@ public interface GraphNetworkReceiver {
 	 * @throws GraphConstructionException
 	 *             if we couldn't build the graph.
 	 */
-	public Thread buildNewGraphNetwork(GraphNetworkFactory graph, AvaibleNetwork networkChosen,
+	public Thread buildNewGraphNetwork(GraphNetworkBuilder graph, AvaibleNetwork networkChosen,
 			GraphNetworkCostReceiver costReceiver) throws GraphReceptionException, GraphConstructionException;
 
 	/**

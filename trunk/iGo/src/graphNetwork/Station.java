@@ -102,7 +102,7 @@ public class Station {
 		return enable;
 	}
 
-	protected void setEnable(boolean enable) {
+	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
 

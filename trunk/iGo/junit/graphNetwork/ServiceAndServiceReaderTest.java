@@ -23,7 +23,7 @@ public class ServiceAndServiceReaderTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetworkFactory();
+		graph = new GraphNetworkBuilder();
 		serviceCoffe = new Service("Coffe", 3);
 		serviceNews = new Service("News", 4);
 	}
