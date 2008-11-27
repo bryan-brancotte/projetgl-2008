@@ -82,6 +82,21 @@ public class Inter {
 	}
 
 	/**
+	 * return the route of the station for this inter.
+	 * 
+	 * @param me
+	 *            the station you know in the inter
+	 * @return the route of other station, or null of the specified station isn't one of the two station
+	 */
+	public Route getRouteR(StationReader me) {
+		if (me.getId() == this.getStationA().getId())
+			return this.getRouteA();
+		if (me.getId() == this.getStationB().getId())
+			return this.getRouteB();
+		return null;
+	}
+	
+	/**
 	 * return the route of other station of an inter. You have to give one station to give the other
 	 * 
 	 * @param me
