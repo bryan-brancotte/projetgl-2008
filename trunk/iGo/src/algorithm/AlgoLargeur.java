@@ -1,12 +1,12 @@
 package algorithm;
+import iGoMaster.AlgoAbstract;
 import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetwork;
 import graphNetwork.PathInGraph;
 import graphNetwork.Station;
-import iGoMaster.Algo;
 
 
-public class AlgoLargeur extends Algo {
+public class AlgoLargeur extends AlgoAbstract {
 
 	@Override
 	public PathInGraph findPath(Station origine,
