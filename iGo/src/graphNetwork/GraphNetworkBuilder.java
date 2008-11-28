@@ -19,26 +19,7 @@ public class GraphNetworkBuilder {
 	protected GraphNetwork actualGraphNetwork = null;
 
 	/**
-	 * retourne l'actuelle GraphNetwork.
-	 * 
-	 * @return le GraphNetwork courant ou null si'il n'y en a pas.
-	 */
-	protected GraphNetwork getActualGraphNetwork() {
-		return actualGraphNetwork;
-	}
-
-	/**
-	 * définit le GraphNetwork passé en paramètre comme le GraphNetwork courant.
-	 * 
-	 * @param actualGraphNetwork
-	 *            le futur GraphNetwork courant.
-	 */
-	protected void setActualGraphNetwork(GraphNetwork actualGraphNetwork) {
-		this.actualGraphNetwork = actualGraphNetwork;
-	}
-
-	/**
-	 * constructeur du GraphNetworkBuilder
+	 * constructeur du monteur de GraphNetwork
 	 */
 	public GraphNetworkBuilder() {
 		super();
@@ -46,7 +27,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur l'objet courant, on créé une nouvelle route et l'ajoute au GraphNetwork courant. Si
+	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et l'ajoute au GraphNetwork courant. Si
 	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
@@ -63,7 +44,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur l'objet courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
+	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
 	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
@@ -80,7 +61,22 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur l'objet courant, on créé une nouvelle station et l'ajoute au GraphNetwork courant. Si
+	 * En travaillant sur le GraphNetwork courant, on ajout un service à un station. Si le service est déja présent, on ne fait
+	 * rien.
+	 * 
+	 * @param station
+	 *            la station en question
+	 * @param serviceToAdd
+	 *            le service en question
+	 * @return true si le service n'était pas présent, et l'est désormais.
+	 */
+	public boolean addServiceToStation(Station station, Service serviceToAdd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle station et l'ajoute au GraphNetwork courant. Si
 	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
@@ -97,22 +93,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur l'objet courant, on ajout un service à un station. Si le service est déja présent, on ne fait
-	 * rien.
-	 * 
-	 * @param station
-	 *            la station en question
-	 * @param serviceToAdd
-	 *            le service en question
-	 * @return true si le service n'était pas présent, et l'est désormais.
-	 */
-	public boolean addServiceToStation(Station station, Service serviceToAdd) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * En travaillant sur l'objet courant, on ajout une station à un route. Si la station est déja présente, on ne fait
+	 * En travaillant sur le GraphNetwork courant, on ajout une station à un route. Si la station est déja présente, on ne fait
 	 * rien.
 	 * 
 	 * @param route
@@ -129,7 +110,38 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur l'objet courant, on lie deux station entre elles par un lien à faire à pied. On spécifie sur
+	 * Définit le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
+	 * 
+	 * @param kind
+	 *            le type de la ligne
+	 * @param cost
+	 *            le coût pour y accéder
+	 */
+	public void defineEntryCost(KindRoute kind, int cost) {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * retourne l'actuelle GraphNetwork.
+	 * 
+	 * @return le GraphNetwork courant ou null si'il n'y en a pas.
+	 */
+	protected GraphNetwork getActualGraphNetwork() {
+		return actualGraphNetwork;
+	}
+
+	/**
+	 * Créé initialise et retourne une instance de GraphNetwork.
+	 * 
+	 * @return une nouvelle instance de GraphNetwork
+	 */
+	public GraphNetwork getInstance() {
+		// TODO Auto-generated method stub
+		return new GraphNetwork();
+	}
+
+	/**
+	 * En travaillant sur le GraphNetwork courant, on lie deux station entre elles par un lien à faire à pied. On spécifie sur
 	 * quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le changement. On
 	 * spécifie de plus si le lien est "long" c'est à dire fait resortir de la station pour rejoindre la seconde, sans
 	 * pour autant impliquer une surtaxe.
@@ -169,24 +181,12 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Créé initialise et retourne une instance de GraphNetwork.
+	 * définit le GraphNetwork passé en paramètre comme le GraphNetwork courant.
 	 * 
-	 * @return une nouvelle instance de GraphNetwork
+	 * @param actualGraphNetwork
+	 *            le futur GraphNetwork courant.
 	 */
-	public GraphNetwork getInstance() {
-		// TODO Auto-generated method stub
-		return new GraphNetwork();
-	}
-
-	/**
-	 * Définit le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
-	 * 
-	 * @param kind
-	 *            le type de la ligne
-	 * @param cost
-	 *            le coût pour y accéder
-	 */
-	public void defineEntryCost(KindRoute kind, int cost) {
-		// TODO Auto-generated method stub
+	protected void setActualGraphNetwork(GraphNetwork actualGraphNetwork) {
+		this.actualGraphNetwork = actualGraphNetwork;
 	}
 }

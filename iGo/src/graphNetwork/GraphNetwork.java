@@ -45,12 +45,23 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé initialise et retourne une instance de PathInGraph.
+	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec
+	 * un nouveau trajet.
 	 * 
 	 * @return une nouvelle instance de PathInGraph
 	 */
-	public PathInGraph getInstancePathInGraphBuilder() {
-		return new PathInGraph(this);
+	public PathInGraphBuilder getInstancePathInGraphBuilder() {
+		return new PathInGraphBuilder(this);
+	}
+
+	/**
+	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder initialisé avec le
+	 * trajet passé en paramètre.
+	 * 
+	 * @return une nouvelle instance de PathInGraph
+	 */
+	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
+		return new PathInGraphBuilder(this);
 	}
 
 	/**
