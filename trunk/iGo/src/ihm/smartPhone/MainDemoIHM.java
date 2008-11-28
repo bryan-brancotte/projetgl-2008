@@ -11,6 +11,8 @@ import ihm.smartPhone.tools.iGoSmartPhoneSkin;
 import xmlFeature.LanguageXML;
 
 public class MainDemoIHM {
+	
+	protected static IHM ihm;
 
 	/**
 	 * @param args
@@ -18,8 +20,7 @@ public class MainDemoIHM {
 	 */
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws InterruptedException {
-		// TODO Auto-generated method stub 
-		IHM ihm = new IGoIhmSmartPhone(new Master() {
+		ihm = new IGoIhmSmartPhone(new Master() {
 
 			protected Language lang = new LanguageXML();
 
@@ -40,14 +41,23 @@ public class MainDemoIHM {
 
 			@Override
 			public void update(Observable o, Object arg) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public boolean askForATravel() {
-				// TODO Auto-generated method stub
-				return false;
+				(new ExecMultiThread<IHM>(ihm) {
+					@Override
+					public void run() {
+						try {
+							Thread.currentThread().sleep(1000);
+							System.out.println("tada!");
+							ihm.returnPathAsked(null, "pas trouvé");
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}).start();
+				return true;
 			}
 
 		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/*
