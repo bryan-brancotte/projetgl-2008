@@ -2,7 +2,6 @@ package algorithm;
 import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetwork;
 import graphNetwork.Inter;
-import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -19,7 +18,7 @@ public class Dijkstra extends Algo {
 	private LinkedList<Station> steps;
 	private Station[] avoidStations;
 	private Service[] always;
-	private Service[] must;
+	private ArrayList<Service> once;
 	private LinkedList<Inter> path;
 	
 	public PathInGraphBuilder findPath(Station _origine, Iterator<Station> _steps, Station _destination,
@@ -47,8 +46,11 @@ public class Dijkstra extends Algo {
 		
 		// Création du chemin 
 		path = new LinkedList<Inter>();
-		for (int i=0;i<steps.size()-1;i++) {
-			path.addAll(algo(graph,steps.get(i),steps.get(i+1)));
+		while (path.size()==0 && once.size()!=0) {
+			for (int i=0;i<steps.size()-1;i++) {
+				path.addAll(algo(graph,steps.get(i),steps.get(i+1),once));
+			}
+			once.remove(once.size()-1);
 		}
 		
 		// Création du pathInGraph 
@@ -118,7 +120,45 @@ public class Dijkstra extends Algo {
 		return retour;
 	}
 	
-	private ArrayList<Inter> algo (ArrayList<Node> graph, Station depart, Station arrivee) {
+	private ArrayList<Inter> algo (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
+		return dijkstra(graph, depart,arrivee,once);
+	}
+
+	// Pseudo code de la fonction de dijkstra
+	private ArrayList<Inter> dijkstra (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
+
+		// Initialisation des stations à une distance infinie
+		for (int i=0;i<graph.size();i++) {
+			Node n = graph.get(i);
+			n.setParcouru(Integer.MAX_VALUE);
+		}
 		return null;
 	}
+/*	n.parcouru = MAX_VALUE
+	n.precedent = 0
+	Fin pour
+
+	// Initialisation du parcours à rien et ajout de l’ensemble des stations possibles
+	debut.parcouru = 0
+	PasEncoreVu = reseau
+
+	// Parcourir l’ensemble des stations
+	Tant que PasEncoreVu != liste vide
+
+	// Le nœud dans PasEncoreVu avec parcouru le plus petit
+	n1 = minimum(PasEncoreVu)
+	PasEncoreVu.enlever(n1)
+
+	// Parcours de l’ensemble des stations reliées à n1 par un arc restant
+	Pour n2 dans fils(n1) 
+	// temps (ou cout ou autre) correspond au poids de l'arc reliant n1 et n2 
+	Si n2.parcouru > n1.parcouru + distance(n1, n2) – n2.interet ET (n2.interet > 0 || PasEncoreVu ne contient pas n2)
+	// Enregistrement dans la liste que pour aller a n1 il faut aller à n2
+	n2.precedent = n1
+	Fin si
+	Fin pour
+	Fin tant que
+	Retourner reseau
+	}*/
+
 }
