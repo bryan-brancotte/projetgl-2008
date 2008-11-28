@@ -27,7 +27,7 @@ public class Dijkstra extends Algo {
 			PathInGraphBuilder _path,
 			CriteriousForTheLowerPath _criterious) {
 
-		/************* Création des étapes *************/
+		// Création des étapes 
 		steps = new LinkedList<Station>();
 		steps.add(_origine);
 		Iterator<Station> it_step = _steps;
@@ -42,16 +42,16 @@ public class Dijkstra extends Algo {
 		// once;
 		// always;
 		
-		/************* Création du graph *************/
+		// Création du graph 
 		graph = extractGraphWithStaticConstraints(_graph);
 		
-		/************* Création du chemin *************/
+		// Création du chemin 
 		path = new LinkedList<Inter>();
 		for (int i=0;i<steps.size()-1;i++) {
 			path.addAll(algo(graph,steps.get(i),steps.get(i+1)));
 		}
 		
-		/************* Création du pathInGraph *************/
+		// Création du pathInGraph 
 		Iterator<Inter> it = path.iterator();
 		while(it.hasNext()){
 			Inter i = it.next();
@@ -62,15 +62,15 @@ public class Dijkstra extends Algo {
 	}
 		
 	private ArrayList<Node> extractGraphWithStaticConstraints(GraphNetwork g) {
-		/************* Initialisation du graph *************/
+		// Initialisation du graph 
 		graph = new ArrayList<Node>();
 		
-		/************* Parcours du graph *************/
+		// Parcours du graph 
 		Iterator<Station> it_from = g.getStations();
 		while(it_from.hasNext()){
 			Station s = it_from.next();
 			
-			/************* Si la station n'est pas à éviter *************/
+			// Si la station n'est pas à éviter 
 			if (!isIn(s,avoidStations)) {
 				Node n = new Node(s);
 				graph.add(n);
@@ -79,7 +79,7 @@ public class Dijkstra extends Algo {
 				while(it_inter.hasNext()){
 					Inter i = it_inter.next();
 					
-					/************* Si la transition est possible *************/
+					// Si la transition est possible 
 					if (goodChange(s,i)) n.addTo(i.getOtherStation(s));
 				}
 			}
@@ -98,10 +98,10 @@ public class Dijkstra extends Algo {
 	private boolean goodChange (Station station,Inter inter) {
 		boolean retour = true;
 		
-		/************* Si la station d'arrivée n'est pas à éviter *************/
+		// Si la station d'arrivée n'est pas à éviter 
 		if (isIn(inter.getOtherStation(station),avoidStations)) return false;
 		
-		/************* S'il y a un changement de ligne *************/
+		// S'il y a un changement de ligne tous les services "always" doivent etre remplis 
 		if (inter.getRoute(station) != inter.getOtherRoute(station)) {
 			
 			for (int i=0 ; i<always.length && !retour ;i++) {
