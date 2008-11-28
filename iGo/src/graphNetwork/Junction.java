@@ -7,50 +7,22 @@ import graphNetwork.exception.StationNotOnRoadException;
  * 
  * @author iGo
  */
-public class Inter {
+public class Junction {
 
-	/**
-	 * @uml.property name="cost"
-	 */
 	private float cost = 0F;
 
-	/**
-	 * @uml.property name="enable"
-	 */
 	private boolean enable = true;
 
-	/**
-	 * @uml.property name="pedestrian"
-	 */
 	private boolean pedestrian = false;
-
-	/**
-	 * @uml.property name="routeA"
-	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
-	 */
+	
 	private Route routeA;
 
-	/**
-	 * @uml.property name="routeB"
-	 * @uml.associationEnd inverse="interchange:graphNetwork.Route"
-	 */
 	private Route routeB;
 
-	/**
-	 * @uml.property name="stationB"
-	 * @uml.associationEnd inverse="interchange:graphNetwork.Station"
-	 */
 	private Station stationB;
 
-	/**
-	 * @uml.property name="stationA"
-	 * @uml.associationEnd inverse="inter:graphNetwork.Station"
-	 */
 	private Station stationA;
 
-	/**
-	 * @uml.property name="timeBetweenStations"
-	 */
 	private int timeBetweenStations = 0;
 
 	protected void setCost(float cost) {
@@ -82,10 +54,10 @@ public class Inter {
 	}
 
 	/**
-	 * return the route of the station for this inter.
+	 * return the route of the station for this junction.
 	 * 
 	 * @param me
-	 *            the station you know in the inter
+	 *            the station you know in the junction
 	 * @return the route of other station, or null of the specified station isn't one of the two station
 	 */
 	public Route getRoute(Station me) {
@@ -97,10 +69,10 @@ public class Inter {
 	}
 	
 	/**
-	 * return the route of other station of an inter. You have to give one station to give the other
+	 * return the route of other station of an junction. You have to give one station to give the other
 	 * 
 	 * @param me
-	 *            the station you know in the inter
+	 *            the station you know in the junction
 	 * @return the route of other station, or null of the specified station isn't one of the two station
 	 */
 	public Route getOtherRoute(Station me) {
@@ -112,10 +84,10 @@ public class Inter {
 	}
 
 	/**
-	 * return the other station of an inter. You have to give one station to give the other
+	 * return the other station of an junction. You have to give one station to give the other
 	 * 
 	 * @param me
-	 *            the station you know in the inter
+	 *            the station you know in the junction
 	 * @return the other station, or null of the specified station isn't one of the two station
 	 */
 	public Station getOtherStation(Station me) {
@@ -230,7 +202,7 @@ public class Inter {
 	}
 
 	/**
-	 * a variable to know if the inter is rail between two station or an inter were you have to step down from you
+	 * a variable to know if the junction is rail between two station or an junction were you have to step down from you
 	 * train/subway/...
 	 */
 	private boolean routeLink = false;
@@ -249,8 +221,8 @@ public class Inter {
 	}
 
 	/**
-	 * Construcuteur d'un intersection, il propose de fournir l'ensemble des informations au sujet de l'intersection en
-	 * une seul fois. L'intersection est par défaut active (theInter.isEnable()==true).
+	 * Construcuteur d'un jonction, il propose de fournir l'ensemble des informations au sujet de la jonction en
+	 * une seul fois. La jonction est par défaut active (the Junction.isEnable()==true).
 	 * 
 	 * @param routeA
 	 *            la première route
@@ -261,9 +233,9 @@ public class Inter {
 	 * @param stationB
 	 *            la station sur la second route
 	 * @param cost
-	 *            le coût pour emprunter cette intersection
+	 *            le coût pour emprunter cette jonction
 	 * @param timeBetweenStations
-	 *            le temps nécessaire pour franchir cette intersection
+	 *            le temps nécessaire pour franchir cette jonction
 	 * @param routeLink
 	 *            est-ce un lien entre deux station de la même ligne, c'est à dire que l'on reste dans le wagon
 	 * @param pedestrian
@@ -272,7 +244,7 @@ public class Inter {
 	 * @throws StationNotOnRoadException
 	 *             si une des station fournit n'est pas sur la ligne où elle devrait être
 	 */
-	protected Inter(Route routeA, Station stationA, Route routeB, Station stationB, float cost,
+	protected Junction(Route routeA, Station stationA, Route routeB, Station stationB, float cost,
 			int timeBetweenStations, boolean routeLink, boolean pedestrian) throws StationNotOnRoadException,
 			ImpossibleValueException {
 		super();

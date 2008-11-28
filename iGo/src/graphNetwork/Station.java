@@ -20,10 +20,10 @@ public class Station {
 	private int id;
 
 	/**
-	 * @uml.property name="inter"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="stationA:graphNetwork.Inter"
+	 * @uml.property name="junctions"
+	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="stationA:graphNetwork.Junction"
 	 */
-	private LinkedList<Inter> inter;
+	private LinkedList<Junction> junctions;
 
 	/**
 	 * @uml.property name="name" readOnly="true"
@@ -40,7 +40,7 @@ public class Station {
 	 * @uml.property name="service"
 	 * @uml.associationEnd multiplicity="(0 -1)" inverse="station:graphNetwork.Service"
 	 */
-	private LinkedList<Service> service;
+	private LinkedList<Service> services;
 
 	protected Station(int id, String name) {
 		super();
@@ -50,12 +50,12 @@ public class Station {
 
 	/**
 	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
-	 * fait, et de façon sûr. Ajouter une Inter manuellement à votre risque et péril.
+	 * fait, et de façon sûr. Ajouter une Junction manuellement à votre risque et péril.
 	 * 
-	 * @param inter
+	 * @param junction
 	 */
-	protected void addInter(Inter inter) {
-		this.inter.add(inter);
+	protected void addJunction(Junction junction) {
+		this.junctions.add(junction);
 	}
 
 	/**
@@ -75,27 +75,27 @@ public class Station {
 	 * @param service
 	 */
 	protected void addService(Service service) {
-		this.service.add(service);
+		this.services.add(service);
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public Iterator<Inter> getInter() {
-		return this.inter.iterator();
+	public Iterator<Junction> getJunction() {
+		return this.junctions.iterator();
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public Iterator<Route> getRoutes() {
 		return routes.iterator();
 	}
-	
+
 	public Iterator<Service> getService() {
-		return service.iterator();
+		return services.iterator();
 	}
 
 	public boolean isEnable() {

@@ -32,7 +32,6 @@ import java.awt.Panel;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.LinkedList;
-import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
@@ -565,21 +564,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.actualState = IhmReceivingStates.GRAPHIC_MODE;
 		else if (actualState == IhmReceivingStates.ARRAY_MODE)
 			this.actualState = IhmReceivingStates.ARRAY_MODE;
-	}
-
-	/**
-	 */
-	public void setChanged() {
-	}
-
-	/**
-	 */
-	public void addObserver(Observer o) {
-	}
-
-	/**
-	 */
-	public void notifyObservers() {
 	}
 
 	@Override

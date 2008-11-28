@@ -40,18 +40,18 @@ public class PathInGraphBuilder {
 	/**
 	 * En travaillant sur le PathInGraph courant, ajout au début du chemin l'inter passé en paramètre
 	 * 
-	 * @param inter
+	 * @param junction
 	 */
-	protected void addFront(Inter inter) {
+	protected void addFront(Junction junction) {
 	}
 
 	/**
 	 * En travaillant sur le PathInGraph courant, ajoute à la fin du chemin l'inter passé en paramètre
 	 * 
-	 * @param inter
+	 * @param junction
 	 */
-	public void addLast(Inter inter) {
-		actualPathInGraph.inter.addLast(inter);
+	public void addLast(Junction junction) {
+		actualPathInGraph.junctions.addLast(junction);
 	}
 
 	/**

@@ -11,7 +11,7 @@ import streamInFolder.EventInfoNetworkWatcherInFolderTest;
 
 public class GraphNetworkBuilderTest {
 
-	protected GraphNetworkBuilder graph;
+	protected GraphNetwork graph;
 
 	@After
 	public void epilogueDateTest() {
@@ -19,7 +19,7 @@ public class GraphNetworkBuilderTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetworkBuilder();
+		graph = new GraphNetwork();
 	}
 
 	public static junit.framework.Test suite() {

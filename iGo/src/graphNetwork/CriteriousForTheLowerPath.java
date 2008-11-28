@@ -10,21 +10,21 @@ package graphNetwork;
 public interface CriteriousForTheLowerPath {
 
 	/**
-	 * Return the prefered cost to use on the specified InterReader.
+	 * Return the prefered cost to use on the specified Junction.
 	 * 
 	 * @param inter
 	 *            the inter studied
 	 * @return the cost
 	 */
-	public abstract float getFirstCost(Inter inter);
+	public abstract float getFirstCost(Junction junction);
 
 	/**
-	 * Return the second prefered cost to use on the specified InterReader.
+	 * Return the second prefered cost to use on the specified Junction.
 	 * 
 	 * @param inter
 	 *            the inter studied
 	 * @return the cost
 	 */
-	public abstract float getSecondCost(Inter inter);
+	public abstract float getSecondCost(Junction junction);
 
 }
