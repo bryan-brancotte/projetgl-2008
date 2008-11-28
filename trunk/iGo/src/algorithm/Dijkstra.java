@@ -1,46 +1,40 @@
 package algorithm;
 import graphNetwork.CriteriousForTheLowerPath;
-<<<<<<< .mine
-import graphNetwork.GraphNetworkReader;
-import graphNetwork.InterReader;
-import graphNetwork.PathInGraphBuilder;
-import graphNetwork.PathInGraphReader;
-import graphNetwork.StationReader;
-=======
 import graphNetwork.GraphNetwork;
+import graphNetwork.Inter;
 import graphNetwork.PathInGraph;
+import graphNetwork.Service;
 import graphNetwork.Station;
->>>>>>> .r494
-import iGoMaster.AlgoAbstract;
+import iGoMaster.Algo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-<<<<<<< .mine
-public class Dijkstra extends AlgoAbstract {
+public class Dijkstra extends Algo {
 
 
 	private ArrayList<Node> graph;
-	private StationReader[] avoidR;
-	private StationReader[] mustR;
-	private StationReader[] alwaysR;
-	private ArrayList<StationReader> onceR;
-	private StationReader origine;
-	private StationReader destination;
-	private PathInGraphBuilder path;
+	private Station[] steps;
+	private Station[] avoidStations;
+	private Service[] always;
+	private Service[] must;
+	private Station origine;
+	private Station destination;
+	private PathInGraph path;
 	
-	public PathInGraphReader findPath(StationReader _origine,
-			StationReader _destination, GraphNetworkReader _graph,
-			PathInGraphBuilder _path,
+	public PathInGraph findPath(Station _origine,
+			Station _destination, GraphNetwork _graph,
+			PathInGraph _path,
 			CriteriousForTheLowerPath _criterious) {
 
 		// Initialisation des variables privées
 		origine = _origine;
 		destination = _destination;
 		path = _path;
-		// avoidR;
-		// mustR;
-		// onceR;
-		// alwaysR;
+		// avoidStations;
+		// must;
+		// once;
+		// always;
 		
 		extractGraphWithStaticConstraints(_graph);
 		
@@ -48,42 +42,31 @@ public class Dijkstra extends AlgoAbstract {
 		return path;
 	}
 		
-	private ArrayList<Node> extractGraphWithStaticConstraints(GraphNetworkReader g) {
+	private ArrayList<Node> extractGraphWithStaticConstraints(GraphNetwork g) {
 		// Initialisation du graph
 		graph = new ArrayList<Node>();
 		
 		//Parcours du graph
-		for (int i=0;i<g.getStationsR().length;i++) {
-			StationReader s = g.getStationsR()[i]; 
-			if (!isIn(s,avoidR)) {
+		Iterator<Station> it_from = g.getStations();
+		while(it_from.hasNext()){
+			Station s = it_from.next();
+			
+			if (!isIn(s,avoidStations)) {
 				Node n = new Node(s);
-				for (int j=0;j<s.getInterR().length;j++) {
-						InterReader inter = s.getInterR()[j];
-						if (goodChange(s,inter)) {
-							boolean valide = true;
-							int k=0;
-							while (k<s.getServiceR().length && valide) {
-								if (s.getServiceR()[k] == )
-							}
-							for (int k=0;k<;k++) {
-								
-							}
-							
-						}
+				graph.add(n);
+				
+				Iterator<Inter> it_inter = s.getInter();
+				while(it_inter.hasNext()){
+					Inter i = it_inter.next();
+					
+					if (goodChange(s,i)) n.addTo(i.getOtherStation(s));
 				}
 			}
 		}
-=======
-	public PathInGraph findPath(Station origine,
-			Station destination, GraphNetwork  graph,
-			PathInGraph pathInGraphBuilder,
-			CriteriousForTheLowerPath criterious) {
-		// TODO Auto-generated method stub
->>>>>>> .r494
-		return null;
+		return graph;
 	}
 	
-	private boolean isIn (StationReader s, StationReader[] list) {
+	private boolean isIn (Station s, Station[] list) {
 		boolean retour = false;
 		for (int i=0 ; i<list.length || retour ; i++) {
 			if (list[i] == s) retour=true;
@@ -91,10 +74,23 @@ public class Dijkstra extends AlgoAbstract {
 		return retour;
 	}
 	
-	private boolean goodChange (StationReader s,InterReader inter) {
+	private boolean goodChange (Station station,Inter inter) {
 		boolean retour = true;
-		if (inter.getRouteR(s) == inter.getOtherRouteR(s)) {
+		
+		if (isIn(inter.getOtherStation(station),avoidStations)) return false;
+		
+		if (inter.getRoute(station) != inter.getOtherRoute(station)) {
 			
+			for (int i=0 ; i<always.length && !retour ;i++) {
+				retour=false;
+				
+				Iterator<Service> it_service = station.getService();
+				while(it_service.hasNext() && !retour){
+					Service s = it_service.next();
+					
+					if (s.getId() == always[i].getId()) retour=true;
+				}
+			}	
 		}
 		return retour;
 	}
