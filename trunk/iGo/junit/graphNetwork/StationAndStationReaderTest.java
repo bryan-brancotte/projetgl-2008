@@ -21,8 +21,8 @@ public class StationAndStationReaderTest {
 	protected Station stationC;
 	protected Route routeA;
 	protected Route routeB;
-	protected Inter interZ;
-	protected Inter interY;
+	protected Junction interZ;
+	protected Junction interY;
 
 
 	public static junit.framework.Test suite() {
@@ -52,8 +52,8 @@ public class StationAndStationReaderTest {
 			routeA.addStation(stationA);
 			routeB.addStation(stationB);
 			routeB.addStation(stationC);
-			interY = new Inter(routeA, stationA, routeB, stationB, 1.23F, 412, false, false);
-			interZ = new Inter(routeB, stationC, routeB, stationB, 0F, 412, false, false);
+			interY = new Junction(routeA, stationA, routeB, stationB, 1.23F, 412, false, false);
+			interZ = new Junction(routeB, stationC, routeB, stationB, 0F, 412, false, false);
 			stationA.addInter(interY);
 			stationB.addInter(interY);
 			stationB.addInter(interZ);

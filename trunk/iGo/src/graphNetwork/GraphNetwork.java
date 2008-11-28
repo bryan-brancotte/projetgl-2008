@@ -73,7 +73,7 @@ public class GraphNetwork {
 	 *            la seconde station
 	 * @return un iterateur sur les changements existant
 	 */
-	public Iterator<Inter> getInters(Station stationA, Station stationB) {
+	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
 		// TODO Auto-generated method stub
 		return null;
 	}

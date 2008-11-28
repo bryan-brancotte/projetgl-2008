@@ -214,8 +214,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected MouseMotionListener[] mml;
 		protected MouseWheelListener[] mwl;
 		protected Image imageButtonOk = null;
-		// TODO utilisation de swing en 1.4???
-		// protected TextArea textMessageArea;/*
 		protected JTextArea textMessageArea;
 		protected JScrollPane scrollPane;
 

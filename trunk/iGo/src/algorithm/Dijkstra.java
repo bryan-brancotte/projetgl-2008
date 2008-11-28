@@ -26,7 +26,7 @@ public class Dijkstra extends Algo {
 			PathInGraphBuilder _path,
 			CriteriousForTheLowerPath _criterious) {
 
-		// Création des étapes 
+		// CrÃ©ation des Ã©tapes 
 		steps = new LinkedList<Station>();
 		steps.add(_origine);
 		Iterator<Station> it_step = _steps;
@@ -41,10 +41,10 @@ public class Dijkstra extends Algo {
 		// once;
 		// always;
 		
-		// Création du graph 
+		// CrÃ©ation du graph 
 		graph = extractGraphWithStaticConstraints(_graph);
 		
-		// Création du chemin 
+		// CrÃ©ation du chemin 
 		path = new LinkedList<Inter>();
 		while (path.size()==0 && once.size()!=0) {
 			for (int i=0;i<steps.size()-1;i++) {
@@ -53,7 +53,7 @@ public class Dijkstra extends Algo {
 			once.remove(once.size()-1);
 		}
 		
-		// Création du pathInGraph 
+		// CrÃ©ation du pathInGraph 
 		Iterator<Inter> it = path.iterator();
 		while(it.hasNext()){
 			Inter i = it.next();
@@ -72,7 +72,7 @@ public class Dijkstra extends Algo {
 		while(it_from.hasNext()){
 			Station s = it_from.next();
 			
-			// Si la station n'est pas à éviter 
+			// Si la station n'est pas Ã  Ã©viter 
 			if (!isIn(s,avoidStations)) {
 				Node n = new Node(s);
 				graph.add(n);
@@ -100,7 +100,7 @@ public class Dijkstra extends Algo {
 	private boolean goodChange (Station station,Inter inter) {
 		boolean retour = true;
 		
-		// Si la station d'arrivée n'est pas à éviter 
+		// Si la station d'arrivÃ©e n'est pas Ã  Ã©viter 
 		if (isIn(inter.getOtherStation(station),avoidStations)) return false;
 		
 		// S'il y a un changement de ligne tous les services "always" doivent etre remplis 
@@ -127,7 +127,7 @@ public class Dijkstra extends Algo {
 	// Pseudo code de la fonction de dijkstra
 	private ArrayList<Inter> dijkstra (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
 
-		// Initialisation des stations à une distance infinie
+		// Initialisation des stations Ã  une distance infinie
 		for (int i=0;i<graph.size();i++) {
 			Node n = graph.get(i);
 			n.setParcouru(Integer.MAX_VALUE);
@@ -138,22 +138,22 @@ public class Dijkstra extends Algo {
 	n.precedent = 0
 	Fin pour
 
-	// Initialisation du parcours à rien et ajout de l’ensemble des stations possibles
+	// Initialisation du parcours Ã  rien et ajout de lâ€™ensemble des stations possibles
 	debut.parcouru = 0
 	PasEncoreVu = reseau
 
-	// Parcourir l’ensemble des stations
+	// Parcourir lâ€™ensemble des stations
 	Tant que PasEncoreVu != liste vide
 
-	// Le nœud dans PasEncoreVu avec parcouru le plus petit
+	// Le nÅ“ud dans PasEncoreVu avec parcouru le plus petit
 	n1 = minimum(PasEncoreVu)
 	PasEncoreVu.enlever(n1)
 
-	// Parcours de l’ensemble des stations reliées à n1 par un arc restant
+	// Parcours de lâ€™ensemble des stations reliÃ©es Ã  n1 par un arc restant
 	Pour n2 dans fils(n1) 
 	// temps (ou cout ou autre) correspond au poids de l'arc reliant n1 et n2 
-	Si n2.parcouru > n1.parcouru + distance(n1, n2) – n2.interet ET (n2.interet > 0 || PasEncoreVu ne contient pas n2)
-	// Enregistrement dans la liste que pour aller a n1 il faut aller à n2
+	Si n2.parcouru > n1.parcouru + distance(n1, n2) â€“ n2.interet ET (n2.interet > 0 || PasEncoreVu ne contient pas n2)
+	// Enregistrement dans la liste que pour aller a n1 il faut aller Ã  n2
 	n2.precedent = n1
 	Fin si
 	Fin pour

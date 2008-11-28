@@ -10,9 +10,9 @@ import java.util.LinkedList;
 public class PathInGraph {
 
 	/**
-	 * Liste des inter formant le trajet
+	 * Liste des jonctions formant le trajet
 	 */
-	protected LinkedList<Inter> inter;
+	protected LinkedList<Junction> junctions;
 
 	/**
 	 * GraphNetwork dans lequel le trajet à un sens, une existance
@@ -23,7 +23,7 @@ public class PathInGraph {
 	 * constructeur d'un trajet
 	 */
 	private PathInGraph() {
-		inter = new LinkedList<Inter>();
+		junctions = new LinkedList<Junction>();
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne la première inter a partir de laquel on peut toujours atteindre la fin du trajet.
+	 * Retourne la première jonction a partir de laquel on peut toujours atteindre la fin du trajet.
 	 * 
-	 * @return la première inter, ou null si la fin de l'inter n'est plus accessible
+	 * @return la première jonction, ou null si la fin de la jonction n'est plus accessible
 	 */
-	public Inter getFirstInterInTheLastAvaiblePart() {
+	public Junction getFirstJunctionInTheLastAvaiblePart() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -76,12 +76,12 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un iterateur décrivant les inter qui forme le chemin dans le sens départ->fin
+	 * Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
 	 * 
 	 * @return l'iterateur
 	 */
-	public Iterator<Inter> getInter() {
-		return inter.iterator();
+	public Iterator<Junction> getJunction() {
+		return junctions.iterator();
 	}
 
 	/**
@@ -114,11 +114,11 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Permet de savoir si on peut toujours arpenter le trajet à partir de l'inter passé en paramètre jusqu'a la fin.
+	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la fin.
 	 * 
-	 * @return true si on peut le faire depuis cette inter.
+	 * @return true si on peut le faire depuis cette jonction.
 	 */
-	public boolean isStillAvaible(Inter inter) {
+	public boolean isStillAvaible(Junction junction) {
 		// TODO Auto-generated method stub
 		return false;
 	}

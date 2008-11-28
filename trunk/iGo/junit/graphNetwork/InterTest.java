@@ -22,7 +22,7 @@ public class InterTest {
 	protected Station stationC;
 	protected Route routeA;
 	protected Route routeB;
-	protected Inter inter;
+	protected Junction inter;
 
 	@After
 	public void epilogueDateTest() {
@@ -47,7 +47,7 @@ public class InterTest {
 			graph.addStationToRoute(routeA, stationA, 0);
 			graph.addStationToRoute(routeB, stationB, 0);
 			graph.addStationToRoute(routeB, stationC, 0);
-			inter = new Inter(routeA, stationA, routeB, stationB, 1.23F, 412, false, false);
+			inter = new Junction(routeA, stationA, routeB, stationB, 1.23F, 412, false, false);
 			// graph.linkStation(routeA, stationA, routeB, stationB, 1.23F, 12, false);
 		} catch (ViolationOfUnicityInIdentificationException e) {
 			System.err.println("problem d'unicité pour un identifiant (Route?Station?)");
@@ -80,7 +80,7 @@ public class InterTest {
 	 */
 	@Test(expected = StationNotOnRoadException.class)
 	public void initialisationIncorrect1() throws StationNotOnRoadException, ImpossibleValueException {
-		new Inter(routeA, stationA, routeA, stationB, 0, 0, true, false);
+		new Junction(routeA, stationA, routeA, stationB, 0, 0, true, false);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class InterTest {
 	 */
 	@Test(expected = ImpossibleValueException.class)
 	public void initialisationIncorrect2() throws StationNotOnRoadException, ImpossibleValueException {
-		new Inter(routeA, stationA, routeB, stationB, -1.5F, 0, true, false);
+		new Junction(routeA, stationA, routeB, stationB, -1.5F, 0, true, false);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class InterTest {
 	 */
 	@Test(expected = ImpossibleValueException.class)
 	public void initialisationIncorrect3() throws StationNotOnRoadException, ImpossibleValueException {
-		new Inter(routeA, stationA, routeB, stationB, 0, -1, true, false);
+		new Junction(routeA, stationA, routeB, stationB, 0, -1, true, false);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class InterTest {
 	 */
 	@Test
 	public void initialisationCorrect2() throws StationNotOnRoadException, ImpossibleValueException {
-		new Inter(routeB, stationC, routeB, stationB, 0, 0, true, false);
+		new Junction(routeB, stationC, routeB, stationB, 0, 0, true, false);
 		assertTrue(inter.getRouteA() == routeB);
 		assertTrue(inter.getRouteA() == inter.getRouteB());
 		assertTrue((inter.getStationA() == stationC) && (inter.getStationB() == stationB));
