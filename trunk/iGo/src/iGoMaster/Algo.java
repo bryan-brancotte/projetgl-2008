@@ -10,10 +10,10 @@ import java.util.Observer;
 
 public abstract class Algo extends Observable {
 
-	public PathInGraph findPath(Station origine,
-			Station destination, GraphNetwork graph,
-			PathInGraph pathInGraphBuilder,
-			CriteriousForTheLowerPath criterious) {
+	public PathInGraph findPath(Station _origine,
+			Station _destination, GraphNetwork _graph,
+			PathInGraph _path,
+			CriteriousForTheLowerPath _criterious) {
 		// TODO Auto-generated method stub
 		return null;
 	}
