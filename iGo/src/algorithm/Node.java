@@ -25,4 +25,11 @@ public class Node {
 	public void removeTo (Station _to) {
 		to.remove(_to);
 	}
+
+	public int getParcouru (){ return parcouru;	}
+	public void setParcouru (int _parcouru){ parcouru=_parcouru; }
+	
+	public int getInteret (){ return interet;	}
+	public void setInteret (int _interet){ interet=_interet; }
+	
 }
