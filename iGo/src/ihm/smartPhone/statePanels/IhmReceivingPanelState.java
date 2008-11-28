@@ -27,6 +27,11 @@ public interface IhmReceivingPanelState {
 	public void stop();
 
 	/**
+	 * Demande l'annulation de l'action en cours.
+	 */
+	public void cancel();
+
+	/**
 	 * Retourne pour une clé donnée la valeur dans la langue sélectionné de cette clé
 	 * 
 	 * @param key

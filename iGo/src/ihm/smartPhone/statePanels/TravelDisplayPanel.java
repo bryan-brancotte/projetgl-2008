@@ -9,12 +9,9 @@ import ihm.smartPhone.tools.AbsolutLayout;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Panel;
 import java.awt.Rectangle;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
@@ -22,6 +19,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public abstract class TravelDisplayPanel extends PanelState {
@@ -219,7 +217,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		// TODO utilisation de swing en 1.4???
 		// protected TextArea textMessageArea;/*
 		protected JTextArea textMessageArea;
-		protected ScrollPane scrollPane;
+		protected JScrollPane scrollPane;
 
 		/**
 		 * Constructeur d'un PopUpMessage, on précise le panel qui l'accueil afin de controler les zones clicables dans
@@ -264,10 +262,10 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// textMessageArea.setBackground(panelParent.getBackground());
 			// textMessageArea.setVisible(false);
 			// scrollPane.setLayout(new BorderLayout());
-			scrollPane = new ScrollPane();// textMessageArea);
-			Panel inside = new Panel(new BorderLayout(0, 0));
-			inside.add(textMessageArea);
-			scrollPane.add(inside);
+			scrollPane = new JScrollPane(textMessageArea);
+			// Panel inside = new Panel(new BorderLayout(0, 0));
+			// inside.add(textMessageArea);
+			// scrollPane.add(inside);
 			scrollPane.setVisible(false);
 			panelParent.add(scrollPane);
 		}
@@ -313,8 +311,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
 			scrollPane.setVisible(true);
-			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
-					(int) (getHeight() * 0.35));
+//			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
+//					(int) (getHeight() * 0.35));
 
 			// textMessageArea.setColumns(10);//
 			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
@@ -324,7 +322,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// scrollPane.repaint();
 			// textMessageArea.validate();
 			// textMessageArea.getParent().validate();
-			scrollPane.validate();
+			//scrollPane.validate();
 			// scrollPane.repaint();
 			// textMessageArea.getParent().repaint();
 			// textMessageArea.repaint();
@@ -346,9 +344,11 @@ public abstract class TravelDisplayPanel extends PanelState {
 				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
 						.getImage();
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			g.fillRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875), (int) (getHeight() * 0.6));
+			g.fillRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875),
+					(int) (getHeight() * 0.6));
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875), (int) (getHeight() * 0.6));
+			g.drawRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875),
+					(int) (getHeight() * 0.6));
 			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
 					(int) (getHeight() * 0.35));
 			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
