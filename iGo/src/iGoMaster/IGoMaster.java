@@ -130,7 +130,7 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property   name="algo"
 	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.AlgoAbstract"
 	 */
-	private AlgoAbstract algo;
+	private Algo algo;
 
 	/**
 	 * Getter of the property <tt>algo</tt>
@@ -138,7 +138,7 @@ public class IGoMaster implements Master, Observer {
 	 * @return Returns the algo.
 	 * @uml.property name="algo"
 	 */
-	public AlgoAbstract getAlgo() {
+	public Algo getAlgo() {
 		return algo;
 	}
 
@@ -149,7 +149,7 @@ public class IGoMaster implements Master, Observer {
 	 *            The algo to set.
 	 * @uml.property name="algo"
 	 */
-	public void setAlgo(AlgoAbstract algo) {
+	public void setAlgo(Algo algo) {
 		this.algo = algo;
 	}
 
@@ -212,7 +212,7 @@ public class IGoMaster implements Master, Observer {
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
 
-	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, AlgoAbstract algo,
+	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
 			GraphNetworkBuilder graphNetworkFactory, EventInfoNetworkWatcher eventInfoNetwork,
 			GraphNetworkCostReceiver graphNetworkCostReceiver) {
 		super();
