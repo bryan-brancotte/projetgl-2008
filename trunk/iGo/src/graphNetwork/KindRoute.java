@@ -1,6 +1,6 @@
 package graphNetwork;
 
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -32,7 +32,7 @@ public class KindRoute {
 	 *            the name of the new kind
 	 * @return true if we could add the kind to the collection. If the kind already existe, we hadn't add it.
 	 */
-	public static boolean addKind(String kind) {
+	protected static boolean addKind(String kind) {
 		return true;
 	}
 
@@ -42,8 +42,8 @@ public class KindRoute {
 	 * @return Returns the kinds.
 	 * @uml.property name="kinds"
 	 */
-	public static Collection<KindRoute> getKinds() {
-		return kinds;
+	public static Iterator<KindRoute> getKinds() {
+		return kinds.iterator();
 	}
 
 	/**
