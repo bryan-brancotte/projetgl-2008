@@ -81,45 +81,47 @@ public class MainPanel extends PanelState {
 	public void paint(Graphics g) {
 		int miniWidth = this.getWidth() >> 2;
 		int miniHeight = this.getHeight() >> 2;
+		int miniSide = (miniWidth > miniHeight) ? miniHeight : miniWidth;
 		int halfImagesWidth;
 		int twoThirdImagesHeight;
 		String msg;
 		/***************************************************************************************************************
-		 * 
+		 * detection d'un changement de taille, dans ce cas on modifie le double buffer, et au cas ou les image charger
+		 * en mémoire
 		 */
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
+			// System.out.println(getWidth());
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			buffer.setFont(font = father.getSizeAdapteur().getIntermediateFont());
 			buffer.setColor(father.getSkin().getColorLetter());
 
-			if ((imageNew == null) || (miniWidth == imageNewArea.getWidth())
-					|| (miniHeight == imageNewArea.getHeight()))
-				imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniWidth, miniHeight).getImage();
-			halfImagesWidth = imageNew.getWidth(null) >> 1;
-			twoThirdImagesHeight = (int) (imageNew.getHeight(null) * 0.667);
-			imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, imageNew
-					.getWidth(null), imageNew.getHeight(null));
+			if ((imageNew == null) || (miniHeight != imageNewArea.getWidth())
+					|| (miniHeight != imageNewArea.getHeight()))
+				imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniSide, miniSide).getImage();
+			halfImagesWidth = miniSide >> 1;
+			twoThirdImagesHeight = (int) (miniSide * 0.667);
+			imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, miniSide, miniSide);
 
-			if ((imageLoad == null) || (miniWidth == imageLoadArea.getWidth())
-					|| (miniHeight == imageLoadArea.getHeight()))
-				imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniWidth, miniHeight).getImage();
+			if ((imageLoad == null) || (miniHeight != imageLoadArea.getWidth())
+					|| (miniHeight != imageLoadArea.getHeight()))
+				imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniSide, miniSide).getImage();
 			imageLoadArea.setBounds(miniWidth * 3 - halfImagesWidth, imageNewArea.y, imageNewArea.width,
 					imageNewArea.height);
 
-			if ((imageSettings == null) || (miniWidth == imageSettingsArea.getWidth())
-					|| (miniHeight == imageSettingsArea.getHeight()))
-				imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniWidth, miniHeight).getImage();
-			imageSettingsArea.setBounds(imageNewArea.x, miniHeight * 3 - imageNew.getHeight(null), imageNewArea.width,
+			if ((imageSettings == null) || (miniHeight != imageSettingsArea.getWidth())
+					|| (miniHeight != imageSettingsArea.getHeight()))
+				imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniSide, miniSide).getImage();
+			imageSettingsArea.setBounds(imageNewArea.x, miniHeight * 3 - miniSide, imageNewArea.width,
 					imageNewArea.height);
 
-			if ((imageFavorites == null) || (miniWidth == imageFavoritesArea.getWidth())
-					|| (miniHeight == imageFavoritesArea.getHeight()))
-				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniWidth, miniHeight).getImage();
+			if ((imageFavorites == null) || (miniHeight != imageFavoritesArea.getWidth())
+					|| (miniHeight != imageFavoritesArea.getHeight()))
+				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniSide, miniSide).getImage();
 			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 		} else {
-			halfImagesWidth = imageNew.getWidth(null) >> 1;
-			twoThirdImagesHeight = (int) (imageNew.getHeight(null) * 0.667);
+			halfImagesWidth = miniSide >> 1;
+			twoThirdImagesHeight = (int) (miniSide * 0.667);
 		}
 		/***************************************************************************************************************
 		 * Menu "New"

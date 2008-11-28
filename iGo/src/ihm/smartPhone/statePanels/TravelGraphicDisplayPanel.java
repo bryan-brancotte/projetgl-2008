@@ -64,25 +64,25 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
 		colorList = new LinkedList<Color>();
-		addColorAndItsLighted(new Color(242, 130, 38));// Orange
-		addColorAndItsLighted(new Color(73, 12, 139));// pourpre foncé
-		addColorAndItsLighted(new Color(133, 242, 38));// Vert jeune pousse
-		addColorAndItsLighted(new Color(114, 159, 220));// Bleu clair
-		addColorAndItsLighted(new Color(208, 38, 242));// rose clair
-		addColorAndItsLighted(new Color(12, 52, 139));// Bleu marrine
-		addColorAndItsLighted(Color.cyan);
-		addColorAndItsLighted(new Color(139, 69, 12));// marront
-		addColorAndItsLighted(new Color(12, 128, 139));// Bleu turquoise
-		addColorAndItsLighted(new Color(254, 170, 52));// Orange pastel
-		addColorAndItsLighted(new Color(189, 107, 247));// violet pastel
-		addColorAndItsLighted(new Color(139, 12, 65));// bordeau
-		addColorAndItsLighted(new Color(242, 239, 38));// Jaune
-		addColorAndItsLighted(new Color(141, 207, 80));// Vert clair
-		addColorAndItsLighted(new Color(137, 12, 139));// violet foncé
-		addColorAndItsLighted(new Color(52, 52, 254));// Bleu foncé
-		addColorAndItsLighted(new Color(80, 139, 12));// Vert foncé
-		addColorAndItsLighted(new Color(38, 116, 224));// Bleu
-		addColorAndItsLighted(new Color(137, 38, 242));// pourpre
+		colorList.add(new Color(242, 130, 38));// Orange
+		colorList.add(new Color(73, 12, 139));// pourpre foncé
+		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
+		colorList.add(new Color(114, 159, 220));// Bleu clair
+		colorList.add(new Color(208, 38, 242));// rose clair
+		colorList.add(new Color(12, 52, 139));// Bleu marrine
+		colorList.add(Color.cyan);
+		colorList.add(new Color(139, 69, 12));// marront
+		colorList.add(new Color(12, 128, 139));// Bleu turquoise
+		colorList.add(new Color(254, 170, 52));// Orange pastel
+		colorList.add(new Color(189, 107, 247));// violet pastel
+		colorList.add(new Color(139, 12, 65));// bordeau
+		colorList.add(new Color(242, 239, 38));// Jaune
+		colorList.add(new Color(141, 207, 80));// Vert clair
+		colorList.add(new Color(137, 12, 139));// violet foncé
+		colorList.add(new Color(52, 52, 254));// Bleu foncé
+		colorList.add(new Color(80, 139, 12));// Vert foncé
+		colorList.add(new Color(38, 116, 224));// Bleu
+		colorList.add(new Color(137, 38, 242));// pourpre
 		/***************************************************************************************************************
 		 * Création de l'image
 		 */
@@ -208,17 +208,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		});
 	}
 
-	protected void addColorAndItsLighted(Color org) {
-		int r = org.getRed(), g = org.getGreen(), b = org.getBlue();
-		// on augmente les composantes de 1.2, et les bornes sur [25,255]
-		r = (r *= 1.2) > 255 ? 255 : r < 25 ? 25 : r;
-		g = (g *= 1.2) > 255 ? 255 : g < 25 ? 25 : g;
-		b = (b *= 1.2) > 255 ? 255 : b < 25 ? 25 : b;
-		//System.out.println(r + " " + g + " " + b);
-		colorList.add(new Color(r, g, b));
-		colorList.add(org);
-	}
-
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
 		father.setActualState(IhmReceivingStates.ARRAY_MODE.mergeState(actualState));
@@ -281,7 +270,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		int idToKeep;
 		int length;
 		int hypo;
-		Color lightColor;
 		Point center = new Point();
 		Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
@@ -308,8 +296,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			if (!iterColor.hasNext())
 				iterColor = colorList.iterator();
 			section = iterTravel.next();
-			lightColor = iterColor.next();
-			buffer.setColor(lightColor);
+			buffer.setColor(iterColor.next());
 			length = section.getTimeSection() * sizeLarge >>2;
 			// System.out.println(section.getTimeSection());
 			if (orientation % 2 == 0) {
@@ -387,15 +374,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 					iterTravel.next();
 				}
 			} else if (polygon.ypoints[0] < -sizeLarge && polygon.ypoints[2] < -sizeLarge) {
-				buffer.setColor(iterColor.next());
+				//buffer.setColor(iterColor.next());
 			} else {
 				// la zone
 				// System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
-				buffer.setColor(iterColor.next());
-				// TODO garder le contour des lignes?
-				//buffer.drawPolygon(polygon);
-				buffer.setColor(lightColor);
+				//TODO faire un contour sur les lignes
 				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 						(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
 				drawDelayedOval(buffer, center.x - (sizeLarge >> 1), center.y - (sizeLarge >> 1), sizeLarge, sizeLarge);

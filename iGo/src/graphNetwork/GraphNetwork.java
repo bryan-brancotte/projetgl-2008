@@ -61,7 +61,9 @@ public class GraphNetwork {
 	 * @return une nouvelle instance de PathInGraph
 	 */
 	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
-		return new PathInGraphBuilder(this);
+		PathInGraphBuilder b =  new PathInGraphBuilder(this);
+		b.setActualPathInGraph(path);
+		return b;
 	}
 
 	/**

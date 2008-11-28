@@ -462,7 +462,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			return true;
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
 			cleanPanelsStates(false);
-			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar));
+			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar,master.lg("ComputingANewPath")));
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
 			master.askForATravel();
 			return true;
@@ -497,7 +497,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE;
 			return true;
 		} else /**/if (actualState == IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE) {
-			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE;
 			try {
 				checkTravelArrayDisplayPanel();
@@ -505,12 +504,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				cleanPanelsStates(true);
 				checkTravelArrayDisplayPanel();
 			}
-			addToCenterPanel(travelGraphicPanel);
+			addToCenterPanel(travelArrayPanel);
 			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			travelArrayPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
-			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE;
 			centerPanel.removeAll();
 			try {
@@ -519,7 +517,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				cleanPanelsStates(true);
 				checkTravelArrayDisplayPanel();
 			}
-			addToCenterPanel(travelGraphicPanel);
+			addToCenterPanel(travelArrayPanel);
 			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			travelArrayPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			return true;
