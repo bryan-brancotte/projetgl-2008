@@ -50,7 +50,7 @@ public class PathInGraphBuilder {
 	 * 
 	 * @param inter
 	 */
-	protected void addLast(Inter inter) {
+	public void addLast(Inter inter) {
 		actualPathInGraph.inter.addLast(inter);
 	}
 
