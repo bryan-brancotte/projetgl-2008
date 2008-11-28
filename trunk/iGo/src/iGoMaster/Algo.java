@@ -1,10 +1,8 @@
 package iGoMaster;
 
-import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetwork;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
-import graphNetwork.Station;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -15,15 +13,11 @@ public abstract class Algo extends Observable {
 	 * fonction pour demander la résolution d'un nouveau chemin. On spécifie le départ et l'arrivé, on fournit le
 	 * réseau, et le monteur de PathInGraph avec un PathInGraph vide à l'interrieur.
 	 * 
-	 * @param _origine
-	 * @param _destination
 	 * @param _graph
-	 * @param _path
-	 * @param _criterious
+	 * @param _pathBuilder
 	 * @return
 	 */
-	public PathInGraph findPath(Station _origine, Station _destination, GraphNetwork _graph, PathInGraphBuilder _path,
-			CriteriousForTheLowerPath _criterious) {
+	public PathInGraph findPath(GraphNetwork _graph, PathInGraphBuilder _path) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,6 +62,27 @@ public abstract class Algo extends Observable {
 	 */
 	public void setIGoMaster(IGoMaster goMaster) {
 		this.goMaster = goMaster;
+	}
+
+	public enum CriteriousForLowerPath {
+		COST(1), TIME(2), CHANGE(3);
+
+		protected int val;
+
+		private CriteriousForLowerPath(int val) {
+			this.val = val;
+		}
+
+		protected int getValue() {
+			return this.val;
+		}
+
+		/**
+		 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
+		 */
+		public boolean equals(CriteriousForLowerPath ev) {
+			return (this.getValue() == ev.getValue());
+		}
 	}
 
 }

@@ -14,6 +14,10 @@
 				<FRANCAIS value="iGo"/>
 				<ENGLISH value="iGo"/>
 			</ProgName>
+			<KeyUnknown>
+				<FRANCAIS value="CléInconnu"/>
+				<ENGLISH value="KeyUnknown"/>
+			</KeyUnknown>
 			<!--HomeDocName will be a directory name, be carful of how you name it-->
 			<HomeDirectoryName>
 				<FRANCAIS value="iGoDoc"/>
@@ -151,6 +155,10 @@
 				<FRANCAIS value="Mode graphique →"/>
 				<ENGLISH value="Graphic mode →"/>
 			</GoToGraphicMode>
+			<ComputingANewPath>
+				<FRANCAIS value="Calcul du trajet..."/>
+				<ENGLISH value="Computing the path..."/>
+			</ComputingANewPath>
 		</fields>
 	</root>
 

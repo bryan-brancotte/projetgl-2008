@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VoidPanel extends PanelState {
+	
+	private String message;
 
 	public VoidPanel() {
 		super(null, null, null);
@@ -19,8 +21,9 @@ public class VoidPanel extends PanelState {
 		super(father, null, null);
 	}
 
-	public VoidPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar lowerBar) {
+	public VoidPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar lowerBar,String message) {
 		super(father, upperBar, lowerBar);
+		this.message = message;
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +37,7 @@ public class VoidPanel extends PanelState {
 	public void giveControle() {
 		if (upperBar != null) {
 			upperBar.clearMessage();
+			upperBar.setMainTitle(message);
 			upperBar.repaint();
 		}
 		if (lowerBar != null) {

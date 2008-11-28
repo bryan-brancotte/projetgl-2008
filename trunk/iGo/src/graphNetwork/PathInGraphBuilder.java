@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import java.util.Iterator;
+
 /**
  * 
  * @author iGo
@@ -42,7 +44,15 @@ public class PathInGraphBuilder {
 	 * 
 	 * @param junction
 	 */
-	protected void addFront(Junction junction) {
+	public void addFront(Junction junction) {
+	}
+
+	/**
+	 * En travaillant sur le PathInGraph courant, ajout à la fin du chemin les inter passé en paramètre.
+	 * 
+	 * @param iterJunction
+	 */
+	public void addLast(Iterator<Junction> iterJunction) {
 	}
 
 	/**
