@@ -15,17 +15,17 @@
 				<ENGLISH value="iGo"/>
 			</ProgName>
 			<KeyUnknown>
-				<FRANCAIS value="CléInconnu"/>
+				<FRANCAIS value="CléInconnue"/>
 				<ENGLISH value="KeyUnknown"/>
 			</KeyUnknown>
-			<!--HomeDocName will be a directory name, be carful of how you name it-->
+			<!--HomeDocName will be a directory name, be careful of how you name it-->
 			<HomeDirectoryName>
 				<FRANCAIS value="iGoDoc"/>
 				<ENGLISH value="iGoDoc"/>
 			</HomeDirectoryName>
 			<SplashScreenUpperTitle>
-				<FRANCAIS value="SEPTA Present"/>
-				<ENGLISH value="SEPTA Present"/>
+				<FRANCAIS value="SEPTA Presente"/>
+				<ENGLISH value="SEPTA Presents"/>
 			</SplashScreenUpperTitle>
 			<iGoVersion>
 				<FRANCAIS value="iGo v0.1"/>
@@ -53,7 +53,7 @@
 			</Favorites>
 			<LoadTravel>
 				<FRANCAIS value="Charger un trajet récent"/>
-				<ENGLISH value="Load travel récent"/>
+				<ENGLISH value="Load recent travel"/>
 			</LoadTravel>
 			<NewTravel>
 				<FRANCAIS value="Nouveau trajet"/>
@@ -120,25 +120,9 @@
 				<ENGLISH value="Next change"/>
 			</NextStop>
 			<DoYouWantToQuitYourActualTravel>
-				<FRANCAIS value="Voulez vous quitter votre trajet actuelle?&#10;Votre progression sera perdu."/>
-				<ENGLISH value="Do you want to qui your actual travel?&#10;Your progression will be lost."/>
+				<FRANCAIS value="Voulez vous quitter votre trajet actuel?&#10;Votre progression sera perdue."/>
+				<ENGLISH value="Do you want to quit your current travel?&#10;Your journey will be lost."/>
 			</DoYouWantToQuitYourActualTravel>
-			<Destination>
-				<FRANCAIS value="Destination"/>
-				<ENGLISH value="Destination"/>
-			</Destination>
-			<Destination>
-				<FRANCAIS value="Destination"/>
-				<ENGLISH value="Destination"/>
-			</Destination>
-			<Destination>
-				<FRANCAIS value="Destination"/>
-				<ENGLISH value="Destination"/>
-			</Destination>
-			<Destination>
-				<FRANCAIS value="Destination"/>
-				<ENGLISH value="Destination"/>
-			</Destination>
 			<Destination>
 				<FRANCAIS value="Destination"/>
 				<ENGLISH value="Destination"/>
@@ -149,7 +133,7 @@
 			</Free>
 			<GoToArrayMode>
 				<FRANCAIS value="Mode tableau →"/>
-			<ENGLISH value="Array mode →"/>
+				<ENGLISH value="Array mode →"/>
 			</GoToArrayMode>
 			<GoToGraphicMode>
 				<FRANCAIS value="Mode graphique →"/>
