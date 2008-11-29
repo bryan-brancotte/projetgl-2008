@@ -2,35 +2,42 @@ package ihm.smartPhone.tools;
 
 import java.awt.Color;
 
-public enum iGoSmartPhoneSkin {
+public class iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
-	WHITE_WITH_LINE(new Color(115, 115, 115), new Color(141, 141, 141), new Color(251, 251, 251), true),
+	public static iGoSmartPhoneSkin WHITE_WITH_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), new Color(141,
+			141, 141), new Color(251, 251, 251), true);
 	/**
 	 * thème bleu et noir avec ligne séparatrice
 	 */
-	BLUE_WITH_LINE(new Color(22, 78, 147), new Color(141, 141, 141), new Color(251, 251, 251), true),
+	public static iGoSmartPhoneSkin BLUE_WITH_LINE = new iGoSmartPhoneSkin(new Color(22, 78, 147), new Color(141, 141,
+			141), new Color(251, 251, 251), true);
 	/**
 	 * thème bleu et noir sans ligne séparatrice
 	 */
-	BLUE_WITHOUT_LINE(new Color(22, 78, 147), null, new Color(4, 4, 4), false),
+	public static iGoSmartPhoneSkin BLUE_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(22, 78, 147), null, new Color(
+			4, 4, 4), false);
 	/**
 	 * 
 	 */
-	PURPLE_LIGHT_WITH_LINE(new Color(144, 30, 196), new Color(141, 141, 141), new Color(248, 235, 255), true),
+	public static iGoSmartPhoneSkin PURPLE_LIGHT_WITH_LINE = new iGoSmartPhoneSkin(new Color(144, 30, 196), new Color(
+			141, 141, 141), new Color(248, 235, 255), true);
 	/**
 	 * 
 	 */
-	WHITE_WITHOUT_LINE(new Color(115, 115, 115), null, new Color(251, 251, 251), false),
+	public static iGoSmartPhoneSkin WHITE_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), null,
+			new Color(251, 251, 251), false);
 	/**
 	 * 
 	 */
-	BLACK_WITH_LINE(new Color(115, 115, 115), new Color(141, 141, 141), new Color(4, 4, 4), true),
+	public static iGoSmartPhoneSkin BLACK_WITH_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), new Color(141,
+			141, 141), new Color(4, 4, 4), true);
 	/**
 	 * 
 	 */
-	BLACK_WITHOUT_LINE(new Color(115, 115, 115), null, new Color(4, 4, 4), false);
+	public static iGoSmartPhoneSkin BLACK_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), null,
+			new Color(4, 4, 4), false);
 
 	protected int id;
 	protected static int cpt = 0;
