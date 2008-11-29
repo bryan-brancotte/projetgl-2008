@@ -1,31 +1,37 @@
 package algorithm;
 
+import graphNetwork.Junction;
+import graphNetwork.Route;
 import graphNetwork.Station;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Node {
 	
-	private Station from;
-	private ArrayList<Station> to;
+	private Station station;
+	private Route route;
+	private LinkedList<Link> to;
 	private int interet;
 	private int parcouru;
 
-	Node(Station _from) {
-		from = _from;
+	Node(Station s, Route r) {
+		station = s;
+		route = r;
 		interet = 0;
 		parcouru = 0;
-		to = new ArrayList<Station>();
+		to = new LinkedList<Link>();
 	}
 
-	public void addTo (Station _to) {
-		to.add(_to);
+	public void addTo (Junction j, Node n) {
+		to.add(new Link(j,n));
 	}
 
-	public void removeTo (Station _to) {
-		to.remove(_to);
+	public void removeTo (Link l) {
+		to.remove(l);
 	}
 
+	public Station getStation () {return station;}
+	
 	public int getParcouru (){ return parcouru;	}
 	public void setParcouru (int _parcouru){ parcouru=_parcouru; }
 	
