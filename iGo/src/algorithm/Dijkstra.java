@@ -1,8 +1,8 @@
 package algorithm;
-import graphNetwork.CriteriousForTheLowerPath;
 import graphNetwork.GraphNetwork;
-import graphNetwork.Inter;
+import graphNetwork.Junction;
 import graphNetwork.PathInGraphBuilder;
+import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
@@ -13,18 +13,20 @@ import java.util.LinkedList;
 
 public class Dijkstra extends Algo {
 
-
 	private ArrayList<Node> graph;
 	private LinkedList<Station> steps;
 	private Station[] avoidStations;
 	private Service[] always;
 	private ArrayList<Service> once;
-	private LinkedList<Inter> path;
+	private LinkedList<Junction> path;
+	
+	public Dijkstra (GraphNetwork _graph) {
+		graph = extractGraphWithStaticConstraints(_graph);
+		
+	}
 	
 	public PathInGraphBuilder findPath(Station _origine, Iterator<Station> _steps, Station _destination,
-			GraphNetwork _graph,
-			PathInGraphBuilder _path,
-			CriteriousForTheLowerPath _criterious) {
+			PathInGraphBuilder _path) {
 
 		// Création des étapes 
 		steps = new LinkedList<Station>();
@@ -42,10 +44,9 @@ public class Dijkstra extends Algo {
 		// always;
 		
 		// Création du graph 
-		graph = extractGraphWithStaticConstraints(_graph);
 		
 		// Création du chemin 
-		path = new LinkedList<Inter>();
+		path = new LinkedList<Junction>();
 		while (path.size()==0 && once.size()!=0) {
 			for (int i=0;i<steps.size()-1;i++) {
 				path.addAll(algo(graph,steps.get(i),steps.get(i+1),once));
@@ -54,9 +55,9 @@ public class Dijkstra extends Algo {
 		}
 		
 		// Création du pathInGraph 
-		Iterator<Inter> it = path.iterator();
+		Iterator<Junction> it = path.iterator();
 		while(it.hasNext()){
-			Inter i = it.next();
+			Junction i = it.next();
 			_path.addLast(i);
 		}
 		
@@ -68,27 +69,38 @@ public class Dijkstra extends Algo {
 		graph = new ArrayList<Node>();
 		
 		// Parcours du graph 
-		Iterator<Station> it_from = g.getStations();
-		while(it_from.hasNext()){
-			Station s = it_from.next();
+		Iterator<Station> itFrom = g.getStations();
+		while(itFrom.hasNext()){
+			Station s = itFrom.next();
 			
 			// Si la station n'est pas à éviter 
 			if (!isIn(s,avoidStations)) {
-				Node n = new Node(s);
-				graph.add(n);
-				
-				Iterator<Inter> it_inter = s.getInter();
-				while(it_inter.hasNext()){
-					Inter i = it_inter.next();
-					
-					// Si la transition est possible 
-					if (goodChange(s,i)) n.addTo(i.getOtherStation(s));
+
+				// Parcours des routes
+				Iterator<Route> itRoute = s.getRoutes();
+				while(itRoute.hasNext()){
+					Route r = itRoute.next();
+					Node n = new Node(s,r);
+					graph.add(n);
+				}
+			}
+		}
+		Iterator<Node> itNode = graph.iterator();
+		while(itNode.hasNext()){
+			Node n = itNode.next();
+			
+			Iterator<Junction> itInter = n.getStation().getJunction();
+			while(itInter.hasNext()){
+				Junction j = itInter.next();
+				// Si la transition est possible 
+				if (goodChange(n.getStation(),j)) {
+					n.addTo(j);
 				}
 			}
 		}
 		return graph;
 	}
-	
+
 	private boolean isIn (Station s, Station[] list) {
 		boolean retour = false;
 		for (int i=0 ; i<list.length || retour ; i++) {
@@ -96,36 +108,45 @@ public class Dijkstra extends Algo {
 		}
 		return retour;
 	}
-	
-	private boolean goodChange (Station station,Inter inter) {
-		boolean retour = true;
-		
-		// Si la station d'arrivée n'est pas à éviter 
-		if (isIn(inter.getOtherStation(station),avoidStations)) return false;
-		
-		// S'il y a un changement de ligne tous les services "always" doivent etre remplis 
-		if (inter.getRoute(station) != inter.getOtherRoute(station)) {
-			
-			for (int i=0 ; i<always.length && !retour ;i++) {
-				retour=false;
-				
-				Iterator<Service> it_service = station.getService();
-				while(it_service.hasNext() && !retour){
-					Service s = it_service.next();
-					
-					if (s.getId() == always[i].getId()) retour=true;
-				}
-			}	
+
+	private boolean isIn (Service s, Iterator<Service> it) {
+		boolean retour=false;
+		while(it.hasNext() && !retour){
+			if (s.getId() == it.next().getId()) return true;
 		}
 		return retour;
 	}
 	
-	private ArrayList<Inter> algo (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
+	private boolean goodChange (Station station,Junction inter) {
+		boolean retour = true;
+		
+		// Si la station d'arrivée est à éviter 
+		if (isIn(inter.getOtherStation(station),avoidStations)) return false;
+		
+		// Si la station d'arrivée est sur la meme ligne
+		if (inter.getRoute(station) == inter.getOtherRoute(station)) {
+			return true;
+		}
+		else {
+			// S'il y a un changement de ligne tous les services "always" doivent etre remplis 
+			if (station == inter.getOtherStation(station)) {
+				for (int i=0 ; i<always.length && !retour ;i++) {
+					if (!isIn(always[i],station.getService())) return false;
+				}
+			}
+			else {
+				return false;
+			}
+		}
+		return retour;
+	}
+	
+	private ArrayList<Junction> algo (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
 		return dijkstra(graph, depart,arrivee,once);
 	}
 
 	// Pseudo code de la fonction de dijkstra
-	private ArrayList<Inter> dijkstra (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
+	private ArrayList<Junction> dijkstra (ArrayList<Node> graph, Station depart, Station arrivee, ArrayList<Service> once) {
 
 		// Initialisation des stations à une distance infinie
 		for (int i=0;i<graph.size();i++) {
