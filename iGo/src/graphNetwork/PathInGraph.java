@@ -115,7 +115,7 @@ public class PathInGraph {
 	 * 
 	 * @return
 	 */
-	public GraphNetworkBuilder getGraph() {
+	public GraphNetwork getGraph() {
 		// TODO Auto-generated method stub
 		return null;
 	}
