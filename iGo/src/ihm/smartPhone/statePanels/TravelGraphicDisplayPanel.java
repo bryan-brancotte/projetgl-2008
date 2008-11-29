@@ -544,7 +544,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			xEnder = i;
 		else
 			xEnder = nextX;
-		if (xRec <= buffer.getHeigthViewPort()) {
+		if (xRec <= buffer.getWidthViewPort()) {
 			// dessin de rectangle avec grandes bordures
 			// ligne de 1 pxl
 			// g.setColor(father.getSkin().getColorSubAreaInside());
