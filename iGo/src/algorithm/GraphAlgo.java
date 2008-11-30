@@ -175,12 +175,12 @@ public class GraphAlgo {
 		public void setChanges (int _changes)	{ changes=_changes; }
 		public void setFrom (Link _from)		{ from=_from; }
 		public void setRelevance (int _relevance){ relevance=_relevance; }
-		public void setAll(int _time, int _changes, Float _cost, int _relevance, Link _from) {
-			setCost(_cost);
-			setTime(_time);
-			setChanges(_changes);
-			setFrom(_from);
-			setRelevance(_relevance);
+		public void setAll(int _time, int _changes, Float _cost, int _relevance, Node n, Junction j) {
+			cost=_cost;
+			time=_time;
+			changes=_changes;
+			from = new Link(j,n);
+			relevance=_relevance;
 		}
 		
 		public Iterator<Link> getToIter (){ return to.iterator(); }

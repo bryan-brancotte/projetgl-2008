@@ -98,7 +98,7 @@ public class Dijkstra extends Algo {
 	
 	private ArrayList<Junction> extractJunctions (Station depart,Station arrivee) {
 		ArrayList<Junction> junctions = new ArrayList<Junction>();
-		Node n = graph.getNode(depart, depart.getRoutes().next());
+		Node n = graph.getNode(arrivee, arrivee.getRoutes().next());
 		while (n.getFrom()!=null) {
 			junctions.add(n.getFrom().getJunction());
 			n = n.getFrom().getNode();
@@ -120,6 +120,7 @@ public class Dijkstra extends Algo {
 		Junction j = l.getJunction();
 		// TIME
 		int newTime = n.getTime() + j.getTimeBetweenStations();
+		//TODO Test a virer
 		System.out.println(newTime+" => "+newN.getTime());
 		int diffTime = newTime - newN.getTime();
 		// CHANGE
@@ -173,6 +174,6 @@ public class Dijkstra extends Algo {
 				}
 				break;
 		}
-		if (better) newN.setAll(newTime,newChange,newCost,0,l);
+		if (better) newN.setAll(newTime,newChange,newCost,0,n,j);
 	}
 }
