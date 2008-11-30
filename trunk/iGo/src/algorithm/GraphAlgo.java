@@ -69,7 +69,7 @@ public class GraphAlgo {
 	
 	private boolean allServicesIn (Station station){
 		for (int i=0 ; i<always.length ;i++) {
-			if (!isServiceIn(always[i],station.getService())) return false;
+			if (!isServiceIn(always[i],station.getServices())) return false;
 		}
 		return true;		
 	}
@@ -130,7 +130,7 @@ public class GraphAlgo {
 	
 	protected class Node {
 		
-		private Node from;
+		private Link from;
 		private Station station;
 		private Route route;
 		private LinkedList<Link> to;
@@ -167,15 +167,15 @@ public class GraphAlgo {
 		public Float getCost ()		{ return cost; }
 		public int getTime ()		{ return time;	}
 		public int getChanges ()	{ return changes; }
-		public Node getFrom ()		{ return from; }
+		public Link getFrom ()		{ return from; }
 		public int getRelevance ()	{ return relevance;	}
 		
 		public void setCost (Float _cost)		{ cost=_cost; }
 		public void setTime (int _time)			{ time=_time; }
 		public void setChanges (int _changes)	{ changes=_changes; }
-		public void setFrom (Node _from)		{ from=_from; }
+		public void setFrom (Link _from)		{ from=_from; }
 		public void setRelevance (int _relevance){ relevance=_relevance; }
-		public void setAll(int _time, int _changes, Float _cost, int _relevance, Node _from) {
+		public void setAll(int _time, int _changes, Float _cost, int _relevance, Link _from) {
 			setCost(_cost);
 			setTime(_time);
 			setChanges(_changes);

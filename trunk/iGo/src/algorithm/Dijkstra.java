@@ -93,7 +93,17 @@ public class Dijkstra extends Algo {
 				betterWay(l, n1);
 			}
 		}
-		return null;
+		return extractJunctions(depart,arrivee);
+	}
+	
+	private ArrayList<Junction> extractJunctions (Station depart,Station arrivee) {
+		ArrayList<Junction> junctions = new ArrayList<Junction>();
+		Node n = graph.getNode(depart, depart.getRoutes().next());
+		while (n.getFrom()!=null) {
+			junctions.add(n.getFrom().getJunction());
+			n = n.getFrom().getNode();
+		}
+		return junctions;
 	}
 	
 	private Node getMinimumNode (ArrayList<Node> list) {
@@ -121,52 +131,48 @@ public class Dijkstra extends Algo {
 		if (l.isChanging()) newCost+=l.getJunction().getCost();
 		float diffCost = newCost - newN.getCost();	
 		
+		boolean better=false;
 		switch (criterious1) {
 			case TIME: 
-				if (diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
+				if (diffTime<0) better=true;
 				else if (diffTime==0) {
 						switch (criterious2) {
 							case CHANGE: 
-								if (diffChange<0)newN.setAll(newTime,newChange,newCost,0,n);
-								else if(diffChange==0 && diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
+								if (diffChange<0 || (diffChange==0 && diffCost<0)) better=true;
 								break;
 							case COST:
-								if (diffCost<0){ newN.setAll(newTime,newChange,newCost,0,n); }
-								else if(diffCost==0 && diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
+								if (diffCost<0 || (diffCost==0 && diffChange<0))better=true;
 								break;
 						}
 				}
 				break;
 			case CHANGE:
-				if (diffChange<0)newN.setAll(newTime,newChange,newCost,0,n);
+				if (diffChange<0) better=true;
 				else if (diffChange==0) {
 						switch (criterious2) {
 							case TIME: 
-								if (diffTime<0)newN.setAll(newTime,newChange,newCost,0,n);
-								else if(diffTime==0 && diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
+								if (diffTime<0 || (diffTime==0 && diffCost<0))better=true;
 								break;
 							case COST:
-								if (diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
-								else if(diffCost==0 && diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
+								if (diffCost<0 || (diffCost==0 && diffTime<0)) better=true;
 								break;
 						}
 				}
 				break;
 			case COST:
-				if (diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
+				if (diffCost<0) better=true;
 				else if (diffCost==0) {
 						switch (criterious2) {
 							case CHANGE: 
-								if (diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
-								else if(diffChange==0 && diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
+								if (diffChange<0 || (diffChange==0 && diffTime<0)) better=true;
 								break;
 							case TIME:
-								if (diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
-								else if(diffTime==0 && diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
+								if (diffTime<0 || (diffTime==0 && diffChange<0)) better=true;
 								break;
 						}
 				}
 				break;
 		}
+		if (better) newN.setAll(newTime,newChange,newCost,0,l);
 	}
 }
