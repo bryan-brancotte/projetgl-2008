@@ -9,47 +9,23 @@ import java.util.LinkedList;
  */
 public class Station {
 
-	/**
-	 * @uml.property name="enable"
-	 */
+
 	private boolean enable = true;
-
-	/**
-	 * @uml.property name="id" readOnly="true"
-	 */
 	private int id;
-
-	/**
-	 * @uml.property name="junctions"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="stationA:graphNetwork.Junction"
-	 */
 	private LinkedList<Junction> junctions;
-
-	/**
-	 * @uml.property name="name" readOnly="true"
-	 */
 	private String name = "";
-
-	/**
-	 * @uml.property name="routes"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="stations:graphNetwork.Route"
-	 */
 	private LinkedList<Route> routes;
-
-	/**
-	 * @uml.property name="service"
-	 * @uml.associationEnd multiplicity="(0 -1)" inverse="station:graphNetwork.Service"
-	 */
 	private LinkedList<Service> services;
 
 	protected Station(int id, String name) {
 		//TODO Voir l'utilité
 		super();
 		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
-		junctions = new LinkedList<Junction>();
+		//TODO par Remi check que cet attribut est deja en private
+		//junctions = new LinkedList<Junction>();
+		//TODO par Remi check que cet attribut est deja en private
 		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
-		routes = new LinkedList<Route>();
-		
+		//routes = new LinkedList<Route>();
 		this.id = id;
 		this.name = name;
 		
