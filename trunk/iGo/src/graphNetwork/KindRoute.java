@@ -69,7 +69,7 @@ public class KindRoute {
 	 */
 	private KindRoute(String _kindOf) {
 		//TODO Ajouté à l'arrache par Tony le 30 novembre
-		kindOf = _kindOf;
+		kinds.add(this);
 		//TODO Fin de l'ajout
 	}
 
