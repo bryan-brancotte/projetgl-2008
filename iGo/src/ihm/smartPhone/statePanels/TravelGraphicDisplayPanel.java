@@ -379,7 +379,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				// la zone
 				// System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
-				//TODO faire un contour sur les lignes
+				//TODO faire un contour sur les lignes ?
 				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 						(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
 				drawDelayedOval(buffer, center.x - (sizeLarge >> 1), center.y - (sizeLarge >> 1), sizeLarge, sizeLarge);
