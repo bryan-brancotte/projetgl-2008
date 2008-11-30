@@ -22,10 +22,10 @@ public class Station {
 		super();
 		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
 		//TODO par Remi check que cet attribut est deja en private
-		//junctions = new LinkedList<Junction>();
+		junctions = new LinkedList<Junction>();
 		//TODO par Remi check que cet attribut est deja en private
 		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
-		//routes = new LinkedList<Route>();
+		routes = new LinkedList<Route>();
 		this.id = id;
 		this.name = name;
 		
