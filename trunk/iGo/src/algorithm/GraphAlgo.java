@@ -55,6 +55,22 @@ public class GraphAlgo {
 		}
 	}
 	
+	private void reachableNode () {
+		Iterator<Node> itNode = graph.iterator();
+		while(itNode.hasNext()){
+			Node n = itNode.next();
+			
+			Iterator<Link> itLink = n.getToIter();
+			while(itLink.hasNext()){
+				Junction j = itInter.next();
+				// Si la transition est possible 
+				if (goodChange(n.getStation(),j)) {
+					n.addTo(j,getNode(n.getStation(), n.getRoute()));
+				}
+			}
+		}
+	}
+	
 	private boolean isIn (Station s, Station[] list) {
 		boolean retour = false;
 		for (int i=0 ; i<list.length || retour ; i++) {
@@ -120,15 +136,16 @@ public class GraphAlgo {
 		private Station station;
 		private Route route;
 		private LinkedList<Link> to;
-		private int interet;
-		private int parcouru;
+		private int relevance;
+		private int cost;
+		private int reach;
 
 		Node(Station s, Route r) {
 			from = null;
 			station = s;
 			route = r;
-			interet = 0;
-			parcouru = Integer.MAX_VALUE;
+			relevance = 0;
+			cost = Integer.MAX_VALUE;
 			to = new LinkedList<Link>();
 		}
 
@@ -143,11 +160,11 @@ public class GraphAlgo {
 		public Station getStation () {return station;}
 		public Route getRoute () {return route;}
 		
-		public int getParcouru (){ return parcouru;	}
-		public void setParcouru (int _parcouru){ parcouru=_parcouru; }
+		public int getCost (){ return cost;	}
+		public void setCost (int _cost){ cost=_cost; }
 
-		public int getInteret (){ return interet;	}
-		public void setInteret (int _interet){ interet=_interet; }
+		public int getRelevance (){ return relevance;	}
+		public void setRelevance (int _relevance){ relevance=_relevance; }
 
 		public Node getFrom (){ return from;	}
 		public void setFrom (Node _from){ from=_from; }

@@ -60,7 +60,7 @@ public class Dijkstra extends Algo {
 	private ArrayList<Junction> algo (GraphAlgo graph, Station depart, Station arrivee) {
 
 		Iterator<Node> g;
-		Node n,n1,n2;
+		Node n,n1;
 		Link l;
 		ArrayList<Node> pasEncoreVu = graph.getListClone();
 		
@@ -68,7 +68,7 @@ public class Dijkstra extends Algo {
 		while (g.hasNext()) {
 			n = g.next();
 			if (depart == n.getStation()) {
-				n.setParcouru(0);
+				n.setCost(0);
 				break;
 			}
 		}
@@ -86,20 +86,19 @@ public class Dijkstra extends Algo {
 		return null;
 	}
 	
-
 	private Node getMinimumNode (ArrayList<Node> list) {
 		Node n = list.get(0);
 		for (int i=1;i<list.size();i++) {
-			if (list.get(i).getParcouru()< n.getParcouru()) list.get(i);
+			if (list.get(i).getCost()< n.getCost()) list.get(i);
 		}
 		return n;
 	}
 	
 	public void betterWay (Link l,Node n) {
 		//TODO faire les conditions
-		int newTime = n.getParcouru() + l.getJunction().getTimeBetweenStations();
-		if (l.getNode().getParcouru() > newTime) {
-			l.getNode().setParcouru(newTime);
+		int newTime = n.getCost() + l.getJunction().getTimeBetweenStations();
+		if (l.getNode().getCost() > newTime) {
+			l.getNode().setCost(newTime);
 			l.getNode().setFrom(n);
 		}
 	}
