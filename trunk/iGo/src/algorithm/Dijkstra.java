@@ -98,7 +98,7 @@ public class Dijkstra extends Algo {
 		return n;
 	}
 	
-	public void betterWay (Link l,Node n) {
+	private void betterWay (Link l,Node n) {
 		//TODO faire les conditions
 		Node newN = l.getNode();
 		Junction j = l.getJunction();

@@ -33,6 +33,9 @@ public class KindRoute {
 	 * @return true if we could add the kind to the collection. If the kind already existe, we hadn't add it.
 	 */
 	protected static boolean addKind(String kind) {
+		//TODO Ajouté à l'arrache par Tony le 30 novembre
+		new KindRoute(kind);
+		//TODO Fin de l'ajout
 		return true;
 	}
 
@@ -67,7 +70,10 @@ public class KindRoute {
 	 * Build a new KindRoute and add it to the collection of kind
 	 */
 	private KindRoute(String kindOf) {
+		//TODO Ajouté à l'arrache par Tony le 30 novembre
+		if (kinds==null) kinds = new LinkedList<KindRoute>();
 		kinds.add(this);
+		//TODO Fin de l'ajout
 	}
 
 	/**
