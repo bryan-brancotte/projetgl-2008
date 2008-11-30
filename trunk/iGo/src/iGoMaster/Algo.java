@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public abstract class Algo extends Observable {
-	
+
 	/**
 	 * fonction pour demander la résolution d'un nouveau chemin. On spécifie le départ et l'arrivé, on fournit le
 	 * réseau, et le monteur de PathInGraph avec un PathInGraph vide à l'interrieur.
