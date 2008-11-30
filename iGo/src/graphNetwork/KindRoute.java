@@ -33,14 +33,11 @@ public class KindRoute {
 	 * @param kind, the name of the new kind
 	 * @return true if we could add the kind to the collection. If the kind already existe, we hadn't add it.
 	 */
-	protected static boolean addKind(String kindOf) {
+	protected static KindRoute addKind(String kindOf) {
         if (kinds==null) kinds = new LinkedList<KindRoute>();
 		KindRoute k = getKindFromString(kindOf);
-		if(k!=null) return false;
-		else{
-			new KindRoute(kindOf);
-			return true;
-		}
+		if(k!=null) return k;
+		else return new KindRoute(kindOf);
 
 	}
 
