@@ -24,6 +24,8 @@ public class MainAlgo {
 		s1.addRoute(r1);
 		Station s2 = new Station(1,"Marseille");
 		s2.addRoute(r1);
+		Station s3 = new Station(1,"Cannes");
+		s3.addRoute(r1);
 		
 		try {
 			Junction j = new Junction(r1,s1,r1,s2,100,5,false,false);
