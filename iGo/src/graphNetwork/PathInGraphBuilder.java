@@ -8,36 +8,18 @@ import java.util.Iterator;
  */
 public class PathInGraphBuilder {
 
-	/**
-	 * le trajet actuellement travaillé
-	 */
-	private PathInGraph actualPathInGraph;
-
-	/**
-	 * le trajet actuellement travaillé
-	 */
+	private PathInGraph actualPathInGraph;		//le trajet actuellement trait�
 	private GraphNetwork univer;
 
-	/**
-	 * Constructeur par defaut du monteur
-	 * 
-	 * @param graph
-	 *            le graph dans lequel le monteur de PathInGraph est créé.
-	 */
-	protected PathInGraphBuilder(GraphNetwork graph) {
+	protected PathInGraphBuilder(GraphNetwork graph) {//Constructeur par defaut du monteur
 		this.univer = graph;
 	}
 
-	/**
-	 * 
-	 * @param graph
-	 *            le graph dans lequel le monteur de PathInGraph est créé.
-	 * @param actualPathInGraph
-	 *            le chemin qui sera le chemin actuelle de ce monteur
-	 */
-	protected PathInGraphBuilder(GraphNetwork graph, PathInGraph actualPathInGraph) {
+	protected PathInGraphBuilder(GraphNetwork graph, PathInGraph actualPathInGraph) {//le graph dans lequel le monteur de PathInGraph est cr��.
 		this.univer = graph;
+		this.actualPathInGraph = actualPathInGraph;
 	}
+
 
 	/**
 	 * En travaillant sur le PathInGraph courant, ajout au début du chemin l'inter passé en paramètre
@@ -45,15 +27,10 @@ public class PathInGraphBuilder {
 	 * @param junction
 	 */
 	public void addFront(Junction junction) {
+
 	}
 
-	/**
-	 * En travaillant sur le PathInGraph courant, ajout à la fin du chemin les inter passé en paramètre.
-	 * 
-	 * @param iterJunction
-	 */
-	public void addLast(Iterator<Junction> iterJunction) {
-	}
+
 
 	/**
 	 * En travaillant sur le PathInGraph courant, ajoute à la fin du chemin l'inter passé en paramètre
@@ -62,49 +39,26 @@ public class PathInGraphBuilder {
 	 */
 	public void addLast(Junction junction) {
 		actualPathInGraph.junctions.addLast(junction);
+
 	}
 
-	/**
-	 * En travaillant sur le PathInGraph courant, vide le chemin de ses inter.
-	 */
-	protected void flush() {
+	protected void flush() {			//En travaillant sur le PathInGraph courant, vide le chemin de ses inter.
+		actualPathInGraph.junctions.clear();
 	}
 
-	/**
-	 * retourne le trajet actuellement étudié
-	 * 
-	 * @return
-	 */
-	public PathInGraph getActualPathInGraph() {
+	public PathInGraph getActualPathInGraph() {//retourne le trajet actuellement �tudi�
 		return actualPathInGraph;
 	}
 
-	/**
-	 * retourn une nouvelle instance de chemin pour le GraphNetwork qui a généré le PathInGraphBuilder.
-	 * 
-	 * @return une nouvelle instance de PathInGraph
-	 * 
-	 */
-	public PathInGraph getInstance() {
+	public PathInGraph getInstance() {			//retourne une nouvelle instance de chemin pour le GraphNetwork qui a g�n�r� le PathInGraphBuilder.
 		return new PathInGraph(univer);
 	}
 
-	/**
-	 * En travaillant sur le PathInGraph courant, créé le chemin depuis la chaine passé en paramètre. On écrase le
-	 * contenue précédent du chemin
-	 * 
-	 * @param pathInString
-	 */
-	protected void importPath(String pathInString) {
+	protected void importPath(String pathInString) {//En travaillant sur le PathInGraph courant, cr�� le chemin depuis la chaine pass� en parametre. On �crase le contenue pr�c�dent du chemin
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * définit le trajet actuellement étudié par le trajet passé en paramètre
-	 * 
-	 * @param actualPathInGraph
-	 */
-	public void setActualPathInGraph(PathInGraph actualPathInGraph) {
+	public void setActualPathInGraph(PathInGraph actualPathInGraph) {//d�finit le trajet actuellement �tudi� par le trajet pass� en parametre
 		this.actualPathInGraph = actualPathInGraph;
 	}
 
