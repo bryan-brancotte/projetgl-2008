@@ -66,7 +66,7 @@ public abstract class Algo extends Observable {
 		this.goMaster = goMaster;
 	}
 
-	protected enum CriteriousForLowerPath {
+	public enum CriteriousForLowerPath {
 		COST(1), TIME(2), CHANGE(3);
 
 		protected int val;
@@ -80,8 +80,8 @@ public abstract class Algo extends Observable {
 		}
 
 		public static CriteriousForLowerPath getCriterious (String s) {
-			if (s=="cost") return COST;
-			else if (s=="time") return TIME;
+			if (s.compareToIgnoreCase("cost")==0) return COST;
+			else if (s.compareToIgnoreCase("time")==0) return TIME;
 			else return CHANGE;
 		}
 		/**
