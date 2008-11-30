@@ -6,6 +6,8 @@ import graphNetwork.GraphNetworkBuilder;
 import java.util.Observable;
 import java.util.Observer;
 
+import algorithm.Algo;
+
 /**
  *  
  * @author iGo

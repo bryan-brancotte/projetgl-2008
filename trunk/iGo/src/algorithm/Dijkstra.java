@@ -4,7 +4,6 @@ import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
-import iGoMaster.Algo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +23,8 @@ public class Dijkstra extends Algo {
 
 		PathInGraph pathInGraph = _path.getInstance(); 
 		
-		graph = new GraphAlgo(pathInGraph);
+		graph = GraphAlgo.getInstance();
+		graph.refreshGraph(pathInGraph);
 		
 		// Création des étapes 
 		steps = new LinkedList<Station>();
@@ -72,7 +72,6 @@ public class Dijkstra extends Algo {
 				break;
 			}
 		}
-		//TODO penser au cas du graph non complet
 		while (pasEncoreVu.size()!=0) {
 			n1 = getMinimumNode(pasEncoreVu);
 			pasEncoreVu.remove(n1);
