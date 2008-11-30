@@ -19,8 +19,12 @@ public class Dijkstra extends Algo {
 	private LinkedList<Station> steps;
 	private ArrayList<Service> once;
 	private LinkedList<Junction> path;
-	private CriteriousForLowerPath criterious1;
-	private CriteriousForLowerPath criterious2;
+	
+	//TODO fonction de test
+	public ArrayList<Junction> findPath(GraphAlgo g,Station o, Station f) {
+		graph = g;
+		return algo(graph,o,f);
+	}
 	
 	public PathInGraph findPath(PathInGraphBuilder _path) {
 
@@ -28,6 +32,8 @@ public class Dijkstra extends Algo {
 		
 		graph = GraphAlgo.getInstance();
 		graph.refreshGraph(pathInGraph);
+
+		//TODO A faire la récupération des criterious
 		
 		// Création des étapes 
 		steps = new LinkedList<Station>();
@@ -104,6 +110,7 @@ public class Dijkstra extends Algo {
 		Junction j = l.getJunction();
 		// TIME
 		int newTime = n.getTime() + j.getTimeBetweenStations();
+		System.out.println(newTime+" => "+newN.getTime());
 		int diffTime = newTime - newN.getTime();
 		// CHANGE
 		int newChange=n.getChanges();
@@ -116,11 +123,11 @@ public class Dijkstra extends Algo {
 		
 		switch (criterious1) {
 			case TIME: 
-				if (diffTime<0) { newN.setAll(newTime,newChange,newCost,0,n); }
+				if (diffTime>0) newN.setAll(newTime,newChange,newCost,0,n);
 				else if (diffTime==0) {
 						switch (criterious2) {
 							case CHANGE: 
-								if (diffChange<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								if (diffChange<0)newN.setAll(newTime,newChange,newCost,0,n);
 								else if(diffChange==0 && diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
 								break;
 							case COST:
@@ -131,30 +138,30 @@ public class Dijkstra extends Algo {
 				}
 				break;
 			case CHANGE:
-				if (diffChange<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+				if (diffChange<0)newN.setAll(newTime,newChange,newCost,0,n);
 				else if (diffChange==0) {
 						switch (criterious2) {
 							case TIME: 
-								if (diffTime<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								if (diffTime<0)newN.setAll(newTime,newChange,newCost,0,n);
 								else if(diffTime==0 && diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
 								break;
 							case COST:
-								if (diffCost<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								if (diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
 								else if(diffCost==0 && diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
 								break;
 						}
 				}
 				break;
 			case COST:
-				if (diffCost<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+				if (diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
 				else if (diffCost==0) {
 						switch (criterious2) {
 							case CHANGE: 
-								if (diffChange<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								if (diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
 								else if(diffChange==0 && diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
 								break;
 							case TIME:
-								if (diffTime<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								if (diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
 								else if(diffTime==0 && diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
 								break;
 						}

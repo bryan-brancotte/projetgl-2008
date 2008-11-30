@@ -9,6 +9,12 @@ import java.util.Observer;
 
 public abstract class Algo extends Observable {
 
+	protected CriteriousForLowerPath criterious1;
+	public CriteriousForLowerPath getCriterious1 () { return criterious1; }
+	public void setCriterious1 (String s) { criterious1=CriteriousForLowerPath.getCriterious(s); }
+	protected CriteriousForLowerPath criterious2;
+	public CriteriousForLowerPath getCriterious2 () { return criterious2; }
+	public void setCriterious2 (String s) { criterious2=CriteriousForLowerPath.getCriterious(s); }
 	/**
 	 * fonction pour demander la résolution d'un nouveau chemin. On spécifie le départ et l'arrivé, on fournit le
 	 * réseau, et le monteur de PathInGraph avec un PathInGraph vide à l'interrieur.
@@ -16,10 +22,7 @@ public abstract class Algo extends Observable {
 	 * @param _pathBuilder
 	 * @return
 	 */
-	public PathInGraph findPath(PathInGraphBuilder _path) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract PathInGraph findPath(PathInGraphBuilder _path);
 
 	/**
 	 */
@@ -76,6 +79,11 @@ public abstract class Algo extends Observable {
 			return this.val;
 		}
 
+		public static CriteriousForLowerPath getCriterious (String s) {
+			if (s=="cost") return COST;
+			else if (s=="time") return TIME;
+			else return CHANGE;
+		}
 		/**
 		 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
 		 */
