@@ -46,9 +46,12 @@ public class GraphAlgo {
 			// Si la transition est possible
 			if (validChange(station,j)) {
 				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
-				if (newNode == null) newNode = new Node(j.getOtherStation(station),j.getOtherRoute(station));
+				if (newNode == null) {
+					newNode = new Node(j.getOtherStation(station),j.getOtherRoute(station));
+					graph.add(newNode);
+					addLink(newNode);
+				}
 				n.addTo(j,newNode);
-				addLink(newNode);
 			}
 		}
 		
@@ -92,7 +95,8 @@ public class GraphAlgo {
 		return graph.iterator();
 	}
 	
-	protected ArrayList<Node> getListClone() {
+	//TODO protected => public pour test
+	public ArrayList<Node> getListClone() {
 		return new ArrayList<Node>(graph);
 	}
 	
