@@ -67,10 +67,9 @@ public class KindRoute {
 	/**
 	 * Build a new KindRoute and add it to the collection of kind
 	 */
-	private KindRoute(String kindOf) {
+	private KindRoute(String _kindOf) {
 		//TODO Ajouté à l'arrache par Tony le 30 novembre
-		//TODO par Remi, check que cette fonction est OK
-		kinds.add(new KindRoute(kindOf));
+		kindOf = _kindOf;
 		//TODO Fin de l'ajout
 	}
 
