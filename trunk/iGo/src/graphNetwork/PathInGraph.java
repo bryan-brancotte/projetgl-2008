@@ -9,10 +9,20 @@ import java.util.LinkedList;
  */
 public class PathInGraph {
 
+
+	protected GraphNetwork univers;				//GraphNetwork dans lequel le trajet a un sens, une existance
+
+
 	/**
 	 * Liste des stations à éviter
 	 */
 	protected LinkedList<Station> avoidStations;
+
+
+	private float cost;
+	private int time;
+	
+
 	/**
 	 * La station de destination
 	 */
@@ -42,26 +52,18 @@ public class PathInGraph {
 	 * constructeur d'un trajet
 	 */
 	private PathInGraph() {
+
 		junctions = new LinkedList<Junction>();
 	}
 
-	/**
-	 * Constructeur spécifiant dans quel univer le trajet est créé
-	 * 
-	 * @param graph
-	 */
-	protected PathInGraph(GraphNetwork graph) {
+	protected PathInGraph(GraphNetwork graph) {	//Constructeur sp�cifiant dans quel univers le trajet est cr��
 		this();
 	}
 
-	/**
-	 * Transcrit le trajet en une chaine qui pourra ensuite être relu pour créé de nouveau le trajet
-	 * 
-	 * @return
-	 */
-	public String exportPath() {
+	public String exportPath() {				//Transcrit le trajet en une chaine qui pourra ensuite etre relue pour cr�er de nouveau le trajet
 		return "";
 	}
+
 
 	/**
 	 * Retourne un tableau avec l'ensemble des stations à éviter
@@ -89,7 +91,10 @@ public class PathInGraph {
 	public float getCost() {
 		// TODO Auto-generated method stub
 		return 0;
+
 	}
+
+
 
 	/**
 	 * Retourne la station de départ du trajet.
@@ -106,9 +111,11 @@ public class PathInGraph {
 	 * @return la première jonction, ou null si la fin de la jonction n'est plus accessible
 	 */
 	public Junction getFirstJunctionInTheLastAvaiblePart() {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	/**
 	 * Retourne le GraphNetwork dans lequel le trajet à une existance.
@@ -116,9 +123,11 @@ public class PathInGraph {
 	 * @return
 	 */
 	public GraphNetwork getGraph() {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	/**
 	 * Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
@@ -127,7 +136,9 @@ public class PathInGraph {
 	 */
 	public Iterator<Junction> getJunctions() {
 		return junctions.iterator();
+
 	}
+
 
 	/**
 	 * Rteourne la station d'origine du chemin
@@ -200,26 +211,18 @@ public class PathInGraph {
 	public int getTime() {
 		// TODO Auto-generated method stub
 		return 0;
+
 	}
 
-	/**
-	 * Créé le trajet à partir d'une chaine décrivant le trajet.
-	 * 
-	 * @return l'iterateur
-	 */
-	protected void importPath(String pathInString) {
+	protected void importPath(String pathInString) {	//cr�er le trajet a partir d'un chaine d�crivant le trajet
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * Permet de savoir si on peut toujours arpenter le trajet de bout en bout.
-	 * 
-	 * @return true si on peut le faire de bout en bout.
-	 */
-	public boolean isStillAvaible() {
+	public boolean isStillAvaible() {			//Permet de savoir si on peut toujours utiliser le trajet de bout en bout.
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 	/**
 	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la
@@ -228,16 +231,12 @@ public class PathInGraph {
 	 * @return true si on peut le faire depuis cette jonction.
 	 */
 	public boolean isStillAvaible(Junction junction) {
+
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/**
-	 * Un desciptif du trajet
-	 * 
-	 * @return le descriptif
-	 */
-	public String toString() {
+	public String toString() {					//Un desciptif du trajet
 		return "";
 	}
 

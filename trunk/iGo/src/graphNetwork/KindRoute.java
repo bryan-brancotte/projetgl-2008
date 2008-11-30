@@ -7,41 +7,38 @@ import java.util.LinkedList;
  * 
  * @author iGo
  */
+
 public class KindRoute {
 
+	private KindRoute route;
+	protected static LinkedList<KindRoute> kinds;
 	/**
 	 * get the object KindRoute of the kind given in parameter.
-	 * 
-	 * @param kind
-	 *            name of the kind we are looking for
+	 * @param kind, name of the kind we are looking for
 	 * @return the KindRoute if we found it, else we return null;
 	 */
 	public static KindRoute getKindFromString(String kindOf) {
 		return null;
 	}
 
-	/**
-	 * @uml.property name="kinds"
-	 */
-	protected static LinkedList<KindRoute> kinds;
 
 	/**
 	 * Add a new kind to the collection of kind if this kind doesn't existe.
-	 * 
-	 * @param kind
-	 *            the name of the new kind
+	 * @param kind, the name of the new kind
 	 * @return true if we could add the kind to the collection. If the kind already existe, we hadn't add it.
 	 */
 	protected static boolean addKind(String kind) {
-		//TODO Ajouté à l'arrache par Tony le 30 novembre
-		new KindRoute(kind);
-		//TODO Fin de l'ajout
-		return true;
+		if(kinds.contains(kind)){
+			return false;
+		}
+		else{
+			kinds.add(new KindRoute(kind));
+			return true;
+		}
 	}
 
 	/**
 	 * Getter of the property <tt>kinds</tt>
-	 * 
 	 * @return Returns the kinds.
 	 * @uml.property name="kinds"
 	 */
@@ -53,6 +50,7 @@ public class KindRoute {
 	 * Reset all the kind, erase all the kind known, and get ready for having new kind.
 	 */
 	public static void reset() {
+		kinds.clear();
 	}
 
 	/**
@@ -71,8 +69,8 @@ public class KindRoute {
 	 */
 	private KindRoute(String kindOf) {
 		//TODO Ajouté à l'arrache par Tony le 30 novembre
-		if (kinds==null) kinds = new LinkedList<KindRoute>();
-		kinds.add(this);
+		//TODO par Remi, check que cette fonction est OK
+		kinds.add(new KindRoute(kindOf));
 		//TODO Fin de l'ajout
 	}
 
