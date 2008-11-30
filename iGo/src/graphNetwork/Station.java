@@ -104,7 +104,7 @@ public class Station {
 		return routes.iterator();
 	}
 
-	public Iterator<Service> getService() {
+	public Iterator<Service> getServices() {
 		return services.iterator();
 	}
 
