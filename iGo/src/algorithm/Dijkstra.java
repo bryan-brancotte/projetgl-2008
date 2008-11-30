@@ -6,6 +6,7 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 
 import iGoMaster.Algo;
+import iGoMaster.Algo.CriteriousForLowerPath;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,6 +21,9 @@ public class Dijkstra extends Algo {
 	private LinkedList<Station> steps;
 	private ArrayList<Service> once;
 	private LinkedList<Junction> path;
+	private CriteriousForLowerPath criterious1;
+	private CriteriousForLowerPath criterious2;
+	
 	
 	public PathInGraph findPath(PathInGraphBuilder _path) {
 
