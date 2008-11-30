@@ -1,4 +1,5 @@
 package algorithm;
+import iGoMaster.Algo;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
 

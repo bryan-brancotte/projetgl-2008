@@ -5,6 +5,8 @@ import graphNetwork.PathInGraphBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 
+import iGoMaster.Algo;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;

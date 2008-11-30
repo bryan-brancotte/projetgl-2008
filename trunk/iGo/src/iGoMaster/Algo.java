@@ -1,9 +1,8 @@
-package algorithm;
+package iGoMaster;
 
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
 
-import iGoMaster.IGoMaster;
 
 import java.util.Observable;
 import java.util.Observer;
