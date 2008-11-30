@@ -13,49 +13,9 @@ import java.util.LinkedList;
 
 public class GraphAlgo {
 
-	// Implémentation du singleton
-	private static GraphAlgo instance;
-	private GraphAlgo() {}
-	public static GraphAlgo getInstance() {
-        if (null == instance) { // Premier appel
-            instance = new GraphAlgo();
-        }
-        return instance;
-    }
-
 	private ArrayList<Node> graph;
 	private Station[] avoidStations;
 	private Service[] always;
-
-/*	public GraphAlgo(GraphNetwork g) {
-		graph = new ArrayList<Node>();
-
-		// Parcours du graph 
-		Iterator<Station> itFrom = g.getStations();
-		while(itFrom.hasNext()){
-			Station s = itFrom.next();
-			
-			// Parcours des routes
-			Iterator<Route> itRoute = s.getRoutes();
-			while(itRoute.hasNext()){
-				Route r = itRoute.next();
-				Node n = new Node(s,r);
-				graph.add(n);
-			}
-		}
-		Iterator<Node> itNode = graph.iterator();
-		while(itNode.hasNext()){
-			Node n = itNode.next();
-			
-			Iterator<Junction> itInter = n.getStation().getJunction();
-			while(itInter.hasNext()){
-				Junction j = itInter.next();
-				
-				// Si la transition est possible
-				if (goodChange(n.getStation(),j)) n.addTo(j,getNode(n.getStation(), n.getRoute()));
-			}
-		}
-	}*/
 	
 	public void refreshGraph(PathInGraph p) {
 		avoidStations = p.getAvoidStationsArray();
@@ -136,6 +96,18 @@ public class GraphAlgo {
 		}
 		return null;
 	}
+
+	/*****************************************************************/
+	
+	// Implémentation du singleton
+	private static GraphAlgo instance;
+	private GraphAlgo() {}
+	public static GraphAlgo getInstance() {
+        if (null == instance) { // Premier appel
+            instance = new GraphAlgo();
+        }
+        return instance;
+    }
 	
 	/*****************************************************************/
 	
@@ -146,6 +118,8 @@ public class GraphAlgo {
 		private Route route;
 		private LinkedList<Link> to;
 		private int relevance;
+		private int time;
+		private int changes;
 		private int cost;
 		private int reach;
 
@@ -154,7 +128,9 @@ public class GraphAlgo {
 			station = s;
 			route = r;
 			relevance = 0;
-			cost = Integer.MAX_VALUE;
+			time = Integer.MAX_VALUE;
+			changes = 0;
+			cost = 0;
 			to = new LinkedList<Link>();
 		}
 
@@ -166,17 +142,19 @@ public class GraphAlgo {
 			to.remove(l);
 		}
 
-		public Station getStation () {return station;}
-		public Route getRoute () {return route;}
+		public Station getStation (){ return station; }
+		public int getCost ()		{ return cost; }
+		public Route getRoute () 	{ return route; }
+		public int getTime ()		{ return time;	}
+		public int getChanges ()	{ return changes; }
+		public Node getFrom ()		{ return from; }
+		public int getRelevance ()	{ return relevance;	}
 		
-		public int getCost (){ return cost;	}
-		public void setCost (int _cost){ cost=_cost; }
-
-		public int getRelevance (){ return relevance;	}
+		public void setCost (int _cost)			{ cost=_cost; }
+		public void setTime (int _time)			{ time=_time; }
+		public void setChanges (int _changes)	{ changes=_changes; }
+		public void setFrom (Node _from)		{ from=_from; }
 		public void setRelevance (int _relevance){ relevance=_relevance; }
-
-		public Node getFrom (){ return from;	}
-		public void setFrom (Node _from){ from=_from; }
 
 		public Iterator<Link> getToIter (){ return to.iterator(); }
 		

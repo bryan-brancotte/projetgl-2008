@@ -63,7 +63,7 @@ public abstract class Algo extends Observable {
 		this.goMaster = goMaster;
 	}
 
-	public enum CriteriousForLowerPath {
+	protected enum CriteriousForLowerPath {
 		COST(1), TIME(2), CHANGE(3);
 
 		protected int val;
