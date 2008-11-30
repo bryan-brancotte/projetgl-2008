@@ -79,7 +79,7 @@ public class Dijkstra extends Algo {
 		while (g.hasNext()) {
 			n = g.next();
 			if (depart == n.getStation()) {
-				n.setCost(0F);
+				n.setTime(0);
 				break;
 			}
 		}
@@ -123,7 +123,7 @@ public class Dijkstra extends Algo {
 		
 		switch (criterious1) {
 			case TIME: 
-				if (diffTime>0) newN.setAll(newTime,newChange,newCost,0,n);
+				if (diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
 				else if (diffTime==0) {
 						switch (criterious2) {
 							case CHANGE: 
