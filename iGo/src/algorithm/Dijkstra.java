@@ -41,12 +41,14 @@ public class Dijkstra extends Algo {
 		steps.add(pathInGraph.getDestination());
 		
 		// Création du chemin 
+		//TODO penser à enlever une partie des contraintes et pas une par une
 		path = new LinkedList<Junction>();
 		while (path.size()==0 && once.size()!=0) {
 			for (int i=0;i<steps.size()-1;i++) {
+				graph.defaultNodes();
 				path.addAll(algo(graph,steps.get(i),steps.get(i+1)));
 			}
-			once.remove(once.size()-1);
+			if (path.size() == 0) once.remove(once.size()-1);
 		}
 		
 		// Création du pathInGraph 
@@ -71,7 +73,7 @@ public class Dijkstra extends Algo {
 		while (g.hasNext()) {
 			n = g.next();
 			if (depart == n.getStation()) {
-				n.setCost(0);
+				n.setCost(0F);
 				break;
 			}
 		}
@@ -98,10 +100,66 @@ public class Dijkstra extends Algo {
 	
 	public void betterWay (Link l,Node n) {
 		//TODO faire les conditions
-		int newTime = n.getCost() + l.getJunction().getTimeBetweenStations();
-		if (l.getNode().getCost() > newTime) {
-			l.getNode().setCost(newTime);
-			l.getNode().setFrom(n);
+		Node newN = l.getNode();
+		Junction j = l.getJunction();
+		// TIME
+		int newTime = n.getTime() + j.getTimeBetweenStations();
+		int diffTime = newTime - newN.getTime();
+		// CHANGE
+		int newChange=n.getChanges();
+		if (l.isChanging()) newChange+=1;
+		int diffChange = newChange - newN.getChanges();
+		// COST
+		float newCost=n.getCost();
+		if (l.isChanging()) newCost+=l.getJunction().getCost();
+		float diffCost = newCost - newN.getCost();	
+		
+		switch (criterious1) {
+			case TIME: 
+				if (diffTime<0) { newN.setAll(newTime,newChange,newCost,0,n); }
+				else if (diffTime==0) {
+						switch (criterious2) {
+							case CHANGE: 
+								if (diffChange<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								else if(diffChange==0 && diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
+								break;
+							case COST:
+								if (diffCost<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								else if(diffCost==0 && diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
+								break;
+						}
+				}
+				break;
+			case CHANGE:
+				if (diffChange<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+				else if (diffChange==0) {
+						switch (criterious2) {
+							case TIME: 
+								if (diffTime<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								else if(diffTime==0 && diffCost<0) newN.setAll(newTime,newChange,newCost,0,n);
+								break;
+							case COST:
+								if (diffCost<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								else if(diffCost==0 && diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
+								break;
+						}
+				}
+				break;
+			case COST:
+				if (diffCost<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+				else if (diffCost==0) {
+						switch (criterious2) {
+							case CHANGE: 
+								if (diffChange<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								else if(diffChange==0 && diffTime<0) newN.setAll(newTime,newChange,newCost,0,n);
+								break;
+							case TIME:
+								if (diffTime<0){ newN.setAll(newTime,newChange,newCost,0,n); }
+								else if(diffTime==0 && diffChange<0) newN.setAll(newTime,newChange,newCost,0,n);
+								break;
+						}
+				}
+				break;
 		}
 	}
 }
