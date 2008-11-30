@@ -55,6 +55,9 @@ public class Station {
 	 * @param junction
 	 */
 	protected void addJunction(Junction junction) {
+		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
+		if (junctions==null) junctions = new LinkedList<Junction>();
+		
 		this.junctions.add(junction);
 	}
 
@@ -64,8 +67,12 @@ public class Station {
 	 * 
 	 * @param routes
 	 */
-	protected void addRoute(Route routes) {
-		this.routes.add(routes);
+	protected void addRoute(Route route) {
+		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
+		if (routes==null) routes = new LinkedList<Route>();
+		
+		this.routes.add(route);
+		
 	}
 
 	/**

@@ -16,6 +16,14 @@ public class GraphAlgo {
 	private Station[] avoidStations;
 	private Service[] always;
 	
+	//TODO fonction temporaire pour test créée par Tony le 30 novembre
+	public void refreshGraph(Station s) {
+		graph = new ArrayList<Node>();
+		Node n = new Node(s,s.getRoutes().next());
+		graph.add(n);
+		addLink(n);
+	}
+	
 	protected void refreshGraph(PathInGraph p) {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getSevicesAlwaysArray();
@@ -28,6 +36,8 @@ public class GraphAlgo {
 	}
 	
 	private	void addLink (Node n) {
+		//TODO test à enlever
+		//System.out.println("ajout de la station : "+n.getStation().getName()+" et route : "+n.getRoute().getId());
 		// Si la station n'est pas à éviter
 		Station station = n.getStation();
 		Iterator<Junction> itInter = station.getJunction();
@@ -35,7 +45,7 @@ public class GraphAlgo {
 			Junction j = itInter.next();
 			// Si la transition est possible
 			if (validChange(station,j)) {
-				Node newNode = getNode(n.getStation(), n.getRoute());
+				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
 				if (newNode == null) newNode = new Node(j.getOtherStation(station),j.getOtherRoute(station));
 				n.addTo(j,newNode);
 				addLink(newNode);
@@ -45,7 +55,7 @@ public class GraphAlgo {
 	}
 	
 	private boolean isStationIn (Station s, Station[] list) {
-		for (int i=0 ; i<list.length ; i++) { if (list[i] == s) return true; }
+		if (list!=null) for (int i=0 ; i<list.length ; i++) { if (list[i] == s) return true; }
 		return false;
 	}
 
@@ -69,8 +79,8 @@ public class GraphAlgo {
 				isStationIn(otherStation,avoidStations) || !otherStation.isEnable() ||
 				// La route d'arrivée est differente de celle de départ ET
 				junction.getRoute(station) != junction.getOtherRoute(station) &&
-					// la station de départ est différente de celle de départ OU sinon qu'elle ne remplit pas les contraintes always
-					(station != junction.getOtherStation(station) ||  station == junction.getOtherStation(station) && !allServicesIn(station))
+				// la station de départ est différente de celle de départ OU sinon qu'elle ne remplit pas les contraintes always
+				(station != junction.getOtherStation(station) ||  station == junction.getOtherStation(station) && !allServicesIn(station))
 				
 			) return false;
 		else {
