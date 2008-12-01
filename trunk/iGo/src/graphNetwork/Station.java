@@ -68,7 +68,7 @@ public class Station {
 		return id;
 	}
 
-	public Iterator<Junction> getJunction() {
+	public Iterator<Junction> getJunctions() {
 		return this.junctions.iterator();
 	}
 

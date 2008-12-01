@@ -93,10 +93,18 @@ public class Dijkstra extends Algo {
 				betterWay(l, n1);
 			}
 		}
-		return extractJunctions(depart,arrivee);
+		//TODO test de verif a virer
+		/*for (int i=0;i<graph.getListClone().size();i++) {
+			System.out.print(graph.getListClone().get(i).getStation().getName()+" dans "+graph.getListClone().get(i).getRoute()+" -> ");
+			if (graph.getListClone().get(i).getFrom()!=null) 
+					System.out.print(graph.getListClone().get(i).getFrom().getNode().getStation().getName() +" dans "+ graph.getListClone().get(i).getFrom().getJunction().getRouteA());
+			else System.out.print("null");
+			System.out.println();
+		}*/
+		return extractJunctions(arrivee);
 	}
 	
-	private ArrayList<Junction> extractJunctions (Station depart,Station arrivee) {
+	private ArrayList<Junction> extractJunctions (Station arrivee) {
 		ArrayList<Junction> junctions = new ArrayList<Junction>();
 		Node n = graph.getNode(arrivee, arrivee.getRoutes().next());
 		while (n.getFrom()!=null) {
@@ -109,7 +117,7 @@ public class Dijkstra extends Algo {
 	private Node getMinimumNode (ArrayList<Node> list) {
 		Node n = list.get(0);
 		for (int i=1;i<list.size();i++) {
-			if (list.get(i).getCost()< n.getCost()) list.get(i);
+			if (list.get(i).getCost()< n.getCost()) n=list.get(i);
 		}
 		return n;
 	}
@@ -121,7 +129,7 @@ public class Dijkstra extends Algo {
 		// TIME
 		int newTime = n.getTime() + j.getTimeBetweenStations();
 		//TODO Test a virer
-		System.out.println(newTime+" => "+newN.getTime());
+		//System.out.println(newTime+" => "+newN.getTime());
 		int diffTime = newTime - newN.getTime();
 		// CHANGE
 		int newChange=n.getChanges();

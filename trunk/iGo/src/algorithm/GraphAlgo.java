@@ -18,10 +18,17 @@ public class GraphAlgo {
 	
 	//TODO fonction temporaire pour test créée par Tony le 30 novembre
 	public void refreshGraph(Station s) {
+		avoidStations = new Station[0];
+		always = new Service[0];
 		graph = new ArrayList<Node>();
 		Node n = new Node(s,s.getRoutes().next());
 		graph.add(n);
 		addLink(n);
+
+		//TODO commentaires a virer
+		/*for (int i=0;i<graph.size();i++) {
+			System.out.println(graph.get(i).getStation().getName()+" avec "+graph.get(i).getTo().size());
+		}*/
 	}
 	
 	protected void refreshGraph(PathInGraph p) {
@@ -36,25 +43,22 @@ public class GraphAlgo {
 	}
 	
 	private	void addLink (Node n) {
-		//TODO test à enlever
-		//System.out.println("ajout de la station : "+n.getStation().getName()+" et route : "+n.getRoute().getId());
-		// Si la station n'est pas à éviter
 		Station station = n.getStation();
-		Iterator<Junction> itInter = station.getJunction();
+		Route route = n.getRoute();
+		Iterator<Junction> itInter = station.getJunctions();
 		while(itInter.hasNext()){
 			Junction j = itInter.next();
 			// Si la transition est possible
-			if (validChange(station,j)) {
+			if (validChange(n,j)) {
 				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
 				if (newNode == null) {
 					newNode = new Node(j.getOtherStation(station),j.getOtherRoute(station));
 					graph.add(newNode);
 					addLink(newNode);
 				}
-				n.addTo(j,newNode);
+				if (!Links.contains(n.getToIter(),j)) n.addTo(j,newNode);
 			}
 		}
-		
 	}
 	
 	private boolean isStationIn (Station s, Station[] list) {
@@ -74,21 +78,16 @@ public class GraphAlgo {
 		return true;		
 	}
 	
-	private boolean validChange (Station station,Junction junction) {
-		Station otherStation = junction.getOtherStation(station);
-		
+	private boolean validChange (Node node,Junction junction) {
+		Station otherStation = junction.getOtherStation(node.getStation(),node.getRoute());
+		Route otherRoute = junction.getOtherRoute(node.getStation(),node.getRoute());
 		if (
-				// La station d'arrivée n'est pas valide ou désactivée
-				isStationIn(otherStation,avoidStations) || !otherStation.isEnable() ||
-				// La route d'arrivée est differente de celle de départ ET
-				junction.getRoute(station) != junction.getOtherRoute(station) &&
-				// la station de départ est différente de celle de départ OU sinon qu'elle ne remplit pas les contraintes always
-				(station != junction.getOtherStation(station) ||  station == junction.getOtherStation(station) && !allServicesIn(station))
-				
+				otherStation == null ||
+				isStationIn(otherStation,avoidStations) ||
+				!otherStation.isEnable() ||
+				(otherStation.getId()==node.getStation().getId() && !allServicesIn(node.getStation()))
 			) return false;
-		else {
-			return true;
-		}
+		else return true;
 	}
 	
 	protected Iterator<Node> getList () {
@@ -184,6 +183,8 @@ public class GraphAlgo {
 		}
 		
 		public Iterator<Link> getToIter (){ return to.iterator(); }
+		//TODO a virer uniquement pour les tests
+		public LinkedList<Link> getTo (){ return to; }
 		
 	}
 
@@ -206,6 +207,23 @@ public class GraphAlgo {
 		public boolean isChanging () {
 			if (junction.getRouteA() == junction.getRouteB()) return false;
 			else return true;
+		}
+	}
+
+	/*****************************************************************/
+		
+	/**
+	 * @author iGo
+	 *
+	 */
+	protected static class Links {
+		
+		public static boolean contains (Iterator<Link> links, Junction j) {
+			while (links.hasNext()) {
+				Link l = links.next();
+				if (j.equals(l.getJunction()))return true;
+			}
+			return false;
 		}
 	}
 	
