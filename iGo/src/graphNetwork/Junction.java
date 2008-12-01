@@ -84,6 +84,48 @@ public class Junction {
 	}
 
 	/**
+	 * return the route of other route of an junction. You have to give one route to give the other
+	 * 
+	 * @param me
+	 *            the route you know in the junction
+	 * @return the route of other station, or null of the specified station isn't one of the two station
+	 */
+	public Route getOtherRoute(Route me) {
+		if (me.getId() == this.getRouteA().getId())
+			return this.getRouteB();
+		if (me.getId() == this.getRouteB().getId())
+			return this.getRouteA();
+		return null;
+	}
+
+	/**
+	 * return the route of other route of an junction.
+	 * COMMENTAIRE A REFAIRE
+	 * 
+	 * @param me
+	 *            the route you know in the junction
+	 * @return the route of other station, or null of the specified station isn't one of the two station
+	 */
+	public Route getOtherRoute(Station s,Route r) {
+		if (s.getId() == getStationA().getId() && r.getId() == getRouteA().getId())	return getRouteB();
+		if (s.getId() == getStationB().getId() && r.getId() == getRouteB().getId())	return getRouteA();
+		return null;
+	}
+	/**
+	 * return the other station of an junction. You have to give one station to give the other
+	 * COMMENTAIRE A REFAIRE
+	 * 
+	 * @param me
+	 *            the station you know in the junction
+	 * @return the other station, or null of the specified station isn't one of the two station
+	 */
+	public Station getOtherStation(Station s,Route r) {
+		if (s.getId() == getStationA().getId() && r.getId() == getRouteA().getId())	return getStationB();
+		if (s.getId() == getStationB().getId() && r.getId() == getRouteB().getId())	return getStationA();
+		return null;
+	}
+
+	/**
 	 * return the other station of an junction. You have to give one station to give the other
 	 * 
 	 * @param me
@@ -257,5 +299,20 @@ public class Junction {
 		this.timeBetweenStations = timeBetweenStations;
 		this.routeLink = routeLink;
 	}
-
+	
+	protected boolean equals (Junction j) {
+		if (
+				(j.getRouteA().getId() == routeA.getId() && 
+				j.getRouteB().getId() == routeB.getId() &&
+				j.getStationA().getId() == stationA.getId() && 
+				j.getStationB().getId() == stationB.getId()) ||
+				(j.getRouteA().getId() == routeB.getId() && 
+				j.getRouteB().getId() == routeA.getId() &&
+				j.getStationA().getId() == stationB.getId() && 
+				j.getStationB().getId() == stationA.getId())
+			) 
+			return true;
+		
+		return false;
+	}
 }
