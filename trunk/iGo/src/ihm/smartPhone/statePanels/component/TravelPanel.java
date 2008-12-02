@@ -12,8 +12,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.concurrent.Semaphore;
@@ -38,6 +40,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 	protected static Rectangle delArea = null;
 	protected static Rectangle allArea = null;
 	protected boolean insideMe;
+	protected boolean useGraphics2D;
 
 	// protected Graphics2D buffer;
 
@@ -79,9 +82,10 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 	 * @param ihmFather
 	 *            l'IhmReceivingPanelState qui l'accueil
 	 */
-	public TravelPanel(TravelForTravelPanel nvTravel, IhmReceivingPanelState ihmFather) {
+	public TravelPanel(TravelForTravelPanel nvTravel, IhmReceivingPanelState ihmFather,boolean useGraphics2D) {
 		super();
 		TravelPanel.father = ihmFather;
+		this.useGraphics2D = useGraphics2D;
 		this.travel = nvTravel;
 		if (travel == null)
 			throw new NullPointerException(
@@ -183,8 +187,13 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		 */
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
-			buffer = /* (Graphics2D)/* */image.getGraphics();
-			// buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			if (useGraphics2D) {
+				buffer = (Graphics2D) /* */image.getGraphics();
+				((Graphics2D) buffer).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+			} else {
+				buffer = image.getGraphics();
+			}
 			buffer.setColor(father.getSkin().getColorLetter());
 			fontInter = father.getSizeAdapteur().getIntermediateFont();
 			fontSmall = father.getSizeAdapteur().getSmallFont();
@@ -216,7 +225,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		if (nextX < i)
 			nextX = i;
 		buffer.drawString(father.lg("To") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ (father.getSizeAdapteur().getSizeSmallFont() * 7  >>1));
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
 		i = this.getWidthString(father.lg("To") + " : ", g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
@@ -269,7 +278,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		buffer.drawString(tmp1, x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
 		buffer.drawString(tmp2, x, father.getSizeAdapteur().getSizeIntermediateFont()
-				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >>1));
+				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
 
 		/***************************************************************************************************************
 		 * Dessin des images
@@ -306,8 +315,8 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 			return;
 		}
 		if ((imageEdit == null) || (imageEdit.getWidth(null) != father.getSizeAdapteur().getSizeIntermediateFont())) {
-			favArea.setBounds(father.getSizeAdapteur().getSizeSmallFont()  >>1, father.getSizeAdapteur()
-					.getSizeSmallFont()  >>1, father.getSizeAdapteur().getSizeIntermediateFont(), father
+			favArea.setBounds(father.getSizeAdapteur().getSizeSmallFont() >> 1, father.getSizeAdapteur()
+					.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeIntermediateFont(), father
 					.getSizeAdapteur().getSizeIntermediateFont());
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", father.getSizeAdapteur().getSizeIntermediateFont(),
 					father.getSizeAdapteur().getSizeIntermediateFont()).getImage();
@@ -324,13 +333,12 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		if (thisDotGetWidth != allArea.width) {
 			editArea.setBounds(thisDotGetWidth - father.getSizeAdapteur().getSizeSmallFont()
 					- father.getSizeAdapteur().getSizeIntermediateFont() * 2, father.getSizeAdapteur()
-					.getSizeSmallFont()  >>1, father.getSizeAdapteur().getSizeIntermediateFont(), father
+					.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeIntermediateFont(), father
 					.getSizeAdapteur().getSizeIntermediateFont());
-			delArea.setBounds(thisDotGetWidth - (father.getSizeAdapteur().getSizeSmallFont()  >>1)
+			delArea.setBounds(thisDotGetWidth - (father.getSizeAdapteur().getSizeSmallFont() >> 1)
 					- father.getSizeAdapteur().getSizeIntermediateFont(),
-					father.getSizeAdapteur().getSizeSmallFont()  >>1,
-					father.getSizeAdapteur().getSizeIntermediateFont(), father.getSizeAdapteur()
-							.getSizeIntermediateFont());
+					father.getSizeAdapteur().getSizeSmallFont() >> 1, father.getSizeAdapteur()
+							.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
 			allArea.setSize(thisDotGetWidth, thisDotGetHeight);
 
 		}

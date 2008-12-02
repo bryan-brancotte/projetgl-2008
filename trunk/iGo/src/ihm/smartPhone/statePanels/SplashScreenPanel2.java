@@ -8,7 +8,7 @@ import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 import java.awt.Graphics;
 import java.awt.Image;
 
-public class SplashScreenPanel extends PanelState {
+public class SplashScreenPanel2 extends PanelState2 {
 
 	private static final long serialVersionUID = 1L;
 	protected int maxStepInSplashScreen = -1;
@@ -26,7 +26,7 @@ public class SplashScreenPanel extends PanelState {
 	 * @param lowerBar
 	 *            la barre inférieur
 	 */
-	public SplashScreenPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
+	public SplashScreenPanel2(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 	}
 
@@ -34,52 +34,32 @@ public class SplashScreenPanel extends PanelState {
 	 * Surdéfinition de la fonction de redessinement de l'objet.
 	 */
 	public void paint(Graphics g) {
-		// System.out.println("SplashScreenPanel.paint(...)");
-		// Si le buffer n'existe pas, ou s'il n'est pas adapté à la taille du panel, on ne redéfinit
-		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
-			image = createImage(getWidth(), getHeight());
-			buffer = image.getGraphics();
-			// on charge aussi le logo en fonction de la taille du panel.
-			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.256.png"),
-					(int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.8)).getImage();
-			buffer.setColor(father.getSkin().getColorOutside());
-			buffer.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1,
-					(this.getHeight() - logo.getHeight(null)) >> 1 - father.getSizeAdapteur().getSizeSmallFont(), null);
-		}
-		// si le logo n'est pas définit on le charge en mémoire. On n'a besoin de le charger que si la taille
-		// destination à changé.
-		if (logo == null) {
-			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.png"), (int) (this.getWidth() * 0.8),
-					(int) (this.getHeight() * 0.8)).getImage();
-		}
+		if(logo==null)
+			this.displayableAreaResized(g);
 		// on l'efface
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		g.clearRect(0, 0, getWidth(), getHeight());
 
-		buffer.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1,
-				(this.getHeight() - logo.getHeight(null) >> 1) - father.getSizeAdapteur().getSizeSmallFont(), null);
+		g.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1, (this.getHeight() - logo.getHeight(null) >> 1)
+				- father.getSizeAdapteur().getSizeSmallFont(), null);
 		// On affiche ensuite la barre de progression
 		if (maxStepInSplashScreen >= 0) {
-			buffer.drawRoundRect((this.getWidth()  - logo.getWidth(null) >>1) - 2, (this.getHeight() 
-					+ logo.getHeight(null) >>1) - 2, 4 + logo.getWidth(null), 4 + father.getSizeAdapteur()
-					.getSizeSmallFont(), 6, 6);
+			g.drawRoundRect((this.getWidth() - logo.getWidth(null) >> 1) - 2,
+					(this.getHeight() + logo.getHeight(null) >> 1) - 2, 4 + logo.getWidth(null), 4 + father
+							.getSizeAdapteur().getSizeSmallFont(), 6, 6);
 			int progression;
 			if (stepInSplashScreen < maxStepInSplashScreen)
 				progression = (int) (logo.getWidth(null) * ((float) stepInSplashScreen / maxStepInSplashScreen));
 			else
 				progression = logo.getWidth(null);
-			buffer.fillPolygon(new int[] { this.getWidth()   - logo.getWidth(null) >>1,
-					(this.getWidth()   - logo.getWidth(null) >>1) + progression+1,
-					(this.getWidth()    - logo.getWidth(null) >>1) + progression+1,
-					this.getWidth()   - logo.getWidth(null) >>1},
-					new int[] {
-							this.getHeight()   + logo.getHeight(null) >>1,
-							this.getHeight()   + logo.getHeight(null) >>1,
-							(this.getHeight()   + logo.getHeight(null) >>1)
-									+ father.getSizeAdapteur().getSizeSmallFont() + 1,
-							(this.getHeight()  + logo.getHeight(null) >>1)
-									+ father.getSizeAdapteur().getSizeSmallFont() + 1 }, 4);
+			g.fillPolygon(new int[] { this.getWidth() - logo.getWidth(null) >> 1,
+					(this.getWidth() - logo.getWidth(null) >> 1) + progression + 1,
+					(this.getWidth() - logo.getWidth(null) >> 1) + progression + 1,
+					this.getWidth() - logo.getWidth(null) >> 1 }, new int[] {
+					this.getHeight() + logo.getHeight(null) >> 1, this.getHeight() + logo.getHeight(null) >> 1,
+					(this.getHeight() + logo.getHeight(null) >> 1) + father.getSizeAdapteur().getSizeSmallFont() + 1,
+					(this.getHeight() + logo.getHeight(null) >> 1) + father.getSizeAdapteur().getSizeSmallFont() + 1 },
+					4);
 		}
-		g.drawImage(image, 0, 0, this);
 	}
 
 	/**
@@ -139,5 +119,15 @@ public class SplashScreenPanel extends PanelState {
 		lowerBar.clearMessage();
 		lowerBar.setRightTitle(father.lg("iGoVersion"));
 		lowerBar.repaint();
+	}
+
+	@Override
+	public void displayableAreaResized(Graphics g) {
+		// on charge aussi le logo en fonction de la taille du panel.
+		logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.256.png"), (int) (this.getWidth() * 0.8),
+				(int) (this.getHeight() * 0.8)).getImage();
+		g.setColor(father.getSkin().getColorOutside());
+		g.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1,
+				(this.getHeight() - logo.getHeight(null)) >> 1 - father.getSizeAdapteur().getSizeSmallFont(), null);
 	}
 }

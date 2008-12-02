@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainPanel extends PanelState {
+public class MainPanel2 extends PanelState2 {
 
 	protected Image imageNew = null;
 	protected Rectangle imageNewArea = null;
@@ -39,7 +39,7 @@ public class MainPanel extends PanelState {
 	 * @param lowerBar
 	 *            la barre inférieur
 	 */
-	public MainPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
+	public MainPanel2(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 		imageNewArea = new Rectangle();
 		imageLoadArea = new Rectangle();
@@ -79,86 +79,45 @@ public class MainPanel extends PanelState {
 	 * Surdéfinition de la fonction de redessinement de l'objet.
 	 */
 	public void paint(Graphics g) {
+		if (font == null)
+			this.displayableAreaResized(g);
 		int miniWidth = this.getWidth() >> 2;
 		int miniHeight = this.getHeight() >> 2;
 		int miniSide = (miniWidth > miniHeight) ? miniHeight : miniWidth;
-		int halfImagesWidth=miniSide >> 1;
 		int twoThirdImagesHeight=(int) (miniSide * 0.667);
 		String msg;
-		/***************************************************************************************************************
-		 * detection d'un changement de taille, dans ce cas on modifie le double buffer, et au cas ou les image charger
-		 * en mémoire
-		 */
-		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
-			// System.out.println(getWidth());
-			image = createImage(getWidth(), getHeight());
-			buffer = image.getGraphics();
-			buffer.setFont(font = father.getSizeAdapteur().getIntermediateFont());
-			buffer.setColor(father.getSkin().getColorLetter());
 
-			if ((imageNew == null) || (miniHeight != imageNewArea.getWidth())
-					|| (miniHeight != imageNewArea.getHeight()))
-				imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniSide, miniSide).getImage();
-			//halfImagesWidth = miniSide >> 1;
-			//twoThirdImagesHeight = (int) (miniSide * 0.667);
-			imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, miniSide, miniSide);
-
-			if ((imageLoad == null) || (miniHeight != imageLoadArea.getWidth())
-					|| (miniHeight != imageLoadArea.getHeight()))
-				imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniSide, miniSide).getImage();
-			imageLoadArea.setBounds(miniWidth * 3 - halfImagesWidth, imageNewArea.y, imageNewArea.width,
-					imageNewArea.height);
-
-			if ((imageSettings == null) || (miniHeight != imageSettingsArea.getWidth())
-					|| (miniHeight != imageSettingsArea.getHeight()))
-				imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniSide, miniSide).getImage();
-			imageSettingsArea.setBounds(imageNewArea.x, miniHeight * 3 - miniSide, imageNewArea.width,
-					imageNewArea.height);
-
-			if ((imageFavorites == null) || (miniHeight != imageFavoritesArea.getWidth())
-					|| (miniHeight != imageFavoritesArea.getHeight()))
-				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniSide, miniSide).getImage();
-			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
-		} else {
-			//halfImagesWidth = miniSide >> 1;
-			//twoThirdImagesHeight = (int) (miniSide * 0.667);
-		}
 		/***************************************************************************************************************
 		 * Menu "New"
 		 */
-		buffer.drawImage(imageNew, imageNewArea.x, imageNewArea.y, null);
+		g.drawImage(imageNew, imageNewArea.x, imageNewArea.y, null);
 		msg = father.lg("New");
-		buffer.drawString(msg, miniWidth - (getWidthString(msg, buffer, font) >> 1), miniHeight + twoThirdImagesHeight
-				/ 2 + getHeigthString(msg, buffer, font));
+		g.drawString(msg, miniWidth - (getWidthString(msg, g, font) >> 1), miniHeight + twoThirdImagesHeight
+				/ 2 + getHeigthString(msg, g, font));
 
 		/***************************************************************************************************************
 		 * Menu "Load"
 		 */
-		buffer.drawImage(imageLoad, imageLoadArea.x, imageLoadArea.y, null);
+		g.drawImage(imageLoad, imageLoadArea.x, imageLoadArea.y, null);
 		msg = father.lg("MainLoad");
-		buffer.drawString(msg, miniWidth * 3 - (getWidthString(msg, buffer, font) >> 1), miniHeight
-				+ (twoThirdImagesHeight >> 1) + getHeigthString(msg, buffer, font));
+		g.drawString(msg, miniWidth * 3 - (getWidthString(msg, g, font) >> 1), miniHeight
+				+ (twoThirdImagesHeight >> 1) + getHeigthString(msg, g, font));
 
 		/***************************************************************************************************************
 		 * Menu "Settings"
 		 */
-		buffer.drawImage(imageSettings, imageSettingsArea.x, imageSettingsArea.y, null);
+		g.drawImage(imageSettings, imageSettingsArea.x, imageSettingsArea.y, null);
 		msg = father.lg("Settings");
-		buffer.drawString(msg, miniWidth - (getWidthString(msg, buffer, font) >> 1), miniHeight * 3
-				+ getHeigthString(msg, buffer, font));
+		g.drawString(msg, miniWidth - (getWidthString(msg, g, font) >> 1), miniHeight * 3
+				+ getHeigthString(msg, g, font));
 
 		/***************************************************************************************************************
 		 * Menu "Favorites"
 		 */
-		buffer.drawImage(imageFavorites, imageFavoritesArea.x, imageFavoritesArea.y, null);
+		g.drawImage(imageFavorites, imageFavoritesArea.x, imageFavoritesArea.y, null);
 		msg = father.lg("Favorites");
-		buffer.drawString(msg, miniWidth * 3 - (getWidthString(msg, buffer, font) >> 1), miniHeight * 3
-				+ getHeigthString(msg, buffer, font));
-
-		/***************************************************************************************************************
-		 * dessin du nouvelle affichage
-		 */
-		g.drawImage(image, 0, 0, this);
+		g.drawString(msg, miniWidth * 3 - (getWidthString(msg, g, font) >> 1), miniHeight * 3
+				+ getHeigthString(msg, g, font));
 
 	}
 
@@ -177,5 +136,42 @@ public class MainPanel extends PanelState {
 			}
 		});
 		lowerBar.repaint();
+	}
+
+	@Override
+	public void displayableAreaResized(Graphics g) {
+		System.out.println("displayableAreaResized");
+		int miniWidth = this.getWidth() >> 2;
+		int miniHeight = this.getHeight() >> 2;
+		int miniSide = (miniWidth > miniHeight) ? miniHeight : miniWidth;
+		int halfImagesWidth=miniSide >> 1;
+		int twoThirdImagesHeight=(int) (miniSide * 0.667);
+		// System.out.println(getWidth());
+		g.setFont(font = father.getSizeAdapteur().getIntermediateFont());
+		g.setColor(father.getSkin().getColorLetter());
+
+		if ((imageNew == null) || (miniHeight != imageNewArea.getWidth())
+				|| (miniHeight != imageNewArea.getHeight()))
+			imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniSide, miniSide).getImage();
+		//halfImagesWidth = miniSide >> 1;
+		//twoThirdImagesHeight = (int) (miniSide * 0.667);
+		imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, miniSide, miniSide);
+
+		if ((imageLoad == null) || (miniHeight != imageLoadArea.getWidth())
+				|| (miniHeight != imageLoadArea.getHeight()))
+			imageLoad = ImageLoader.getRessourcesImageIcone("mainLoad", miniSide, miniSide).getImage();
+		imageLoadArea.setBounds(miniWidth * 3 - halfImagesWidth, imageNewArea.y, imageNewArea.width,
+				imageNewArea.height);
+
+		if ((imageSettings == null) || (miniHeight != imageSettingsArea.getWidth())
+				|| (miniHeight != imageSettingsArea.getHeight()))
+			imageSettings = ImageLoader.getRessourcesImageIcone("mainSettings", miniSide, miniSide).getImage();
+		imageSettingsArea.setBounds(imageNewArea.x, miniHeight * 3 - miniSide, imageNewArea.width,
+				imageNewArea.height);
+
+		if ((imageFavorites == null) || (miniHeight != imageFavoritesArea.getWidth())
+				|| (miniHeight != imageFavoritesArea.getHeight()))
+			imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniSide, miniSide).getImage();
+		imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 	}
 }

@@ -18,8 +18,9 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	/**
 	 * La qualité du dessin
 	 */
-	private IHMGraphicQuality quality = IHMGraphicQuality.HIGHER_QUALITY;
-
+	private IHMGraphicQuality quality = IHMGraphicQuality.HIGHER_QUALITY;/*
+	private IHMGraphicQuality quality = IHMGraphicQuality.AS_FAST_AS_WE_CAN;/**/
+	
 	public IHMGraphicQuality getQuality() {
 		return quality;
 	}
@@ -123,33 +124,4 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	public Image getImage() {
 		return image;
 	}
-
-	// class SemaphorePaint extends Thread {
-	// private Semaphore renderingClamp = new Semaphore(1);
-	//
-	// public SemaphorePaint() {
-	// super();
-	// }
-	//
-	// public boolean tryAcquire() {
-	// return renderingClamp.tryAcquire();
-	// }
-	//
-	// public void release() {
-	// (new ExecMultiThread<Semaphore>(this.renderingClamp) {
-	//
-	// @Override
-	// public void run() {
-	// try {
-	// sleep(100);
-	// } catch (InterruptedException e) {
-	// }
-	// this.origine.release();
-	// }
-	// }).start();
-	//
-	// // renderingClamp.release();
-	// //
-	// }
-	// }
 }
