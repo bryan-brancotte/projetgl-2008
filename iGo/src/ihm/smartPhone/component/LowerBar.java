@@ -158,7 +158,7 @@ public class LowerBar extends AbstractBar {
 			g.drawString(leftTitle, 0, getHeigthString(leftTitle, g, font));
 
 		if ((leftValueSize == fontKindSize) && (leftValue != ""))
-			g.drawString(leftValue, (this.getWidth()) >> 2 - (getWidthString(leftValue, g, font) >> 1), this
+			g.drawString(leftValue, (this.getWidth() >> 2) - (getWidthString(leftValue, g, font) >> 1), this
 					.getHeight()
 					+ getHeigthString(leftValue, g, font) >> 1);
 
