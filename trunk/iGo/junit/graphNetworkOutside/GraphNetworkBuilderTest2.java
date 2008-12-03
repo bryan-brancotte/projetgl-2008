@@ -30,7 +30,12 @@ public class GraphNetworkBuilderTest2 {
 	@Before
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
-		bob.setActualGraphNetwork(sncf = bob.getInstance());
+		sncf = bob.getInstance();
+		try{
+			bob.setActualGraphNetwork();
+		}catch (Exception e) {
+			System.out.println("Me prévenir que j'ai laissé trainer ça...");
+		}
 	}
 
 	public static junit.framework.Test suite() {
