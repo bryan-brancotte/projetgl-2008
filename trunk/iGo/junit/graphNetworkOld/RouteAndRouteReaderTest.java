@@ -1,4 +1,4 @@
-package graphNetwork;
+package graphNetworkOld;
 
 import static org.junit.Assert.assertTrue;
 import junit.framework.JUnit4TestAdapter;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class RouteAndRouteReaderTest {
 
-	protected GraphNetworkBuilder graph;
+	protected GraphNetworkBuilderTest2 graph;
 	protected Route routeA;
 	protected Station stationA;
 	protected Station stationB;
@@ -24,7 +24,7 @@ public class RouteAndRouteReaderTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetworkBuilder();
+		graph = new GraphNetworkBuilderTest2();
 		graph.addKind("TGV");
 		routeA = new Route("routeA", graph.getKindFromString("TGV"));// , );
 		KindRoute.addKind("Tram");
