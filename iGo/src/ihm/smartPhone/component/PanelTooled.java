@@ -32,8 +32,8 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 
 	// TODO champs avec completion
 
-	// TODO combo box ou pas?
+	// TODO fentre des choix comme chrome?
 
-	// fentre des choix comme chrome?
+	// TODO combo box ou pas?
 
 }
