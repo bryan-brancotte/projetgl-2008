@@ -1,4 +1,4 @@
-package graphNetwork;
+package graphNetworkOld;
 
 import static org.junit.Assert.assertTrue;
 import junit.framework.JUnit4TestAdapter;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ServiceAndServiceReaderTest {
 
-	protected GraphNetworkBuilder graph;
+	protected GraphNetworkBuilderTest2 graph;
 	protected Service serviceCoffe;
 	protected Service serviceNews;
 
@@ -23,7 +23,7 @@ public class ServiceAndServiceReaderTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetworkBuilder();
+		graph = new GraphNetworkBuilderTest2();
 		serviceCoffe = new Service("Coffe", 3);
 		serviceNews = new Service("News", 4);
 	}

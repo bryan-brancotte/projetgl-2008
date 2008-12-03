@@ -1,4 +1,4 @@
-package graphNetwork;
+package graphNetworkOld;
 
 import static org.junit.Assert.assertTrue;
 import graphNetwork.exception.ImpossibleValueException;
@@ -15,7 +15,7 @@ import org.junit.Test;
 
 public class InterTest {
 
-	protected GraphNetworkBuilder graph;
+	protected GraphNetworkBuilderTest2 graph;
 
 	protected Station stationA;
 	protected Station stationB;
@@ -37,7 +37,7 @@ public class InterTest {
 
 	@Before
 	public void prologueDateTest() {
-		graph = new GraphNetworkBuilder();
+		graph = new GraphNetworkBuilderTest2();
 		try {
 			stationA = graph.addStation(1, "stationA");
 			stationB = graph.addStation(2, "stationB");
