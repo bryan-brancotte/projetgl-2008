@@ -1,7 +1,7 @@
 package ihm.smartPhone.statePanels;
 
+import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.tools.SizeAdapteur;
-import ihm.smartPhone.tools.iGoSmartPhoneSkin;
 
 public interface IhmReceivingPanelState {
 

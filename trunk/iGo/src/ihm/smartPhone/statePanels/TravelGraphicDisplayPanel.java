@@ -377,9 +377,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				//buffer.setColor(iterColor.next());
 			} else {
 				// la zone
-				// System.out.println("dessin de " + section.getNameChangement());
 				buffer.fillPolygon(polygon);
-				//TODO faire un contour sur les lignes ?
 				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 						(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
 				drawDelayedOval(buffer, center.x - (sizeLarge >> 1), center.y - (sizeLarge >> 1), sizeLarge, sizeLarge);
@@ -395,7 +393,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 						+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, center.y
 								- (sizeLarge >> 1), section);
 			}
-			// buffer.drawLine(0, heightImageDrawn, 200, heightImageDrawn);
 			// System.out.println(section.getNameChangement());
 			orientation = (++orientation % 6);
 		}

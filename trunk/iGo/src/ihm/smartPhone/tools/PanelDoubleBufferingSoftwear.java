@@ -1,4 +1,4 @@
-package ihm.smartPhone.component;
+package ihm.smartPhone.tools;
 
 import iGoMaster.IHMGraphicQuality;
 

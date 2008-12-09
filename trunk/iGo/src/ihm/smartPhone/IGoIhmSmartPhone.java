@@ -6,6 +6,7 @@ import iGoMaster.Master;
 import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MyWindowStateListener;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
@@ -23,7 +24,6 @@ import ihm.smartPhone.statePanels.VoidPanel;
 import ihm.smartPhone.tools.IGoFlowLayout;
 import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.SizeAdapteur;
-import ihm.smartPhone.tools.iGoSmartPhoneSkin;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.BorderLayout;

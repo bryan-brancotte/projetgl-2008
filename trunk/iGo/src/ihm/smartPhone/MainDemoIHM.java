@@ -5,9 +5,9 @@ import java.util.Observable;
 import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
+import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.ExecMultiThread;
-import ihm.smartPhone.tools.iGoSmartPhoneSkin;
 import xmlFeature.LanguageXML;
 
 public class MainDemoIHM {

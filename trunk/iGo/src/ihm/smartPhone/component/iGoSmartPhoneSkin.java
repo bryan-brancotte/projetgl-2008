@@ -1,4 +1,4 @@
-package ihm.smartPhone.tools;
+package ihm.smartPhone.component;
 
 import java.awt.Color;
 

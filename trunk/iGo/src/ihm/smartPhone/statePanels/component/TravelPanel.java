@@ -1,12 +1,12 @@
 package ihm.smartPhone.statePanels.component;
 
-import ihm.smartPhone.component.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 
 import java.awt.Container;
 import java.awt.Dimension;
