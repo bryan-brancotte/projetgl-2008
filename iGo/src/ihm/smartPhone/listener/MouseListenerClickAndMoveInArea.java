@@ -93,12 +93,14 @@ public class MouseListenerClickAndMoveInArea implements MouseListener, MouseMoti
 		}
 	}
 
-	public void addInteractiveArea(Rectangle area, CodeExecutor codeExecutor, boolean showHand) {
+	public Rectangle addInteractiveArea(Rectangle area, CodeExecutor codeExecutor, boolean showHand) {
 		listAreaAndCodeExecutor.add(new AreaAndCodeExecutor(area, codeExecutor, showHand));
+		return area;
 	}
 
-	public void addInteractiveArea(Rectangle area, CodeExecutor codeExecutor) {
+	public Rectangle addInteractiveArea(Rectangle area, CodeExecutor codeExecutor) {
 		this.addInteractiveArea(area, codeExecutor, true);
+		return area;
 	}
 
 }
