@@ -20,7 +20,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GraphNetworkBuilderTest2 {
+public class GraphNetworkBuilderTest {
 
 	protected GraphNetworkBuilder bob;
 	protected GraphNetwork sncf;
@@ -36,7 +36,12 @@ public class GraphNetworkBuilderTest2 {
 	}
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(GraphNetworkBuilderTest2.class);
+		return new JUnit4TestAdapter(GraphNetworkBuilderTest.class);
+	}
+	
+	@Test
+	public void newGraphNetworkBuilderSansProbleme(){
+		assertTrue(sncf!=null);
 	}
 
 	/**
