@@ -61,6 +61,25 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
+	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé existe déjà on jete une exception.
+	 * 
+	 * @param id
+	 *            l'identifiant du service
+	 * @param name
+	 *            le nom du service
+	 * @param description
+	 * 				description rapide du service
+	 * @return le nouveau service créé
+	 * @throws ViolationOfUnicityInIdentificationException
+	 *             le type d'exception jeté si l'identifiant est déja utilisé.
+	 */
+	public Service addService(int id, String name,String description) throws ViolationOfUnicityInIdentificationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
 	 * En travaillant sur le GraphNetwork courant, on ajout un service à un station. Si le service est déja présent, on ne fait
 	 * rien.
 	 * 
@@ -72,6 +91,8 @@ public class GraphNetworkBuilder {
 	 */
 	public boolean addServiceToStation(Station station, Service serviceToAdd) {
 		// TODO Auto-generated method stub
+		if(station==null || serviceToAdd==null)
+			return false;
 		return false;
 	}
 
@@ -106,6 +127,9 @@ public class GraphNetworkBuilder {
 	 */
 	public boolean addStationToRoute(Route route, Station stationToAdd, int time) {
 		// TODO Auto-generated method stub
+		if(route == null || stationToAdd == null)
+			return false;
+		
 		return false;
 	}
 
