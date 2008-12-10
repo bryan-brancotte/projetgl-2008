@@ -27,7 +27,7 @@ public class PathInGraphBuilder {
 	 * @param junction
 	 */
 	public void addFront(Junction junction) {
-
+		actualPathInGraph.junctions.addFirst(junction);
 	}
 
 
