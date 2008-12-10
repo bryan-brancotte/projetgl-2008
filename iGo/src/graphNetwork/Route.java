@@ -1,5 +1,6 @@
 package graphNetwork;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -69,8 +70,8 @@ public class Route {
 	 * @return Returns the station.
 	 * @uml.property name="stations"
 	 */
-	public LinkedList<Station> getStations() {
-		return stations;
+	public Iterator<Station> getStations() {
+		return stations.iterator();
 	}
 
 	public boolean isEnable() {
