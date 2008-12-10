@@ -34,9 +34,9 @@ public class GraphNetworkBuilderRobustesse {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 * @throws NullPointerException
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void addRoute1() throws ViolationOfUnicityInIdentificationException, NullPointerException {
-		bob.addRoute(null, "ee");
+		assertTrue(null==bob.addRoute(null, "ee"));
 	}
 
 	/**
@@ -44,9 +44,9 @@ public class GraphNetworkBuilderRobustesse {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 * @throws NullPointerException
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void addRoute2() throws ViolationOfUnicityInIdentificationException, NullPointerException {
-		bob.addRoute("ee", null);
+		assertTrue(null==bob.addRoute("ee", null));
 	}
 
 	/**
@@ -76,19 +76,19 @@ public class GraphNetworkBuilderRobustesse {
 	 * @throws ViolationOfUnicityInIdentificationException
 	 * @throws NullPointerException
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void addService2() throws NullPointerException, ViolationOfUnicityInIdentificationException {
-		bob.addService(1, null);
+		assertTrue(bob.addStation(1, null)==null);
 	}
 
 	/**
-	 * Test de refus d'ajout d'un Service avec kind null et un id
+	 * Test d'innactivité en cas d'ajout d'un Service avec nom null
 	 * @throws ViolationOfUnicityInIdentificationException
 	 * @throws NullPointerException
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void addStation1() throws ViolationOfUnicityInIdentificationException, NullPointerException {
-		bob.addStation(-1, null);
+		assertTrue(bob.addStation(-1, null)==null);
 	}
 
 	/**
