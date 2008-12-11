@@ -22,23 +22,11 @@ public class GraphNetwork {
 		return kind.cost;
 	}
 
-	/**
-	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec
-	 * un nouveau trajet.
-	 * 
-	 * @return une nouvelle instance de PathInGraph
-	 */
-	public PathInGraphBuilder getInstancePathInGraphBuilder() {
+	public PathInGraphBuilder getInstancePathInGraphBuilder() {//Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec un nouveau trajet.
 		return new PathInGraphBuilder(this);
 	}
 
-	/**
-	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder initialisé avec le
-	 * trajet passé en paramètre.
-	 * 
-	 * @return une nouvelle instance de PathInGraph
-	 */
-	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
+	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {//Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder initialisé avec le trajet passé en paramètre.
 		PathInGraphBuilder b =  new PathInGraphBuilder(this);
 		b.setActualPathInGraph(path);
 		return b;
@@ -55,6 +43,12 @@ public class GraphNetwork {
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
 		// TODO Auto-generated method stub
+		LinkedList<Junction> junctionLL;
+		if(stations.indexOf(stationA)<stations.indexOf(stationB)){
+			for(int i = stations.indexOf(stationA);i<stations.indexOf(stationB);i++){
+				//TODO demander aide a Bryan
+			}
+		}
 		
 		return null;
 	}
@@ -89,6 +83,7 @@ public class GraphNetwork {
 	 */
 	public Route getRoute(String id) {
 		// TODO Auto-generated method stub
+		//routes.
 		return null;
 	}
 
