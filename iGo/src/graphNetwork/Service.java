@@ -6,15 +6,8 @@ package graphNetwork;
  */
 public class Service {
 
-	/**
-	 * @uml.property name="id"
-	 */
-	private int id;
-
-	/**
-	 * @uml.property name="shortDescription"
-	 */
-	private String shortDescription = "";
+	private int id;//@uml.property name="id"
+	private String shortDescription = "";//@uml.property name="shortDescription"
 
 	protected Service(int id, String shortDescription) {
 		super();
