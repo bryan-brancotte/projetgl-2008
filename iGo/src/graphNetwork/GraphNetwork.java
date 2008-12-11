@@ -18,7 +18,7 @@ public class GraphNetwork {
 		// TODO Auto-generated constructor stub
 	}
 
-	public float getEntryCost(KindRoute kind) {//retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
+	public float getEntryCost(KindRoute kind)throws NullPointerException {//retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
 		return kind.cost;
 	}
 

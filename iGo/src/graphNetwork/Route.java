@@ -129,7 +129,7 @@ public class Route {
 	 * @param stationEnable
 	 *            enable or disable the station
 	 */
-	protected void setStationEnable(int idStation, boolean stationEnable) {
+	public void setStationEnable(int idStation, boolean stationEnable) {
 	}
 
 	/**

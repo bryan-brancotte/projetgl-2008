@@ -18,7 +18,7 @@ public class KindRoute {
 	 * @param kind, name of the kind we are looking for
 	 * @return the KindRoute if we found it, else we return null;
 	 */
-	protected static KindRoute getKindFromString(String kindOf) {
+	public static KindRoute getKindFromString(String kindOf) {
 		KindRoute k = null;
 		int i=0;
 		while (k==null && i<kinds.size()) {
