@@ -42,7 +42,6 @@ public class GraphNetwork {
 	 * @return un iterateur sur les changements existant
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
-		// TODO Auto-generated method stub
 		LinkedList<Junction> junctionLL;
 		if(stations.indexOf(stationA)<stations.indexOf(stationB)){
 			for(int i = stations.indexOf(stationA);i<stations.indexOf(stationB);i++){
@@ -70,8 +69,14 @@ public class GraphNetwork {
 	 * @return un iterateur sur les types de route
 	 */
 	public Iterator<KindRoute> getKinds() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO verifier que cette methode tourne correctement
+		Iterator<Route> r1 = routes.iterator();
+		LinkedList<KindRoute> kindroute = new LinkedList<KindRoute>();
+		while(r1.hasNext()){
+			kindroute.add(r1.next().getKindRoute());
+		}
+		
+		return kindroute.iterator();
 	}
 	
 	public Route getRoute(String i) {//etourne la route dont on connait l'identifiant ou null si elle n'existe pas 
