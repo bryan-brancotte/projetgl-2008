@@ -9,39 +9,17 @@ import java.util.LinkedList;
  */
 public class GraphNetwork {
 
-	/**
-	 * Liste des routes présente dans le GraphNetwork
-	 */
-	private LinkedList<Route> routes;
+	private LinkedList<Route> routes;//Liste des routes présente dans le GraphNetwork
+	private LinkedList<Service> services;//Liste des services présente dans le GraphNetwork
+	private LinkedList<Station> stations;//Liste des stations présente dans le GraphNetwork
 
-	/**
-	 * Liste des services présente dans le GraphNetwork
-	 */
-	private LinkedList<Service> services;
-
-	/**
-	 * Liste des stations présente dans le GraphNetwork
-	 */
-	private LinkedList<Station> stations;
-
-	/**
-	 * Construteur d'un objet GraphNetwork
-	 */
-	protected GraphNetwork() {
+	protected GraphNetwork() {//Construteur d'un objet GraphNetwork
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
-	 * 
-	 * @param kind
-	 *            le type de la ligne
-	 * @return le coût pour y accéder
-	 */
-	public float getEntryCost(KindRoute kind) {
-		// TODO Auto-generated method stub
-		return 0;
+	public float getEntryCost(KindRoute kind) {//retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
+		return kind.cost;
 	}
 
 	/**
@@ -77,6 +55,7 @@ public class GraphNetwork {
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -134,41 +113,22 @@ public class GraphNetwork {
 		return null;
 	}
 
-	/**
-	 * retourne les services existants dans le réseau
-	 * 
-	 * @return un iterateur sur les services
-	 */
-	public Iterator<Service> getServices() {
+	public Iterator<Service> getServices() {//@return un iterateur sur les services existants dans le reseau
 		return services.iterator();
 	}
 
-	/**
-	 * retourne la station dont on connait l'identifiant
-	 * 
-	 * @param id
-	 *            l'identifiant de la station
-	 * @return la station ou null si elle n'existe pas
-	 */
-	public Station getStation(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Station getStation(int id) {//retourne la station dont on connait l'identifiant, null sinon
+		if(id<stations.size()+1){
+			return stations.get(id);
+		}
+		else{return null;}
 	}
 
-	/**
-	 * retourne les stations existants dans le réseau
-	 * 
-	 * @return un iterateur sur les stations
-	 */
-	public Iterator<Station> getStations() {
-
+	public Iterator<Station> getStations() {//retourne les stations existants dans le réseau
 		return stations.iterator();
 	}
 
-	/**
-	 * remet les composants du réseau comme actif.
-	 */
-	public void resetEnables() {
+	public void resetEnables() {//remet les composants du réseau comme actif.
 		// TODO Auto-generated method stub
 
 	}
