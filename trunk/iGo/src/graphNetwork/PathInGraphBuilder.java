@@ -20,24 +20,11 @@ public class PathInGraphBuilder {
 		this.actualPathInGraph = actualPathInGraph;
 	}
 
-
-	/**
-	 * En travaillant sur le PathInGraph courant, ajout au début du chemin l'inter passé en paramètre
-	 * 
-	 * @param junction
-	 */
-	public void addFront(Junction junction) {
+	public void addFront(Junction junction) {//ajout au debut du chemin de l'inter, dans le PathInGrah courant
 		actualPathInGraph.junctions.addFirst(junction);
 	}
 
-
-
-	/**
-	 * En travaillant sur le PathInGraph courant, ajoute à la fin du chemin l'inter passé en paramètre
-	 * 
-	 * @param junction
-	 */
-	public void addLast(Junction junction) {
+	public void addLast(Junction junction) {//ajout en fin de chemin de l'inter, dans le PathInGrah courant
 		actualPathInGraph.junctions.addLast(junction);
 
 	}
@@ -54,7 +41,7 @@ public class PathInGraphBuilder {
 		return new PathInGraph(univer);
 	}
 
-	protected void importPath(String pathInString) {//En travaillant sur le PathInGraph courant, cr�� le chemin depuis la chaine pass� en parametre. On �crase le contenue pr�c�dent du chemin
+	protected void importPath(String pathInString) {//En travaillant sur le PathInGraph courant, cree le chemin depuis la chaine pass� en parametre. On �crase le contenue pr�c�dent du chemin
 		// TODO Auto-generated method stub
 	}
 

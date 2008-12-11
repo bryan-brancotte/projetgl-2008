@@ -12,6 +12,7 @@ public class KindRoute {
 
 	private KindRoute route;
 	protected static LinkedList<KindRoute> kinds;
+	protected float cost;
 	/**
 	 * get the object KindRoute of the kind given in parameter.
 	 * @param kind, name of the kind we are looking for
@@ -97,6 +98,9 @@ public class KindRoute {
 			return (((KindRoute) obj).getKindOf().compareTo(this.getKindOf()) == 0);
 		}
 		return false;
+	}
+	public void setKindCost(float myCost){
+		this.cost=myCost;
 	}
 
 }

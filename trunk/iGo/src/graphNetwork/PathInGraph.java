@@ -11,52 +11,24 @@ public class PathInGraph {
 
 
 	protected GraphNetwork univers;				//GraphNetwork dans lequel le trajet a un sens, une existance
-
-
-	/**
-	 * Liste des stations à éviter
-	 */
-	protected LinkedList<Station> avoidStations;
-
+	protected LinkedList<Station> avoidStations;//Liste des stations à éviter
 
 	private float cost;
 	private int time;
 	
+	protected Station destination;//La station de destination
+	protected LinkedList<Junction> junctions;//Liste des jonctions formant le trajet
+	protected Station origin;//La station d'origine
+	protected LinkedList<Service> sevicesAlways;//Liste des services obligatoire sur l'ensemble des stations intermédiaire et extrèmes du trajet.
+	protected LinkedList<Service> sevicesOnce;//Liste des services à recontrer au moins une fois sur le trajet.
+	protected LinkedList<Station> steps;//Liste des stations intermédiaires obligatoire.
 
-	/**
-	 * La station de destination
-	 */
-	protected Station destination;
-	/**
-	 * Liste des jonctions formant le trajet
-	 */
-	protected LinkedList<Junction> junctions;
-	/**
-	 * La station d'origine
-	 */
-	protected Station origin;
-	/**
-	 * Liste des services obligatoire sur l'ensemble des stations intermédiaire et extrèmes du trajet.
-	 */
-	protected LinkedList<Service> sevicesAlways;
-	/**
-	 * Liste des services à recontrer au moins une fois sur le trajet.
-	 */
-	protected LinkedList<Service> sevicesOnce;
-	/**
-	 * Liste des stations intermédiaires obligatoire.
-	 */
-	protected LinkedList<Station> steps;
 
-	/**
-	 * constructeur d'un trajet
-	 */
-	private PathInGraph() {
-
+	private PathInGraph() {//constructeur d'un trajet
 		junctions = new LinkedList<Junction>();
 	}
 
-	protected PathInGraph(GraphNetwork graph) {	//Constructeur sp�cifiant dans quel univers le trajet est cr��
+	protected PathInGraph(GraphNetwork graph) {	//Constructeur sp�cifiant dans quel univers le trajet est cree
 		this();
 	}
 
@@ -64,44 +36,19 @@ public class PathInGraph {
 		return "";
 	}
 
-
-	/**
-	 * Retourne un tableau avec l'ensemble des stations à éviter
-	 * 
-	 * @return un tableau avec tous ces stations
-	 */
-	public Station[] getAvoidStationsArray() {
+	public Station[] getAvoidStationsArray() {//Retourne un tableau avec l'ensemble des stations à éviter
 		return avoidStations.toArray(new Station[0]);
 	}
 
-	/**
-	 * Retourne un iterateur décrivant l'ensemble des stations à éviter
-	 * 
-	 * @return un iterateur sur ces stations
-	 */
-	public Iterator<Station> getAvoidStationsIter() {
+	public Iterator<Station> getAvoidStationsIter() {//Retourne un iterateur décrivant l'ensemble des stations à éviter
 		return avoidStations.iterator();
 	}
 
-	/**
-	 * retourne le coût du trajet
-	 * 
-	 * @return
-	 */
-	public float getCost() {
-		// TODO Auto-generated method stub
-		return 0;
-
+	public float getCost() {//retourne le coût du trajet
+		return this.cost;
 	}
 
-
-
-	/**
-	 * Retourne la station de départ du trajet.
-	 * 
-	 * @return la station de départ du trajet.
-	 */
-	public Station getDestination() {
+	public Station getDestination() {//Retourne la station de départ du trajet.
 		return destination;
 	}
 
@@ -111,107 +58,56 @@ public class PathInGraph {
 	 * @return la première jonction, ou null si la fin de la jonction n'est plus accessible
 	 */
 	public Junction getFirstJunctionInTheLastAvaiblePart() {
-
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	/**
-	 * Retourne le GraphNetwork dans lequel le trajet à une existance.
+	 * 
 	 * 
 	 * @return
 	 */
-	public GraphNetwork getGraph() {
+	public GraphNetwork getGraph() {//Retourne le GraphNetwork dans lequel le trajet à une existance.
 
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
-	/**
-	 * Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
-	 * 
-	 * @return l'iterateur
-	 */
-	public Iterator<Junction> getJunctions() {
+	public Iterator<Junction> getJunctions() {//Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
 		return junctions.iterator();
-
 	}
 
-
-	/**
-	 * Rteourne la station d'origine du chemin
-	 * 
-	 * @return
-	 */
-	public Station getOrigin() {
+	public Station getOrigin() {//Retourne la station d'origine du chemin
 		return origin;
 	}
 
-	/**
-	 * Retourne un tableau avec tout les services requis tout au long du trajet
-	 * 
-	 * @return un tableau avec tout ces services.
-	 */
-	public Service[] getSevicesAlwaysArray() {
+	public Service[] getSevicesAlwaysArray() {//Retourne un tableau avec tout les services requis tout au long du trajet
 		return sevicesAlways.toArray(new Service[0]);
 	}
 
-	/**
-	 * Retourne un iterateur décrivant les services requis tout au long du trajet
-	 * 
-	 * @return un iterateur sur ces services.
-	 */
-	public Iterator<Service> getSevicesAlwaysIter() {
+	public Iterator<Service> getSevicesAlwaysIter() {//Retourne un iterateur décrivant les services requis tout au long du trajet
 		return sevicesAlways.iterator();
 	}
 
-	/**
-	 * Retourne un tableau avec tout les services requis au moins une fois sur le trajet.
-	 * 
-	 * @return un tableau avec tout ces services.
-	 */
-	public Service[] getSevicesOnceArray() {
+	public Service[] getSevicesOnceArray() {//Retourne un tableau avec tout les services requis au moins une fois sur le trajet.
 		return sevicesOnce.toArray(new Service[0]);
 	}
 
-	/**
-	 * Retourne un iterateur décrivant les services requis au moins une fois sur le trajet
-	 * 
-	 * @return un iterateur sur ces services.
-	 */
-	public Iterator<Service> getSevicesOnceIter() {
+	public Iterator<Service> getSevicesOnceIter() {//Retourne un iterateur décrivant les services requis au moins une fois sur le trajet
 		return sevicesOnce.iterator();
 	}
 
-	/**
-	 * Retourne un tableau contenant toutes les stations intermédiaire requise.
-	 * 
-	 * @return un tableau avec ces stations
-	 */
-	public Station[] getStepsArray() {
+	public Station[] getStepsArray() {//Retourne un tableau contenant toutes les stations intermédiaire requise.
 		return steps.toArray(new Station[0]);
 	}
 
-	/**
-	 * Retourne un iterateur sur les stations intermédiaire requise.
-	 * 
-	 * @return un tableau avec ces stations
-	 */
-	public Iterator<Station> getStepsIter() {
+	public Iterator<Station> getStepsIter() {//Retourne un iterateur sur les stations intermédiaire requise.
 		return steps.iterator();
 	}
 
-	/**
-	 * Retourne la durée du trajet
-	 * 
-	 * @return
-	 */
-	public int getTime() {
-		// TODO Auto-generated method stub
-		return 0;
-
+	public int getTime() {//Retourne la durée du trajet
+		return this.time;
 	}
 
 	protected void importPath(String pathInString) {	//cr�er le trajet a partir d'un chaine d�crivant le trajet
@@ -223,14 +119,7 @@ public class PathInGraph {
 		return false;
 	}
 
-
-	/**
-	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la
-	 * fin.
-	 * 
-	 * @return true si on peut le faire depuis cette jonction.
-	 */
-	public boolean isStillAvaible(Junction junction) {
+	public boolean isStillAvaible(Junction junction) {//Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la fin
 
 		// TODO Auto-generated method stub
 		return false;
