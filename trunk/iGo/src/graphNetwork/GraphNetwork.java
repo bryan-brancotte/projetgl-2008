@@ -73,38 +73,30 @@ public class GraphNetwork {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	/**
-	 * retourne la route dont on connait l'identifiant
-	 * 
-	 * @param id
-	 *            le nom/identifiant de la route
-	 * @return la route ou null si elle n'existe pas
-	 */
-	public Route getRoute(String id) {
-		// TODO Auto-generated method stub
-		//routes.
+	
+	public Route getRoute(String i) {//etourne la route dont on connait l'identifiant ou null si elle n'existe pas 
+		Iterator<Route> it=routes.iterator();
+		while(it.hasNext()){
+			Route r1 = (Route)it.next();
+			if(r1.getId()==i){
+				return r1;
+			}
+		}
 		return null;
 	}
 
-	/**
-	 * retourne les routes existantes dans le réseau
-	 * 
-	 * @return un iterateur sur les routes
-	 */
-	public Iterator<Route> getRoutes() {
+	public Iterator<Route> getRoutes() {//retourne un iterateur sur les routes existantes dans le réseau
 		return routes.iterator();
 	}
 
-	/**
-	 * retourne le service dont on connait l'identifiant
-	 * 
-	 * @param id
-	 *            l'identifiant de la route
-	 * @return le service ou null s'il n'existe pas
-	 */
-	public Service getService(int id) {
-		// TODO Auto-generated method stub
+	public Service getService(int id) {//retourne le service dont on connait l'identifiant ou null s'il n'existe pas 
+		Iterator<Service> it = services.iterator();
+		while(it.hasNext()){
+			Service s1 = (Service)it.next();
+			if(s1.getId() == id){
+				return s1;
+			}
+		}
 		return null;
 	}
 
@@ -124,7 +116,19 @@ public class GraphNetwork {
 	}
 
 	public void resetEnables() {//remet les composants du réseau comme actif.
-		// TODO Auto-generated method stub
+		Iterator<Route> itRoute		= routes.iterator();
+		Iterator<Station> itStation	= stations.iterator();
+		
+		while(itRoute.hasNext()){
+			Route r1 = (Route)itRoute.next();
+			r1.setEnable(true);
+		}
+
+		while(itStation.hasNext()){
+			Station s1 = (Station)itStation.next();
+			s1.setEnable(true);
+		}
+		//TODO verifier que cette methode tourne correctement
 
 	}
 }

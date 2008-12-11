@@ -9,27 +9,10 @@ import java.util.LinkedList;
  */
 public class Route {
 
-	/**
-	 * @uml.property name="enable"
-	 */
-	private boolean enable = true;
-
-	/**
-	 * @uml.property name="id"
-	 */
-	private String id = "";
-
-	/**
-	 * @uml.property name="kindRoute"
-	 * @uml.associationEnd inverse="route:graphNetwork.KindRoute"
-	 */
-	private KindRoute kindRoute;
-
-	/**
-	 * @uml.property name="stations"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true" inverse="routes:graphNetwork.Station"
-	 */
-	private LinkedList<Station> stations;
+	private boolean enable = true;//@uml.property name="enable"
+	private String id = "";//@uml.property name="id"
+	private KindRoute kindRoute;//@uml.property name="kindRoute"
+	private LinkedList<Station> stations;//@uml.property name="stations"
 
 	/**
 	 * Constructeur d'un nouvelle objet avec un id spécifique et un type spécifique. L'unicité de l'id auprès des autre
