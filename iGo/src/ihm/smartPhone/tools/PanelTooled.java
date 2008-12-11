@@ -2,145 +2,127 @@ package ihm.smartPhone.tools;
 
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import javax.swing.ImageIcon;
 
 public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
 
+	/**
+	 * Crée un PanelTooled soit un panel outillé. Ce constructeur initialise les paramètres internes.
+	 */
 	public PanelTooled() {
 		super();
-		MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray = new MouseListenerClickAndMoveInArea(this);
+		clickAndMoveWarningAndArray = new MouseListenerClickAndMoveInArea(this);
 		this.addMouseListener(clickAndMoveWarningAndArray);
 		this.addMouseMotionListener(clickAndMoveWarningAndArray);
 	}
 
-	public Rectangle drawCheckBox(Graphics g, int x, int y, String text, boolean value, Font font, Color colorInside,
-			Color colorLetter, CodeExecutor action) {
-		return updateCheckBox(g, x, y, text, value, font, colorInside, colorLetter, clickAndMoveWarningAndArray
-				.addInteractiveArea(new Rectangle(), action));
-	}
-
-	public Rectangle updateCheckBox(Graphics g, int x, int y, String text, boolean value, Font font, Color colorInside,
-			Color colorLetter, Rectangle itsArea) {
-		// TODO
-		return null;
-	}
-
-	public Rectangle drawRadioBox(Graphics g, int x, int y, String text, boolean value, Font font, Color colorInside,
-			Color colorLetter, CodeExecutor action) {
-		return updateRadioBox(g, x, y, text, value, font, colorInside, colorLetter, clickAndMoveWarningAndArray
-				.addInteractiveArea(new Rectangle(), action));
-
-	}
-
-	public Rectangle updateRadioBox(Graphics g, int x, int y, String text, boolean value, Font font, Color colorInside,
-			Color colorLetter, Rectangle itsArea) {
-		// TODO
-		return null;
-
-	}
-
 	/**
-	 * Crée le bouton, on lui passe en paramètre le code à exécuter lorsqu'il est cliqué
+	 * Crée un boutton dont l'action exécuté sera celle passé en paramètre.
 	 * 
-	 * @param g
-	 *            le graphic om l'on dessine
-	 * @param x
-	 *            l'abscisse
-	 * @param y
-	 *            l'ordonnée
-	 * @param text
-	 *            le texte du bouton
-	 * @param font
-	 *            la police utilisé
-	 * @param colorInside
-	 *            la couleur du fond
-	 * @param colorLetter
-	 *            la couleur du texte
 	 * @param action
-	 *            l'action à déclancher lorsque l'on clic dessus
-	 * @return la zone ou sera le rectangle.
+	 *            evenement déclanché lors du clic sur le bouton, ce dernier ne doit pas être null
+	 * @return retourne le boutton
 	 */
-	public Rectangle drawButton(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter,
-			CodeExecutor action) {
-		return updateButton(g, x, y, text, font, colorInside, colorLetter, clickAndMoveWarningAndArray
-				.addInteractiveArea(new Rectangle(), action));
+	public PTButton makeButton(CodeExecutor action) {
+		if (action == null)
+			throw new NullPointerException();
+		return new PTButton(this, clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), action));
 	}
 
 	/**
-	 * Met à jour le bouton, on lui passe ne paramètre la zone qui lui à été attribué.
+	 * Créé un radioBox dans un group spécifique, lorsque l'on cliquera sur ce RadioBox, les autres seront décochés. En
+	 * plus de cette action, on s'autorise à lancer une seconde action que l'utilisateur spécifira par le paramètre
+	 * action.
 	 * 
-	 * @param g
-	 *            le graphic om l'on dessine
-	 * @param x
-	 *            l'abscisse
-	 * @param y
-	 *            l'ordonnée
-	 * @param text
-	 *            le texte du bouton
-	 * @param font
-	 *            la police utilisé
-	 * @param colorInside
-	 *            la couleur du fond
-	 * @param colorLetter
-	 *            la couleur du texte
-	 * @param itsArea
-	 *            sa zone
-	 * @return sa zone, mise à jour.
-	 */
-	public Rectangle updateButton(Graphics g, int x, int y, String text, Font font, Color colorInside,
-			Color colorLetter, Rectangle itsArea) {
-		// TODO
-		return null;
-	}
-
-	/**
-	 * Crée le bouton, on lui passe en paramètre le code à exécuter lorsqu'il est cliqué
-	 * 
-	 * @param g
-	 *            le graphic om l'on dessine
-	 * @param x
-	 *            l'abscisse
-	 * @param y
-	 *            l'ordonnée
-	 * @param image
-	 *            l'image
+	 * @param grp
+	 *            group dans lequel le radiobouton à une existance
 	 * @param action
-	 *            l'action à déclancher lorsque l'on clic dessus
-	 * @return la zone ou sera le rectangle.
+	 *            evenement déclanché lors du clic sur le bouton, ce dernier est optionel.
+	 * @return le PTRadioButtton créé
 	 */
-	public Rectangle drawButton(Graphics g, int x, int y, ImageIcon image, CodeExecutor action) {
-		return updateButton(g, x, y, image, clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), action));
+	public PTRadioBox makeRadioButton(PTRadioBoxGroup grp, CodeExecutor action) {
+		if (action == null)
+			return makeRadioButton(grp);
+		Rectangle area = new Rectangle();
+		PTRadioBox radioBox = new PTRadioBox(this, area);
+		clickAndMoveWarningAndArray.addInteractiveArea(area,
+				new CodeExecutor3P<PTRadioBoxGroup, PTRadioBox, CodeExecutor>(grp, radioBox, action) {
+					@Override
+					public void execute() {
+						this.origineA.setAllNotClicked();
+						this.origineB.setClicked(true);
+						this.origineC.execute();
+					}
+				});
+		return radioBox;
 	}
 
 	/**
-	 * Met à jour le bouton, on lui passe ne paramètre la zone qui lui à été attribué.
+	 * Créé un radioBox dans un group spécifique, lorsque l'on cliquera sur ce RadioBox, les autres seront décochés
 	 * 
-	 * @param g
-	 *            le graphic om l'on dessine
-	 * @param x
-	 *            l'abscisse
-	 * @param y
-	 *            l'ordonnée
-	 * @param image
-	 *            l'image
-	 * @param itsArea
-	 *            sa zone
-	 * @return sa zone, mise à jour.
+	 * @param grp
+	 *            le groupe du RadioBox. ce paramètre ne peut être null
+	 * @return la RadioBox créé.
 	 */
-	public Rectangle updateButton(Graphics g, int x, int y, ImageIcon image, Rectangle itsArea) {
-		itsArea.setBounds(x, y, image.getIconWidth(), image.getIconHeight());
-		g.drawImage(image.getImage(), x, y, null);
-		return itsArea;
+	public PTRadioBox makeRadioButton(PTRadioBoxGroup grp) {
+		if (grp == null)
+			throw new NullPointerException();
+		Rectangle area = new Rectangle();
+		PTRadioBox radioBox = new PTRadioBox(this, area);
+		clickAndMoveWarningAndArray.addInteractiveArea(area, new CodeExecutor2P<PTRadioBoxGroup, PTRadioBox>(grp,
+				radioBox) {
+			@Override
+			public void execute() {
+				this.origineA.setAllNotClicked();
+				this.origineB.setClicked(true);
+			}
+		});
+		return radioBox;
 	}
-	// TODO champs avec completion
 
-	// TODO fentre des choix comme chrome?
+	/**
+	 * Créé une CheckBox, et execute l'action passé en paramètre après avoir effectué son traitement (changement de
+	 * l'état)
+	 * 
+	 * @param action
+	 *            l'action à exécuter. Si le paramètre est null, cela revient à appeller makeCheckBox() sans paramètre.
+	 * @return la CheckBox créé
+	 */
+	public PTCheckBox makeCheckBox(CodeExecutor action) {
+		if (action == null)
+			return makeCheckBox();
+		Rectangle area = new Rectangle();
+		PTCheckBox checkBox = new PTCheckBox(this, area);
+		clickAndMoveWarningAndArray.addInteractiveArea(area, new CodeExecutor2P<PTCheckBox, CodeExecutor>(checkBox,
+				action) {
+			@Override
+			public void execute() {
+				this.origineA.changeClicked();
+				this.origineB.execute();
+			}
+		});
+		return checkBox;
+	}
+
+	/**
+	 * Créé un CheckBox.
+	 * 
+	 * @return la retourne
+	 */
+	public PTCheckBox makeCheckBox() {
+		Rectangle area = new Rectangle();
+		PTCheckBox checkBox = new PTCheckBox(this, area);
+		clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), new CodeExecutor1P<PTCheckBox>(checkBox) {
+			@Override
+			public void execute() {
+				this.origine.changeClicked();
+			}
+		});
+		return checkBox;
+	}
+
+	// TODO champs avec completion, et la fenêtre des choix comme chrome?
 
 	// TODO combo box ou pas?
 
