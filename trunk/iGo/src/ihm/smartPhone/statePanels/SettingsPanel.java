@@ -142,7 +142,7 @@ public class SettingsPanel extends PanelState {
 	public void paint(Graphics g) {
 		int decalage = father.getSizeAdapteur().getSizeLargeFont();
 		int ordonne = decalage;
-		int heigth;
+		//int heigth;
 		String s;
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
