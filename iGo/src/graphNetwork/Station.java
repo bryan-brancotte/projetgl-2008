@@ -31,73 +31,51 @@ public class Station {
 		
 	}
 
-	/**
-	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
-	 * fait, et de façon sûr. Ajouter une Junction manuellement à votre risque et péril.
-	 * 
-	 * @param junction
-	 */
-	protected void addJunction(Junction junction) {
-		
+	protected void addJunction(Junction junction) {//Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter une Junction manuellement à votre risque et péril. 
 		this.junctions.add(junction);
 	}
 
-	/**
-	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
-	 * fait, et de façon sûr. Ajouter une Route manuellement à votre risque et péril.
-	 * 
-	 * @param routes
-	 */
-	protected void addRoute(Route route) {
-		
+	protected void addRoute(Route route) {//Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter une Route manuellement à votre risque et péril.
 		this.routes.add(route);
-		
 	}
 
-	/**
-	 * Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le
-	 * fait, et de façon sûr. Ajouter un Service manuellement à votre risque et péril.
-	 * 
-	 * @param service
-	 */
-	protected void addService(Service service) {
+	protected void addService(Service service) {//Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter un Service manuellement à votre risque et péril.
 		this.services.add(service);
 	}
 
-	public int getId() {
+	public int getId() {//retourne l'id de la station
 		return id;
 	}
 
-	public Iterator<Junction> getJunctions() {
+	public Iterator<Junction> getJunctions() {//retourne un iterator sur la collection des jonctions
 		return this.junctions.iterator();
 	}
 
-	public String getName() {
+	public String getName() {//retourne le nom de la jonction
 		return name;
 	}
 
-	public Iterator<Route> getRoutes() {
+	public Iterator<Route> getRoutes() {//retourne un iterator sur les routes
 		return routes.iterator();
 	}
 
-	public Iterator<Service> getServices() {
+	public Iterator<Service> getServices() {//retourne un iterator sur les services
 		return services.iterator();
 	}
 
-	public boolean isEnable() {
+	public boolean isEnable() {//retourne l'etat enable d'une station
 		return enable;
 	}
 
-	public void setEnable(boolean enable) {
+	public void setEnable(boolean enable) {//setter de l'etat enable d'un station
 		this.enable = enable;
 	}
 
-	protected void setId(int id) {
+	protected void setId(int id) {//setter de l'id d'une station
 		this.id = id;
 	}
 
-	protected void setName(String name) {
+	protected void setName(String name) {//setter du nom d'une station
 		this.name = name;
 	}
-
 }

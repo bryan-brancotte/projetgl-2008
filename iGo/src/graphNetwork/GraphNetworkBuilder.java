@@ -5,23 +5,11 @@ import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
 import java.util.MissingResourceException;
 
-/**
- * Classe suivant les design patterns Factory (création controlé d'objet) et Builder (modification controlé d'objet).
- * 
- * @author "iGo"
- * 
- */
-public class GraphNetworkBuilder {
+public class GraphNetworkBuilder {//Classe suivant les design patterns Factory (création controlé d'objet) et Builder (modification controlé d'objet).
 
-	/**
-	 * le GraphNetwork courant, celui où on est actuellement en travail
-	 */
-	protected GraphNetwork actualGraphNetwork = null;
+	protected GraphNetwork actualGraphNetwork = null;//le GraphNetwork courant, celui où on est actuellement en travail
 
-	/**
-	 * constructeur du monteur de GraphNetwork
-	 */
-	public GraphNetworkBuilder() {
+	public GraphNetworkBuilder() {//constructeur du monteur de GraphNetwork
 		super();
 		// TODO Auto-generated constructor stub
 	}
