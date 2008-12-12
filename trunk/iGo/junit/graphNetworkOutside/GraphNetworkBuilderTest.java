@@ -321,7 +321,6 @@ public class GraphNetworkBuilderTest {
 		sncf.getRoute("RerB").setEnable(false);
 		sncf.getRoute("RerC").setEnable(false);
 		sncf.getStation(10).getJunctions().next().setEnable(false);
-		// TODO to rémi : rendre setStationEnable public
 		sncf.getRoute("RerB").setStationEnable(10, false);
 		assertTrue(!sncf.getRoute("RerB").isStationEnable(10));
 		sncf.resetEnables();

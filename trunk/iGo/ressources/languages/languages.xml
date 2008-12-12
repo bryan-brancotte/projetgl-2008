@@ -143,6 +143,22 @@
 				<FRANCAIS value="Calcul du trajet..."/>
 				<ENGLISH value="Computing the path..."/>
 			</ComputingANewPath>
+			<TravelCriteria>
+				<FRANCAIS value="Critère de calcul"/>
+				<ENGLISH value="Travel criteria"/>
+			</TravelCriteria>
+			<Cheaper>
+				<FRANCAIS value="Coût"/>
+				<ENGLISH value="Cheaper"/>
+			</Cheaper>
+			<Faster>
+				<FRANCAIS value="Rapidité"/>
+				<ENGLISH value="Faster"/>
+			</Faster>
+			<FewerChanges>
+				<FRANCAIS value="Nbre de Changement"/>
+				<ENGLISH value="Fewer Changes"/>
+			</FewerChanges>
 		</fields>
 	</root>
 
