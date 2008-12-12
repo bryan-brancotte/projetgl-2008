@@ -10,15 +10,12 @@ import java.util.LinkedList;
 
 public class KindRoute {
 
-	private KindRoute route;
+	//private KindRoute route;
 	protected static LinkedList<KindRoute> kinds;
 	protected float cost;
-	/**
-	 * get the object KindRoute of the kind given in parameter.
-	 * @param kind, name of the kind we are looking for
-	 * @return the KindRoute if we found it, else we return null;
-	 */
-	public static KindRoute getKindFromString(String kindOf) {
+	private String kindOf = "";
+
+	public static KindRoute getKindFromString(String kindOf) {//retourne le kindRoute en fonction de son nom
 		KindRoute k = null;
 		int i=0;
 		while (k==null && i<kinds.size()) {
@@ -28,13 +25,7 @@ public class KindRoute {
 		return k;
 	}
 
-
-	/**
-	 * Add a new kind to the collection of kind if this kind doesn't existe.
-	 * @param kind, the name of the new kind
-	 * @return true if we could add the kind to the collection. If the kind already existe, we hadn't add it.
-	 */
-	protected static KindRoute addKind(String kindOf) {
+	protected static KindRoute addKind(String kindOf) {//ajoute un nouveau Kind a la collection de kind. la cree si aucun kind n'existe.
         if (kinds==null) kinds = new LinkedList<KindRoute>();
 		KindRoute k = getKindFromString(kindOf);
 		if(k!=null) return k;
@@ -42,37 +33,18 @@ public class KindRoute {
 
 	}
 
-	/**
-	 * Getter of the property <tt>kinds</tt>
-	 * @return Returns the kinds.
-	 * @uml.property name="kinds"
-	 */
-	public static Iterator<KindRoute> getKinds() {
+	public static Iterator<KindRoute> getKinds() {//retrourne un iterator sur les kindRoute
 		return kinds.iterator();
 	}
 
-	/**
-	 * Reset all the kind, erase all the kind known, and get ready for having new kind.
-	 */
-	public static void reset() {
+	public static void reset() {//reset tous les kind connus
 		kinds.clear();
 	}
 
-	/**
-	 * @uml.property name="kindOf"
-	 */
-	private String kindOf = "";
-
-	/**
-	 * Default Construcutor. It's defined as private to prevente from uncontrolled allocation of KindRoute
-	 */
-	private KindRoute() {
+	private KindRoute() {//constructeur par defaut defini en private pour eviter des allocation non controllee de KindRoute
 	}
 
-	/**
-	 * Build a new KindRoute and add it to the collection of kind
-	 */
-	private KindRoute(String _kindOf) {
+	private KindRoute(String _kindOf) {//cree un nouveau kindRoute et l'ajoute a la collection de kind
 		kindOf = _kindOf;
         //TODO Ajouté à l'arrache par Tony le 30 novembre
         kinds.add(this);
@@ -80,26 +52,18 @@ public class KindRoute {
 
 	}
 
-	/**
-	 * get the textual kind
-	 * 
-	 * @return the kind
-	 */
-	public String getKindOf() {
+	public String getKindOf() {//retourne le kind sous forme d'un string
 		return kindOf;
 	}
 	
-
-	/**
-	 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
-	 */
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) {//Surcharge de equals pour s'assurer que la comparaison sera bien faite.
 		if ((obj instanceof KindRoute) || (obj instanceof KindRoute)) {
 			return (((KindRoute) obj).getKindOf().compareTo(this.getKindOf()) == 0);
 		}
 		return false;
 	}
-	public void setKindCost(float myCost){
+	
+	public void setKindCost(float myCost){//setter du cout d'un kind
 		this.cost=myCost;
 	}
 

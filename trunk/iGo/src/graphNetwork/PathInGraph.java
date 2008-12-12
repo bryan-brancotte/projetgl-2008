@@ -28,11 +28,11 @@ public class PathInGraph {
 		junctions = new LinkedList<Junction>();
 	}
 
-	protected PathInGraph(GraphNetwork graph) {	//Constructeur sp�cifiant dans quel univers le trajet est cree
+	protected PathInGraph(GraphNetwork graph) {	//Constructeur specifiant dans quel univers le trajet est cree
 		this();
 	}
 
-	public String exportPath() {				//Transcrit le trajet en une chaine qui pourra ensuite etre relue pour cr�er de nouveau le trajet
+	public String exportPath() {				//Transcrit le trajet en une chaine qui pourra ensuite etre relue pour creer de nouveau le trajet
 		return "";
 	}
 
@@ -52,22 +52,11 @@ public class PathInGraph {
 		return destination;
 	}
 
-	/**
-	 * Retourne la première jonction a partir de laquel on peut toujours atteindre la fin du trajet.
-	 * 
-	 * @return la première jonction, ou null si la fin de la jonction n'est plus accessible
-	 */
-	public Junction getFirstJunctionInTheLastAvaiblePart() {
+	public Junction getFirstJunctionInTheLastAvaiblePart() {//Retourne la première jonction a partir de laquel on peut toujours atteindre la fin du trajet.
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
 	public GraphNetwork getGraph() {//Retourne le GraphNetwork dans lequel le trajet à une existance.
 
 		// TODO Auto-generated method stub

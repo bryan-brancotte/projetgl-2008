@@ -10,21 +10,15 @@ import graphNetwork.exception.StationNotOnRoadException;
 public class Junction {
 
 	private float cost = 0F;
-
 	private boolean enable = true;
-
 	private boolean pedestrian = false;
-	
 	private Route routeA;
-
 	private Route routeB;
-
 	private Station stationB;
-
 	private Station stationA;
-
 	private int timeBetweenStations = 0;
-
+	private boolean routeLink = false; // pour savoir if the junction is rail between two station or an junction were you have to step down from you TODO: moi pas parler anglais comme ca
+	
 	protected void setCost(float cost) {
 		this.cost = cost;
 	}
@@ -38,44 +32,30 @@ public class Junction {
 	}
 
 	public float getCost() {
-		return cost;
+		return this.cost;
 	}
 
 	public boolean isEnable() {
-		return enable;
+		return this.enable;
 	}
 
 	public boolean isPedestrian() {
-		return pedestrian;
+		return this.pedestrian;
 	}
 
 	public int getTimeBetweenStations() {
-		return timeBetweenStations;
+		return this.timeBetweenStations;
 	}
 
-	/**
-	 * return the route of the station for this junction.
-	 * 
-	 * @param me
-	 *            the station you know in the junction
-	 * @return the route of other station, or null of the specified station isn't one of the two station
-	 */
-	public Route getRoute(Station me) {
+	public Route getRoute(Station me) {//retourne la route d'une station pour cette jonction ou null si la station n'est pas sur la jonction
 		if (me.getId() == this.getStationA().getId())
 			return this.getRouteA();
 		if (me.getId() == this.getStationB().getId())
 			return this.getRouteB();
 		return null;
 	}
-	
-	/**
-	 * return the route of other station of an junction. You have to give one station to give the other
-	 * 
-	 * @param me
-	 *            the station you know in the junction
-	 * @return the route of other station, or null of the specified station isn't one of the two station
-	 */
-	public Route getOtherRoute(Station me) {
+
+	public Route getOtherRoute(Station me) {//retourne la route d'une jonction en fonction de la station ou null si la station n'est pas sur cette jonction
 		if (me.getId() == this.getStationA().getId())
 			return this.getRouteB();
 		if (me.getId() == this.getStationB().getId())
@@ -83,14 +63,7 @@ public class Junction {
 		return null;
 	}
 
-	/**
-	 * return the route of other route of an junction. You have to give one route to give the other
-	 * 
-	 * @param me
-	 *            the route you know in the junction
-	 * @return the route of other station, or null of the specified station isn't one of the two station
-	 */
-	public Route getOtherRoute(Route me) {
+	public Route getOtherRoute(Route me) {//retourne la route d'une jontion en fonction de l'autre route ou null si la route n'est pas sur cette jonction
 		if (me.getId() == this.getRouteA().getId())
 			return this.getRouteB();
 		if (me.getId() == this.getRouteB().getId())
@@ -98,41 +71,19 @@ public class Junction {
 		return null;
 	}
 
-	/**
-	 * return the route of other route of an junction.
-	 * COMMENTAIRE A REFAIRE
-	 * 
-	 * @param me
-	 *            the route you know in the junction
-	 * @return the route of other station, or null of the specified station isn't one of the two station
-	 */
-	public Route getOtherRoute(Station s,Route r) {
+	public Route getOtherRoute(Station s,Route r) {//retourne la route d'une jontion en fonction de l'autre route ou null si la route n'est pas sur cette jonction
 		if (s.getId() == getStationA().getId() && r.getId() == getRouteA().getId())	return getRouteB();
 		if (s.getId() == getStationB().getId() && r.getId() == getRouteB().getId())	return getRouteA();
 		return null;
 	}
-	/**
-	 * return the other station of an junction. You have to give one station to give the other
-	 * COMMENTAIRE A REFAIRE
-	 * 
-	 * @param me
-	 *            the station you know in the junction
-	 * @return the other station, or null of the specified station isn't one of the two station
-	 */
-	public Station getOtherStation(Station s,Route r) {
+
+	public Station getOtherStation(Station s,Route r) {//retourne la station d'une jonction en fonction de l'autre station et de la route qui lui est raccordee, ou null si la station n'est pas sur cette jonction
 		if (s.getId() == getStationA().getId() && r.getId() == getRouteA().getId())	return getStationB();
 		if (s.getId() == getStationB().getId() && r.getId() == getRouteB().getId())	return getStationA();
 		return null;
 	}
 
-	/**
-	 * return the other station of an junction. You have to give one station to give the other
-	 * 
-	 * @param me
-	 *            the station you know in the junction
-	 * @return the other station, or null of the specified station isn't one of the two station
-	 */
-	public Station getOtherStation(Station me) {
+	public Station getOtherStation(Station me) {//retourne la station d'une jonction en fonction de l'autre station ou null si la station n'est pas sur cette jonction
 		if (me.getId() == this.getStationA().getId())
 			return this.getStationB();
 		if (me.getId() == this.getStationB().getId())
@@ -140,125 +91,47 @@ public class Junction {
 		return null;
 	}
 
-	/**
-	 * Getter of the property <tt>routeA</tt>
-	 * 
-	 * @return Returns the routeA.
-	 * @uml.property name="routeA"
-	 */
-	public Route getRouteA() {
+	public Route getRouteA() {//retourne la premiere route de la jonction
 		return routeA;
 	}
 
-	/**
-	 * Getter of the property <tt>routeB</tt>
-	 * 
-	 * @return Returns the routeB.
-	 * @uml.property name="routeB"
-	 */
-	public Route getRouteB()
-
-	{
+	public Route getRouteB(){//retourne la deuxieme route de la jonction
 		return routeB;
 	}
 
-	/**
-	 * Getter of the property <tt>stationA</tt>
-	 * 
-	 * @return Returns the stationA.
-	 * @uml.property name="stationA"
-	 */
-	public Station getStationA() {
+	public Station getStationA() {//retourne la premiere station de la jonction
 		return stationA;
 	}
 
-	/**
-	 * Getter of the property <tt>stationB</tt>
-	 * 
-	 * @return Returns the station.
-	 * @uml.property name="stationB"
-	 */
-	public Station getStationB() {
+	public Station getStationB() {// retourne la deuxiemme station de la jonction
 		return stationB;
 	}
 
-	/**
-	 * Mutateur de routeA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr.
-	 * Définisez la Route manuellement à votre risque et péril.
-	 * 
-	 * @param routeA
-	 *            The routeA to set.
-	 * @uml.property name="routeA"
-	 */
-	protected void setRouteA(Route routeA) {
+	protected void setRouteA(Route routeA) {//Mutateur de routeA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr. Définisez la Route manuellement à votre risque et péril.
 		this.routeA = routeA;
 	}
 
-	/**
-	 * Mutateur de routeB. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr.
-	 * Définisez la Route manuellement à votre risque et péril.
-	 * 
-	 * @param routeB
-	 *            The routeB to set.
-	 * @uml.property name="routeB"
-	 */
-	protected void setRouteB(Route routeB) {
+	protected void setRouteB(Route routeB) {//Mutateur de routeB. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr. Définisez la Route manuellement à votre risque et péril.
 		this.routeB = routeB;
 	}
 
-	/**
-	 * Mutateur de stationA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
-	 * sûr. Définisez la Station manuellement à votre risque et péril.
-	 * 
-	 * @param stationA
-	 *            The stationA to set.
-	 * @uml.property name="stationA"
-	 */
-	protected void setStationA(Station stationA) {
+	protected void setStationA(Station stationA) {//Mutateur de stationA. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr. Définisez la Station manuellement à votre risque et péril. 
 		this.stationA = stationA;
 	}
 
-	/**
-	 * Mutateur de stationB. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
-	 * sûr. Définisez la Station manuellement à votre risque et péril.
-	 * 
-	 * @param stationB
-	 *            The station to set.
-	 * @uml.property name="stationB"
-	 */
-	protected void setStationB(Station stationB) {
+	protected void setStationB(Station stationB) {//Mutateur de stationB. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr. Définisez la Station manuellement à votre risque et péril.
 		this.stationB = stationB;
 	}
 
-	/**
-	 * Setter of the property <tt>timeBetweenStations</tt>
-	 * 
-	 * @param timeBetweenStations
-	 *            The timeBetweenStations to set. It must be positive or equal to zero
-	 * @throws ImpossibleValueException
-	 *             si la valeur fournit est incohérente.
-	 * @uml.property name="timeBetweenStations"
-	 */
-	protected void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException {
+	protected void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException {//setter du temps entre deux stations
 		this.timeBetweenStations = timeBetweenStations;
 	}
-
-	/**
-	 * a variable to know if the junction is rail between two station or an junction were you have to step down from you
-	 * train/subway/...
-	 */
-	private boolean routeLink = false;
 
 	public boolean isRouteLink() {
 		return routeLink;
 	}
 
-	/**
-	 * Mutateur de routeLink. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon
-	 * sûr. Définisez son etat routeLink manuellement à votre risque et péril.
-	 * 
-	 */
-	protected void setRouteLink(boolean routeLink) {
+	protected void setRouteLink(boolean routeLink) {//Mutateur de routeLink. Vous ne devriez pas utiliser cette fonction car GarphNetworkBuilder le fait, et de façon sûr. Définisez son etat routeLink manuellement à votre risque et péril.
 		this.routeLink = routeLink;
 	}
 
