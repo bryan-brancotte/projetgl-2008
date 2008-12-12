@@ -22,14 +22,14 @@ public class PTCheckBox extends PTComponent {
 	}
 
 	public void changeClicked() {
-		//TODO trouver un OU exclusif
-		this.clicked^= false;
+		this.clicked^= true;
 	}
 
 	@Override
 	public Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
-		// TODO Auto-generated method stub
-		return null;
+		if(!enable)return null;
+		// TODO update PTCheckBox
+		return area;
 	}
 
 }

@@ -9,8 +9,8 @@ import javax.swing.ImageIcon;
 
 public class PTButton extends PTComponent {
 
-	protected PTButton(PanelTooled father,Rectangle area) {
-		super(father,area);
+	protected PTButton(PanelTooled father, Rectangle area) {
+		super(father, area);
 	}
 
 	/**
@@ -33,10 +33,12 @@ public class PTButton extends PTComponent {
 	 * @return sa zone, mise à jour.
 	 */
 	public Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
+		if (!enable)
+			return null;
 		g.setColor(colorLetter);
 		g.drawString(text, x, y);
 		area.setBounds(x, y, father.getWidthString(text, g, font), father.getHeigthString(text, g, font));
-		return null;
+		return area;
 	}
 
 	/**
@@ -54,8 +56,11 @@ public class PTButton extends PTComponent {
 	 *            sa zone
 	 * @return sa zone, mise à jour.
 	 */
-	public void update(Graphics g, int x, int y, ImageIcon image) {
+	public Rectangle update(Graphics g, int x, int y, ImageIcon image) {
+		if (!enable)
+			return null;
 		g.drawImage(image.getImage(), x, y, null);
 		area.setBounds(x, y, image.getIconWidth(), image.getIconHeight());
+		return area;
 	}
 }

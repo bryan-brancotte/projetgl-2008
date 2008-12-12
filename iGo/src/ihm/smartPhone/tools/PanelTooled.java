@@ -5,7 +5,7 @@ import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import java.awt.Rectangle;
 
 public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
-	protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
+	private MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
 
 	/**
 	 * Crée un PanelTooled soit un panel outillé. Ce constructeur initialise les paramètres internes.
@@ -120,6 +120,18 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 			}
 		});
 		return checkBox;
+	}
+
+	public PTCollapsableArea makeCollapsableArea() {
+		Rectangle area = new Rectangle();
+		PTCollapsableArea collapsableArea = new PTCollapsableArea(this, area);
+		clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), new CodeExecutor1P<PTCollapsableArea>(collapsableArea) {
+			@Override
+			public void execute() {
+				this.origine.changeCollapseState();
+			}
+		});
+		return collapsableArea;
 	}
 
 	// TODO champs avec completion, et la fenêtre des choix comme chrome?

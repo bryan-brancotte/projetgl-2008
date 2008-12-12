@@ -11,6 +11,16 @@ public abstract class PTComponent {
 
 	protected PanelTooled father;
 
+	protected boolean enable=true;
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
 	protected PTComponent(PanelTooled father, Rectangle area) {
 		super();
 		this.area = area;

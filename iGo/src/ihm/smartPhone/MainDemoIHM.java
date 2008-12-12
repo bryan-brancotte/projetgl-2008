@@ -62,7 +62,7 @@ public class MainDemoIHM {
 
 		//}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/*
 		//}, iGoSmartPhoneSkin.BLUE_WITH_LINE);/*
-		//}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
+		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
 		}, iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
 		ihm.start(true,8);
 		new ExecMultiThread<IHM>(ihm){

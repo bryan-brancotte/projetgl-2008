@@ -2,9 +2,9 @@ package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.tools.PanelTooled;
 
-public abstract class PanelState extends PanelDoubleBufferingSoftwear {
+public abstract class PanelState extends PanelTooled {
 
 	/**
 	 * On surcharge la métode finalize afin d'informer en console que les objets vont être effacé. Utiliser pour le
