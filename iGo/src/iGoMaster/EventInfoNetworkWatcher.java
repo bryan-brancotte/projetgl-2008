@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.GraphNetwork;
 import iGoMaster.exception.ImpossibleStartingException;
 
 import java.util.Collection;
@@ -45,7 +45,7 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	 * @param graph
 	 *            le graphe sur lequel les changements vont être appliqués
 	 */
-	public abstract void applyInfo(GraphNetworkBuilder graph);
+	public abstract void applyInfo(GraphNetwork graph);
 
 	/**
 	 * 

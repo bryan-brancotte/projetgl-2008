@@ -5,15 +5,19 @@ import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
 /**
- * Evénement relatif a� une station sur une ligne
+ * Evénement relatif a une station sur une ligne
  *
  */
 public class EventInfoStationOnARoute implements EventInfo{
 	/**
 	 * @uml.property  name="id"
 	 */
-	private int id;
+	private int ids;
 
+	/**
+	 * @uml.property  name="id"
+	 */
+	private String idr;
 	/**
 	 * @uml.property  name="kindEventInfoNetwork"
 	 */
@@ -23,7 +27,19 @@ public class EventInfoStationOnARoute implements EventInfo{
 	 * @uml.property  name="message"
 	 */
 	private String message = "";
+	
 
+	private int messageId;
+
+
+	public EventInfoStationOnARoute(int _ids, String _idr, String _message, int _msgId, KindEventInfoNetwork kein) {
+		ids = _ids;
+		idr = _idr;
+		message = _message;
+		messageId = _msgId;
+		kindEventInfoNetwork = kein;
+	}
+	
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		// TODO Auto-generated method stub
@@ -35,9 +51,8 @@ public class EventInfoStationOnARoute implements EventInfo{
 	 * @return  Returns the id.
 	 * @uml.property  name="id"
 	 */
-	@Override
-	public int getId() {
-		return id;
+	public int getIds() {
+		return ids;
 	}
 
 	/**
@@ -65,8 +80,8 @@ public class EventInfoStationOnARoute implements EventInfo{
 	 * @param id  The id to set.
 	 * @uml.property  name="id"
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setIds(int id) {
+		this.ids = id;
 	}
 
 	/**
@@ -85,6 +100,12 @@ public class EventInfoStationOnARoute implements EventInfo{
 	 */
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	@Override
+	public int getId() {
+		// TODO Auto-generated method stub
+		return this.ids;
 	}
 
 }
