@@ -42,15 +42,15 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	/**
 	 * Applique les changements sur un graphe
 	 * 
-	 * @param graph le graphe sur lequel les changements vont être appliqués
+	 * @param graph
+	 *            le graphe sur lequel les changements vont être appliqués
 	 */
 	public abstract void applyInfo(GraphNetworkBuilder graph);
 
 	/**
 	 * 
-	 * Permet d'obtenir toutes les nouvelles informations sur le reseau.
-	 * Si le EventInfoNetworkWatcher est en train de charger un EventInfo en meme temps,
-	 * Cette fonction sera bloquante jusqu'a ce que le chargement soit effectue.
+	 * Permet d'obtenir toutes les nouvelles informations sur le reseau. Si le EventInfoNetworkWatcher est en train de
+	 * charger un EventInfo en meme temps, Cette fonction sera bloquante jusqu'a ce que le chargement soit effectue.
 	 * 
 	 * @return Une collection avec les nouveaux evenements, ou null si aucun evenement n'est survenu
 	 */
@@ -65,22 +65,19 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	 */
 	protected LinkedList<EventInfo> eventInfosNotApplied;
 
-		
-		/**
-		 */
-		public void setChanged(){
-		}
+	/**
+	 */
+	public void setChanged() {
+	}
 
-			
-			/**
-			 */
-			public void addObserver(Observer o){
-			}
+	/**
+	 */
+	public void addObserver(Observer o) {
+	}
 
-				
-				/**
-				 */
-				public void notifyObservers(){
-				}
+	/**
+	 */
+	public void notifyObservers() {
+	}
 
 }

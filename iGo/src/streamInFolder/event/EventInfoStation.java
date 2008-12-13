@@ -24,7 +24,16 @@ public class EventInfoStation implements EventInfo {
 	 * @uml.property name="message"
 	 */
 	private String message = "";
+	
+	private int messageId;
 
+	public EventInfoStation(int _id, String _message, int _msgId, KindEventInfoNetwork kein) {
+		id = _id;
+		message = _message;
+		messageId = _msgId;
+		kindEventInfoNetwork = kein;
+	}
+	
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		// TODO Auto-generated method stub
