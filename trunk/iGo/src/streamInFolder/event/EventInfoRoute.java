@@ -24,10 +24,22 @@ public class EventInfoRoute implements EventInfo {
 	 */
 	private String message = "";
 
+
+	private String idr;
+	private int messageId;
+
+
+	public EventInfoRoute(String _idr, String _message, int _msgId, KindEventInfoNetwork kein) {
+		idr = _idr;
+		message = _message;
+		messageId = _msgId;
+		kindEventInfoNetwork = kein;
+	}
+	
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		// TODO Auto-generated method stub
-
+// 		avec des enables true/false
 	}
 
 	/**
