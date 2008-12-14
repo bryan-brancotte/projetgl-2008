@@ -8,6 +8,7 @@ import graphNetwork.KindRoute;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
@@ -38,10 +39,10 @@ public class GraphNetworkBuilderTest {
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter(GraphNetworkBuilderTest.class);
 	}
-	
+
 	@Test
-	public void newGraphNetworkBuilderSansProbleme(){
-		assertTrue(sncf!=null);
+	public void newGraphNetworkBuilderSansProbleme() {
+		assertTrue(sncf != null);
 	}
 
 	/**
@@ -90,6 +91,8 @@ public class GraphNetworkBuilderTest {
 			assertTrue("un objet est null dans linkstation", false);
 		} catch (StationNotOnRoadException e) {
 			assertTrue("Une station ne semble pas avoir été mise sur la ligne, or on l'a demandé", false);
+		} catch (ImpossibleValueException e) {
+			assertTrue("linkStation ne supporte pas un valeur normal", false);
 		}
 		assertTrue("Construction sans problème", true);
 	}
@@ -102,21 +105,21 @@ public class GraphNetworkBuilderTest {
 		constructionDUnReseauSansProbleme();
 		Iterator<Route> it = sncf.getRoutes();
 		Route r;
-		int cpt=0;
-		boolean rerB_OK=false;
-		boolean rerC_OK=false;
-		boolean atlantique_OK=false;
+		int cpt = 0;
+		boolean rerB_OK = false;
+		boolean rerC_OK = false;
+		boolean atlantique_OK = false;
 		while (it.hasNext()) {
 			r = it.next();
 			cpt++;
-			rerB_OK|=r.getId().compareTo("RerB")==0;
-			rerC_OK|=r.getId().compareTo("RerC")==0;
-			atlantique_OK|=r.getId().compareTo("Atlantique")==0;
+			rerB_OK |= r.getId().compareTo("RerB") == 0;
+			rerC_OK |= r.getId().compareTo("RerC") == 0;
+			atlantique_OK |= r.getId().compareTo("Atlantique") == 0;
 		}
-		assertTrue("Normalement il y a 3 route, pas ici.",cpt==3);
-		assertTrue("La route RerB n'a pas été trouvé",rerB_OK);
-		assertTrue("La route RerC n'a pas été trouvé",rerC_OK);
-		assertTrue("La route Atlantique n'a pas été trouvé",atlantique_OK);
+		assertTrue("Normalement il y a 3 route, pas ici.", cpt == 3);
+		assertTrue("La route RerB n'a pas été trouvé", rerB_OK);
+		assertTrue("La route RerC n'a pas été trouvé", rerC_OK);
+		assertTrue("La route Atlantique n'a pas été trouvé", atlantique_OK);
 	}
 
 	/**
@@ -346,16 +349,16 @@ public class GraphNetworkBuilderTest {
 	@Test
 	public void initialisationKind() {
 		assertTrue(sncf.getKindFromString("RER") != null);
-		assertTrue(sncf.getKindFromString("RER").getKindOf().compareTo("RER")==0);
+		assertTrue(sncf.getKindFromString("RER").getKindOf().compareTo("RER") == 0);
 		assertTrue(sncf.getKindFromString("TGV") != sncf.getKindFromString("RER"));
 		assertTrue(sncf.getKindFromString("tagada") == null);
 		Iterator<KindRoute> it = sncf.getKinds();
-		int cpt=0;
+		int cpt = 0;
 		while (it.hasNext()) {
 			it.next();
 			cpt++;
 		}
-		assertTrue("mauvais nombre de kind",cpt==2);
+		assertTrue("mauvais nombre de kind", cpt == 2);
 	}
 
 }
