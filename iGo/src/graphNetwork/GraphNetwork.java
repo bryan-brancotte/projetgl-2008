@@ -42,14 +42,19 @@ public class GraphNetwork {
 	 * @return un iterateur sur les changements existant
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
-		LinkedList<Junction> junctionLL;
-		if(stations.indexOf(stationA)<stations.indexOf(stationB)){
-			for(int i = stations.indexOf(stationA);i<stations.indexOf(stationB);i++){
-				//TODO demander aide a Bryan
+		Iterator<Junction> it1 = stationA.getJunctions();
+		Iterator<Junction> it2 = stationB.getJunctions();
+		LinkedList<Junction> jonction = new LinkedList<Junction>();
+		
+		while(it1.hasNext()){
+			while(it2.hasNext()){
+				if(it1.next().equals(it2.next())){
+					jonction.add(it1.next());
+				}
 			}
 		}
 		
-		return null;
+		return jonction.iterator();
 	}
 
 	/**
