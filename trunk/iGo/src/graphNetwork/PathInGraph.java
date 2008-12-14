@@ -1,7 +1,10 @@
 package graphNetwork;
 
+
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
+
 
 /**
  * 
@@ -29,8 +32,7 @@ public class PathInGraph {
 	}
 
 	protected PathInGraph(GraphNetwork graph) {	//Constructeur specifiant dans quel univers le trajet est cree
-		this();
-		//TODO
+		this.univers=graph;
 	}
 
 	public String exportPath() {				//Transcrit le trajet en une chaine qui pourra ensuite etre relue pour creer de nouveau le trajet
@@ -55,14 +57,25 @@ public class PathInGraph {
 	}
 
 	public Junction getFirstJunctionInTheLastAvaiblePart() {//Retourne la première jonction a partir de laquel on peut toujours atteindre la fin du trajet.
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Junction> j1 = junctions.iterator();
+		Vector<Junction> jonctionInv = new Vector<Junction>();
+		Junction jonctionTrouve=null;
+		int nbJonction=junctions.size();
+		
+		while(j1.hasNext()){
+			jonctionInv.add(--nbJonction, j1.next());
+		}
+		for(int i=0;i<junctions.size();i++){
+			if(jonctionInv.elementAt(i).isEnable())
+				jonctionTrouve=jonctionInv.elementAt(i);
+			else 
+				return jonctionTrouve;
+		}
+		return jonctionTrouve;
 	}
 
 	public GraphNetwork getGraph() {//Retourne le GraphNetwork dans lequel le trajet à une existance.
-
-		// TODO Auto-generated method stub
-		return null;
+		return univers;
 	}
 
 	public Iterator<Junction> getJunctions() {//Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
@@ -106,14 +119,24 @@ public class PathInGraph {
 	}
 
 	public boolean isStillAvaible() {			//Permet de savoir si on peut toujours utiliser le trajet de bout en bout.
-		// TODO Auto-generated method stub
-		return false;
+		Iterator<Junction> j1 = junctions.iterator();
+		while(j1.hasNext()){
+			if(!j1.next().isEnable())
+				return false;
+		}
+		return true;
 	}
 
 	public boolean isStillAvaible(Junction junction) {//Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la fin
-
-		// TODO Auto-generated method stub
-		return false;
+		Iterator<Junction> j1 = junctions.iterator();
+		boolean found=false;
+		while(j1.hasNext()){
+			if(j1.next().equals(junction))
+				found=true;
+			if(found && !j1.next().isEnable())
+				return false;
+		}
+		return true;
 	}
 
 	public String toString() {					//Un desciptif du trajet

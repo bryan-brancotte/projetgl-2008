@@ -26,6 +26,7 @@ public class Station {
 		//TODO par Remi check que cet attribut est deja en private
 		//TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le 30 novembre
 		routes = new LinkedList<Route>();
+		services = new LinkedList<Service>();
 		this.id = id;
 		this.name = name;
 		
