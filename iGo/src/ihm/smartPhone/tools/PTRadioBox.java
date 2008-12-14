@@ -34,7 +34,7 @@ public class PTRadioBox extends PTComponent {
 	public Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
 		if (!enable)
 			return null;
-		// update PTRadioBox
+		//TODO update PTRadioBox
 		return area;
 	}
 
