@@ -14,7 +14,7 @@ public class Route {
 	private KindRoute kindRoute;//@uml.property name="kindRoute"
 	private LinkedList<Station> stations;//@uml.property name="stations"
 	//private LinkedList<Station> stationsDisabled;
-
+	
 	/**
 	 * Constructeur d'un nouvelle objet avec un id spécifique et un type spécifique. L'unicité de l'id auprès des autre
 	 * instance n'est pas vérifié.
@@ -34,47 +34,111 @@ public class Route {
 		//this.stationsDisabled = new LinkedList<Station>();
 	}
 
-	public String getId() {//retourne l'id d'une route
+	/**
+	 * retourne l'id de la route
+	 * 
+	 * @return l'id de la route
+	 */
+	public String getId() {
 		return id;
 	}
 
-	public KindRoute getKindRoute() {//retourne le kindRoute d'une route
+	/**
+	 * retourne le type de la route
+	 * 
+	 * @return le type de la route
+	 */
+	public KindRoute getKindRoute() {
 		return kindRoute;
 	}
 
-	public Iterator<Station> getStations() {//retourne un iterator sur la collection des route
+	/**
+	 * retourne les stations d'une route
+	 * 
+	 * @return un iterateur sur les station de la route
+	 */
+	public Iterator<Station> getStations() {
 		return stations.iterator();
 	}
 
-	public boolean isEnable() {//retourne l'etat enable d'un route
+	/**
+	 * retourne l'etat enable d'une route
+	 * 
+	 * @return etat enable de la route
+	 */
+	public boolean isEnable() {
 		return enable;
 	}
 
-	public void setEnable(boolean enable) {//setter de l'etat enable d'un route
+	/**
+	 * setter de l'etat enable d'une route
+	 * 
+	 * @param enable
+	 *         nouvel etat a appliquer a la route
+	 * @return void
+	 */
+	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
 
-	protected void setId(String id) {//setter de l'id d'une route
+	/**
+	 * setter de l'id d'une route
+	 * 
+	 * @param id
+	 *            le service a jouter
+	 * @return void
+	 */
+	protected void setId(String id) {
 		this.id = id;
 	}
 
-	protected void setKindRoute(KindRoute kindRoute) {//setter du kindRoute d'une route
+	/**
+	 * setter du type de route
+	 * 
+	 * @param kindRoute
+	 *            type de la route
+	 * @return void
+	 */
+	protected void setKindRoute(KindRoute kindRoute) {
 		this.kindRoute = kindRoute;
 	}
 
-	public void addStation(Station station) {//Ajoute un station à cette ligne. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter une Station manuellement à votre risque et péril.
+	/**
+	 * ajoute une station a la route. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter une Station manuellement à votre risque et péril.
+	 * 
+	 * @param station
+	 *       	la station a ajouter
+	 * @return void
+	 */
+	public void addStation(Station station) {
 		this.stations.add(station);
 	}
 
-	public void setStationEnable(int idStation, boolean stationEnable) {//modifie l'etat enable d'une station selon son id
+	/**
+	 * modifie l'etat enable d'une station
+	 * 
+	 * @param id
+	 *          id de la station a modifier
+	 * @param stationEnable
+	 * 			nouvel etat enable de la station
+	 * @return void
+	 */
+	public void setStationEnable(int idStation, boolean stationEnable) {
 		Iterator<Station> s1 = stations.iterator();
 		while(s1.hasNext()){
 			if(s1.next().getId() == idStation)
 				s1.next().setEnable(stationEnable);
 		}
 	}
-
-	public boolean isStationEnable(int idStation) {//retourne l'etat enable d'une route
+	
+	/**
+	 * retourne l'etat enable d'une station
+	 * 
+	 * @param id
+	 *          id de la station recherchee
+	 * @return etat enable de la station
+	 */
+	public boolean isStationEnable(int idStation) {
 		Iterator<Station> s1 = stations.iterator();
 		while(s1.hasNext()){
 			if(s1.next().getId() == idStation)
@@ -82,5 +146,19 @@ public class Route {
 		}
 		return false;
 	}
+	protected String toMyString(){
+		String retour;
+		retour = "<route>"+id+";"+enable+";"+kindRoute.toMyString();
+		Iterator<Station> it= stations.iterator();
+		retour.concat("<stationList>");
+			while(it.hasNext()){
+				retour.concat(it.next().toMyString());
+				retour.concat(",");
+			}
+		retour.concat("</stationList>");
+		retour.concat("</route>");
+		return retour;
+	}
+	
 
 }

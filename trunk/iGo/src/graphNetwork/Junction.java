@@ -188,4 +188,14 @@ public class Junction {
 		
 		return false;
 	}
+	
+	protected String toMyString(){
+		String retour ="<junction>"+cost+";"+enable+";"+pedestrian+";"+timeBetweenStations+";"+routeLink;
+		retour.concat(routeA.toMyString());
+		retour.concat(routeB.toMyString());
+		retour.concat(stationA.toMyString());
+		retour.concat(stationB.toMyString());
+		retour.concat("</junction>");
+		return retour;
+	}
 }
