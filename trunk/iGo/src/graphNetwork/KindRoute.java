@@ -15,7 +15,14 @@ public class KindRoute {
 	protected float cost;
 	private String kindOf = "";
 
-	public static KindRoute getKindFromString(String kindOf) {//retourne le kindRoute en fonction de son nom
+	/**
+	 * retourne le kindRoute en fonction de son nom
+	 * 
+	 * @param kindOf
+	 *        le nom du kind recherche
+	 * @return le kindroute en question
+	 */
+	public static KindRoute getKindFromString(String kindOf) {
 		KindRoute k = null;
 		int i=0;
 		while (k==null && i<kinds.size()) {
@@ -25,7 +32,14 @@ public class KindRoute {
 		return k;
 	}
 
-	protected static KindRoute addKind(String kindOf) {//ajoute un nouveau Kind a la collection de kind. la cree si aucun kind n'existe.
+	/**
+	 * ajoute un nouveau Kind a la collection de kind. la cree si aucun kind n'existe.
+	 * 
+	 * @param kindOf
+	 *        nouveau kind a ajouter
+	 * @return le kindroute cree
+	 */
+	protected static KindRoute addKind(String kindOf) {
         if (kinds==null) kinds = new LinkedList<KindRoute>();
 		KindRoute k = getKindFromString(kindOf);
 		if(k!=null) return k;
@@ -33,39 +47,91 @@ public class KindRoute {
 
 	}
 
-	public static Iterator<KindRoute> getKinds() {//retrourne un iterator sur les kindRoute
+	/**
+	 * retourne les kindRoute connus
+	 * 
+	 * @return un iterateur sur les kindRoute
+	 */
+	public static Iterator<KindRoute> getKinds() {
 		return kinds.iterator();
 	}
-
-	public static void reset() {//reset tous les kind connus
+	
+	/**
+	 * reset tous les kind connus
+	 * 
+	 * @return void
+	 */
+	public static void reset() {
 		kinds.clear();
 	}
-
-	private KindRoute() {//constructeur par defaut defini en private pour eviter des allocation non controllee de KindRoute
+	
+	/**
+	 * constructeur par defaut defini en private pour eviter des allocation non controllee de KindRoute
+	 * 
+	 */
+	private KindRoute() {
 	}
 
-	private KindRoute(String _kindOf) {//cree un nouveau kindRoute et l'ajoute a la collection de kind
-		kindOf = _kindOf;
-        kinds.add(this);
-        
-
+	/**
+	 * cree un nouveau kindRoute et l'ajoute a la collection de kind
+	 * 
+	 * @param _kindOf
+	 *        nouveau kind
+	 * @return boolean confirmant ou non l'egalite
+	 */
+	private KindRoute(String _kindOf) {
+		Iterator<KindRoute> it = kinds.iterator();
+		boolean alreadyExist=false;
+		while(it.hasNext()){
+			if(it.next().getKindOf().equals(_kindOf))
+				alreadyExist=true;
+		}
+		if(!alreadyExist){
+			kindOf = _kindOf;
+			kinds.add(this);
+		}
 	}
 
-	public String getKindOf() {//retourne le kind sous forme d'un string
+	/**
+	 * retourne le kind sous forme d'un string
+	 * 
+	 * @return String representant le kind
+	 */
+	public String getKindOf() {
 		return kindOf;
 	}
 	
-	public boolean equals(Object obj) {//Surcharge de equals pour s'assurer que la comparaison sera bien faite.
+	/**
+	 * Surcharge de equals pour s'assurer que la comparaison sera bien faite.
+	 * 
+	 * @param obj
+	 *        objet a comparer
+	 * @return boolean confirmant ou non l'egalite
+	 */
+	public boolean equals(Object obj) {
 		if ((obj instanceof KindRoute) || (obj instanceof KindRoute)) {
 			return (((KindRoute) obj).getKindOf().compareTo(this.getKindOf()) == 0);
 		}
 		return false;
 	}
 	
-	public void setKindCost(float myCost){//setter du cout d'un kind
+	/**
+	 * setter du cout d'un kind
+	 * 
+	 * @param myCost
+	 *            cout du kind
+	 * @return void
+	 */
+	public void setKindCost(float myCost){
 		this.cost=myCost;
 	}
 
+	/**
+	 * retourne une chaine representant le kindRoute
+	 * 
+	 * @return la chaine
+	 * 
+	 */
 	protected String toMyString(){
 		return "<kindRoute>"+cost+","+kindOf+"</kindRoute>";
 	}

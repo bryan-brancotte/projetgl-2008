@@ -161,6 +161,12 @@ public class Station {
 		this.name = name;
 	}
 	
+	/**
+	 * retourne une chaine representant la station
+	 * 
+	 * @return la chaine
+	 * 
+	 */
 	protected String toMyString(){
 		String retour;
 		retour="<station>"+id+";"+name+";"+enable;
