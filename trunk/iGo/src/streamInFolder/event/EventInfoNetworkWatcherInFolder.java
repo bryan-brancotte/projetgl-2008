@@ -256,6 +256,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 //			System.out.println("Event : " + ev.getMessage());
 		}
 		eventInfosNotApplied.clear();
+		
 		// TODO Auto-generated method stub
 //		pour chaque element de ma pile, faire applyinfo dessus
 //		Penser a empecher que le master puisse faire lui meme applyinfo sur les evenements sans jeter dexception
