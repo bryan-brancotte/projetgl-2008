@@ -9,9 +9,9 @@ import java.util.LinkedList;
  */
 public class GraphNetwork {
 
-	private LinkedList<Route> routes;//Liste des routes présente dans le GraphNetwork
-	private LinkedList<Service> services;//Liste des services présente dans le GraphNetwork
-	private LinkedList<Station> stations;//Liste des stations présente dans le GraphNetwork
+	protected LinkedList<Route> routes;//Liste des routes présente dans le GraphNetwork
+	protected LinkedList<Service> services;//Liste des services présente dans le GraphNetwork
+	protected LinkedList<Station> stations;//Liste des stations présente dans le GraphNetwork
 
 	protected GraphNetwork() {//Construteur d'un objet GraphNetwork
 		super();
