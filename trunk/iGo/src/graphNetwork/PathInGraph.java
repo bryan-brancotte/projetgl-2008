@@ -30,10 +30,12 @@ public class PathInGraph {
 
 	protected PathInGraph(GraphNetwork graph) {	//Constructeur specifiant dans quel univers le trajet est cree
 		this();
+		//TODO
 	}
 
 	public String exportPath() {				//Transcrit le trajet en une chaine qui pourra ensuite etre relue pour creer de nouveau le trajet
 		return "";
+		//TODO
 	}
 
 	public Station[] getAvoidStationsArray() {//Retourne un tableau avec l'ensemble des stations à éviter
@@ -116,6 +118,7 @@ public class PathInGraph {
 
 	public String toString() {					//Un desciptif du trajet
 		return "";
+		//TODO
 	}
 
 }
