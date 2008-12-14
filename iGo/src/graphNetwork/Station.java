@@ -160,4 +160,34 @@ public class Station {
 	protected void setName(String name) {
 		this.name = name;
 	}
+	
+	protected String toMyString(){
+		String retour;
+		retour="<station>"+id+";"+name+";"+enable;
+		retour.concat("<junctionList>");
+			Iterator<Junction> it= junctions.iterator();
+			while(it.hasNext()){
+				retour.concat(it.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</junctionList>");
+		retour.concat("<routeList>");
+			Iterator<Route> it2= routes.iterator();
+			while(it2.hasNext()){
+				retour.concat(it2.next().toMyString());
+				retour.concat(";");
+
+			}
+		retour.concat("</routeList>");
+		retour.concat("<serviceList>");
+			Iterator<Service> it3= services.iterator();
+			while(it3.hasNext()){
+				retour.concat(it3.next().toMyString());
+				retour.concat(";");
+
+			}
+		retour.concat("</serviceList>");
+		retour.concat("</station>");
+		return retour;
+	}
 }

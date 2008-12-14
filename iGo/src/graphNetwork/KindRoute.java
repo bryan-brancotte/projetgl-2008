@@ -66,4 +66,7 @@ public class KindRoute {
 		this.cost=myCost;
 	}
 
+	protected String toMyString(){
+		return "<kindRoute>"+cost+","+kindOf+"</kindRoute>";
+	}
 }

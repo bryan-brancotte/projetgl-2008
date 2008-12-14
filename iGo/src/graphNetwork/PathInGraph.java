@@ -139,9 +139,52 @@ public class PathInGraph {
 		return true;
 	}
 
-	public String toString() {					//Un desciptif du trajet
-		return "";
-		//TODO
+	public String toMyString() {					//Un desciptif du trajet
+		String retour="<PathInGraph>"+cost+";"+time+";";
+		retour.concat(univers.toMyString());
+		
+		retour.concat("<stationList>");
+			Iterator<Station> it1=avoidStations.iterator();
+			while(it1.hasNext()){
+				retour.concat(it1.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</stationList>");
+		retour.concat(destination.toMyString());
+		retour.concat("<junctionList>");
+			Iterator<Station> it2=avoidStations.iterator();
+			while(it2.hasNext()){
+				retour.concat(it2.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</junctionList>");
+		retour.concat(origin.toMyString());
+		retour.concat("<serviceList>");
+			Iterator<Service> it3=sevicesAlways.iterator();
+			while(it3.hasNext()){
+				retour.concat(it3.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</junctionList>");
+		retour.concat("<serviceList>");
+			Iterator<Service> it4=sevicesOnce.iterator();
+			while(it4.hasNext()){
+				retour.concat(it4.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</junctionList>");
+		retour.concat("<stationList>");
+		Iterator<Station> it5=steps.iterator();
+			while(it5.hasNext()){
+				retour.concat(it5.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</stationList>");
+		
+		
+		retour.concat("</PathInGraph>");
+		return retour;
+		
 	}
 
 }

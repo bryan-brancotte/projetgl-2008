@@ -64,5 +64,9 @@ public class Service {
 	protected void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
+	
+	protected String toMyString(){
+		return "<service>"+id+";"+shortDescription+"</service>";
+	}
 
 }

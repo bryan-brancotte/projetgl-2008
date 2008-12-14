@@ -13,9 +13,12 @@ public class GraphNetwork {
 	protected LinkedList<Service> services;//Liste des services présente dans le GraphNetwork
 	protected LinkedList<Station> stations;//Liste des stations présente dans le GraphNetwork
 
+	
 	protected GraphNetwork() {//Construteur d'un objet GraphNetwork
 		super();
-		// TODO Auto-generated constructor stub
+		routes = new LinkedList<Route>();
+		services = new LinkedList<Service>();
+		stations = new LinkedList<Station>();
 	}
 
 	public float getEntryCost(KindRoute kind)throws NullPointerException {//retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
@@ -74,7 +77,6 @@ public class GraphNetwork {
 	 * @return un iterateur sur les types de route
 	 */
 	public Iterator<KindRoute> getKinds() {
-		// TODO verifier que cette methode tourne correctement
 		Iterator<Route> r1 = routes.iterator();
 		LinkedList<KindRoute> kindroute = new LinkedList<KindRoute>();
 		while(r1.hasNext()){
@@ -138,7 +140,33 @@ public class GraphNetwork {
 			Station s1 = (Station)itStation.next();
 			s1.setEnable(true);
 		}
-		//TODO verifier que cette methode tourne correctement
-
+	}
+	
+	protected String toMyString(){
+		String retour="<graphNetwork>";
+		retour.concat("<routeList>");
+			Iterator<Route> it1=routes.iterator();
+			while(it1.hasNext()){
+				retour.concat(it1.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</routeList>");
+		retour.concat("<serviceList>");
+			Iterator<Service> it2=services.iterator();
+			while(it2.hasNext()){
+				retour.concat(it2.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</serviceList>");
+		retour.concat("<StationList>");
+			Iterator<Station> it3=stations.iterator();
+			while(it3.hasNext()){
+				retour.concat(it3.next().toMyString());
+				retour.concat(";");
+			}
+		retour.concat("</routeList>");
+		
+		retour.concat("</graphNetwork>)");
+		return retour;
 	}
 }
