@@ -6,7 +6,7 @@ import iGoMaster.KindEventInfoNetwork;
 
 /**
  * Evénement relatif a� une station
- *
+ * 
  */
 public class EventInfoStation implements EventInfo {
 
@@ -19,12 +19,13 @@ public class EventInfoStation implements EventInfo {
 	 * @uml.property name="kindEventInfoNetwork"
 	 */
 	private KindEventInfoNetwork kindEventInfoNetwork;
+	private boolean applied = false;
 
 	/**
 	 * @uml.property name="message"
 	 */
 	private String message = "";
-	
+
 	private int messageId;
 
 	public EventInfoStation(int _id, String _message, int _msgId, KindEventInfoNetwork kein) {
@@ -33,10 +34,20 @@ public class EventInfoStation implements EventInfo {
 		messageId = _msgId;
 		kindEventInfoNetwork = kein;
 	}
-	
+
 	@Override
 	public void applyInfo(GraphNetwork graph) {
-		// TODO Auto-generated method stub
+
+		if (!isApplied()) {
+			System.out.println("entering into event info station");
+			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
+				graph.getStation(id).setEnable(false);
+			} else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
+				graph.getStation(id).setEnable(true);
+			}
+			this.applied = true;
+		}
+		// avec des enables true/false --> Penser a approfondir la coherences avec les MSID, pour pb/solution
 
 	}
 
@@ -106,4 +117,11 @@ public class EventInfoStation implements EventInfo {
 		this.message = message;
 	}
 
+	public boolean isApplied() {
+		return applied;
+	}
+
+	public void setApplied(boolean applied) {
+		this.applied = applied;
+	}
 }

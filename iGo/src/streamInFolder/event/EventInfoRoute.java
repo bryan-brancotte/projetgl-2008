@@ -6,15 +6,15 @@ import iGoMaster.KindEventInfoNetwork;
 
 /**
  * Evenement relatif a une ligne
- *
+ * 
  */
 public class EventInfoRoute implements EventInfo {
 	/**
 	 * @uml.property name="id"
 	 */
 	private int id;
-	
-	private boolean applied=false;
+
+	private boolean applied = false;
 
 	/**
 	 * @uml.property name="kindEventInfoNetwork"
@@ -26,10 +26,8 @@ public class EventInfoRoute implements EventInfo {
 	 */
 	private String message = "";
 
-
 	private String idr;
 	private int messageId;
-
 
 	public EventInfoRoute(String _idr, String _message, int _msgId, KindEventInfoNetwork kein) {
 		idr = _idr;
@@ -37,16 +35,20 @@ public class EventInfoRoute implements EventInfo {
 		messageId = _msgId;
 		kindEventInfoNetwork = kein;
 	}
-	
+
 	@Override
 	public void applyInfo(GraphNetwork graph) {
-		if(!isApplied()) {
-			
-			
+		if (!isApplied()) {
+			System.out.println("entering into event info route");
+			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
+				graph.getRoute(idr).setEnable(false);
+			} 
+			else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
+				graph.getRoute(idr).setEnable(true);
+			}
 			this.applied = true;
 		}
-		// TODO Auto-generated method stub
-// 		avec des enables true/false
+		// avec des enables true/false --> Penser a approfondir la coherences avec les MSID, pour pb/solution
 	}
 
 	/**
