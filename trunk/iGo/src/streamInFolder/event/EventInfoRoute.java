@@ -1,6 +1,6 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.GraphNetwork;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
@@ -13,6 +13,8 @@ public class EventInfoRoute implements EventInfo {
 	 * @uml.property name="id"
 	 */
 	private int id;
+	
+	private boolean applied=false;
 
 	/**
 	 * @uml.property name="kindEventInfoNetwork"
@@ -37,7 +39,12 @@ public class EventInfoRoute implements EventInfo {
 	}
 	
 	@Override
-	public void applyInfo(GraphNetworkBuilder graph) {
+	public void applyInfo(GraphNetwork graph) {
+		if(!isApplied()) {
+			
+			
+			this.applied = true;
+		}
 		// TODO Auto-generated method stub
 // 		avec des enables true/false
 	}
@@ -106,6 +113,14 @@ public class EventInfoRoute implements EventInfo {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public boolean isApplied() {
+		return applied;
+	}
+
+	public void setApplied(boolean applied) {
+		this.applied = applied;
 	}
 
 }

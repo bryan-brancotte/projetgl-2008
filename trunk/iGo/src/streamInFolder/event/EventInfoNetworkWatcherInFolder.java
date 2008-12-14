@@ -1,6 +1,7 @@
 package streamInFolder.event;
 
 import graphNetwork.GraphNetwork;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.EventInfoNetWorkWatcherStatus;
 import iGoMaster.EventInfoNetworkWatcher;
@@ -189,7 +190,6 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 								}			
 					    if (eventInfosNotApplied.size() > 0) {
 					    	status = EventInfoNetWorkWatcherStatus.NEW_UPDATE;
-					    	notify();
 					    }
 					} 
 					System.out.println("no new update");
@@ -250,8 +250,15 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public void applyInfo(GraphNetwork graph) {
+
+		for(EventInfo ev : getNewEventInfo()) {
+			ev.applyInfo(graph);
+//			System.out.println("Event : " + ev.getMessage());
+		}
+		eventInfosNotApplied.clear();
 		// TODO Auto-generated method stub
 //		pour chaque element de ma pile, faire applyinfo dessus
+//		Penser a empecher que le master puisse faire lui meme applyinfo sur les evenements sans jeter dexception
 
 	}
 
@@ -271,8 +278,18 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 			System.out.println(test.getNewEventInfo().size());
 			try {
 				System.in.read();
+				
+				if (test.getStatus().equals(EventInfoNetWorkWatcherStatus.NEW_UPDATE)) {
+					System.out.println("NB events : " + test.getNewEventInfo().size());
+					System.out.println("New UPDATE MAIN");
+					for(EventInfo ev : test.getNewEventInfo()) {
+						System.out.println("Event : " + ev.getMessage());
+					}
+					GraphNetworkBuilder gnb = new GraphNetworkBuilder();
+					test.applyInfo(gnb.getInstance());
+				}
+				
 				test.stopWatching();
-				System.out.println(test.getNewEventInfo().size());
 				System.in.read();
 //				test.startWatching();
 //				System.out.println(test.getNewEventInfo().size());
