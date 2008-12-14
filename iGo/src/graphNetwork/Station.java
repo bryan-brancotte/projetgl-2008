@@ -17,6 +17,15 @@ public class Station {
 	private LinkedList<Route> routes;
 	private LinkedList<Service> services;
 
+	/**
+	 * constructeur d'une station
+	 * 
+	 * @param id
+	 * 			id de la station a creer
+	 * @param name
+	 * 			nom de la station a creer
+	 * @return void
+	 */
 	protected Station(int id, String name) {
 		//TODO Voir l'utilité
 		super();
@@ -32,51 +41,123 @@ public class Station {
 		
 	}
 
+	/**
+	 * ajoute une jonction a la liste de jonctions de la station
+	 * 
+	 * @param junction
+	 *            la jonction a ajouter
+	 * @return void
+	 */
 	protected void addJunction(Junction junction) {//Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter une Junction manuellement à votre risque et péril. 
 		this.junctions.add(junction);
 	}
 
+	/**
+	 * ajoute une route a la liste de routes de la station
+	 * 
+	 * @param route
+	 *            la route a ajouter
+	 * @return void
+	 */
 	protected void addRoute(Route route) {//Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter une Route manuellement à votre risque et péril.
 		this.routes.add(route);
 	}
 
+	/**
+	 * ajoute un service a la liste de services de la station
+	 * 
+	 * @param service
+	 *            le service a ajouter
+	 * @return void
+	 */
 	protected void addService(Service service) {//Ajout un route à la station courante. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de façon sûr. Ajouter un Service manuellement à votre risque et péril.
 		this.services.add(service);
 	}
 
+	/**
+	 * Retourne l'id d'un station
+	 * 
+	 * @return l'id de la station
+	 */
 	public int getId() {//retourne l'id de la station
 		return id;
 	}
-
+	
+	/**
+	 * Retourne les jonctions d'un station
+	 * 
+	 * @return un iterateur sur les jonctions existantes
+	 */
 	public Iterator<Junction> getJunctions() {//retourne un iterator sur la collection des jonctions
 		return this.junctions.iterator();
 	}
 
-	public String getName() {//retourne le nom de la jonction
+	/**
+	 * Retourne le nom d'un station
+	 * 
+	 * @return le nom de la station
+	 */
+	public String getName() {
 		return name;
 	}
-
-	public Iterator<Route> getRoutes() {//retourne un iterator sur les routes
+	
+	/**
+	 * Retourne les routes d'un station
+	 * 
+	 * @return un iterateur sur les routes de la station
+	 */
+	public Iterator<Route> getRoutes() {
 		return routes.iterator();
 	}
-
-	public Iterator<Service> getServices() {//retourne un iterator sur les services
+	
+	/**
+	 * Retourne les services d'une station
+	 * 
+	 * @return un iterateur sur les services de la station
+	 */
+	public Iterator<Service> getServices() {
 		return services.iterator();
 	}
-
-	public boolean isEnable() {//retourne l'etat enable d'une station
+	
+	/**
+	 * Retourne l'etat enable d'un station
+	 * 
+	 * @return un boolean representant l'etat enable
+	 */
+	public boolean isEnable() {
 		return enable;
 	}
-
-	public void setEnable(boolean enable) {//setter de l'etat enable d'un station
+	
+	/**
+	 * setter de l'etat enable d'une station
+	 * 
+	 * @param enable
+	 *            etat a modifier
+	 * @return void
+	 */
+	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
-
-	protected void setId(int id) {//setter de l'id d'une station
+	
+	/**
+	 * setter de l'id d'une station
+	 * 
+	 * @param id
+	 *            id de la station
+	 * @return void
+	 */
+	protected void setId(int id) {
 		this.id = id;
 	}
-
-	protected void setName(String name) {//setter du nom d'une station
+	
+	/**
+	 * setter du nom d'une station
+	 * 
+	 * @param name
+	 *            nom de la station
+	 * @return void
+	 */
+	protected void setName(String name) {
 		this.name = name;
 	}
 }
