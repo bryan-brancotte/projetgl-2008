@@ -9,24 +9,58 @@ public class Service {
 	private int id;//@uml.property name="id"
 	private String shortDescription = "";//@uml.property name="shortDescription"
 
+	/**
+	 * constructeur d'un service
+	 * 
+	 * @param id
+	 *         id du service a creer
+	 * @param sortDescritption
+	 * 			description du service a creer
+	 * @return void
+	 */
 	protected Service(int id, String shortDescription) {
 		super();
 		this.id = id;
 		this.shortDescription = shortDescription;
 	}
 
+	/**
+	 * retourne l'id du service
+	 * 
+	 * @return id du service
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * retourne la description du service
+	 * 
+	 * @return description du service
+	 * 			
+	 */
 	public String getShortDescription() {
 		return shortDescription;
 	}
-
+	
+	/**
+	 * setter de l'id d'un service
+	 * 
+	 * @param id
+	 *          id du service a modifier
+	 * @return void
+	 */
 	protected void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * setter de la description d'un service
+	 * 
+	 * @param shortDescription
+	 *            la description a modifier
+	 * @return void
+	 */
 	protected void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
