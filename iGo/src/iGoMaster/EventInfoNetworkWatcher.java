@@ -34,8 +34,6 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	 * Permet d'obtenir le status de la surveillance des evenements
 	 * 
 	 * @return the actual status
-	 * @uml.property name="status"
-	 * @uml.associationEnd readOnly="true" inverse="eventInfoNetworkWatcher:iGoMaster.EventInfoNetWorkWatcherStatus"
 	 */
 	public abstract EventInfoNetWorkWatcherStatus getStatus();
 
@@ -59,9 +57,7 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	}
 
 	/**
-	 * @uml.property name="eventInfosNotApplied"
-	 * @uml.associationEnd multiplicity="(0 -1)" ordering="true"
-	 *                     inverse="eventInfoNetworkWatcherInFolder:iGoMaster.EventInfo"
+	 * Evenements non traites
 	 */
 	protected LinkedList<EventInfo> eventInfosNotApplied;
 
