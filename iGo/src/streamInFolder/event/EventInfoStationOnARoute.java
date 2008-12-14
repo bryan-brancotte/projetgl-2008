@@ -48,21 +48,9 @@ public class EventInfoStationOnARoute implements EventInfo {
 		if (!isApplied()) {
 			System.out.println("entering into event info station");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
-				Iterator<Station> it = graph.getRoute(idr).getStations();
-				while(it.hasNext()){
-					Station sta = it.next();
-					if (sta.getId() == ids) {
-						sta.setEnable(false);
-					}
-				}
+				graph.getRoute(idr).setStationEnable(ids, false);
 			} else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
-				Iterator<Station> it = graph.getRoute(idr).getStations();
-				while(it.hasNext()){
-					Station sta = it.next();
-					if (sta.getId() == ids) {
-						sta.setEnable(true);
-					}
-				}
+				graph.getRoute(idr).setStationEnable(ids, true);
 			}
 			this.applied = true;
 		}

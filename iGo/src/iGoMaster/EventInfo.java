@@ -2,7 +2,7 @@ package iGoMaster;
 
 import graphNetwork.GraphNetwork;
 /**
- *  
+ *  Interface permettant de n'avoir a traiter les evenements
  * @author iGo
  */
 public interface EventInfo {
