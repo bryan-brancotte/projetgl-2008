@@ -128,8 +128,6 @@ public class Dijkstra extends Algo {
 		Junction j = l.getJunction();
 		// TIME
 		int newTime = n.getTime() + j.getTimeBetweenStations();
-		//TODO Test a virer
-		//System.out.println(newTime+" => "+newN.getTime());
 		int diffTime = newTime - newN.getTime();
 		// CHANGE
 		int newChange=n.getChanges();
