@@ -13,27 +13,43 @@ import java.util.Iterator;
  */
 public class EventInfoStationOnARoute implements EventInfo {
 	/**
-	 * @uml.property name="id"
+	 * Id de la Station
 	 */
 	private int ids;
 
 	/**
-	 * @uml.property name="id"
+	 * Id de la Route
 	 */
 	private String idr;
+	
 	/**
-	 * @uml.property name="kindEventInfoNetwork"
+	 * Type de l'evenement (Probleme, solution)
 	 */
 	private KindEventInfoNetwork kindEventInfoNetwork;
+	
+	/**
+	 * Evenement deja applique ou non
+	 */
 	private boolean applied = false;
 
 	/**
-	 * @uml.property name="message"
+	 * message de l'evenement
 	 */
 	private String message = "";
 
+	/**
+	 * Id de l'evenement (deux evenement qui se corrigent ont le meme ID)
+	 */
 	private int messageId;
 
+	/**
+	 * Constructeur d'Evenement qui intervient sur une station sur une ligne precise
+	 * @param _ids ID de la station
+	 * @param _idr ID de la ligne
+	 * @param _message Message d'information
+	 * @param _msgId ID de l'evenement
+	 * @param kein Type de l'evenement (probleme, solution)
+	 */
 	public EventInfoStationOnARoute(int _ids, String _idr, String _message, int _msgId, KindEventInfoNetwork kein) {
 		ids = _ids;
 		idr = _idr;
@@ -62,7 +78,6 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 * Getter of the property <tt>id</tt>
 	 * 
 	 * @return Returns the id.
-	 * @uml.property name="id"
 	 */
 	public int getIds() {
 		return ids;
@@ -72,7 +87,6 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 * Getter of the property <tt>kindEventInfoNetwork</tt>
 	 * 
 	 * @return Returns the kindEventInfoNetwork.
-	 * @uml.property name="kindEventInfoNetwork"
 	 */
 	@Override
 	public KindEventInfoNetwork getKindEventInfoNetwork() {
@@ -83,7 +97,6 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 * Getter of the property <tt>message</tt>
 	 * 
 	 * @return Returns the message.
-	 * @uml.property name="message"
 	 */
 	@Override
 	public String getMessage() {
@@ -95,7 +108,6 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 * 
 	 * @param id
 	 *            The id to set.
-	 * @uml.property name="id"
 	 */
 	public void setIds(int id) {
 		this.ids = id;
@@ -106,7 +118,6 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 * 
 	 * @param kindEventInfoNetwork
 	 *            The kindEventInfoNetwork to set.
-	 * @uml.property name="kindEventInfoNetwork"
 	 */
 	public void setKindEventInfoNetwork(KindEventInfoNetwork kindEventInfoNetwork) {
 		this.kindEventInfoNetwork = kindEventInfoNetwork;
@@ -117,7 +128,6 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 * 
 	 * @param message
 	 *            The message to set.
-	 * @uml.property name="message"
 	 */
 	public void setMessage(String message) {
 		this.message = message;

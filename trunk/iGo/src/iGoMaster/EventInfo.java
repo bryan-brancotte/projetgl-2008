@@ -2,7 +2,8 @@ package iGoMaster;
 
 import graphNetwork.GraphNetwork;
 /**
- *  Interface permettant de n'avoir a traiter les evenements
+ *  Interface permettant de n'avoir a traiter les evenements que comme des EventInfo,
+ *  Utile lorsque l'on veut recuperer le message de chaque evenement pour l'IHM
  * @author iGo
  */
 public interface EventInfo {
@@ -30,10 +31,8 @@ public interface EventInfo {
 	public abstract String getMessage();
 
 	/**
-	 * 
+	 * Renvoie le type de l'evenement
 	 * @return Retourne the kindEventInfoNetwork.
-	 * @uml.property name="kindEventInfoNetwork"
-	 * @uml.associationEnd readOnly="true" inverse="eventInfo:iGoMaster.KindEventInfoNetwork"
 	 */
 	public abstract KindEventInfoNetwork getKindEventInfoNetwork();
 

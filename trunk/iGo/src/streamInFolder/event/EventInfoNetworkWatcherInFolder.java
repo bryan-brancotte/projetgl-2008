@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -33,7 +35,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	protected int version;
 	protected DOMParser parser;
 	protected Timer watcher;
-	
+	protected final Lock verrou=new ReentrantLock();
+
 	class WatcherInFolder extends TimerTask {
 		public void run() {
 			System.out.println("entering into timer");
@@ -48,157 +51,145 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 					e.printStackTrace();
 				}
 				Document doc = parser.getDocument();
-				
+
 				NodeList numVersion = doc.getElementsByTagName("VersionNumber");
-				if (numVersion.getLength()==1) {
+				if (numVersion.getLength() == 1) {
 					if (Integer.parseInt(numVersion.item(0).getTextContent()) > version) {
 						System.out.println("new update");
-						version = Integer.parseInt(numVersion.item(0).getTextContent());
+						synchronized (verrou) {
 
-						NodeList stations = doc.getElementsByTagName("Station");
+							version = Integer.parseInt(numVersion.item(0).getTextContent());
+
+							NodeList stations = doc.getElementsByTagName("Station");
 							if (stations.getLength() > 0) {
-								for (int i=0; i < stations.getLength(); i++) {
+								for (int i = 0; i < stations.getLength(); i++) {
 									NodeList nodeChilds = stations.item(i).getChildNodes();
 									if (nodeChilds != null) {
-										int eisId=0;
-										String eisMsg = "" ;
-										String eisKeinString = "" ;
+										int eisId = 0;
+										String eisMsg = "";
+										String eisKeinString = "";
 										KindEventInfoNetwork eisKein = null;
 										int eisMsgId = 0;
-										
-										for (int j=0; j < nodeChilds.getLength() ; j++) {
+
+										for (int j = 0; j < nodeChilds.getLength(); j++) {
 											if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
 												if (nodeChilds.item(j).getLocalName().compareTo("MSID") == 0) {
 													eisMsgId = Integer.parseInt(nodeChilds.item(j).getTextContent());
-												}
-												else if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
+												} else if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
 													eisId = Integer.parseInt(nodeChilds.item(j).getTextContent());
-												}
-												else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
+												} else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
 													eisKeinString = nodeChilds.item(j).getTextContent();
 													if (eisKeinString.compareTo("Problem") == 0) {
 														eisKein = KindEventInfoNetwork.PROBLEM;
-													}
-													else if (eisKeinString.compareTo("Solution") == 0) {
+													} else if (eisKeinString.compareTo("Solution") == 0) {
 														eisKein = KindEventInfoNetwork.SOLUTION;
-													}
-													else {
+													} else {
 														eisKein = KindEventInfoNetwork.OTHER;
 													}
-												}
-												else if (nodeChilds.item(j).getLocalName().compareTo("WarningMsg") == 0) {
+												} else if (nodeChilds.item(j).getLocalName().compareTo("WarningMsg") == 0) {
 													eisMsg = nodeChilds.item(j).getTextContent();
 												}
 											}
 										}
 
-										eventInfosNotApplied.add(new EventInfoStation(eisId, eisMsg, eisMsgId, eisKein));
-										
+										eventInfosNotApplied
+												.add(new EventInfoStation(eisId, eisMsg, eisMsgId, eisKein));
+
 									}
 								}
 							}
 
-
 							NodeList stationsRoutes = doc.getElementsByTagName("StationRoute");
-								if (stationsRoutes.getLength() > 0) {
-									for (int i=0; i < stationsRoutes.getLength(); i++) {
-										NodeList nodeChilds = stationsRoutes.item(i).getChildNodes();
-										if (nodeChilds != null) {
-											int eisIds=0;
-											String eisIdr="";
-											String eisMsg = "" ;
-											String eisKeinString = "" ;
-											KindEventInfoNetwork eisKein = null;
-											int eisMsgId = 0;
-											
-											for (int j=0; j < nodeChilds.getLength() ; j++) {
-												if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
-													if (nodeChilds.item(j).getLocalName().compareTo("MSID") == 0) {
-														eisMsgId = Integer.parseInt(nodeChilds.item(j).getTextContent());
+							if (stationsRoutes.getLength() > 0) {
+								for (int i = 0; i < stationsRoutes.getLength(); i++) {
+									NodeList nodeChilds = stationsRoutes.item(i).getChildNodes();
+									if (nodeChilds != null) {
+										int eisIds = 0;
+										String eisIdr = "";
+										String eisMsg = "";
+										String eisKeinString = "";
+										KindEventInfoNetwork eisKein = null;
+										int eisMsgId = 0;
+
+										for (int j = 0; j < nodeChilds.getLength(); j++) {
+											if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
+												if (nodeChilds.item(j).getLocalName().compareTo("MSID") == 0) {
+													eisMsgId = Integer.parseInt(nodeChilds.item(j).getTextContent());
+												} else if (nodeChilds.item(j).getLocalName().compareTo("IDS") == 0) {
+													eisIds = Integer.parseInt(nodeChilds.item(j).getTextContent());
+												} else if (nodeChilds.item(j).getLocalName().compareTo("IDR") == 0) {
+													eisIdr = nodeChilds.item(j).getTextContent();
+												} else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
+													eisKeinString = nodeChilds.item(j).getTextContent();
+													if (eisKeinString.compareTo("Problem") == 0) {
+														eisKein = KindEventInfoNetwork.PROBLEM;
+													} else if (eisKeinString.compareTo("Solution") == 0) {
+														eisKein = KindEventInfoNetwork.SOLUTION;
+													} else {
+														eisKein = KindEventInfoNetwork.OTHER;
 													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("IDS") == 0) {
-														eisIds = Integer.parseInt(nodeChilds.item(j).getTextContent());	
-													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("IDR") == 0) {
-														eisIdr = nodeChilds.item(j).getTextContent();
-													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
-														eisKeinString = nodeChilds.item(j).getTextContent();
-														if (eisKeinString.compareTo("Problem") == 0) {
-															eisKein = KindEventInfoNetwork.PROBLEM;
-														}
-														else if (eisKeinString.compareTo("Solution") == 0) {
-															eisKein = KindEventInfoNetwork.SOLUTION;
-														}
-														else {
-															eisKein = KindEventInfoNetwork.OTHER;
-														}
-													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("WarningMsg") == 0) {
-														eisMsg = nodeChilds.item(j).getTextContent();
-													}
+												} else if (nodeChilds.item(j).getLocalName().compareTo("WarningMsg") == 0) {
+													eisMsg = nodeChilds.item(j).getTextContent();
 												}
 											}
-
-											eventInfosNotApplied.add(new EventInfoStationOnARoute(eisIds,eisIdr, eisMsg, eisMsgId, eisKein));
-											
 										}
+
+										eventInfosNotApplied.add(new EventInfoStationOnARoute(eisIds, eisIdr, eisMsg,
+												eisMsgId, eisKein));
+
 									}
-								}	
-								
-								NodeList routes = doc.getElementsByTagName("Route");
-								if (routes.getLength() > 0) {
-									for (int i=0; i < routes.getLength(); i++) {
-										NodeList nodeChilds = routes.item(i).getChildNodes();
-										if (nodeChilds != null) {
-											String eisIdr="";
-											String eisMsg = "" ;
-											String eisKeinString = "" ;
-											KindEventInfoNetwork eisKein = null;
-											int eisMsgId = 0;
-											
-											for (int j=0; j < nodeChilds.getLength() ; j++) {
-												if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
-													if (nodeChilds.item(j).getLocalName().compareTo("MSID") == 0) {
-														eisMsgId = Integer.parseInt(nodeChilds.item(j).getTextContent());
+								}
+							}
+
+							NodeList routes = doc.getElementsByTagName("Route");
+							if (routes.getLength() > 0) {
+								for (int i = 0; i < routes.getLength(); i++) {
+									NodeList nodeChilds = routes.item(i).getChildNodes();
+									if (nodeChilds != null) {
+										String eisIdr = "";
+										String eisMsg = "";
+										String eisKeinString = "";
+										KindEventInfoNetwork eisKein = null;
+										int eisMsgId = 0;
+
+										for (int j = 0; j < nodeChilds.getLength(); j++) {
+											if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
+												if (nodeChilds.item(j).getLocalName().compareTo("MSID") == 0) {
+													eisMsgId = Integer.parseInt(nodeChilds.item(j).getTextContent());
+												} else if (nodeChilds.item(j).getLocalName().compareTo("IDR") == 0) {
+													eisIdr = nodeChilds.item(j).getTextContent();
+												} else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
+													eisKeinString = nodeChilds.item(j).getTextContent();
+													if (eisKeinString.compareTo("Problem") == 0) {
+														eisKein = KindEventInfoNetwork.PROBLEM;
+													} else if (eisKeinString.compareTo("Solution") == 0) {
+														eisKein = KindEventInfoNetwork.SOLUTION;
+													} else {
+														eisKein = KindEventInfoNetwork.OTHER;
 													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("IDR") == 0) {
-														eisIdr = nodeChilds.item(j).getTextContent();
-													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
-														eisKeinString = nodeChilds.item(j).getTextContent();
-														if (eisKeinString.compareTo("Problem") == 0) {
-															eisKein = KindEventInfoNetwork.PROBLEM;
-														}
-														else if (eisKeinString.compareTo("Solution") == 0) {
-															eisKein = KindEventInfoNetwork.SOLUTION;
-														}
-														else {
-															eisKein = KindEventInfoNetwork.OTHER;
-														}
-													}
-													else if (nodeChilds.item(j).getLocalName().compareTo("WarningMsg") == 0) {
-														eisMsg = nodeChilds.item(j).getTextContent();
-													}
+												} else if (nodeChilds.item(j).getLocalName().compareTo("WarningMsg") == 0) {
+													eisMsg = nodeChilds.item(j).getTextContent();
 												}
 											}
-
-											eventInfosNotApplied.add(new EventInfoRoute(eisIdr, eisMsg, eisMsgId, eisKein));
-											
 										}
+
+										eventInfosNotApplied.add(new EventInfoRoute(eisIdr, eisMsg, eisMsgId, eisKein));
+
 									}
-								}			
-					    if (eventInfosNotApplied.size() > 0) {
-					    	status = EventInfoNetWorkWatcherStatus.NEW_UPDATE;
-					    }
-					} 
+								}
+							}
+						}
+						if (eventInfosNotApplied.size() > 0) {
+							status = EventInfoNetWorkWatcherStatus.NEW_UPDATE;
+						}
+					}
 					System.out.println("no new update");
 				}
-			
+
 			} else {
 				System.err.println(fichier + " : Erreur de lecture.");
 			}
-			
+
 		}
 	}
 
@@ -210,10 +201,10 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
+		eventInfosNotApplied = new LinkedList<EventInfo>();
 		fichier = new File(path);
 		parser = new DOMParser();
 		version = 0;
-		eventInfosNotApplied = new LinkedList<EventInfo>();
 	}
 
 	/**
@@ -221,9 +212,11 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public void startWatching() throws ImpossibleStartingException {
-		status = EventInfoNetWorkWatcherStatus.STARTED;
-	    watcher = new Timer(true);
-	    watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10*1000);
+		synchronized (verrou) {
+			status = EventInfoNetWorkWatcherStatus.STARTED;
+			watcher = new Timer(true);
+			watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10 * 1000);
+		}
 	}
 
 	/**
@@ -233,7 +226,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	public void stopWatching() {
 		watcher.cancel();
 		status = EventInfoNetWorkWatcherStatus.STOPPED;
-		if (eventInfosNotApplied.size() > 0) status = EventInfoNetWorkWatcherStatus.NEW_UPDATE_STOPPED;
+		if (eventInfosNotApplied.size() > 0)
+			status = EventInfoNetWorkWatcherStatus.NEW_UPDATE_STOPPED;
 		System.out.println("watcher stopped");
 	}
 
@@ -251,15 +245,15 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	@Override
 	public void applyInfo(GraphNetwork graph) {
 
-		for(EventInfo ev : getNewEventInfo()) {
+		for (EventInfo ev : getNewEventInfo()) {
 			ev.applyInfo(graph);
-//			System.out.println("Event : " + ev.getMessage());
+			// System.out.println("Event : " + ev.getMessage());
 		}
 		eventInfosNotApplied.clear();
-		
+
 		// TODO Auto-generated method stub
-//		pour chaque element de ma pile, faire applyinfo dessus
-//		Penser a empecher que le master puisse faire lui meme applyinfo sur les evenements sans jeter dexception
+		// pour chaque element de ma pile, faire applyinfo dessus
+		// Penser a empecher que le master puisse faire lui meme applyinfo sur les evenements sans jeter dexception
 
 	}
 
@@ -268,32 +262,41 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public Collection<EventInfo> getNewEventInfo() {
-		return new Vector<EventInfo>(eventInfosNotApplied);
+		if (eventInfosNotApplied == null)
+			return null;
+		else if (eventInfosNotApplied.size() == 0)
+			return null;
+		else {
+			synchronized (verrou) {
+				return new Vector<EventInfo>(eventInfosNotApplied);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
-		EventInfoNetworkWatcherInFolder test = new EventInfoNetworkWatcherInFolder("C:/Documents and Settings/Pierrick/Bureau/2008-2008_S9/Projet GL/doc/XML/TravelAltertGL2008.xml");
+		EventInfoNetworkWatcherInFolder test = new EventInfoNetworkWatcherInFolder(
+				"C:/Documents and Settings/Pierrick/Bureau/2008-2008_S9/Projet GL/doc/XML/TravelAltertGL2008.xml");
 		try {
 			test.startWatching();
 			System.out.println("--------------");
-			System.out.println(test.getNewEventInfo().size());
+//			System.out.println(test.getNewEventInfo().size());
 			try {
 				System.in.read();
-				
+
 				if (test.getStatus().equals(EventInfoNetWorkWatcherStatus.NEW_UPDATE)) {
 					System.out.println("NB events : " + test.getNewEventInfo().size());
 					System.out.println("New UPDATE MAIN");
-					for(EventInfo ev : test.getNewEventInfo()) {
+					for (EventInfo ev : test.getNewEventInfo()) {
 						System.out.println("Event : " + ev.getMessage());
 					}
 					GraphNetworkBuilder gnb = new GraphNetworkBuilder();
 					test.applyInfo(gnb.getInstance());
 				}
-				
+
 				test.stopWatching();
 				System.in.read();
-//				test.startWatching();
-//				System.out.println(test.getNewEventInfo().size());
+				// test.startWatching();
+				// System.out.println(test.getNewEventInfo().size());
 				System.in.read();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
