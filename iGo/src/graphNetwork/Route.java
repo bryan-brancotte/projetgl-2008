@@ -126,8 +126,9 @@ public class Route {
 	public void setStationEnable(int idStation, boolean stationEnable) {
 		Iterator<Station> s1 = stations.iterator();
 		while(s1.hasNext()){
-			if(s1.next().getId() == idStation)
-				s1.next().setEnable(stationEnable);
+			Station temp=s1.next();
+			if(temp.getId() == idStation)
+				temp.setEnable(stationEnable);
 		}
 	}
 	
@@ -141,8 +142,9 @@ public class Route {
 	public boolean isStationEnable(int idStation) {
 		Iterator<Station> s1 = stations.iterator();
 		while(s1.hasNext()){
-			if(s1.next().getId() == idStation)
-				return s1.next().isEnable();
+			Station temp = s1.next();
+			if(temp.getId() == idStation)
+				return temp.isEnable();
 		}
 		return false;
 	}
