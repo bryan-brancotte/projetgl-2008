@@ -33,7 +33,7 @@ public class GraphNetworkBuilderTest {
 	@Before
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
-		sncf = bob.getActualGraphNetwork ();
+		sncf = bob.getActualGraphNetwork();
 	}
 
 	public static junit.framework.Test suite() {
@@ -50,9 +50,9 @@ public class GraphNetworkBuilderTest {
 	 */
 	@Test
 	public void constructionDUnReseauSansProbleme() {
-		Route rerB;
-		Station massyPal;
-		Route rerC;
+		Route rerB = null;
+		Station massyPal = null;
+		Route rerC = null;
 		try {
 			rerB = bob.addRoute("RerB", "RER");
 			rerC = bob.addRoute("RerC", "RER");
@@ -63,7 +63,14 @@ public class GraphNetworkBuilderTest {
 			bob.addStationToRoute(rerB, massyPal = bob.addStation(10, "Massy Palaiseau"), 10);
 			bob.addStationToRoute(rerB, bob.addStation(4, "Le Guichet"), 9);
 			bob.addStationToRoute(rerB, bob.addStation(5, "Orsay Ville"), 1);
-
+		} catch (ViolationOfUnicityInIdentificationException e) {
+			assertTrue("Erreur dans la vérification des id unique", false);
+		} catch (MissingResourceException e) {
+			assertTrue("un objet est null dans linkstation", false);
+		} catch (ImpossibleValueException e) {
+			assertTrue("linkStation ne supporte pas un valeur normal", false);
+		}
+		try {
 			bob.addStationToRoute(rerC, bob.addStation(9, "Paris Austerlitz"), 0);
 			bob.addStationToRoute(rerC, bob.addStation(6, "Orly"), 15);
 			bob.addStationToRoute(rerC, bob.addStation(7, "Choisy"), 15);
@@ -71,11 +78,26 @@ public class GraphNetworkBuilderTest {
 			bob.addStationToRoute(rerC, massyPal, 25);
 
 			bob.defineEntryCost(sncf.getKindFromString("RER"), 4);
-
+		} catch (ViolationOfUnicityInIdentificationException e) {
+			assertTrue("Erreur dans la vérification des id unique", false);
+		} catch (MissingResourceException e) {
+			assertTrue("un objet est null dans linkstation", false);
+		} catch (ImpossibleValueException e) {
+			assertTrue("linkStation ne supporte pas un valeur normal", false);
+		}
+		try {
 			// TODO linkStation est dans un sens ou les deux sens?
 			bob.linkStation(rerC, massyPal, rerB, massyPal, 0, 3, false);
 			bob.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1), 2, 9, true);
 
+		} catch (MissingResourceException e) {
+			assertTrue("un objet est null dans linkstation", false);
+		} catch (StationNotOnRoadException e) {
+			assertTrue("Une station ne semble pas avoir été mise sur la ligne, or on l'a demandé", false);
+		} catch (ImpossibleValueException e) {
+			assertTrue("linkStation ne supporte pas un valeur normal", false);
+		}
+		try {
 			bob.addServiceToStation(sncf.getStation(9), bob.addService(1, "Journaux"));
 			bob.addServiceToStation(sncf.getStation(9), bob.addService(2, "Cafe"));
 			bob.addServiceToStation(sncf.getStation(9), bob.addService(3, "Handi"));
@@ -89,10 +111,6 @@ public class GraphNetworkBuilderTest {
 			assertTrue("Erreur dans la vérification des id unique", false);
 		} catch (MissingResourceException e) {
 			assertTrue("un objet est null dans linkstation", false);
-		} catch (StationNotOnRoadException e) {
-			assertTrue("Une station ne semble pas avoir été mise sur la ligne, or on l'a demandé", false);
-		} catch (ImpossibleValueException e) {
-			assertTrue("linkStation ne supporte pas un valeur normal", false);
 		}
 		assertTrue("Construction sans problème", true);
 	}
@@ -131,18 +149,9 @@ public class GraphNetworkBuilderTest {
 		Iterator<Station> itSta = sncf.getStations();
 		Station[] stations = new Station[10];
 		Station station;
-		
-		String[] nom = { 
-				"Paris",
-				"Antony", 
-				"Croix de berny", 
-				"Le Guichet", 
-				"Orsay Ville", 
-				"Orly", 
-				"Choisy", 
-				"Juvisy", 
-				"Paris Austerlitz",
-				"Massy Palaiseau" };
+
+		String[] nom = { "Paris", "Antony", "Croix de berny", "Le Guichet", "Orsay Ville", "Orly", "Choisy", "Juvisy",
+				"Paris Austerlitz", "Massy Palaiseau" };
 		while (itSta.hasNext()) {
 			station = itSta.next();
 			stations[station.getId() - 1] = station;
