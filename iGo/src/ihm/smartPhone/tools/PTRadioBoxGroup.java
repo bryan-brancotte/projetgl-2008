@@ -18,6 +18,7 @@ public class PTRadioBoxGroup {
 	}
 
 	public void setAllNotClicked() {
+		System.out.println(radioBoxs.size());
 		for(PTRadioBox r : radioBoxs){
 			r.setClicked(false);
 		}

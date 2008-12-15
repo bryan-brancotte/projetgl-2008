@@ -70,14 +70,16 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 			throw new NullPointerException();
 		Rectangle area = new Rectangle();
 		PTRadioBox radioBox = new PTRadioBox(this, area);
-		clickAndMoveWarningAndArray.addInteractiveArea(area, new CodeExecutor2P<PTRadioBoxGroup, PTRadioBox>(grp,
-				radioBox) {
-			@Override
-			public void execute() {
-				this.origineA.setAllNotClicked();
-				this.origineB.setClicked(true);
-			}
-		});
+		grp.add(radioBox);
+		clickAndMoveWarningAndArray.addInteractiveArea(area,
+				new CodeExecutor3P<PTRadioBoxGroup, PTRadioBox, PanelTooled>(grp, radioBox, this) {
+					@Override
+					public void execute() {
+						this.origineA.setAllNotClicked();
+						this.origineB.setClicked(true);
+						this.origineC.repaint();
+					}
+				});
 		return radioBox;
 	}
 
@@ -94,12 +96,13 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 			return makeCheckBox();
 		Rectangle area = new Rectangle();
 		PTCheckBox checkBox = new PTCheckBox(this, area);
-		clickAndMoveWarningAndArray.addInteractiveArea(area, new CodeExecutor2P<PTCheckBox, CodeExecutor>(checkBox,
-				action) {
+		clickAndMoveWarningAndArray.addInteractiveArea(area, new CodeExecutor3P<PTCheckBox, CodeExecutor, PanelTooled>(
+				checkBox, action, this) {
 			@Override
 			public void execute() {
 				this.origineA.changeClicked();
 				this.origineB.execute();
+				this.origineC.repaint();
 			}
 		});
 		return checkBox;
@@ -113,12 +116,14 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	public PTCheckBox makeCheckBox() {
 		Rectangle area = new Rectangle();
 		PTCheckBox checkBox = new PTCheckBox(this, area);
-		clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), new CodeExecutor1P<PTCheckBox>(checkBox) {
-			@Override
-			public void execute() {
-				this.origine.changeClicked();
-			}
-		});
+		clickAndMoveWarningAndArray.addInteractiveArea(area,
+				new CodeExecutor2P<PTCheckBox, PanelTooled>(checkBox, this) {
+					@Override
+					public void execute() {
+						this.origineA.changeClicked();
+						this.origineB.repaint();
+					}
+				});
 		return checkBox;
 	}
 
