@@ -1,19 +1,28 @@
 package streamInFolder.graphReaderFolder;
 
-import iGoMaster.AvaibleNetwork;
+import iGoMaster.AvailableNetwork;
 
+import java.io.File;
 
-public class AvaibleNetworkInFolder implements AvaibleNetwork {
+public class AvailableNetworkInFolder implements AvailableNetwork {
 
+	private File fichier;
+	
+	public AvailableNetworkInFolder(String n, String p) {
+		name = n;
+		path = p;
+		fichier = new File(path);
+	}
+	
 	/**
-	 * @uml.property  name="name"
+	 * Nom du reseau
 	 */
 	private String name = "";
 
 	/**
 	 * Getter of the property <tt>name</tt>
-	 * @return  Returns the name.
-	 * @uml.property  name="name"
+	 * 
+	 * @return Returns the name.
 	 */
 	@Override
 	public String getName() {
@@ -22,22 +31,23 @@ public class AvaibleNetworkInFolder implements AvaibleNetwork {
 
 	/**
 	 * Setter of the property <tt>name</tt>
-	 * @param name  The name to set.
-	 * @uml.property  name="name"
+	 * 
+	 * @param name The name to set.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * @uml.property  name="description"
+	 * Description du Reseau
+	 * Non utile tant qu'il n'y a pas de description dans le fichier XML
 	 */
 	private String description = "";
 
 	/**
 	 * Getter of the property <tt>description</tt>
-	 * @return  Returns the description.
-	 * @uml.property  name="description"
+	 * 
+	 * @return Returns the description.
 	 */
 	@Override
 	public String getDescription() {
@@ -46,22 +56,22 @@ public class AvaibleNetworkInFolder implements AvaibleNetwork {
 
 	/**
 	 * Setter of the property <tt>description</tt>
-	 * @param description  The description to set.
-	 * @uml.property  name="description"
+	 * 
+	 * @param description The description to set.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
 	/**
-	 * @uml.property  name="path"
+	 * Path du fichier contenant le reseau
 	 */
 	private String path = "";
 
 	/**
 	 * Getter of the property <tt>path</tt>
-	 * @return  Returns the path.
-	 * @uml.property  name="path"
+	 * 
+	 * @return Returns the path.
 	 */
 	public String getPath() {
 		return path;
@@ -69,10 +79,18 @@ public class AvaibleNetworkInFolder implements AvaibleNetwork {
 
 	/**
 	 * Setter of the property <tt>path</tt>
-	 * @param path  The path to set.
-	 * @uml.property  name="path"
+	 * 
+	 * @param path The path to set.
 	 */
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public File getFichier() {
+		return fichier;
+	}
+
+	public void setFichier(File fichier) {
+		this.fichier = fichier;
 	}
 }
