@@ -6,6 +6,7 @@ import java.util.Observable;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.KindRoute;
 import graphNetwork.Service;
+import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
@@ -15,7 +16,7 @@ import ihm.smartPhone.tools.ExecMultiThread;
 import xmlFeature.LanguageXML;
 
 public class MainDemoIHM {
-	
+
 	protected static IHM ihm;
 
 	/**
@@ -39,7 +40,7 @@ public class MainDemoIHM {
 
 			@Override
 			public String config(String key) {
-				//return IhmReceivingStates.ARRAY_MODE.toString();/*
+				// return IhmReceivingStates.ARRAY_MODE.toString();/*
 				return IhmReceivingStates.GRAPHIC_MODE.toString();/**/
 			}
 
@@ -67,31 +68,53 @@ public class MainDemoIHM {
 			@Override
 			public Iterator<KindRoute> getKindRoutes() {
 				GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-				gnb.addService(1, "Wheelchair accessible");
-				gnb.addService(2, "Coffe");
-				gnb.addService(3, "Flower");
-				gnb.addService(4, "Parking");
-				return gnb.getInstance();
+				try {
+					gnb.addRoute("1", "Train");
+					gnb.addRoute("2", "Trolley");
+					gnb.addRoute("3", "subway");
+				} catch (ViolationOfUnicityInIdentificationException e) {
+				}
+				return KindRoute.getKinds();
 			}
 
 			@Override
 			public Iterator<Service> getServices() {
+				GraphNetworkBuilder gnb = new GraphNetworkBuilder();
+				try {
+					gnb.addService(1, "Wheelchair accessible");
+					gnb.addService(2, "Coffe");
+					gnb.addService(3, "Flower");
+					gnb.addService(4, "Parking");
+				} catch (ViolationOfUnicityInIdentificationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return gnb.getActualGraphNetwork().getServices();
+			}
+
+			@Override
+			public String getConfig(String key) {
+				return config(key);
+			}
+
+			@Override
+			public boolean setConfig(String key, String value) {
 				// TODO Auto-generated method stub
-				return null;
+				return false;
 			}
 
 		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/*
-		//}, iGoSmartPhoneSkin.BLUE_WITH_LINE);/*
-		//}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
-		}, iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
-		ihm.start(true,8);
-		new ExecMultiThread<IHM>(ihm){
+		}, iGoSmartPhoneSkin.BLUE_WITH_LINE);/* //
+		},iGoSmartPhoneSkin.WHITE_WITH_LINE);/* 
+		},iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
+		ihm.start(true, 8);
+		new ExecMultiThread<IHM>(ihm) {
 
 			@Override
 			public void run() {
 				int t = 1;
 				try {
-					Thread.currentThread().sleep(t*10);
+					Thread.currentThread().sleep(t * 10);
 					this.origine.showMessageSplashScreen("simplet");
 					Thread.currentThread().sleep(t);
 					this.origine.showMessageSplashScreen("atchoum");
@@ -114,8 +137,9 @@ public class MainDemoIHM {
 					e.printStackTrace();
 				}
 				this.origine.endSplashScreen();
-			}}.start();
-		//ihm.stop();
+			}
+		}.start();
+		// ihm.stop();
 	}
 
 }
