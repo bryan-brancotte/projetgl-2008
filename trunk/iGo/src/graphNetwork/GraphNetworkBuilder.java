@@ -200,7 +200,7 @@ public class GraphNetworkBuilder	 {//Classe suivant les design patterns Factory 
 	 * @throws ImpossibleValueException 
 	 */
 	public boolean addStationToRoute(Route route, Station stationToAdd, int time) throws ImpossibleValueException {
-		// TODO que faire avec time?
+		// TODO que faire avec time? + ajouter jonction station pcecedente - stationtoadd
 		if(time<0)
 			throw new ImpossibleValueException();
 		

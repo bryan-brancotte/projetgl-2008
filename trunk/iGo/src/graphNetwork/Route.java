@@ -110,7 +110,7 @@ public class Route {
 	 *       	la station a ajouter
 	 * @return void
 	 */
-	public void addStation(Station station) {
+	protected void addStation(Station station) {
 		this.stations.add(station);
 	}
 
