@@ -1,5 +1,9 @@
 package iGoMaster;
 
+import graphNetwork.KindRoute;
+import graphNetwork.Service;
+
+import java.util.Iterator;
 import java.util.Observable;
 
 /**
@@ -25,15 +29,38 @@ public interface Master {
 	public void stop();
 
 	/**
+	 * Retourne pour une clé donnée la valeur du paramètre. Utilisez mainenant getConfig
+	 * 
+	 * @param key
+	 *            clé identifiant le paramètre
+	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
+	 */
+	@Deprecated
+	public String config(String key);
+
+	/**
 	 * Retourne pour une clé donnée la valeur du paramètre.
 	 * 
 	 * @param key
 	 *            clé identifiant le paramètre
 	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
 	 */
-	public String config(String key);
+	public String getConfig(String key);
 
 	/**
+	 * Retourne pour une clé donnée la valeur du paramètre.
+	 * 
+	 * @param key
+	 *            clé identifiant le paramètre
+	 * @param value
+	 *            la valeur du paramètre
+	 * @return true si le paramètre à bien été enregistré dans la configuration. false si le master refuse la
+	 *         modification de cette clé.
+	 */
+	public boolean setConfig(String key, String value);
+
+	/**
+	 * //TODO demander à Tony à quoi sert cette méthode...
 	 */
 	public abstract void update(Observable o, Object arg);
 
@@ -42,6 +69,20 @@ public interface Master {
 	 * 
 	 * @return true si la demande a bien été enregistrer
 	 */
-	//TODO modéliser les contraintes
+	// TODO modéliser les contraintes
 	public boolean askForATravel();
+
+	/**
+	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
+	 * 
+	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<Service> getServices();
+
+	/**
+	 * Retourne un iterateur décrivant l'ensemble des types de route présent sur le réseau
+	 * 
+	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<KindRoute> getKindRoutes();
 }

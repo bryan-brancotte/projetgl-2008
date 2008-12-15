@@ -1,8 +1,10 @@
 package ihm.smartPhone.statePanels;
 
+import graphNetwork.KindRoute;
 import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.tools.PTCheckBox;
 import ihm.smartPhone.tools.PTCollapsableArea;
 import ihm.smartPhone.tools.PTRadioBox;
 import ihm.smartPhone.tools.PTRadioBoxGroup;
@@ -35,12 +37,17 @@ public class SettingsPanel extends PanelState {
 
 	protected Document settings = null;
 
-	protected PTRadioBox cheapper;
+	protected PTRadioBox cheaper;
 	protected PTRadioBox faster;
 	protected PTRadioBox fewer;
 	protected PTCollapsableArea travelCriteria;
 
-	// protected Panel insidePanel;
+	protected PTCheckBox trolley;
+	protected PTCheckBox subway;
+	protected PTCheckBox train;
+	protected PTCollapsableArea travelMode;
+
+	protected PTCollapsableArea services;
 
 	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar, Document settings) {
 		super(ihm, upperBar, lowerBar);
@@ -61,13 +68,23 @@ public class SettingsPanel extends PanelState {
 
 	protected void buildInterfaceFromDomDocument() {
 		PTRadioBoxGroup grp = new PTRadioBoxGroup(3);
-		cheapper = makeRadioButton(grp);
+		cheaper = makeRadioButton(grp);
 		faster = makeRadioButton(grp);
 		fewer = makeRadioButton(grp);
 		travelCriteria = makeCollapsableArea();
-		travelCriteria.addComponent(cheapper);
+		travelCriteria.addComponent(cheaper);
 		travelCriteria.addComponent(fewer);
 		travelCriteria.addComponent(faster);
+
+		trolley = makeCheckBox();
+		subway = makeCheckBox();
+		train = makeCheckBox();
+		travelMode = makeCollapsableArea();
+		travelMode.addComponent(trolley);
+		travelMode.addComponent(subway);
+		travelMode.addComponent(train);
+
+		services = makeCollapsableArea();
 	}
 
 	protected Document buildExempleSettingXML() throws ParserConfigurationException {
@@ -140,9 +157,9 @@ public class SettingsPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
-		int decalage = father.getSizeAdapteur().getSizeLargeFont();
+		int decalage = father.getSizeAdapteur().getSizeSmallFont();
 		int ordonne = decalage;
-		//int heigth;
+		// int heigth;
 		String s;
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
@@ -154,11 +171,66 @@ public class SettingsPanel extends PanelState {
 				buffer = image.getGraphics();
 			}
 			buffer.setColor(father.getSkin().getColorLetter());
+		} else {
+			buffer.clearRect(0, 0, getWidth(), getHeight());
 		}
-		// buffer.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
+
+		/***************************************************************************************************************
+		 * Travel criteria
+		 */
 		s = father.lg("TravelCriteria");
-		travelCriteria.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
-				.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!travelCriteria.isCollapsed()) {
+			cheaper.prepareArea(buffer, decalage + (decalage >> 1), travelCriteria.getFirstOrdonneForComponents(buffer,
+					decalage, ordonne, s, father.getSizeAdapteur().getLargeFont()), father.lg("Cheaper"), father
+					.getSizeAdapteur().getSmallFont());
+			faster.prepareArea(buffer, cheaper.getArea().x + cheaper.getArea().width + (decalage >> 1), cheaper
+					.getArea().y, father.lg("Faster"), father.getSizeAdapteur().getSmallFont());
+			fewer.prepareArea(buffer, faster.getArea().x + faster.getArea().width + (decalage >> 1),
+					cheaper.getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur().getSmallFont());
+		}
+		travelCriteria.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(), father.getSkin()
+				.getColorSubAreaInside(), father.getSkin().getColorLetter());
+		cheaper.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(), father
+				.getSkin().getColorLetter());
+		faster.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(), father
+				.getSkin().getColorLetter());
+		fewer.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(), father
+				.getSkin().getColorLetter());
+
+		/***************************************************************************************************************
+		 * Travel mode
+		 */
+		ordonne = travelCriteria.getArea().y + travelCriteria.getArea().height + (decalage << 1);
+		s = father.lg("TravelMode");
+		if (!travelMode.isCollapsed()) {
+			trolley.prepareArea(buffer, decalage + (decalage >> 1), travelCriteria.getFirstOrdonneForComponents(buffer,
+					decalage, ordonne, s, father.getSizeAdapteur().getLargeFont()), father.lg("Trolley"), father
+					.getSizeAdapteur().getSmallFont());
+			subway.prepareArea(buffer, trolley.getArea().x + trolley.getArea().width + (decalage >> 1), trolley
+					.getArea().y, father.lg("Subway"), father.getSizeAdapteur().getSmallFont());
+			train.prepareArea(buffer, subway.getArea().x + subway.getArea().width + (decalage >> 1),
+					trolley.getArea().y, father.lg("Train"), father.getSizeAdapteur().getSmallFont());
+		}
+		travelMode.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(), father.getSkin()
+				.getColorSubAreaInside(), father.getSkin().getColorLetter());
+		trolley.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(), father
+				.getSkin().getColorLetter());
+		subway.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(), father
+				.getSkin().getColorLetter());
+		train.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(), father
+				.getSkin().getColorLetter());
+
+		/***************************************************************************************************************
+		 * Services
+		 */
+		ordonne = travelMode.getArea().y + travelMode.getArea().height + (decalage << 1);
+		s = father.lg("Services");
+		services.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(), father.getSkin()
+				.getColorSubAreaInside(), father.getSkin().getColorLetter());
+
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
 		g.drawImage(image, 0, 0, null);
 	}
 

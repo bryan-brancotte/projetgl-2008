@@ -8,10 +8,18 @@ import java.awt.Rectangle;
 public abstract class PTComponent {
 
 	protected Rectangle area;
+	
+	protected String text="Nothing";
 
 	protected PanelTooled father;
 
-	protected boolean enable=true;
+	protected boolean enable = true;
+
+	public Rectangle getArea() {
+		if (!this.isEnable())
+			return null;
+		return area;
+	}
 
 	public boolean isEnable() {
 		return enable;
@@ -28,7 +36,38 @@ public abstract class PTComponent {
 	}
 
 	/**
-	 * Met à jour le bouton, on lui passe ne paramètre la zone qui lui à été attribué.
+	 * Execute succesivement prepareArea et draw.
+	 * 
+	 * @param g
+	 *            le graphic om l'on dessine
+	 * @param x
+	 *            l'abscisse
+	 * @param y
+	 *            l'ordonnée
+	 * @param text
+	 *            le texte du bouton
+	 * @param font
+	 *            la police utilisé
+	 * @return sa zone, mise à jour.
+	 */
+	public abstract Rectangle prepareArea(Graphics g, int x, int y, String text, Font font);
+
+	/**
+	 * Execute succesivement prepareArea et draw.
+	 * 
+	 * @param g
+	 *            le graphic où l'on dessine
+	 * @param font
+	 *            la police utilisé
+	 * @param colorInside
+	 *            la couleur du fond
+	 * @param colorLetter
+	 *            la couleur du texte
+	 */
+	public abstract void draw(Graphics g, Font font, Color colorInside, Color colorLetter);
+
+	/**
+	 * Execute succesivement prepareArea et draw.
 	 * 
 	 * @param g
 	 *            le graphic om l'on dessine
@@ -46,6 +85,11 @@ public abstract class PTComponent {
 	 *            la couleur du texte
 	 * @return sa zone, mise à jour.
 	 */
-	public abstract Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside,
-			Color colorLetter);
+	public final Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
+		if (!enable)
+			return null;
+		prepareArea(g, x, y, text, font);
+		draw(g, font, colorInside, colorLetter);
+		return area;
+	}
 }

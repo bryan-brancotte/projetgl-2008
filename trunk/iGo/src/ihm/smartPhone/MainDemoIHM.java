@@ -1,7 +1,11 @@
 package ihm.smartPhone;
 
+import java.util.Iterator;
 import java.util.Observable;
 
+import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.KindRoute;
+import graphNetwork.Service;
 import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
@@ -60,16 +64,32 @@ public class MainDemoIHM {
 				return true;
 			}
 
-		//}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/*
+			@Override
+			public Iterator<KindRoute> getKindRoutes() {
+				GraphNetworkBuilder gnb = new GraphNetworkBuilder();
+				gnb.addService(1, "Wheelchair accessible");
+				gnb.addService(2, "Coffe");
+				gnb.addService(3, "Flower");
+				gnb.addService(4, "Parking");
+				return gnb.getInstance();
+			}
+
+			@Override
+			public Iterator<Service> getServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/*
 		//}, iGoSmartPhoneSkin.BLUE_WITH_LINE);/*
-		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
+		//}, iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
 		}, iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
 		ihm.start(true,8);
 		new ExecMultiThread<IHM>(ihm){
 
 			@Override
 			public void run() {
-				int t = 100;
+				int t = 1;
 				try {
 					Thread.currentThread().sleep(t*10);
 					this.origine.showMessageSplashScreen("simplet");
