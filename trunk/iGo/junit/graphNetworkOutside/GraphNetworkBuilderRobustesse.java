@@ -120,9 +120,9 @@ public class GraphNetworkBuilderRobustesse {
 		bob.addStationToRoute(null, sncf.getStation(1), 3);
 		bob.addStationToRoute(sncf.getRoute("RerA"), null, 3);
 		bob.addStationToRoute(null, null, 3);
-		assertTrue("Aucune ajout de station n'aurait dû être fait sur la route RerA", sncf.getRoute("RerA")
+		assertTrue("Aucune ajout de station n'aurait dû être fait sur la route RerA", !sncf.getRoute("RerA")
 				.getStations().hasNext());
-		assertTrue("Aucune ajout de route n'aurait dû être fait sur la station 1", sncf.getStation(1).getRoutes()
+		assertTrue("Aucune ajout de route n'aurait dû être fait sur la station 1",! sncf.getStation(1).getRoutes()
 				.hasNext());
 		bob.addStationToRoute(sncf.getRoute("RerA"), sncf.getStation(1), 0);
 		assertTrue(true);
@@ -150,7 +150,7 @@ public class GraphNetworkBuilderRobustesse {
 		bob.addServiceToStation(null, null);
 		bob.addServiceToStation(sncf.getStation(1), null);
 		bob.addServiceToStation(null, sncf.getService(1));
-		assertTrue("Aucune ajout de service n'aurait dû être fait sur la station 1", sncf.getStation(1).getServices().hasNext());
+		assertTrue("Aucune ajout de service n'aurait dû être fait sur la station 1", !sncf.getStation(1).getServices().hasNext());
 
 	}
 }
