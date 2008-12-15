@@ -156,9 +156,41 @@
 				<ENGLISH value="Faster"/>
 			</Faster>
 			<FewerChanges>
-				<FRANCAIS value="Nbre de Changement"/>
+				<FRANCAIS value="Changement"/>
 				<ENGLISH value="Fewer Changes"/>
 			</FewerChanges>
+			<TravelMode>
+				<FRANCAIS value="Moyen de transport"/>
+				<ENGLISH value="Travel mode"/>
+			</TravelMode>
+			<Trolley>
+				<FRANCAIS value="Tramway"/>
+				<ENGLISH value="Trolley"/>
+			</Trolley>
+			<Subway>
+				<FRANCAIS value="Metro"/>
+				<ENGLISH value="Subway"/>
+			</Subway>
+			<Train>
+				<FRANCAIS value="Train"/>
+				<ENGLISH value="Train"/>
+			</Train>
+			<Idle>
+				<FRANCAIS value="Indif"/>
+				<ENGLISH value="Idle"/>
+			</Idle>
+			<Once>
+				<FRANCAIS value="≥1"/>
+				<ENGLISH value="≥1"/>
+			</Once>
+			<Always>
+				<FRANCAIS value="Partout"/>
+				<ENGLISH value="Always"/>
+			</Always>
+			<Services>
+				<FRANCAIS value="Services"/>
+				<ENGLISH value="Services"/>
+			</Services>
 		</fields>
 	</root>
 
