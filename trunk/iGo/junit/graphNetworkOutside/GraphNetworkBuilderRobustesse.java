@@ -103,9 +103,10 @@ public class GraphNetworkBuilderRobustesse {
 
 	/**
 	 * Test de d'innactivité en cas d'ajout de station sur une route avec l'un des deux voir les deux à null
+	 * @throws ImpossibleValueException 
 	 */
 	@Test
-	public void addStationToRoute1() throws ViolationOfUnicityInIdentificationException {
+	public void addStationToRoute1() throws ViolationOfUnicityInIdentificationException, ImpossibleValueException {
 		bob.addStation(1, "t");
 		bob.addRoute("RerA", "rere");
 		bob.addStationToRoute(null, sncf.getStation(1), 3);
