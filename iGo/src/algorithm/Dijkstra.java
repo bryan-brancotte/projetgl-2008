@@ -20,7 +20,14 @@ public class Dijkstra extends Algo {
 	private ArrayList<Service> once;
 	private LinkedList<Junction> path;
 	
-	//TODO fonction de test
+	/**
+	 * Fonction de test n'ayant pas d'interet une fois implémentée
+	 * 
+	 * @param g
+	 * @param o
+	 * @param f
+	 * @return
+	 */
 	public ArrayList<Junction> findPath(GraphAlgo g,Station o, Station f) {
 		graph = g;
 		return algo(graph,o,f);
@@ -46,7 +53,7 @@ public class Dijkstra extends Algo {
 		}
 		steps.add(pathInGraph.getDestination());
 		
-		// Création du chemin 
+		// Création du chemin
 		//TODO penser à enlever une partie des contraintes et pas une par une
 		path = new LinkedList<Junction>();
 		while (path.size()==0 && once.size()!=0) {
@@ -67,7 +74,14 @@ public class Dijkstra extends Algo {
 		return pathInGraph;
 	}
 	
-	// Pseudo code de la fonction de dijkstra
+	/**
+	 * Fonction de dijkstra implémentée
+	 * 
+	 * @param graph
+	 * @param depart
+	 * @param arrivee
+	 * @return
+	 */
 	private ArrayList<Junction> algo (GraphAlgo graph, Station depart, Station arrivee) {
 
 		Iterator<Node> g;
@@ -104,6 +118,12 @@ public class Dijkstra extends Algo {
 		return extractJunctions(arrivee);
 	}
 	
+	/**
+	 * Extrait l'ensemble des junctions d'une liste
+	 * 
+	 * @param arrivee
+	 * @return
+	 */
 	private ArrayList<Junction> extractJunctions (Station arrivee) {
 		ArrayList<Junction> junctions = new ArrayList<Junction>();
 		Node n = graph.getNode(arrivee, arrivee.getRoutes().next());
@@ -114,6 +134,12 @@ public class Dijkstra extends Algo {
 		return junctions;
 	}
 	
+	/**
+	 * Retourne le noeud ayant la plus petite distance au point de départ
+	 * 
+	 * @param list
+	 * @return
+	 */
 	private Node getMinimumNode (ArrayList<Node> list) {
 		Node n = list.get(0);
 		for (int i=1;i<list.size();i++) {
@@ -122,6 +148,12 @@ public class Dijkstra extends Algo {
 		return n;
 	}
 	
+	/**
+	 * Fonction d'évaluation permettant de comparer un nouveau chemin avec l'existant
+	 * 
+	 * @param l le nouveau lien à comparer
+	 * @param n l'ancien noeud
+	 */
 	private void betterWay (Link l,Node n) {
 		//TODO faire les conditions
 		Node newN = l.getNode();
