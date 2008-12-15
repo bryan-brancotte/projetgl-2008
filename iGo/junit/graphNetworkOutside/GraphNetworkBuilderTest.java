@@ -33,7 +33,7 @@ public class GraphNetworkBuilderTest {
 	@Before
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
-		sncf = bob.getInstance();
+		sncf = bob.getActualGraphNetwork ();
 	}
 
 	public static junit.framework.Test suite() {
