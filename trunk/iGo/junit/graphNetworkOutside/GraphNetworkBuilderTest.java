@@ -166,9 +166,9 @@ public class GraphNetworkBuilderTest {
 			cpt++;
 		}
 		assertTrue("Il y a 3 service, ce qui ne semble pas être le cas ici (" + cpt + ")", cpt == 3);
-		assertTrue(sncf.getService(1).getShortDescription().compareTo("Journaux") == 0);
-		assertTrue(sncf.getService(2).getShortDescription().compareTo("Cafe") == 0);
-		assertTrue(sncf.getService(3).getShortDescription().compareTo("Handi") == 0);
+		assertTrue(sncf.getService(1).getName().compareTo("Journaux") == 0);
+		assertTrue(sncf.getService(2).getName().compareTo("Cafe") == 0);
+		assertTrue(sncf.getService(3).getName().compareTo("Handi") == 0);
 	}
 
 	/**
