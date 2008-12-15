@@ -50,9 +50,10 @@ public class GraphNetwork {
 		LinkedList<Junction> jonction = new LinkedList<Junction>();
 		
 		while(it1.hasNext()){
+			Junction temp=it1.next();
 			while(it2.hasNext()){
-				if(it1.next().equals(it2.next())){
-					jonction.add(it1.next());
+				if(temp.equals(it2.next())){
+					jonction.add(temp);
 				}
 			}
 		}
@@ -89,9 +90,9 @@ public class GraphNetwork {
 	public Route getRoute(String i) {//etourne la route dont on connait l'identifiant ou null si elle n'existe pas 
 		Iterator<Route> it=routes.iterator();
 		while(it.hasNext()){
-			Route r1 = (Route)it.next();
-			if(r1.getId()==i){
-				return r1;
+			Route temp=it.next();
+			if(temp.getId()==i){
+				return temp;
 			}
 		}
 		return null;
@@ -104,7 +105,7 @@ public class GraphNetwork {
 	public Service getService(int id) {//retourne le service dont on connait l'identifiant ou null s'il n'existe pas 
 		Iterator<Service> it = services.iterator();
 		while(it.hasNext()){
-			Service s1 = (Service)it.next();
+			Service s1 = it.next();
 			if(s1.getId() == id){
 				return s1;
 			}
@@ -117,10 +118,14 @@ public class GraphNetwork {
 	}
 
 	public Station getStation(int id) {//retourne la station dont on connait l'identifiant, null sinon
-		if(id<stations.size()+1){
-			return stations.get(id);
+		Iterator<Station> it=stations.iterator();
+		while(it.hasNext()){
+			Station temp = it.next();
+			if(temp.getId()==id){
+				return temp;
+			}
 		}
-		else{return null;}
+		return null;
 	}
 
 	public Iterator<Station> getStations() {//retourne les stations existants dans le réseau

@@ -131,9 +131,10 @@ public class PathInGraph {
 		Iterator<Junction> j1 = junctions.iterator();
 		boolean found=false;
 		while(j1.hasNext()){
-			if(j1.next().equals(junction))
+			Junction temp=j1.next();
+			if(temp.equals(junction))
 				found=true;
-			if(found && !j1.next().isEnable())
+			if(found && !temp.isEnable())
 				return false;
 		}
 		return true;
