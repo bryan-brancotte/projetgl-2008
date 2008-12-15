@@ -7,6 +7,12 @@ package graphNetwork;
 public class Service {
 
 	private int id;//@uml.property name="id"
+	private String name;
+	
+	protected String getName() {
+		return name;
+	}
+
 	private String shortDescription = "";//@uml.property name="shortDescription"
 
 	/**
@@ -18,9 +24,16 @@ public class Service {
 	 * 			description du service a creer
 	 * @return void
 	 */
-	protected Service(int id, String shortDescription) {
+	protected Service(int id, String name) {
 		super();
 		this.id = id;
+		this.name = name;
+	}
+	
+	protected Service(int id, String name, String shortDescription) {
+		super();
+		this.id = id;
+		this.name = name;
 		this.shortDescription = shortDescription;
 	}
 
