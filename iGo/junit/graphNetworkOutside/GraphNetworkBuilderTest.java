@@ -129,15 +129,25 @@ public class GraphNetworkBuilderTest {
 	public void initialisationStation() {
 		constructionDUnReseauSansProbleme();
 		Iterator<Station> itSta = sncf.getStations();
-		Station[] stations = new Station[9];
+		Station[] stations = new Station[10];
 		Station station;
-		String[] nom = { "Paris", "Antony", "Croix de berny", "Le Guichet", "Orsay Ville", "Orly", "Choisy", "Juvisy",
-				"Massy Palaiseau", "Paris Austerlitz" };
+		
+		String[] nom = { 
+				"Paris",
+				"Antony", 
+				"Croix de berny", 
+				"Le Guichet", 
+				"Orsay Ville", 
+				"Orly", 
+				"Choisy", 
+				"Juvisy", 
+				"Paris Austerlitz",
+				"Massy Palaiseau" };
 		while (itSta.hasNext()) {
 			station = itSta.next();
 			stations[station.getId() - 1] = station;
 		}
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 10; i++) {
 			assertTrue("Station " + (i + 1) + " absente du réseau", stations[i] != null);
 			assertTrue("Station " + (i + 1) + " n'a pas son vrai nom", stations[i].getName().compareTo(nom[i]) == 0);
 		}
