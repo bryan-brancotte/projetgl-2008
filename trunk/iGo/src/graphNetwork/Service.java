@@ -9,7 +9,7 @@ public class Service {
 	private int id;//@uml.property name="id"
 	private String name;
 	
-	protected String getName() {
+	public String getName() {
 		return name;
 	}
 
