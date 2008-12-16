@@ -53,6 +53,7 @@ public class KindRoute {
 	 * @return un iterateur sur les kindRoute
 	 */
 	public static Iterator<KindRoute> getKinds() {
+        if (kinds==null) kinds = new LinkedList<KindRoute>();
 		return kinds.iterator();
 	}
 	
@@ -82,13 +83,16 @@ public class KindRoute {
 	private KindRoute(String _kindOf) {
 		Iterator<KindRoute> it = kinds.iterator();
 		boolean alreadyExist=false;
+		int cpt =0;
 		while(it.hasNext()){
+			cpt++;
 			if(it.next().getKindOf().equals(_kindOf))
 				alreadyExist=true;
 		}
 		if(!alreadyExist){
 			kindOf = _kindOf;
 			kinds.add(this);
+			System.out.println("nouveau kind   "+kinds.size()+"   "+_kindOf);
 		}
 	}
 
