@@ -32,6 +32,7 @@ public class PathInGraph {
 	}
 
 	protected PathInGraph(GraphNetwork graph) {	//Constructeur specifiant dans quel univers le trajet est cree
+		this();
 		this.univers=graph;
 	}
 
