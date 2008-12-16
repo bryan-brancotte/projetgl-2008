@@ -1,5 +1,6 @@
 package ihm.smartPhone;
 
+import graphNetwork.GraphNetwork;
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
 import graphNetwork.Service;
@@ -37,8 +38,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
-
-import streamInFolder.graphReaderFolder.Network;
 
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
@@ -205,7 +204,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	 * @uml.property name="reseau"
 	 * @uml.associationEnd inverse="iGoIhmSmartPhone:ihm.network.Network"
 	 */
-	private Network reseau;
+	private GraphNetwork reseau;
 
 	/**
 	 * Getter of the property <tt>reseau</tt>
@@ -213,7 +212,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	 * @return Returns the reseau.
 	 * @uml.property name="reseau"
 	 */
-	public Network getReseau() {
+	public GraphNetwork getReseau() {
 		return reseau;
 	}
 
@@ -224,7 +223,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	 *            The reseau to set.
 	 * @uml.property name="reseau"
 	 */
-	public void setReseau(Network reseau) {
+	public void setReseau(GraphNetwork reseau) {
 		this.reseau = reseau;
 	}
 
