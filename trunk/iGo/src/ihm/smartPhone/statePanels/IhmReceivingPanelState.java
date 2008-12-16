@@ -1,7 +1,11 @@
 package ihm.smartPhone.statePanels;
 
+import graphNetwork.KindRoute;
+import graphNetwork.Service;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.tools.SizeAdapteur;
+
+import java.util.Iterator;
 
 public interface IhmReceivingPanelState {
 
@@ -56,4 +60,39 @@ public interface IhmReceivingPanelState {
 	 * @return l'état actuel.
 	 */
 	public IhmReceivingStates getActualState();
+
+	/**
+	 * Retourne pour une clé donnée la valeur du paramètre.
+	 * 
+	 * @param key
+	 *            clé identifiant le paramètre
+	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
+	 */
+	public String getConfig(String key);
+
+	/**
+	 * Retourne pour une clé donnée la valeur du paramètre.
+	 * 
+	 * @param key
+	 *            clé identifiant le paramètre
+	 * @param value
+	 *            la valeur du paramètre
+	 * @return true si le paramètre à bien été enregistré dans la configuration. false si le master refuse la
+	 *         modification de cette clé.
+	 */
+	public boolean setConfig(String key, String value);
+
+	/**
+	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
+	 * 
+	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<Service> getServices();
+
+	/**
+	 * Retourne un iterateur décrivant l'ensemble des types de route présent sur le réseau
+	 * 
+	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<KindRoute> getKindRoutes();
 }

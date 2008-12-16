@@ -27,7 +27,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected static final int maxHeightForScalling = 640;
 
 	// public static final int DEFAULT_HEIGTH = 220;public static final int DEFAULT_WIDTH = 140;/*
-	public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
+	//public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
 	// public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 240;/*
 	public static final int DEFAULT_HEIGTH = 558;public static final int DEFAULT_WIDTH = 406;/*
 	public static final int DEFAULT_HEIGTH = 1200;public static final int DEFAULT_WIDTH = 1600;/**/
@@ -133,6 +133,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		if (val > maxHeightForScalling)
 			val = maxHeightForScalling;
 		this.sizeLargeFont = (int) (val * corectionOfFontSize * 0.032);
+		//TODO refaire les paramètrage de font
 		if (this.sizeLargeFont < 13)
 			this.sizeLargeFont = 13;
 		this.sizeIntermediateFont = (int) (val * corectionOfFontSize * 0.0195);// 195);

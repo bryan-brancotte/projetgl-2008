@@ -1,6 +1,8 @@
 package ihm.smartPhone;
 
+import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.Service;
 import iGoMaster.IHM;
 import iGoMaster.Master;
 import ihm.classesExemples.TravelForTravelPanelExemple;
@@ -31,6 +33,7 @@ import java.awt.Frame;
 import java.awt.Panel;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -90,7 +93,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.setExtendedState(Frame.MAXIMIZED_BOTH);
 			this.setUndecorated(true);
 		}
-		String tmp = this.master.config("GRAPHIC_OR_ARRAY_MODE");
+		String tmp = this.master.getConfig("GRAPHIC_OR_ARRAY_MODE");
 		if ((tmp == null) || (tmp.compareTo(IhmReceivingStates.GRAPHIC_MODE.toString()) == 0))
 			this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
 		else
@@ -577,5 +580,25 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return;
 		this.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+	}
+
+	@Override
+	public String getConfig(String key) {
+		return master.getConfig(key);
+	}
+
+	@Override
+	public Iterator<KindRoute> getKindRoutes() {
+		return master.getKindRoutes();
+	}
+
+	@Override
+	public Iterator<Service> getServices() {
+		return master.getServices();
+	}
+
+	@Override
+	public boolean setConfig(String key, String value) {
+		return master.setConfig(key, value);
 	}
 }
