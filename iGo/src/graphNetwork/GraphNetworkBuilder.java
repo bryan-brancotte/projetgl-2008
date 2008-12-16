@@ -44,7 +44,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		boolean trouve = false;
 
 		while (it.hasNext()) {
-			if (it.next().getId() == id)
+			if (it.next().getId().compareTo(id)==0)
 				trouve = true;
 		}
 

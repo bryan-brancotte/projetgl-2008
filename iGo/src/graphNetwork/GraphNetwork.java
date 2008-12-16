@@ -124,7 +124,7 @@ public class GraphNetwork {
 		LinkedList<Junction> jonction = new LinkedList<Junction>();
 		while (it1.hasNext()) {
 			temp = it1.next();
-			if (temp.getOtherStation(stationA) == stationB)
+			if (temp.getOtherStation(stationA).equals(stationB))
 				jonction.add(temp);
 		}
 		return jonction.iterator();
@@ -166,7 +166,7 @@ public class GraphNetwork {
 		Iterator<Route> it = routes.iterator();
 		while (it.hasNext()) {
 			Route temp = it.next();
-			if (temp.getId() == i) {
+			if (temp.getId().compareTo(i) == 0) {
 				return temp;
 			}
 		}
