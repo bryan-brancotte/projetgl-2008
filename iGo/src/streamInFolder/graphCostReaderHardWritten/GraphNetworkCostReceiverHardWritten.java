@@ -13,7 +13,14 @@ public class GraphNetworkCostReceiverHardWritten implements GraphNetworkCostRece
 	public float getCost(KindRoute to) {
 		if (KindRoute.getKindFromString("Train") == to)
 			return 5F;
-		// TODO Auto-generated method stub
+		else if (KindRoute.getKindFromString("Regional Rail") == to)
+			return 5F;
+		else if (KindRoute.getKindFromString("Metro") == to)
+			return 2F;
+		else if (KindRoute.getKindFromString("Trolley") == to)
+			return 2F;
+		else if (KindRoute.getKindFromString("High Speed Rail") == to)
+			return 5F;
 		return 0;
 	}
 
