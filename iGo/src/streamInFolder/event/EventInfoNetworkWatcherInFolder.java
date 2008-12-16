@@ -290,7 +290,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 						System.out.println("Event : " + ev.getMessage());
 					}
 					GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-					test.applyInfo(gnb.getInstance());
+					test.applyInfo(gnb.getActualGraphNetwork());
 				}
 
 				test.stopWatching();
