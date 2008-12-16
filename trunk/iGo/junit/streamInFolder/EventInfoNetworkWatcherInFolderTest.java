@@ -21,18 +21,19 @@ public class EventInfoNetworkWatcherInFolderTest {
 	}
 
 	@Before
-	public void prologueDateTest() {
+	public void prologueDateTest() throws ImpossibleStartingException{
 		watcher = new EventInfoNetworkWatcherInFolder("PATH");
+		watcher.startWatching();
 	}
 
 	/**
 	 * Test de démarrage effectif du watcher
 	 * 
-	 * @throws ImpossibleStartingException si le démarage ne marche pas
+	 * @throws ImpossibleStartingException
+	 *             si le démarage ne marche pas
 	 */
 	@Test
-	public void demarrageDuWatcher() throws ImpossibleStartingException {
-		watcher.startWatching();
+	public void demarrageDuWatcher() {
 		assertTrue(watcher.getStatus() == EventInfoNetWorkWatcherStatus.STARTED);
 	}
 
@@ -42,7 +43,8 @@ public class EventInfoNetworkWatcherInFolderTest {
 	@Test
 	public void arretDuWatcher() {
 		watcher.stopWatching();
-		assertTrue(watcher.getStatus() == EventInfoNetWorkWatcherStatus.STOPPED);
+		assertTrue((watcher.getStatus() == EventInfoNetWorkWatcherStatus.STOPPED)
+				|| (watcher.getStatus() == EventInfoNetWorkWatcherStatus.NEW_UPDATE_STOPPED));
 	}
 
 	public static junit.framework.Test suite() {
