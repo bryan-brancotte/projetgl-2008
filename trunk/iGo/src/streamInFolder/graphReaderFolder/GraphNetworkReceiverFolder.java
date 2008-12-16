@@ -1,7 +1,7 @@
 package streamInFolder.graphReaderFolder;
 
 import graphNetwork.GraphNetworkBuilder;
-import graphNetwork.Service;
+import graphNetwork.Station;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.AvailableNetwork;
 import iGoMaster.GraphNetworkCostReceiver;
@@ -90,15 +90,55 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 								if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
 									if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
 										id = Integer.parseInt(nodeChilds.item(j).getTextContent());
-										System.out.println("Service id " + id);
 									}
 									else if (nodeChilds.item(j).getLocalName().compareTo("ShortDescription") == 0) {
 										description = nodeChilds.item(j).getTextContent();
-										System.out.println("Service description " + description);
 									}
 								}
 							}
-							gnb.addService(id, description);
+							gnb.addService(id, "", description);
+
+						}
+					}
+				}
+
+				NodeList stationsList = doc.getElementsByTagName("Station");
+				if (stationsList.getLength() > 0) {
+					for (int i = 0; i < stationsList.getLength(); i++) {
+						NodeList nodeChilds = stationsList.item(i).getChildNodes();
+						if (nodeChilds != null) {
+							int id = 0, idS = 0;
+							String name = "";
+							Vector<Integer> idServicesStation = new Vector<Integer>();
+
+							for (int j = 0; j < nodeChilds.getLength(); j++) {
+								if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
+									System.out.println("STATION : " + nodeChilds.item(j).getLocalName());
+									if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
+										id = Integer.parseInt(nodeChilds.item(j).getTextContent());
+									}
+									else if (nodeChilds.item(j).getLocalName().compareTo("Name") == 0) {
+										name = nodeChilds.item(j).getTextContent();
+									}
+									else if (nodeChilds.item(j).getLocalName().compareTo("StationServicesList") == 0) {
+										NodeList stationServicesList = nodeChilds.item(j).getChildNodes();
+										if (stationServicesList != null) {
+											for (int k = 0; k < stationServicesList.getLength(); k++) {
+												if (stationServicesList.item(k).getNodeName().compareTo("#text") != 0) {
+													if (stationServicesList.item(k).getLocalName().compareTo("ID") == 0) {
+														idS = Integer.parseInt(stationServicesList.item(k).getTextContent());
+														idServicesStation.add(idS);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+							 Station s = gnb.addStation(id, name);
+							 for (int l=0; l < idServicesStation.size(); l++) {
+//								gnb.addServiceToStation(s, gnb.getActualGraphNetwork().getService(idServicesStation.get(l)));
+							 }
 
 						}
 					}
