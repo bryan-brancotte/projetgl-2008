@@ -48,7 +48,7 @@ public class PTCheckBox extends PTComponent {
 			g.drawRect(area.x + (font.getSize() >> 2), area.y + (font.getSize() >> 2), font.getSize() - 2
 					* (font.getSize() >> 2), font.getSize() - 2 * (font.getSize() >> 2));
 		}
-		g.drawString(text, area.x + (font.getSize() >> 2) + font.getSize(), area.y + father.getHeigthString(text, g));
+		g.drawString(text, area.x + (font.getSize() >> 1) + font.getSize(), area.y + father.getHeigthString(text, g));
 
 	}
 
@@ -63,7 +63,6 @@ public class PTCheckBox extends PTComponent {
 		else
 			area.setBounds(x, y, father.getWidthString(text, g, font) + (font.getSize() << 1), father.getHeigthString(
 					text, g, font));
-		return null;
+		return area;
 	}
-
 }

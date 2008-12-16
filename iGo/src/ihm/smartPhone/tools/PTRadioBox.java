@@ -47,7 +47,7 @@ public class PTRadioBox extends PTComponent {
 			g.drawOval(area.x + (font.getSize() >> 2), area.y + (font.getSize() >> 2), font.getSize() - 2
 					* (font.getSize() >> 2), font.getSize() - 2 * (font.getSize() >> 2));
 		}
-		g.drawString(text, area.x + (font.getSize() >> 2) + font.getSize(), area.y + father.getHeigthString(text, g));
+		g.drawString(text, area.x + (font.getSize() >> 1) + font.getSize(), area.y + father.getHeigthString(text, g));
 
 	}
 

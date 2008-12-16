@@ -8,8 +8,8 @@ import java.awt.Rectangle;
 public abstract class PTComponent {
 
 	protected Rectangle area;
-	
-	protected String text="Nothing";
+
+	protected String text = "Nothing";
 
 	protected PanelTooled father;
 
@@ -51,6 +51,37 @@ public abstract class PTComponent {
 	 * @return sa zone, mise à jour.
 	 */
 	public abstract Rectangle prepareArea(Graphics g, int x, int y, String text, Font font);
+
+	/**
+	 * Execute succesivement prepareArea et draw.
+	 * 
+	 * @param g
+	 *            le graphic om l'on dessine
+	 * @param x
+	 *            l'abscisse
+	 * @param y
+	 *            l'ordonnée
+	 * @param text
+	 *            le texte du bouton
+	 * @param font
+	 *            la police utilisé
+	 * @param horizontalCentered
+	 *            true pour centré horizontalement l'objet sur la coordonnée x
+	 * @param verticalCentered
+	 *            true pour centré verticalement l'objet sur la coordonnée y
+	 * @return sa zone, mise à jour.
+	 */
+	public Rectangle prepareArea(Graphics g, int x, int y, String text, Font font, boolean horizontalCentered,
+			boolean verticalCentered) {
+		if (!enable)
+			return null;
+		prepareArea(g, x, y, text, font);
+		if (!verticalCentered && !horizontalCentered)
+			return area;
+		area.x -= (area.width >> 1);
+		area.y -= (area.height >> 1);
+		return area;
+	}
 
 	/**
 	 * Execute succesivement prepareArea et draw.

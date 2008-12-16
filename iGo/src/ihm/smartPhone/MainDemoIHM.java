@@ -91,7 +91,7 @@ public class MainDemoIHM {
 				GraphNetworkBuilder gnb = new GraphNetworkBuilder();
 				try {
 					gnb.addService(1, "Wheelchair accessible");
-					gnb.addService(2, "Coffe");
+					gnb.addService(2, "Coffee");
 					gnb.addService(3, "Flower");
 					gnb.addService(4, "Parking");
 				} catch (ViolationOfUnicityInIdentificationException e) {
