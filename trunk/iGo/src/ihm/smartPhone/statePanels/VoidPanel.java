@@ -29,6 +29,7 @@ public class VoidPanel extends PanelState {
 	private static final long serialVersionUID = 1L;
 
 	public void paint(Graphics g) {
+		graphicsTunning(buffer);
 		Image img = ImageLoader.getRessourcesImageIcone("time", getWidth()>>3, getWidth()>>3).getImage();
 		g.drawImage(img, this.getWidth() - img.getWidth(null) >> 1, this.getHeight() - img.getHeight(null) >> 1, null);
 	}

@@ -5,6 +5,7 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.statePanels.component.TravelPanel;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.VerticalFlowLayout;
 
 import java.awt.BorderLayout;
@@ -58,6 +59,10 @@ public class LoadTravelPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
+			graphicsTunning(this.buffer);
+			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		}
 		// g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
 	}
 
@@ -65,7 +70,7 @@ public class LoadTravelPanel extends PanelState {
 		if (paths == null)
 			return;
 		inside.removeAll();
-		if (this.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
+		if (PanelDoubleBufferingSoftwear.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
 			for (TravelForTravelPanel t : paths)
 				inside.add(new TravelPanel(t, father,true));
 		} else {

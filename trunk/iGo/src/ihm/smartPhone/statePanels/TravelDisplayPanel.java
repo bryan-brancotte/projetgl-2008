@@ -8,6 +8,7 @@ import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.AbsolutLayout;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -109,14 +110,18 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			imageWarning = null;
+		}
 		if (imageWarning.getHeight(null) != sizeLargeFont)
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 		g.drawImage(imageWarning, 0, getHeight() - imageWarning.getHeight(null), null);
 		iconeWarningArea.setBounds(0, getHeight() - imageWarning.getHeight(null), imageWarning.getHeight(null),
 				imageWarning.getWidth(null));
 		g.setFont(father.getSizeAdapteur().getSmallFont());
-		int w = me.getWidthString(getMessageChangeState(), g, g.getFont());
-		int h = me.getHeigthString(getMessageChangeState(), g, g.getFont());
+		int w = PanelDoubleBufferingSoftwear.getWidthString(getMessageChangeState(), g, g.getFont());
+		int h = PanelDoubleBufferingSoftwear.getHeightString(getMessageChangeState(), g, g.getFont());
 		g.setColor(father.getSkin().getColorSubAreaInside());
 		changeStateArea.setBounds(getWidth() - (int) (w * 1.25) - 2, getHeight() - (int) (h * 1.25) - 2,
 				(int) (w * 1.25), (int) (h * 1.25));
@@ -309,8 +314,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
 			scrollPane.setVisible(true);
-//			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
-//					(int) (getHeight() * 0.35));
+			// scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
+			// (int) (getHeight() * 0.35));
 
 			// textMessageArea.setColumns(10);//
 			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
@@ -320,7 +325,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// scrollPane.repaint();
 			// textMessageArea.validate();
 			// textMessageArea.getParent().validate();
-			//scrollPane.validate();
+			// scrollPane.validate();
 			// scrollPane.repaint();
 			// textMessageArea.getParent().repaint();
 			// textMessageArea.repaint();
@@ -357,7 +362,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
 			g.setFont(father.getSizeAdapteur().getLargeFont());
 			g.drawString(title, getWidth() - getWidthString(title, g) >> 1,
-					(int) (getHeight() * 0.275 + (getHeigthString(title, g) >> 1)));
+					(int) (getHeight() * 0.275 + (getHeightString(title, g) >> 1)));
 			scrollPane.repaint();
 		}
 

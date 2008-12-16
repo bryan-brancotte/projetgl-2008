@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 
 public class PTRadioBox extends PTComponent {
 
-	protected static Color colorRound = new Color(141, 207, 80);
-
 	protected boolean clicked = false;
 
 	/**
@@ -39,15 +37,15 @@ public class PTRadioBox extends PTComponent {
 		g.setFont(font);
 		g.setColor(colorLetter);
 		g.drawOval(area.x, area.y, font.getSize(), font.getSize());
+		int delta = font.getSize() >> 2;
 		if (clicked) {
 			g.setColor(colorRound);
-			g.fillOval(area.x + (font.getSize() >> 2), area.y + (font.getSize() >> 2), font.getSize() - 2
-					* (font.getSize() >> 2) + 1, font.getSize() - 2 * (font.getSize() >> 2) + 1);
+			g.fillOval(area.x + delta, area.y + delta, font.getSize() - (delta<<1) + 1, font.getSize() - (delta<<1) + 1);
 			g.setColor(colorLetter);
-			g.drawOval(area.x + (font.getSize() >> 2), area.y + (font.getSize() >> 2), font.getSize() - 2
-					* (font.getSize() >> 2), font.getSize() - 2 * (font.getSize() >> 2));
+			g.drawOval(area.x + delta, area.y + delta, font.getSize() - (delta << 1), font.getSize() - (delta << 1));
 		}
-		g.drawString(text, area.x + (font.getSize() >> 1) + font.getSize(), area.y + father.getHeigthString(text, g));
+		g.drawString(text, area.x + (font.getSize() >> 1) + font.getSize(), area.y
+				+ PanelDoubleBufferingSoftwear.getHeightString(text, g));
 
 	}
 
@@ -60,8 +58,8 @@ public class PTRadioBox extends PTComponent {
 		if (text.length() == 0)
 			area.setBounds(x, y, font.getSize(), font.getSize());
 		else
-			area.setBounds(x, y, father.getWidthString(text, g, font) + (font.getSize() << 1), father.getHeigthString(
-					text, g, font));
+			area.setBounds(x, y, PanelDoubleBufferingSoftwear.getWidthString(text, g, font) + (font.getSize() << 1),
+					PanelDoubleBufferingSoftwear.getHeightString(text, g, font));
 		return area;
 	}
 

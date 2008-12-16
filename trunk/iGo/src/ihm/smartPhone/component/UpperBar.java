@@ -4,6 +4,7 @@ import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Color;
@@ -83,6 +84,10 @@ public class UpperBar extends AbstractBar {
 
 	@Override
 	public void paint(Graphics g) {
+		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
+			graphicsTunning(this.buffer);
+			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		}
 		int outsideR = ihm.getSkin().getColorOutside().getRed();
 		int outsideG = ihm.getSkin().getColorOutside().getGreen();
 		int outsideB = ihm.getSkin().getColorOutside().getBlue();
@@ -138,10 +143,10 @@ public class UpperBar extends AbstractBar {
 
 		if ((mainTitleSize == fontKindSize) && (mainTitle != ""))
 			g.drawString(mainTitle, this.getWidth() - getWidthString(mainTitle, g, font) >> 1, this.getHeight()
-					+ getHeigthString(mainTitle, g, font) >> 1);
+					+ getHeightString(mainTitle, g, font) >> 1);
 
 		if ((upperTitleSize == fontKindSize) && (upperTitle != ""))
-			g.drawString(upperTitle, this.getWidth() - getWidthString(upperTitle, g, font) >> 1, getHeigthString(
+			g.drawString(upperTitle, this.getWidth() - getWidthString(upperTitle, g, font) >> 1, getHeightString(
 					upperTitle, g, font));
 
 		if ((leftSubTitleSize == fontKindSize) && (leftSubTitle != ""))
@@ -152,7 +157,7 @@ public class UpperBar extends AbstractBar {
 
 		if ((leftCmdSize == fontKindSize) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
-			hs = getHeigthString(leftCmd, g, font);
+			hs = getHeightString(leftCmd, g, font);
 			hs23 = (int) (hs * 0.667);
 			ws11 = (int) (getWidthString(leftCmd, g, font) * 1.1);
 			xs = new int[] { hs23 + 1, hs + ws11, hs + ws11, hs23 + 1, 1 };
@@ -170,7 +175,7 @@ public class UpperBar extends AbstractBar {
 
 		if ((rigthCmdSize == fontKindSize) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
-			hs = getHeigthString(rigthCmd, g, font);
+			hs = getHeightString(rigthCmd, g, font);
 			hs23 = (int) (hs * 0.667);
 			ws = getWidthString(rigthCmd, g, font);
 			ws11 = (int) (ws * 1.1);

@@ -4,6 +4,7 @@ import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Color;
@@ -96,6 +97,10 @@ public class LowerBar extends AbstractBar {
 
 	@Override
 	public void paint(Graphics g) {
+		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
+			graphicsTunning(this.buffer);
+			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		}
 		int insideR = ihm.getSkin().getColorInside().getRed();
 		int insideG = ihm.getSkin().getColorInside().getGreen();
 		int insideB = ihm.getSkin().getColorInside().getBlue();
@@ -152,28 +157,28 @@ public class LowerBar extends AbstractBar {
 
 		if ((mainTitleSize == fontKindSize) && (mainTitle != ""))
 			g.drawString(mainTitle, this.getWidth() - getWidthString(mainTitle, g, font) >> 1, this.getHeight()
-					+ getHeigthString(mainTitle, g, font) >> 1);
+					+ getHeightString(mainTitle, g, font) >> 1);
 
 		if ((leftTitleSize == fontKindSize) && (leftTitle != ""))
-			g.drawString(leftTitle, 0, getHeigthString(leftTitle, g, font));
+			g.drawString(leftTitle, 0, getHeightString(leftTitle, g, font));
 
 		if ((leftValueSize == fontKindSize) && (leftValue != ""))
 			g.drawString(leftValue, (this.getWidth() >> 2) - (getWidthString(leftValue, g, font) >> 1), this
 					.getHeight()
-					+ getHeigthString(leftValue, g, font) >> 1);
+					+ getHeightString(leftValue, g, font) >> 1);
 
 		if ((rigthTitleSize == fontKindSize) && (rigthTitle != ""))
-			g.drawString(rigthTitle, this.getWidth() - getWidthString(rigthTitle, g, font), getHeigthString(rigthTitle,
+			g.drawString(rigthTitle, this.getWidth() - getWidthString(rigthTitle, g, font), getHeightString(rigthTitle,
 					g, font));
 
 		if ((rigthValueSize == fontKindSize) && (rigthValue != ""))
 			g.drawString(rigthValue, 3 * (this.getWidth() >> 2) - (getWidthString(rigthValue, g, font) >> 1), this
 					.getHeight()
-					+ getHeigthString(rigthValue, g, font) >> 1);
+					+ getHeightString(rigthValue, g, font) >> 1);
 
 		if ((leftCmdSize == fontKindSize) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
-			hs = getHeigthString(leftCmd, g, font);
+			hs = getHeightString(leftCmd, g, font);
 			hs23 = (int) (hs * 0.667);
 			ws11 = (int) (getWidthString(leftCmd, g, font) * 1.1);
 			xs = new int[] { hs23 + 1, hs + ws11, hs + ws11, hs23 + 1, 1 };
@@ -191,7 +196,7 @@ public class LowerBar extends AbstractBar {
 
 		if ((rigthCmdSize == fontKindSize) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
-			hs = getHeigthString(rigthCmd, g, font);
+			hs = getHeightString(rigthCmd, g, font);
 			hs23 = (int) (hs * 0.667);
 			ws = getWidthString(rigthCmd, g, font);
 			ws11 = (int) (ws * 1.1);

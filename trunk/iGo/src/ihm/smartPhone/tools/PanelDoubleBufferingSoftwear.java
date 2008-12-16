@@ -1,32 +1,59 @@
 package ihm.smartPhone.tools;
 
 import iGoMaster.IHMGraphicQuality;
+import ihm.smartPhone.IGoIhmSmartPhone;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.RenderingHints;
 
 public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
+	/**
+	 * La qualité du dessin
+	 */
+	private static IHMGraphicQuality quality = IGoIhmSmartPhone.defaultQualityForIhm;
+
 	protected Graphics buffer = null;
+
+	protected IHMGraphicQuality currentQuality = quality;
 
 	protected Image image = null;
 
 	protected Panel me = this;
-	
+
 	/**
-	 * La qualité du dessin
+	 * Accesseur static de la qualité des instance de pannel double bufferisé
+	 * 
+	 * @return
 	 */
-	private IHMGraphicQuality quality = IHMGraphicQuality.HIGHER_QUALITY;/*
-	private IHMGraphicQuality quality = IHMGraphicQuality.AS_FAST_AS_WE_CAN;/**/
-	
-	public IHMGraphicQuality getQuality() {
-		return quality;
+	public static IHMGraphicQuality getQuality() {
+		return PanelDoubleBufferingSoftwear.quality;
 	}
 
+	/**
+	 * Mutateur permetant de redéfinit la qualité graphic des panels, et forcé le redessinement du panel courant.
+	 * 
+	 * @return
+	 */
 	public void setQuality(IHMGraphicQuality quality) {
-		this.quality = quality;
+		if (PanelDoubleBufferingSoftwear.quality == quality)
+			return;
+		PanelDoubleBufferingSoftwear.staticSetQuality(quality);
+		this.buffer = null;
+	}
+
+	/**
+	 * Mutateur permetant de redéfinit la qualité graphic des panels.
+	 * 
+	 * @return
+	 */
+	public static void staticSetQuality(IHMGraphicQuality quality) {
+		ImageLoader.setFastLoadingOfImages(quality == IHMGraphicQuality.AS_FAST_AS_WE_CAN);
+		PanelDoubleBufferingSoftwear.quality = quality;
 	}
 
 	/**
@@ -57,9 +84,9 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 *            la police utilisé
 	 * @return la hauteur dessiné de la chaine
 	 */
-	protected int getHeigthString(String s, Graphics g, Font f) {
-	    //return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
-		return (int)(f.getSize()*0.85);/**/
+	protected static int getHeightString(String s, Graphics g, Font f) {
+		// return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
+		return (int) (f.getSize() * 0.85);/**/
 	}
 
 	/**
@@ -71,8 +98,8 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 *            le Graphics où elle sera dessiné
 	 * @return la hauteur dessiné de la chaine
 	 */
-	protected int getHeigthString(String s, Graphics g) {
-	    //return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
+	protected static int getHeightString(String s, Graphics g) {
+		// return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
 		return g.getFont().getSize();/**/
 	}
 
@@ -87,10 +114,10 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 *            la police utilisé
 	 * @return la longueur dessiné de la chaine
 	 */
-	protected int getWidthString(String s, Graphics g, Font f) {
-		//return (int) (s.length() * f.getSize() * 0.45);/*
-	    return (int) g.getFontMetrics(f).getStringBounds(s, g).getWidth(); // size of string/**/
-	 
+	protected static int getWidthString(String s, Graphics g, Font f) {
+		// return (int) (s.length() * f.getSize() * 0.45);/*
+		return (int) g.getFontMetrics(f).getStringBounds(s, g).getWidth(); // size of string/**/
+
 	}
 
 	/**
@@ -102,13 +129,20 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 *            le Graphics où elle sera dessiné
 	 * @return la longueur dessiné de la chaine
 	 */
-	protected int getWidthString(String s, Graphics g) {
-		//return (int) (s.length() * f.getSize() * 0.45);/*
-	    return (int) g.getFontMetrics(g.getFont()).getStringBounds(s, g).getWidth(); // size of string/**/
-	 
+	protected static int getWidthString(String s, Graphics g) {
+		// return (int) (s.length() * f.getSize() * 0.45);
+		return (int) g.getFontMetrics(g.getFont()).getStringBounds(s, g).getWidth();
+
 	}
 
-	protected String decomposeMinutesIntoHourMinutes(int minutes, String sHour, String sMinutes) {
+	/**
+	 * 
+	 * @param minutes
+	 * @param sHour
+	 * @param sMinutes
+	 * @return
+	 */
+	protected static String decomposeMinutesIntoHourMinutes(int minutes, String sHour, String sMinutes) {
 		int i = (int) (minutes * 0.01667);
 		if (i > 0)
 			return i + " " + sHour + (minutes - i * 60) + " " + sMinutes;
@@ -123,5 +157,40 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 */
 	public Image getImage() {
 		return image;
+	}
+
+	public static void graphicsTunning(Graphics buffer) {
+		if (buffer==null)
+			return;
+			graphicsTunning((Graphics2D)buffer);
+	}
+
+	public static void graphicsTunning(Graphics2D buffer) {
+		if (buffer==null)
+			return;
+		if (PanelDoubleBufferingSoftwear.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
+			buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			if (PanelDoubleBufferingSoftwear.getQuality().getValue() >= IHMGraphicQuality.FULL_ANTI_ANTIALIASING
+					.getValue()) {
+				buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				if (PanelDoubleBufferingSoftwear.getQuality().getValue() >= IHMGraphicQuality.HIGHER_QUALITY.getValue()) {
+					buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+					buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+							RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+					buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+							RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+					buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+				}
+			}
+		} else {
+			/** Désactivation de l'anti-aliasing */
+			buffer.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+			buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+			/** Demande de rendu rapide */
+			buffer.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+			buffer.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+			buffer.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+			buffer.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
+		}
 	}
 }

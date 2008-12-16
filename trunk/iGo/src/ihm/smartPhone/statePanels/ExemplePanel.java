@@ -2,6 +2,7 @@ package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Graphics;
@@ -18,6 +19,10 @@ public class ExemplePanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
+			graphicsTunning(this.buffer);
+			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		}
 		(g).drawString(this.getClass().getName(), 0, this.getHeight());
 	}
 

@@ -221,12 +221,12 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 		buffer.setFont(fontSmall);
 		buffer.drawString(father.lg("From") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
-		i = this.getWidthString(father.lg("From") + " : ", g, fontSmall) + x;
+		i = PanelDoubleBufferingSoftwear.getWidthString(father.lg("From") + " : ", g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
 		buffer.drawString(father.lg("To") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
-		i = this.getWidthString(father.lg("To") + " : ", g, fontSmall) + x;
+		i = PanelDoubleBufferingSoftwear.getWidthString(father.lg("To") + " : ", g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
 
@@ -247,9 +247,9 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 				.lg("LetterForMinute"));
 
 		x = /* editArea.x/ */getWidth()/**/- father.getSizeAdapteur().getSizeSmallFont();
-		nextX = x - this.getWidthString(tmp1, g, fontSmall);
+		nextX = x - PanelDoubleBufferingSoftwear.getWidthString(tmp1, g, fontSmall);
 
-		i = x - this.getWidthString(tmp2, g, fontSmall);
+		i = x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, g, fontSmall);
 		if (i < nextX)
 			x = i;
 		else

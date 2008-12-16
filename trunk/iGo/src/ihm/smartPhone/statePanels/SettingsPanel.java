@@ -13,30 +13,17 @@ import ihm.smartPhone.tools.PTCheckBox;
 import ihm.smartPhone.tools.PTCollapsableArea;
 import ihm.smartPhone.tools.PTRadioBox;
 import ihm.smartPhone.tools.PTRadioBoxGroup;
+import ihm.smartPhone.tools.PTScrollBar;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.tools.PanelTooled;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public class SettingsPanel extends PanelState {
 
@@ -67,6 +54,8 @@ public class SettingsPanel extends PanelState {
 	@Deprecated
 	protected Document settings = null;
 
+	protected int deroullement;
+
 	protected final int travelModeCheckBox = 1;
 	protected LinkedList<PairPTCheckBox> travelModeCheckBoxs;
 	protected PTCollapsableArea travelModeCollapsableArea;
@@ -79,20 +68,15 @@ public class SettingsPanel extends PanelState {
 	protected LinkedList<PairPTRadioBox> ServicesRadioBoxs;
 	protected PTCollapsableArea servicesCollapsableArea;
 
-	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar, Document settings) {
+	protected final int qualityRadioBox = 4;
+	protected PTRadioBox[] qualityRadioBoxs;
+	protected PTCollapsableArea qualityRadioBoxCollapsableArea;
+
+	protected PTScrollBar scrollBar;
+
+	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
-		try {
-			if (settings == null)
-				this.settings = buildExempleSettingXML();
-			else
-				this.settings = settings;
-		} catch (ParserConfigurationException e) {
-			return;
-		}
-		/*
-		 * this.setLayout(new BorderLayout()); insidePanel = new Panel(new VerticalFlowLayout()); ScrollPane scrollPane =
-		 * new ScrollPane(); scrollPane.add(insidePanel); this.add(scrollPane);
-		 */
+		deroullement = 0;
 		buildInterfaceFromDomDocument();
 	}
 
@@ -109,7 +93,7 @@ public class SettingsPanel extends PanelState {
 		ex = new CodeExecutor() {
 			@Override
 			public void execute() {
-				recordChangedSetting(travelCriteriaRadioBox, SettingsKey.TRAVEL_CRITERIA.getValue());
+				recordChangedSetting(travelCriteriaRadioBox, SettingsKey.TRAVEL_CRITERIA.toString());
 			}
 		};
 		travelCriteriaRadioBoxs = new PTRadioBox[3];
@@ -137,7 +121,7 @@ public class SettingsPanel extends PanelState {
 					recordChangedSetting(travelModeCheckBox, this.origine);
 				}
 			});
-			chk.setClicked(father.getConfig(SettingsKey.TRAVEL_MODE + s).compareTo("1") == 0);
+			chk.setClicked(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo("1") == 0);
 			travelModeCollapsableArea.addComponent(chk);
 			travelModeCheckBoxs.add(new PairPTCheckBox(chk, s));
 		}
@@ -163,7 +147,7 @@ public class SettingsPanel extends PanelState {
 				rbs[i] = makeRadioButton(grp, ex);
 				servicesCollapsableArea.addComponent(rbs[i]);
 			}
-			valS = father.getConfig(SettingsKey.SERVICES + s);
+			valS = father.getConfig(SettingsKey.SERVICES_ + s);
 			if (valS.compareTo("1") == 0)
 				rbs[1].setClicked(true);
 			else if (valS.compareTo("2") == 0)
@@ -172,6 +156,45 @@ public class SettingsPanel extends PanelState {
 				rbs[0].setClicked(true);
 			ServicesRadioBoxs.add(new PairPTRadioBox(rbs, s));
 		}
+
+		/***************************************************************************************************************
+		 * Quality
+		 */
+		qualityRadioBoxCollapsableArea = makeCollapsableArea();
+		qualityRadioBoxCollapsableArea.changeCollapseState();
+		grp = new PTRadioBoxGroup(4);
+		ex = new CodeExecutor1P<PanelTooled>(this) {
+			@Override
+			public void execute() {
+				recordChangedSetting(qualityRadioBox, "GRAPHICAL_QUALITY");
+				// this.origine.;
+			}
+		};
+		qualityRadioBoxs = new PTRadioBox[4];
+		qualityRadioBoxs[0] = makeRadioButton(grp, ex);// AS_FAST_AS_WE_CAN
+		qualityRadioBoxs[1] = makeRadioButton(grp, ex);// TEXT_ANTI_ANTIALIASING
+		qualityRadioBoxs[2] = makeRadioButton(grp, ex);// FULL_ANTI_ANTIALIASING
+		qualityRadioBoxs[3] = makeRadioButton(grp, ex);// HIGHER_QUALITY
+		int i = IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue();
+		try {
+			i = Integer.parseInt(father.getConfig("GRAPHICAL_QUALITY"));
+		} catch (NumberFormatException e) {
+			father.setConfig("GRAPHICAL_QUALITY", i + "");
+			this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
+		}
+		qualityRadioBoxs[0].setClicked(IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() == i);
+		qualityRadioBoxs[1].setClicked(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() == i);
+		qualityRadioBoxs[2].setClicked(IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() == i);
+		qualityRadioBoxs[3].setClicked(IHMGraphicQuality.HIGHER_QUALITY.getValue() == i);
+		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[0]);
+		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[1]);
+		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[2]);
+		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[3]);
+
+		/***************************************************************************************************************
+		 * ScrollBar
+		 */
+		scrollBar = makeScrollBar();
 	}
 
 	protected void recordChangedSetting(int familly, String s) {
@@ -180,9 +203,9 @@ public class SettingsPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
 					if (p.chk.isClicked())
-						father.setConfig(SettingsKey.TRAVEL_MODE + s, SettingsValue.ENABLE.getStringValue());
+						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.ENABLE.getStringValue());
 					else
-						father.setConfig(SettingsKey.TRAVEL_MODE + s, SettingsValue.DISABLE.getStringValue());
+						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.getStringValue());
 					return;
 				}
 			break;
@@ -204,111 +227,64 @@ public class SettingsPanel extends PanelState {
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
 					if (p.rbs[0].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES + s, SettingsValue.Idle.getStringValue());
+						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Idle.getStringValue());
 						return;
 					}
 					if (p.rbs[1].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES + s, SettingsValue.Once.getStringValue());
+						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Once.getStringValue());
 						return;
 					}
 					if (p.rbs[2].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES + s, SettingsValue.Always.getStringValue());
+						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Always.getStringValue());
 						return;
 					}
 				}
 			}
+		case qualityRadioBox:
+			if (qualityRadioBoxs[0].isClicked()) {
+				father.setConfig(s, IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() + "");
+				this.setQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
+				return;
+			}
+			if (qualityRadioBoxs[1].isClicked()) {
+				father.setConfig(s, IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() + "");
+				this.setQuality(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING);
+				return;
+			}
+			if (qualityRadioBoxs[2].isClicked()) {
+				father.setConfig(s, IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() + "");
+				this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
+				return;
+			}
+			if (qualityRadioBoxs[3].isClicked()) {
+				father.setConfig(s, IHMGraphicQuality.HIGHER_QUALITY.getValue() + "");
+				this.setQuality(IHMGraphicQuality.HIGHER_QUALITY);
+				return;
+			}
+			break;
 		default:
 			System.out.println("Not Handeled : " + familly + " : " + s);
 			break;
 		}
 	}
 
-	protected Document buildExempleSettingXML() throws ParserConfigurationException {
-		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-		Element root, elt, child;
-
-		root = document.createElement("Settings");
-		document.appendChild(root);
-
-		elt = document.createElement("Setting");
-		elt.setAttribute("text", "TravelCriteria");
-		elt.setAttribute("type", "radiobox");
-		elt.setAttribute("value", "1");
-		child = document.createElement("enum");
-		child.setAttribute("text", "Cheaper");
-		child.setAttribute("value", "1");
-		elt.appendChild(child);
-		child = document.createElement("enum");
-		child.setAttribute("text", "Faster");
-		child.setAttribute("value", "2");
-		elt.appendChild(child);
-		child = document.createElement("enum");
-		child.setAttribute("text", "FewerChanges");
-		child.setAttribute("value", "3");
-		elt.appendChild(child);
-		root.appendChild(elt);
-
-		elt = document.createElement("Setting");
-		elt.setAttribute("text", "TravelMode");
-		elt.setAttribute("type", "checkbox");
-		elt.setAttribute("value", "");
-		child = document.createElement("enum");
-		child.setAttribute("text", "Trolley");
-		child.setAttribute("value", "1");
-		elt.appendChild(child);
-		child = document.createElement("enum");
-		child.setAttribute("text", "Subway");
-		child.setAttribute("value", "1");
-		elt.appendChild(child);
-		child = document.createElement("enum");
-		child.setAttribute("text", "Train");
-		child.setAttribute("value", "1");
-		elt.appendChild(child);
-		root.appendChild(elt);
-
-		// TODO retirer l'export fichier des paramètres
-		try {
-			Source source = new DOMSource(document);
-			// Cration du fichier de sortie
-			Result resultat = new StreamResult(new File("c:\\ExempleSettingXML.xml"));
-
-			// Configuration du transformer
-			TransformerFactory fabrique = TransformerFactory.newInstance();
-			Transformer transformer;
-			transformer = fabrique.newTransformer();
-			transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
-			// Transformation
-			transformer.transform(source, resultat);
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		}
-
-		return document;
-	}
-
 	@Override
 	public void paint(Graphics g) {
 		int decalage = father.getSizeAdapteur().getSizeSmallFont();
-		int ordonne = decalage;
+		int ordonne = decalage - deroullement;
 		int width;
 		int[] pos;
 		int tmp;
 		// int heigth;
 		String s;
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
-			if (this.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
-				buffer = (Graphics2D) /* */image.getGraphics();
-				((Graphics2D) buffer).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-						RenderingHints.VALUE_ANTIALIAS_ON);
-			} else {
-				buffer = image.getGraphics();
-			}
+			buffer = image.getGraphics();
+			graphicsTunning(buffer);
 			buffer.setColor(father.getSkin().getColorLetter());
 		} else {
 			buffer.clearRect(0, 0, getWidth(), getHeight());
@@ -319,31 +295,48 @@ public class SettingsPanel extends PanelState {
 		 */
 		s = father.lg("TravelCriteria");
 		if (!travelCriteriaCollapsableArea.isCollapsed()) {
+			width = getWidth() - (decalage << 1);
 			travelCriteriaRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1),
 					travelCriteriaCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
 							.getSizeAdapteur().getLargeFont()), father.lg("Cheaper"), father.getSizeAdapteur()
 							.getSmallFont());
+
 			travelCriteriaRadioBoxs[1].prepareArea(buffer, travelCriteriaRadioBoxs[0].getArea().x
 					+ travelCriteriaRadioBoxs[0].getArea().width + (decalage >> 1), travelCriteriaRadioBoxs[0]
 					.getArea().y, father.lg("Faster"), father.getSizeAdapteur().getSmallFont());
+			if ((travelCriteriaRadioBoxs[1].getArea().x + travelCriteriaRadioBoxs[1].getArea().width) > width)
+				travelCriteriaRadioBoxs[1].prepareArea(buffer, decalage + (decalage >> 1), travelCriteriaRadioBoxs[1]
+						.getArea().y
+						+ travelCriteriaRadioBoxs[1].getArea().height + (decalage >> 1), father.lg("Faster"), father
+						.getSizeAdapteur().getSmallFont());
+
 			travelCriteriaRadioBoxs[2].prepareArea(buffer, travelCriteriaRadioBoxs[1].getArea().x
-					+ travelCriteriaRadioBoxs[1].getArea().width + (decalage >> 1), travelCriteriaRadioBoxs[0]
+					+ travelCriteriaRadioBoxs[1].getArea().width + (decalage >> 1), travelCriteriaRadioBoxs[1]
 					.getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur().getSmallFont());
+			// si ca sort du cadre, retour à la ligne
+			if ((travelCriteriaRadioBoxs[2].getArea().x + travelCriteriaRadioBoxs[2].getArea().width) > width)
+				travelCriteriaRadioBoxs[2].prepareArea(buffer, decalage + (decalage >> 1), travelCriteriaRadioBoxs[2].getArea().y
+						+ travelCriteriaRadioBoxs[2].getArea().height + (decalage >> 1), father.lg("FewerChanges"), father
+						.getSizeAdapteur().getSmallFont());
+
+			
 		}
 		travelCriteriaCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		travelCriteriaRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-				.getColorSubAreaInside(), father.getSkin().getColorLetter());
-		travelCriteriaRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-				.getColorSubAreaInside(), father.getSkin().getColorLetter());
-		travelCriteriaRadioBoxs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-				.getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!travelCriteriaCollapsableArea.isCollapsed()) {
+			travelCriteriaRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+			travelCriteriaRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+			travelCriteriaRadioBoxs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+		}
+		ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height
+				+ (decalage << 1);
 
 		/***************************************************************************************************************
 		 * Travel mode
 		 */
-		ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height
-				+ (decalage << 1);
 		s = father.lg("TravelMode");
 		PTCheckBox chk = null;
 		if (!travelModeCollapsableArea.isCollapsed()) {
@@ -365,11 +358,11 @@ public class SettingsPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				p.chk.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
+		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + (decalage << 1);
 
 		/***************************************************************************************************************
 		 * Services
 		 */
-		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + (decalage << 1);
 		s = father.lg("Services");
 		if (!servicesCollapsableArea.isCollapsed()) {
 			pos = new int[3];
@@ -387,7 +380,7 @@ public class SettingsPanel extends PanelState {
 			pos[2] = pos[1] + (tmp << 1);
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
 					.getSizeAdapteur().getLargeFont());
-			width = getHeigthString("", buffer, father.getSizeAdapteur().getSmallFont()) + (decalage >> 1);
+			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont()) + (decalage >> 1);
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				tmp += width;
 				for (int i = 0; i < pos.length; i++) {
@@ -410,7 +403,7 @@ public class SettingsPanel extends PanelState {
 					- (getWidthString(SettingsValue.Always.toString(), buffer) >> 1), tmp);
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
 					.getSizeAdapteur().getLargeFont());
-			width = getHeigthString("", buffer, father.getSizeAdapteur().getSmallFont());
+			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont());
 			tmp += width;
 			width += (decalage >> 1);
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
@@ -424,13 +417,80 @@ public class SettingsPanel extends PanelState {
 				p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 			}
-			// p.chk.getArea().y + p.chk.getArea().height + (decalage >> 1)
-			// TODO ...........taf en cours....................
-		} else {
+		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
 					father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		}
+		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + (decalage << 1);
 
+		/***************************************************************************************************************
+		 * Quality
+		 */
+		s = father.lg("GraphicalQuality");
+		if (!qualityRadioBoxCollapsableArea.isCollapsed()) {
+			width = getWidth() - (decalage << 1);
+
+			qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1),
+					qualityRadioBoxCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+							.getSizeAdapteur().getLargeFont()), father.lg("Minimal"), father.getSizeAdapteur()
+							.getSmallFont());
+
+			qualityRadioBoxs[1].prepareArea(buffer, qualityRadioBoxs[0].getArea().x
+					+ qualityRadioBoxs[0].getArea().width + (decalage >> 1), qualityRadioBoxs[0].getArea().y, father
+					.lg("Low"), father.getSizeAdapteur().getSmallFont());
+			// si ca sort du cadre, retour à la ligne
+			if ((qualityRadioBoxs[1].getArea().x + qualityRadioBoxs[1].getArea().width) > width)
+				qualityRadioBoxs[1].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[1].getArea().y
+						+ qualityRadioBoxs[1].getArea().height + (decalage >> 1), father.lg("Low"), father
+						.getSizeAdapteur().getSmallFont());
+
+			qualityRadioBoxs[2].prepareArea(buffer, qualityRadioBoxs[1].getArea().x
+					+ qualityRadioBoxs[1].getArea().width + (decalage >> 1), qualityRadioBoxs[1].getArea().y, father
+					.lg("Medium"), father.getSizeAdapteur().getSmallFont());
+			// si ca sort du cadre, retour à la ligne
+			if ((qualityRadioBoxs[2].getArea().x + qualityRadioBoxs[2].getArea().width) > width)
+				qualityRadioBoxs[2].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[2].getArea().y
+						+ qualityRadioBoxs[2].getArea().height + (decalage >> 1), father.lg("Medium"), father
+						.getSizeAdapteur().getSmallFont());
+
+			qualityRadioBoxs[3].prepareArea(buffer, qualityRadioBoxs[2].getArea().x
+					+ qualityRadioBoxs[2].getArea().width + (decalage >> 1), qualityRadioBoxs[2].getArea().y, father
+					.lg("High"), father.getSizeAdapteur().getSmallFont());
+			// si ca sort du cadre, retour à la ligne
+			if ((qualityRadioBoxs[3].getArea().x + qualityRadioBoxs[3].getArea().width) > width)
+				qualityRadioBoxs[3].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[3].getArea().y
+						+ qualityRadioBoxs[3].getArea().height + (decalage >> 1), father.lg("High"), father
+						.getSizeAdapteur().getSmallFont());
+		}
+		qualityRadioBoxCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!qualityRadioBoxCollapsableArea.isCollapsed()) {
+			qualityRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+			qualityRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+			qualityRadioBoxs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+			qualityRadioBoxs[3].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorSubAreaInside(), father.getSkin().getColorLetter());
+		}
+		ordonne = qualityRadioBoxCollapsableArea.getArea().y + qualityRadioBoxCollapsableArea.getArea().height
+				+ (decalage << 1);
+
+		/***************************************************************************************************************
+		 * ScrollBar
+		 */
+		scrollBar.update(buffer, getWidth() - 1 - father.getSizeAdapteur().getSizeIntermediateFont(), father
+				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		deroullement = scrollBar.getDeroullement();
+		// TODO améliorer le scroll actuelle il se base sur les donnée du passé pour le presnte. Induie des bug dans le
+		// cas d'un maximisation.
+		// System.out.println((new GregorianCalendar()).getTime().getSeconds() + " " + ordonne + " " + deroullement + "
+		// " + getHeight());
+
+		// if (ordonne + deroullement - getHeight() <= 0)
+		// deroullement = 0;
+		// TODO ...........taf en cours....................
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */
