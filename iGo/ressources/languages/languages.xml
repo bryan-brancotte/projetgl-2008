@@ -177,11 +177,11 @@
 			</Train>
 			<Idle>
 				<FRANCAIS value="Indif"/>
-				<ENGLISH value="Idle"/>
+				<ENGLISH value="No care"/>
 			</Idle>
 			<Once>
-				<FRANCAIS value="≥1"/>
-				<ENGLISH value="≥1"/>
+				<FRANCAIS value="Présent"/>
+				<ENGLISH value="Once"/>
 			</Once>
 			<Always>
 				<FRANCAIS value="Partout"/>
@@ -191,6 +191,26 @@
 				<FRANCAIS value="Services"/>
 				<ENGLISH value="Services"/>
 			</Services>
+			<Minimal>
+				<FRANCAIS value="Minimale"/>
+				<ENGLISH value="Minimal"/>
+			</Minimal>
+			<Low>
+				<FRANCAIS value="Basse"/>
+				<ENGLISH value="Low"/>
+			</Low>
+			<Medium>
+				<FRANCAIS value="Intermediaire"/>
+				<ENGLISH value="Medium"/>
+			</Medium>
+			<High>
+				<FRANCAIS value="Haute"/>
+				<ENGLISH value="High"/>
+			</High>
+			<GraphicalQuality>
+				<FRANCAIS value="Qualitée graphique"/>
+				<ENGLISH value="Graphical Quality"/>
+			</GraphicalQuality>
 		</fields>
 	</root>
 
