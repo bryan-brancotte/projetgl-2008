@@ -63,7 +63,8 @@ public class KindRoute {
 	 * @return void
 	 */
 	public static void reset() {
-		kinds.clear();
+		if (kinds != null)
+			kinds.clear();
 	}
 	
 	/**

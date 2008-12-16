@@ -379,8 +379,10 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 * conteneurs
 	 */
 	public void reset() {
-		//TODO vider tout les conteneur, même état qu'après le constructeur
-		actualGraphNetwork = null;
+		actualGraphNetwork.routes.clear();
+		actualGraphNetwork.stations.clear();
+		actualGraphNetwork.services.clear();
+		KindRoute.reset();
 	}
 
 	/**
