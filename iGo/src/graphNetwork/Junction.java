@@ -173,21 +173,21 @@ public class Junction {
 		this.routeLink = routeLink;
 	}
 	
-	protected boolean equals (Junction j) {
-		if (
-				(j.getRouteA().getId() == routeA.getId() && 
-				j.getRouteB().getId() == routeB.getId() &&
-				j.getStationA().getId() == stationA.getId() && 
-				j.getStationB().getId() == stationB.getId()) ||
-				(j.getRouteA().getId() == routeB.getId() && 
-				j.getRouteB().getId() == routeA.getId() &&
-				j.getStationA().getId() == stationB.getId() && 
-				j.getStationB().getId() == stationA.getId())
-			) 
-			return true;
-		
-		return false;
-	}
+//	protected boolean equals (Junction j) {
+//		if (
+//				(j.getRouteA().getId() == routeA.getId() && 
+//				j.getRouteB().getId() == routeB.getId() &&
+//				j.getStationA().getId() == stationA.getId() && 
+//				j.getStationB().getId() == stationB.getId()) ||
+//				(j.getRouteA().getId() == routeB.getId() && 
+//				j.getRouteB().getId() == routeA.getId() &&
+//				j.getStationA().getId() == stationB.getId() && 
+//				j.getStationB().getId() == stationA.getId())
+//			) 
+//			return true;
+//		
+//		return false;
+//	}
 	
 	protected String toMyString(){
 		String retour ="<junction>"+cost+";"+enable+";"+pedestrian+";"+timeBetweenStations+";"+routeLink;
