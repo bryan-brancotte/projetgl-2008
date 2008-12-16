@@ -46,13 +46,16 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 			return makeRadioButton(grp);
 		Rectangle area = new Rectangle();
 		PTRadioBox radioBox = new PTRadioBox(this, area);
-		clickAndMoveWarningAndArray.addInteractiveArea(area,
-				new CodeExecutor3P<PTRadioBoxGroup, PTRadioBox, CodeExecutor>(grp, radioBox, action) {
+		grp.add(radioBox);
+		clickAndMoveWarningAndArray
+				.addInteractiveArea(area, new CodeExecutor4P<PTRadioBoxGroup, PTRadioBox, CodeExecutor, PanelTooled>(
+						grp, radioBox, action, this) {
 					@Override
 					public void execute() {
 						this.origineA.setAllNotClicked();
 						this.origineB.setClicked(true);
 						this.origineC.execute();
+						this.origineD.repaint();
 					}
 				});
 		return radioBox;

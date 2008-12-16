@@ -40,8 +40,16 @@ public class MainDemoIHM {
 
 			@Override
 			public String config(String key) {
-				// return IhmReceivingStates.ARRAY_MODE.toString();/*
-				return IhmReceivingStates.GRAPHIC_MODE.toString();/**/
+				System.out.println("Reading : <" + key + ">");
+				if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
+					return IhmReceivingStates.GRAPHIC_MODE.toString();
+				if (key.compareTo("TRAVEL_CRITERIA") == 0)
+					return "1";
+				if (key.compareTo("TRAVEL_MODE_Trolley") == 0)
+					return "1";
+				if (key.compareTo("TRAVEL_MODE_Foot") == 0)
+					return "1";
+				return "";
 			}
 
 			@Override
@@ -71,7 +79,8 @@ public class MainDemoIHM {
 				try {
 					gnb.addRoute("1", "Train");
 					gnb.addRoute("2", "Trolley");
-					gnb.addRoute("3", "subway");
+					gnb.addRoute("3", "Subway");
+					gnb.addRoute("4", "Foot");
 				} catch (ViolationOfUnicityInIdentificationException e) {
 				}
 				return KindRoute.getKinds();
@@ -99,14 +108,15 @@ public class MainDemoIHM {
 
 			@Override
 			public boolean setConfig(String key, String value) {
-				// TODO Auto-generated method stub
+				System.out.println("Recording : <" + key + "> as \"" + value + "\"");
 				return false;
 			}
 
-		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/*
-		}, iGoSmartPhoneSkin.BLUE_WITH_LINE);/* //
-		},iGoSmartPhoneSkin.WHITE_WITH_LINE);/* 
-		},iGoSmartPhoneSkin.BLACK_WITH_LINE);/**/
+		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/***************************************************************
+														 * }, iGoSmartPhoneSkin.BLUE_WITH_LINE);/* //
+														 * },iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
+														 * },iGoSmartPhoneSkin.BLACK_WITH_LINE);/
+														 **************************************************************/
 		ihm.start(true, 8);
 		new ExecMultiThread<IHM>(ihm) {
 

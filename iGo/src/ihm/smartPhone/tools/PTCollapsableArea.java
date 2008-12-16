@@ -16,7 +16,9 @@ public class PTCollapsableArea extends PTComponent {
 
 	protected boolean imageButtonAddLessState = false;
 
-	protected ImageIcon imageButtonAddLess;
+	protected static ImageIcon imageButtonAdd;
+
+	protected static ImageIcon imageButtonLess;
 
 	protected PTButton buttonAddLess;
 
@@ -73,16 +75,20 @@ public class PTCollapsableArea extends PTComponent {
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, area.width, area.height);
 		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr);
-		if (imageButtonAddLess == null || imageButtonAddLessState != collapsed
-				|| imageButtonAddLess.getIconHeight() != font.getSize()) {
-			imageButtonAddLessState = collapsed;
-			if (collapsed)
-				imageButtonAddLess = ImageLoader.getRessourcesImageIcone("button_add", font.getSize(), font.getSize());
-			else
-				imageButtonAddLess = ImageLoader.getRessourcesImageIcone("button_less", font.getSize(), font.getSize());
+		ImageIcon imageButton;
+		if (collapsed) {
+			if (imageButtonAdd == null || imageButtonAdd.getIconHeight() != font.getSize()) {
+				imageButtonAdd = ImageLoader.getRessourcesImageIcone("button_add", font.getSize(), font.getSize());
+			}
+			imageButton = imageButtonAdd;
+		} else {
+			if (imageButtonLess == null || imageButtonLess.getIconHeight() != font.getSize()) {
+				imageButtonLess = ImageLoader.getRessourcesImageIcone("button_less", font.getSize(), font.getSize());
+			}
+			imageButton = imageButtonLess;
 		}
 		buttonAddLess.update(g, area.width + area.x - (area.x >> 1) - font.getSize(), area.y + (heigthStr >> 2)
-				- (heigthStr >> 3), imageButtonAddLess);
+				- (heigthStr >> 3), imageButton);
 	}
 
 	@Override
@@ -98,7 +104,7 @@ public class PTCollapsableArea extends PTComponent {
 			if ((areaComponent = c.getArea()) != null)
 				if (areaComponent.y + areaComponent.height > max)
 					max = areaComponent.y + areaComponent.height;
-		area.setBounds(x, y, father.getWidth() - 2 * x, max - y + (heigth>>1));
+		area.setBounds(x, y, father.getWidth() - 2 * x, max - y + (heigth >> 1));
 		return area;
 	}
 
