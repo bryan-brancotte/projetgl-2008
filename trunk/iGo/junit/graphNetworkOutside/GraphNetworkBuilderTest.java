@@ -45,6 +45,11 @@ public class GraphNetworkBuilderTest {
 		assertTrue(sncf != null);
 	}
 
+	@Test
+	public void resetQuiMarche() {
+		bob.reset();
+		assertTrue(bob.getActualGraphNetwork()!=null);
+	}
 	/**
 	 * Construction du réseau sans lever d'exception
 	 */
