@@ -81,7 +81,7 @@ public class GraphNetworkBuilder	 {//Classe suivant les design patterns Factory 
 		}
 		
 		if(!trouve){
-			Service s1 = new Service(id,null);
+			Service s1 = new Service(id,name);
 			
 			actualGraphNetwork.services.add(s1);
 			return s1;	
@@ -116,7 +116,7 @@ public class GraphNetworkBuilder	 {//Classe suivant les design patterns Factory 
 		}
 		
 		if(!trouve){
-			Service s1 = new Service(id,description);
+			Service s1 = new Service(id,name,description);
 			
 			actualGraphNetwork.services.add(s1);
 			return s1;	
@@ -173,12 +173,10 @@ public class GraphNetworkBuilder	 {//Classe suivant les design patterns Factory 
 		Iterator<Station> it = actualGraphNetwork.getStations();
 		boolean trouve=false;
 		while(it.hasNext()){
-			System.out.println(12);
 			if(it.next().getId()==id)
 				trouve=true;
 		}
 		if(!trouve){
-			System.out.println("pas trouve");
 			Station stationAdd = new Station(id,name);
 			actualGraphNetwork.stations.add(stationAdd);
 			return stationAdd;
@@ -213,10 +211,26 @@ public class GraphNetworkBuilder	 {//Classe suivant les design patterns Factory 
 			if(temp.equals(route)){								//pour la route en question
 				Iterator<Station> itS = temp.getStations();
 				while(itS.hasNext()){
-					if(itS.next().equals(stationToAdd))					//recherche si la station existe deja
-							return true;								
+					Station temp3=itS.next();
+					if(temp3.equals(stationToAdd)){					//recherche si la station existe deja
+						temp3.addRoute(route);
+						return true;								
+					}
 				}
+				stationToAdd.addRoute(route);
 				temp.addStation(stationToAdd);					//ajout si elle n'existe pas
+				
+				/*bloc ajouté pour creer route dans la station. Si pas necessaire, il faudra creer une nouvelle methode addRouteToStation************/
+//				Iterator<Station> itt = actualGraphNetwork.stations.iterator();
+//				while(itt.hasNext()){
+//					Station temp2=itt.next();
+//					if(temp2.equals(stationToAdd)){
+//						Iterator<Station> itR=temp2.g();
+//						while(itR.hasNext())
+//						temp2.addRoute(route);
+//					}
+//				}
+				/*fin bloc****************************************************************************************************************************/
 				return true;	
 			}
 		}

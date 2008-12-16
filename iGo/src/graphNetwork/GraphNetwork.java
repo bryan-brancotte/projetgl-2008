@@ -21,7 +21,11 @@ public class GraphNetwork {
 		stations = new LinkedList<Station>();
 	}
 
-	public float getEntryCost(KindRoute kind)throws NullPointerException {//retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
+	public float getEntryCost(KindRoute kind) throws NullPointerException {//retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
+		if(kind==null){
+			System.out.println("null kind");
+			return Float.NaN;
+		}
 		return kind.cost;
 	}
 
