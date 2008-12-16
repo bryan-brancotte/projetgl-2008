@@ -34,6 +34,12 @@ public class ConfigurationXML implements Configuration {
 
 	protected boolean toSave;
 
+	@Override
+	protected void finalize() throws Throwable {
+		this.save();
+		super.finalize();
+	}
+
 	public ConfigurationXML() {
 		reload();
 	}
@@ -50,12 +56,12 @@ public class ConfigurationXML implements Configuration {
 
 	@Override
 	public String getValue(String key) {
-		String ret = conf.get(key);
+		String ret = conf.get(transformeToValideString(key));
 		if (ret == null)
 			return "";
 		return ret;
 	}
- 
+
 	public void reload() {
 		File ficConf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE);
 		if (!ficConf.exists()) {
@@ -112,7 +118,8 @@ public class ConfigurationXML implements Configuration {
 
 			Source source = new DOMSource(document);
 			// Cration du fichier de sortie
-			Result resultat = new StreamResult(new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE));
+			Result resultat = new StreamResult(new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR
+					+ CONFIG_FILE));
 
 			// Configuration du transformer
 			TransformerFactory fabrique = TransformerFactory.newInstance();
@@ -136,11 +143,15 @@ public class ConfigurationXML implements Configuration {
 	@Override
 	public void setValue(String key, String value) {
 		toSave = true;
-		this.conf.put(key, value);
+		this.conf.put(transformeToValideString(key), value);
+	}
+
+	protected String transformeToValideString(String key) {
+		return key.replace(" ", "_");
 	}
 
 	protected void makeConfigDefaut() throws Exception {
-		File conf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR );
+		File conf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR);
 		conf.mkdir();
 		conf = new File(System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE);
 		conf.createNewFile();

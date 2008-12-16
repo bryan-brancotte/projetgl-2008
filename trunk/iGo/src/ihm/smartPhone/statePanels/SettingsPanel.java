@@ -315,11 +315,11 @@ public class SettingsPanel extends PanelState {
 					.getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur().getSmallFont());
 			// si ca sort du cadre, retour à la ligne
 			if ((travelCriteriaRadioBoxs[2].getArea().x + travelCriteriaRadioBoxs[2].getArea().width) > width)
-				travelCriteriaRadioBoxs[2].prepareArea(buffer, decalage + (decalage >> 1), travelCriteriaRadioBoxs[2].getArea().y
-						+ travelCriteriaRadioBoxs[2].getArea().height + (decalage >> 1), father.lg("FewerChanges"), father
-						.getSizeAdapteur().getSmallFont());
+				travelCriteriaRadioBoxs[2].prepareArea(buffer, decalage + (decalage >> 1), travelCriteriaRadioBoxs[2]
+						.getArea().y
+						+ travelCriteriaRadioBoxs[2].getArea().height + (decalage >> 1), father.lg("FewerChanges"),
+						father.getSizeAdapteur().getSmallFont());
 
-			
 		}
 		travelCriteriaCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
@@ -395,11 +395,11 @@ public class SettingsPanel extends PanelState {
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
 					.getSizeAdapteur().getLargeFont());
 			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			buffer.drawString(SettingsValue.Idle.toString(), pos[0]
+			buffer.drawString(father.lg(SettingsValue.Idle.toString()), pos[0]
 					- (getWidthString(SettingsValue.Idle.toString(), buffer) >> 1), tmp);
-			buffer.drawString(SettingsValue.Once.toString(), pos[1]
+			buffer.drawString(father.lg(SettingsValue.Once.toString()), pos[1]
 					- (getWidthString(SettingsValue.Once.toString(), buffer) >> 1), tmp);
-			buffer.drawString(SettingsValue.Always.toString(), pos[2]
+			buffer.drawString(father.lg(SettingsValue.Always.toString()), pos[2]
 					- (getWidthString(SettingsValue.Always.toString(), buffer) >> 1), tmp);
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
 					.getSizeAdapteur().getLargeFont());
