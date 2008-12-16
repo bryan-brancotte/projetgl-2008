@@ -89,6 +89,8 @@ public class GraphNetwork {
 		// passé
 		// en
 		// paramètre.
+		if(path==null)return null;
+		
 		PathInGraphBuilder b = new PathInGraphBuilder(this);
 		b.setActualPathInGraph(path);
 		return b;
