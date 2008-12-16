@@ -134,7 +134,7 @@ public class SettingsPanel extends PanelState {
 			chk = makeCheckBox(new CodeExecutor1P<String>(s = (itR.next().getKindOf())) {
 				@Override
 				public void execute() {
-					recordChangedSetting(travelCriteriaRadioBox, this.origine);
+					recordChangedSetting(travelModeCheckBox, this.origine);
 				}
 			});
 			chk.setClicked(father.getConfig(SettingsKey.TRAVEL_MODE + s).compareTo("1") == 0);
@@ -153,15 +153,14 @@ public class SettingsPanel extends PanelState {
 		while (itS.hasNext()) {
 			rbs = new PTRadioBox[3];
 			grp = new PTRadioBoxGroup(rbs.length);
-			// TODO REMI faut que getName marche (et donc le constructeur)
 			ex = new CodeExecutor1P<String>(s = (itS.next().getName())) {
 				@Override
 				public void execute() {
-					recordChangedSetting(servicesRadioBox, SettingsKey.TRAVEL_CRITERIA.getValue());
+					recordChangedSetting(servicesRadioBox, this.origine);
 				}
 			};
 			for (int i = 0; i < rbs.length; i++) {
-				rbs[i] = makeRadioButton(grp);
+				rbs[i] = makeRadioButton(grp, ex);
 				servicesCollapsableArea.addComponent(rbs[i]);
 			}
 			valS = father.getConfig(SettingsKey.SERVICES + s);
@@ -181,26 +180,43 @@ public class SettingsPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
 					if (p.chk.isClicked())
-						father.setConfig(SettingsKey.TRAVEL_MODE + s, SettingsValue.ENABLE.toString());
+						father.setConfig(SettingsKey.TRAVEL_MODE + s, SettingsValue.ENABLE.getStringValue());
 					else
-						father.setConfig(SettingsKey.TRAVEL_MODE + s, SettingsValue.DISABLE.toString());
+						father.setConfig(SettingsKey.TRAVEL_MODE + s, SettingsValue.DISABLE.getStringValue());
 					return;
 				}
 			break;
 		case travelCriteriaRadioBox:
 			if (travelCriteriaRadioBoxs[0].isClicked()) {
-				father.setConfig(s, SettingsValue.CHEAPER.toString());
+				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
 				return;
 			}
 			if (travelCriteriaRadioBoxs[1].isClicked()) {
-				father.setConfig(s, SettingsValue.FASTER.toString());
+				father.setConfig(s, SettingsValue.FASTER.getStringValue());
 				return;
 			}
 			if (travelCriteriaRadioBoxs[2].isClicked()) {
-				father.setConfig(s, SettingsValue.FEWER_CHANGES.toString());
+				father.setConfig(s, SettingsValue.FEWER_CHANGES.getStringValue());
 				return;
 			}
 			break;
+		case servicesRadioBox:
+			for (PairPTRadioBox p : ServicesRadioBoxs) {
+				if (s.compareTo(p.name) == 0) {
+					if (p.rbs[0].isClicked()) {
+						father.setConfig(SettingsKey.SERVICES + s, SettingsValue.Idle.getStringValue());
+						return;
+					}
+					if (p.rbs[1].isClicked()) {
+						father.setConfig(SettingsKey.SERVICES + s, SettingsValue.Once.getStringValue());
+						return;
+					}
+					if (p.rbs[2].isClicked()) {
+						father.setConfig(SettingsKey.SERVICES + s, SettingsValue.Always.getStringValue());
+						return;
+					}
+				}
+			}
 		default:
 			System.out.println("Not Handeled : " + familly + " : " + s);
 			break;
@@ -355,12 +371,6 @@ public class SettingsPanel extends PanelState {
 		 */
 		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + (decalage << 1);
 		s = father.lg("Services");
-		// Idle Once Always
-		//
-		// Coffre O O X
-		// Handi O X O
-		//
-		//
 		if (!servicesCollapsableArea.isCollapsed()) {
 			pos = new int[3];
 			width = 0;
@@ -370,16 +380,55 @@ public class SettingsPanel extends PanelState {
 				if (tmp > width)
 					width = tmp;
 			}
-			//on calcul les positions des 3 colone de valehbur des services
+			// on calcul les positions des 3 colone de valehbur des services
 			tmp = (((getWidth() - (decalage << 1) - width) / 3) >> 1);
-			pos[0]=decalage+width+tmp;
-			pos[1]=pos[0]+(tmp << 1);
-			pos[2]=pos[1]+(tmp << 1);
-		}
-		servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(), father
-				.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!servicesCollapsableArea.isCollapsed()) {
-
+			pos[0] = decalage + width + tmp;
+			pos[1] = pos[0] + (tmp << 1);
+			pos[2] = pos[1] + (tmp << 1);
+			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+					.getSizeAdapteur().getLargeFont());
+			width = getHeigthString("", buffer, father.getSizeAdapteur().getSmallFont()) + (decalage >> 1);
+			for (PairPTRadioBox p : ServicesRadioBoxs) {
+				tmp += width;
+				for (int i = 0; i < pos.length; i++) {
+					p.rbs[i].prepareArea(buffer, pos[i], tmp, "", father.getSizeAdapteur().getSmallFont(), true, false);
+				}
+			}
+			servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
+					father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			// ____________Idle_Once_Always
+			// __Coffre_____O_____O____X___
+			// __Handi______O_____X____O___
+			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+					.getSizeAdapteur().getLargeFont());
+			buffer.setFont(father.getSizeAdapteur().getSmallFont());
+			buffer.drawString(SettingsValue.Idle.toString(), pos[0]
+					- (getWidthString(SettingsValue.Idle.toString(), buffer) >> 1), tmp);
+			buffer.drawString(SettingsValue.Once.toString(), pos[1]
+					- (getWidthString(SettingsValue.Once.toString(), buffer) >> 1), tmp);
+			buffer.drawString(SettingsValue.Always.toString(), pos[2]
+					- (getWidthString(SettingsValue.Always.toString(), buffer) >> 1), tmp);
+			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+					.getSizeAdapteur().getLargeFont());
+			width = getHeigthString("", buffer, father.getSizeAdapteur().getSmallFont());
+			tmp += width;
+			width += (decalage >> 1);
+			for (PairPTRadioBox p : ServicesRadioBoxs) {
+				tmp += width;
+				buffer.setFont(father.getSizeAdapteur().getSmallFont());
+				buffer.drawString(p.name, decalage << 1, tmp);
+				p.rbs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(),
+						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+				p.rbs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(),
+						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+				p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(),
+						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			}
+			// p.chk.getArea().y + p.chk.getArea().height + (decalage >> 1)
+			// TODO ...........taf en cours....................
+		} else {
+			servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
+					father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		}
 
 		/***************************************************************************************************************
