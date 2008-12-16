@@ -271,7 +271,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 * @param cost
 	 *            le coût pour y accéder
 	 */
-	public void defineEntryCost(KindRoute kind, int cost) {
+	public void defineEntryCost(KindRoute kind, float cost) {
 		Iterator<KindRoute> itK = KindRoute.getKinds();
 		while (itK.hasNext()) {
 			KindRoute temp = itK.next();
