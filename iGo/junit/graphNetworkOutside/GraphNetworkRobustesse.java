@@ -30,20 +30,26 @@ public class GraphNetworkRobustesse {
 
 	@Test
 	public void getJunction() throws ViolationOfUnicityInIdentificationException {
+		//TODO refaire le test, il manque une création du réseau
 		assertTrue("Doit retourner null car une des stations est null", sncf.getJunctions(null, null) == null);
 		bob.addService(1, "e");
 		assertTrue("Doit retourner null car une des stations est null",
 				sncf.getJunctions(sncf.getStation(1), null) == null);
 		assertTrue("Doit retourner null car une des stations est null",
-				sncf.getJunctions(null, sncf.getStation(1)) == null);
+				sncf
+				.getJunctions(null, sncf.getStation(1)) == null);
 		bob.addService(2, "e");
-		assertTrue("Doit retourner un iterateur sans element car aucun lien entre les stations", !sncf.getJunctions(
-				sncf.getStation(2), sncf.getStation(1)).hasNext());
+		System.out.println(sncf.getJunctions(sncf.getStation(2), sncf
+				.getStation(1)));
+		assertTrue(
+				"Doit retourner un iterateur sans element car aucun lien entre les stations",
+				!(sncf.getJunctions(sncf.getStation(2), sncf.getStation(1))
+						.hasNext()));
 	}
 
 	@Test
 	public void getEntryCost() {
-		assertTrue("Doit retourner Float.Nan car une le kind est null", sncf.getEntryCost(null) == Float.NaN);
+		assertTrue("Doit retourner Float.Nan car une le kind est null", Float.isNaN(sncf.getEntryCost(null)));
 	}
 
 	@Test
