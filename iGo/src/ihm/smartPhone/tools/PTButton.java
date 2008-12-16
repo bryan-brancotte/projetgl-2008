@@ -57,7 +57,7 @@ public class PTButton extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
-		area.setBounds(x, y, father.getWidthString(text, g, font), father.getHeigthString(text, g, font));
+		area.setBounds(x, y, PanelDoubleBufferingSoftwear.getWidthString(text, g, font), PanelDoubleBufferingSoftwear.getHeightString(text, g, font));
 		return area;
 	}
 

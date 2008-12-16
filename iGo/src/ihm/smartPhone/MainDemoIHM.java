@@ -1,30 +1,35 @@
 package ihm.smartPhone;
 
-import java.util.Iterator;
-import java.util.Observable;
-
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.KindRoute;
 import graphNetwork.Service;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
+import iGoMaster.Configuration;
 import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.ExecMultiThread;
+
+import java.util.Iterator;
+import java.util.Observable;
+
+import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
 
 public class MainDemoIHM {
 
 	protected static IHM ihm;
 
+	protected static Configuration conf;
 	/**
 	 * @param args
 	 * @throws InterruptedException
 	 */
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws InterruptedException {
+		conf=new ConfigurationXML();
 		ihm = new IGoIhmSmartPhone(new Master() {
 
 			protected Language lang = new LanguageXML();
@@ -40,6 +45,7 @@ public class MainDemoIHM {
 
 			@Override
 			public String config(String key) {
+				
 				System.out.println("Reading : <" + key + ">");
 				if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
 					return IhmReceivingStates.GRAPHIC_MODE.toString();
@@ -95,7 +101,6 @@ public class MainDemoIHM {
 					gnb.addService(3, "Flower");
 					gnb.addService(4, "Parking");
 				} catch (ViolationOfUnicityInIdentificationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				return gnb.getActualGraphNetwork().getServices();
@@ -103,13 +108,15 @@ public class MainDemoIHM {
 
 			@Override
 			public String getConfig(String key) {
-				return config(key);
+				return conf.getValue(key);
 			}
 
 			@Override
 			public boolean setConfig(String key, String value) {
 				System.out.println("Recording : <" + key + "> as \"" + value + "\"");
-				return false;
+				conf.setValue(key, value);
+				conf.save();
+				return true;
 			}
 
 		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/***************************************************************

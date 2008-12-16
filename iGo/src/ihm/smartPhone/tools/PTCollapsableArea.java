@@ -69,7 +69,7 @@ public class PTCollapsableArea extends PTComponent {
 		if (!this.isEnable())
 			return;
 		g.setFont(font);
-		int heigthStr = father.getHeigthString(text, g);
+		int heigthStr = PanelDoubleBufferingSoftwear.getHeightString(text, g);
 		g.setColor(colorInside);
 		g.fillRect(area.x, area.y, area.width, area.height);
 		g.setColor(colorLetter);
@@ -97,19 +97,19 @@ public class PTCollapsableArea extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
-		int heigth = father.getHeigthString(text, g, font);
+		int heigth = PanelDoubleBufferingSoftwear.getHeightString(text, g, font);
 		int max = y + heigth;
 		Rectangle areaComponent;
 		for (PTComponent c : this.components)
 			if ((areaComponent = c.getArea()) != null)
 				if (areaComponent.y + areaComponent.height > max)
 					max = areaComponent.y + areaComponent.height;
-		area.setBounds(x, y, father.getWidth() - 2 * x, max - y + (heigth >> 1));
+		area.setBounds(x, y, father.getWidth() - 3 * x, max - y + (heigth >> 1));
 		return area;
 	}
 
 	public int getFirstOrdonneForComponents(Graphics g, int x, int y, String text, Font font) {
-		int heigthStr = father.getHeigthString(text, g, font);
+		int heigthStr = PanelDoubleBufferingSoftwear.getHeightString(text, g, font);
 		return y + (heigthStr << 1);
 	}
 }

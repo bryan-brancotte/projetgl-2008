@@ -2,6 +2,7 @@ package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,10 @@ public class NewTravelPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+		}
 		g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
 	}
 

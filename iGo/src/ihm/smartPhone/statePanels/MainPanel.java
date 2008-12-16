@@ -5,6 +5,7 @@ import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Font;
@@ -82,25 +83,33 @@ public class MainPanel extends PanelState {
 		int miniWidth = this.getWidth() >> 2;
 		int miniHeight = this.getHeight() >> 2;
 		int miniSide = (miniWidth > miniHeight) ? miniHeight : miniWidth;
-		int halfImagesWidth=miniSide >> 1;
-		int twoThirdImagesHeight=(int) (miniSide * 0.667);
+		int halfImagesWidth = miniSide >> 1;
+		int twoThirdImagesHeight = (int) (miniSide * 0.667);
 		String msg;
 		/***************************************************************************************************************
 		 * detection d'un changement de taille, dans ce cas on modifie le double buffer, et au cas ou les image charger
 		 * en mémoire
 		 */
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+			imageNew = null;
+			imageLoad = null;
+			imageSettings = null;
+			imageFavorites = null;
+		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
-			// System.out.println(getWidth());
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
+			graphicsTunning(this.buffer);
 			buffer.setFont(font = father.getSizeAdapteur().getIntermediateFont());
 			buffer.setColor(father.getSkin().getColorLetter());
 
 			if ((imageNew == null) || (miniHeight != imageNewArea.getWidth())
 					|| (miniHeight != imageNewArea.getHeight()))
 				imageNew = ImageLoader.getRessourcesImageIcone("mainNew", miniSide, miniSide).getImage();
-			//halfImagesWidth = miniSide >> 1;
-			//twoThirdImagesHeight = (int) (miniSide * 0.667);
+			// halfImagesWidth = miniSide >> 1;
+			// twoThirdImagesHeight = (int) (miniSide * 0.667);
 			imageNewArea.setBounds(miniWidth - halfImagesWidth, miniHeight - twoThirdImagesHeight, miniSide, miniSide);
 
 			if ((imageLoad == null) || (miniHeight != imageLoadArea.getWidth())
@@ -120,8 +129,8 @@ public class MainPanel extends PanelState {
 				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniSide, miniSide).getImage();
 			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 		} else {
-			//halfImagesWidth = miniSide >> 1;
-			//twoThirdImagesHeight = (int) (miniSide * 0.667);
+			// halfImagesWidth = miniSide >> 1;
+			// twoThirdImagesHeight = (int) (miniSide * 0.667);
 		}
 		/***************************************************************************************************************
 		 * Menu "New"
@@ -129,7 +138,7 @@ public class MainPanel extends PanelState {
 		buffer.drawImage(imageNew, imageNewArea.x, imageNewArea.y, null);
 		msg = father.lg("New");
 		buffer.drawString(msg, miniWidth - (getWidthString(msg, buffer, font) >> 1), miniHeight + twoThirdImagesHeight
-				/ 2 + getHeigthString(msg, buffer, font));
+				/ 2 + getHeightString(msg, buffer, font));
 
 		/***************************************************************************************************************
 		 * Menu "Load"
@@ -137,7 +146,7 @@ public class MainPanel extends PanelState {
 		buffer.drawImage(imageLoad, imageLoadArea.x, imageLoadArea.y, null);
 		msg = father.lg("MainLoad");
 		buffer.drawString(msg, miniWidth * 3 - (getWidthString(msg, buffer, font) >> 1), miniHeight
-				+ (twoThirdImagesHeight >> 1) + getHeigthString(msg, buffer, font));
+				+ (twoThirdImagesHeight >> 1) + getHeightString(msg, buffer, font));
 
 		/***************************************************************************************************************
 		 * Menu "Settings"
@@ -145,7 +154,7 @@ public class MainPanel extends PanelState {
 		buffer.drawImage(imageSettings, imageSettingsArea.x, imageSettingsArea.y, null);
 		msg = father.lg("Settings");
 		buffer.drawString(msg, miniWidth - (getWidthString(msg, buffer, font) >> 1), miniHeight * 3
-				+ getHeigthString(msg, buffer, font));
+				+ getHeightString(msg, buffer, font));
 
 		/***************************************************************************************************************
 		 * Menu "Favorites"
@@ -153,7 +162,7 @@ public class MainPanel extends PanelState {
 		buffer.drawImage(imageFavorites, imageFavoritesArea.x, imageFavoritesArea.y, null);
 		msg = father.lg("Favorites");
 		buffer.drawString(msg, miniWidth * 3 - (getWidthString(msg, buffer, font) >> 1), miniHeight * 3
-				+ getHeigthString(msg, buffer, font));
+				+ getHeightString(msg, buffer, font));
 
 		/***************************************************************************************************************
 		 * dessin du nouvelle affichage

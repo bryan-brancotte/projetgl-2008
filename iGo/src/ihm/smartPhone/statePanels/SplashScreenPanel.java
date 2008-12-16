@@ -3,6 +3,7 @@ package ihm.smartPhone.statePanels;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Graphics;
@@ -36,9 +37,14 @@ public class SplashScreenPanel extends PanelState {
 	public void paint(Graphics g) {
 		// System.out.println("SplashScreenPanel.paint(...)");
 		// Si le buffer n'existe pas, ou s'il n'est pas adapté à la taille du panel, on ne redéfinit
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
+			graphicsTunning(buffer);
 			// on charge aussi le logo en fonction de la taille du panel.
 			logo = ImageLoader.getImageIcone(getClass().getResource("/images/iGo.256.png"),
 					(int) (this.getWidth() * 0.8), (int) (this.getHeight() * 0.8)).getImage();

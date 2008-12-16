@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 
 public abstract class PTComponent {
 
+	protected static Color colorRound = new Color(141, 207, 80);
+
 	protected Rectangle area;
 
 	protected String text = "Nothing";
@@ -116,7 +118,7 @@ public abstract class PTComponent {
 	 *            la couleur du texte
 	 * @return sa zone, mise à jour.
 	 */
-	public final Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
+	public Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
 		if (!enable)
 			return null;
 		prepareArea(g, x, y, text, font);

@@ -136,6 +136,12 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		return collapsableArea;
 	}
 
+	public PTScrollBar makeScrollBar() {
+		Rectangle area = new Rectangle();
+		PTScrollBar sb = new PTScrollBar(this, area);
+		return sb;
+	}
+
 	// TODO champs avec completion, et la fenêtre des choix comme chrome?
 
 	// TODO combo box ou pas?
