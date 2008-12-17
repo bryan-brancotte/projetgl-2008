@@ -155,20 +155,4 @@ public class PIGRobustesse {
 			System.err.println(e);
 		}
 	}
-
-	@Test
-	public void setActualPathInGraph() {
-		try {
-			//TODO passé cette méthode en proteced?
-			pigB.setCurrentPathInGraph(null);
-			assertTrue("Spéficie si setActualPathInGraph(null) met le actual  null ou ne fait rien.", false);
-			//SI ca met à null suprimer cette ligne
-			assertTrue("Le path actuelle ne doit pas avoir changé : un appelle à setActualPathInGraph(null) ", pigB.getCurrentPathInGraph()==pig);
-			//Si ca fait rien supprime cette ligne
-			assertTrue("Le path actuelle doit maintenant être nin null", pigB.getCurrentPathInGraph()==null);
-		} catch (Exception e) {
-			assertTrue("Ce ne doit pas planter", false);
-			System.err.println(e);
-		}
-	}
 }
