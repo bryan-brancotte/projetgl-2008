@@ -93,7 +93,6 @@ public class KindRoute {
 		if(!alreadyExist){
 			kindOf = _kindOf;
 			kinds.add(this);
-			System.out.println("nouveau kind   "+kinds.size()+"   "+_kindOf);
 		}
 	}
 
