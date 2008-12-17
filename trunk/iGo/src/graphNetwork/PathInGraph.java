@@ -115,7 +115,7 @@ public class PathInGraph {
 		return this.time;
 	}
 
-	protected void importPath(String pathInString) {	//cr�er le trajet a partir d'un chaine d�crivant le trajet
+	public void importPath(String pathInString) {	//cr�er le trajet a partir d'un chaine d�crivant le trajet
 		// TODO Auto-generated method stub
 	}
 
