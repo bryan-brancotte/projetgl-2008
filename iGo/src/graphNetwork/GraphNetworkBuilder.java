@@ -338,18 +338,21 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 *             incorrect.
 	 * @throws ImpossibleValueException
 	 */
-	public void linkStation(Route routeOrigin, Station stationOrigin,
+	public Junction linkStation(Route routeOrigin, Station stationOrigin,
 			Route routeDestination, Station stationDestination, float cost,
 			int time, boolean pedestrian) throws StationNotOnRoadException,
 			MissingResourceException, ImpossibleValueException {
+		
 		boolean done = false;
 		Iterator<Route> itR = currentGraphNetwork.routes.iterator();
+		
 		Junction jOrigine = new Junction(routeOrigin, stationOrigin,
 				routeDestination, stationDestination, cost, time, true,
 				pedestrian);
 		Junction jDestination = new Junction(routeDestination,
 				stationDestination, routeOrigin, stationOrigin, cost, time,
 				true, pedestrian);
+		Junction jRetour=null;
 
 		while (itR.hasNext()) {
 			Route temp = itR.next();
@@ -359,7 +362,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 					Station temp2 = itS.next();
 					if (temp2.equals(stationOrigin)) {// pour la station origine
 						temp2.addJunction(jOrigine);// ajout d'une jonction vers
-													// la station dest
+						jRetour=jOrigine;			// la station dest
 						done = true;
 					}
 				}
@@ -371,7 +374,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 					if (temp2.equals(stationDestination)) {// pour la station
 															// destination
 						temp2.addJunction(jDestination);// ajout d'une jonction
-														// vers la station
+						jRetour=jDestination;								// vers la station
 														// origine
 						done = true;
 					}
@@ -380,6 +383,8 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		}
 		if (!done)
 			throw new ImpossibleValueException();
+		
+		return jRetour;
 	}
 
 	/**
