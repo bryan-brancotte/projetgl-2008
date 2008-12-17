@@ -15,7 +15,9 @@ public class PathInGraphBuilder {
 	 * 
 	 */
 	protected PathInGraphBuilder(GraphNetwork graph) {
-		this.univer = graph;
+		super();
+		univer = graph;
+		
 	}
 
 	/**
@@ -27,6 +29,7 @@ public class PathInGraphBuilder {
 	 * 			chemin dans ce graph
 	 */
 	protected PathInGraphBuilder(GraphNetwork graph, PathInGraph currentPathInGraph) {
+		super();
 		this.univer = graph;
 		this.currentPathInGraph = currentPathInGraph;
 	}
