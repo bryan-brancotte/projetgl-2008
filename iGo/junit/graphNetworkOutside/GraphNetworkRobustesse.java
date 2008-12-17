@@ -38,8 +38,6 @@ public class GraphNetworkRobustesse {
 				sncf
 				.getJunctions(null, sncf.getStation(1)) == null);
 		bob.addStation(2, "e");
-		System.out.println(sncf.getJunctions(sncf.getStation(2), sncf
-				.getStation(1)));
 		assertTrue(
 				"Doit retourner un iterateur sans element car il n'y a aucun lien entre les stations",
 				!(sncf.getJunctions(sncf.getStation(2), sncf.getStation(1))
