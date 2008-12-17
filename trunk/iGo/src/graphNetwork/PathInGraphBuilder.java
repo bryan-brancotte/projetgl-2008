@@ -17,6 +17,7 @@ public class PathInGraphBuilder {
 	protected PathInGraphBuilder(GraphNetwork graph) {
 		super();
 		univer = graph;
+		currentPathInGraph = new PathInGraph(graph);
 		
 	}
 
