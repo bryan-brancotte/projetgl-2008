@@ -118,7 +118,7 @@ public class PathInGraphBuilder {
 	 *        le trajet actuel
 	 * @return void
 	 */
-	public void setCurrentPathInGraph(PathInGraph currentPathInGraph) {
+	protected void setCurrentPathInGraph(PathInGraph currentPathInGraph) {
 		this.currentPathInGraph = currentPathInGraph;
 	}
 
