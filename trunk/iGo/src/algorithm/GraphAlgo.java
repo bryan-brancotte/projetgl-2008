@@ -31,6 +31,11 @@ public class GraphAlgo {
 		}*/
 	}
 	
+	/**
+	 * Rafraichi le réseau avant un calcul
+	 * 
+	 * @param p
+	 */
 	protected void refreshGraph(PathInGraph p) {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getSevicesAlwaysArray();
@@ -42,9 +47,13 @@ public class GraphAlgo {
 		addLink(n);
 	}
 	
+	/**
+	 * A partir du graph chargé, calcul récursif des différents noeuds et arc en partant d'un noeud
+	 * 
+	 * @param n La racine du graph
+	 */
 	private	void addLink (Node n) {
 		Station station = n.getStation();
-		Route route = n.getRoute();
 		Iterator<Junction> itInter = station.getJunctions();
 		while(itInter.hasNext()){
 			Junction j = itInter.next();
@@ -61,16 +70,39 @@ public class GraphAlgo {
 		}
 	}
 	
+	/**
+	 * Verification de la présence d'une station dans un tableau de station
+	 * 
+	 * @param s la station recherchée
+	 * @param list la liste de l'ensemble des stations
+	 * @return true si la station est présente dans la liste
+	 */
 	private boolean isStationIn (Station s, Station[] list) {
-		if (list!=null) for (int i=0 ; i<list.length ; i++) { if (list[i] == s) return true; }
+		if (list!=null) 
+			for (int i=0 ; i<list.length ; i++) 
+				if (list[i] == s) return true;
 		return false;
 	}
 
+	/**
+	 * Verification de la présence d'un service dans une liste de services
+	 * 
+	 * @param s le service recherché
+	 * @param it  l'itérateur des services
+	 * @return true si le service est présent dans la liste
+	 */
 	private boolean isServiceIn (Service s, Iterator<Service> it) {
-		while(it.hasNext()){ if (s.getId() == it.next().getId()) return true; }
+		while(it.hasNext())
+			if (s.getId() == it.next().getId()) return true;
 		return false;
 	}
 	
+	/**
+	 * Vérification de la présence de tous les services "always" dans une station donnée
+	 * 
+	 * @param station la station à vérifier
+	 * @return true si la station respecte toutes les contraintes
+	 */
 	private boolean allServicesIn (Station station){
 		for (int i=0 ; i<always.length ;i++) {
 			if (!isServiceIn(always[i],station.getServices())) return false;
@@ -78,9 +110,15 @@ public class GraphAlgo {
 		return true;		
 	}
 	
+	/**
+	 * Vérification que la liaison entre 2 stations est possible avec les contraintes données
+	 * 
+	 * @param node le noeud représentant la station de de départ
+	 * @param junction la jonction à emprunter
+	 * @return true si la junction est valide
+	 */
 	private boolean validChange (Node node,Junction junction) {
 		Station otherStation = junction.getOtherStation(node.getStation(),node.getRoute());
-		Route otherRoute = junction.getOtherRoute(node.getStation(),node.getRoute());
 		if (
 				otherStation == null ||
 				isStationIn(otherStation,avoidStations) ||
@@ -90,15 +128,22 @@ public class GraphAlgo {
 		else return true;
 	}
 	
+	/**
+	 * Accesseur du graph de l'algorithme
+	 * 
+	 * @return Itérateur du graph de la classe
+	 */
 	protected Iterator<Node> getList () {
 		return graph.iterator();
 	}
 	
-	//TODO protected => public pour test
-	public ArrayList<Node> getListClone() {
-		return new ArrayList<Node>(graph);
-	}
-	
+	/**
+	 * Retourne le noeud d'un couple "station,route"
+	 * 
+	 * @param s la station concernée
+	 * @param r la route empruntée
+	 * @return noeud du graph correspondant
+	 */
 	protected Node getNode (Station s,Route r) {
 		Node n;
 		for (int i=0;i<graph.size();i++) {
@@ -108,9 +153,21 @@ public class GraphAlgo {
 		return null;
 	}
 
+	/**
+	 * Réinitialisation des poids de l'ensemble du graph de l'algorithme
+	 */
 	protected void defaultNodes () {
 		for (int i=0;i<graph.size();i++) graph.get(i).initValue(); 
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	protected ArrayList<Node> getListClone() {
+		return new ArrayList<Node>(graph);
+	}
+
 
 	
 	/*****************************************************************/

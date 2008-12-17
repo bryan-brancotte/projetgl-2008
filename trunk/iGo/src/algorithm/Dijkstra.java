@@ -107,14 +107,6 @@ public class Dijkstra extends Algo {
 				betterWay(l, n1);
 			}
 		}
-		//TODO test de verif a virer
-		/*for (int i=0;i<graph.getListClone().size();i++) {
-			System.out.print(graph.getListClone().get(i).getStation().getName()+" dans "+graph.getListClone().get(i).getRoute()+" -> ");
-			if (graph.getListClone().get(i).getFrom()!=null) 
-					System.out.print(graph.getListClone().get(i).getFrom().getNode().getStation().getName() +" dans "+ graph.getListClone().get(i).getFrom().getJunction().getRouteA());
-			else System.out.print("null");
-			System.out.println();
-		}*/
 		return extractJunctions(arrivee);
 	}
 	
