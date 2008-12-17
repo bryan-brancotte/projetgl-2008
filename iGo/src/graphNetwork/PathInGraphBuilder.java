@@ -100,7 +100,7 @@ public class PathInGraphBuilder {
 	 *        la chaine representant le graph a importer
 	 * @return void
 	 */
-	protected void importPath(String pathInString) {
+	public void importPath(String pathInString) {
 		// TODO Auto-generated method stub
 	}
 
