@@ -7,7 +7,7 @@ package graphNetwork;
  */
 public class PathInGraphBuilder {
 
-	private PathInGraph actualPathInGraph;		//le trajet actuellement trait�
+	private PathInGraph currentPathInGraph;		//le trajet actuellement trait�
 	private GraphNetwork univer;
 
 	/**
@@ -23,12 +23,12 @@ public class PathInGraphBuilder {
 	 * 
 	 * @param graph
 	 *        graph
-	 * @param actualPathInGraph
+	 * @param currentPathInGraph
 	 * 			chemin dans ce graph
 	 */
-	protected PathInGraphBuilder(GraphNetwork graph, PathInGraph actualPathInGraph) {
+	protected PathInGraphBuilder(GraphNetwork graph, PathInGraph currentPathInGraph) {
 		this.univer = graph;
-		this.actualPathInGraph = actualPathInGraph;
+		this.currentPathInGraph = currentPathInGraph;
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class PathInGraphBuilder {
 	 * @return void
 	 */
 	public void addFront(Junction junction) {
-		actualPathInGraph.junctions.addFirst(junction);
+		currentPathInGraph.junctions.addFirst(junction);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class PathInGraphBuilder {
 	 * @return void
 	 */
 	public void addLast(Junction junction) {
-		actualPathInGraph.junctions.addLast(junction);
+		currentPathInGraph.junctions.addLast(junction);
 
 	}
 
@@ -60,16 +60,24 @@ public class PathInGraphBuilder {
 	 * @return void
 	 */
 	protected void flush() {
-		actualPathInGraph.junctions.clear();
+		currentPathInGraph.junctions.clear();
 	}
 
+	/**
+	 * @deprecated Use getCurrentPathInGraph()
+	 */
+	@Deprecated
+	public PathInGraph getActualPathInGraph() {
+		return currentPathInGraph;
+	}
+	
 	/**
 	 * retourne le trajet actuellement etudie
 	 * 
 	 * @return le trajet etudie
 	 */
-	public PathInGraph getActualPathInGraph() {
-		return actualPathInGraph;
+	public PathInGraph getCurrentPathInGraph() {
+		return currentPathInGraph;
 	}
 
 	/**
@@ -93,14 +101,21 @@ public class PathInGraphBuilder {
 	}
 
 	/**
+	 * @deprecated Use setCurrentPathInGraph()
+	 */
+	public void setActualPathInGraph(PathInGraph currentPathInGraph) {
+		this.currentPathInGraph = currentPathInGraph;
+	}
+	
+	/**
 	 * definit le trajet actuellement etudie en fonction du trajet passe en parametre
 	 * 
-	 * @param actualPathInGraph
+	 * @param currentPathInGraph
 	 *        le trajet actuel
 	 * @return void
 	 */
-	public void setActualPathInGraph(PathInGraph actualPathInGraph) {
-		this.actualPathInGraph = actualPathInGraph;
+	public void setCurrentPathInGraph(PathInGraph currentPathInGraph) {
+		this.currentPathInGraph = currentPathInGraph;
 	}
 
 }

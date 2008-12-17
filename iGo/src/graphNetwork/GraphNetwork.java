@@ -91,7 +91,7 @@ public class GraphNetwork {
 		if(path==null)return null;
 		
 		PathInGraphBuilder b = new PathInGraphBuilder(this);
-		b.setActualPathInGraph(path);
+		b.setCurrentPathInGraph(path);
 		return b;
 	}
 
