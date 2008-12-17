@@ -490,7 +490,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			cleanPanelsStates(false);
 			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
-			master.askForATravel();
+			//TODO askForATravel(null)
+			master.askForATravel(null);
 			return true;
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
 			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(preferedState);

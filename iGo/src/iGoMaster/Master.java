@@ -1,7 +1,9 @@
 package iGoMaster;
 
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraphBuilder;
 import graphNetwork.Service;
+import graphNetwork.Station;
 
 import java.util.Iterator;
 import java.util.Observable;
@@ -70,7 +72,7 @@ public interface Master {
 	 * @return true si la demande a bien été enregistrer
 	 */
 	// TODO modéliser les contraintes
-	public boolean askForATravel();
+	public boolean askForATravel(PathInGraphBuilder pathInGraphBuidable);
 
 	/**
 	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
@@ -78,6 +80,13 @@ public interface Master {
 	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<Service> getServices();
+
+	/**
+	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
+	 * 
+	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<Station> getStations();
 
 	/**
 	 * Retourne un iterateur décrivant l'ensemble des types de route présent sur le réseau
