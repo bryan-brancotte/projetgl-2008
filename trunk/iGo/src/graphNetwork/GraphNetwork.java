@@ -47,7 +47,6 @@ public class GraphNetwork {
 		// ce
 		// type
 		if (kind == null) {
-			System.err.println("null kind");
 			return Float.NaN;
 		}
 		return kind.cost;
