@@ -11,14 +11,14 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 									// (création controlé d'objet) et Builder
 									// (modification controlé d'objet).
 
-	protected GraphNetwork actualGraphNetwork = null;// le GraphNetwork courant,
+	protected GraphNetwork currentGraphNetwork = null;// le GraphNetwork courant,
 														// celui où on est
 														// actuellement en
 														// travail
 
 	public GraphNetworkBuilder() {// constructeur du monteur de GraphNetwork
 		super();
-		actualGraphNetwork = new GraphNetwork();
+		currentGraphNetwork = new GraphNetwork();
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (id == null || kindOf == null)
 			return null;
 
-		Iterator<Route> it = actualGraphNetwork.getRoutes();
+		Iterator<Route> it = currentGraphNetwork.getRoutes();
 		boolean trouve = false;
 
 		while (it.hasNext()) {
@@ -51,11 +51,11 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (!trouve) {
 			if (KindRoute.addKind(kindOf) != null) { // si le kind route existe
 				Route r1 = new Route(id, KindRoute.getKindFromString(kindOf));
-				actualGraphNetwork.routes.add(r1);
+				currentGraphNetwork.routes.add(r1);
 				return r1;
 			} else {
 				Route r1 = new Route(id, KindRoute.addKind(kindOf));
-				actualGraphNetwork.routes.add(r1);
+				currentGraphNetwork.routes.add(r1);
 				return r1;
 			}
 		}
@@ -82,7 +82,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (name == null)
 			return null;
 
-		Iterator<Service> it = actualGraphNetwork.getServices();
+		Iterator<Service> it = currentGraphNetwork.getServices();
 		boolean trouve = false;
 		while (it.hasNext()) {
 			if (it.next().getId() == id)
@@ -92,7 +92,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (!trouve) {
 			Service s1 = new Service(id, name);
 
-			actualGraphNetwork.services.add(s1);
+			currentGraphNetwork.services.add(s1);
 			return s1;
 		}
 		// return null;
@@ -119,7 +119,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (name == null)
 			return null;
 
-		Iterator<Service> it = actualGraphNetwork.getServices();
+		Iterator<Service> it = currentGraphNetwork.getServices();
 		boolean trouve = false;
 		while (it.hasNext()) {
 			if (it.next().getId() == id)
@@ -129,7 +129,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (!trouve) {
 			Service s1 = new Service(id, name, description);
 
-			actualGraphNetwork.services.add(s1);
+			currentGraphNetwork.services.add(s1);
 			return s1;
 		}
 		// return null;
@@ -148,10 +148,10 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 */
 	public boolean addServiceToStation(Station station, Service serviceToAdd) {
 		if (station == null || serviceToAdd == null
-				|| !actualGraphNetwork.stations.contains(station))
+				|| !currentGraphNetwork.stations.contains(station))
 			return false;
 
-		Iterator<Station> it = actualGraphNetwork.stations.iterator();
+		Iterator<Station> it = currentGraphNetwork.stations.iterator();
 		while (it.hasNext()) {
 			Station temp = it.next();
 			if (temp.equals(station)) { // pour la station en question
@@ -186,7 +186,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 			throws ViolationOfUnicityInIdentificationException {
 		if (name == null)
 			return null;
-		Iterator<Station> it = actualGraphNetwork.getStations();
+		Iterator<Station> it = currentGraphNetwork.getStations();
 		boolean trouve = false;
 		while (it.hasNext()) {
 			if (it.next().getId() == id)
@@ -194,7 +194,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		}
 		if (!trouve) {
 			Station stationAdd = new Station(id, name);
-			actualGraphNetwork.stations.add(stationAdd);
+			currentGraphNetwork.stations.add(stationAdd);
 			return stationAdd;
 		}
 		throw new ViolationOfUnicityInIdentificationException();
@@ -223,7 +223,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 		if (route == null || stationToAdd == null)
 			return false;
 
-		Iterator<Route> it = actualGraphNetwork.routes.iterator();
+		Iterator<Route> it = currentGraphNetwork.routes.iterator();
 		while (it.hasNext()) {
 			Route temp = it.next();
 			if (temp.equals(route)) { // pour la route en question
@@ -245,7 +245,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 				 * addRouteToStation
 				 */
 				// Iterator<Station> itt =
-				// actualGraphNetwork.stations.iterator();
+				// currentGraphNetwork.stations.iterator();
 				// while(itt.hasNext()){
 				// Station temp2=itt.next();
 				// if(temp2.equals(stationToAdd)){
@@ -283,12 +283,20 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	}
 
 	/**
+	 * @deprecated Use getCurrentGraphNetwork()
+	 */
+	@Deprecated
+	public GraphNetwork getActualGraphNetwork() {
+		return currentGraphNetwork;
+	}
+	
+	/**
 	 * retourne l'actuelle GraphNetwork.
 	 * 
 	 * @return le GraphNetwork courant ou null si'il n'y en a pas.
 	 */
-	public GraphNetwork getActualGraphNetwork() {
-		return actualGraphNetwork;
+	public GraphNetwork getCurrentGraphNetwork() {
+		return currentGraphNetwork;
 	}
 
 	/**
@@ -335,7 +343,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 			int time, boolean pedestrian) throws StationNotOnRoadException,
 			MissingResourceException, ImpossibleValueException {
 		boolean done = false;
-		Iterator<Route> itR = actualGraphNetwork.routes.iterator();
+		Iterator<Route> itR = currentGraphNetwork.routes.iterator();
 		Junction jOrigine = new Junction(routeOrigin, stationOrigin,
 				routeDestination, stationDestination, cost, time, true,
 				pedestrian);
@@ -379,25 +387,32 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 * conteneurs
 	 */
 	public void reset() {
-		actualGraphNetwork.routes.clear();
-		actualGraphNetwork.stations.clear();
-		actualGraphNetwork.services.clear();
+		currentGraphNetwork.routes.clear();
+		currentGraphNetwork.stations.clear();
+		currentGraphNetwork.services.clear();
 		KindRoute.reset();
 	}
 
 	/**
+	 * @deprecated Use setCurrentGraphNetwork()
+	 */
+	protected void setActualGraphNetwork(GraphNetwork currentGraphNetwork) {
+		this.currentGraphNetwork = currentGraphNetwork;
+	}
+	
+	/**
 	 * définit le GraphNetwork passé en paramètre comme le GraphNetwork courant.
 	 * 
-	 * @param actualGraphNetwork
+	 * @param currentGraphNetwork
 	 *            le futur GraphNetwork courant.
 	 */
-	protected void setActualGraphNetwork(GraphNetwork actualGraphNetwork) {
-		this.actualGraphNetwork = actualGraphNetwork;
+	protected void setCurrentGraphNetwork(GraphNetwork currentGraphNetwork) {
+		this.currentGraphNetwork = currentGraphNetwork;
 	}
 
 	/* test perso a virer */
 	public Station getStationTest(int id) {
-		Iterator<Station> it = actualGraphNetwork.getStations();
+		Iterator<Station> it = currentGraphNetwork.getStations();
 
 		while (it.hasNext()) {
 			Station temp = it.next();
@@ -410,7 +425,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 
 	/* test perso a virer */
 	public Service getServiceTest(int id) {
-		Iterator<Service> it = actualGraphNetwork.getServices();
+		Iterator<Service> it = currentGraphNetwork.getServices();
 
 		while (it.hasNext()) {
 			Service temp = it.next();
