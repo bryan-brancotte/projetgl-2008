@@ -2,7 +2,10 @@ package ihm.smartPhone;
 
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraphBuilder;
 import graphNetwork.Service;
+import graphNetwork.Station;
+import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Configuration;
 import iGoMaster.IHM;
@@ -22,14 +25,17 @@ public class MainDemoIHM {
 
 	protected static IHM ihm;
 
+	static GraphNetworkBuilder gnb;
+
 	protected static Configuration conf;
+
 	/**
 	 * @param args
 	 * @throws InterruptedException
 	 */
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws InterruptedException {
-		conf=new ConfigurationXML();
+		conf = new ConfigurationXML();
 		ihm = new IGoIhmSmartPhone(new Master() {
 
 			protected Language lang = new LanguageXML();
@@ -45,7 +51,7 @@ public class MainDemoIHM {
 
 			@Override
 			public String config(String key) {
-				
+
 				System.out.println("Reading : <" + key + ">");
 				if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
 					return IhmReceivingStates.GRAPHIC_MODE.toString();
@@ -63,47 +69,17 @@ public class MainDemoIHM {
 			}
 
 			@Override
-			public boolean askForATravel() {
-				(new ExecMultiThread<IHM>(ihm) {
-					@Override
-					public void run() {
-						try {
-							Thread.currentThread().sleep(1000);
-							System.out.println("tada!");
-							ihm.returnPathAsked(null, "pas trouvé");
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}).start();
-				return true;
-			}
-
-			@Override
 			public Iterator<KindRoute> getKindRoutes() {
-				GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-				try {
-					gnb.addRoute("1", "Train");
-					gnb.addRoute("2", "Trolley");
-					gnb.addRoute("3", "Subway");
-					gnb.addRoute("4", "Foot");
-				} catch (ViolationOfUnicityInIdentificationException e) {
-				}
+				if (gnb == null)
+					makeGNB();
 				return KindRoute.getKinds();
 			}
 
 			@Override
 			public Iterator<Service> getServices() {
-				GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-				try {
-					gnb.addService(1, "Wheelchair accessible");
-					gnb.addService(2, "Coffee");
-					gnb.addService(3, "Flower");
-					gnb.addService(4, "Parking");
-				} catch (ViolationOfUnicityInIdentificationException e) {
-					e.printStackTrace();
-				}
-				return gnb.getActualGraphNetwork().getServices();
+				if (gnb == null)
+					makeGNB();
+				return gnb.getCurrentGraphNetwork().getServices();
 			}
 
 			@Override
@@ -119,11 +95,34 @@ public class MainDemoIHM {
 				return true;
 			}
 
-		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);/***************************************************************
-														 * }, iGoSmartPhoneSkin.BLUE_WITH_LINE);/* //
-														 * },iGoSmartPhoneSkin.WHITE_WITH_LINE);/*
-														 * },iGoSmartPhoneSkin.BLACK_WITH_LINE);/
-														 **************************************************************/
+			@Override
+			public Iterator<Station> getStations() {
+				if (gnb == null)
+					makeGNB();
+				return gnb.getCurrentGraphNetwork().getStations();
+			}
+
+			@Override
+			public boolean askForATravel(PathInGraphBuilder pathInGraphBuidable) {
+				(new ExecMultiThread<IHM>(ihm) {
+					@Override
+					public void run() {
+						try {
+							Thread.currentThread().sleep(1000);
+							System.out.println("tada!");
+							ihm.returnPathAsked(null, "pas trouvé");
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}).start();
+				return true;
+			}
+
+			// }, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);
+			// }, iGoSmartPhoneSkin.BLUE_WITH_LINE);
+		}, iGoSmartPhoneSkin.WHITE_WITH_LINE);
+		// },iGoSmartPhoneSkin.BLACK_WITH_LINE);
 		ihm.start(true, 8);
 		new ExecMultiThread<IHM>(ihm) {
 
@@ -157,6 +156,45 @@ public class MainDemoIHM {
 			}
 		}.start();
 		// ihm.stop();
+	}
+
+	protected static void makeGNB() {
+		try {
+			gnb = new GraphNetworkBuilder();
+			gnb.addRoute("RerB", "Train");
+			gnb.addRoute("2", "Trolley");
+			gnb.addRoute("3", "Subway");
+			gnb.addRoute("4", "Foot");
+			gnb.addService(1, "Wheelchair accessible");
+			gnb.addService(2, "Coffee");
+			gnb.addService(3, "Flower");
+			gnb.addService(4, "Parking");
+			gnb.addStation(1, "Massy");
+			gnb.addStation(2, "Antony");
+			gnb.addStation(3, "Le Guichet");
+			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()
+					.getStation(1), 0);
+			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()
+					.getStation(2), 5);
+			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()
+					.getStation(3), 7);
+			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(1), gnb.getCurrentGraphNetwork()
+					.getService(1));
+			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(2), gnb.getCurrentGraphNetwork()
+					.getService(1));
+			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(3), gnb.getCurrentGraphNetwork()
+					.getService(1));
+			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(3), gnb.getCurrentGraphNetwork()
+					.getService(3));
+			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(2), gnb.getCurrentGraphNetwork()
+					.getService(2));
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (ViolationOfUnicityInIdentificationException e) {
+			e.printStackTrace();
+		} catch (ImpossibleValueException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -296,10 +296,9 @@ public class SettingsPanel extends PanelState {
 		s = father.lg("TravelCriteria");
 		if (!travelCriteriaCollapsableArea.isCollapsed()) {
 			width = getWidth() - (decalage << 1);
-			travelCriteriaRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1),
-					travelCriteriaCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-							.getSizeAdapteur().getLargeFont()), father.lg("Cheaper"), father.getSizeAdapteur()
-							.getSmallFont());
+			travelCriteriaRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), travelCriteriaCollapsableArea
+					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+							.getIntermediateFont()), father.lg("Cheaper"), father.getSizeAdapteur().getSmallFont());
 
 			travelCriteriaRadioBoxs[1].prepareArea(buffer, travelCriteriaRadioBoxs[0].getArea().x
 					+ travelCriteriaRadioBoxs[0].getArea().width + (decalage >> 1), travelCriteriaRadioBoxs[0]
@@ -321,8 +320,8 @@ public class SettingsPanel extends PanelState {
 						father.getSizeAdapteur().getSmallFont());
 
 		}
-		travelCriteriaCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
-				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		travelCriteriaCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		if (!travelCriteriaCollapsableArea.isCollapsed()) {
 			travelCriteriaRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
 					.getColorSubAreaInside(), father.getSkin().getColorLetter());
@@ -344,7 +343,8 @@ public class SettingsPanel extends PanelState {
 				p.chk.prepareArea(buffer, (chk == null) ? decalage + (decalage >> 1) : chk.getArea().x
 						+ chk.getArea().width + (decalage >> 1), (chk == null) ? travelCriteriaCollapsableArea
 						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-								.getLargeFont()) : chk.getArea().y, p.name, father.getSizeAdapteur().getSmallFont());
+								.getIntermediateFont()) : chk.getArea().y, p.name, father.getSizeAdapteur()
+						.getSmallFont());
 				if ((p.chk.getArea().x + p.chk.getArea().width) > (getWidth() - decalage)) {
 					p.chk.prepareArea(buffer, decalage + (decalage >> 1), p.chk.getArea().y + p.chk.getArea().height
 							+ (decalage >> 1), p.name, father.getSizeAdapteur().getSmallFont());
@@ -352,8 +352,8 @@ public class SettingsPanel extends PanelState {
 				chk = p.chk;
 			}
 		}
-		travelModeCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(), father
-				.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		travelModeCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		if (!travelModeCollapsableArea.isCollapsed())
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				p.chk.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
@@ -379,7 +379,7 @@ public class SettingsPanel extends PanelState {
 			pos[1] = pos[0] + (tmp << 1);
 			pos[2] = pos[1] + (tmp << 1);
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-					.getSizeAdapteur().getLargeFont());
+					.getSizeAdapteur().getIntermediateFont());
 			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont()) + (decalage >> 1);
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				tmp += width;
@@ -387,22 +387,23 @@ public class SettingsPanel extends PanelState {
 					p.rbs[i].prepareArea(buffer, pos[i], tmp, "", father.getSizeAdapteur().getSmallFont(), true, false);
 				}
 			}
-			servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
-					father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
+					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
+							.getSkin().getColorLetter());
 			// ____________Idle_Once_Always
 			// __Coffre_____O_____O____X___
 			// __Handi______O_____X____O___
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-					.getSizeAdapteur().getLargeFont());
+					.getSizeAdapteur().getIntermediateFont());
 			buffer.setFont(father.getSizeAdapteur().getSmallFont());
 			buffer.drawString(father.lg(SettingsValue.Idle.toString()), pos[0]
-					- (getWidthString(SettingsValue.Idle.toString(), buffer) >> 1), tmp);
+					- (getWidthString(father.lg(SettingsValue.Idle.toString()), buffer) >> 1), tmp);
 			buffer.drawString(father.lg(SettingsValue.Once.toString()), pos[1]
-					- (getWidthString(SettingsValue.Once.toString(), buffer) >> 1), tmp);
+					- (getWidthString(father.lg(SettingsValue.Once.toString()), buffer) >> 1), tmp);
 			buffer.drawString(father.lg(SettingsValue.Always.toString()), pos[2]
-					- (getWidthString(SettingsValue.Always.toString(), buffer) >> 1), tmp);
+					- (getWidthString(father.lg(SettingsValue.Always.toString()), buffer) >> 1), tmp);
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-					.getSizeAdapteur().getLargeFont());
+					.getSizeAdapteur().getIntermediateFont());
 			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont());
 			tmp += width;
 			width += (decalage >> 1);
@@ -418,8 +419,9 @@ public class SettingsPanel extends PanelState {
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 			}
 		} else
-			servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
-					father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
+					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
+							.getSkin().getColorLetter());
 		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + (decalage << 1);
 
 		/***************************************************************************************************************
@@ -429,10 +431,9 @@ public class SettingsPanel extends PanelState {
 		if (!qualityRadioBoxCollapsableArea.isCollapsed()) {
 			width = getWidth() - (decalage << 1);
 
-			qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1),
-					qualityRadioBoxCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-							.getSizeAdapteur().getLargeFont()), father.lg("Minimal"), father.getSizeAdapteur()
-							.getSmallFont());
+			qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxCollapsableArea
+					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+							.getIntermediateFont()), father.lg("Minimal"), father.getSizeAdapteur().getSmallFont());
 
 			qualityRadioBoxs[1].prepareArea(buffer, qualityRadioBoxs[0].getArea().x
 					+ qualityRadioBoxs[0].getArea().width + (decalage >> 1), qualityRadioBoxs[0].getArea().y, father
@@ -461,8 +462,8 @@ public class SettingsPanel extends PanelState {
 						+ qualityRadioBoxs[3].getArea().height + (decalage >> 1), father.lg("High"), father
 						.getSizeAdapteur().getSmallFont());
 		}
-		qualityRadioBoxCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getLargeFont(),
-				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		qualityRadioBoxCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		if (!qualityRadioBoxCollapsableArea.isCollapsed()) {
 			qualityRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
 					.getColorSubAreaInside(), father.getSkin().getColorLetter());
@@ -483,14 +484,8 @@ public class SettingsPanel extends PanelState {
 				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		deroullement = scrollBar.getDeroullement();
-		// TODO améliorer le scroll actuelle il se base sur les donnée du passé pour le presnte. Induie des bug dans le
-		// cas d'un maximisation.
-		// System.out.println((new GregorianCalendar()).getTime().getSeconds() + " " + ordonne + " " + deroullement + "
-		// " + getHeight());
+		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
 
-		// if (ordonne + deroullement - getHeight() <= 0)
-		// deroullement = 0;
-		// TODO ...........taf en cours....................
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */
@@ -511,6 +506,7 @@ public class SettingsPanel extends PanelState {
 			}
 		});
 		lowerBar.repaint();
+		this.requestFocus();
 	}
 
 }
