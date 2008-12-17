@@ -33,7 +33,7 @@ public class GraphNetworkBuilderTest {
 	@Before
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
-		sncf = bob.getActualGraphNetwork();
+		sncf = bob.getCurrentGraphNetwork();
 	}
 
 	public static junit.framework.Test suite() {
@@ -48,8 +48,9 @@ public class GraphNetworkBuilderTest {
 	@Test
 	public void resetQuiMarche() {
 		bob.reset();
-		assertTrue(bob.getActualGraphNetwork()!=null);
+		assertTrue(bob.getCurrentGraphNetwork()!=null);
 	}
+	
 	/**
 	 * Construction du réseau sans lever d'exception
 	 */
@@ -80,7 +81,6 @@ public class GraphNetworkBuilderTest {
 
 			bob.defineEntryCost(sncf.getKindFromString("RER"), 4);
 
-			// TODO linkStation est dans un sens ou les deux sens?
 			bob.linkStation(rerC, massyPal, rerB, massyPal, 0, 3, false);
 			bob.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1),
 					2, 9, true);
