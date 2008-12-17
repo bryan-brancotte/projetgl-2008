@@ -39,8 +39,6 @@ public class Dijkstra extends Algo {
 		
 		graph = GraphAlgo.getInstance();
 		graph.refreshGraph(pathInGraph);
-
-		//TODO A faire la récupération des criterious
 		
 		// Création des étapes 
 		steps = new LinkedList<Station>();

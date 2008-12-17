@@ -80,7 +80,7 @@ public class MainAlgo {
 		long stopTime = System.currentTimeMillis();
 		
 		System.out.println(s1.getName()+" => "+s3.getName());
-		System.out.println("graph : "+graph.getListClone().size()+" chemins");
+		//System.out.println("graph : "+graph.getListClone().size()+" chemins");
 		System.out.println("-------------------------------");
 
 		Collections.reverse(junctions);
