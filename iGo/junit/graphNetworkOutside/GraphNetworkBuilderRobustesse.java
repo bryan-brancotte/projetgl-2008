@@ -22,7 +22,7 @@ public class GraphNetworkBuilderRobustesse {
 	@Before
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
-		sncf = bob.getActualGraphNetwork();
+		sncf = bob.getCurrentGraphNetwork();
 	}
 
 	public static junit.framework.Test suite() {
