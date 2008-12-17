@@ -24,11 +24,6 @@ public class GraphAlgo {
 		Node n = new Node(s,s.getRoutes().next());
 		graph.add(n);
 		addLink(n);
-
-		//TODO commentaires a virer
-		/*for (int i=0;i<graph.size();i++) {
-			System.out.println(graph.get(i).getStation().getName()+" avec "+graph.get(i).getTo().size());
-		}*/
 	}
 	
 	/**
