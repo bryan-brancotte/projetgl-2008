@@ -8,6 +8,7 @@ import java.util.Observer;
 
 public abstract class Algo extends Observable {
 
+	//TODO A VIRER APRES validation du pathInGraph
 	protected CriteriousForLowerPath criterious1;
 	public CriteriousForLowerPath getCriterious1 () { return criterious1; }
 	public void setCriterious1 (String s) { criterious1=CriteriousForLowerPath.getCriterious(s); }

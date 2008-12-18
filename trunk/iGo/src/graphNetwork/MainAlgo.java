@@ -68,14 +68,14 @@ public class MainAlgo {
 		
 		long startTime = System.currentTimeMillis();
 		
-		GraphAlgo graph = GraphAlgo.getInstance();
-		graph.refreshGraph(s1);
+		//GraphAlgo graph = GraphAlgo.getInstance();
+		//graph.refreshGraph(s1);
 		
 		Dijkstra algo = new Dijkstra();
 		algo.setCriterious1("time");
 		algo.setCriterious2("cost");
 		
-		junctions = algo.findPath(graph, s1, s3);
+		//junctions = algo.findPath(graph, s1, s3);
 
 		long stopTime = System.currentTimeMillis();
 		

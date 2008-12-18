@@ -12,6 +12,7 @@ import java.util.LinkedList;
 
 public class GraphAlgo {
 
+	private PathInGraph p;
 	private ArrayList<Node> graph;
 	private Station[] avoidStations;
 	private Service[] always;
@@ -31,7 +32,7 @@ public class GraphAlgo {
 	 * 
 	 * @param p
 	 */
-	protected void refreshGraph(PathInGraph p) {
+	protected void refreshGraph() {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getSevicesAlwaysArray();
 		// Initialisation du graph
@@ -169,10 +170,12 @@ public class GraphAlgo {
 	
 	// Implémentation du singleton
 	private static GraphAlgo instance;
-	private GraphAlgo() {}
-	public static GraphAlgo getInstance() {
+	private GraphAlgo(PathInGraph p) {
+		this.p = p;
+	}
+	public static GraphAlgo getInstance(PathInGraph p) {
         if (null == instance) { // Premier appel
-            instance = new GraphAlgo();
+            instance = new GraphAlgo(p);
         }
         return instance;
     }
