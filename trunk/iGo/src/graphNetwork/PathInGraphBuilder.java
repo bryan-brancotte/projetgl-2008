@@ -107,7 +107,7 @@ public class PathInGraphBuilder {
 	/**
 	 * @deprecated Use setCurrentPathInGraph()
 	 */
-	public void setActualPathInGraph(PathInGraph currentPathInGraph) {
+	protected void setActualPathInGraph(PathInGraph currentPathInGraph) {
 		this.currentPathInGraph = currentPathInGraph;
 	}
 	
