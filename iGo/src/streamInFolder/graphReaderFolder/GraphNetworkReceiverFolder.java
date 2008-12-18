@@ -17,31 +17,29 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.MissingResourceException;
 import java.util.Vector;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
 
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
-
-import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 
 public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 	private HashMap<String, AvailableNetwork> networks;
 	private File folder;
-	private DOMParser parser;
+	protected org.jdom.Document doc;
 	protected final Lock verrou = new ReentrantLock();
 
 	public GraphNetworkReceiverFolder(String f) {
 		super();
 		networks = new HashMap<String, AvailableNetwork>();
 		folder = new File(f);
-		parser = new DOMParser();
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
@@ -70,6 +68,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 			return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void buildNewGraphNetwork(GraphNetworkBuilder gnb, String networkChosen, GraphNetworkCostReceiver costReceiver)
 			throws GraphReceptionException, GraphConstructionException {
@@ -81,305 +80,213 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 				// System.out.println(networks.get(networkChosen));
 				// System.out.println(networks.get(networkChosen).getFichier());
 				// System.out.println(networks.get(networkChosen).getFichier().toURI());
-				System.out.println(networks.get(networkChosen).getFichier().toURI().toString());
-				parser.parse(networks.get(networkChosen).getFichier().toURI().toString());
+
+				SAXBuilder sxb = new SAXBuilder();
 
 				GraphNetworkCostReceiverHardWritten giveCost;
-
 				giveCost = new GraphNetworkCostReceiverHardWritten();
 
 				synchronized (verrou) {
-					Document doc = parser.getDocument();
 
-					NodeList servicesList = doc.getElementsByTagName("Service");
-					if (servicesList.getLength() > 0) {
-						for (int i = 0; i < servicesList.getLength(); i++) {
-							NodeList nodeChilds = servicesList.item(i).getChildNodes();
-							if (nodeChilds != null) {
-								int id = 0;
-								String description = "";
+					try {
+						doc = sxb.build(networks.get(networkChosen).getFichier().toURI().toString());
+					} catch (JDOMException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
-								for (int j = 0; j < nodeChilds.getLength(); j++) {
-									if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
-										if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
-											id = Integer.parseInt(nodeChilds.item(j).getTextContent());
-										}
-										else if (nodeChilds.item(j).getLocalName().compareTo("ShortDescription") == 0) {
-											description = nodeChilds.item(j).getTextContent();
-										}
+					Element racine;
+					racine = doc.getRootElement();
+
+					List<Element> services = racine.getChild("ServicesList").getChildren("Service");
+					for (Element service : services) {
+						List<Element> nodeChilds = service.getChildren();
+						int id = 0;
+						String description = "";
+
+						for (Element child : nodeChilds) {
+							if (child.getName().compareTo("ID") == 0) {
+								id = Integer.parseInt(child.getTextTrim());
+							}
+							else if (child.getName().compareTo("ShortDescription") == 0) {
+								description = child.getTextTrim();
+							}
+						}
+						gnb.addService(id, "", description);
+						// System.out.println("Adding Service : " + id + " : " + description);
+					}
+
+					List<Element> stations = racine.getChild("StationsList").getChildren("Station");
+					for (Element station : stations) {
+						List<Element> nodeChilds = station.getChildren();
+						int id = 0, idS = 0;
+						String name = "";
+						Vector<Integer> idServicesStation = new Vector<Integer>();
+
+						for (Element child : nodeChilds) {
+							if (child.getName().compareTo("ID") == 0) {
+								id = Integer.parseInt(child.getTextTrim());
+							}
+							else if (child.getName().compareTo("Name") == 0) {
+								name = child.getTextTrim();
+							}
+							else if (child.getName().compareTo("StationServicesList") == 0) {
+								List<Element> stationServicesList = child.getChildren();
+
+								for (Element stationService : stationServicesList) {
+									if (stationService.getName().compareTo("ID") == 0) {
+										idS = Integer.parseInt(stationService.getTextTrim());
+										idServicesStation.add(idS);
 									}
 								}
-								gnb.addService(id, "", description);
-//								System.out.println("Adding Service : " + id);
+
+							}
+						}
+						if (id != 0 && !name.equals("")) {
+							Station s = gnb.addStation(id, name);
+							// System.out.println("Adding Station : " + name);
+							for (int l = 0; l < idServicesStation.size(); l++) {
+								// System.out.println("\t Adding service : " + idServicesStation.get(l));
+								gnb.addServiceToStation(s, gnb.getCurrentGraphNetwork().getService(idServicesStation.get(l)));
 							}
 						}
 					}
 
-//					Iterator<Service> itSe = gnb.getActualGraphNetwork().getServices();
-//					while (itSe.hasNext()) {
-////						System.out.println("Service : " + itSe.next().getShortDescription() + " ");
-//					}
+					List<Element> routes = racine.getChild("RoutesList").getChildren("Route");
+					for (Element route : routes) {
+						List<Element> nodeChilds = route.getChildren();
+						String id = "";
+						String kindR = "";
+						Vector<Vector<Integer>> idSectionsStations = new Vector<Vector<Integer>>();
+						Vector<Integer> timeBetweenStations = new Vector<Integer>();
 
-					
-					
-					
-					
-					
-					
-					
-					NodeList stationsList = doc.getElementsByTagName("Station");
-					if (stationsList.getLength() > 0) {
-						for (int i = 0; i < stationsList.getLength(); i++) {
-							NodeList nodeChilds = stationsList.item(i).getChildNodes();
-							if (nodeChilds != null) {
-								int id = 0, idS = 0;
-								String name = "";
-								Vector<Integer> idServicesStation = new Vector<Integer>();
+						for (Element child : nodeChilds) {
+							if (child.getName().compareTo("ID") == 0) {
+								id = child.getTextTrim();
+								// System.out.println("id route " + id);
+							}
+							else if (child.getName().compareTo("Kind") == 0) {
+								kindR = child.getTextTrim();
+								// System.out.println("kind route " + kindR);
+							}
+							else if (child.getName().compareTo("RouteSectionsList") == 0) {
+								List<Element> sectionsList = child.getChildren();
 
-								for (int j = 0; j < nodeChilds.getLength(); j++) {
-									if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
-										// System.out.println("STATION : " + nodeChilds.item(j).getLocalName());
-										if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
-											id = Integer.parseInt(nodeChilds.item(j).getTextContent());
+								for (Element section : sectionsList) {
+									timeBetweenStations.add(Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
+									// System.out.println("Time between stations " + Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
+
+									List<Element> sectionStationsList = section.getChildren();
+
+									Vector<Integer> idStations = new Vector<Integer>();
+
+									for (Element station : sectionStationsList) {
+										if (station.getName().compareTo("ID") == 0) {
+											// System.out.println("ID "+ Integer.parseInt(station.getTextTrim()));
+											idStations.add(Integer.parseInt(station.getTextTrim()));
 										}
-										else if (nodeChilds.item(j).getLocalName().compareTo("Name") == 0) {
-											name = nodeChilds.item(j).getTextContent().trim();
-										}
-										else if (nodeChilds.item(j).getLocalName().compareTo("StationServicesList") == 0) {
-											NodeList stationServicesList = nodeChilds.item(j).getChildNodes();
-											if (stationServicesList != null) {
-												for (int k = 0; k < stationServicesList.getLength(); k++) {
-													if (stationServicesList.item(k).getNodeName().compareTo("#text") != 0) {
-														if (stationServicesList.item(k).getLocalName().compareTo("ID") == 0) {
-															idS = Integer.parseInt(stationServicesList.item(k).getTextContent());
-															idServicesStation.add(idS);
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-								if (id != 0 && !name.equals("")) {
-									Station s = gnb.addStation(id, name);
-//									System.out.println("Adding Station : " + name);
-									for (int l = 0; l < idServicesStation.size(); l++) {
-										gnb.addServiceToStation(s, gnb.getActualGraphNetwork().getService(idServicesStation.get(l)));
+
+										idSectionsStations.add(idStations);
 									}
 								}
 							}
-						}
-					}
 
-//					Iterator<Station> itSt = gnb.getActualGraphNetwork().getStations();
-//					while (itSt.hasNext()) {
-////						System.out.println("Station : " + itSt.next().getName());
-//					}
+							if (idSectionsStations.size() > 0 && timeBetweenStations.size() > 0
+									&& (timeBetweenStations.size() == idSectionsStations.size()) && !id.equals("") && !kindR.equals("")) {
+								// System.out.println("nous avons " + idSectionsStations.size() + " sections");
+								Route r = gnb.addRoute(id, kindR);
+								// System.out.println("Adding Route : " + id);
+								// System.out.println();
+								// System.out.println();
+								gnb.defineEntryCost(KindRoute.getKindFromString(kindR), giveCost.getCost(KindRoute.getKindFromString(kindR)));
 
-					
-					
-					
-					
-					
-					
-					
-					NodeList routesList = doc.getElementsByTagName("Route");
-					if (routesList.getLength() > 0) {
-						for (int i = 0; i < routesList.getLength(); i++) {
-							NodeList nodeChilds = routesList.item(i).getChildNodes();
-							if (nodeChilds != null) {
-								String id = "";
-								String kindR = "";
-								Vector<Vector<Integer>> idSectionsStations = new Vector<Vector<Integer>>();
-								Vector<Integer> timeBetweenStations = new Vector<Integer>();
-
-								for (int j = 0; j < nodeChilds.getLength(); j++) {
-									if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
-										if (nodeChilds.item(j).getLocalName().compareTo("ID") == 0) {
-											id = nodeChilds.item(j).getTextContent();
-											// System.out.println("id route " + id);
-										}
-										else if (nodeChilds.item(j).getLocalName().compareTo("Kind") == 0) {
-											kindR = nodeChilds.item(j).getTextContent();
-											// System.out.println("kind route " + kindR);
-										}
-										else if (nodeChilds.item(j).getLocalName().compareTo("RouteSectionsList") == 0) {
-											NodeList routeSectionsList = nodeChilds.item(j).getChildNodes();
-											if (routeSectionsList != null) {
-												for (int k = 0; k < routeSectionsList.getLength(); k++) {
-													if (routeSectionsList.item(k).getNodeName().compareTo("#text") != 0) {
-														if (routeSectionsList.item(k).getLocalName().compareTo("Section") == 0) {
-															// System.out.println("section timebetweenstations = "
-															// + routeSectionsList.item(k).getAttributes().getNamedItem("TimeBetweenStations")
-															// .getTextContent());
-															timeBetweenStations.add(Integer.parseInt(routeSectionsList.item(k).getAttributes()
-																	.getNamedItem("TimeBetweenStations").getTextContent()));
-															NodeList idSectionsList = routeSectionsList.item(k).getChildNodes();
-															if (idSectionsList != null) {
-																if (idSectionsList.getLength() > 1
-																		&& idSectionsList.item(1).getNodeName().compareTo("SectionStationsList") == 0) {
-																	NodeList idStationsList = idSectionsList.item(1).getChildNodes();
-																	if (idStationsList != null) {
-																		// System.out.println("nb childs = " + idStationsList.getLength() / 2);
-																		Vector<Integer> idStations = new Vector<Integer>();
-																		for (int l = 0; l < idStationsList.getLength(); l++) {
-																			if (idStationsList.item(l).getNodeName().compareTo("#text") != 0) {
-																				if (idStationsList.item(l).getLocalName().compareTo("ID") == 0) {
-																					// System.out.println("ID "
-																					// + Integer.parseInt(idStationsList.item(l).getTextContent()));
-																					idStations.add(Integer.parseInt(idStationsList.item(l)
-																							.getTextContent()));
-																				}
-																			}
-																		}
-																		idSectionsStations.add(idStations);
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-								if (idSectionsStations.size() > 0 && timeBetweenStations.size() > 0
-										&& (timeBetweenStations.size() == idSectionsStations.size()) && !id.equals("") && !kindR.equals("")) {
-									// System.out.println("nous avons " + idSectionsStations.size() + " sections");
-									Route r = gnb.addRoute(id, kindR);
-//									System.out.println("Adding Route : " + id);
-									gnb.defineEntryCost(KindRoute.getKindFromString(kindR), giveCost.getCost(KindRoute.getKindFromString(kindR)));
-
-									for (int j = 0; j < idSectionsStations.size(); j++) {
-										for (int k = 0; k < idSectionsStations.get(j).size(); k++) {
-											gnb.addStationToRoute(r, gnb.getActualGraphNetwork().getStation(idSectionsStations.get(j).get(k)),
-													timeBetweenStations.get(j));
-										}
+								for (int j = 0; j < idSectionsStations.size(); j++) {
+									for (int k = 0; k < idSectionsStations.get(j).size(); k++) {
+										gnb.addStationToRoute(r, gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)),
+												timeBetweenStations.get(j));
 									}
 								}
 							}
 						}
 					}
 
-//					Iterator<Route> itR = gnb.getActualGraphNetwork().getRoutes();
-//					while (itR.hasNext()) {
-////						System.out.println("Route : " + itR.next().getId());
-//					}
-					
-					
-					
-					
+					List<Element> interchanges = racine.getChild("InterchangesList").getChildren("Interchange");
+					for (Element interchange : interchanges) {
+						List<Element> startChilds = interchange.getChild("Start").getChildren();
 
-					NodeList interchangeList = doc.getElementsByTagName("Interchange");
-					if (interchangeList.getLength() > 0) {
-						for (int i = 0; i < interchangeList.getLength(); i++) {
-							NodeList nodeChilds = interchangeList.item(i).getChildNodes();
-							if (nodeChilds != null) {
-								int idStationStart = 0;
-								String idRouteStart = "";
-
-								for (int j = 0; j < nodeChilds.getLength(); j++) {
-									if (nodeChilds.item(j).getNodeName().compareTo("#text") != 0) {
-										if (nodeChilds.item(j).getLocalName().compareTo("Start") == 0) {
-
-											NodeList startInfos = nodeChilds.item(j).getChildNodes();
-											if (startInfos != null) {
-												for (int k = 0; k < startInfos.getLength(); k++) {
-													if (startInfos.item(k).getNodeName().compareTo("#text") != 0) {
-														if (startInfos.item(k).getLocalName().compareTo("Station") == 0) {
-															idStationStart = Integer.parseInt(startInfos.item(k).getTextContent());
-															System.out.println("ID Station start : " + idStationStart);
-														}
-														else if (startInfos.item(k).getLocalName().compareTo("Route") == 0) {
-															idRouteStart = startInfos.item(k).getTextContent();
-															System.out.println("ID Route start : " + idRouteStart);
-														}
-													}
-												}
-											}
-
-										}
-										else if (nodeChilds.item(j).getLocalName().compareTo("Endlist") == 0) {
-											NodeList endList = nodeChilds.item(j).getChildNodes();
-											System.out.println(" END LIST " + endList.getLength() / 2);
-											if (endList != null) {
-												if (endList.getLength() > 1) {
-													for (int k = 0; k < endList.getLength(); k++) {
-														NodeList end = endList.item(k).getChildNodes();
-														if (end != null) {
-
-															int idStationEnd = 0;
-															String idRouteEnd = "";
-															boolean freeEnd = true;
-															boolean pedestrianEnd = true;
-															int timeEnd = 0;
-
-															for (int l = 0; l < end.getLength(); l++) {
-																if (end.item(l).getNodeName().compareTo("#text") != 0) {
-																	if (end.item(l).getLocalName().compareTo("Station") == 0) {
-																		System.out.println("ID Station end : " + end.item(l).getTextContent());
-																		idStationEnd = Integer.parseInt(end.item(l).getTextContent());
-																	}
-																	else if (end.item(l).getLocalName().compareTo("Route") == 0) {
-																		System.out.println("ID Route end : " + end.item(l).getTextContent());
-																		idRouteEnd = end.item(l).getTextContent();
-																	}
-																	else if (end.item(l).getLocalName().compareTo("Free") == 0) {
-																		System.out.println("ID free end : " + end.item(l).getTextContent());
-																		freeEnd = Boolean.parseBoolean(end.item(l).getTextContent());
-																	}
-																	else if (end.item(l).getLocalName().compareTo("Pedestrian") == 0) {
-																		System.out.println("ID pedestrian end : " + end.item(l).getTextContent());
-																		pedestrianEnd = Boolean.parseBoolean(end.item(l).getTextContent());
-																	}
-																	else if (end.item(l).getLocalName().compareTo("Time") == 0) {
-																		System.out.println("ID time end : " + end.item(l).getTextContent());
-																		timeEnd = Integer.parseInt(end.item(l).getTextContent());
-																	}
-																}
-															}
-
-															if (idStationStart != 0 && !idRouteEnd.equals("") && idStationEnd != 0
-																	&& !idRouteEnd.equals("")) {
-
-																if (freeEnd == true) {
-
-																	gnb.linkStation(gnb.getActualGraphNetwork().getRoute(idRouteStart), gnb
-																			.getActualGraphNetwork().getStation(idStationStart), gnb
-																			.getActualGraphNetwork().getRoute(idRouteEnd), gnb
-																			.getActualGraphNetwork().getStation(idStationEnd), 0, timeEnd,
-																			pedestrianEnd);
-																}
-																else {
-																	gnb.linkStation(gnb.getActualGraphNetwork().getRoute(idRouteStart), gnb
-																			.getActualGraphNetwork().getStation(idStationStart), gnb
-																			.getActualGraphNetwork().getRoute(idRouteEnd), gnb
-																			.getActualGraphNetwork().getStation(idStationEnd), giveCost.getCost(gnb
-																			.getActualGraphNetwork().getRoute(idRouteStart).getKindRoute(), gnb
-																			.getActualGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
-																			pedestrianEnd);
-																}
-															}
-														}
-													}
-												}
-											}
-
-										}
-									}
-								}
-								System.out.println();
-								System.out.println();
-
+						int idStationStart = 0;
+						String idRouteStart = "";
+						for (Element child : startChilds) {
+							if (child.getName().compareTo("Station") == 0) {
+								idStationStart = Integer.parseInt(child.getTextTrim());
+								// System.out.println("ID Station start : " + idStationStart);
+							}
+							else if (child.getName().compareTo("Route") == 0) {
+								idRouteStart = child.getTextTrim();
+								// System.out.println("ID Route start : " + idRouteStart);
 							}
 						}
+
+						List<Element> endList = interchange.getChild("Endlist").getChildren();
+
+						for (Element end : endList) {
+							List<Element> endChilds = end.getChildren();
+							for (Element child : endChilds) {
+
+								int idStationEnd = 0;
+								String idRouteEnd = "";
+								boolean freeEnd = true;
+								boolean pedestrianEnd = true;
+								int timeEnd = 0;
+
+								if (child.getName().compareTo("Station") == 0) {
+									// System.out.println("ID Station end : " + child.getTextTrim());
+									idStationEnd = Integer.parseInt(child.getTextTrim());
+								}
+								else if (child.getName().compareTo("Route") == 0) {
+									// System.out.println("ID Route end : " + child.getTextTrim());
+									idRouteEnd = child.getTextTrim();
+								}
+								else if (child.getName().compareTo("Free") == 0) {
+									// System.out.println("ID free end : " + child.getTextTrim());
+									freeEnd = Boolean.parseBoolean(child.getTextTrim());
+								}
+								else if (child.getName().compareTo("Pedestrian") == 0) {
+									// System.out.println("ID pedestrian end : " + child.getTextTrim());
+									pedestrianEnd = Boolean.parseBoolean(child.getTextTrim());
+								}
+								else if (child.getName().compareTo("Time") == 0) {
+									// System.out.println("ID time end : " + child.getTextTrim());
+									timeEnd = Integer.parseInt(child.getTextTrim());
+								}
+
+								if (idStationStart != 0 && !idRouteEnd.equals("") && idStationEnd != 0 && !idRouteEnd.equals("")) {
+
+									if (freeEnd == true) {
+										gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
+												idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
+												.getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
+									}
+									else {
+										gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
+												idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
+												.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
+												.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
+												pedestrianEnd);
+									}
+								}
+							}
+//							System.out.println("-");
+						}
+//						System.out.println();
+//						System.out.println();
+
 					}
 				}
 
-			} catch (SAXException e) {
-				throw new GraphConstructionException();
-			} catch (IOException e) {
-				throw new GraphReceptionException();
 			} catch (ViolationOfUnicityInIdentificationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
