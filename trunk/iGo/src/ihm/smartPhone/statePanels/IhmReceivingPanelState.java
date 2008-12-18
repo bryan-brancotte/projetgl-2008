@@ -2,6 +2,7 @@ package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
 import graphNetwork.Service;
+import graphNetwork.Station;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.tools.SizeAdapteur;
 
@@ -83,14 +84,21 @@ public interface IhmReceivingPanelState {
 	public boolean setConfig(String key, String value);
 
 	/**
-	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
+	 * Retourne un itérateur décrivant l'ensemble des services présents sur le réseau
 	 * 
 	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<Service> getServices();
 
 	/**
-	 * Retourne un iterateur décrivant l'ensemble des types de route présent sur le réseau
+	 * Retourne un itérateur décrivant l'ensemble des stations présentes sur le réseau
+	 * 
+	 * @return l'iterateur sur les stations. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<Station> getStations();
+
+	/**
+	 * Retourne un iterateur décrivant l'ensemble des types de route présents sur le réseau
 	 * 
 	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */

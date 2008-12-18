@@ -274,7 +274,9 @@ public class SettingsPanel extends PanelState {
 		int ordonne = decalage - deroullement;
 		int width;
 		int[] pos;
+		byte[] ord;
 		int tmp;
+		int cpt;
 		// int heigth;
 		String s;
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
@@ -367,25 +369,47 @@ public class SettingsPanel extends PanelState {
 		if (!servicesCollapsableArea.isCollapsed()) {
 			pos = new int[3];
 			width = 0;
+			cpt = 0;
 			// on trouve la largueur de la colonne des services
+			ord = new byte[ServicesRadioBoxs.size()];
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				tmp = getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont());
+				if (tmp > (getWidth() - (decalage << 1) - decalage >> 1)) {
+					ord[cpt] = 0;
+					tmp = 0;
+					String[] splited = p.name.split(" ");
+					int myTmp;
+					for (String miniS : splited) {
+						ord[cpt]++;
+						myTmp = getWidthString(miniS, buffer, father.getSizeAdapteur().getSmallFont());
+						if (myTmp > tmp)
+							tmp = myTmp;
+					}
+				} else {
+					ord[cpt] = 1;
+				}
+				cpt++;
 				if (tmp > width)
 					width = tmp;
 			}
 			// on calcul les positions des 3 colone de valehbur des services
-			tmp = (((getWidth() - (decalage << 1) - width) / 3) >> 1);
+			tmp = (((getWidth() - (decalage << 1) - decalage - width) / 3) >> 1);
 			pos[0] = decalage + width + tmp;
 			pos[1] = pos[0] + (tmp << 1);
 			pos[2] = pos[1] + (tmp << 1);
 			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
 					.getSizeAdapteur().getIntermediateFont());
 			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont()) + (decalage >> 1);
+			cpt = -1;
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				tmp += width;
+				if (ord[++cpt]-- > 1)
+					tmp += width * ord[cpt] >> 1;
 				for (int i = 0; i < pos.length; i++) {
 					p.rbs[i].prepareArea(buffer, pos[i], tmp, "", father.getSizeAdapteur().getSmallFont(), true, false);
 				}
+				if (ord[cpt] > 1)
+					tmp += width * ord[cpt] >> 1;
 			}
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
 					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
@@ -409,14 +433,24 @@ public class SettingsPanel extends PanelState {
 			width += (decalage >> 1);
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				tmp += width;
-				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-				buffer.drawString(p.name, decalage << 1, tmp);
 				p.rbs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 				p.rbs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 				p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+				buffer.setFont(father.getSizeAdapteur().getSmallFont());
+				if (getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
+						.getArea().width >> 1)) {
+					String[] splited = p.name.split(" ");
+					tmp -= width;
+					for (String miniS : splited) {
+						tmp += width;
+						buffer.drawString(miniS, decalage << 1, tmp);
+					}
+				} else {
+					buffer.drawString(p.name, decalage << 1, tmp);
+				}
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
@@ -486,6 +520,7 @@ public class SettingsPanel extends PanelState {
 		deroullement = scrollBar.getDeroullement();
 		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
 
+		// TODO ........mk AutoComplet°........................
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */

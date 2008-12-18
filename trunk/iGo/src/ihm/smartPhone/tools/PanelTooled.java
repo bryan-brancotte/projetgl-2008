@@ -142,10 +142,11 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		return sb;
 	}
 
-	// TODO ...........taf en cours....................
-	public PTAutoCompletionTextBox makeAutoCompletionTextBox() {
+	public PTAutoCompletionTextBox makeAutoCompletionTextBox(String[] fields) {
+		if (fields == null)
+			return null;
 		Rectangle area = new Rectangle();
-		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area);
+		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields);
 		return ac;
 	}
 	// TODO champs avec completion, et la fenêtre des choix comme chrome?
