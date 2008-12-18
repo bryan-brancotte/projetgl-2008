@@ -11,7 +11,6 @@ import iGoMaster.exception.ImpossibleStartingException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -38,12 +37,12 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	protected final Lock verrou = new ReentrantLock();
 
 	class WatcherInFolder extends TimerTask {
+		@SuppressWarnings("unchecked")
 		public void run() {
 //			Date timeWatcher = new Date();
 //			long oldTime = timeWatcher.getTime();
 			if (fichier.isFile()) {
 
-				// On crée une instance de SAXBuilder
 				SAXBuilder sxb = new SAXBuilder();
 
 				try {
