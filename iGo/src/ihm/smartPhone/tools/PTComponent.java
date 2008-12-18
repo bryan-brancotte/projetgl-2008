@@ -17,16 +17,32 @@ public abstract class PTComponent {
 
 	protected boolean enable = true;
 
+	/**
+	 * Retourne la zone courante du dessin si ce dernier est actif, sinon on retourne null
+	 * 
+	 * @return la zone active si l'objet est actif, null dans le cas contraire
+	 */
 	public Rectangle getArea() {
 		if (!this.isEnable())
 			return null;
 		return area;
 	}
 
+	/**
+	 * Accesseur de l'état de l'objet, s'il est actif si sera dessiné, sinon il ne le sera pas
+	 * 
+	 * @return true s'il est activé, false dans le cas contraire
+	 */
 	public boolean isEnable() {
 		return enable;
 	}
 
+	/**
+	 * Mutateur de l'état de l'objet, s'il est actif si sera dessiné, sinon il ne le sera pas
+	 * 
+	 * @param enable
+	 *            true pour l'activer
+	 */
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
@@ -38,10 +54,11 @@ public abstract class PTComponent {
 	}
 
 	/**
-	 * Execute succesivement prepareArea et draw.
+	 * Prepare l'objet pour être dessiné, on citera par exemple le calcul de la zone où il sera affiché. Si l'objet est
+	 * desactivé il ne doit normalement y avoir aucun travail
 	 * 
 	 * @param g
-	 *            le graphic om l'on dessine
+	 *            le graphic où l'on dessine
 	 * @param x
 	 *            l'abscisse
 	 * @param y
@@ -50,15 +67,15 @@ public abstract class PTComponent {
 	 *            le texte du bouton
 	 * @param font
 	 *            la police utilisé
-	 * @return sa zone, mise à jour.
+	 * @return sa zone mise à jour, ou null si l'objet n'est pas actif
 	 */
 	public abstract Rectangle prepareArea(Graphics g, int x, int y, String text, Font font);
 
 	/**
-	 * Execute succesivement prepareArea et draw.
+	 * Prepare l'objet pour être dessiné, on citera par exemple le calcul de la zone où il sera affiché
 	 * 
 	 * @param g
-	 *            le graphic om l'on dessine
+	 *            le graphic où l'on dessine
 	 * @param x
 	 *            l'abscisse
 	 * @param y
@@ -80,13 +97,15 @@ public abstract class PTComponent {
 		prepareArea(g, x, y, text, font);
 		if (!verticalCentered && !horizontalCentered)
 			return area;
-		area.x -= (area.width >> 1);
-		area.y -= (area.height >> 1);
+		if (horizontalCentered)
+			area.x -= (area.width >> 1);
+		if (verticalCentered)
+			area.y -= (area.height >> 1);
 		return area;
 	}
 
 	/**
-	 * Execute succesivement prepareArea et draw.
+	 * dessine l'objet sur la zone qu'on lui avait demandé de préparer
 	 * 
 	 * @param g
 	 *            le graphic où l'on dessine
@@ -116,7 +135,7 @@ public abstract class PTComponent {
 	 *            la couleur du fond
 	 * @param colorLetter
 	 *            la couleur du texte
-	 * @return sa zone, mise à jour.
+	 * @return sa zone mise à jour, ou null si l'objet n'est pas actif
 	 */
 	public Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
 		if (!enable)

@@ -28,7 +28,6 @@ public class MainDemoIHM {
 	static GraphNetworkBuilder gnb;
 
 	protected static Configuration conf;
-
 	/**
 	 * @param args
 	 * @throws InterruptedException
@@ -165,7 +164,7 @@ public class MainDemoIHM {
 			gnb.addRoute("2", "Trolley");
 			gnb.addRoute("3", "Subway");
 			gnb.addRoute("4", "Foot");
-			gnb.addService(1, "Wheelchair accessible");
+			gnb.addService(1, "Wheel chair accessible");
 			gnb.addService(2, "Coffee");
 			gnb.addService(3, "Flower");
 			gnb.addService(4, "Parking");

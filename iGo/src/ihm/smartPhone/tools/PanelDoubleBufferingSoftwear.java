@@ -42,7 +42,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	public void setQuality(IHMGraphicQuality quality) {
 		if (PanelDoubleBufferingSoftwear.quality == quality)
 			return;
-		PanelDoubleBufferingSoftwear.staticSetQuality(quality);
+		PanelDoubleBufferingSoftwear.setStaticQuality(quality);
 		this.buffer = null;
 	}
 
@@ -51,7 +51,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * 
 	 * @return
 	 */
-	public static void staticSetQuality(IHMGraphicQuality quality) {
+	public static void setStaticQuality(IHMGraphicQuality quality) {
 		ImageLoader.setFastLoadingOfImages(quality == IHMGraphicQuality.AS_FAST_AS_WE_CAN);
 		PanelDoubleBufferingSoftwear.quality = quality;
 	}

@@ -4,6 +4,7 @@ import graphNetwork.GraphNetwork;
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
 import graphNetwork.Service;
+import graphNetwork.Station;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
@@ -26,8 +27,8 @@ import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
 import ihm.smartPhone.tools.IGoFlowLayout;
-import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.tools.PanelTooled;
 import ihm.smartPhone.tools.SizeAdapteur;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
@@ -95,18 +96,18 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			i = Integer.parseInt(this.master.getConfig("GRAPHICAL_QUALITY"));
 		} catch (NumberFormatException e) {
 		}
-		
+
 		if (i == IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue()) {
-			PanelDoubleBufferingSoftwear.staticSetQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
+			PanelDoubleBufferingSoftwear.setStaticQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
 		} else if (i == IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
-			PanelDoubleBufferingSoftwear.staticSetQuality(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING);
+			PanelDoubleBufferingSoftwear.setStaticQuality(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING);
 		} else if (i == IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue()) {
-			PanelDoubleBufferingSoftwear.staticSetQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
+			PanelDoubleBufferingSoftwear.setStaticQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
 		} else if (i == IHMGraphicQuality.HIGHER_QUALITY.getValue()) {
-			PanelDoubleBufferingSoftwear.staticSetQuality(IHMGraphicQuality.HIGHER_QUALITY);
+			PanelDoubleBufferingSoftwear.setStaticQuality(IHMGraphicQuality.HIGHER_QUALITY);
 		} else {
 			this.master.setConfig("GRAPHICAL_QUALITY", defaultQualityForIhm.getValue() + "");
-			PanelDoubleBufferingSoftwear.staticSetQuality(defaultQualityForIhm);
+			PanelDoubleBufferingSoftwear.setStaticQuality(defaultQualityForIhm);
 		}
 
 		this.setSize(sizeAdapteur.getWidth(), sizeAdapteur.getHeight());
@@ -490,7 +491,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			cleanPanelsStates(false);
 			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
-			//TODO askForATravel(null)
+			// TODO askForATravel(null)
 			master.askForATravel(null);
 			return true;
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
@@ -569,7 +570,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	 */
 	protected void cleanPanelsStates(boolean dueToAnError) {
 		if (dueToAnError)
-			ImageLoader.setFastLoadingOfImages(false);
+			PanelTooled.setStaticQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
 		splashScreenPanel = null;
 		loadTravelPanel = null;
 		settingsPanel = null;
@@ -624,5 +625,10 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public boolean setConfig(String key, String value) {
 		return master.setConfig(key, value);
+	}
+
+	@Override
+	public Iterator<Station> getStations() {
+		return master.getStations();
 	}
 }
