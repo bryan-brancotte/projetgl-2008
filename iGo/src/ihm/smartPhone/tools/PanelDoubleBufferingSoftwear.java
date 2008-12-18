@@ -131,7 +131,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 */
 	protected static int getWidthString(String s, Graphics g) {
 		// return (int) (s.length() * f.getSize() * 0.45);
-		return (int) g.getFontMetrics(g.getFont()).getStringBounds(s, g).getWidth();
+		return (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 
 	}
 
