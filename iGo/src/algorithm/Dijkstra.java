@@ -37,8 +37,8 @@ public class Dijkstra extends Algo {
 
 		PathInGraph pathInGraph = _path.getInstance(); 
 		
-		graph = GraphAlgo.getInstance();
-		graph.refreshGraph(pathInGraph);
+		graph = GraphAlgo.getInstance(pathInGraph);
+		graph.refreshGraph();
 		
 		// Création des étapes 
 		steps = new LinkedList<Station>();
