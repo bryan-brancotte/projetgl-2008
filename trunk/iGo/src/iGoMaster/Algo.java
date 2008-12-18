@@ -3,7 +3,6 @@ package iGoMaster;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
 
-
 import java.util.Observable;
 import java.util.Observer;
 

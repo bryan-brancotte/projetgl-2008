@@ -1,10 +1,10 @@
 package ihm.classesExemples;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class TravelForTravelPanelExemple implements TravelForTravelPanel, TravelForDisplayPanel {
 

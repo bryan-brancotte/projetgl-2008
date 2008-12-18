@@ -11,6 +11,7 @@ import iGoMaster.exception.ImpossibleStartingException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,7 +29,7 @@ import com.sun.org.apache.xerces.internal.parsers.DOMParser;
  * Cette classe permet la surveillance d'un dossier qui contiendra les evenements
  * 
  */
-public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
+public class EventInfoNetworkWatcherInFolderSAX extends EventInfoNetworkWatcher {
 
 	protected EventInfoNetWorkWatcherStatus status = EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
 	protected File fichier;
@@ -39,7 +40,11 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 	class WatcherInFolder extends TimerTask {
 		public void run() {
-			System.out.println("entering into timer");
+//			Date timeWatcher = new Date();
+//			long oldTime = timeWatcher.getTime();
+//			System.out.println("Time beggining " + oldTime);
+			
+//			System.out.println("entering into timer");
 			if (fichier.isFile()) {
 				try {
 					parser.parse(fichier.toURI().toString());
@@ -54,8 +59,9 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 				NodeList numVersion = doc.getElementsByTagName("VersionNumber");
 				if (numVersion.getLength() == 1) {
-					if (Integer.parseInt(numVersion.item(0).getTextContent()) > version) {
-						System.out.println("new update");
+//					if (Integer.parseInt(numVersion.item(0).getTextContent()) > version) {
+					if (Integer.parseInt(numVersion.item(0).getTextContent()) != version) {
+//						System.out.println("new update");
 						synchronized (verrou) {
 
 							version = Integer.parseInt(numVersion.item(0).getTextContent());
@@ -183,7 +189,11 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 							status = EventInfoNetWorkWatcherStatus.NEW_UPDATE;
 						}
 					}
-					System.out.println("no new update");
+//					Date newTime = new Date();
+//					System.out.println("Time end " + newTime.getTime());
+//					System.out.println("Time : " + (newTime.getTime() - oldTime));
+					
+//					System.out.println("no new update");
 				}
 
 			} else {
@@ -199,7 +209,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 * @param path
 	 *            Chemin du dossier a surveiller
 	 */
-	public EventInfoNetworkWatcherInFolder(String path) {
+	public EventInfoNetworkWatcherInFolderSAX(String path) {
 		super();
 		eventInfosNotApplied = new LinkedList<EventInfo>();
 		fichier = new File(path);
@@ -215,6 +225,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		synchronized (verrou) {
 			status = EventInfoNetWorkWatcherStatus.STARTED;
 			watcher = new Timer(true);
+//			watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10 * 1000);
 			watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10 * 1000);
 		}
 	}
@@ -228,7 +239,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		status = EventInfoNetWorkWatcherStatus.STOPPED;
 		if (eventInfosNotApplied.size() > 0)
 			status = EventInfoNetWorkWatcherStatus.NEW_UPDATE_STOPPED;
-		System.out.println("watcher stopped");
+//		System.out.println("watcher stopped");
 	}
 
 	/**
@@ -250,11 +261,6 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 			// System.out.println("Event : " + ev.getMessage());
 		}
 		eventInfosNotApplied.clear();
-
-		// TODO Auto-generated method stub
-		// pour chaque element de ma pile, faire applyinfo dessus
-		// Penser a empecher que le master puisse faire lui meme applyinfo sur les evenements sans jeter dexception
-
 	}
 
 	/**
@@ -274,7 +280,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	}
 
 	public static void main(String[] args) {
-		EventInfoNetworkWatcherInFolder test = new EventInfoNetworkWatcherInFolder(
+		EventInfoNetworkWatcherInFolderSAX test = new EventInfoNetworkWatcherInFolderSAX(
 				"C:/Documents and Settings/Pierrick/Bureau/2008-2008_S9/Projet GL/doc/XML/TravelAltertGL2008.xml");
 		try {
 			test.startWatching();
@@ -290,7 +296,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 						System.out.println("Event : " + ev.getMessage());
 					}
 					GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-					test.applyInfo(gnb.getActualGraphNetwork());
+					test.applyInfo(gnb.getCurrentGraphNetwork());
 				}
 
 				test.stopWatching();

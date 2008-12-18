@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import streamInFolder.event.EventInfoNetworkWatcherInFolder;
+import streamInFolder.event.EventInfoNetworkWatcherInFolderSAX;
 
 public class EventInfoNetworkWatcherInFolderTest {
 
@@ -22,7 +22,7 @@ public class EventInfoNetworkWatcherInFolderTest {
 
 	@Before
 	public void prologueDateTest() throws ImpossibleStartingException{
-		watcher = new EventInfoNetworkWatcherInFolder("PATH");
+		watcher = new EventInfoNetworkWatcherInFolderSAX("PATH");
 		watcher.startWatching();
 	}
 

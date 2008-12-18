@@ -1,7 +1,7 @@
 package algorithm;
-import iGoMaster.Algo;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
+import iGoMaster.Algo;
 
 
 public class AlgoLargeur extends Algo {
