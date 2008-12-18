@@ -129,7 +129,7 @@ public class ImageLoader extends Thread {
 	}
 
 	public static ImageIcon getRessourcesImageIcone(String name, int width, int height) {
-		System.out.println("nv Icone : " + name);
+		//System.out.println("nv Icone : " + name);
 		if (fastLoadingOfImages)
 			return getImageIcone(name.getClass().getResource("/images/" + name + ".png"), width, height);
 		else

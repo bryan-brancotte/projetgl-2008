@@ -2,6 +2,7 @@ package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
 import graphNetwork.Service;
+import graphNetwork.Station;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.SettingsKey;
 import iGoMaster.SettingsValue;
@@ -9,6 +10,9 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
+import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.PTAutoCompletionTextBox;
+import ihm.smartPhone.tools.PTButton;
 import ihm.smartPhone.tools.PTCheckBox;
 import ihm.smartPhone.tools.PTCollapsableArea;
 import ihm.smartPhone.tools.PTRadioBox;
@@ -20,12 +24,17 @@ import ihm.smartPhone.tools.PanelTooled;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import javax.swing.ImageIcon;
 
 import org.w3c.dom.Document;
 
 public class SettingsPanel extends PanelState {
+
+	protected HashMap<String, Station> sationsHash;
 
 	protected class PairPTCheckBox {
 		public PTCheckBox chk;
@@ -54,24 +63,32 @@ public class SettingsPanel extends PanelState {
 	@Deprecated
 	protected Document settings = null;
 
+	protected String[] stations;
 	protected int deroullement;
 
-	protected final int travelModeCheckBox = 1;
+	protected ImageIcon imageOk;
+	protected ImageIcon imageDel;
+
+	protected final int travelMode = 1;
 	protected LinkedList<PairPTCheckBox> travelModeCheckBoxs;
 	protected PTCollapsableArea travelModeCollapsableArea;
 
-	protected final int travelCriteriaRadioBox = 2;
+	protected final int travelCriteria = 2;
 	protected PTRadioBox[] travelCriteriaRadioBoxs;
 	protected PTCollapsableArea travelCriteriaCollapsableArea;
 
-	protected final int servicesRadioBox = 3;
+	protected final int services = 3;
 	protected LinkedList<PairPTRadioBox> ServicesRadioBoxs;
 	protected PTCollapsableArea servicesCollapsableArea;
 
-	protected final int qualityRadioBox = 4;
+	protected final int quality = 4;
 	protected PTRadioBox[] qualityRadioBoxs;
-	protected PTCollapsableArea qualityRadioBoxCollapsableArea;
+	protected PTCollapsableArea qualityCollapsableArea;
 
+	protected final int intermediatesStations = 5;
+	protected PTAutoCompletionTextBox intermediatesStationsTextBox;
+	protected PTCollapsableArea intermediatesStationsCollapsableArea;
+	protected PTButton intermediatesStationsButton;
 	protected PTScrollBar scrollBar;
 
 	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
@@ -93,7 +110,7 @@ public class SettingsPanel extends PanelState {
 		ex = new CodeExecutor() {
 			@Override
 			public void execute() {
-				recordChangedSetting(travelCriteriaRadioBox, SettingsKey.TRAVEL_CRITERIA.toString());
+				recordChangedSetting(travelCriteria, SettingsKey.TRAVEL_CRITERIA.toString());
 			}
 		};
 		travelCriteriaRadioBoxs = new PTRadioBox[3];
@@ -118,7 +135,7 @@ public class SettingsPanel extends PanelState {
 			chk = makeCheckBox(new CodeExecutor1P<String>(s = (itR.next().getKindOf())) {
 				@Override
 				public void execute() {
-					recordChangedSetting(travelModeCheckBox, this.origine);
+					recordChangedSetting(travelMode, this.origine);
 				}
 			});
 			chk.setClicked(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo("1") == 0);
@@ -140,7 +157,7 @@ public class SettingsPanel extends PanelState {
 			ex = new CodeExecutor1P<String>(s = (itS.next().getName())) {
 				@Override
 				public void execute() {
-					recordChangedSetting(servicesRadioBox, this.origine);
+					recordChangedSetting(services, this.origine);
 				}
 			};
 			for (int i = 0; i < rbs.length; i++) {
@@ -160,13 +177,13 @@ public class SettingsPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Quality
 		 */
-		qualityRadioBoxCollapsableArea = makeCollapsableArea();
-		qualityRadioBoxCollapsableArea.changeCollapseState();
+		qualityCollapsableArea = makeCollapsableArea();
+		qualityCollapsableArea.changeCollapseState();
 		grp = new PTRadioBoxGroup(4);
 		ex = new CodeExecutor1P<PanelTooled>(this) {
 			@Override
 			public void execute() {
-				recordChangedSetting(qualityRadioBox, "GRAPHICAL_QUALITY");
+				recordChangedSetting(quality, "GRAPHICAL_QUALITY");
 				// this.origine.;
 			}
 		};
@@ -186,20 +203,39 @@ public class SettingsPanel extends PanelState {
 		qualityRadioBoxs[1].setClicked(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() == i);
 		qualityRadioBoxs[2].setClicked(IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() == i);
 		qualityRadioBoxs[3].setClicked(IHMGraphicQuality.HIGHER_QUALITY.getValue() == i);
-		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[0]);
-		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[1]);
-		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[2]);
-		qualityRadioBoxCollapsableArea.addComponent(qualityRadioBoxs[3]);
+		qualityCollapsableArea.addComponent(qualityRadioBoxs[0]);
+		qualityCollapsableArea.addComponent(qualityRadioBoxs[1]);
+		qualityCollapsableArea.addComponent(qualityRadioBoxs[2]);
+		qualityCollapsableArea.addComponent(qualityRadioBoxs[3]);
 
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
 		scrollBar = makeScrollBar();
+
+		/***************************************************************************************************************
+		 * AutoCompletionTextBox : intermediatesStationsTextBox
+		 */
+		intermediatesStationsCollapsableArea = makeCollapsableArea();
+		Iterator<Station> it = father.getStations();
+		sationsHash = new HashMap<String, Station>();
+		for (Station st = it.next(); it.hasNext(); st = it.next()) {
+			sationsHash.put(st.getName(), st);
+		}
+		intermediatesStationsTextBox = makeAutoCompletionTextBox(sationsHash.keySet().toArray(new String[0]));
+		intermediatesStationsButton = makeButton(new CodeExecutor1P<PanelTooled>(this) {
+			@Override
+			public void execute() {
+				recordChangedSetting(intermediatesStations, null);
+				// this.origine.;
+			}
+		});
+		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
 	}
 
 	protected void recordChangedSetting(int familly, String s) {
 		switch (familly) {
-		case travelModeCheckBox:
+		case travelMode:
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
 					if (p.chk.isClicked())
@@ -209,7 +245,7 @@ public class SettingsPanel extends PanelState {
 					return;
 				}
 			break;
-		case travelCriteriaRadioBox:
+		case travelCriteria:
 			if (travelCriteriaRadioBoxs[0].isClicked()) {
 				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
 				return;
@@ -223,7 +259,7 @@ public class SettingsPanel extends PanelState {
 				return;
 			}
 			break;
-		case servicesRadioBox:
+		case services:
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
 					if (p.rbs[0].isClicked()) {
@@ -240,7 +276,7 @@ public class SettingsPanel extends PanelState {
 					}
 				}
 			}
-		case qualityRadioBox:
+		case quality:
 			if (qualityRadioBoxs[0].isClicked()) {
 				father.setConfig(s, IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() + "");
 				this.setQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
@@ -262,8 +298,11 @@ public class SettingsPanel extends PanelState {
 				return;
 			}
 			break;
+		case intermediatesStations:
+			System.out.println("Intermediates stations not handeled yet");
+			break;
 		default:
-			System.out.println("Not Handeled : " + familly + " : " + s);
+			System.out.println("Not handeled : " + familly + " : " + s);
 			break;
 		}
 	}
@@ -271,6 +310,7 @@ public class SettingsPanel extends PanelState {
 	@Override
 	public void paint(Graphics g) {
 		int decalage = father.getSizeAdapteur().getSizeSmallFont();
+		int decalage2 = (decalage << 1);
 		int ordonne = decalage - deroullement;
 		int width;
 		int[] pos;
@@ -282,12 +322,20 @@ public class SettingsPanel extends PanelState {
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			buffer = null;
+			imageOk = null;
+			imageDel = null;
 		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			graphicsTunning(buffer);
 			buffer.setColor(father.getSkin().getColorLetter());
+			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeSmallFont()) {
+				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeSmallFont(),
+						father.getSizeAdapteur().getSizeSmallFont());
+				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
+						.getSizeSmallFont(), father.getSizeAdapteur().getSizeSmallFont());
+			}
 		} else {
 			buffer.clearRect(0, 0, getWidth(), getHeight());
 		}
@@ -297,7 +345,7 @@ public class SettingsPanel extends PanelState {
 		 */
 		s = father.lg("TravelCriteria");
 		if (!travelCriteriaCollapsableArea.isCollapsed()) {
-			width = getWidth() - (decalage << 1);
+			width = getWidth() - decalage2;
 			travelCriteriaRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), travelCriteriaCollapsableArea
 					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 							.getIntermediateFont()), father.lg("Cheaper"), father.getSizeAdapteur().getSmallFont());
@@ -333,7 +381,7 @@ public class SettingsPanel extends PanelState {
 					.getColorSubAreaInside(), father.getSkin().getColorLetter());
 		}
 		ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height
-				+ (decalage << 1);
+				+ decalage2;
 
 		/***************************************************************************************************************
 		 * Travel mode
@@ -360,7 +408,7 @@ public class SettingsPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				p.chk.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
-		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + (decalage << 1);
+		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + decalage2;
 
 		/***************************************************************************************************************
 		 * Services
@@ -374,7 +422,7 @@ public class SettingsPanel extends PanelState {
 			ord = new byte[ServicesRadioBoxs.size()];
 			for (PairPTRadioBox p : ServicesRadioBoxs) {
 				tmp = getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont());
-				if (tmp > (getWidth() - (decalage << 1) - decalage >> 1)) {
+				if (tmp > (getWidth() - decalage2 - decalage >> 1)) {
 					ord[cpt] = 0;
 					tmp = 0;
 					String[] splited = p.name.split(" ");
@@ -393,7 +441,7 @@ public class SettingsPanel extends PanelState {
 					width = tmp;
 			}
 			// on calcul les positions des 3 colone de valehbur des services
-			tmp = (((getWidth() - (decalage << 1) - decalage - width) / 3) >> 1);
+			tmp = (((getWidth() - decalage2 - decalage - width) / 3) >> 1);
 			pos[0] = decalage + width + tmp;
 			pos[1] = pos[0] + (tmp << 1);
 			pos[2] = pos[1] + (tmp << 1);
@@ -456,16 +504,16 @@ public class SettingsPanel extends PanelState {
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
 					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
 							.getSkin().getColorLetter());
-		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + (decalage << 1);
+		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage2;
 
 		/***************************************************************************************************************
 		 * Quality
 		 */
 		s = father.lg("GraphicalQuality");
-		if (!qualityRadioBoxCollapsableArea.isCollapsed()) {
-			width = getWidth() - (decalage << 1);
+		if (!qualityCollapsableArea.isCollapsed()) {
+			width = getWidth() - decalage2;
 
-			qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxCollapsableArea
+			qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), qualityCollapsableArea
 					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 							.getIntermediateFont()), father.lg("Minimal"), father.getSizeAdapteur().getSmallFont());
 
@@ -496,9 +544,9 @@ public class SettingsPanel extends PanelState {
 						+ qualityRadioBoxs[3].getArea().height + (decalage >> 1), father.lg("High"), father
 						.getSizeAdapteur().getSmallFont());
 		}
-		qualityRadioBoxCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!qualityRadioBoxCollapsableArea.isCollapsed()) {
+		qualityCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!qualityCollapsableArea.isCollapsed()) {
 			qualityRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
 					.getColorSubAreaInside(), father.getSkin().getColorLetter());
 			qualityRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
@@ -508,9 +556,34 @@ public class SettingsPanel extends PanelState {
 			qualityRadioBoxs[3].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
 					.getColorSubAreaInside(), father.getSkin().getColorLetter());
 		}
-		ordonne = qualityRadioBoxCollapsableArea.getArea().y + qualityRadioBoxCollapsableArea.getArea().height
-				+ (decalage << 1);
+		ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage2;
 
+		/***************************************************************************************************************
+		 * AutoCompletionTextArea
+		 */
+		s = father.lg("IntermediatesStations");
+		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+			width = getWidth() - decalage2 - decalage;
+			intermediatesStationsTextBox.prepareArea(buffer, decalage << 1, intermediatesStationsCollapsableArea
+					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+							.getIntermediateFont()), width - decalage2 - decalage
+					- father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
+			intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
+					+ intermediatesStationsTextBox.getArea().width + decalage,
+					intermediatesStationsTextBox.getArea().y, imageOk);
+		}
+		intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+			intermediatesStationsTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+					.getColorInside(), father.getSkin().getColorLetter());
+			intermediatesStationsButton.draw(buffer, imageOk);
+		}
+		ordonne = intermediatesStationsCollapsableArea.getArea().y
+				+ intermediatesStationsCollapsableArea.getArea().height + decalage2;
+		// imageOk;imageDel;
+
+		// TODO ........mk AutoComplet°........................
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
@@ -520,7 +593,6 @@ public class SettingsPanel extends PanelState {
 		deroullement = scrollBar.getDeroullement();
 		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
 
-		// TODO ........mk AutoComplet°........................
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */
