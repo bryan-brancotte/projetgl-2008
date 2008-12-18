@@ -1,11 +1,8 @@
 package streamInFolder.event;
 
 import graphNetwork.GraphNetwork;
-import graphNetwork.Station;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
-
-import java.util.Iterator;
 
 /**
  * Evénement relatif a une station sur une ligne
