@@ -26,6 +26,11 @@ public class iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
+	public static iGoSmartPhoneSkin ORANGE_WITH_LINE = new iGoSmartPhoneSkin(new Color(196, 119, 30), new Color(232,
+			189, 99), new Color(248	, 245, 208),Color.black, true);
+	/**
+	 * 
+	 */
 	public static iGoSmartPhoneSkin WHITE_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), null,
 			new Color(251, 251, 251), false);
 	/**
@@ -52,33 +57,58 @@ public class iGoSmartPhoneSkin {
 		return colorOutside;
 	}
 
+	/**
+	 * Couleur pour les lignes spéparatrices
+	 * 
+	 * @return
+	 */
 	public Color getColorLine() {
 		return colorLine;
 	}
 
+	/**
+	 * Couleur de l'arrière plan
+	 * 
+	 * @return
+	 */
 	public Color getColorInside() {
 		return colorInside;
 	}
 
+	/**
+	 * Couleur moins intense que l'arrière plan, mais toujours dans la même optique
+	 * 
+	 * @return
+	 */
 	public Color getColorSubAreaInside() {
 		return colorSubAreaInside;
 	}
 
+	/**
+	 * Affiche t'on les lignes séparatrices?
+	 * 
+	 * @return
+	 */
 	public boolean isDisplayLine() {
 		return displayLine;
 	}
 
+	/**
+	 * La couleur des lettre dans l'ihm. C'est l'opposé RVB de la couleur de fond
+	 * 
+	 * @return
+	 */
 	public Color getColorLetter() {
 		return colorLetter;
 	}
 
-	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, boolean displayLine) {
+	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, Color colorLetter,
+			boolean displayLine) {
 		id = iGoSmartPhoneSkin.cpt++;
 		this.colorOutside = colorOutside;
 		this.colorLine = colorLine;
 		this.colorInside = colorInside;
-		this.colorLetter = new Color(255 - colorInside.getRed(), 255 - colorInside.getGreen(), 255 - colorInside
-				.getBlue());
+		this.colorLetter = colorLetter;
 		if (colorInside.getRed() < 128)
 			this.colorSubAreaInside = new Color(255 - (int) (colorLetter.getRed() * 0.9), 255 - (int) (colorLetter
 					.getGreen() * 0.9), 255 - (int) (colorLetter.getBlue() * 0.9));
@@ -86,6 +116,12 @@ public class iGoSmartPhoneSkin {
 			this.colorSubAreaInside = new Color((int) (colorInside.getRed() * 0.9),
 					(int) (colorInside.getGreen() * 0.9), (int) (colorInside.getBlue() * 0.9));
 		this.displayLine = displayLine;
+
+	}
+
+	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, boolean displayLine) {
+		this(colorOutside, colorLine, colorInside, new Color(255 - colorInside.getRed(), 255 - colorInside.getGreen(),
+				255 - colorInside.getBlue()), displayLine);
 	}
 
 	/**

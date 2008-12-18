@@ -110,8 +110,7 @@ public class UpperBar extends AbstractBar {
 			oldHeigth = getHeight();
 		}
 
-		g.setColor(new Color(255 - ihm.getSkin().getColorInside().getRed(), 255 - ihm.getSkin().getColorInside()
-				.getGreen(), 255 - ihm.getSkin().getColorInside().getBlue()));
+		g.setColor(ihm.getSkin().getColorLetter());
 		drawStrings(g, FontSizeKind.LARGE);
 		drawStrings(g, FontSizeKind.INTERMEDIATE);
 		drawStrings(g, FontSizeKind.SMALL);

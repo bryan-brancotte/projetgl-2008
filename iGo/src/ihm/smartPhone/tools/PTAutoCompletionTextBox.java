@@ -69,14 +69,10 @@ public class PTAutoCompletionTextBox extends PTComponent {
 
 	@Override
 	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Rectangle prepareArea(Graphics g, int x, int y, String text, Font font) {
-		// TODO Auto-generated method stub
-		return null;
+		g.setColor(colorInside);
+		g.fillRect(area.x, area.y, area.width, area.height);
+		g.setColor(colorLetter);
+		g.drawRect(area.x, area.y, area.width, area.height);
 	}
 
 	/**
@@ -100,8 +96,8 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	 *            true pour centré verticalement l'objet sur la coordonnée y
 	 * @return sa zone, mise à jour.
 	 */
-	public Rectangle prepareArea(Graphics g, int x, int y, int width, String text, Font font) {
-		// TODO Auto-generated method stub
+	public Rectangle prepareArea(Graphics g, int x, int y, int width, Font font) {
+		area.setBounds(x, y, width, font.getSize());
 		return null;
 	}
 
@@ -126,13 +122,30 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	 *            la couleur du texte
 	 * @return sa zone, mise à jour.
 	 */
-	public Rectangle update(Graphics g, int x, int y, int width, String text, Font font, Color colorInside,
-			Color colorLetter) {
+	public Rectangle update(Graphics g, int x, int y, int width, Font font, Color colorInside, Color colorLetter) {
 		if (!enable)
 			return null;
-		prepareArea(g, x, y, width, text, font);
+		prepareArea(g, x, y, width, font);
 		draw(g, font, colorInside, colorLetter);
 		return area;
 	}
 
+	@Deprecated
+	@Override
+	public Rectangle update(Graphics g, int x, int y, String text, Font font, Color colorInside, Color colorLetter) {
+		return null;
+	}
+
+	@Override
+	@Deprecated
+	public Rectangle prepareArea(Graphics g, int x, int y, String text, Font font) {
+		return null;
+	}
+
+	@Override
+	@Deprecated
+	public Rectangle prepareArea(Graphics g, int x, int y, String text, Font font, boolean horizontalCentered,
+			boolean verticalCentered) {
+		return null;
+	}
 }
