@@ -1,7 +1,6 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
-import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.IHMGraphicQuality;
@@ -12,9 +11,6 @@ import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.ImageLoader;
-import ihm.smartPhone.tools.PTArea;
-import ihm.smartPhone.tools.PTAutoCompletionTextBox;
-import ihm.smartPhone.tools.PTButton;
 import ihm.smartPhone.tools.PTCheckBox;
 import ihm.smartPhone.tools.PTCollapsableArea;
 import ihm.smartPhone.tools.PTRadioBox;
@@ -98,11 +94,6 @@ public class SettingsPanel extends PanelState {
 	protected PTRadioBox[] qualityRadioBoxs;
 	protected PTCollapsableArea qualityCollapsableArea;
 
-	protected final int intermediatesStations = 5;
-	protected PTArea intermediatesStationsNew;
-	protected PTAutoCompletionTextBox intermediatesStationsTextBox;
-	protected PTCollapsableArea intermediatesStationsCollapsableArea;
-	protected PTButton intermediatesStationsButton;
 	protected PTScrollBar scrollBar;
 
 	protected final int language = 6;
@@ -233,30 +224,6 @@ public class SettingsPanel extends PanelState {
 		scrollBar = makeScrollBar();
 
 		/***************************************************************************************************************
-		 * Station inter
-		 */
-		intermediatesStationsCollapsableArea = makeCollapsableArea();
-		intermediatesStationsCollapsableArea.changeCollapseState();
-		intermediatesStationsNew = makeArea();
-		Iterator<Station> it = father.getStations();
-		sationsHash = new HashMap<String, Station>();
-		Station st;
-		while (it.hasNext()) {
-			st = it.next();
-			sationsHash.put(st.getName(), st);
-		}
-		intermediatesStationsTextBox = makeAutoCompletionTextBox(sationsHash.keySet().toArray(new String[0]));
-		intermediatesStationsButton = makeButton(new CodeExecutor1P<PanelTooled>(this) {
-			@Override
-			public void execute() {
-				recordChangedSetting(intermediatesStations, null);
-				// this.origine.;
-			}
-		});
-		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsNew);
-		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
-
-		/***************************************************************************************************************
 		 * Skin
 		 */
 
@@ -350,9 +317,6 @@ public class SettingsPanel extends PanelState {
 				this.setQuality(IHMGraphicQuality.HIGHER_QUALITY);
 				return;
 			}
-			break;
-		case intermediatesStations:
-			System.out.println("Intermediates stations not handeled yet");
 			break;
 		default:
 			System.out.println("Not handeled : " + familly + " : " + s);
@@ -616,79 +580,6 @@ public class SettingsPanel extends PanelState {
 		}
 		ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage2;
 
-		/***************************************************************************************************************
-		 * AutoCompletionTextArea
-		 */
-		s = father.lg("IntermediatesStations");
-		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-			width = getWidth() - decalage2 - decalage;
-			// intermediatesStationsNew.prepareArea(buffer, x, y, height, width)
-			intermediatesStationsTextBox.prepareArea(buffer, decalage << 1, intermediatesStationsCollapsableArea
-					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-							.getIntermediateFont()), width - decalage2 - decalage
-					- father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
-			intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
-					+ intermediatesStationsTextBox.getArea().width + decalage,
-					intermediatesStationsTextBox.getArea().y, imageOk);
-			intermediatesStationsNew.update(buffer, intermediatesStationsTextBox.getArea().x,
-					intermediatesStationsTextBox.getArea().y, 40, intermediatesStationsTextBox.getArea().width, null,
-					null);
-		}
-		intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-			intermediatesStationsTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-					.getColorInside(), father.getSkin().getColorLetter());
-			Station station = this.sationsHash.get(intermediatesStationsTextBox.getText());
-			if (station != null) {
-				intermediatesStationsButton.draw(buffer, imageOk);
-				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-				buffer.setColor(father.getSkin().getColorLetter());
-				int xActu, yActu, taille;
-				Iterator<Route> itRoute = station.getRoutes();
-				Route route;
-				Iterator<Service> itService = station.getServices();
-				Service service;
-				xActu = intermediatesStationsTextBox.getArea().x;
-				yActu = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
-						+ (decalage >> 1);
-				s = "";
-				while (itRoute.hasNext()) {
-					route = itRoute.next();
-					s += route.getId();
-					if (itRoute.hasNext())
-						s += ", ";
-				}
-				buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
-				xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
-
-				while (itService.hasNext()) {
-					service = itService.next();
-					s = service.getName().substring(0, 1);
-					taille = (int) (buffer.getFont().getSize() * 1.3F);
-					buffer.setColor(father.getNetworkColorManager().getColorForService(service));
-					buffer.fillOval(xActu, yActu, taille + 1, taille + 1);
-					buffer.setColor(father.getSkin().getColorLetter());
-					buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
-					buffer.drawString(s, xActu + (taille >> 1)
-							- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
-							+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-					xActu += taille + (decalage >> 1);
-				}
-			} else {
-				intermediatesStationsButton.setEnable(false);
-			}
-			// les stations déja choisie
-
-		}
-		ordonne = intermediatesStationsCollapsableArea.getArea().y
-				+ intermediatesStationsCollapsableArea.getArea().height + decalage2;
-		// imageOk;imageDel;
-
-		// TODO ........mk AutoComplet°........................
-		// TODO ........taf.........................
-
-		// TODO ........skin
 		/***************************************************************************************************************
 		 * Languages
 		 */
