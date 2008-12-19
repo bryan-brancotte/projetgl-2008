@@ -102,8 +102,6 @@ public class MainPanel extends PanelState {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			graphicsTunning(this.buffer);
-			buffer.setFont(font = father.getSizeAdapteur().getIntermediateFont());
-			buffer.setColor(father.getSkin().getColorLetter());
 
 			if ((imageNew == null) || (miniHeight != imageNewArea.getWidth())
 					|| (miniHeight != imageNewArea.getHeight()))
@@ -129,9 +127,11 @@ public class MainPanel extends PanelState {
 				imageFavorites = ImageLoader.getRessourcesImageIcone("mainFavorites", miniSide, miniSide).getImage();
 			imageFavoritesArea.setBounds(imageLoadArea.x, imageSettingsArea.y, imageNewArea.width, imageNewArea.height);
 		} else {
-			// halfImagesWidth = miniSide >> 1;
-			// twoThirdImagesHeight = (int) (miniSide * 0.667);
+			buffer.setColor(father.getSkin().getColorInside());
+			buffer.fillRect(0, 0, getWidth(), getHeight());
 		}
+		buffer.setFont(font = father.getSizeAdapteur().getIntermediateFont());
+		buffer.setColor(father.getSkin().getColorLetter());
 		/***************************************************************************************************************
 		 * Menu "New"
 		 */

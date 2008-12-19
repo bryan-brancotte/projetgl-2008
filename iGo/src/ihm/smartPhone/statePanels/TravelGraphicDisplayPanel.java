@@ -290,7 +290,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
 		buffer.setColor(father.getSkin().getColorInside());
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		buffer.setColor(father.getSkin().getColorInside());
+		buffer.fillRect(0, 0, getWidth(), getHeight());
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
 			drawDelayedOval(buffer, center.x - (sizeLarge >> 1) - 1, center.y - (sizeLarge >> 1), sizeLarge, sizeLarge);
 		}

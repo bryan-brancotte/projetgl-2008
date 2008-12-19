@@ -59,7 +59,7 @@ public class SplashScreenPanel extends PanelState {
 					(int) (this.getHeight() * 0.8)).getImage();
 		}
 		// on l'efface
-		buffer.clearRect(0, 0, getWidth(), getHeight());
+		buffer.setColor(father.getSkin().getColorInside());buffer.fillRect(0, 0, getWidth(), getHeight());
 
 		buffer.drawImage(logo, this.getWidth() - logo.getWidth(null) >> 1,
 				(this.getHeight() - logo.getHeight(null) >> 1) - father.getSizeAdapteur().getSizeSmallFont(), null);

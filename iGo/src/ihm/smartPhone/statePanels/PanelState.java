@@ -1,10 +1,24 @@
 package ihm.smartPhone.statePanels;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.PanelTooled;
 
 public abstract class PanelState extends PanelTooled {
+
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setBackground(Color c) {
+		super.setBackground(c);
+	}
 
 	/**
 	 * On surcharge la métode finalize afin d'informer en console que les objets vont être effacé. Utiliser pour le

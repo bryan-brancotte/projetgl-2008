@@ -34,9 +34,9 @@ import javax.swing.ImageIcon;
 
 import org.w3c.dom.Document;
 
-public class SettingsPanel extends PanelState {
+public class NewSettingsPanel extends PanelState {
 	
-	protected SettingsPanel me = this;
+	protected NewSettingsPanel me = this;
 
 	protected HashMap<String, Station> sationsHash;
 
@@ -111,7 +111,7 @@ public class SettingsPanel extends PanelState {
 	protected LinkedList<PairPTRadioBox> languagesRadioBoxs;
 	protected PTCollapsableArea languagesCollapsableArea;
 
-	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
+	public NewSettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 		deroullement = 0;
 		buildInterfaceFromDomDocument();
