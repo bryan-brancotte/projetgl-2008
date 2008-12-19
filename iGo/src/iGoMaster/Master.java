@@ -94,4 +94,11 @@ public interface Master {
 	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<KindRoute> getKindRoutes();
+
+	/**
+	 * Retourne un iterateur avec l'ensemble des langues disponible pour le logiciel dans leur langue respective
+	 * 
+	 * @return l'iterateur sur les langues.
+	 */
+	public Iterator<String> getLanguages();
 }

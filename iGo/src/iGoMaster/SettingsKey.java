@@ -16,5 +16,9 @@ public enum SettingsKey {
 	/**
 	 * Clef à laquel sera concaténé le moyen de transport
 	 */
-	GRAPHICAL_QUALITY();
+	GRAPHICAL_QUALITY(),
+	/**
+	 * 
+	 */
+	LANGUAGE();
 }

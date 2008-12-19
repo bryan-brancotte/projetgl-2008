@@ -35,8 +35,6 @@ import javax.swing.ImageIcon;
 import org.w3c.dom.Document;
 
 public class SettingsPanel extends PanelState {
-	
-	protected SettingsPanel me = this;
 
 	protected HashMap<String, Station> sationsHash;
 

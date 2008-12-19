@@ -6,48 +6,125 @@ public class iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin WHITE_WITH_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), new Color(141,
-			141, 141), new Color(251, 251, 251), true);
+	public static iGoSmartPhoneSkin WHITE_WITH_LINE = new iGoSmartPhoneSkin(
+
+	new Color(115, 115, 115),
+
+	new Color(141, 141, 141),
+
+	new Color(251, 251, 251),
+
+	true);
 	/**
 	 * thème bleu et noir avec ligne séparatrice
 	 */
-	public static iGoSmartPhoneSkin BLUE_WITH_LINE = new iGoSmartPhoneSkin(new Color(22, 78, 147), new Color(141, 141,
-			141), new Color(251, 251, 251), true);
+	public static iGoSmartPhoneSkin BLUE_WITH_LINE = new iGoSmartPhoneSkin(
+
+	new Color(22, 78, 147),
+
+	new Color(141, 141, 141),
+
+	new Color(251, 251, 251),
+
+	true);
 	/**
 	 * thème bleu et noir sans ligne séparatrice
 	 */
-	public static iGoSmartPhoneSkin BLUE_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(22, 78, 147), null, new Color(
-			4, 4, 4), false);
+	public static iGoSmartPhoneSkin BLUE_WITHOUT_LINE = new iGoSmartPhoneSkin(
+
+	new Color(22, 78, 147),
+
+	null,
+
+	new Color(4, 4, 4),
+
+	false);
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin PURPLE_LIGHT_WITH_LINE = new iGoSmartPhoneSkin(new Color(144, 30, 196), new Color(
-			141, 141, 141), new Color(248, 235, 255), true);
+	public static iGoSmartPhoneSkin PURPLE_LIGHT_WITH_LINE = new iGoSmartPhoneSkin(
+
+	new Color(144, 30, 196),
+
+	new Color(141, 141, 141),
+
+	new Color(248, 235, 255),
+
+	true);
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin PINK_WITH_LINE = new iGoSmartPhoneSkin(new Color(220, 41, 181), new Color(
-			232, 99, 232), new Color(245, 220, 239), true);
+	public static iGoSmartPhoneSkin PINK_WITH_LINE = new iGoSmartPhoneSkin(
+
+	new Color(220, 41, 181),
+
+	new Color(232, 99, 232),
+
+	new Color(245, 220, 239),
+
+	true);
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin ORANGE_WITH_LINE = new iGoSmartPhoneSkin(new Color(196, 119, 30), new Color(232,
-			189, 99), new Color(248	, 245, 208),Color.black, true);
+	public static iGoSmartPhoneSkin ORANGE_WITH_LINE = new iGoSmartPhoneSkin(
+
+	new Color(196, 119, 30),
+
+	new Color(232, 189, 99),
+
+	new Color(248, 245, 208),
+
+	Color.black,
+
+	true);
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin WHITE_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), null,
-			new Color(251, 251, 251), false);
+	public static iGoSmartPhoneSkin WHITE_WITHOUT_LINE = new iGoSmartPhoneSkin(
+
+	new Color(115, 115, 115),
+
+	null,
+
+	new Color(251, 251, 251),
+
+	false);
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin BLACK_WITH_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), new Color(141,
-			141, 141), new Color(4, 4, 4), true);
+	public static iGoSmartPhoneSkin BLACK_WITH_LINE = new iGoSmartPhoneSkin(
+
+	new Color(115, 115, 115),
+
+	new Color(141, 141, 141),
+
+	new Color(4, 4, 4),
+
+	true);
 	/**
 	 * 
 	 */
-	public static iGoSmartPhoneSkin BLACK_WITHOUT_LINE = new iGoSmartPhoneSkin(new Color(115, 115, 115), null,
-			new Color(4, 4, 4), false);
+	public static iGoSmartPhoneSkin BLACK_WITHOUT_LINE = new iGoSmartPhoneSkin(
+
+	new Color(115, 115, 115),
+
+	null,
+
+	new Color(4, 4, 4),
+
+	false);
+	/**
+	 * 
+	 */
+	public static iGoSmartPhoneSkin CUSTOM = new iGoSmartPhoneSkin(
+
+	new Color(115, 115, 115),
+
+	null,
+
+	new Color(4, 4, 4),
+
+	false);
 
 	protected int id;
 	protected static int cpt = 0;
@@ -107,6 +184,20 @@ public class iGoSmartPhoneSkin {
 		return colorLetter;
 	}
 
+	/**
+	 * Constructeur de l'enum skin
+	 * 
+	 * @param colorOutside
+	 *            couleur à laquelle début de la dégradé (depuis l'exterrieur)
+	 * @param colorLine
+	 *            couleur des ligne séparatrice
+	 * @param colorInside
+	 *            couleur à laquelle se finit de la dégradé (à l'interrieur)
+	 * @param colorLetter
+	 *            couleur de la police
+	 * @param displayLine
+	 *            affiche t'on les lignes
+	 */
 	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, Color colorLetter,
 			boolean displayLine) {
 		id = iGoSmartPhoneSkin.cpt++;
@@ -124,6 +215,18 @@ public class iGoSmartPhoneSkin {
 
 	}
 
+	/**
+	 * Constructeur de l'enum skin
+	 * 
+	 * @param colorOutside
+	 *            couleur à laquelle début de la dégradé (depuis l'exterrieur)
+	 * @param colorLine
+	 *            couleur des ligne séparatrice
+	 * @param colorInside
+	 *            couleur à laquelle se finit de la dégradé (à l'interrieur)
+	 * @param displayLine
+	 *            affiche t'on les lignes
+	 */
 	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, boolean displayLine) {
 		this(colorOutside, colorLine, colorInside, new Color(255 - colorInside.getRed(), 255 - colorInside.getGreen(),
 				255 - colorInside.getBlue()), displayLine);

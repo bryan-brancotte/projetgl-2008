@@ -11,6 +11,7 @@ import iGoMaster.Configuration;
 import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
+import iGoMaster.SettingsKey;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.ExecMultiThread;
@@ -92,6 +93,8 @@ public class MainDemoIHM {
 				System.out.println("Recording : <" + key + "> as \"" + value + "\"");
 				conf.setValue(key, value);
 				conf.save();
+				if(key==SettingsKey.LANGUAGE.toString())
+					lang.setLanguage(value);
 				return true;
 			}
 
@@ -117,6 +120,11 @@ public class MainDemoIHM {
 					}
 				}).start();
 				return true;
+			}
+
+			@Override
+			public Iterator<String> getLanguages() {
+				return lang.getLanguages().iterator();
 			}
 
 		//}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);

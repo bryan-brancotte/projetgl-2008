@@ -51,6 +51,30 @@ public class LanguageTest {
 		assertTrue(lang.getLanguage().compareTo(Language.DEFAULT_LANGUAGE) == 0);
 	}
 
+	/**
+	 * Test si la langue par défaut es bien mise si on utilise une langue inconnue
+	 */
+	@Test
+	public void setLanguage() {
+		lang = new LanguageXML("eeee");
+		assertTrue(lang.getLanguage().compareTo(Language.DEFAULT_LANGUAGE) == 0);
+		lang.setLanguage("aze");
+		lang.setLanguage("Français");
+		assertTrue(lang.getLanguage().compareTo("Français") == 0);
+		lang.setLanguage("azeaze");
+		lang.setLanguage("english");
+		assertTrue(lang.getLanguage().compareTo("English") == 0);
+		lang.setLanguage("azeazeaze");
+		lang.setLanguage("Fr");
+		assertTrue(lang.getLanguage().compareTo("Français") == 0);
+		lang.setLanguage("azeaze");
+		lang.setLanguage("english");
+		assertTrue(lang.getLanguage().compareTo("English") == 0);
+		lang.setLanguage("zze");
+		lang.setLanguage("fr");
+		assertTrue(lang.getLanguage().compareTo("Français") == 0);
+	}
+
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter(LanguageTest.class);
 	}

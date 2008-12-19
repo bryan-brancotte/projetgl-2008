@@ -362,4 +362,8 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	public void setFullScreen(boolean fullScreen) {
 		this.fullScreen = fullScreen;
 	}
+
+	public void setEnableSizeLine(boolean enableSizeLine) {
+		this.enableSizeLine = enableSizeLine;
+	}
 }
