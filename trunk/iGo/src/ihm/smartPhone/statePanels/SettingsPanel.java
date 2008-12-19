@@ -628,6 +628,8 @@ public class SettingsPanel extends PanelState {
 							+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
 					xActu += taille + (decalage >> 1);
 				}
+			}else{
+				intermediatesStationsButton.setEnable(false);
 			}
 			// les stations déja choisie
 
@@ -639,6 +641,7 @@ public class SettingsPanel extends PanelState {
 		// TODO ........mk AutoComplet°........................
 		// TODO ........taf.........................
 
+		// TODO ........skin
 		// TODO ........Language
 		/***************************************************************************************************************
 		 * ScrollBar

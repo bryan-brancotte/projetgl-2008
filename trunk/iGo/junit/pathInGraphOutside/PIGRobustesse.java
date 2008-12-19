@@ -48,7 +48,6 @@ public class PIGRobustesse {
 	 */
 	@Test
 	public void constructionDUnReseauSansProbleme() {
-		// TODO REMI nettoyer code
 		bob.reset();
 		Route rerB;
 		Station massyPal;
@@ -120,7 +119,6 @@ public class PIGRobustesse {
 	@Test
 	public void getInstancePathInGraphBuilderAvecParam2() {
 		pigB = sncf.getInstancePathInGraphBuilder(null);
-		// TODO passé setActualPathInGraph à protected
 		assertTrue("le nouveau PIGB doit être null : le param est null", pigB == null);
 	}
 

@@ -9,7 +9,6 @@ public class PTArea extends PTComponent {
 
 	protected PTArea(PanelTooled father, Rectangle area) {
 		super(father, area);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void draw(Graphics g, Color colorInside, Color colorLetter) {
@@ -43,7 +42,6 @@ public class PTArea extends PTComponent {
 	@Override
 	@Deprecated
 	public Rectangle prepareArea(Graphics g, int x, int y, String text, Font font) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
