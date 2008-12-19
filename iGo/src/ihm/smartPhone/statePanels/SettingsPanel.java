@@ -48,10 +48,19 @@ public class SettingsPanel extends PanelState {
 	protected class PairPTRadioBoxs {
 		public PTRadioBox[] rbs;
 		public String name;
+		public Service service;
 
 		protected PairPTRadioBoxs(PTRadioBox[] rbs, String name) {
 			super();
 			this.rbs = rbs;
+			this.service = null;
+			this.name = name;
+		}
+
+		protected PairPTRadioBoxs(PTRadioBox[] rbs, Service service, String name) {
+			super();
+			this.rbs = rbs;
+			this.service = service;
 			this.name = name;
 		}
 	}
@@ -110,6 +119,7 @@ public class SettingsPanel extends PanelState {
 		String s, valS;
 		PTRadioBoxGroup grp;
 		CodeExecutor ex;
+		Service ser;
 		boolean bool;
 
 		/***************************************************************************************************************
@@ -164,7 +174,7 @@ public class SettingsPanel extends PanelState {
 		while (itS.hasNext()) {
 			rbs = new PTRadioBox[3];
 			grp = new PTRadioBoxGroup(rbs.length);
-			ex = new CodeExecutor1P<String>(s = (itS.next().getName())) {
+			ex = new CodeExecutor1P<String>(s = ((ser = itS.next()).getName())) {
 				@Override
 				public void execute() {
 					recordChangedSetting(services, this.origine);
@@ -181,7 +191,7 @@ public class SettingsPanel extends PanelState {
 				rbs[2].setClicked(true);
 			else
 				rbs[0].setClicked(true);
-			ServicesRadioBoxs.add(new PairPTRadioBoxs(rbs, s));
+			ServicesRadioBoxs.add(new PairPTRadioBoxs(rbs, ser, s));
 		}
 
 		/***************************************************************************************************************
@@ -245,11 +255,11 @@ public class SettingsPanel extends PanelState {
 				}
 			});
 			rb.setClicked(father.getConfig(SettingsKey.LANGUAGE.toString()).compareTo(s) == 0);
-//			bool |= rb.isClicked(); 
+			bool |= rb.isClicked();
 			languagesCollapsableArea.addComponent(rb);
 			languagesRadioBoxs.add(new PairPTRadioBox(rb, s));
 		}
-		if(bool)
+		if (bool)
 			languagesCollapsableArea.changeCollapseState();
 	}
 
@@ -347,7 +357,7 @@ public class SettingsPanel extends PanelState {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			graphicsTunning(buffer);
-//			buffer.setColor(father.getSkin().getColorLetter());
+			// buffer.setColor(father.getSkin().getColorLetter());
 			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeSmallFont()) {
 				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeSmallFont(),
 						father.getSizeAdapteur().getSizeSmallFont());
@@ -518,8 +528,11 @@ public class SettingsPanel extends PanelState {
 				} else {
 					buffer.drawString(p.name, decalage << 1, tmp);
 				}
-				// buffer.setColor(father.getNetworkColorManager().getColorForService(p.))
-				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y, father.getSizeAdapteur()
+				buffer.setColor(father.getNetworkColorManager().getColorForService(p.service));
+				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y+ (decalage >> 3)+ (decalage >> 3), father.getSizeAdapteur()
+						.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.setColor(father.getSkin().getColorLetter());
+				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y+ (decalage >> 3)+ (decalage >> 3), father.getSizeAdapteur()
 						.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeSmallFont() >> 1);
 			}
 		} else
