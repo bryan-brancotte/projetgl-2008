@@ -48,7 +48,6 @@ public class PIGBuilderRobustesse {
 	 */
 	@Test
 	public void constructionDUnReseauSansProbleme() {
-		// TODO REMI nettoyer code
 		bob.reset();
 		Route rerB;
 		Station massyPal;
@@ -120,7 +119,6 @@ public class PIGBuilderRobustesse {
 	@Test
 	public void getInstancePathInGraphBuilderAvecParam2() {
 		pigB = sncf.getInstancePathInGraphBuilder(null);
-		// TODO passé setActualPathInGraph à protected
 		assertTrue("le nouveau PIGB doit être null : le param est null", pigB == null);
 	}
 
@@ -162,7 +160,7 @@ public class PIGBuilderRobustesse {
 			pigB.addFront(bob.linkStation(sncf.getRoute("RerB"), sncf.getStation(1), sncf.getRoute("RerC"), sncf
 					.getStation(9), 2, 20, true));
 			// TODO passé cette méthode en public...
-			 pigB.importPath(null);
+			pigB.importPath(null);
 			assertTrue("Le path actuelle doit maintenant être vide", pigB.getCurrentPathInGraph().getJunctions()
 					.hasNext());
 		} catch (Exception e) {

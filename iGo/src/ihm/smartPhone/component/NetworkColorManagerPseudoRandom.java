@@ -19,13 +19,11 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 
 	@Override
 	public Color getColorForRoute(Route r) {
-		// TODO Auto-generated method stub
 		return Color.blue;
 	}
 
 	@Override
 	public Color getColorForService(Service r) {
-		// TODO Auto-generated method stub
 		return Color.red;
 	}
 

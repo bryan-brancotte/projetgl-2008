@@ -638,7 +638,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public NetworkColorManager getNetworkColorManager() {
-		// TODO Auto-generated method stub
 		return networkColorManager;
 	}
 }
