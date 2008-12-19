@@ -9,7 +9,10 @@ import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
 import ihm.classesExemples.TravelForTravelPanelExemple;
+import ihm.smartPhone.component.IGoFlowLayout;
 import ihm.smartPhone.component.LowerBar;
+import ihm.smartPhone.component.NetworkColorManager;
+import ihm.smartPhone.component.NetworkColorManagerPseudoRandom;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
@@ -26,7 +29,6 @@ import ihm.smartPhone.statePanels.TravelArrayDisplayPanel;
 import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
-import ihm.smartPhone.tools.IGoFlowLayout;
 import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.PanelTooled;
 import ihm.smartPhone.tools.SizeAdapteur;
@@ -49,12 +51,13 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public static final IHMGraphicQuality defaultQualityForIhm = IHMGraphicQuality.AS_FAST_AS_WE_CAN;
 
 	protected IGoFlowLayout sizeAdapteur = null;
+	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
+	protected NetworkColorManager networkColorManager; 
 
 	protected UpperBar upperBar;
 	protected int oldSizeLine = -1;
 	protected Panel centerPanel;
 	protected LowerBar lowerBar;
-	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 	/**
 	 * etat préféré pour la prévisualisation et l'expérimentation d'un trajet : IhmReceivingStates.GRAPHIC_MODE ou
 	 * IhmReceivingStates.ARRAY_MODE
@@ -85,6 +88,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		super(master.lg("ProgName"));
 		this.skin = skin;
 		sizeAdapteur = new IGoFlowLayout(skin.isDisplayLine());
+		networkColorManager = new NetworkColorManagerPseudoRandom(master);
 		System.out.println(sizeAdapteur);
 		this.setLayout(sizeAdapteur);
 
@@ -257,9 +261,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (checkSplashScreenPanel())
 			splashScreenPanel.setMaxStepInSplashScreen(step);
 		if (bySplashScreen)
-			this.setActualState(IhmReceivingStates.SPLASH_SCREEN);
+			this.setCurrentState(IhmReceivingStates.SPLASH_SCREEN);
 		else
-			this.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+			this.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 		this.setVisible(true);
 	}
 
@@ -284,7 +288,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public void endSplashScreen() {
 		if (actualState == IhmReceivingStates.SPLASH_SCREEN) {
-			setActualState(IhmReceivingStates.MAIN_INTERFACE);
+			setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 		}
 	}
 
@@ -397,12 +401,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public IhmReceivingStates getActualState() {
+	public IhmReceivingStates getCurrentState() {
 		return actualState;
 	}
 
 	@Override
-	public boolean setActualState(IhmReceivingStates actualState) {
+	public boolean setCurrentState(IhmReceivingStates actualState) {
 		if (actualState == this.actualState)
 			return true;
 		if (actualState != IhmReceivingStates.SPLASH_SCREEN) {
@@ -596,7 +600,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public boolean returnPathAsked(PathInGraph path, String message) {
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
-		this.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
+		this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
 		return true;
 	}
 
@@ -604,7 +608,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public void cancel() {
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return;
-		this.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+		this.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 	}
 
 	@Override
@@ -630,5 +634,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public Iterator<Station> getStations() {
 		return master.getStations();
+	}
+
+	@Override
+	public NetworkColorManager getNetworkColorManager() {
+		// TODO Auto-generated method stub
+		return networkColorManager;
 	}
 }

@@ -136,6 +136,12 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		return collapsableArea;
 	}
 
+	public PTArea makeArea() {
+		Rectangle area = new Rectangle();
+		PTArea pta = new PTArea(this, area);
+		return pta;
+	}
+
 	public PTScrollBar makeScrollBar() {
 		Rectangle area = new Rectangle();
 		PTScrollBar sb = new PTScrollBar(this, area);

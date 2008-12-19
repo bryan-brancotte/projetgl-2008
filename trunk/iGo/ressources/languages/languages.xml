@@ -208,11 +208,11 @@
 				<ENGLISH value="High"/>
 			</High>
 			<GraphicalQuality>
-				<FRANCAIS value="Qualitée graphique"/>
+				<FRANCAIS value="Qualité graphique"/>
 				<ENGLISH value="Graphical Quality"/>
 			</GraphicalQuality>
 			<IntermediatesStations>
-				<FRANCAIS value="Stations intermédiaures"/>
+				<FRANCAIS value="Stations intermédiaires"/>
 				<ENGLISH value="Intermediates stations"/>
 			</IntermediatesStations>
 		</fields>

@@ -35,7 +35,7 @@ public class NewTravelPanel extends PanelState {
 		lowerBar.setCenterIcone("home", new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				father.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+				father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 			}
 		});
 		lowerBar.setRightCmd("Find a path", new ActionListener() {

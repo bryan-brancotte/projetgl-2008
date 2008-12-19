@@ -196,7 +196,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 				public void actionPerformed(ActionEvent e) {
 					if (true || JOptionPane.showConfirmDialog(me, father.lg("DoYouWantToQuitYourActualTravel"), father
 							.lg("ProgName"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-						father.setActualState(IhmReceivingStates.MAIN_INTERFACE);
+						father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
 			lowerBar.setRightTitle(father.lg("RemainingTime"));
