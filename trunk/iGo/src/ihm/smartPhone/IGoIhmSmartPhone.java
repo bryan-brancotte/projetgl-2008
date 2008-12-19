@@ -52,7 +52,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	protected IGoFlowLayout sizeAdapteur = null;
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
-	protected NetworkColorManager networkColorManager; 
+	protected NetworkColorManager networkColorManager;
 
 	protected UpperBar upperBar;
 	protected int oldSizeLine = -1;
@@ -639,5 +639,36 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public NetworkColorManager getNetworkColorManager() {
 		return networkColorManager;
+	}
+
+	@Override
+	public Iterator<String> getLanguages() {
+		return master.getLanguages();
+	}
+
+	@Override
+	public void setSkin(iGoSmartPhoneSkin skin) {
+		this.skin = skin;
+		sizeAdapteur.setEnableSizeLine(skin.isDisplayLine());
+		this.setBackground(skin.getColorInside());
+
+		if (splashScreenPanel != null)
+			splashScreenPanel.setBackground(skin.getColorInside());
+		if (mainPanel != null)
+			mainPanel.setBackground(skin.getColorInside());
+		if (loadTravelPanel != null)
+			loadTravelPanel.setBackground(skin.getColorInside());
+		if (favoritesPanel != null)
+			favoritesPanel.setBackground(skin.getColorInside());
+		if (settingsPanel != null)
+			settingsPanel.setBackground(skin.getColorInside());
+		if (newTravelPanel != null)
+			newTravelPanel.setBackground(skin.getColorInside());
+		if (travelGraphicPanel != null)
+			travelGraphicPanel.setBackground(skin.getColorInside());
+		if (travelArrayPanel != null)
+			travelArrayPanel.setBackground(skin.getColorInside());
+		upperBar.setBackground(skin.getColorInside());
+		lowerBar.setBackground(skin.getColorInside());
 	}
 }

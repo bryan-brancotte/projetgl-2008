@@ -215,6 +215,10 @@
 				<FRANCAIS value="Stations intermédiaires"/>
 				<ENGLISH value="Intermediates stations"/>
 			</IntermediatesStations>
+			<Language>
+				<FRANCAIS value="Langue"/>
+				<ENGLISH value="Language"/>
+			</Language>
 		</fields>
 	</root>
 
