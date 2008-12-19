@@ -8,11 +8,11 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewTravelPanel extends PanelState {
+public class OldNewTravelPanel extends PanelState {
 
 	private static final long serialVersionUID = 1L;
 
-	public NewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
+	public OldNewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 	}
 

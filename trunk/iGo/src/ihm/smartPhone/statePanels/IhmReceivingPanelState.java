@@ -19,6 +19,13 @@ public interface IhmReceivingPanelState {
 	public iGoSmartPhoneSkin getSkin();
 
 	/**
+	 * Retourne la charte graphique actuelle.
+	 * 
+	 * @return la charte graphique actuelle
+	 */
+	public void setSkin(iGoSmartPhoneSkin skin);
+
+	/**
 	 * retourne le SizeAdapteur actuel. Il donne ainsi accès au différente taille étalon, ainsi qu'au police mise à ses
 	 * tailles étalon.
 	 * 
@@ -112,4 +119,11 @@ public interface IhmReceivingPanelState {
 	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<KindRoute> getKindRoutes();
+
+	/**
+	 * Retourne un iterateur décrivant l'ensemble des types de route présents sur le réseau
+	 * 
+	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
+	 */
+	public Iterator<String> getLanguages();
 }
