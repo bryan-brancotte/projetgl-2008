@@ -51,25 +51,25 @@ public class MainPanel extends PanelState {
 		l.addInteractiveArea(imageNewArea, new CodeExecutor() {
 			@Override
 			public void execute() {
-				father.setActualState(IhmReceivingStates.NEW_TRAVEL);
+				father.setCurrentState(IhmReceivingStates.NEW_TRAVEL);
 			}
 		});
 		l.addInteractiveArea(imageLoadArea, new CodeExecutor() {
 			@Override
 			public void execute() {
-				father.setActualState(IhmReceivingStates.LOAD_TRAVEL);
+				father.setCurrentState(IhmReceivingStates.LOAD_TRAVEL);
 			}
 		});
 		l.addInteractiveArea(imageSettingsArea, new CodeExecutor() {
 			@Override
 			public void execute() {
-				father.setActualState(IhmReceivingStates.SETTINGS);
+				father.setCurrentState(IhmReceivingStates.SETTINGS);
 			}
 		});
 		l.addInteractiveArea(imageFavoritesArea, new CodeExecutor() {
 			@Override
 			public void execute() {
-				father.setActualState(IhmReceivingStates.FAVORITES);
+				father.setCurrentState(IhmReceivingStates.FAVORITES);
 			}
 		});
 		this.addMouseListener(l);

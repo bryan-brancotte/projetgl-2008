@@ -26,6 +26,11 @@ public class iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
+	public static iGoSmartPhoneSkin PINK_WITH_LINE = new iGoSmartPhoneSkin(new Color(220, 41, 181), new Color(
+			232, 99, 232), new Color(245, 220, 239), true);
+	/**
+	 * 
+	 */
 	public static iGoSmartPhoneSkin ORANGE_WITH_LINE = new iGoSmartPhoneSkin(new Color(196, 119, 30), new Color(232,
 			189, 99), new Color(248	, 245, 208),Color.black, true);
 	/**

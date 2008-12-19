@@ -11,26 +11,19 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-public class PTAutoCompletionTextBox extends PTComponent {
+public class PTTextBox extends PTComponent {
 
-	protected String[] fields;
-	protected ArrayList<Integer> fieldsMatching;
-	protected int fieldMatched = 0;
 	protected String currentStringLeft;
 	protected String currentStringSelected;
 	protected String currentStringRight;
 	protected boolean isInMe = false;
 	protected boolean isSelecting = false;
-	protected boolean key_char = false;
 	protected byte selectingWay = 0;
 	protected Font lastFont;
 
-	protected PTAutoCompletionTextBox(PanelTooled nvfather, Rectangle nvArea, String[] nvFields) {
+	protected PTTextBox(PanelTooled nvfather, Rectangle nvArea) {
 		super(nvfather, nvArea);
-		this.fields = nvFields;
-		fieldsMatching = new ArrayList<Integer>();
 		currentStringLeft = "";
 		currentStringSelected = "";
 		currentStringRight = "";
@@ -41,7 +34,6 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				if (!isInMe)
 					return;
 				int size;
-				key_char = false;
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_KP_LEFT:
 				case KeyEvent.VK_LEFT:
@@ -101,22 +93,20 @@ public class PTAutoCompletionTextBox extends PTComponent {
 					}
 					break;
 				case KeyEvent.VK_DELETE:
-					fieldMatched = 0;
+					if (currentStringRight.length() < 1)
+						return;
 					if (currentStringSelected.length() > 0) {
 						currentStringSelected = "";
 					} else {
-						if (currentStringRight.length() < 1)
-							return;
 						currentStringRight = currentStringRight.substring(1);
 					}
 					break;
 				case KeyEvent.VK_BACK_SPACE:
-					fieldMatched = 0;
+					if (currentStringLeft.length() < 1)
+						return;
 					if (currentStringSelected.length() > 0) {
 						currentStringSelected = "";
 					} else {
-						if (currentStringLeft.length() < 1)
-							return;
 						currentStringLeft = currentStringLeft.substring(0, currentStringLeft.length() - 1);
 					}
 					break;
@@ -150,26 +140,13 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				case KeyEvent.VK_ALT_GRAPH:
 				case KeyEvent.VK_CONTEXT_MENU:
 					return;
-				case KeyEvent.VK_DOWN:
-				case KeyEvent.VK_KP_DOWN:
-					fieldMatched++;
-					autoCompletion();
-					break;
-				case KeyEvent.VK_UP:
-				case KeyEvent.VK_KP_UP:
-					fieldMatched--;
-					autoCompletion();
-					break;
 				default:
-					if (key_char = !e.isActionKey()) {
-						fieldMatched = 0;
+					if (!e.isActionKey()) {
 						currentStringLeft += e.getKeyChar();
 						currentStringSelected = "";
-						autoCompletion();
 					} else
 						return;
 				}
-
 				father.repaint();
 			}
 
@@ -208,9 +185,6 @@ public class PTAutoCompletionTextBox extends PTComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (area.contains(e.getPoint())) {
-					currentStringLeft = currentStringLeft + currentStringSelected + currentStringRight;
-					currentStringSelected = "";
-					currentStringRight = "";
 					int i = 0;
 					while ((i < currentStringLeft.length())
 							&& PanelDoubleBufferingSoftwear.getWidthString(currentStringLeft.substring(0, i),
@@ -227,9 +201,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 					father.repaint();
 				} else {
 					if (isInMe) {
-						currentStringLeft = currentStringLeft + currentStringSelected + currentStringRight;
-						currentStringSelected = "";
-						currentStringRight = "";
+						currentStringLeft = currentStringLeft + currentStringRight;
 						isInMe = false;
 						father.repaint();
 					}
@@ -245,29 +217,6 @@ public class PTAutoCompletionTextBox extends PTComponent {
 			}
 
 		});
-	}
-
-	protected void autoCompletion() {
-		if ((currentStringRight.length() == 0)/* && (currentStringLeft.length() > 0)/* */) {
-			int cpt;
-
-			if (key_char || currentStringLeft.length() == 0) {
-				fieldsMatching.clear();
-				for (cpt = 0; cpt < fields.length; cpt++) {
-					if (fields[cpt].toLowerCase().startsWith(currentStringLeft.toLowerCase())) {
-						fieldsMatching.add(cpt);
-					}
-				}
-			}
-			if (fieldsMatching.size() > 0) {
-				if (fieldMatched < 0)
-					fieldMatched += fieldsMatching.size();
-				fieldMatched = fieldMatched % fieldsMatching.size();
-				currentStringLeft = fields[fieldsMatching.get(fieldMatched)].substring(0, cpt = currentStringLeft
-						.length());
-				currentStringSelected = fields[fieldsMatching.get(fieldMatched)].substring(cpt);
-			}
-		}
 	}
 
 	public String getText() {
@@ -293,7 +242,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 			g.setColor(colorLetter);
 			g.drawLine(x, area.y + 1, x, area.y + area.height - 2);
 		}
-		// System.out.println(currentStringLeft + "[" + currentStringSelected + "]" + currentStringRight);
+		System.out.println(currentStringLeft + "[" + currentStringSelected + "]" + currentStringRight);
 	}
 
 	/**

@@ -26,7 +26,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
 		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.GRAPHIC_MODE.toString());
-		father.setActualState(IhmReceivingStates.GRAPHIC_MODE.mergeState(actualState));
+		father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(actualState));
 	}
 
 	@Override

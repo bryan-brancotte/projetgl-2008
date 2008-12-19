@@ -3,6 +3,7 @@ package ihm.smartPhone.statePanels;
 import graphNetwork.KindRoute;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import ihm.smartPhone.component.NetworkColorManager;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.tools.SizeAdapteur;
 
@@ -18,12 +19,20 @@ public interface IhmReceivingPanelState {
 	public iGoSmartPhoneSkin getSkin();
 
 	/**
-	 * retourne le size adapteur actuel. Il donne ainsi accès au différente taille étalon, ainsi qu'au police mise à ses
+	 * retourne le SizeAdapteur actuel. Il donne ainsi accès au différente taille étalon, ainsi qu'au police mise à ses
 	 * tailles étalon.
 	 * 
 	 * @return
 	 */
 	public SizeAdapteur getSizeAdapteur();
+
+	/**
+	 * Retourne la charte graphique actuelle appliquer au réseau, on entend pas cela les couleurs des services et des
+	 * routes. tailles étalon.
+	 * 
+	 * @return
+	 */
+	public NetworkColorManager getNetworkColorManager();
 
 	/**
 	 * Demande l'arret de l'application. On laisse ensuite la classe implémentant IhmReceivingPanelState de tenir compte
@@ -49,18 +58,18 @@ public interface IhmReceivingPanelState {
 	 * Demande de passé à l'état passé en paramètre. l'application de cette demande est laissé à la discretion de la
 	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
 	 * 
-	 * @param actualState
+	 * @param currentState
 	 *            le nouvelle état;
 	 * @return true si on a bien appliqué le mutateur.
 	 */
-	public boolean setActualState(IhmReceivingStates actualState);
+	public boolean setCurrentState(IhmReceivingStates currentState);
 
 	/**
 	 * Retourne l'état actuel
 	 * 
 	 * @return l'état actuel.
 	 */
-	public IhmReceivingStates getActualState();
+	public IhmReceivingStates getCurrentState();
 
 	/**
 	 * Retourne pour une clé donnée la valeur du paramètre.

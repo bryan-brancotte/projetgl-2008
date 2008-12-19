@@ -28,6 +28,7 @@ public class MainDemoIHM {
 	static GraphNetworkBuilder gnb;
 
 	protected static Configuration conf;
+
 	/**
 	 * @param args
 	 * @throws InterruptedException
@@ -118,10 +119,11 @@ public class MainDemoIHM {
 				return true;
 			}
 
-			// }, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);
-			// }, iGoSmartPhoneSkin.BLUE_WITH_LINE);
-		//}, iGoSmartPhoneSkin.WHITE_WITH_LINE);
-	}, iGoSmartPhoneSkin.ORANGE_WITH_LINE);
+		}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);
+		// }, iGoSmartPhoneSkin.BLUE_WITH_LINE);
+		// }, iGoSmartPhoneSkin.WHITE_WITH_LINE);
+		// }, iGoSmartPhoneSkin.PINK_WITH_LINE);
+		// }, iGoSmartPhoneSkin.ORANGE_WITH_LINE);
 		// },iGoSmartPhoneSkin.BLACK_WITH_LINE);
 		ihm.start(true, 8);
 		new ExecMultiThread<IHM>(ihm) {
@@ -161,7 +163,8 @@ public class MainDemoIHM {
 	protected static void makeGNB() {
 		try {
 			gnb = new GraphNetworkBuilder();
-			gnb.addRoute("RerB", "Train");
+			gnb.addRoute("RerB", "Rer");
+			gnb.addRoute("RerC", "Rer");
 			gnb.addRoute("2", "Trolley");
 			gnb.addRoute("3", "Subway");
 			gnb.addRoute("4", "Foot");
@@ -171,7 +174,11 @@ public class MainDemoIHM {
 			gnb.addService(4, "Parking");
 			gnb.addStation(1, "Massy");
 			gnb.addStation(2, "Antony");
+			gnb.addStation(5, "Antone");
+			gnb.addStation(4, "Armand");
 			gnb.addStation(3, "Le Guichet");
+			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerC"), gnb.getCurrentGraphNetwork()
+					.getStation(1), 0);
 			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()
 					.getStation(1), 0);
 			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()

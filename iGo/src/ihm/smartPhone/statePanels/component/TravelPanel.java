@@ -132,7 +132,7 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 			@Override
 			public void execute() {
 				System.out.println("go!!!");
-				father.setActualState(IhmReceivingStates.COMPUT_TRAVEL);
+				father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
 			}
 		}, false);
 		this.addMouseListener(l);
