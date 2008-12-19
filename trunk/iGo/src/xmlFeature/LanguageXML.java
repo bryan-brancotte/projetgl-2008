@@ -79,6 +79,21 @@ public class LanguageXML implements Language {
 			LoadLanguage();
 			return true;
 		}
+		nameCap = null;
+		boolean alreadyMatch = false;
+		for (String s : langues.keySet()) {
+			if(s.length() >= name.length()) 
+			if (s.length() >= name.length() && s.substring(0, name.length()).compareToIgnoreCase(name) == 0)
+				if (nameCap != null)
+					alreadyMatch = true;
+				else
+					nameCap = s;
+		} 
+		if (nameCap != null && !alreadyMatch) {
+			langue = nameCap;
+			LoadLanguage();
+			return true;
+		}
 		if (langue.compareTo(NOT_YET_A_LANGUAGE) == 0)
 			langue = DEFAULT_LANGUAGE;
 		return false;
