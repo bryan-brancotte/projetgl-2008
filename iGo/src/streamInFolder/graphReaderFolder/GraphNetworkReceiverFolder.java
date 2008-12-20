@@ -15,8 +15,8 @@ import iGoMaster.exception.GraphReceptionException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.Vector;
@@ -61,9 +61,10 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	}
 
 	@Override
-	public Collection<AvailableNetwork> getAvaibleNetwork() {
-		if (networks != null)
-			return networks.values();
+	public Iterator<AvailableNetwork> getAvaibleNetwork() {
+		if (networks != null) {
+			return networks.values().iterator();
+		}
 		else
 			return null;
 	}
@@ -313,16 +314,6 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 			gnrf.buildNewGraphNetwork(new GraphNetworkBuilder(), "NetworkGL2008.xml", new GraphNetworkCostReceiverHardWritten());
 
-			/*
-			 * test.startWatching(); System.out.println("--------------"); // System.out.println(test.getNewEventInfo().size()); try { System.in.read();
-			 * 
-			 * if (test.getStatus().equals(EventInfoNetWorkWatcherStatus.NEW_UPDATE)) { System.out.println("NB events : " + test.getNewEventInfo().size()); System.out.println("New
-			 * UPDATE MAIN"); for (EventInfo ev : test.getNewEventInfo()) { System.out.println("Event : " + ev.getMessage()); } GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-			 * test.applyInfo(gnb.getInstance()); }
-			 * 
-			 * test.stopWatching(); System.in.read(); // test.startWatching(); // System.out.println(test.getNewEventInfo().size()); System.in.read(); } catch (IOException e) {
-			 * e.printStackTrace(); }
-			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
