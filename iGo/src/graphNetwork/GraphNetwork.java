@@ -78,16 +78,42 @@ public class GraphNetwork {
 	}
 
 	/**
+	 * use getInstancePathInGraphCollectionBuilder();
+	 */
+	@Deprecated
+	public PathInGraphCollectionBuilder getInstanceGraphCollectionBuilder() {
+		PathInGraph pathInGraph = new PathInGraph(this);
+		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
+		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
+		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
+	}
+
+	/**
 	 * Créé un nouvelle objet PathInGraphCollectionBuilder. Ce dernier contient les deux builder pour définir un chemin
 	 * à construire et pour le contruire. Chaqun de ces builder à en variable interne un pathInGraph lui aussi
 	 * fraichement créé
 	 * 
 	 * @return l'instance de PathInGraphCollectionBuilder
 	 */
-	public PathInGraphCollectionBuilder getInstanceGraphCollectionBuilder() {
+	public PathInGraphCollectionBuilder getInstancePathInGraphCollectionBuilder() {
 		PathInGraph pathInGraph = new PathInGraph(this);
 		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
 		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
+		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
+	}
+
+	/**
+	 * Créé un nouvelle objet PathInGraphCollectionBuilder. Ce dernier contient les deux builder pour définir un chemin
+	 * à construire et pour le contruire. Chaqun de ces builder à en variable interne un pathInGraph lui aussi
+	 * fraichement créé
+	 * 
+	 * @return l'instance de PathInGraphCollectionBuilder
+	 */
+	public PathInGraphCollectionBuilder getInstancePathInGraphCollectionBuilder(String pathInString) {
+		PathInGraph pathInGraph = new PathInGraph(this);
+		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
+		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
+		pathInGraph.importPath(pathInString);
 		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
 	}
 

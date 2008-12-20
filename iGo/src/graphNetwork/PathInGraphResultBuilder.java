@@ -91,6 +91,8 @@ public class PathInGraphResultBuilder {
 			return false;
 		if (currentPathInGraph.origin == null)
 			return false;
+		if (currentPathInGraph.mainCriterious == CriteriousForLowerPath.NOT_DEFINED)
+			return false;
 		if (currentPathInGraph.minorCriterious == CriteriousForLowerPath.NOT_DEFINED)
 			return false;
 		return true;

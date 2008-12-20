@@ -21,7 +21,7 @@ public class GraphNetworkRobustesse {
 	@Before
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
-		sncf = bob.getCurrentGraphNetwork ();
+		sncf = bob.getCurrentGraphNetwork();
 	}
 
 	public static junit.framework.Test suite() {
@@ -35,13 +35,10 @@ public class GraphNetworkRobustesse {
 		assertTrue("Doit retourner null car une des stations est null",
 				sncf.getJunctions(sncf.getStation(1), null) == null);
 		assertTrue("Doit retourner null car une des stations est null",
-				sncf
-				.getJunctions(null, sncf.getStation(1)) == null);
+				sncf.getJunctions(null, sncf.getStation(1)) == null);
 		bob.addStation(2, "e");
-		assertTrue(
-				"Doit retourner un iterateur sans element car il n'y a aucun lien entre les stations",
-				!(sncf.getJunctions(sncf.getStation(2), sncf.getStation(1))
-						.hasNext()));
+		assertTrue("Doit retourner un iterateur sans element car il n'y a aucun lien entre les stations", !(sncf
+				.getJunctions(sncf.getStation(2), sncf.getStation(1)).hasNext()));
 	}
 
 	@Test
@@ -51,8 +48,7 @@ public class GraphNetworkRobustesse {
 
 	@Test
 	public void getInstancePathInGraphBuilder() {
-		assertTrue("On ne peut construire un PathInGraphBuilder pour un path null", sncf
-				.getInstancePathInGraphBuilder(null) == null);
+		assertTrue("On retourne forcement un GCB", sncf.getInstancePathInGraphCollectionBuilder() != null);
 	}
 
 	@Test
