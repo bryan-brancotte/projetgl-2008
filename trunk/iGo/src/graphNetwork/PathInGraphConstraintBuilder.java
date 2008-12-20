@@ -1,11 +1,13 @@
 package graphNetwork;
 
+import iGoMaster.Algo.CriteriousForLowerPath;
+
 public class PathInGraphConstraintBuilder {
 
 	/**
 	 * Le trajet actuellement traité
 	 */
-	private PathInGraph currentPathInGraph;
+	protected PathInGraph currentPathInGraph;
 
 	/**
 	 * le graph dans lequel le monteur de PathInGraph est cree
@@ -27,6 +29,45 @@ public class PathInGraphConstraintBuilder {
 	 */
 	public PathInGraph getCurrentPathInGraph() {
 		return currentPathInGraph;
+	}
+
+	/**
+	 * En travaillant sur le PathInGraph courant, cree le chemin depuis la chaine passe en parametre. On ecrase le
+	 * contenue precedent du chemin
+	 * 
+	 * @param pathInGraph
+	 *            la chaine representant le graph a importer
+	 * @return void
+	 */
+	public void importPath(String pathInString) {
+		this.currentPathInGraph.importPath(pathInString);
+	}
+
+	/**
+	 * Accesseur pour le critère principale dans la résolution de l'algo
+	 * 
+	 * @return
+	 */
+	public void setMainCriterious(CriteriousForLowerPath c) {
+		currentPathInGraph.mainCriterious = c;
+	}
+
+	/**
+	 * Accesseur pour le critère secondaire dans la résolution de l'algo
+	 * 
+	 * @return
+	 */
+	public void setMinorCriterious(CriteriousForLowerPath c) {
+		currentPathInGraph.minorCriterious = c;
+	}
+
+	/**
+	 * Ajout à la liste des stations à éviter la station à évité
+	 * 
+	 * @return le tableau avec l'ensemble des stations a éviter, ou un tableau vide s'il n'y en a pas.
+	 */
+	public void addAvoidStationsArray(Station station) {
+		currentPathInGraph.avoidStations.add(station);
 	}
 
 }
