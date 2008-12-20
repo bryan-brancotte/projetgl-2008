@@ -77,6 +77,7 @@ public class GraphNetwork {
 		PathInGraphBuilder b = new PathInGraphBuilder(this,path);
 		return b;
 	}
+	 
 
 	/**
 	 * Retourne les changements présente entre les deux stations passé en paramètres.

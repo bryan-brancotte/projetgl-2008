@@ -5,7 +5,7 @@ public class PathInGraphResultBuilder {
 	/**
 	 * Le trajet actuellement traité
 	 */
-	private PathInGraph currentPathInGraph;
+	protected PathInGraph currentPathInGraph;
 
 	/**
 	 * le graph dans lequel le monteur de PathInGraph est cree
