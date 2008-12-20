@@ -78,8 +78,8 @@ public class Service {
 		this.shortDescription = shortDescription;
 	}
 	
-	protected String toMyString(){
-		return "<service>"+id+";"+shortDescription+"</service>";
-	}
+//	protected String toMyString(){
+//		return "<service>"+id+";"+shortDescription+"</service>";
+//	}
 
 }

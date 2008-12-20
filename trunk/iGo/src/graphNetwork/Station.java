@@ -9,12 +9,12 @@ import java.util.LinkedList;
  */
 public class Station {
 
-	private boolean enable = true;
+	private boolean enable;
 	private int id;
-	private LinkedList<Junction> junctions;
-	private String name = "";
-	private LinkedList<Route> routes;
-	private LinkedList<Service> services;
+	protected LinkedList<Junction> junctions;
+	private String name;
+	protected LinkedList<Route> routes;
+	protected LinkedList<Service> services;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -34,19 +34,13 @@ public class Station {
 	 * @return void
 	 */
 	protected Station(int id, String name) {
-		// TODO Voir l'utilité
 		super();
-		// TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le
-		// 30 novembre
-		// TODO par Remi check que cet attribut est deja en private
 		junctions = new LinkedList<Junction>();
-		// TODO par Remi check que cet attribut est deja en private
-		// TODO Ajouté à l'arrache pour un minimum de fonctionnalité par Tony le
-		// 30 novembre
 		routes = new LinkedList<Route>();
 		services = new LinkedList<Service>();
 		this.id = id;
 		this.name = name;
+		this.enable = true;
 
 	}
 
@@ -57,16 +51,10 @@ public class Station {
 	 *            la jonction a ajouter
 	 * @return void
 	 */
-	protected void addJunction(Junction junction) {// Ajout un route à la
-		// station courante. Vous ne
-		// devriez pas utiliser
-		// cette function car
-		// GarphNetworkBuilder le
-		// fait, et de façon sûr.
-		// Ajouter une Junction
-		// manuellement à votre
-		// risque et péril.
-		this.junctions.add(junction);
+	protected boolean addJunction(Junction junction) {
+		if (this.junctions.contains(junction))
+			return false;
+		return this.junctions.add(junction);
 	}
 
 	/**
@@ -76,14 +64,10 @@ public class Station {
 	 *            la route a ajouter
 	 * @return void
 	 */
-	protected void addRoute(Route route) {// Ajout un route à la station
-		// courante. Vous ne devriez pas
-		// utiliser cette function car
-		// GarphNetworkBuilder le fait, et
-		// de façon sûr. Ajouter une Route
-		// manuellement à votre risque et
-		// péril.
-		this.routes.add(route);
+	protected boolean addRoute(Route route) {
+		if (this.routes.contains(route))
+			return false;
+		return this.routes.add(route);
 	}
 
 	/**
@@ -91,16 +75,12 @@ public class Station {
 	 * 
 	 * @param service
 	 *            le service a ajouter
-	 * @return void
+	 * @return true si l'ajout à été fait
 	 */
-	protected void addService(Service service) {// Ajout un route à la station
-		// courante. Vous ne devriez pas
-		// utiliser cette function car
-		// GarphNetworkBuilder le fait,
-		// et de façon sûr. Ajouter un
-		// Service manuellement à votre
-		// risque et péril.
-		this.services.add(service);
+	protected boolean addService(Service service) {
+		if (this.services.contains(service))
+			return false;
+		return this.services.add(service);
 	}
 
 	/**
@@ -108,17 +88,16 @@ public class Station {
 	 * 
 	 * @return l'id de la station
 	 */
-	public int getId() {// retourne l'id de la station
+	public int getId() {
 		return id;
 	}
 
 	/**
-	 * Retourne les jonctions d'un station
+	 * Retourne un iterateur sur la collection des jonctions de la station
 	 * 
-	 * @return un iterateur sur les jonctions existantes
+	 * @return un iterateur sur les jonctions existantes. Il peut être vide, mais jamais à null
 	 */
-	public Iterator<Junction> getJunctions() {// retourne un iterator sur la
-		// collection des jonctions
+	public Iterator<Junction> getJunctions() {
 		return this.junctions.iterator();
 	}
 
@@ -191,39 +170,40 @@ public class Station {
 		this.name = name;
 	}
 
-	/**
-	 * retourne une chaine representant la station
-	 * 
-	 * @return la chaine
-	 * 
-	 */
-	protected String toMyString() {
-		String retour;
-		retour = "<station>" + id + ";" + name + ";" + enable;
-		retour.concat("<junctionList>");
-		Iterator<Junction> it = junctions.iterator();
-		while (it.hasNext()) {
-			retour.concat(it.next().toMyString());
-			retour.concat(";");
-		}
-		retour.concat("</junctionList>");
-		retour.concat("<routeList>");
-		Iterator<Route> it2 = routes.iterator();
-		while (it2.hasNext()) {
-			retour.concat(it2.next().toMyString());
-			retour.concat(";");
-
-		}
-		retour.concat("</routeList>");
-		retour.concat("<serviceList>");
-		Iterator<Service> it3 = services.iterator();
-		while (it3.hasNext()) {
-			retour.concat(it3.next().toMyString());
-			retour.concat(";");
-
-		}
-		retour.concat("</serviceList>");
-		retour.concat("</station>");
-		return retour;
-	}
+	// /**
+	// * retourne une chaine representant la station
+	// *
+	// * @return la chaine
+	// *
+	// */
+	// protected String toMyString() {
+	// String retour;
+	// retour = "<station id\"" + id + "\" name=\"" + name + "\" enable=\"" + enable + "\" ";
+	// retour += " jonctionCpt=" + junctions.size() + " routeCpt=" + routes.size() + " />";
+	// retour.concat("<junctionList>");
+	// Iterator<Junction> it = junctions.iterator();
+	// while (it.hasNext()) {
+	// retour.concat(it.next().toMyString());
+	// retour.concat(";");
+	// }
+	// retour.concat("</junctionList>");
+	// retour.concat("<routeList>");
+	// Iterator<Route> it2 = routes.iterator();
+	// while (it2.hasNext()) {
+	// retour.concat(it2.next().toMyString());
+	// retour.concat(";");
+	//		
+	// }
+	// retour.concat("</routeList>");
+	// retour.concat("<serviceList>");
+	// Iterator<Service> it3 = services.iterator();
+	// while (it3.hasNext()) {
+	// retour.concat(it3.next().toMyString());
+	// retour.concat(";");
+	//		
+	// }
+	// retour.concat("</serviceList>");
+	// retour.concat("</station>");
+	// return retour;
+	// }
 }
