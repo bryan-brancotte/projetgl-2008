@@ -2,6 +2,7 @@ package graphNetwork;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 /**
  * 
@@ -9,95 +10,74 @@ import java.util.LinkedList;
  */
 public class GraphNetwork {
 
-	protected LinkedList<Route> routes;// Liste des routes présente dans le
-	// GraphNetwork
-	protected LinkedList<Service> services;// Liste des services présente dans
-	// le GraphNetwork
-	protected LinkedList<Station> stations;// Liste des stations présente dans
+	/**
+	 * Liste des routes présente dans le GraphNetwork
+	 */
+	protected Vector<Route> routes;
+	/**
+	 * Liste des services présente dans le GraphNetwork
+	 */
+	protected Vector<Service> services;
+	/**
+	 * Liste des stations présente dans le GraphNetwork
+	 */
+	protected Vector<Station> stations;
 
-	// le GraphNetwork
-
-	protected GraphNetwork() {// Construteur d'un objet GraphNetwork
+	/**
+	 * Construteur d'un objet GraphNetwork
+	 */
+	protected GraphNetwork() {
 		super();
-		routes = new LinkedList<Route>();
-		services = new LinkedList<Service>();
-		stations = new LinkedList<Station>();
+		routes = new Vector<Route>();
+		services = new Vector<Service>();
+		stations = new Vector<Station>();
 		if (KindRoute.kinds != null)
 			KindRoute.kinds.clear();
 	}
 
 	/**
+	 * retourne le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
 	 * 
 	 * @param kind
 	 * @return
 	 * @throws NullPointerException
 	 */
-	public float getEntryCost(KindRoute kind) throws NullPointerException {// retourne
-		// le
-		// coût
-		// d'entrée
-		// pour
-		// accéder
-		// depuis
-		// l'exterieur
-		// à
-		// une
-		// ligne
-		// de
-		// ce
-		// type
+	public float getEntryCost(KindRoute kind) throws NullPointerException {
 		if (kind == null) {
 			return Float.NaN;
 		}
 		return kind.cost;
 	}
 
-	public PathInGraphBuilder getInstancePathInGraphBuilder() {// Créé
-		// initialise et
-		// retourne une
-		// instance de
-		// monteur de
-		// PathInGraph :
-		// un
-		// PathInGraphBuilder
-		// déjà
-		// initialisé
-		// avec un
-		// nouveau
-		// trajet.
+	/**
+	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec
+	 * un nouveau trajet.
+	 * 
+	 * @return
+	 */
+	public PathInGraphBuilder getInstancePathInGraphBuilder() {
+		// TODO PathInGraphBuilder à evoluer
 		return new PathInGraphBuilder(this);
 	}
 
-	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {// Créé
-		// initialise
-		// et
-		// retourne
-		// une
-		// instance
-		// de
-		// monteur
-		// de
-		// PathInGraph
-		// :
-		// un
-		// PathInGraphBuilder
-		// initialisé
-		// avec
-		// le
-		// trajet
-		// passé
-		// en
-		// paramètre.
-		if(path==null)return null;
-		
-		PathInGraphBuilder b = new PathInGraphBuilder(this);
-		b.setCurrentPathInGraph(path);
+	/**
+	 * 
+	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder initialisé avec le
+	 * trajet passé en paramètre.
+	 * 
+	 * @param path
+	 *            le path à mettre dans le monteur.
+	 * @return le monteur, ou null si le path est null.
+	 */
+	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
+		if (path == null)
+			return null;
+		PathInGraphBuilder b = new PathInGraphBuilder(this,path);
 		return b;
 	}
 
 	/**
-	 * Retourne les changements présente entre les deux stations passé en
-	 * paramètres.
+	 * Retourne les changements présente entre les deux stations passé en paramètres.
 	 * 
 	 * @param stationA
 	 *            la première station
@@ -106,20 +86,9 @@ public class GraphNetwork {
 	 * @return un iterateur sur les changements existant
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
+		// Check by bryan
 		if (stationA == null || stationB == null)
 			return null;
-
-		// Iterator<Junction> it2 = stationB.getJunctions();
-		// LinkedList<Junction> jonction = new LinkedList<Junction>();
-		//		
-		// while(it1.hasNext()){
-		// Junction temp=it1.next();
-		// while(it2.hasNext()){
-		// if(temp.equals(it2.next())){
-		// jonction.add(temp);
-		// }
-		// }
-		// }
 		Iterator<Junction> it1 = stationA.getJunctions();
 		Junction temp;
 		LinkedList<Junction> jonction = new LinkedList<Junction>();
@@ -132,8 +101,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Obtient l'objet représentant le type de route dont le nom est passé en
-	 * paramètre
+	 * Obtient l'objet représentant le type de route dont le nom est passé en paramètre
 	 * 
 	 * @param kindOf
 	 *            le nom du type de route
@@ -151,114 +119,121 @@ public class GraphNetwork {
 	 * @return un iterateur sur les types de route
 	 */
 	public Iterator<KindRoute> getKinds() {
-		// Iterator<Route> r1 = routes.iterator();
-		// LinkedList<KindRoute> kindroute = new LinkedList<KindRoute>();
-		// while(r1.hasNext()){
-		// kindroute.add(r1.next().getKindRoute());
-		// }
-		//		
-		// //return kindroute.iterator();
 		return KindRoute.getKinds();
 	}
 
-	public Route getRoute(String i) {// etourne la route dont on connait
-		// l'identifiant ou null si elle
-		// n'existe pas
-		Iterator<Route> it = routes.iterator();
-		while (it.hasNext()) {
-			Route temp = it.next();
-			if (temp.getId().compareTo(i) == 0) {
-				return temp;
-			}
-		}
+	/**
+	 * Retourne la route dont on connait l'identifiant ou null si elle n'existe pas
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Route getRoute(String id) {
+		// Iterator<Route> it = routes.iterator();
+		// while (it.hasNext()) {
+		// Route temp = it.next();
+		// if (temp.getId().compareTo(id) == 0) {
+		// return temp;
+		// }
+		// }
+		// return null;
+		for (int i = 0; i < routes.size(); i++)
+			if (routes.get(i).getId().compareTo(id) == 0)
+				return routes.get(i);
 		return null;
 	}
 
-	public Iterator<Route> getRoutes() {// retourne un iterateur sur les routes
-		// existantes dans le réseau
+	/**
+	 * Retourne un iterateur sur les routes existantes dans le réseau
+	 * 
+	 * @return
+	 */
+	public Iterator<Route> getRoutes() {
 		return routes.iterator();
 	}
 
-	public Service getService(int id) {// retourne le service dont on connait
-		// l'identifiant ou null s'il n'existe
-		// pas
-		Iterator<Service> it = services.iterator();
-		while (it.hasNext()) {
-			Service s1 = it.next();
-			if (s1.getId() == id) {
-				return s1;
-			}
-		}
+	/**
+	 * Retourne le service dont on connait l'identifiant ou null s'il n'existe pas
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Service getService(int id) {
+		// Iterator<Service> it = services.iterator();
+		// while (it.hasNext()) {
+		// Service s1 = it.next();
+		// if (s1.getId() == id) {
+		// return s1;
+		// }
+		// }
+		// return null;
+		for (int i = 0; i < services.size(); i++)
+			if (services.get(i).getId() == id)
+				return services.get(i);
 		return null;
 	}
 
-	public Iterator<Service> getServices() {// @return un iterateur sur les
-		// services existants dans le reseau
+	/**
+	 * retourne un iterateur sur les services
+	 * 
+	 * @return un iterateur sur les services existants dans le reseau
+	 */
+	public Iterator<Service> getServices() {// 
 		return services.iterator();
 	}
 
-	public Station getStation(int id) {// retourne la station dont on connait
-		// l'identifiant, null sinon
-		Iterator<Station> it = stations.iterator();
-		while (it.hasNext()) {
-			Station temp = it.next();
-			if (temp.getId() == id) {
-				return temp;
-			}
-		}
+	/**
+	 * retourne la station dont on connait l'identifiant, null sinon
+	 * 
+	 * @param id
+	 *            l'identifiant de la sation
+	 * @return
+	 */
+	public Station getStation(int id) {// 
+		// Iterator<Station> it = stations.iterator();
+		// while (it.hasNext()) {
+		// Station temp = it.next();
+		// if (temp.getId() == id) {
+		// return temp;
+		// }
+		// }
+		// return null;
+		for (int i = 0; i < stations.size(); i++)
+			if (stations.get(i).getId() == id)
+				return stations.get(i);
 		return null;
 	}
 
-	public Iterator<Station> getStations() {// retourne les stations existants
-		// dans le réseau
+	/**
+	 * retourne les stations existants dans le réseau
+	 * 
+	 * @return
+	 */
+	public Iterator<Station> getStations() {// 
 		return stations.iterator();
 	}
 
-	public void resetEnables() {// remet les composants du réseau comme actif.
+	/**
+	 * remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relative au
+	 * route, les jonctions.
+	 */
+	public void resetEnables() {
 		Iterator<Route> itRoute = routes.iterator();
 		Iterator<Station> itStation = stations.iterator();
+		Route route;
+		Station station;
+		Iterator<Junction> itJunction;
 
 		while (itRoute.hasNext()) {
-			Route r1 = (Route) itRoute.next();
-			r1.setEnable(true);
+			(route = itRoute.next()).setEnable(true);
+			route.resetDisabledStation();
 		}
 
 		while (itStation.hasNext()) {
-			Station s1 = (Station) itStation.next();
-			Iterator<Junction> itJunction = s1.getJunctions();
-			while (itJunction.hasNext()) {
-				Junction j1 = itJunction.next();
-				j1.setEnable(true);
-			}
-			s1.setEnable(true);
+			itJunction = (station = itStation.next()).getJunctions();
+			while (itJunction.hasNext())
+				itJunction.next().setEnable(true);
+			station.setEnable(true);
 		}
-	}
-
-	protected String toMyString() {
-		String retour = "<graphNetwork>";
-		retour.concat("<routeList>");
-		Iterator<Route> it1 = routes.iterator();
-		while (it1.hasNext()) {
-			retour.concat(it1.next().toMyString());
-			retour.concat(";");
-		}
-		retour.concat("</routeList>");
-		retour.concat("<serviceList>");
-		Iterator<Service> it2 = services.iterator();
-		while (it2.hasNext()) {
-			retour.concat(it2.next().toMyString());
-			retour.concat(";");
-		}
-		retour.concat("</serviceList>");
-		retour.concat("<StationList>");
-		Iterator<Station> it3 = stations.iterator();
-		while (it3.hasNext()) {
-			retour.concat(it3.next().toMyString());
-			retour.concat(";");
-		}
-		retour.concat("</routeList>");
-
-		retour.concat("</graphNetwork>)");
-		return retour;
 	}
 }
