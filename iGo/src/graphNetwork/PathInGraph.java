@@ -225,8 +225,6 @@ public class PathInGraph {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
-			// TODO exportPath
-
 			// Transformation
 			transformer.transform(source, resultat);
 			// System.out.println(outStream.toString("UTF-8"));
@@ -482,7 +480,6 @@ public class PathInGraph {
 	 * @param pathInString
 	 */
 	protected void importPath(String pathInString) {
-		// TODO importPath
 		if (pathInString == null || pathInString.isEmpty())
 			return;
 		Document doc;
