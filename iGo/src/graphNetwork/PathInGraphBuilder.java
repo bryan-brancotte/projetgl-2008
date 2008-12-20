@@ -7,6 +7,7 @@ package graphNetwork;
  * 
  * @author iGo
  */
+@Deprecated
 public class PathInGraphBuilder implements PathInGraphResultBuilder, PathInGraphConstraintBuilder {
 
 	/**

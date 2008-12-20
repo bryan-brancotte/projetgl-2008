@@ -347,28 +347,35 @@ public class GraphNetworkBuilder {
 		// TODO .......work
 		while (itJ.hasNext()) {
 			j = itJ.next();
-			//               A    A        B    B
+			// A A B B
 			// on a pour j:Massy RerC => Massy RerB
 			// les params :Massy RerB => Palaiseau RerB
-			if (j.getOtherStation(stationOrigin) == stationDestination
-					&& (j.isRouteLink() || j.getOtherRoute(stationOrigin) == routeDestination))
+			if (j.equals(routeOrigin, stationOrigin, routeDestination, stationDestination))
 				ret = j;
-			// if (sameStation) {
-			// if (j.isSameStation()) {
-			// }
-			// } else {
-			// if (j.getOtherStation(stationOrigin) == stationDestination) {
-			// }
-			// }
-			// if (sameRoute) {
-			// if (j.isSameRoute()) {
-			// }
-			// } else {
-			// if (j.getOtherRoute(stationOrigin) == routeDestination) {
-			// }
-			// }
-
 		}
+		if (ret == null) {
+			ret = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost, time, false,
+					pedestrian);
+		}else{
+			ret.setCost(cost);
+			ret.setPedestrian(pedestrian);
+			ret.setTimeBetweenStations(timeBetweenStations);
+		}
+		// if (sameStation) {
+		// if (j.isSameStation()) {
+		// }
+		// } else {
+		// if (j.getOtherStation(stationOrigin) == stationDestination) {
+		// }
+		// }
+		// if (sameRoute) {
+		// if (j.isSameRoute()) {
+		// }
+		// } else {
+		// if (j.getOtherRoute(stationOrigin) == routeDestination) {
+		// }
+		// }
+
 		return null;
 		// boolean done = false;
 		// Iterator<Route> itR = currentGraphNetwork.routes.iterator();
