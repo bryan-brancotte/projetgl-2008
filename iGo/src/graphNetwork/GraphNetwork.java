@@ -94,6 +94,7 @@ public class GraphNetwork {
 		LinkedList<Junction> jonction = new LinkedList<Junction>();
 		while (it1.hasNext()) {
 			temp = it1.next();
+//			System.out.println(temp);
 			if (temp.getOtherStation(stationA).equals(stationB))
 				jonction.add(temp);
 		}

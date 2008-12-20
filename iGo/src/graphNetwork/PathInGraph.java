@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import iGoMaster.Algo.CriteriousForLowerPath;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -8,22 +10,63 @@ import java.util.LinkedList;
  * @author iGo
  */
 public class PathInGraph {
-	
-//	public enum Travel
 
-	protected GraphNetwork univers; // GraphNetwork dans lequel le trajet a un sens, une existance
-	protected LinkedList<Station> avoidStations;// Liste des stations à éviter
+	/**
+	 * GraphNetwork dans lequel le trajet a un sens, une existance
+	 */
+	protected GraphNetwork univers;
+	/**
+	 * Liste des stations à éviter
+	 */
+	protected LinkedList<Station> avoidStations;
 
 	private float cost;
 	private int time;
 
-	protected Station destination;// La station de destination
-	protected LinkedList<Junction> junctions;// Liste des jonctions formant le trajet
-	protected Station origin;// La station d'origine
-	protected LinkedList<Service> sevicesAlways;// Liste des services obligatoire sur l'ensemble des stations
-	// intermédiaire et extrèmes du trajet.
-	protected LinkedList<Service> sevicesOnce;// Liste des services à recontrer au moins une fois sur le trajet.
-	protected LinkedList<Station> steps;// Liste des stations intermédiaires obligatoire.
+	/**
+	 * La station de destination
+	 */
+	protected Station destination;
+	/**
+	 * Liste des jonctions formant le trajet
+	 */
+	protected LinkedList<Junction> junctions;
+	/**
+	 * La station d'origine
+	 */
+	protected Station origin;
+	/**
+	 * Liste des services obligatoire sur l'ensemble des stations intermédiaire et extrèmes du trajet.
+	 */
+	protected LinkedList<Service> sevicesAlways;
+	/**
+	 * Liste des services à recontrer au moins une fois sur le trajet.
+	 */
+	protected LinkedList<Service> sevicesOnce;
+	/**
+	 * Liste des stations intermédiaires obligatoire.
+	 */
+	protected LinkedList<Station> steps;
+	/**
+	 * Critère principale pour la résolution de l'algo
+	 */
+	protected CriteriousForLowerPath mainCriterious;
+	/**
+	 * Critère secondaire pour la résolution de l'algo
+	 */
+	protected CriteriousForLowerPath minorCriterious;
+
+	/**
+	 * Accesseur pour le critère principale 
+	 * @return
+	 */
+	public CriteriousForLowerPath getMainCriterious() {
+		return mainCriterious;
+	}
+
+	public CriteriousForLowerPath getMinorCriterious() {
+		return minorCriterious;
+	}
 
 	/**
 	 * constructeur d'un trajet
@@ -267,56 +310,56 @@ public class PathInGraph {
 		return true;
 	}
 
-//	/**
-//	 * Un desciptif du trajet
-//	 * 
-//	 * @return
-//	 */
-//	public String toMyString() { // 
-//		String retour = "<PathInGraph>" + cost + ";" + time + ";";
-//		return retour;
-//		 retour.concat(univers.toMyString());
-//				
-//		 retour.concat("<stationList>");
-//		 Iterator<Station> it1=avoidStations.iterator();
-//		 while(it1.hasNext()){
-//		 retour.concat(it1.next().toMyString());
-//		 retour.concat(";");
-//		 }
-//		 retour.concat("</stationList>");
-//		 retour.concat(destination.toMyString());
-//		 retour.concat("<junctionList>");
-//		 Iterator<Station> it2=avoidStations.iterator();
-//		 while(it2.hasNext()){
-//		 retour.concat(it2.next().toMyString());
-//		 retour.concat(";");
-//		 }
-//		 retour.concat("</junctionList>");
-//		 retour.concat(origin.toMyString());
-//		 retour.concat("<serviceList>");
-//		 Iterator<Service> it3=sevicesAlways.iterator();
-//		 while(it3.hasNext()){
-//		 retour.concat(it3.next().toMyString());
-//		 retour.concat(";");
-//		 }
-//		 retour.concat("</junctionList>");
-//		 retour.concat("<serviceList>");
-//		 Iterator<Service> it4=sevicesOnce.iterator();
-//		 while(it4.hasNext()){
-//		 retour.concat(it4.next().toMyString());
-//		 retour.concat(";");
-//		 }
-//		 retour.concat("</junctionList>");
-//		 retour.concat("<stationList>");
-//		 Iterator<Station> it5=steps.iterator();
-//		 while(it5.hasNext()){
-//		 retour.concat(it5.next().toMyString());
-//		 retour.concat(";");
-//		 }
-//		 retour.concat("</stationList>");
-//				
-//				
-//		 retour.concat("</PathInGraph>");
-//	}
+	// /**
+	// * Un desciptif du trajet
+	// *
+	// * @return
+	// */
+	// public String toMyString() { //
+	// String retour = "<PathInGraph>" + cost + ";" + time + ";";
+	// return retour;
+	// retour.concat(univers.toMyString());
+	//				
+	// retour.concat("<stationList>");
+	// Iterator<Station> it1=avoidStations.iterator();
+	// while(it1.hasNext()){
+	// retour.concat(it1.next().toMyString());
+	// retour.concat(";");
+	// }
+	// retour.concat("</stationList>");
+	// retour.concat(destination.toMyString());
+	// retour.concat("<junctionList>");
+	// Iterator<Station> it2=avoidStations.iterator();
+	// while(it2.hasNext()){
+	// retour.concat(it2.next().toMyString());
+	// retour.concat(";");
+	// }
+	// retour.concat("</junctionList>");
+	// retour.concat(origin.toMyString());
+	// retour.concat("<serviceList>");
+	// Iterator<Service> it3=sevicesAlways.iterator();
+	// while(it3.hasNext()){
+	// retour.concat(it3.next().toMyString());
+	// retour.concat(";");
+	// }
+	// retour.concat("</junctionList>");
+	// retour.concat("<serviceList>");
+	// Iterator<Service> it4=sevicesOnce.iterator();
+	// while(it4.hasNext()){
+	// retour.concat(it4.next().toMyString());
+	// retour.concat(";");
+	// }
+	// retour.concat("</junctionList>");
+	// retour.concat("<stationList>");
+	// Iterator<Station> it5=steps.iterator();
+	// while(it5.hasNext()){
+	// retour.concat(it5.next().toMyString());
+	// retour.concat(";");
+	// }
+	// retour.concat("</stationList>");
+	//				
+	//				
+	// retour.concat("</PathInGraph>");
+	// }
 
 }

@@ -170,6 +170,9 @@ public class Station {
 		this.name = name;
 	}
 
+	public String toString(){
+		return "Station : "+name+"("+id+")";
+	}
 	// /**
 	// * retourne une chaine representant la station
 	// *

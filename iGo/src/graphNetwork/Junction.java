@@ -185,22 +185,15 @@ public class Junction {
 
 	/**
 	 * Permet de savoir si la jonction correspond bien à la jonction hypotétique passé en paramètre. Dans l'ordre A=>B
-	 * ou B=>A
 	 * 
 	 * @param routeA
 	 * @param stationA
 	 * @param routeB
 	 * @param stationB
-	 * @return true si la jonction lie le couple A=>B ou B=>A
+	 * @return true si la jonction lie le couple A=>B
 	 */
 	public boolean equals(Route routeA, Station stationA, Route routeB, Station stationB) {
-		return (
-
-		routeA == this.routeA && stationA == this.stationA && routeB == this.routeB && stationB == this.stationB
-
-		||
-
-		routeB == this.routeA && stationB == this.stationA && routeA == this.routeB && stationA == this.stationB);
+		return (routeA == this.routeA && stationA == this.stationA && routeB == this.routeB && stationB == this.stationB);
 	}
 	// public Route getRoute(Station me) {// retourne la route d'une station pour cette jonction ou null si la station
 	// // n'est pas sur la jonction
