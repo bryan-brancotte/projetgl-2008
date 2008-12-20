@@ -10,40 +10,53 @@ import java.util.LinkedList;
 
 public class KindRoute {
 
-	//private KindRoute route;
 	protected static LinkedList<KindRoute> kinds;
+	/**
+	 * Le coût d'entré sur le réseaux par cette ligne
+	 */
 	protected float cost;
-	private String kindOf = "";
+	/**
+	 * Le nom du type de ligne
+	 */
+	protected String kindOf = "";
 
 	/**
 	 * retourne le kindRoute en fonction de son nom
 	 * 
 	 * @param kindOf
-	 *        le nom du kind recherche
+	 *            le nom du kind recherche
 	 * @return le kindroute en question
 	 */
 	public static KindRoute getKindFromString(String kindOf) {
 		KindRoute k = null;
-		int i=0;
-		while (k==null && i<kinds.size()) {
-			if (kinds.get(i).getKindOf().compareTo(kindOf)==0) k=kinds.get(i);
+		int i = 0;
+		while (k == null && i < kinds.size()) {
+			if (kinds.get(i).getKindOf().compareTo(kindOf) == 0)
+				k = kinds.get(i);
 			i++;
 		}
 		return k;
 	}
 
 	/**
-	 * ajoute un nouveau Kind a la collection de kind. la cree si aucun kind n'existe.
+	 * Si le kind passé en paramètre n'existe pas on le crée et le retourne. S'il existe on le retourne.
 	 * 
 	 * @param kindOf
-	 *        nouveau kind a ajouter
-	 * @return le kindroute cree
+	 *            nouveau kind à potentiellement ajouter
+	 * @return le kindroute correspondant au kindOf.
 	 */
 	protected static KindRoute addKind(String kindOf) {
-        if (kinds==null) kinds = new LinkedList<KindRoute>();
+		if (kinds == null)
+			kinds = new LinkedList<KindRoute>();
+//		if (kindOf == null)
+//			return null;
+//		if (kindOf.isEmpty())
+//			return null;
 		KindRoute k = getKindFromString(kindOf);
-		if(k!=null) return k;
-		else return new KindRoute(kindOf);
+		if (k != null)
+			return k;
+		else
+			return new KindRoute(kindOf);
 
 	}
 
@@ -53,10 +66,11 @@ public class KindRoute {
 	 * @return un iterateur sur les kindRoute
 	 */
 	public static Iterator<KindRoute> getKinds() {
-        if (kinds==null) kinds = new LinkedList<KindRoute>();
+		if (kinds == null)
+			kinds = new LinkedList<KindRoute>();
 		return kinds.iterator();
 	}
-	
+
 	/**
 	 * reset tous les kind connus
 	 * 
@@ -66,7 +80,7 @@ public class KindRoute {
 		if (kinds != null)
 			kinds.clear();
 	}
-	
+
 	/**
 	 * constructeur par defaut defini en private pour eviter des allocation non controllee de KindRoute
 	 * 
@@ -78,19 +92,19 @@ public class KindRoute {
 	 * cree un nouveau kindRoute et l'ajoute a la collection de kind
 	 * 
 	 * @param _kindOf
-	 *        nouveau kind
+	 *            nouveau kind
 	 * @return boolean confirmant ou non l'egalite
 	 */
 	private KindRoute(String _kindOf) {
 		Iterator<KindRoute> it = kinds.iterator();
-		boolean alreadyExist=false;
-		int cpt =0;
-		while(it.hasNext()){
+		boolean alreadyExist = false;
+		int cpt = 0;
+		while (it.hasNext()) {
 			cpt++;
-			if(it.next().getKindOf().equals(_kindOf))
-				alreadyExist=true;
+			if (it.next().getKindOf().equals(_kindOf))
+				alreadyExist = true;
 		}
-		if(!alreadyExist){
+		if (!alreadyExist) {
 			kindOf = _kindOf;
 			kinds.add(this);
 		}
@@ -104,12 +118,12 @@ public class KindRoute {
 	public String getKindOf() {
 		return kindOf;
 	}
-	
+
 	/**
 	 * Surcharge de equals pour s'assurer que la comparaison sera bien faite.
 	 * 
 	 * @param obj
-	 *        objet a comparer
+	 *            objet a comparer
 	 * @return boolean confirmant ou non l'egalite
 	 */
 	public boolean equals(Object obj) {
@@ -118,7 +132,7 @@ public class KindRoute {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * setter du cout d'un kind
 	 * 
@@ -126,17 +140,17 @@ public class KindRoute {
 	 *            cout du kind
 	 * @return void
 	 */
-	public void setKindCost(float myCost){
-		this.cost=myCost;
+	protected void setKindCost(float cost) {
+		this.cost = cost;
 	}
 
-	/**
-	 * retourne une chaine representant le kindRoute
-	 * 
-	 * @return la chaine
-	 * 
-	 */
-	protected String toMyString(){
-		return "<kindRoute>"+cost+","+kindOf+"</kindRoute>";
-	}
+	// /**
+	// * retourne une chaine representant le kindRoute
+	// *
+	// * @return la chaine
+	// *
+	// */
+	// protected String toMyString(){
+	// return "<kindRoute>"+cost+","+kindOf+"</kindRoute>";
+	// }
 }
