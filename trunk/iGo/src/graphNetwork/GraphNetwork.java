@@ -85,7 +85,7 @@ public class GraphNetwork {
 	 * 
 	 * @return l'instance de PathInGraphCollectionBuilder
 	 */
-	public PathInGraphCollectionBuilder getInGraphCollectionBuilder() {
+	public PathInGraphCollectionBuilder getInstanceGraphCollectionBuilder() {
 		PathInGraph pathInGraph = new PathInGraph(this);
 		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
 		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
