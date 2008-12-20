@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import algorithm.Dijkstra;
+import algorithm.GraphAlgo;
 
 public class MainAlgo {
 
 	public static void main(String[] args) {
 
-		// GraphNetworkBuilder gb = new GraphNetworkBuilder();
-		// GraphNetwork g = gb.getInstance();
-
+		GraphNetworkBuilder gb = new GraphNetworkBuilder();
+		GraphNetwork g = gb.getCurrentGraphNetwork();
+		
 		KindRoute k = KindRoute.addKind("TGV");
 		KindRoute k2 = KindRoute.addKind("RER");
 
@@ -64,14 +65,14 @@ public class MainAlgo {
 
 		long startTime = System.currentTimeMillis();
 
-		//GraphAlgo graph = GraphAlgo.getInstance();
-		//graph.refreshGraph(s1);
+		GraphAlgo graph = GraphAlgo.getInstance(null);
+		graph.refreshGraph(s1);
 
 		Dijkstra algo = new Dijkstra();
 		algo.setCriterious1("time");
 		algo.setCriterious2("cost");
 
-		//junctions = algo.findPath(graph, s1, s3);
+		junctions = algo.findPath(graph, s1, s3);
 
 		long stopTime = System.currentTimeMillis();
 
@@ -80,9 +81,9 @@ public class MainAlgo {
 		System.out.println("-------------------------------");
 
 		Collections.reverse(junctions);
-		System.out.print("DEPART => ");
+		System.out.print("DEPART => \n");
 		for (int i = 0; i < junctions.size(); i++) {
-			System.out.print(junctions.get(i));
+			System.out.println(junctions.get(i));
 		}
 		System.out.println("ARRIVEE");
 
