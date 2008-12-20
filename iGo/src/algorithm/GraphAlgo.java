@@ -53,6 +53,8 @@ public class GraphAlgo {
 		Iterator<Junction> itInter = station.getJunctions();
 		while(itInter.hasNext()){
 			Junction j = itInter.next();
+			//System.out.print(station+" -> ");
+			//System.out.println(j.getOtherStation(station));
 			// Si la transition est possible
 			if (validChange(n,j)) {
 				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
@@ -164,7 +166,14 @@ public class GraphAlgo {
 		return new ArrayList<Node>(graph);
 	}
 
-
+	public String toString () {
+		String s = "";
+		for (int i=0;i<graph.size();i++) {
+			s += graph.get(i).getStation().getName()+" - ";
+			s += graph.get(i).getRoute().getId()+"\n";
+		}
+		return s;
+	}
 	
 	/*****************************************************************/
 	

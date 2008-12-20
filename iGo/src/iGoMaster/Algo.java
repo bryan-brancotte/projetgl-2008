@@ -2,6 +2,7 @@ package iGoMaster;
 
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphResultBuilder;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -22,7 +23,7 @@ public abstract class Algo extends Observable {
 	 * @param _pathBuilder
 	 * @return
 	 */
-	public abstract PathInGraph findPath(PathInGraphBuilder _path);
+	public abstract PathInGraph findPath(PathInGraphResultBuilder _path);
 
 	/**
 	 */
