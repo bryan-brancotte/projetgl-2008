@@ -48,9 +48,9 @@ public class GraphNetworkBuilderTest {
 	@Test
 	public void resetQuiMarche() {
 		bob.reset();
-		assertTrue(bob.getCurrentGraphNetwork()!=null);
+		assertTrue(bob.getCurrentGraphNetwork() != null);
 	}
-	
+
 	/**
 	 * Construction du réseau sans lever d'exception
 	 */
@@ -67,13 +67,11 @@ public class GraphNetworkBuilderTest {
 			bob.addStationToRoute(rerB, bob.addStation(1, "Paris"), 0);
 			bob.addStationToRoute(rerB, bob.addStation(2, "Antony"), 12);
 			bob.addStationToRoute(rerB, bob.addStation(3, "Croix de berny"), 1);
-			bob.addStationToRoute(rerB, massyPal = bob.addStation(10,
-					"Massy Palaiseau"), 10);
+			bob.addStationToRoute(rerB, massyPal = bob.addStation(10, "Massy Palaiseau"), 10);
 			bob.addStationToRoute(rerB, bob.addStation(4, "Le Guichet"), 9);
 			bob.addStationToRoute(rerB, bob.addStation(5, "Orsay Ville"), 1);
 
-			bob.addStationToRoute(rerC, bob.addStation(9, "Paris Austerlitz"),
-					0);
+			bob.addStationToRoute(rerC, bob.addStation(9, "Paris Austerlitz"), 0);
 			bob.addStationToRoute(rerC, bob.addStation(6, "Orly"), 15);
 			bob.addStationToRoute(rerC, bob.addStation(7, "Choisy"), 15);
 			bob.addStationToRoute(rerC, bob.addStation(8, "Juvisy"), 3);
@@ -82,15 +80,13 @@ public class GraphNetworkBuilderTest {
 			bob.defineEntryCost(sncf.getKindFromString("RER"), 4);
 
 			bob.linkStation(rerC, massyPal, rerB, massyPal, 0, 3, false);
-			bob.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1),
-					2, 9, true);
+			bob.linkStation(rerB, massyPal, rerC, massyPal, 0, 3, false);
+			bob.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1), 2, 9, true);
+			bob.linkStation(rerB, sncf.getStation(1), rerC, sncf.getStation(9), 5, 3, false);
 
-			bob.addServiceToStation(sncf.getStation(9), bob.addService(1,
-					"Journaux"));
-			bob.addServiceToStation(sncf.getStation(9), bob.addService(2,
-					"Cafe"));
-			bob.addServiceToStation(sncf.getStation(9), bob.addService(3,
-					"Handi"));
+			bob.addServiceToStation(sncf.getStation(9), bob.addService(1, "Journaux"));
+			bob.addServiceToStation(sncf.getStation(9), bob.addService(2, "Cafe"));
+			bob.addServiceToStation(sncf.getStation(9), bob.addService(3, "Handi"));
 			bob.addServiceToStation(sncf.getStation(2), sncf.getService(3));
 			bob.addServiceToStation(sncf.getStation(10), sncf.getService(3));
 			bob.addServiceToStation(sncf.getStation(4), sncf.getService(3));
@@ -102,13 +98,11 @@ public class GraphNetworkBuilderTest {
 		} catch (MissingResourceException e) {
 			assertTrue("un objet est null dans linkstation", false);
 		} catch (StationNotOnRoadException e) {
-			assertTrue(
-					"Une station ne semble pas avoir été mise sur la ligne, or on l'a demandé",
-					false);
+			assertTrue("Une station ne semble pas avoir été mise sur la ligne, or on l'a demandé", false);
 		} catch (ImpossibleValueException e) {
 			assertTrue("linkStation ne supporte pas un valeur normal", false);
 		}
-		assertTrue("Construction sans problème", true);
+//		System.out.println("Construction sans problème");
 	}
 
 	/**
@@ -146,18 +140,15 @@ public class GraphNetworkBuilderTest {
 		Station[] stations = new Station[10];
 		Station station;
 
-		String[] nom = { "Paris", "Antony", "Croix de berny", "Le Guichet",
-				"Orsay Ville", "Orly", "Choisy", "Juvisy", "Paris Austerlitz",
-				"Massy Palaiseau" };
+		String[] nom = { "Paris", "Antony", "Croix de berny", "Le Guichet", "Orsay Ville", "Orly", "Choisy", "Juvisy",
+				"Paris Austerlitz", "Massy Palaiseau" };
 		while (itSta.hasNext()) {
 			station = itSta.next();
 			stations[station.getId() - 1] = station;
 		}
 		for (int i = 0; i < 10; i++) {
-			assertTrue("Station " + (i + 1) + " absente du réseau",
-					stations[i] != null);
-			assertTrue("Station " + (i + 1) + " n'a pas son vrai nom",
-					stations[i].getName().compareTo(nom[i]) == 0);
+			assertTrue("Station " + (i + 1) + " absente du réseau", stations[i] != null);
+			assertTrue("Station " + (i + 1) + " n'a pas son vrai nom", stations[i].getName().compareTo(nom[i]) == 0);
 		}
 	}
 
@@ -173,8 +164,7 @@ public class GraphNetworkBuilderTest {
 			itSer.next();
 			cpt++;
 		}
-		assertTrue("Il y a 3 service, ce qui ne semble pas être le cas ici ("
-				+ cpt + ")", cpt == 3);
+		assertTrue("Il y a 3 service, ce qui ne semble pas être le cas ici (" + cpt + ")", cpt == 3);
 		assertTrue(sncf.getService(1).getName().compareTo("Journaux") == 0);
 		assertTrue(sncf.getService(2).getName().compareTo("Cafe") == 0);
 		assertTrue(sncf.getService(3).getName().compareTo("Handi") == 0);
@@ -187,8 +177,7 @@ public class GraphNetworkBuilderTest {
 	public void initialisationServiceOnStation() {
 		constructionDUnReseauSansProbleme();
 		Station[] stations = new Station[] { sncf.getStation(9),/*
-																 * les 3
-																 * services
+																 * les 3 services
 																 */
 		sncf.getStation(1), /* le service 1 */
 		sncf.getStation(2), /* le service 3 */
@@ -207,28 +196,21 @@ public class GraphNetworkBuilderTest {
 			services[service.getId() - 1] = service;
 		}
 		for (int i = 0; i < services.length; i++) {
-			assertTrue("Le service " + i
-					+ " n'est pas présent dans la station "
-					+ stations[0].getId(), services[1] != null);
+			assertTrue("Le service " + i + " n'est pas présent dans la station " + stations[0].getId(),
+					services[1] != null);
 		}
 		itSer = stations[1].getServices();
-		assertTrue("La station " + stations[1].getId()
-				+ " n'a pas de service, or elle devrait", itSer.hasNext());
-		assertTrue("La station " + stations[1].getId()
-				+ " n'a pas le service 1 , or elle devrait", itSer.next()
+		assertTrue("La station " + stations[1].getId() + " n'a pas de service, or elle devrait", itSer.hasNext());
+		assertTrue("La station " + stations[1].getId() + " n'a pas le service 1 , or elle devrait", itSer.next()
 				.getId() == 1);
-		assertTrue("La station " + stations[1].getId()
-				+ " a plus d'un service, or elle ne devrait pas", !itSer
+		assertTrue("La station " + stations[1].getId() + " a plus d'un service, or elle ne devrait pas", !itSer
 				.hasNext());
 		for (int i = 2; i < stations.length; i++) {
 			itSer = stations[i].getServices();
-			assertTrue("La station " + stations[i].getId()
-					+ " n'a pas de service, or elle devrait", itSer.hasNext());
-			assertTrue("La station " + stations[i].getId()
-					+ " n'a pas le service 3 , or elle devrait", itSer.next()
+			assertTrue("La station " + stations[i].getId() + " n'a pas de service, or elle devrait", itSer.hasNext());
+			assertTrue("La station " + stations[i].getId() + " n'a pas le service 3 , or elle devrait", itSer.next()
 					.getId() == 3);
-			assertTrue("La station " + stations[i].getId()
-					+ " a plus d'un service, or elle ne devrait pas", !itSer
+			assertTrue("La station " + stations[i].getId() + " a plus d'un service, or elle ne devrait pas", !itSer
 					.hasNext());
 		}
 	}
@@ -241,50 +223,36 @@ public class GraphNetworkBuilderTest {
 		for (int i = 1; i <= 5; i++) {
 			it = sncf.getStation(i).getRoutes();
 
-			assertTrue("La station " + i
-					+ " n'est pas sur une Route, or elle devrait", it.hasNext());
-			assertTrue("La station " + i
-					+ " n'est pas sur la Route RerB , or elle devrait", it
-					.next().getId().compareTo("RerB") == 0);
-			assertTrue("La station " + i
-					+ " est sur plus d'une Route, or elle ne devrait pas", !it
-					.hasNext());
+			assertTrue("La station " + i + " n'est pas sur une Route, or elle devrait", it.hasNext());
+			assertTrue("La station " + i + " n'est pas sur la Route RerB , or elle devrait", it.next().getId()
+					.compareTo("RerB") == 0);
+			assertTrue("La station " + i + " est sur plus d'une Route, or elle ne devrait pas", !it.hasNext());
 
 		}
 		for (int i = 6; i <= 9; i++) {
 			it = sncf.getStation(i).getRoutes();
-			assertTrue("La station " + i
-					+ " n'est pas sur une Route, or elle devrait", it.hasNext());
-			assertTrue("La station " + i
-					+ " n'est pas sur la Route RerC , or elle devrait", it
-					.next().getId().compareTo("RerC") == 0);
-			assertTrue("La station " + i
-					+ " est sur plus d'une Route, or elle ne devrait pas", !it
-					.hasNext());
+			assertTrue("La station " + i + " n'est pas sur une Route, or elle devrait", it.hasNext());
+			assertTrue("La station " + i + " n'est pas sur la Route RerC , or elle devrait", it.next().getId()
+					.compareTo("RerC") == 0);
+			assertTrue("La station " + i + " est sur plus d'une Route, or elle ne devrait pas", !it.hasNext());
 
 		}
 
 		it = sncf.getStation(10).getRoutes();
-		assertTrue("La station 10 n'est pas sur aucune Route, or elle devrait",
-				it.hasNext());
+		assertTrue("La station 10 n'est pas sur aucune Route, or elle devrait", it.hasNext());
 		routes = new Route[2];
 		routes[0] = it.next();
-		assertTrue("La station 10 n'est pas sur deux Route, or elle devrait",
-				it.hasNext());
+		assertTrue("La station 10 n'est pas sur deux Route, or elle devrait", it.hasNext());
 		routes[1] = it.next();
-		assertTrue(
-				"La station 10 est sur plus de deux Route, or elle ne devrait pas",
-				!it.hasNext());
+		assertTrue("La station 10 est sur plus de deux Route, or elle ne devrait pas", !it.hasNext());
 
 		if (routes[0].getId().compareTo("RerC") == 0)
-			assertTrue(
-					"La station 10 n'est pas sur la Route RerC , or elle devrait",
-					routes[1].getId().compareTo("RerB") == 0);
+			assertTrue("La station 10 n'est pas sur la Route RerC , or elle devrait", routes[1].getId().compareTo(
+					"RerB") == 0);
 		else
-			assertTrue(
-					"La station 10 n'est pas sur la Route RerC , or elle devrait",
-					(routes[0].getId().compareTo("RerB") == 0)
-							&& (routes[1].getId().compareTo("RerC") == 0));
+			assertTrue("La station 10 n'est pas sur la Route RerC , or elle devrait", (routes[0].getId().compareTo(
+					"RerB") == 0)
+					&& (routes[1].getId().compareTo("RerC") == 0));
 	}
 
 	@Test
@@ -294,42 +262,30 @@ public class GraphNetworkBuilderTest {
 		Junction j;
 		it = sncf.getJunctions(sncf.getStation(10), sncf.getStation(10));
 
-		assertTrue(
-				"Les stations 10 et 10 ne sont pas relier entre elles, or elles devraient",
-				it.hasNext());
+		assertTrue("Les stations 10 et 10 ne sont pas relier entre elles, or elles devraient", it.hasNext());
 		j = it.next();
-		assertTrue("Le temps entre les stations 10 et 10 est faux", j
-				.getTimeBetweenStations() == 3);
-		assertTrue("Le coût entre les stations 10 et 10 est faux",
-				j.getCost() == 0);
-		assertTrue(
-				"Le lien entre les stations 10 et 10 est pedestrian alors qu'il ne devrait pas l'être",
-				!j.isPedestrian());
+		assertTrue("Le temps entre les stations 10 et 10 est faux", j.getTimeBetweenStations() == 3);
+		assertTrue("Le coût entre les stations 10 et 10 est faux", j.getCost() == 0);
+		assertTrue("Le lien entre les stations 10 et 10 est pedestrian alors qu'il ne devrait pas l'être", !j
+				.isPedestrian());
 		assertTrue(
 				"Le lien entre les stations 10 et 10 est marquer comme sur une ligne alors qu'il ne devrait pas l'être",
-				j.isRouteLink());
-		assertTrue(
-				"Les stations 10 et 10 sont relier entre elles plus d'un fois, or elles ne devraient pas",
-				it.hasNext());
+				!j.isRouteLink());
+		assertTrue("Les stations 10 et 10 sont relier entre elles plus d'un fois, or elles ne devraient pas", it
+				.hasNext());
 
 		it = sncf.getJunctions(sncf.getStation(9), sncf.getStation(1));
-		assertTrue(
-				"Les stations 9 et 1 ne sont pas relier entre elles, or elles devraient",
-				it.hasNext());
+		assertTrue("Les stations 9 et 1 ne sont pas relier entre elles, or elles devraient", it.hasNext());
 		j = it.next();
-		assertTrue("Le temps entre les stations 9 et 1 est faux", j
-				.getTimeBetweenStations() == 9);
-		assertTrue("Le coût entre les stations 9 et 1 est faux",
-				j.getCost() == 2);
-		assertTrue(
-				"Le lien entre les stations 9 et 1 n'est pas pedestrian alors qu'il devrait l'être",
-				j.isPedestrian());
+		assertTrue("Le temps entre les stations 9 et 1 est faux", j.getTimeBetweenStations() == 9);
+		assertTrue("Le coût entre les stations 9 et 1 est faux", j.getCost() == 2);
+		assertTrue("Le lien entre les stations 9 et 1 n'est pas pedestrian alors qu'il devrait l'être", j
+				.isPedestrian());
 		assertTrue(
 				"Le lien entre les stations 9 et 1 est marquer comme sur une ligne alors qu'il ne devrait pas l'être",
-				j.isRouteLink());
-		assertTrue(
-				"Les stations 9 et 1 sont relier entre elles plus d'un fois, or elles ne devraient pas",
-				!it.hasNext());
+				!j.isRouteLink());
+		assertTrue("Les stations 9 et 1 sont relier entre elles plus d'un fois, or elles ne devraient pas", !it
+				.hasNext());
 	}
 
 	@Test
@@ -341,26 +297,20 @@ public class GraphNetworkBuilderTest {
 		Station station;
 		while (itS.hasNext()) {
 			station = itS.next();
-			assertTrue("Toute les Stations doivent être enable", station
-					.isEnable());
+			assertTrue("Toute les Stations doivent être enable", station.isEnable());
 			station.setEnable(false);
-			assertTrue("La Station " + station.getId()
-					+ " devrait maintenant être disable", !station.isEnable());
+			assertTrue("La Station " + station.getId() + " devrait maintenant être disable", !station.isEnable());
 			station.setEnable(true);
-			assertTrue("La Station " + station.getId()
-					+ " devrait maintenant être enable", station.isEnable());
+			assertTrue("La Station " + station.getId() + " devrait maintenant être enable", station.isEnable());
 			itJ = station.getJunctions();
 			while (itJ.hasNext()) {
 				j = itJ.next();
-				assertTrue("Toute les Jonctions de la Station "
-						+ station.getId() + " doivent être enable", j
+				assertTrue("Toute les Jonctions de la Station " + station.getId() + " doivent être enable", j
 						.isEnable());
 				j.setEnable(false);
-				assertTrue("La Jonction " + j
-						+ " devrait maintenant être disable", !j.isEnable());
+				assertTrue("La Jonction " + j + " devrait maintenant être disable", !j.isEnable());
 				j.setEnable(true);
-				assertTrue("La Jonction " + j
-						+ " devrait maintenant être enable", j.isEnable());
+				assertTrue("La Jonction " + j + " devrait maintenant être enable", j.isEnable());
 
 			}
 		}
@@ -370,11 +320,9 @@ public class GraphNetworkBuilderTest {
 			r = itR.next();
 			assertTrue("Toute les Routes doivent être enable", r.isEnable());
 			r.setEnable(false);
-			assertTrue("La Jonction " + r + " devrait maintenant être disable",
-					!r.isEnable());
+			assertTrue("La Jonction " + r + " devrait maintenant être disable", !r.isEnable());
 			r.setEnable(true);
-			assertTrue("La Jonction " + r + " devrait maintenant être enable",
-					r.isEnable());
+			assertTrue("La Jonction " + r + " devrait maintenant être enable", r.isEnable());
 		}
 	}
 
@@ -385,6 +333,7 @@ public class GraphNetworkBuilderTest {
 		sncf.getStation(7).setEnable(false);
 		sncf.getRoute("RerB").setEnable(false);
 		sncf.getRoute("RerC").setEnable(false);
+		assertTrue("Il devrait y avoir des jonction pour la station 10", sncf.getStation(10).getJunctions().hasNext());
 		sncf.getStation(10).getJunctions().next().setEnable(false);
 		sncf.getRoute("RerB").setStationEnable(10, false);
 		assertTrue(!sncf.getRoute("RerB").isStationEnable(10));
@@ -421,11 +370,9 @@ public class GraphNetworkBuilderTest {
 	@Test
 	public void initialisationKind() {
 		constructionDUnReseauSansProbleme();
-		assertTrue("il y a un kind RER et pourtant on le trouve pas", sncf
-				.getKindFromString("RER") != null);
+		assertTrue("il y a un kind RER et pourtant on le trouve pas", sncf.getKindFromString("RER") != null);
 		assertTrue(sncf.getKindFromString("RER").getKindOf().compareTo("RER") == 0);
-		assertTrue(sncf.getKindFromString("TGV") != sncf
-				.getKindFromString("RER"));
+		assertTrue(sncf.getKindFromString("TGV") != sncf.getKindFromString("RER"));
 		assertTrue(sncf.getKindFromString("tagada") == null);
 		Iterator<KindRoute> it = sncf.getKinds();
 		int cpt = 0;
