@@ -115,14 +115,13 @@ public class Junction {
 
 	/**
 	 * Retourne la route sur laquel est l'autre station. Attention si jamais le lien à la même station des deux coté,
-	 * cette méthode retournera toujours la routeB
+	 * cette méthode retournera toujours la routeB.
 	 * 
 	 * @param me
 	 *            la station qui vous sert de point de repère
 	 * @return l'autre route, ou null si la station passé en paramètre n'est pas dans la jonction
 	 */
-	@Deprecated
-	public Route getOtherRoute(Station me) {//
+	public Route getOtherRoute(Station me) {
 		if (me.getId() == stationA.getId())
 			return routeB;
 		if (me.getId() == stationB.getId())
@@ -176,10 +175,24 @@ public class Junction {
 	 * Surcharge de toString, retourne un résultat de la forme : </br> "Massy(RerC)=>Massy(RerB) : 0$ in 3minutes"
 	 */
 	public String toString() {
-		return stationA.getName() + "(" + routeA.getId() + ")" + "=>" + stationB.getName() + "(" + routeB.getId()
-				+ ") : " + cost + "$ in " + timeBetweenStations + " minutes";
+		String s = stationA.getName() + "(" + routeA.getId() + ")";
+		if (routeA == routeB)
+			s += "<";
+		s += "=>";
+		s += stationB.getName() + "(" + routeB.getId() + ") : " + cost + "$ in " + timeBetweenStations + " minutes";
+		return s;
 	}
 
+	/**
+	 * Permet de savoir si la jonction correspond bien à la jonction hypotétique passé en paramètre. Dans l'ordre A=>B
+	 * ou B=>A
+	 * 
+	 * @param routeA
+	 * @param stationA
+	 * @param routeB
+	 * @param stationB
+	 * @return true si la jonction lie le couple A=>B ou B=>A
+	 */
 	public boolean equals(Route routeA, Station stationA, Route routeB, Station stationB) {
 		return (
 

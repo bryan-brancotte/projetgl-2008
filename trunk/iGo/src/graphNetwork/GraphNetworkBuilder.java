@@ -5,7 +5,6 @@ import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
 import java.util.Iterator;
-import java.util.MissingResourceException;
 
 /**
  * 
@@ -198,7 +197,20 @@ public class GraphNetworkBuilder {
 		if (stationToAdd == null)
 			return false;
 
-		return route.addStation(stationToAdd, time);
+		Station lastStation = route.stations.getLast();
+		route.addStation(stationToAdd, time);
+
+		if (lastStation != null) {
+			Junction j;
+			try {
+				j = new Junction(route, route.stations.getLast(), route, stationToAdd, 0, time, true, false);
+			} catch (StationNotOnRoadException e) {
+				e.printStackTrace();
+				return false;
+			}
+			lastStation.addJunction(j);
+		}
+		return true;
 
 		// Iterator<Route> it = currentGraphNetwork.routes.iterator();
 		// while (it.hasNext()) {
@@ -273,9 +285,10 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Fonction abandonné a cause d'un nom pas assez explicite.
+	 * Fonction abandonné a cause d'un nom pas assez explicite. Retourne un nouvelle instance de GraphNetwork sans
+	 * jamais pouvoire le modifier
 	 * 
-	 * @return rien
+	 * @return un nouveau GraphNetwork que vous ne pourrez jamais modifier
 	 */
 	@Deprecated
 	public GraphNetwork getInstance() {
@@ -343,25 +356,19 @@ public class GraphNetworkBuilder {
 
 		Iterator<Junction> itJ = stationOrigin.junctions.iterator();
 		Junction j;
-		Junction ret = null;
-		// TODO .......work
 		while (itJ.hasNext()) {
 			j = itJ.next();
 			// A A B B
 			// on a pour j:Massy RerC => Massy RerB
 			// les params :Massy RerB => Palaiseau RerB
-			if (j.equals(routeOrigin, stationOrigin, routeDestination, stationDestination))
-				ret = j;
+			if (j.equals(routeOrigin, stationOrigin, routeDestination, stationDestination)) {
+				j.setCost(cost);
+				j.setPedestrian(pedestrian);
+				j.setTimeBetweenStations(timeBetweenStations);
+			}
 		}
-		if (ret == null) {
-			ret = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
-					timeBetweenStations, false, pedestrian);
-		} else {
-			ret.setCost(cost);
-			ret.setPedestrian(pedestrian);
-			ret.setTimeBetweenStations(timeBetweenStations);
-		}
-		return ret;
+		return new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
+				timeBetweenStations, routeDestination == routeOrigin, pedestrian);
 
 		// if (sameStation) {
 		// if (j.isSameStation()) {
