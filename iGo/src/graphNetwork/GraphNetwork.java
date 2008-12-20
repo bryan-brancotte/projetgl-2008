@@ -57,7 +57,6 @@ public class GraphNetwork {
 	 */
 	@Deprecated
 	public PathInGraphBuilder getInstancePathInGraphBuilder() {
-		// TODO PathInGraphBuilder à evoluer
 		return new PathInGraphBuilder(this);
 	}
 

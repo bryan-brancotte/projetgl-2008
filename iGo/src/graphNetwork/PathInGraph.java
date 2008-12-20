@@ -124,6 +124,7 @@ public class PathInGraph {
 	 * @return
 	 */
 	public String exportPath() {
+		String export="";
 		// TODO exportPath
 		return "";
 	}
