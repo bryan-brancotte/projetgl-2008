@@ -74,10 +74,23 @@ public class GraphNetwork {
 	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
 		if (path == null)
 			return null;
-		PathInGraphBuilder b = new PathInGraphBuilder(this,path);
+		PathInGraphBuilder b = new PathInGraphBuilder(this, path);
 		return b;
 	}
-	 
+
+	/**
+	 * Créé un nouvelle objet PathInGraphCollectionBuilder. Ce dernier contient les deux builder pour définir un chemin
+	 * à construire et pour le contruire. Chaqun de ces builder à en variable interne un pathInGraph lui aussi
+	 * fraichement créé
+	 * 
+	 * @return l'instance de PathInGraphCollectionBuilder
+	 */
+	public PathInGraphCollectionBuilder getInGraphCollectionBuilder() {
+		PathInGraph pathInGraph = new PathInGraph(this);
+		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
+		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
+		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
+	}
 
 	/**
 	 * Retourne les changements présente entre les deux stations passé en paramètres.
@@ -97,7 +110,7 @@ public class GraphNetwork {
 		LinkedList<Junction> jonction = new LinkedList<Junction>();
 		while (it1.hasNext()) {
 			temp = it1.next();
-//			System.out.println(temp);
+			// System.out.println(temp);
 			if (temp.getOtherStation(stationA).equals(stationB))
 				jonction.add(temp);
 		}
