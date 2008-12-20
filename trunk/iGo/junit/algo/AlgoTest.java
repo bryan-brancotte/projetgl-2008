@@ -3,14 +3,20 @@ package algo;
 import static org.junit.Assert.assertTrue;
 import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.Junction;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphCollectionBuilder;
+import graphNetwork.PathInGraphConstraintBuilder;
+import graphNetwork.PathInGraphResultBuilder;
 import graphNetwork.Route;
 import graphNetwork.Station;
 import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Algo;
+import iGoMaster.Algo.CriteriousForLowerPath;
 
+import java.util.Iterator;
 import java.util.MissingResourceException;
 
 import junit.framework.JUnit4TestAdapter;
@@ -24,7 +30,7 @@ public class AlgoTest {
 
 	protected GraphNetworkBuilder gnb;
 	protected GraphNetwork sncf;
-	protected PathInGraph pig;
+	protected PathInGraphResultBuilder pig;
 	protected Algo bob;
 
 
@@ -36,7 +42,6 @@ public class AlgoTest {
 	public void constructionDUnReseauSansProbleme() {
 		gnb = new GraphNetworkBuilder();
 		sncf = gnb.getCurrentGraphNetwork();
-		bob = new Dijkstra();
 		gnb.reset();
 		Route rerB;
 		Station massyPal;
@@ -91,6 +96,30 @@ public class AlgoTest {
 		}
 		
 		assertTrue("Construction sans problème", true);
+	}
+
+	@Test
+	public void CréationGraph() {
+		GraphNetwork gn = gnb.getCurrentGraphNetwork();
+		PathInGraphCollectionBuilder pc = gn.getInstanceGraphCollectionBuilder();
+		PathInGraphConstraintBuilder pcb = pc.getPathInGraphConstraintBuilder();
+		
+		pcb.setMainCriterious(CriteriousForLowerPath.TIME);
+		pcb.setMinorCriterious(CriteriousForLowerPath.CHANGE);
+		pcb.setOrigin(gn.getStation(1));
+		pcb.setDestination(gn.getStation(5));
+		
+		PathInGraphResultBuilder prb = pc.getPathInGraphResultBuilder();
+		
+		bob = new Dijkstra();
+		
+		PathInGraph p = bob.findPath(prb);
+		
+		Iterator<Junction> it = p.getJunctions();
+		while (it.hasNext()) {
+			System.out.println("toto");
+			System.out.println(it.next().toString());
+		}
 	}
 	
 	@Test
