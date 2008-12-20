@@ -313,8 +313,8 @@ public class GraphNetworkBuilder {
 	 *             jetée si une valeur est incorrect.
 	 */
 	public Junction linkStation(Route routeOrigin, Station stationOrigin, Route routeDestination,
-			Station stationDestination, float cost, int time, boolean pedestrian) throws StationNotOnRoadException,
-			NullPointerException, ImpossibleValueException {
+			Station stationDestination, float cost, int timeBetweenStations, boolean pedestrian)
+			throws StationNotOnRoadException, NullPointerException, ImpossibleValueException {
 
 		// boolean sameStation;
 		// boolean sameRoute;
@@ -334,7 +334,7 @@ public class GraphNetworkBuilder {
 
 		if (cost < 0)
 			throw new ImpossibleValueException();
-		if (time < 0)
+		if (timeBetweenStations < 0)
 			throw new ImpossibleValueException();
 		//
 		// sameStation = stationOrigin == stationDestination;
@@ -354,13 +354,15 @@ public class GraphNetworkBuilder {
 				ret = j;
 		}
 		if (ret == null) {
-			ret = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost, time, false,
-					pedestrian);
-		}else{
+			ret = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
+					timeBetweenStations, false, pedestrian);
+		} else {
 			ret.setCost(cost);
 			ret.setPedestrian(pedestrian);
 			ret.setTimeBetweenStations(timeBetweenStations);
 		}
+		return ret;
+
 		// if (sameStation) {
 		// if (j.isSameStation()) {
 		// }
@@ -376,7 +378,6 @@ public class GraphNetworkBuilder {
 		// }
 		// }
 
-		return null;
 		// boolean done = false;
 		// Iterator<Route> itR = currentGraphNetwork.routes.iterator();
 		//
