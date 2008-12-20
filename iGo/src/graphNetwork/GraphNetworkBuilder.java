@@ -7,67 +7,66 @@ import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import java.util.Iterator;
 import java.util.MissingResourceException;
 
-public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
-									// (création controlé d'objet) et Builder
-									// (modification controlé d'objet).
+/**
+ * 
+ * Classe suivant les design patterns Factory (création controlé d'objet) et Builder (modification controlé d'objet).
+ * 
+ * @author "iGo"
+ * 
+ */
+public class GraphNetworkBuilder {
 
-	protected GraphNetwork currentGraphNetwork = null;// le GraphNetwork courant,
-														// celui où on est
-														// actuellement en
-														// travail
+	/**
+	 * 
+	 * le GraphNetwork courant, celui où on est actuellement en travail
+	 * 
+	 */
+	protected GraphNetwork currentGraphNetwork = null;
 
-	public GraphNetworkBuilder() {// constructeur du monteur de GraphNetwork
+	/**
+	 * Constructeur du monteur de GraphNetwork
+	 */
+	public GraphNetworkBuilder() {
 		super();
 		currentGraphNetwork = new GraphNetwork();
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et
-	 * l'ajoute au GraphNetwork courant. Si l'identifiant passé existe déjà on
-	 * jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
-	 *            l'identifiant de la route, c'est aussi son nom
+	 *            l'identifiant de la route, c'est aussi son nom. s'il est à null ou vide rien ne se passera.
 	 * @param kinfOf
-	 *            sont type
+	 *            son type. s'il est à null ou vide rien ne se passera.
 	 * @return la nouvelle route créé
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             le type d'exception jeté si l'identifiant est déja utilisé.
 	 */
-	public Route addRoute(String id, String kindOf)
-			throws ViolationOfUnicityInIdentificationException,
+	public Route addRoute(String id, String kindOf) throws ViolationOfUnicityInIdentificationException,
 			NullPointerException {
-		if (id == null || kindOf == null)
+		if (id == null)
+			return null;
+		if (kindOf == null)
+			return null;
+		if (id.isEmpty())
+			return null;
+		if (kindOf.isEmpty())
 			return null;
 
-		Iterator<Route> it = currentGraphNetwork.getRoutes();
-		boolean trouve = false;
+		for (int i = 0; i < currentGraphNetwork.routes.size(); i++)
+			if (currentGraphNetwork.routes.get(i).getId().compareTo(id) == 0)
+				throw new ViolationOfUnicityInIdentificationException();
 
-		while (it.hasNext()) {
-			if (it.next().getId().compareTo(id)==0)
-				trouve = true;
-		}
-
-		if (!trouve) {
-			if (KindRoute.addKind(kindOf) != null) { // si le kind route existe
-				Route r1 = new Route(id, KindRoute.getKindFromString(kindOf));
-				currentGraphNetwork.routes.add(r1);
-				return r1;
-			} else {
-				Route r1 = new Route(id, KindRoute.addKind(kindOf));
-				currentGraphNetwork.routes.add(r1);
-				return r1;
-			}
-		}
-
-		throw new ViolationOfUnicityInIdentificationException();
+		Route route;
+		currentGraphNetwork.routes.add(route = new Route(id, KindRoute.addKind(kindOf)));
+		return route;
 
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et
-	 * l'ajoute au GraphNetwork courant. Si l'identifiant passé existe déjà on
-	 * jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant du service
@@ -77,32 +76,13 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             le type d'exception jeté si l'identifiant est déja utilisé.
 	 */
-	public Service addService(int id, String name)
-			throws ViolationOfUnicityInIdentificationException {
-		if (name == null)
-			return null;
-
-		Iterator<Service> it = currentGraphNetwork.getServices();
-		boolean trouve = false;
-		while (it.hasNext()) {
-			if (it.next().getId() == id)
-				trouve = true;
-		}
-
-		if (!trouve) {
-			Service s1 = new Service(id, name);
-
-			currentGraphNetwork.services.add(s1);
-			return s1;
-		}
-		// return null;
-		throw new ViolationOfUnicityInIdentificationException();
+	public Service addService(int id, String name) throws ViolationOfUnicityInIdentificationException {
+		return addService(id, name, null);
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et
-	 * l'ajoute au GraphNetwork courant. Si l'identifiant passé existe déjà on
-	 * jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant du service
@@ -118,61 +98,59 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 			throws ViolationOfUnicityInIdentificationException {
 		if (name == null)
 			return null;
+		if (name.isEmpty())
+			return null;
 
-		Iterator<Service> it = currentGraphNetwork.getServices();
-		boolean trouve = false;
-		while (it.hasNext()) {
-			if (it.next().getId() == id)
-				trouve = true;
-		}
+		for (int i = 0; i < currentGraphNetwork.services.size(); i++)
+			if (currentGraphNetwork.services.get(i).getId() == id)
+				throw new ViolationOfUnicityInIdentificationException();
 
-		if (!trouve) {
-			Service s1 = new Service(id, name, description);
-
-			currentGraphNetwork.services.add(s1);
-			return s1;
-		}
-		// return null;
-		throw new ViolationOfUnicityInIdentificationException();
+		Service service;
+		currentGraphNetwork.services.add(service = new Service(id, name, description));
+		return service;
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on ajout un service à un
-	 * station. Si le service est déja présent, on ne fait rien.
+	 * En travaillant sur le GraphNetwork courant, on ajout un service à un station. Si le service est déja présent, on
+	 * ne fait rien.
 	 * 
 	 * @param station
 	 *            la station en question
 	 * @param serviceToAdd
 	 *            le service en question
-	 * @return true si le service n'était pas présent, et l'est désormais.
+	 * @return true si le service n'était pas présent, et l'est désormais. false si un des paramètre est null, ou que le
+	 *         paramètre était déjà présent
 	 */
 	public boolean addServiceToStation(Station station, Service serviceToAdd) {
-		if (station == null || serviceToAdd == null
-				|| !currentGraphNetwork.stations.contains(station))
+		if (station == null)
 			return false;
-
-		Iterator<Station> it = currentGraphNetwork.stations.iterator();
-		while (it.hasNext()) {
-			Station temp = it.next();
-			if (temp.equals(station)) { // pour la station en question
-				Iterator<Service> itS = temp.getServices();
-				while (itS.hasNext()) {
-					if (itS.next().equals(serviceToAdd)) // recherche si le
-															// service existe
-															// deja
-						return true;
-				}
-				temp.addService(serviceToAdd); // ajout si il n'existe pas
-				return true;
-			}
-		}
-		return false;
+		if (serviceToAdd == null)
+			return false;
+		return station.addService(serviceToAdd);
+		// if (station == null || serviceToAdd == null || !currentGraphNetwork.stations.contains(station))
+		// return false;
+		//
+		// Iterator<Station> it = currentGraphNetwork.stations.iterator();
+		// while (it.hasNext()) {
+		// Station temp = it.next();
+		// if (temp.equals(station)) { // pour la station en question
+		// Iterator<Service> itS = temp.getServices();
+		// while (itS.hasNext()) {
+		// if (itS.next().equals(serviceToAdd)) // recherche si le
+		// // service existe
+		// // deja
+		// return true;
+		// }
+		// temp.addService(serviceToAdd); // ajout si il n'existe pas
+		// return true;
+		// }
+		// }
+		// return false;
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle station
-	 * et l'ajoute au GraphNetwork courant. Si l'identifiant passé existe déjà
-	 * on jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle station et l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant de la station
@@ -182,27 +160,24 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 * @throws ViolationOfUnicityInIdentificationException
 	 *             le type d'exception jeté si l'identifiant est déja utilisé.
 	 */
-	public Station addStation(int id, String name)
-			throws ViolationOfUnicityInIdentificationException {
+	public Station addStation(int id, String name) throws ViolationOfUnicityInIdentificationException {
 		if (name == null)
 			return null;
-		Iterator<Station> it = currentGraphNetwork.getStations();
-		boolean trouve = false;
-		while (it.hasNext()) {
-			if (it.next().getId() == id)
-				trouve = true;
-		}
-		if (!trouve) {
-			Station stationAdd = new Station(id, name);
-			currentGraphNetwork.stations.add(stationAdd);
-			return stationAdd;
-		}
-		throw new ViolationOfUnicityInIdentificationException();
+		if (name.isEmpty())
+			return null;
+
+		for (int i = 0; i < currentGraphNetwork.stations.size(); i++)
+			if (currentGraphNetwork.stations.get(i).getId() == id)
+				throw new ViolationOfUnicityInIdentificationException();
+
+		Station s;
+		currentGraphNetwork.stations.add(s = new Station(id, name));
+		return s;
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on ajout une station à un
-	 * route. Si la station est déja présente, on ne fait rien.
+	 * En travaillant sur le GraphNetwork courant, on ajout une station à un route. Si la station est déja présente, on
+	 * ne fait rien.
 	 * 
 	 * @param route
 	 *            la route en question
@@ -213,73 +188,71 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 * @return true si la station n'était pas présent, et l'est désormais.
 	 * @throws ImpossibleValueException
 	 */
-	public boolean addStationToRoute(Route route, Station stationToAdd, int time)
-			throws ImpossibleValueException {
+	public boolean addStationToRoute(Route route, Station stationToAdd, int time) throws ImpossibleValueException {
 		// TODO que faire avec time? + ajouter jonction station pcecedente -
 		// stationtoadd
 		if (time < 0)
 			throw new ImpossibleValueException();
-
-		if (route == null || stationToAdd == null)
+		if (route == null)
+			return false;
+		if (stationToAdd == null)
 			return false;
 
-		Iterator<Route> it = currentGraphNetwork.routes.iterator();
-		while (it.hasNext()) {
-			Route temp = it.next();
-			if (temp.equals(route)) { // pour la route en question
-				Iterator<Station> itS = temp.getStations();
-				while (itS.hasNext()) {
-					Station temp3 = itS.next();
-					if (temp3.equals(stationToAdd)) { // recherche si la station
-														// existe deja
-						temp3.addRoute(route);
-						return true;
-					}
-				}
-				stationToAdd.addRoute(route);
-				temp.addStation(stationToAdd); // ajout si elle n'existe pas
+		return route.addStation(stationToAdd, time);
 
-				/*
-				 * bloc ajouté pour creer route dans la station. Si pas
-				 * necessaire, il faudra creer une nouvelle methode
-				 * addRouteToStation
-				 */
-				// Iterator<Station> itt =
-				// currentGraphNetwork.stations.iterator();
-				// while(itt.hasNext()){
-				// Station temp2=itt.next();
-				// if(temp2.equals(stationToAdd)){
-				// Iterator<Station> itR=temp2.g();
-				// while(itR.hasNext())
-				// temp2.addRoute(route);
-				// }
-				// }
-				/* fin bloc */
-				return true;
-			}
-		}
+		// Iterator<Route> it = currentGraphNetwork.routes.iterator();
+		// while (it.hasNext()) {
+		// Route temp = it.next();
+		// if (temp.equals(route)) { // pour la route en question
+		// Iterator<Station> itS = temp.getStations();
+		// while (itS.hasNext()) {
+		// Station temp3 = itS.next();
+		// if (temp3.equals(stationToAdd)) { // recherche si la station
+		// // existe deja
+		// temp3.addRoute(route);
+		// return true;
+		// }
+		// }
+		// stationToAdd.addRoute(route);
+		// temp.addStation(stationToAdd); // ajout si elle n'existe pas
 
-		return false;
+		/*
+		 * bloc ajouté pour creer route dans la station. Si pas necessaire, il faudra creer une nouvelle methode
+		 * addRouteToStation
+		 */
+		// Iterator<Station> itt =
+		// currentGraphNetwork.stations.iterator();
+		// while(itt.hasNext()){
+		// Station temp2=itt.next();
+		// if(temp2.equals(stationToAdd)){
+		// Iterator<Station> itR=temp2.g();
+		// while(itR.hasNext())
+		// temp2.addRoute(route);
+		// }
+		// }
+		/* fin bloc */
+		// return true;
+		// }
+		// }
+		//
+		// return false;
 	}
 
 	/**
-	 * Définit le coût d'entrée pour accéder depuis l'exterieur à une ligne de
-	 * ce type
+	 * Définit le coût d'entrée pour accéder depuis l'exterieur à une ligne de ce type
 	 * 
 	 * @param kind
 	 *            le type de la ligne
 	 * @param cost
 	 *            le coût pour y accéder
+	 * @throws ImpossibleValueException
 	 */
-	public void defineEntryCost(KindRoute kind, float cost) {
-		Iterator<KindRoute> itK = KindRoute.getKinds();
-		while (itK.hasNext()) {
-			KindRoute temp = itK.next();
-			if (temp.equals(kind)) {
-				temp.setKindCost(cost);
-				return;
-			}
-		}
+	public void defineEntryCost(KindRoute kind, float cost) throws ImpossibleValueException {
+		if (kind == null)
+			return;
+		if (cost < 0)
+			throw new ImpossibleValueException();
+		kind.setKindCost(cost);
 	}
 
 	/**
@@ -289,7 +262,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	public GraphNetwork getActualGraphNetwork() {
 		return currentGraphNetwork;
 	}
-	
+
 	/**
 	 * retourne l'actuelle GraphNetwork.
 	 * 
@@ -300,9 +273,9 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	}
 
 	/**
-	 * Créé initialise et retourne une instance de GraphNetwork.
+	 * Fonction abandonné a cause d'un nom pas assez explicite.
 	 * 
-	 * @return une nouvelle instance de GraphNetwork
+	 * @return rien
 	 */
 	@Deprecated
 	public GraphNetwork getInstance() {
@@ -310,12 +283,12 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on lie deux station entre
-	 * elles par un lien à faire à pied. On spécifie sur quelles routes sont les
-	 * stations. On spécifie le cout monétaire et en temps pour emprunter le
-	 * changement. On spécifie de plus si le lien est "long" c'est à dire fait
-	 * resortir de la station pour rejoindre la seconde, sans pour autant
-	 * impliquer une surtaxe.
+	 * 
+	 * En travaillant sur le GraphNetwork courant, on lie deux station entre elles par un lien à faire à pied. On
+	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
+	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
+	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>La jonction est monodirectionel</B><br/>SI
+	 * jamais la jonction existe déja on la modifie et la retourne.
 	 * 
 	 * @param routeOrigin
 	 *            la route origine
@@ -331,65 +304,117 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	 *            le temps necessaire pour parcourir le chemin (positif ou null)
 	 * @param pedestrian
 	 *            ce lien est-il long?
+	 * @return
 	 * @throws StationNotOnRoadException
-	 *             jeté si une station n'est pas sur la route que l'on suppose.
-	 * @throws MissingResourceException
-	 *             jeté si un des objet est null, ou si une valeur est
-	 *             incorrect.
+	 *             jetée si une station n'est pas sur la route que l'on suppose.
+	 * @throws NullPointerException
+	 *             jetée si un des composant est null.
 	 * @throws ImpossibleValueException
+	 *             jetée si une valeur est incorrect.
 	 */
-	public Junction linkStation(Route routeOrigin, Station stationOrigin,
-			Route routeDestination, Station stationDestination, float cost,
-			int time, boolean pedestrian) throws StationNotOnRoadException,
-			MissingResourceException, ImpossibleValueException {
-		
-		boolean done = false;
-		Iterator<Route> itR = currentGraphNetwork.routes.iterator();
-		
-		Junction jOrigine = new Junction(routeOrigin, stationOrigin,
-				routeDestination, stationDestination, cost, time, true,
-				pedestrian);
-		Junction jDestination = new Junction(routeDestination,
-				stationDestination, routeOrigin, stationOrigin, cost, time,
-				true, pedestrian);
-		Junction jRetour=null;
+	public Junction linkStation(Route routeOrigin, Station stationOrigin, Route routeDestination,
+			Station stationDestination, float cost, int time, boolean pedestrian) throws StationNotOnRoadException,
+			NullPointerException, ImpossibleValueException {
 
-		while (itR.hasNext()) {
-			Route temp = itR.next();
-			if (temp.equals(routeOrigin)) { // dans la route origine
-				Iterator<Station> itS = temp.getStations();
-				while (itS.hasNext()) {
-					Station temp2 = itS.next();
-					if (temp2.equals(stationOrigin)) {// pour la station origine
-						temp2.addJunction(jOrigine);// ajout d'une jonction vers
-						jRetour=jOrigine;			// la station dest
-						done = true;
-					}
-				}
-			}
-			if (temp.equals(routeDestination)) { // dans la route destination
-				Iterator<Station> itS = temp.getStations();
-				while (itS.hasNext()) {
-					Station temp2 = itS.next();
-					if (temp2.equals(stationDestination)) {// pour la station
-															// destination
-						temp2.addJunction(jDestination);// ajout d'une jonction
-						jRetour=jDestination;								// vers la station
-														// origine
-						done = true;
-					}
-				}
-			}
-		}
-		if (!done)
+		// boolean sameStation;
+		// boolean sameRoute;
+		if (routeOrigin == null)
+			throw new NullPointerException();
+		if (stationOrigin == null)
+			throw new NullPointerException();
+		if (routeDestination == null)
+			throw new NullPointerException();
+		if (stationDestination == null)
+			throw new NullPointerException();
+
+		if (!routeOrigin.stations.contains(stationOrigin))
+			throw new StationNotOnRoadException();
+		if (!routeDestination.stations.contains(stationDestination))
+			throw new StationNotOnRoadException();
+
+		if (cost < 0)
 			throw new ImpossibleValueException();
-		
-		return jRetour;
+		if (time < 0)
+			throw new ImpossibleValueException();
+		//
+		// sameStation = stationOrigin == stationDestination;
+		// if ((sameRoute = (routeOrigin == routeDestination)) && sameStation)
+		// throw new ImpossibleValueException();
+
+		Iterator<Junction> itJ = stationOrigin.junctions.iterator();
+		Junction j;
+		Junction ret = null;
+		// TODO .......work
+		while (itJ.hasNext()) {
+			j = itJ.next();
+			//               A    A        B    B
+			// on a pour j:Massy RerC => Massy RerB
+			// les params :Massy RerB => Palaiseau RerB
+			if (j.getOtherStation(stationOrigin) == stationDestination
+					&& (j.isRouteLink() || j.getOtherRoute(stationOrigin) == routeDestination))
+				ret = j;
+			// if (sameStation) {
+			// if (j.isSameStation()) {
+			// }
+			// } else {
+			// if (j.getOtherStation(stationOrigin) == stationDestination) {
+			// }
+			// }
+			// if (sameRoute) {
+			// if (j.isSameRoute()) {
+			// }
+			// } else {
+			// if (j.getOtherRoute(stationOrigin) == routeDestination) {
+			// }
+			// }
+
+		}
+		return null;
+		// boolean done = false;
+		// Iterator<Route> itR = currentGraphNetwork.routes.iterator();
+		//
+		// Junction jOrigine = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
+		// time,
+		// true, pedestrian);
+		// Junction jDestination = new Junction(routeDestination, stationDestination, routeOrigin, stationOrigin, cost,
+		// time, true, pedestrian);
+		// Junction jRetour = null;
+		//
+		// while (itR.hasNext()) {
+		// Route temp = itR.next();
+		// if (temp.equals(routeOrigin)) { // dans la route origine
+		// Iterator<Station> itS = temp.getStations();
+		// while (itS.hasNext()) {
+		// Station temp2 = itS.next();
+		// if (temp2.equals(stationOrigin)) {// pour la station origine
+		// temp2.addJunction(jOrigine);// ajout d'une jonction vers
+		// jRetour = jOrigine; // la station dest
+		// done = true;
+		// }
+		// }
+		// }
+		// if (temp.equals(routeDestination)) { // dans la route destination
+		// Iterator<Station> itS = temp.getStations();
+		// while (itS.hasNext()) {
+		// Station temp2 = itS.next();
+		// if (temp2.equals(stationDestination)) {// pour la station
+		// // destination
+		// temp2.addJunction(jDestination);// ajout d'une jonction
+		// jRetour = jDestination; // vers la station
+		// // origine
+		// done = true;
+		// }
+		// }
+		// }
+		// }
+		// if (!done)
+		// throw new ImpossibleValueException();
+		//
+		// return jRetour;
 	}
 
 	/**
-	 * Réinitialise le contenue de l'objet courant : on vide l'ensemble des
-	 * conteneurs
+	 * Réinitialise le contenue de l'objet courant : on vide l'ensemble des conteneurs
 	 */
 	public void reset() {
 		currentGraphNetwork.routes.clear();
@@ -404,7 +429,7 @@ public class GraphNetworkBuilder {// Classe suivant les design patterns Factory
 	protected void setActualGraphNetwork(GraphNetwork currentGraphNetwork) {
 		this.currentGraphNetwork = currentGraphNetwork;
 	}
-	
+
 	/**
 	 * définit le GraphNetwork passé en paramètre comme le GraphNetwork courant.
 	 * 
