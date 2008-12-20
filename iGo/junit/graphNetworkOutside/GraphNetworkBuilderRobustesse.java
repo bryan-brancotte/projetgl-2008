@@ -146,7 +146,7 @@ public class GraphNetworkBuilderRobustesse {
 	@Test
 	public void addServiceToStation1() throws ViolationOfUnicityInIdentificationException {
 		bob.addStation(1, "t");
-		bob.addService(1, "rr");
+		bob.addService(1, "rr"); 
 		bob.addServiceToStation(null, null);
 		bob.addServiceToStation(sncf.getStation(1), null);
 		bob.addServiceToStation(null, sncf.getService(1));

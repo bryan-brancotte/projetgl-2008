@@ -388,6 +388,16 @@ public class GraphNetworkBuilderTest {
 		sncf.getStation(10).getJunctions().next().setEnable(false);
 		sncf.getRoute("RerB").setStationEnable(10, false);
 		assertTrue(!sncf.getRoute("RerB").isStationEnable(10));
+		assertTrue(sncf.getStation(10).isEnable());
+		sncf.resetEnables();
+		sncf.getStation(4).setEnable(false);
+		sncf.getStation(7).setEnable(false);
+		sncf.getRoute("RerB").setEnable(false);
+		sncf.getRoute("RerC").setEnable(false);
+		sncf.getStation(10).getJunctions().next().setEnable(false);
+		sncf.getStation(10).setEnable(false);
+		assertTrue(!sncf.getRoute("RerB").isStationEnable(10));
+		assertTrue(!sncf.getStation(10).isEnable());
 		sncf.resetEnables();
 		assertTrue(sncf.getStation(4).isEnable());
 		assertTrue(sncf.getStation(7).isEnable());

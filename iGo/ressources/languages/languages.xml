@@ -219,6 +219,10 @@
 				<FRANCAIS value="Langue"/>
 				<ENGLISH value="Language"/>
 			</Language>
+			<Skin>
+				<FRANCAIS value="Thèmes de couleur"/>
+				<ENGLISH value="Color themes"/>
+			</Skin>
 		</fields>
 	</root>
 
