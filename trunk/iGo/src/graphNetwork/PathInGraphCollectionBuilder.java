@@ -1,5 +1,10 @@
 package graphNetwork;
 
+/**
+ * Wrapper regroupant les
+ * @author "iGo"
+ *
+ */
 public class PathInGraphCollectionBuilder {
 
 	protected PathInGraphConstraintBuilder pathInGraphConstraintBuilder;

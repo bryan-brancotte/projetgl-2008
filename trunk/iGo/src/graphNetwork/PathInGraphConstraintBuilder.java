@@ -69,9 +69,28 @@ public class PathInGraphConstraintBuilder {
 	public void addAvoidStationsArray(Station station) {
 		currentPathInGraph.avoidStations.add(station);
 	}
-	
-	public void setPathInGraphNotResolved(){
-		currentPathInGraph.resolved=false;
+
+	/**
+	 * 
+	 */
+	public void setPathInGraphNotResolved() {
+		currentPathInGraph.resolved = false;
+	}
+
+	/**
+	 * 
+	 * @param destination
+	 */
+	public void setDestination(Station destination) {
+		currentPathInGraph.destination = destination;
+	}
+
+	/**
+	 * 
+	 * @param origin
+	 */
+	public void setOrigin(Station origin) {
+		currentPathInGraph.origin = origin;
 	}
 
 }
