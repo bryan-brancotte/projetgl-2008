@@ -1,7 +1,7 @@
 package iGoMaster;
 
 import graphNetwork.KindRoute;
-import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 
@@ -24,9 +24,8 @@ public interface Master {
 	public String lg(String key);
 
 	/**
-	 * Lance l'arrêt du logiciel. Il est probable que l'appel de cette méthode oblige le master à lancer des
-	 * procédures équivalentes sur les acteurs qu'il peut arreter. Protection du master contre les appels en
-	 * boucle.
+	 * Lance l'arrêt du logiciel. Il est probable que l'appel de cette méthode oblige le master à lancer des procédures
+	 * équivalentes sur les acteurs qu'il peut arreter. Protection du master contre les appels en boucle.
 	 */
 	public void stop();
 
@@ -62,24 +61,34 @@ public interface Master {
 	public boolean setConfig(String key, String value);
 
 	/**
-	 * L'arrivée d'un nouvel évènement ou de la terminaison de l'algorithme de calcul seront
-	 * signalés au master par l'intermédiaire de cette méthode.
+	 * L'arrivée d'un nouvel évènement ou de la terminaison de l'algorithme de calcul seront signalés au master par
+	 * l'intermédiaire de cette méthode.
 	 * 
 	 * @param o
-	 * 				l'observable qui va informer le master d'une modification
+	 *            l'observable qui va informer le master d'une modification
 	 * @param arg
-	 * 				si l'observable est de type EventInfoWatcher, l'argument sera null.
-	 * 				si il est de type Algo, demander à tony.			
+	 *            si l'observable est de type EventInfoWatcher, l'argument sera null. si il est de type Algo, demander à
+	 *            tony.
 	 */
 	public abstract void update(Observable o, Object arg);
 
 	/**
-	 * Demande au master de lui fournir un trajet respectant les contraintes passés en paramtères.
+	 * Demande au master de lui fournir un trajet respectant les contraintes passés en paramtères. Le master, après un
+	 * temps qu'il jugera necessaire, appellera l'IHM par la méthode returnPathAsked(...) ou il fournira un PathInGraph
+	 * Résolut
 	 * 
 	 * @return true si la demande a bien été enregistrer
 	 */
-	// TODO modéliser les contraintes
-	public boolean askForATravel(PathInGraphBuilder pathInGraphBuidable);
+	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable);
+
+	/**
+	 * Demande au master de lui fournir un PathInGraphConstraintBuilder dans lequel il va préparer divers paramètres
+	 * relatif à un trajet. L'IHM, après le temps qu'elle jugera necessaire, demandera au master de résoudre le chemin
+	 * par la méthode askForATravel(...) en passant en paramètre ce PathInGraphConstraintBuilder
+	 * 
+	 * @return un PathInGraphConstraintBuilder travaillant sur un PathInGraph vide
+	 */
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder();
 
 	/**
 	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
