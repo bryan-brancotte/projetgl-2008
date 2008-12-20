@@ -66,8 +66,6 @@ public enum iGoSmartPhoneSkin {
 
 	new Color(4, 4, 4));
 
-	protected int id;
-	protected static int cpt = 0;
 	protected Color colorOutside;
 	protected Color colorLine;
 	protected Color colorInside;
@@ -129,7 +127,6 @@ public enum iGoSmartPhoneSkin {
 	 *            affiche t'on les lignes
 	 */
 	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, Color colorLetter) {
-		id = iGoSmartPhoneSkin.cpt++;
 		this.colorOutside = colorOutside;
 		this.colorLine = colorLine;
 		this.colorInside = colorInside;
