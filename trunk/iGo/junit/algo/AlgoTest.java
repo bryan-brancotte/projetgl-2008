@@ -8,13 +8,13 @@ import graphNetwork.Station;
 import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
-import graphNetworkOutside.GraphNetworkBuilderTest;
 
 import java.util.MissingResourceException;
 
-import org.junit.Test;
-
 import junit.framework.JUnit4TestAdapter;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class AlgoTest {
 
@@ -23,7 +23,13 @@ public class AlgoTest {
 
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(GraphNetworkBuilderTest.class);
+		return new JUnit4TestAdapter(AlgoTest.class);
+	}
+
+	@Before
+	public void prologueDateTest() {
+		bob = new GraphNetworkBuilder();
+		sncf = bob.getCurrentGraphNetwork();
 	}
 	
 	@Test
