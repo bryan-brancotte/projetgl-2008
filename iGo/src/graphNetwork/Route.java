@@ -110,25 +110,13 @@ public class Route {
 	}
 
 	/**
-	 * ajoute une station a la route. Vous ne devriez pas utiliser cette function car GarphNetworkBuilder le fait, et de
-	 * façon sûr. Ajouter une Station manuellement à votre risque et péril.
-	 * 
-	 * @param station
-	 *            la station a ajouter
-	 */
-	protected boolean addStation(Station station) {
-		return addStation(station, 0);
-	}
-
-	/**
 	 * Ajoute une station a la route. Attention, on autorise l'ajout multiple d'une station à une route
 	 * 
 	 * @param station
 	 *            la station a ajouter
 	 * @return true si l'ajout à bien eu lieu
 	 */
-	protected boolean addStation(Station station, int time) {
-		// TODO time pas utilisé????
+	protected boolean addStation(Station station) {
 		return this.stations.add(station);
 	}
 
