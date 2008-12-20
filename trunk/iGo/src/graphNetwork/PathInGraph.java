@@ -477,12 +477,14 @@ public class PathInGraph {
 	}
 
 	/**
-	 * créer le trajet a partir d'un chaine décrivant le trajet
+	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
 	 * 
 	 * @param pathInString
 	 */
 	protected void importPath(String pathInString) {
 		// TODO importPath
+		if (pathInString == null || pathInString.isEmpty())
+			return;
 		Document doc;
 		int i;
 		NodeList nodesPathInGraph = null;
@@ -555,8 +557,8 @@ public class PathInGraph {
 								nodesOption = node.getChildNodes();
 								for (int j = 0; j < nodesOption.getLength(); j++)
 									if (nodesOption.item(j).getNodeName().compareTo("Service") == 0) {
-										service = univers.getService(Integer.parseInt(nodesOption.item(j).getAttributes()
-												.getNamedItem("id").getNodeValue()));
+										service = univers.getService(Integer.parseInt(nodesOption.item(j)
+												.getAttributes().getNamedItem("id").getNodeValue()));
 										if (service != null)
 											servicesAlways.add(service);
 									}
@@ -565,8 +567,8 @@ public class PathInGraph {
 								nodesOption = node.getChildNodes();
 								for (int j = 0; j < nodesOption.getLength(); j++)
 									if (nodesOption.item(j).getNodeName().compareTo("Service") == 0) {
-										service = univers.getService(Integer.parseInt(nodesOption.item(j).getAttributes()
-												.getNamedItem("id").getNodeValue()));
+										service = univers.getService(Integer.parseInt(nodesOption.item(j)
+												.getAttributes().getNamedItem("id").getNodeValue()));
 										if (service != null)
 											this.servicesOnce.add(service);
 									}
@@ -575,8 +577,8 @@ public class PathInGraph {
 								nodesOption = node.getChildNodes();
 								for (int j = 0; j < nodesOption.getLength(); j++)
 									if (nodesOption.item(j).getNodeName().compareTo("Station") == 0) {
-										station = univers.getStation(Integer.parseInt(nodesOption.item(j).getAttributes()
-												.getNamedItem("id").getNodeValue()));
+										station = univers.getStation(Integer.parseInt(nodesOption.item(j)
+												.getAttributes().getNamedItem("id").getNodeValue()));
 										if (station != null)
 											steps.add(station);
 									}
@@ -585,8 +587,8 @@ public class PathInGraph {
 								nodesOption = node.getChildNodes();
 								for (int j = 0; j < nodesOption.getLength(); j++)
 									if (nodesOption.item(j).getNodeName().compareTo("Station") == 0) {
-										station = univers.getStation(Integer.parseInt(nodesOption.item(j).getAttributes()
-												.getNamedItem("id").getNodeValue()));
+										station = univers.getStation(Integer.parseInt(nodesOption.item(j)
+												.getAttributes().getNamedItem("id").getNodeValue()));
 										if (station != null)
 											avoidStations.add(station);
 									}

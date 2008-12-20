@@ -142,7 +142,7 @@ public class PathInGraphTest {
 	}
 
 	@Test
-	public void exportPath() {
+	public void importExportPath() {
 		constructionDUnCheminSansProbleme();
 		String org = pcb.getPathInGraph().exportPath();
 		System.out.println(pcb.getPathInGraph().exportPath());

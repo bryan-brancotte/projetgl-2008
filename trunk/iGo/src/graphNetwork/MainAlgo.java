@@ -15,6 +15,7 @@ public class MainAlgo {
 
 		GraphNetworkBuilder gb = new GraphNetworkBuilder();
 		GraphNetwork g = gb.getCurrentGraphNetwork();
+		g.getClass();
 		
 		KindRoute k = KindRoute.addKind("TGV");
 		KindRoute k2 = KindRoute.addKind("RER");
