@@ -197,17 +197,18 @@ public class GraphNetworkBuilder {
 		if (stationToAdd == null)
 			return false;
 
-		System.out.println(route + " " + stationToAdd + " " + time);
+		// System.out.println(route + " " + stationToAdd + " " + time);
 
 		Station lastStation = null;
 		if (!route.stations.isEmpty())
 			lastStation = route.stations.getLast();
 		route.addStation(stationToAdd);
+		stationToAdd.addRoute(route);
 
 		if (lastStation != null) {
 			Junction j;
 			try {
-				j = new Junction(route, route.stations.getLast(), route, stationToAdd, 0, time, true, false);
+				j = new Junction(route, lastStation, route, stationToAdd, 0, time, true, false);
 			} catch (StationNotOnRoadException e) {
 				e.printStackTrace();
 				return false;
@@ -362,17 +363,20 @@ public class GraphNetworkBuilder {
 		Junction j;
 		while (itJ.hasNext()) {
 			j = itJ.next();
-			// A A B B
-			// on a pour j:Massy RerC => Massy RerB
-			// les params :Massy RerB => Palaiseau RerB
 			if (j.equals(routeOrigin, stationOrigin, routeDestination, stationDestination)) {
 				j.setCost(cost);
 				j.setPedestrian(pedestrian);
 				j.setTimeBetweenStations(timeBetweenStations);
+//				System.out.println("U:"+j);
+				return j;
 			}
 		}
-		return new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
+		j= new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
 				timeBetweenStations, routeDestination == routeOrigin, pedestrian);
+//		System.out.println("N:"+j);
+		stationOrigin.addJunction(j);
+//		System.out.println(stationOrigin.junctions.size());
+		return j;
 
 		// if (sameStation) {
 		// if (j.isSameStation()) {
