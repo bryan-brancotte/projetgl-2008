@@ -55,6 +55,7 @@ public class GraphNetwork {
 	 * 
 	 * @return
 	 */
+	@Deprecated
 	public PathInGraphBuilder getInstancePathInGraphBuilder() {
 		// TODO PathInGraphBuilder à evoluer
 		return new PathInGraphBuilder(this);
@@ -69,6 +70,7 @@ public class GraphNetwork {
 	 *            le path à mettre dans le monteur.
 	 * @return le monteur, ou null si le path est null.
 	 */
+	@Deprecated
 	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
 		if (path == null)
 			return null;
