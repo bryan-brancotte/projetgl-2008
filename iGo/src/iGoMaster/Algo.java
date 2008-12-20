@@ -67,7 +67,7 @@ public abstract class Algo extends Observable {
 	}
 
 	public enum CriteriousForLowerPath {
-		COST(1), TIME(2), CHANGE(3);
+		NOT_DEFINED(0), COST(1), TIME(2), CHANGE(3);
 
 		protected int val;
 
