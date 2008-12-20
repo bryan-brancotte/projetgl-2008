@@ -57,13 +57,19 @@ public class PathInGraph {
 	protected CriteriousForLowerPath minorCriterious;
 
 	/**
-	 * Accesseur pour le critère principale 
+	 * Accesseur pour le critère principale dans la résolution de l'algo
+	 * 
 	 * @return
 	 */
 	public CriteriousForLowerPath getMainCriterious() {
 		return mainCriterious;
 	}
 
+	/**
+	 * Accesseur pour le critère secondaire dans la résolution de l'algo
+	 * 
+	 * @return
+	 */
 	public CriteriousForLowerPath getMinorCriterious() {
 		return minorCriterious;
 	}
