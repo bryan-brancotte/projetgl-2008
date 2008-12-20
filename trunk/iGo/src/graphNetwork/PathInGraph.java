@@ -8,6 +8,8 @@ import java.util.LinkedList;
  * @author iGo
  */
 public class PathInGraph {
+	
+//	public enum Travel
 
 	protected GraphNetwork univers; // GraphNetwork dans lequel le trajet a un sens, une existance
 	protected LinkedList<Station> avoidStations;// Liste des stations à éviter
