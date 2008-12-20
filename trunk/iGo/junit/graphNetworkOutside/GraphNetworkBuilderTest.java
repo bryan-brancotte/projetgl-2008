@@ -57,7 +57,7 @@ public class GraphNetworkBuilderTest {
 	@Test
 	public void constructionDUnReseauSansProbleme() {
 		bob.reset();
-		bob.getCurrentGraphNetwork().getInstanceGraphCollectionBuilder().getPathInGraphResultBuilder();
+		bob.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder().getPathInGraphResultBuilder();
 		Route rerB;
 		Station massyPal;
 		Route rerC;

@@ -2,8 +2,9 @@ package graphNetwork;
 
 /**
  * Wrapper regroupant les
+ * 
  * @author "iGo"
- *
+ * 
  */
 public class PathInGraphCollectionBuilder {
 
@@ -17,6 +18,10 @@ public class PathInGraphCollectionBuilder {
 
 	public PathInGraphResultBuilder getPathInGraphResultBuilder() {
 		return pathInGraphResultBuilder;
+	}
+
+	public PathInGraph getPathInGraph() {
+		return pathInGraphResultBuilder.getCurrentPathInGraph();
 	}
 
 	protected PathInGraphCollectionBuilder(PathInGraphConstraintBuilder pathInGraphConstraintBuilder,

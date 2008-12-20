@@ -20,6 +20,7 @@ public class PathInGraphConstraintBuilder {
 	protected PathInGraphConstraintBuilder(PathInGraph currentPathInGraph) {
 		super();
 		this.currentPathInGraph = currentPathInGraph;
+		this.currentPathInGraph.resolved = false;
 	}
 
 	/**
@@ -41,6 +42,7 @@ public class PathInGraphConstraintBuilder {
 	 */
 	public void importPath(String pathInString) {
 		this.currentPathInGraph.importPath(pathInString);
+		this.currentPathInGraph.resolved = false;
 	}
 
 	/**
@@ -49,6 +51,7 @@ public class PathInGraphConstraintBuilder {
 	 * @return
 	 */
 	public void setMainCriterious(CriteriousForLowerPath c) {
+		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.mainCriterious = c;
 	}
 
@@ -58,38 +61,70 @@ public class PathInGraphConstraintBuilder {
 	 * @return
 	 */
 	public void setMinorCriterious(CriteriousForLowerPath c) {
+		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.minorCriterious = c;
 	}
 
 	/**
-	 * Ajout à la liste des stations à éviter la station à évité
 	 * 
-	 * @return le tableau avec l'ensemble des stations a éviter, ou un tableau vide s'il n'y en a pas.
+	 * Ajout à la liste des stations à éviter la station passée en paramètre
+	 * 
+	 * @param station
 	 */
-	public void addAvoidStationsArray(Station station) {
+	public void addAvoidStations(Station station) {
+		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.avoidStations.add(station);
 	}
 
 	/**
-	 * Définit que le chemin est à résoudre
+	 * Ajout à la liste des points de passages obligatoire la station passée en paramètre
+	 * 
+	 * @param station
 	 */
-	public void setPathInGraphNotResolved() {
-		currentPathInGraph.resolved = false;
+	public void addStepStations(Station station) {
+		this.currentPathInGraph.resolved = false;
+		currentPathInGraph.steps.add(station);
+	}
+
+	/**
+	 * Ajout à la liste des service à avoir à chaque station où l'on pose le pied, le service passé en paramètre
+	 * 
+	 * @param service
+	 */
+	public void addSeviceOnce(Service service) {
+		this.currentPathInGraph.resolved = false;
+		currentPathInGraph.servicesOnce.add(service);
+	}
+
+	/**
+	 * Ajout à la liste des service à avoir à au moins une station où l'on pose le pied, le service passé en paramètre
+	 * 
+	 * @param service
+	 */
+	public void addSeviceAlways(Service service) {
+		this.currentPathInGraph.resolved = false;
+		currentPathInGraph.servicesAlways.add(service);
 	}
 
 	/**
 	 * Mutateur de la station de destination
-	 * @param destination la station en question
+	 * 
+	 * @param destination
+	 *            la station en question
 	 */
 	public void setDestination(Station destination) {
+		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.destination = destination;
 	}
 
 	/**
 	 * Mutateur de la station d'origine
-	 * @param origin la station en question
+	 * 
+	 * @param origin
+	 *            la station en question
 	 */
 	public void setOrigin(Station origin) {
+		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.origin = origin;
 	}
 
