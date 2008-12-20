@@ -21,6 +21,15 @@ public class PathInGraphResultBuilder {
 	}
 
 	/**
+	 * retourne le trajet actuellement etudie
+	 * 
+	 * @return le trajet etudie
+	 */
+	public PathInGraph getCurrentPathInGraph() {
+		return currentPathInGraph;
+	}
+
+	/**
 	 * ajout au debut du chemin de l'inter, dans le PathInGrah courant
 	 * 
 	 * @param junction
