@@ -34,7 +34,6 @@ public class PIGRobustesse {
 		bob = new GraphNetworkBuilder();
 		sncf = bob.getCurrentGraphNetwork();
 		constructionDUnReseauSansProbleme();
-		// TODO REMI getInstancePathInGraphBuilder mal fait
 		pigB = sncf.getInstancePathInGraphBuilder();
 		pig = pigB.getCurrentPathInGraph();
 	}

@@ -33,8 +33,7 @@ public class PIGBuilderRobustesse {
 	public void prologueDateTest() {
 		bob = new GraphNetworkBuilder();
 		sncf = bob.getCurrentGraphNetwork();
-		constructionDUnReseauSansProbleme();
-		// TODO REMI getInstancePathInGraphBuilder mal fait
+		constructionDUnReseauSansProbleme();  
 		pigB = sncf.getInstancePathInGraphBuilder();
 		pig = pigB.getCurrentPathInGraph();
 	}
