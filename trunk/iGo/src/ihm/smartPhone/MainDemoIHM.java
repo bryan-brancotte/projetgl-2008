@@ -12,7 +12,6 @@ import iGoMaster.IHM;
 import iGoMaster.Language;
 import iGoMaster.Master;
 import iGoMaster.SettingsKey;
-import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.ExecMultiThread;
 
@@ -93,7 +92,7 @@ public class MainDemoIHM {
 				System.out.println("Recording : <" + key + "> as \"" + value + "\"");
 				conf.setValue(key, value);
 				conf.save();
-				if(key==SettingsKey.LANGUAGE.toString())
+				if (key == SettingsKey.LANGUAGE.toString())
 					lang.setLanguage(value);
 				return true;
 			}
@@ -127,12 +126,12 @@ public class MainDemoIHM {
 				return lang.getLanguages().iterator();
 			}
 
-		//}, iGoSmartPhoneSkin.PURPLE_LIGHT_WITH_LINE);
-		// }, iGoSmartPhoneSkin.BLUE_WITH_LINE);
-		 }, iGoSmartPhoneSkin.WHITE_WITH_LINE);
-		// }, iGoSmartPhoneSkin.PINK_WITH_LINE);
-		// }, iGoSmartPhoneSkin.ORANGE_WITH_LINE);
-		// },iGoSmartPhoneSkin.BLACK_WITH_LINE);
+			// }, iGoSmartPhoneSkin.PURPLE_LIGHT);
+			// }, iGoSmartPhoneSkin.BLUE);
+			// }, iGoSmartPhoneSkin.WHITE);
+			// }, iGoSmartPhoneSkin.PINK);
+			// }, iGoSmartPhoneSkin.ORANGE);
+		}/*, iGoSmartPhoneSkin.BLACK/**/);
 		ihm.start(true, 8);
 		new ExecMultiThread<IHM>(ihm) {
 

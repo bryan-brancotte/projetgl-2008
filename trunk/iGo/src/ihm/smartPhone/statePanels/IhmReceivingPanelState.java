@@ -126,4 +126,11 @@ public interface IhmReceivingPanelState {
 	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<String> getLanguages();
+
+	/**
+	 * Retourne un iterateur contenant l'ensemble des skins possible dans le système
+	 * 
+	 * @return l'iterateur sur les skins.
+	 */
+	public Iterator<iGoSmartPhoneSkin> getSkins();
 }

@@ -41,8 +41,6 @@ public interface SizeAdapteur {
 
 	public int getSizeLine();
 
-	public boolean isEnableSizeLine();
-
 	public enum FontSizeKind {
 		LARGE(1), INTERMEDIATE(2), SMALL(3);
 

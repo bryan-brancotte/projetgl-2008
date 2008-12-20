@@ -8,6 +8,7 @@ import iGoMaster.SettingsKey;
 import iGoMaster.SettingsValue;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.ImageLoader;
@@ -105,6 +106,10 @@ public class SettingsPanel extends PanelState {
 
 	protected PTScrollBar scrollBar;
 
+	protected final int skin = 5;
+	protected LinkedList<PairPTRadioBox> skinsRadioBoxs;
+	protected PTCollapsableArea skinsCollapsableArea;
+
 	protected final int language = 6;
 	protected LinkedList<PairPTRadioBox> languagesRadioBoxs;
 	protected PTCollapsableArea languagesCollapsableArea;
@@ -118,8 +123,10 @@ public class SettingsPanel extends PanelState {
 	protected void buildInterfaceFromDomDocument() {
 		String s, valS;
 		PTRadioBoxGroup grp;
+		PTRadioBox rb;
 		CodeExecutor ex;
 		Service ser;
+		iGoSmartPhoneSkin sk;
 		boolean bool;
 
 		/***************************************************************************************************************
@@ -236,6 +243,24 @@ public class SettingsPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Skin
 		 */
+		grp = new PTRadioBoxGroup();
+		skinsCollapsableArea = makeCollapsableArea();
+		skinsRadioBoxs = new LinkedList<PairPTRadioBox>();
+		skinsCollapsableArea.changeCollapseState();
+		Iterator<iGoSmartPhoneSkin> itSkin = father.getSkins();
+		bool = false;
+		while (itSkin.hasNext()) {
+			rb = makeRadioButton(grp, new CodeExecutor1P<iGoSmartPhoneSkin>(sk = (itSkin.next())) {
+				@Override
+				public void execute() {
+					father.setConfig(SettingsKey.SKIN.toString(), this.origine.toString());
+					father.setSkin(this.origine);
+				}
+			});
+			rb.setClicked(father.getConfig(SettingsKey.SKIN.toString()).compareTo(sk.toString()) == 0);
+			skinsCollapsableArea.addComponent(rb);
+			skinsRadioBoxs.add(new PairPTRadioBox(rb, sk.toString()));
+		}
 
 		/***************************************************************************************************************
 		 * Languages
@@ -244,7 +269,6 @@ public class SettingsPanel extends PanelState {
 		languagesCollapsableArea = makeCollapsableArea();
 		languagesRadioBoxs = new LinkedList<PairPTRadioBox>();
 		Iterator<String> itL = father.getLanguages();
-		PTRadioBox rb;
 		bool = false;
 		while (itL.hasNext()) {
 			rb = makeRadioButton(grp, new CodeExecutor1P<String>(s = (itL.next())) {
@@ -529,11 +553,13 @@ public class SettingsPanel extends PanelState {
 					buffer.drawString(p.name, decalage << 1, tmp);
 				}
 				buffer.setColor(father.getNetworkColorManager().getColorForService(p.service));
-				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y+ (decalage >> 3)+ (decalage >> 3), father.getSizeAdapteur()
-						.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
+						father.getSizeAdapteur().getSizeSmallFont() >> 1,
+						father.getSizeAdapteur().getSizeSmallFont() >> 1);
 				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y+ (decalage >> 3)+ (decalage >> 3), father.getSizeAdapteur()
-						.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
+						father.getSizeAdapteur().getSizeSmallFont() >> 1,
+						father.getSizeAdapteur().getSizeSmallFont() >> 1);
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
@@ -602,8 +628,8 @@ public class SettingsPanel extends PanelState {
 			for (PairPTRadioBox p : languagesRadioBoxs) {
 				p.rb.prepareArea(buffer, decalage + (decalage >> 1), (rb == null) ? languagesCollapsableArea
 						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-								.getIntermediateFont()) : rb.getArea().y + rb.getArea().height + decalage, p.name,
-						father.getSizeAdapteur().getSmallFont());
+								.getIntermediateFont()) : rb.getArea().y + rb.getArea().height + (decalage >> 1),
+						p.name, father.getSizeAdapteur().getSmallFont());
 				rb = p.rb;
 			}
 		}
@@ -614,6 +640,29 @@ public class SettingsPanel extends PanelState {
 				p.rb.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
 		ordonne = languagesCollapsableArea.getArea().y + languagesCollapsableArea.getArea().height + decalage2;
+
+		/***************************************************************************************************************
+		 * Skin
+		 */
+		// TODO ........skin
+		s = father.lg("Skin");
+		rb = null;
+		if (!skinsCollapsableArea.isCollapsed()) {
+			for (PairPTRadioBox p : skinsRadioBoxs) {
+				p.rb.prepareArea(buffer, decalage + (decalage >> 1), (rb == null) ? skinsCollapsableArea
+						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+								.getIntermediateFont()) : rb.getArea().y + rb.getArea().height + (decalage >> 1),
+						p.name.replace("_", " "), father.getSizeAdapteur().getSmallFont());
+				rb = p.rb;
+			}
+		}
+		skinsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!skinsCollapsableArea.isCollapsed())
+			for (PairPTRadioBox p : skinsRadioBoxs)
+				p.rb.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
+						father.getSkin().getColorLetter());
+		ordonne = skinsCollapsableArea.getArea().y + skinsCollapsableArea.getArea().height + decalage2;
 
 		/***************************************************************************************************************
 		 * ScrollBar

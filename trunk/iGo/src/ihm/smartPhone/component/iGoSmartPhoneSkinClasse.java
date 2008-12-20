@@ -2,51 +2,51 @@ package ihm.smartPhone.component;
 
 import java.awt.Color;
 
-public enum iGoSmartPhoneSkin {
+public class iGoSmartPhoneSkinClasse {
 	/**
 	 * 
 	 */
-	WHITE(
+	public static iGoSmartPhoneSkinClasse WHITE = new iGoSmartPhoneSkinClasse(
 
 	new Color(115, 115, 115),
 
 	new Color(141, 141, 141),
 
-	new Color(251, 251, 251)),
+	new Color(251, 251, 251));
 	/**
-	 * 
+	 * thème bleu et noir avec ligne séparatrice
 	 */
-	PURPLE_LIGHT(
-
-	new Color(144, 30, 196),
-
-	new Color(141, 141, 141),
-
-	new Color(248, 235, 255)),
-	/**
-	 *
-	 */
-	BLUE(
+	public static iGoSmartPhoneSkinClasse BLUE = new iGoSmartPhoneSkinClasse(
 
 	new Color(22, 78, 147),
 
 	new Color(141, 141, 141),
 
-	new Color(251, 251, 251)),
+	new Color(251, 251, 251));
 	/**
 	 * 
 	 */
-	PINK(
+	public static iGoSmartPhoneSkinClasse PURPLE_LIGHT = new iGoSmartPhoneSkinClasse(
+
+	new Color(144, 30, 196),
+
+	new Color(141, 141, 141),
+
+	new Color(248, 235, 255));
+	/**
+	 * 
+	 */
+	public static iGoSmartPhoneSkinClasse PINK = new iGoSmartPhoneSkinClasse(
 
 	new Color(220, 41, 181),
 
 	new Color(232, 99, 232),
 
-	new Color(245, 220, 239)),
+	new Color(245, 220, 239));
 	/**
 	 * 
 	 */
-	ORANGE(
+	public static iGoSmartPhoneSkinClasse ORANGE = new iGoSmartPhoneSkinClasse(
 
 	new Color(196, 119, 30),
 
@@ -54,15 +54,25 @@ public enum iGoSmartPhoneSkin {
 
 	new Color(248, 245, 208),
 
-	Color.black),
+	Color.black);
 	/**
 	 * 
 	 */
-	BLACK(
+	public static iGoSmartPhoneSkinClasse BLACK = new iGoSmartPhoneSkinClasse(
 
 	new Color(115, 115, 115),
 
 	new Color(141, 141, 141),
+
+	new Color(4, 4, 4));
+	/**
+	 * 
+	 */
+	public static iGoSmartPhoneSkinClasse CUSTOM = new iGoSmartPhoneSkinClasse(
+
+	new Color(115, 115, 115),
+
+	null,
 
 	new Color(4, 4, 4));
 
@@ -128,8 +138,8 @@ public enum iGoSmartPhoneSkin {
 	 * @param displayLine
 	 *            affiche t'on les lignes
 	 */
-	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside, Color colorLetter) {
-		id = iGoSmartPhoneSkin.cpt++;
+	private iGoSmartPhoneSkinClasse(Color colorOutside, Color colorLine, Color colorInside, Color colorLetter) {
+		id = iGoSmartPhoneSkinClasse.cpt++;
 		this.colorOutside = colorOutside;
 		this.colorLine = colorLine;
 		this.colorInside = colorInside;
@@ -154,7 +164,7 @@ public enum iGoSmartPhoneSkin {
 	 * @param displayLine
 	 *            affiche t'on les lignes
 	 */
-	private iGoSmartPhoneSkin(Color colorOutside, Color colorLine, Color colorInside) {
+	private iGoSmartPhoneSkinClasse(Color colorOutside, Color colorLine, Color colorInside) {
 		this(colorOutside, colorLine, colorInside, new Color(255 - colorInside.getRed(), 255 - colorInside.getGreen(),
 				255 - colorInside.getBlue()));
 	}
