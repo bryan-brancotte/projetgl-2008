@@ -96,9 +96,12 @@ public class PathInGraph {
 		sevicesOnce = new LinkedList<Service>();
 		steps = new LinkedList<Station>();
 		avoidStations = new LinkedList<Station>();
-		resolved=false;
-		cost=Float.NaN;
-		time=0;
+		resolved = false;
+		cost = Float.NaN;
+		time = 0;
+		destination = null;
+		minorCriterious = CriteriousForLowerPath.NOT_DEFINED;
+
 	}
 
 	/**
