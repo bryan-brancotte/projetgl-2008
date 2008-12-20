@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import iGoMaster.Algo.CriteriousForLowerPath;
+
 public class PathInGraphResultBuilder {
 
 	/**
@@ -71,8 +73,26 @@ public class PathInGraphResultBuilder {
 	public void removeLast() {
 		currentPathInGraph.junctions.removeLast();
 	}
-	
-	public void setPathInGraphResolved(){
-		currentPathInGraph.resolved=true;
+
+	/**
+	 * Mutateur définissant le chemin comme résolu
+	 */
+	public void setPathInGraphResolved() {
+		currentPathInGraph.resolved = true;
+	}
+
+	/**
+	 * Permet de savoir si le chemin est valide pour la résolution.
+	 * 
+	 * @return true si on peut le résoudre
+	 */
+	public boolean isValideForSolving() {
+		if (currentPathInGraph.destination == null)
+			return false;
+		if (currentPathInGraph.origin == null)
+			return false;
+		if (currentPathInGraph.minorCriterious == CriteriousForLowerPath.NOT_DEFINED)
+			return false;
+		return true;
 	}
 }

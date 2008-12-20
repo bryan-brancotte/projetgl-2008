@@ -71,23 +71,23 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * 
+	 * Définit que le chemin est à résoudre
 	 */
 	public void setPathInGraphNotResolved() {
 		currentPathInGraph.resolved = false;
 	}
 
 	/**
-	 * 
-	 * @param destination
+	 * Mutateur de la station de destination
+	 * @param destination la station en question
 	 */
 	public void setDestination(Station destination) {
 		currentPathInGraph.destination = destination;
 	}
 
 	/**
-	 * 
-	 * @param origin
+	 * Mutateur de la station d'origine
+	 * @param origin la station en question
 	 */
 	public void setOrigin(Station origin) {
 		currentPathInGraph.origin = origin;
