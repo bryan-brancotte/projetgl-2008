@@ -96,4 +96,12 @@ public interface IHM {
 	 * @return true si l'IHM s'attendait a cette appelle de fonction, false dans le cas contraire.
 	 */
 	public boolean returnPathAsked(PathInGraph path, String message);
+	
+	/**
+	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de
+	 * nouveaux évènements.
+	 *
+	 * @return vrai si la mise à jour s'est déroulée correctement.
+	 */
+	public boolean updateNetwork();
 }
