@@ -18,7 +18,11 @@ public enum SettingsKey {
 	 */
 	GRAPHICAL_QUALITY(),
 	/**
-	 * 
+	 * Clef à laquel sera associé la langue choisie par l'utilisateur
 	 */
-	LANGUAGE();
+	LANGUAGE(),
+	/**
+	 * clef à laquel sera associer le thème choisie pas l'utilisateur
+	 */
+	SKIN();
 }

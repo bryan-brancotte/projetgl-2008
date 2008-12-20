@@ -26,10 +26,13 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected static final int maxHeightForScalling = 640;
 
 	// public static final int DEFAULT_HEIGTH = 220;public static final int DEFAULT_WIDTH = 140;/*
-	//public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 200;/*
-	// public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 240;/*
-	public static final int DEFAULT_HEIGTH = 558;public static final int DEFAULT_WIDTH = 406;/*
-	public static final int DEFAULT_HEIGTH = 1200;public static final int DEFAULT_WIDTH = 1600;/**/
+	public static final int DEFAULT_HEIGTH = 320;
+	public static final int DEFAULT_WIDTH = 200;
+	/*******************************************************************************************************************
+	 * // public static final int DEFAULT_HEIGTH = 320;public static final int DEFAULT_WIDTH = 240;/* public static
+	 * final int DEFAULT_HEIGTH = 558;public static final int DEFAULT_WIDTH = 406;/* public static final int
+	 * DEFAULT_HEIGTH = 1200;public static final int DEFAULT_WIDTH = 1600;/
+	 ******************************************************************************************************************/
 
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
 
@@ -45,7 +48,6 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected Font smallFont;
 	protected int sizeUpperBar;
 	protected int sizeLowerBar;
-	protected boolean enableSizeLine;
 	protected int sizeLine;
 	protected boolean fullScreen = false;
 	protected static float corectionOfFontSize = (float) 1.6;
@@ -54,39 +56,26 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected boolean keepLook = false;
 
 	/**
-	 * Constructeur avec l'affichage des ligne par défaut (à true). On définit la résolution
+	 * Constructeur avec une taille par défaut(DEFAULT_HEIGTH par DEFAULT_WIDTH).
+	 * 
+	 * @param enableSizeLine
+	 *            true si on veux les afficher.
+	 */
+	public IGoFlowLayout() {
+		this(DEFAULT_HEIGTH, DEFAULT_WIDTH);
+	}
+
+	/**
+	 * Constructeur où on définit la taille de l'écran.
 	 * 
 	 * @param height
 	 *            la hauteur
 	 * @param width
 	 *            la largueur
+	 * @param enableSizeLine
+	 *            true si on veux les afficher.
 	 */
 	public IGoFlowLayout(int height, int width) {
-		this(height, width, true);
-	}
-
-	/**
-	 * Constructeur avec une taille par défaut(DEFAULT_HEIGTH par DEFAULT_WIDTH). on définit ici seulement si on affiche
-	 * les lignes.
-	 * 
-	 * @param enableSizeLine
-	 *            true si on veux les afficher.
-	 */
-	public IGoFlowLayout(boolean enableSizeLine) {
-		this(DEFAULT_HEIGTH, DEFAULT_WIDTH, enableSizeLine);
-	}
-
-	/**
-	 * Constructeur où on définit la taille et l'affichage des lignes séparatrices.
-	 * 
-	 * @param height
-	 *            la hauteur
-	 * @param width
-	 *            la largueur
-	 * @param enableSizeLine
-	 *            true si on veux les afficher.
-	 */
-	public IGoFlowLayout(int height, int width, boolean enableSizeLine) {
 		super();
 		boolean sign = false;
 		if (height > screenHeigth) {
@@ -103,19 +92,10 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		} else {
 			this.width = width;
 		}
-		this.enableSizeLine = enableSizeLine;
 		largeFont = new Font("Large", Font.PLAIN, 1);
 		intermediateFont = largeFont;
 		smallFont = largeFont;
-		recalculate(height); 
-	}
-
-	/**
-	 * Constructeur par défaut, on définit une taille par défaut(DEFAULT_HEIGTH par DEFAULT_WIDTH) et on met l'affichage
-	 * par défaut comme il est spécifié dans le constructeur où l'on ne spécifie que les tailles.
-	 */
-	public IGoFlowLayout() {
-		this(DEFAULT_HEIGTH, DEFAULT_WIDTH);
+		recalculate(height);
 	}
 
 	/**
@@ -132,7 +112,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		if (val > maxHeightForScalling)
 			val = maxHeightForScalling;
 		this.sizeLargeFont = (int) (val * corectionOfFontSize * 0.032);
-		//TODO refaire les paramètrage de font
+		// TODO refaire les paramètrage de font
 		if (this.sizeLargeFont < 13)
 			this.sizeLargeFont = 13;
 		this.sizeIntermediateFont = (int) (val * corectionOfFontSize * 0.0195);// 195);
@@ -154,7 +134,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 			intermediateFont = new Font("Intermediat", Font.PLAIN, sizeIntermediateFont);
 		if (smallFont.getSize() != sizeSmallFont)
 			smallFont = new Font("Small", Font.PLAIN, sizeSmallFont);
-		// System.out.println(this); 
+		// System.out.println(this);
 	}
 
 	/**
@@ -222,9 +202,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	 * @return le taille des ligne, ou 0 si elle ne sont pas affichées
 	 */
 	public int getSizeLine() {
-		if (enableSizeLine)
-			return sizeLine;
-		return 0;
+		return sizeLine;
 	}
 
 	/**
@@ -345,15 +323,6 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	}
 
 	/**
-	 * Getteur permettant de savoir si on est affiche les lignes.
-	 * 
-	 * @return true si on les affiches.
-	 */
-	public boolean isEnableSizeLine() {
-		return enableSizeLine;
-	}
-
-	/**
 	 * Setteur permettant de définir si on est en plein écran.
 	 * 
 	 * @param fullScreen
@@ -361,9 +330,5 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	 */
 	public void setFullScreen(boolean fullScreen) {
 		this.fullScreen = fullScreen;
-	}
-
-	public void setEnableSizeLine(boolean enableSizeLine) {
-		this.enableSizeLine = enableSizeLine;
 	}
 }

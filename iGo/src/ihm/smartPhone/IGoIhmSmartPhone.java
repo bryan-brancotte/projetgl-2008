@@ -8,6 +8,7 @@ import graphNetwork.Station;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
+import iGoMaster.SettingsKey;
 import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.component.IGoFlowLayout;
 import ihm.smartPhone.component.LowerBar;
@@ -51,6 +52,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public static final IHMGraphicQuality defaultQualityForIhm = IHMGraphicQuality.AS_FAST_AS_WE_CAN;
 
 	protected IGoFlowLayout sizeAdapteur = null;
+	protected iGoSmartPhoneSkin skin;
+	protected LinkedList<iGoSmartPhoneSkin> skins;
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 	protected NetworkColorManager networkColorManager;
 
@@ -72,7 +75,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected TravelDisplayPanel travelGraphicPanel = null;
 	protected TravelDisplayPanel travelArrayPanel = null;
 	protected boolean quitMessage = false;
-	protected iGoSmartPhoneSkin skin;
 
 	/**
 	 * Constructeur de l'interface. Le master est requit car il sert imédiatement.
@@ -81,23 +83,31 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	 *            le master, celui qui fournira entre autre les traductions
 	 */
 	public IGoIhmSmartPhone(Master master) {
-		this(master, iGoSmartPhoneSkin.WHITE_WITH_LINE);
+		this(master, null);
 	}
 
 	public IGoIhmSmartPhone(Master master, iGoSmartPhoneSkin skin) {
 		super(master.lg("ProgName"));
-		this.skin = skin;
-		sizeAdapteur = new IGoFlowLayout(skin.isDisplayLine());
+		sizeAdapteur = new IGoFlowLayout();
 		networkColorManager = new NetworkColorManagerPseudoRandom(master);
 		System.out.println(sizeAdapteur);
 		this.setLayout(sizeAdapteur);
-
-		this.setBackground(skin.getColorLine());
 		this.master = master;
+		if (skin == null) {
+			Iterator<iGoSmartPhoneSkin> itS = this.getSkins();
+			String s = this.master.getConfig(SettingsKey.SKIN.toString());
+			while (itS.hasNext()) {
+				if ((skin = itS.next()).toString().compareTo(s) == 0)
+					break;
+			}
+		}
+		this.skin = skin;
+		
+		this.setBackground(skin.getColorLine());
 
 		int i = 0;
 		try {
-			i = Integer.parseInt(this.master.getConfig("GRAPHICAL_QUALITY"));
+			i = Integer.parseInt(this.master.getConfig(SettingsKey.GRAPHICAL_QUALITY.toString()));
 		} catch (NumberFormatException e) {
 		}
 
@@ -649,8 +659,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public void setSkin(iGoSmartPhoneSkin skin) {
 		this.skin = skin;
-		sizeAdapteur.setEnableSizeLine(skin.isDisplayLine());
-		this.setBackground(skin.getColorInside());
+		this.setBackground(skin.getColorLine());
 
 		if (splashScreenPanel != null)
 			splashScreenPanel.setBackground(skin.getColorInside());
@@ -670,5 +679,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			travelArrayPanel.setBackground(skin.getColorInside());
 		upperBar.setBackground(skin.getColorInside());
 		lowerBar.setBackground(skin.getColorInside());
+	}
+
+	@Override
+	public Iterator<iGoSmartPhoneSkin> getSkins() {
+		if (skins == null) {
+			skins = new LinkedList<iGoSmartPhoneSkin>();
+			skins.add(iGoSmartPhoneSkin.BLACK);
+			skins.add(iGoSmartPhoneSkin.WHITE);
+			skins.add(iGoSmartPhoneSkin.ORANGE);
+			skins.add(iGoSmartPhoneSkin.BLUE);
+			skins.add(iGoSmartPhoneSkin.PINK);
+			skins.add(iGoSmartPhoneSkin.PURPLE_LIGHT);
+		}
+		return skins.iterator();
 	}
 }

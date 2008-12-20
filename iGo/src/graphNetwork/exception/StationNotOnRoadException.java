@@ -1,6 +1,8 @@
 package graphNetwork.exception;
+
 /**
- *  
+ * Erreur indiquant que la station n'est pas sur la route spécifié
+ * 
  * @author iGo
  */
 public class StationNotOnRoadException extends Exception {

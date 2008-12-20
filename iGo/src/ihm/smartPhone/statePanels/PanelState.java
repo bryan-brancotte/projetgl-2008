@@ -1,19 +1,12 @@
 package ihm.smartPhone.statePanels;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.PanelTooled;
 
-public abstract class PanelState extends PanelTooled {
+import java.awt.Color;
 
-	@Override
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
+public abstract class PanelState extends PanelTooled {
 
 	@Override
 	public void setBackground(Color c) {

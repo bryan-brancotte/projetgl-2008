@@ -55,7 +55,7 @@ public class PTRadioBox extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
-		if (text.length() == 0)
+		if (text.isEmpty())
 			area.setBounds(x, y, font.getSize(), font.getSize());
 		else
 			area.setBounds(x, y, PanelDoubleBufferingSoftwear.getWidthString(text, g, font) + (font.getSize() << 1),

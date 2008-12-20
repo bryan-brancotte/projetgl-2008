@@ -685,10 +685,8 @@ public class NewTravelPanel extends PanelState {
 				+ intermediatesStationsCollapsableArea.getArea().height + decalage2;
 		// imageOk;imageDel;
 
-		// TODO ........mk AutoComplet°........................
 		// TODO ........taf.........................
 
-		// TODO ........skin
 		/***************************************************************************************************************
 		 * Languages
 		 */

@@ -1,5 +1,11 @@
 package graphNetwork.exception;
 
+/**
+ * Erreur indiquant une valeur numérique impossible, comme un coût négatif.
+ * 
+ * @author "iGo"
+ * 
+ */
 public class ImpossibleValueException extends Exception {
 
 	/**

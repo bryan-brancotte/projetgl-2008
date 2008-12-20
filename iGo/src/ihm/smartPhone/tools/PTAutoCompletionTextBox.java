@@ -59,7 +59,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 								return;
 							currentStringRight = currentStringSelected.charAt(size) + currentStringRight;
 							currentStringSelected = currentStringSelected.substring(0, size);
-							if (currentStringSelected.length() == 0)
+							if (currentStringSelected.isEmpty())
 								selectingWay = 0;
 						}
 					} else if (currentStringSelected.length() > 0) {
@@ -87,7 +87,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 								return;
 							currentStringLeft += currentStringSelected.charAt(0);
 							currentStringSelected = currentStringSelected.substring(1);
-							if (currentStringSelected.length() == 0)
+							if (currentStringSelected.isEmpty())
 								selectingWay = 0;
 						}
 					} else if (currentStringSelected.length() > 0) {
@@ -248,10 +248,10 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	}
 
 	protected void autoCompletion() {
-		if ((currentStringRight.length() == 0)/* && (currentStringLeft.length() > 0)/* */) {
+		if ((currentStringRight.isEmpty())/* && (currentStringLeft.length() > 0)/* */) {
 			int cpt;
 
-			if (key_char || currentStringLeft.length() == 0) {
+			if (key_char || currentStringLeft.isEmpty()) {
 				fieldsMatching.clear();
 				for (cpt = 0; cpt < fields.length; cpt++) {
 					if (fields[cpt].toLowerCase().startsWith(currentStringLeft.toLowerCase())) {
