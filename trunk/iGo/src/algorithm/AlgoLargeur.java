@@ -1,13 +1,14 @@
 package algorithm;
 import graphNetwork.PathInGraph;
-import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphResultBuilder;
 import iGoMaster.Algo;
 
 
 public class AlgoLargeur extends Algo {
 
 	@Override
-	public PathInGraph findPath(PathInGraphBuilder _path) {
+	public PathInGraph findPath(PathInGraphResultBuilder _path) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
