@@ -8,7 +8,7 @@ import graphNetwork.Station;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Vector;
 
 public class GraphAlgo {
 
@@ -114,7 +114,7 @@ public class GraphAlgo {
 	 * @return true si la junction est valide
 	 */
 	private boolean validChange (Node node,Junction junction) {
-		Station otherStation = junction.getOtherStation(node.getStation(),node.getRoute());
+		Station otherStation = junction.getOtherStation(node.getStation());
 		if (
 				otherStation == null ||
 				isStationIn(otherStation,avoidStations) ||
@@ -187,7 +187,7 @@ public class GraphAlgo {
 		private Link from;
 		private Station station;
 		private Route route;
-		private LinkedList<Link> to;
+		private Vector<Link> to;
 		private int relevance;
 		private int time;
 		private int changes;
@@ -196,7 +196,7 @@ public class GraphAlgo {
 		Node(Station s, Route r) {
 			station = s;
 			route = r;
-			to = new LinkedList<Link>();
+			to = new Vector<Link>();
 			initValue();
 		}
 		
@@ -239,7 +239,7 @@ public class GraphAlgo {
 		
 		public Iterator<Link> getToIter (){ return to.iterator(); }
 		//TODO a virer uniquement pour les tests
-		public LinkedList<Link> getTo (){ return to; }
+		public Vector<Link> getTo (){ return to; }
 		
 	}
 
@@ -260,7 +260,7 @@ public class GraphAlgo {
 		
 
 		public boolean isChanging () {
-			if (junction.getRouteA() == junction.getRouteB()) return false;
+			if (junction.isRouteLink()) return false;
 			else return true;
 		}
 	}
