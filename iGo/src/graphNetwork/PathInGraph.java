@@ -65,6 +65,10 @@ public class PathInGraph {
 	 */
 	protected CriteriousForLowerPath minorCriterious;
 
+	public boolean isResolved() {
+		return resolved;
+	}
+
 	/**
 	 * Accesseur pour le critère principale dans la résolution de l'algo
 	 * 
@@ -88,6 +92,13 @@ public class PathInGraph {
 	 */
 	private PathInGraph() {
 		junctions = new LinkedList<Junction>();
+		sevicesAlways = new LinkedList<Service>();
+		sevicesOnce = new LinkedList<Service>();
+		steps = new LinkedList<Station>();
+		avoidStations = new LinkedList<Station>();
+		resolved=false;
+		cost=Float.NaN;
+		time=0;
 	}
 
 	/**
