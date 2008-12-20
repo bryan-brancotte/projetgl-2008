@@ -20,9 +20,18 @@ public class PathInGraph {
 	 */
 	protected LinkedList<Station> avoidStations;
 
-	private float cost;
-	private int time;
-
+	/**
+	 * Le chemin à t'il été résolu?
+	 */
+	protected boolean resolved;
+	/**
+	 * le coût du chemin
+	 */
+	protected float cost;
+	/**
+	 * la durée du chemin
+	 */
+	protected int time;
 	/**
 	 * La station de destination
 	 */
@@ -279,7 +288,7 @@ public class PathInGraph {
 	 * 
 	 * @param pathInString
 	 */
-	public void importPath(String pathInString) {
+	protected void importPath(String pathInString) {
 		// TODO importPath
 	}
 
