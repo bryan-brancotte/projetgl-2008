@@ -15,27 +15,27 @@ import java.util.Observable;
 public interface Master {
 
 	/**
-	 * Retourne pour une clé donnée la valeur dans la langue sélectionné de cette clé
+	 * Retourne pour une clé donnée la valeur dans la langue sélectionnée de cette clé
 	 * 
 	 * @param key
-	 *            clé de la chaine voulut dans la langue active
-	 * @return la chaine dans la langue voulut
+	 *            clé de la chaine voulue dans la langue active
+	 * @return la chaine dans la langue voulue
 	 */
 	public String lg(String key);
 
 	/**
-	 * lance l'arrêt du logiciel. Il est probable que l'appelle de cette méthode oblige le master à lancer des
-	 * procédures équivalents sur les acteurs qu'il peut arreté. pensez donc à protégé le master contre des appelles en
+	 * Lance l'arrêt du logiciel. Il est probable que l'appel de cette méthode oblige le master à lancer des
+	 * procédures équivalentes sur les acteurs qu'il peut arreter. Protection du master contre les appels en
 	 * boucle.
 	 */
 	public void stop();
 
 	/**
-	 * Retourne pour une clé donnée la valeur du paramètre. Utilisez mainenant getConfig
+	 * Retourne pour une clé donnée la valeur du paramètre. Utilisez maintenant getConfig
 	 * 
 	 * @param key
 	 *            clé identifiant le paramètre
-	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
+	 * @return la valeur du paramètre, ou null si le paramètre est inconnu.
 	 */
 	@Deprecated
 	public String config(String key);
@@ -45,7 +45,7 @@ public interface Master {
 	 * 
 	 * @param key
 	 *            clé identifiant le paramètre
-	 * @return la valeur du paramètre, ou null si le apramètre est inconnu.
+	 * @return la valeur du paramètre, ou null si le paramètre est inconnu.
 	 */
 	public String getConfig(String key);
 
@@ -62,7 +62,14 @@ public interface Master {
 	public boolean setConfig(String key, String value);
 
 	/**
-	 * //TODO demander à Tony à quoi sert cette méthode...
+	 * L'arrivée d'un nouvel évènement ou de la terminaison de l'algorithme de calcul seront
+	 * signalés au master par l'intermédiaire de cette méthode.
+	 * 
+	 * @param o
+	 * 				l'observable qui va informer le master d'une modification
+	 * @param arg
+	 * 				si l'observable est de type EventInfoWatcher, l'argument sera null.
+	 * 				si il est de type Algo, demander à tony.			
 	 */
 	public abstract void update(Observable o, Object arg);
 
