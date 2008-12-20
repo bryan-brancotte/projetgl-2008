@@ -197,8 +197,12 @@ public class GraphNetworkBuilder {
 		if (stationToAdd == null)
 			return false;
 
-		Station lastStation = route.stations.getLast();
-		route.addStation(stationToAdd, time);
+		System.out.println(route + " " + stationToAdd + " " + time);
+
+		Station lastStation = null;
+		if (!route.stations.isEmpty())
+			lastStation = route.stations.getLast();
+		route.addStation(stationToAdd);
 
 		if (lastStation != null) {
 			Junction j;
