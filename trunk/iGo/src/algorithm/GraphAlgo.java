@@ -215,8 +215,8 @@ public class GraphAlgo {
 		public void initValue () {
 			from = null;
 			relevance = 0;
-			time = Integer.MAX_VALUE;
-			changes = Integer.MAX_VALUE;
+			time = Integer.MAX_VALUE>>1;
+			changes = Integer.MAX_VALUE>>1;
 			cost = Float.MAX_VALUE;
 		}
 

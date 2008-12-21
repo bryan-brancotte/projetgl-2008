@@ -583,7 +583,9 @@ public class AlgoTest {
 
 		bob = new Dijkstra();
 
+		long begin = System.currentTimeMillis();
 		PathInGraph p = bob.findPath(prb);
+		long end = System.currentTimeMillis();
 
 		Iterator<Junction> it = p.getJunctions();
 		int time = 0;
@@ -598,6 +600,8 @@ public class AlgoTest {
 		System.out.println("---------------------------------------");
 		System.out.println("Time : " + time + " minutes");
 		System.out.println(changes + " changements");
+		System.out.println("---------------------------------------");
+		System.out.println((end-begin)+" ms pour création du graph et calcul de l'itinéraire");
 	}
 
 	@Test

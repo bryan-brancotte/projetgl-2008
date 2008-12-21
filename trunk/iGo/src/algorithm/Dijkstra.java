@@ -41,38 +41,44 @@ public class Dijkstra extends Algo {
 
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
-		//TODO Affichage de test à virer
-		//System.out.println(graph);
+		// TODO Affichage de test à virer
+		// System.out.println(graph);
 		origin = p.getOrigin();
 		destination = p.getDestination();
 		steps = p.getStepsArray();
 		once = new Vector<Service>();
-		for (int i=0;i<p.getStepsArray().length;i++) { once.add(p.getServicesOnceArray()[i]); }
+		for (int i = 0; i < p.getStepsArray().length; i++) {
+			once.add(p.getServicesOnceArray()[i]);
+		}
 		graph.refreshGraph();
-		
+
 		// Création du chemin
-		//TODO penser à enlever une partie des contraintes et pas une par une
+		// TODO penser à enlever une partie des contraintes et pas une par une
 		path = new LinkedList<Junction>();
-		while (path.size()==0) {
+		while (path.size() == 0) {
 			graph.defaultNodes();
-			if (steps.length==0) path.addAll(algo(origin,destination));
+			if (steps.length == 0)
+				path.addAll(algo(origin, destination));
 			else {
-				path.addAll(algo(origin,steps[0]));
-				for (int i=0;i<steps.length-1;i++) path.addAll(algo(steps[i],steps[i+1]));
-				path.addAll(algo(steps[steps.length-1],destination));
+				path.addAll(algo(origin, steps[0]));
+				for (int i = 0; i < steps.length - 1; i++)
+					path.addAll(algo(steps[i], steps[i + 1]));
+				path.addAll(algo(steps[steps.length - 1], destination));
 			}
-			if (path.size() == 0){
-				if (once.size()>0) once.remove(once.size()-1);
-				else return null;
+			if (path.size() == 0) {
+				if (once.size() > 0)
+					once.remove(once.size() - 1);
+				else
+					return null;
 			}
 		}
-		
-		// Création du pathInGraph 
+
+		// Création du pathInGraph
 		Iterator<Junction> it = path.iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			prb.addFront(it.next());
 		}
-		
+
 		return p;
 	}
 
@@ -96,6 +102,8 @@ public class Dijkstra extends Algo {
 			n = g.next();
 			if (depart == n.getStation()) {
 				n.setTime(0);
+				n.setChanges(0);
+				n.setCost((float) 0);
 				break;
 			}
 		}
@@ -136,9 +144,22 @@ public class Dijkstra extends Algo {
 	 */
 	private Node getMinimumNode(ArrayList<Node> list) {
 		Node n = list.get(0);
-		for (int i = 1; i < list.size(); i++) {
-			if (list.get(i).getCost() < n.getCost())
-				n = list.get(i);
+		switch (p.getMainCriterious()) {
+		case TIME:
+			for (int i = 1; i < list.size(); i++)
+				if (list.get(i).getTime() < n.getTime())
+					n = list.get(i);
+			break;
+		case CHANGE:
+			for (int i = 1; i < list.size(); i++)
+				if (list.get(i).getChanges() < n.getChanges())
+					n = list.get(i);
+			break;
+		case COST:
+			for (int i = 1; i < list.size(); i++)
+				if (list.get(i).getCost() < n.getCost())
+					n = list.get(i);
+			break;
 		}
 		return n;
 	}
@@ -156,6 +177,7 @@ public class Dijkstra extends Algo {
 		// TODO faire les conditions
 		Node newN = l.getNode();
 		Junction j = l.getJunction();
+
 		// TIME
 		int newTime = n.getTime() + j.getTimeBetweenStations();
 		int diffTime = newTime - newN.getTime();
@@ -221,7 +243,8 @@ public class Dijkstra extends Algo {
 			}
 			break;
 		}
-		if (better)
+		if (better) {
 			newN.setAll(newTime, newChange, newCost, 0, n, j);
+		}
 	}
 }
