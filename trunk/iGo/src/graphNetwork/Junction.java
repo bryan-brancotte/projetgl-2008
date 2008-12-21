@@ -78,6 +78,7 @@ public class Junction {
 
 	/**
 	 * Setteur de l'état d'un jonction
+	 * 
 	 * @param enable
 	 */
 	public void setToEnable(boolean enable) {
@@ -186,7 +187,12 @@ public class Junction {
 	 * Surcharge de toString, retourne un résultat de la forme : </br> "Massy(RerC)=>Massy(RerB) : 0$ in 3minutes"
 	 */
 	public String toString() {
-		String s = stationA.getName() + "(" + routeA.getId() + ")";
+		String s;
+		if (isRouteLink())
+			s = "R_";
+		else
+			s = "C_";
+		s += stationA.getName() + "(" + routeA.getId() + ")";
 		if (routeA == routeB)
 			s += "<";
 		s += "=>";
