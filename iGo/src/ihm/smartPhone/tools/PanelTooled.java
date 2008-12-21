@@ -87,6 +87,66 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	}
 
 	/**
+	 * Créé un radioBox dans un group spécifique, lorsque l'on cliquera sur ce RadioBox, les autres seront décochés. En
+	 * plus de cette action, on s'autorise à lancer une seconde action que l'utilisateur spécifira par le paramètre
+	 * action.
+	 * 
+	 * @param grp
+	 *            group dans lequel le radiobouton à une existance
+	 * @param action
+	 *            evenement déclanché lors du clic sur le bouton, ce dernier est optionel.
+	 * @return le PTRadioButtton créé
+	 */
+	public PTRadioBox makeRadioButton(PTRadioBoxGroup[] grp, CodeExecutor action) {
+		if (action == null)
+			return makeRadioButton(grp);
+		Rectangle area = new Rectangle();
+		PTRadioBox radioBox = new PTRadioBox(this, area);
+		for (PTRadioBoxGroup g : grp)
+			g.add(radioBox);
+		clickAndMoveWarningAndArray
+				.addInteractiveArea(area, new CodeExecutor4P<PTRadioBoxGroup[], PTRadioBox, CodeExecutor, PanelTooled>(
+						grp, radioBox, action, this) {
+					@Override
+					public void execute() {
+						for (PTRadioBoxGroup g : this.origineA)
+							g.setAllNotClicked();
+						this.origineB.setClicked(true);
+						this.origineC.execute();
+						this.origineD.repaint();
+					}
+				});
+		return radioBox;
+	}
+
+	/**
+	 * Créé un radioBox dans un group spécifique, lorsque l'on cliquera sur ce RadioBox, les autres seront décochés
+	 * 
+	 * @param grp
+	 *            le groupe du RadioBox. ce paramètre ne peut être null
+	 * @return la RadioBox créé.
+	 */
+	public PTRadioBox makeRadioButton(PTRadioBoxGroup[] grp) {
+		if (grp == null)
+			throw new NullPointerException();
+		Rectangle area = new Rectangle();
+		PTRadioBox radioBox = new PTRadioBox(this, area);
+		for (PTRadioBoxGroup g : grp)
+			g.add(radioBox);
+		clickAndMoveWarningAndArray.addInteractiveArea(area,
+				new CodeExecutor3P<PTRadioBoxGroup[], PTRadioBox, PanelTooled>(grp, radioBox, this) {
+					@Override
+					public void execute() {
+						for (PTRadioBoxGroup g : this.origineA)
+							g.setAllNotClicked(); 
+						this.origineB.setClicked(true);
+						this.origineC.repaint();
+					}
+				});
+		return radioBox;
+	}
+
+	/**
 	 * Créé une CheckBox, et execute l'action passé en paramètre après avoir effectué son traitement (changement de
 	 * l'état)
 	 * 
