@@ -103,7 +103,7 @@ public class GraphNetworkBuilderTest {
 		} catch (ImpossibleValueException e) {
 			assertTrue("linkStation ne supporte pas un valeur normal", false);
 		}
-//		System.out.println("Construction sans problème");
+		// System.out.println("Construction sans problème");
 	}
 
 	/**
@@ -384,4 +384,15 @@ public class GraphNetworkBuilderTest {
 		assertTrue("mauvais nombre de kind", cpt == 2);
 	}
 
+	@Test
+	public void jonctionEntreStation() {
+		constructionDUnReseauSansProbleme();
+		Iterator<Junction> itJ = sncf.getStation(2).getJunctions();
+		assertTrue("la station 2 devrait avoir 2 jonction, et ici elle en a 0", itJ.hasNext());
+		itJ.next();
+		assertTrue("la station 2 devrait avoir 2 jonction, et ici elle en a 1", itJ.hasNext());
+		itJ.next();
+		//elle en a bient 2
+		assertTrue("la station 2 devrait avoir 2 jonction, et ici elle en a plus", !itJ.hasNext());
+	}
 }

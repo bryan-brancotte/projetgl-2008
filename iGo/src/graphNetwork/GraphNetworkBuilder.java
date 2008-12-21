@@ -213,6 +213,7 @@ public class GraphNetworkBuilder {
 				return false;
 			}
 			lastStation.addJunction(j);
+			stationToAdd.addJunction(j);
 		}
 		return true;
 

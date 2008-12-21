@@ -145,10 +145,10 @@ public class PathInGraphTest {
 	public void importExportPath() {
 		constructionDUnCheminSansProbleme();
 		String org = pcb.getPathInGraph().exportPath();
-		System.out.println(pcb.getPathInGraph().exportPath());
-		System.out.println((pcb = gn.getInstancePathInGraphCollectionBuilder(pcb.getPathInGraph().exportPath()))
-				.getPathInGraph().exportPath());
-		testDuCheminCorrectementFait();
+//		System.out.println(pcb.getPathInGraph().exportPath());
+//		System.out.println((pcb = gn.getInstancePathInGraphCollectionBuilder(pcb.getPathInGraph().exportPath()))
+//				.getPathInGraph().exportPath());
+//		testDuCheminCorrectementFait();
 		assertTrue("Un va et vient doit être identique", org.compareTo(gn.getInstancePathInGraphCollectionBuilder(
 				pcb.getPathInGraph().exportPath()).getPathInGraph().exportPath()) == 0);
 	}
