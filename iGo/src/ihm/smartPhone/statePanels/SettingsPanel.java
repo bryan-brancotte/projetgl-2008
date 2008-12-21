@@ -3,6 +3,7 @@ package ihm.smartPhone.statePanels;
 import graphNetwork.KindRoute;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import iGoMaster.Algo;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.SettingsKey;
 import iGoMaster.SettingsValue;
@@ -36,7 +37,7 @@ import org.w3c.dom.Document;
 
 public class SettingsPanel extends PanelState {
 
-	protected HashMap<String, Station> sationsHash; 
+	protected HashMap<String, Station> stationsHash;
 	private static final long serialVersionUID = 1L;
 
 	@Deprecated
@@ -114,24 +115,24 @@ public class SettingsPanel extends PanelState {
 		ex = new CodeExecutor() {
 			@Override
 			public void execute() {
-				recordChangedSetting(minorTravelCriteria, SettingsKey.MAIN_TRAVEL_CRITERIA.toString());
+				recordChangedSetting(minorTravelCriteria, SettingsKey.MINOR_TRAVEL_CRITERIA.toString());
 			}
 		};
 		travelCriteriaRadioBoxs[3] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[0] }, ex);// Cheaper
 		travelCriteriaRadioBoxs[4] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[1] }, ex);// Faster
 		travelCriteriaRadioBoxs[5] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[2] }, ex);// Fewer Changes
 		travelCriteriaRadioBoxs[0].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				"0") == 0);
+				Algo.CriteriousForLowerPath.COST.toString()) == 0);
 		travelCriteriaRadioBoxs[1].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				"1") == 0);
+				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
 		travelCriteriaRadioBoxs[2].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				"2") == 0);
+				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
 		travelCriteriaRadioBoxs[3].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				"0") == 0);
+				Algo.CriteriousForLowerPath.COST.toString()) == 0);
 		travelCriteriaRadioBoxs[4].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				"1") == 0);
+				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
 		travelCriteriaRadioBoxs[5].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				"2") == 0);
+				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[0]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[1]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[2]);
@@ -289,29 +290,29 @@ public class SettingsPanel extends PanelState {
 			break;
 		case mainTravelCriteria:
 			if (travelCriteriaRadioBoxs[0].isClicked()) {
-				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
+				father.setConfig(s, Algo.CriteriousForLowerPath.COST.toString());
 				return;
 			}
 			if (travelCriteriaRadioBoxs[1].isClicked()) {
-				father.setConfig(s, SettingsValue.FASTER.getStringValue());
+				father.setConfig(s, Algo.CriteriousForLowerPath.TIME.toString());
 				return;
 			}
 			if (travelCriteriaRadioBoxs[2].isClicked()) {
-				father.setConfig(s, SettingsValue.FEWER_CHANGES.getStringValue());
+				father.setConfig(s, Algo.CriteriousForLowerPath.CHANGE.toString());
 				return;
 			}
 			break;
 		case minorTravelCriteria:
 			if (travelCriteriaRadioBoxs[3].isClicked()) {
-				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
+				father.setConfig(s, Algo.CriteriousForLowerPath.COST.toString());
 				return;
 			}
 			if (travelCriteriaRadioBoxs[4].isClicked()) {
-				father.setConfig(s, SettingsValue.FASTER.getStringValue());
+				father.setConfig(s, Algo.CriteriousForLowerPath.TIME.toString());
 				return;
 			}
 			if (travelCriteriaRadioBoxs[5].isClicked()) {
-				father.setConfig(s, SettingsValue.FEWER_CHANGES.getStringValue());
+				father.setConfig(s, Algo.CriteriousForLowerPath.CHANGE.toString());
 				return;
 			}
 			break;
@@ -688,7 +689,7 @@ public class SettingsPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Skin
 		 */
-		// TODO ........skin
+		// TODO skin : à finir
 		s = father.lg("Skin");
 		rb = null;
 		if (!skinsCollapsableArea.isCollapsed()) {

@@ -102,7 +102,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			}
 		}
 		this.skin = skin;
-		
+
 		this.setBackground(skin.getColorLine());
 
 		int i = 0;
@@ -459,6 +459,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkNewTravelPanel();
 			}
 			centerPanel.add(newTravelPanel);
+			newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder());
 			newTravelPanel.giveControle();
 			centerPanel.validate();
 			return true;
