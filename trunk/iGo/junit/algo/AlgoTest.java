@@ -56,10 +56,8 @@ public class AlgoTest {
 			gnb.addStationToRoute(rerB, gnb.addStation(4, "Le Guichet"), 9);
 			gnb.addStationToRoute(rerB, gnb.addStation(5, "Orsay Ville"), 1);
 
-			gnb.addStationToRoute(rerC, gnb.addStation(9, "Paris Austerlitz"),
-					0);
+			gnb.addStationToRoute(rerC, gnb.addStation(9, "Paris Austerlitz"),0);
 			gnb.addStationToRoute(rerC, gnb.addStation(6, "Orly"), 15);
-			//TODO Ajouté ici
 			gnb.addStationToRoute(rerC, gnb.getStationTest(10), 15);
 			gnb.addStationToRoute(rerC, gnb.addStation(7, "Choisy"), 15);
 			gnb.addStationToRoute(rerC, gnb.addStation(8, "Juvisy"), 3);
@@ -106,8 +104,7 @@ public class AlgoTest {
 		Iterator<Junction> it = massy.getJunctions();
 		int nbJunctions = 0;
 		while (it.hasNext()) {
-			System.out.print(it.next());
-			System.out.println();
+			System.out.println(it.next());
 			nbJunctions++;
 		}
 		/*
@@ -115,14 +112,15 @@ public class AlgoTest {
 		 * Massy Palaiseau(RerC)<=>Choisy(RerC) : 0.0$ in 15 minutes
 		 * Massy Palaiseau(RerC)=>Massy Palaiseau(RerB) : 0.0$ in 3 minutes
 		 * Massy Palaiseau(RerB)=>Massy Palaiseau(RerC) : 0.0$ in 3 minutes
-		 * 
-		 * Manque :
-		 * 
+		 * Juvisy(RerC)<=>Massy Palaiseau(RerC) : 0.0$ in 25 minutes
 		 * Massy Palaiseau(RerB)<=>Croix de Berny(RerB)
 		 * Massy Palaiseau(RerC)<=>Orly(RerC)
 		 * 
+		 * Manque :
+		 * 
+		 * Plus rien ! 
 		 */
-		assertTrue("mauvais nombre de jonctions",nbJunctions==6);
+		assertTrue("mauvais nombre de jonctions, ici "+nbJunctions+" et normalement 7",nbJunctions==7);
 		
 	}
 	
