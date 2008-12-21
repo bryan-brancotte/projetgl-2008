@@ -107,7 +107,7 @@ public class GraphAlgo {
 		Station otherStation = junction.getOtherStation(node.getStation());
 		if (
 				//TODO en attente de mise a jour réelle
-				(!otherStation.equals(node.getStation()) && !node.getRoute().equals(junction.getOtherRoute(node.getStation()))) ||
+				//(!otherStation.equals(node.getStation()) && !node.getRoute().equals(junction.getOtherRoute(node.getStation()))) ||
 				otherStation == null ||
 				isStationIn(otherStation,avoidStations) ||
 				!otherStation.isEnable() ||
