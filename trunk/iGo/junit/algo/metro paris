@@ -1,392 +1,388 @@
 
-Grande Arche de la Défense:77:465:5.30:0.39
-Esplanade de la Défense:91:461:5.31:0.41
-Pont de Neuilly:104:457:5.32:0.42
-Les Sablons:118:453:5.34:0.44
-Porte Maillot:132:448:*5.30:0.45
-Argentine:149:442:5.31:0.47
-Charles de Gaulle, Étoile:170:436:5.32:0.48
-George V:192:428:5.33:0.49
-Franklin D. Roosevelt:214:421:5.35:0.51
-Champs Élysées, Clémenceau:237:414:5.36:0.52
-Concorde:257:407:5.38:0.54
-Tuileries:278:400:5.39:0.55
-Palais Royal, Musée du Louvre:292:395:5.40:0.56
-Louvre, Rivoli:305:392:5.41:0.57
-Châtelet:324:386:5.43:0.59
-Hôtel de Ville:356:375:5.44:1.00
-Saint-Paul, Le Marais:380:367:5.45:1.01
-Bastille:403:360:5.47:1.03
-Gare de Lyon:428:331:5.49:1.05
-Reuilly Diderot:442:339:5.51:1.07
-Nation:464:351:5.53:1.09
-Porte de Vincennes:496:341:5.54:1.10
-Saint-Mandé, Tourelle:511:336:5.56:1.12
-Bérault:532:329:5.57:1.13
-Château de Vincennes:547:324:5.59:1.15
+gnb.addStationToRoute(rerB, gnb.addStation(1, "Paris"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(2,"Grande Arche de la Défense"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(3,"Esplanade de la Défense"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(4,"Pont de Neuilly"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(5,"Les Sablons"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(6,"Porte Maillot"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(7,"Argentine"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(8,"Charles de Gaulle, Étoile"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(9,"George V"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(10,"Franklin D. Roosevelt"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(11,"Champs Élysées, Clémenceau"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(12,"Concorde"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(13,"Tuileries"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(14,"Palais Royal, Musée du Louvre"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(15,"Louvre, Rivoli"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(16,"Châtelet"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(17,"Hôtel de Ville"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(18,"Saint-Paul, Le Marais"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(19,"Bastille"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(20,"Gare de Lyon"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(21,"Reuilly Diderot"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(22,"Nation"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(23,"Porte de Vincennes"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(24,"Saint-Mandé, Tourelle"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(25,"Bérault"), 0);
+gnb.addStationToRoute(m1, gnb.addStation(26,"Château de Vincennes"), 0);
 
-Porte Dauphine:134:422:5.30:0.42
-Victor Hugo:148:418:5.31:0.43
-Charles de Gaulle, Étoile:170:437:5.33:0.45
-Ternes:188:451:5.34:0.46
-Courcelles:202:462:5.35:0.47
-Monceau:216:474:5.36:0.48
-Villiers:232:486:5.37:0.50
-Rome:248:499:5.39:0.51
-Place de Clichy:259:508:5.40:0.52
-Blanche:278:521:5.41:0.54
-Pigalle:303:521:5.42:0.55
-Anvers:324:521:5.44:0.56
-Barbès Rochechouart:350:521:5.45:0.57
-La Chapelle:372:521:5.47:0.59
-Stalingrad:408:516:5.48:1.00
-Jaurès:415:508:5.49:1.02
-Colonel Fabien:416:472:5.51:1.03
-Belleville:428:456:5.52:1.04
-Couronnes:439:442:5.53:1.06
-Ménilmontant:448:431:5.55:1.07
-Père Lachaise:460:416:5.56:1.08
-Philippe-Auguste:471:403:5.58:1.10
-Alexandre Dumas:472:386:5.59:1.11
-Avron:472:372:6.00:1.12
-Nation:466:357:6.03:1.15
+gnb.addStationToRoute(m2, gnb.addStation(3,"Porte Dauphine"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Victor Hugo"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Charles de Gaulle, Étoile"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Ternes"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Courcelles"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Monceau"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Villiers"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Rome"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Place de Clichy"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Blanche"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Pigalle"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Anvers"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Barbès Rochechouart"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"La Chapelle"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Stalingrad"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Jaurès"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Colonel Fabien"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Belleville"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Couronnes"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Ménilmontant"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Père Lachaise"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Philippe-Auguste"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Alexandre Dumas"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Avron"), 0);
+gnb.addStationToRoute(m2, gnb.addStation(3,"Nation"), 0);
 
-Pont de Levallois, Bécon:125:521:5.30:0.44
-Anatole France:138:517:5.31:0.45
-Louise Michel:154:512:5.32:0.46
-Porte de Champerret:172:506:5.33:0.48
-Péreire:187:501:5.34:0.49
-Wagram:200:497:5.35:0.50
-Malesherbes:213:493:5.36:0.51
-Villiers:231:487:5.38:0.53
-Europe:242:483:5.39:0.54
-Saint-Lazare:258:477:5.41:0.55
-Havre Caumartin:268:465:5.42:0.57
-Opéra:284:444:5.43:0.58
-Quatre Septembre:300:439:5.44:0.59
-Bourse:314:434:5.46:1.00
-Sentier:327:430:5.47:1.01
-Réaumur Sébastopol:351:422:5.48:1.03
-Arts et Métiers:373:417:5.49:1.04
-Temple:384:427:5.50:1.05
-République:397:433:5.51:1.06
-Parmentier:421:427:5.53:1.07
-Rue Saint-Maur:437:422:5.54:1.08
-Père Lachaise:460:416:5.55:1.10
-Gambetta:484:429:5.57:1.12
-Porte de Bagnolet:499:430:5.59:1.13
-Galliéni:527:429:6.01:1.15
+gnb.addStationToRoute(m3, gnb.addStation(5,"Pont de Levallois, Bécon"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Anatole France"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Louise Michel"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Porte de Champerret"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Péreire"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Wagram"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Malesherbes"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Villiers"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Europe"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Saint-Lazare"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Havre Caumartin"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Opéra"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Quatre Septembre"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Bourse"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Sentier"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Réaumur Sébastopol"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Arts et Métiers"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Temple"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"République"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Parmentier"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Rue Saint-Maur"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Père Lachaise"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Gambetta"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Porte de Bagnolet"), 0);
+gnb.addStationToRoute(m3, gnb.addStation(5,"Galliéni"), 0);
 
-3bis:a:Gambetta:484:429:5.32:1.11
-3bis:a:Pelleport:489:448:5.33:1.12
-3bis:a:Saint-Fargeau:494:460:5.34:1.13
-3bis:a:Porte des Lilas:498:474:5.36:1.15
+gnb.addStationToRoute(m4, gnb.addStation(8,"Porte de Clignancourt"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Simplon"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Marcadet Poissonniers"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Château Rouge"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Barbès Rochechouart"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Gare du Nord"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Gare de l'Est"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Château d'Eau"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Strasbourg Saint-Denis"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Réaumur Sébastopol"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Étienne Marcel"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Les Halles"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Châtelet"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Cité"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Saint-Michel"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Odéon"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Saint-Germain-des-Prés"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Saint-Sulpice"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Saint-Placide"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Montparnasse Bienvenue"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Vavin"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Raspail"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Denfert Rochereau"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Mouton-Duvernet"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Alésia"), 0);
+gnb.addStationToRoute(m4, gnb.addStation(8,"Porte d'Orléans"), 0);
 
-Porte de Clignancourt:350:583:5.29:0.44
-Simplon:350:568:5.30:0.45
-Marcadet Poissonniers:350:554:5.31:0.46
-Château Rouge:350:532:5.32:0.47
-Barbès Rochechouart:350:521:5.33:0.48
-Gare du Nord:364:510:*5.33:0.50
-Gare de l'Est:367:484:5.34:0.51
-Château d'Eau:364:462:5.36:0.53
-Strasbourg Saint-Denis:359:447:5.37:0.54
-Réaumur Sébastopol:351:422:5.38:0.55
-Étienne Marcel:347:412:5.39:0.56
-Les Halles:337:404:5.41:0.57
-Châtelet:324:382:5.42:0.59
-Cité:317:366:5.43:1.00
-Saint-Michel:312:349:5.44:1.01
-Odéon:300:348:5.45:1.02
-Saint-Germain-des-Prés:284:352:5.47:1.04
-Saint-Sulpice:275:336:5.48:1.05
-Saint-Placide:272:324:5.49:1.06
-Montparnasse Bienvenue:267:306:5.50:1.07
-Vavin:282:300:5.52:1.08
-Raspail:292:289:5.53:1.10
-Denfert Rochereau:300:277:5.54:1.11
-Mouton-Duvernet:295:259:5.55:1.12
-Alésia:290:244:5.56:1.13
-Porte d'Orléans:285:232:5.59:1.15
+gnb.addStationToRoute(m5, gnb.addStation(11,"Bobigny, Pablo Picasso"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Bobigny-Pantin, Raymond Queneau"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Église de Pantin"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Hoche"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Porte de Pantin"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Ourcq"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Laumière"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Jaurès"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Stalingrad"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Gare du Nord"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Gare de l'Est"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Jacques Bonsergent"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"République"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Oberkampf"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Richard Lenoir"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Bréguet-Sabin"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Bastille"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Quai de la Rapée"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Gare d'Austerlitz"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Saint-Marcel"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Campo-Formio"), 0);
+gnb.addStationToRoute(m5, gnb.addStation(11,"Place d'Italie"), 0);
 
-Bobigny, Pablo Picasso:522:593:5.30:0.39
-Bobigny-Pantin, Raymond Queneau:498:574:5.33:0.42
-Église de Pantin:484:563:*5.31:0.44
-Hoche:468:550:5.32:0.45
-Porte de Pantin:454:538:5.34:0.47
-Ourcq:442:529:5.35:0.49
-Laumière:430:519:5.37:0.50
-Jaurès:416:509:5.38:0.51
-Stalingrad:409:518:5.39:0.52
-Gare du Nord:369:507:5.42:0.55
-Gare de l'Est:368:484:5.44:0.57
-Jacques Bonsergent:386:448:5.46:0.59
-République:398:434:5.47:1.01
-Oberkampf:417:409:5.49:1.02
-Richard Lenoir:412:390:5.51:1.04
-Bréguet-Sabin:408:376:5.52:1.05
-Bastille:403:361:5.53:1.06
-Quai de la Rapée:393:328:5.55:1.08
-Gare d'Austerlitz:389:317:5.57:1.10
-Saint-Marcel:381:295:5.59:1.12
-Campo-Formio:376:278:6.00:1.13
-Place d'Italie:368:255:6.02:1.15
+gnb.addStationToRoute(m6, gnb.addStation(13,"Charles de Gaulle, Étoile"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Kléber"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Boissière"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Trocadéro"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Passy"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Bir-Hakeim"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Dupleix"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"La Motte Picquet, Grenelle"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Cambronne"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Sèvres Lecourbe"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Pasteur"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Montparnasse Bienvenue"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Edgar Quinet"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Raspail"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Denfert Rochereau"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Saint-Jacques"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Glacière"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Corvisart"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Place d'Italie"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Nationale"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Chevaleret"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Quai de la Gare"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Bercy"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Dugommier"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Daumesnil"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Bel Air"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Picpus"), 0);
+gnb.addStationToRoute(m6, gnb.addStation(13,"Nation"), 0);
 
-Charles de Gaulle, Étoile:170:435:5.30:0.41
-Kléber:166:422:5.31:0.41
-Boissière:160:406:5.32:0.44
-Trocadéro:157:397:5.33:0.45
-Passy:157:373:5.34:0.46
-Bir-Hakeim:172:353:5.35:0.47
-Dupleix:180:344:5.37:0.48
-La Motte Picquet, Grenelle:204:332:5.38:0.49
-Cambronne:217:328:5.39:0.50
-Sèvres Lecourbe:232:321:5.40:0.52
-Pasteur:243:307:5.41:0.53
-Montparnasse Bienvenue:263:300:5.42:0.54
-Edgar Quinet:276:295:5.44:0.56
-Raspail:291:288:5.45:0.57
-Denfert Rochereau:302:276:5.46:0.58
-Saint-Jacques:321:269:5.47:0.59
-Glacière:337:265:5.49:1.00
-Corvisart:355:259:5.50:1.02
-Place d'Italie:368:254:5.51:1.03
-Nationale:389:258:5.53:1.05
-Chevaleret:404:269:5.54:1.06
-Quai de la Gare:420:282:5.55:1.07
-Bercy:437:296:5.56:1.08
-Dugommier:448:304:5.58:1.10
-Daumesnil:461:316:5.59:1.11
-Bel Air:471:324:6.00:1.12
-Picpus:473:336:6.01:1.13
-Nation:463:349:6.04:1.15
+gnb.addStationToRoute(m7, gnb.addStation(16,"La Courneuve, 8 Mai 1945"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Fort d'Aubervilliers"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Aubervilliers-Pantin, Quatre Chemins"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Porte de la Villette"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Corentin-Cariou"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Crimée"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Riquet"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Stalingrad"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Louis Blanc"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Château Landon"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Gare de l'Est"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Poissonnière"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Cadet"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Le Peletier"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Chaussée d'Antin, La Fayette"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Opéra"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Pyramides"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Palais Royal, Musée du Louvre"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Pont-Neuf"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Châtelet"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Pont-Marie"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Sully Morland"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Jussieu"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Place Monge"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Censier Daubenton"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Les Gobelins"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Place d'Italie"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Tolbiac"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Maison Blanche"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Porte d'Italie"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Porte de Choisy"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Porte d'Ivry"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Pierre Curie"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Mairie d'Ivry"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Maison Blanche"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"le Kremlin-Bicêtre"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Villejuif, Léo Lagrange"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Villejuif, P. Vaillant Couturier"), 0);
+gnb.addStationToRoute(m7, gnb.addStation(16,"Villejuif, Louis Aragon"), 0);
 
-La Courneuve, 8 Mai 1945:441:619:5.29:0.28
-Fort d'Aubervilliers:438:608:5.30:0.29
-Aubervilliers-Pantin, Quatre Chemins:433:595:5.32:0.31
-Porte de la Villette:429:579:5.34:0.33
-Corentin-Cariou:422:562:5.36:0.35
-Crimée:419:550:5.37:0.36
-Riquet:414:534:5.38:0.37
-Stalingrad:408:517:5.39:0.38
-Louis Blanc:402:497:5.40:0.40
-Château Landon:384:484:5.42:0.41
-Gare de l'Est:367:484:5.43:0.42
-Poissonnière:347:484:5.45:0.44
-Cadet:322:484:5.46:0.45
-Le Peletier:301:484:5.47:0.47
-Chaussée d'Antin, La Fayette:284:472:5.48:0.48
-Opéra:284:444:5.50:0.50
-Pyramides:284:413:5.52:0.51
-Palais Royal, Musée du Louvre:293:396:5.53:0.52
-Pont-Neuf:308:382:5.54:0.54
-Châtelet:322:378:5.56:0.55
-Pont-Marie:349:369:5.57:0.57
-Sully Morland:374:354:5.59:0.58
-Jussieu:367:324:6.00:1.00
-Place Monge:360:303:6.01:1.01
-Censier Daubenton:356:288:6.03:1.02
-Les Gobelins:353:272:6.04:1.03
-Place d'Italie:368:254:6.05:1.05
-Tolbiac:376:242:6.06:1.06
-Maison Blanche:386:232:6.08:1.07
-Porte d'Italie:394:223:6.09:1.08
-Porte de Choisy:405:232:6.10:1.10
-Porte d'Ivry:419:243:6.12:1.11
-Pierre Curie:430:234:6.13:1.12
-Mairie d'Ivry:439:223:6.16:1.15
-Maison Blanche:386:232:6.02:1.05
-le Kremlin-Bicêtre:385:217:6.04:1.07
-Villejuif, Léo Lagrange:385:206:6.06:1.09
-Villejuif, P. Vaillant Couturier:385:195:6.08:1.11
-Villejuif, Louis Aragon:385:184:6.11:1.13
+gnb.addStationToRoute(m8, gnb.addStation(19,"Place Balard"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"Lourmel"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"Boucicaut"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"Félix Faure"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"Commerce"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"La Motte Picquet, Grenelle"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"École Militaire"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"La Tour-Maubourg"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(19,"Invalides"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Concorde"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Madeleine"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Opéra"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Richelieu Drouot"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Rue Montmartre, Grands Boulevards"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Bonne Nouvelle"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Strasbourg Saint-Denis"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"République"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Filles du Calvaire"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(20,"Saint-Sébastien-Froissart"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Chemin Vert"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Bastille"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Ledru Rollin"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Faidherbe-Chaligny"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Reuilly Diderot"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Montgallet"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Daumesnil"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Michel Bizot"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Porte Dorée"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(21,"Porte de Charenton"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Liberté"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Charenton-Écoles"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"École Vétérinaire de Maisons-Alfort"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Maisons-Alfort, Stade"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Maisons-Alfort les Juilliottes"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Créteil-l'Echat, Hôpital Henri Mondor"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Créteil-Université"), 0);
+gnb.addStationToRoute(m8, gnb.addStation(22,"Créteil-Préfecture"), 0);
 
-Place Balard:162:271:5.30:0.23
-Lourmel:173:279:5.31:0.24
-Boucicaut:185:289:5.32:0.25
-Félix Faure:192:300:5.33:0.26
-Commerce:196:311:5.34:0.28
-La Motte Picquet, Grenelle:203:333:5.35:0.29
-École Militaire:209:350:5.37:0.31
-La Tour-Maubourg:220:373:5.38:0.32
-Invalides:237:387:5.39:0.33
-Concorde:256:407:5.41:0.35
-Madeleine:257:423:5.43:0.36
-Opéra:284:444:5.44:0.38
-Richelieu Drouot:307:462:5.45:0.39
-Rue Montmartre, Grands Boulevards:324:457:5.47:0.40
-Bonne Nouvelle:339:452:5.48:0.41
-Strasbourg Saint-Denis:359:445:5.49:0.43
-République:395:432:*5.36:0.44
-Filles du Calvaire:397:413:5.37:0.46
-Saint-Sébastien-Froissart:397:394:5.38:0.47
-Chemin Vert:397:383:5.39:0.48
-Bastille:403:362:5.40:0.49
-Ledru Rollin:415:359:5.41:0.50
-Faidherbe-Chaligny:432:352:5.43:0.52
-Reuilly Diderot:442:339:5.44:0.53
-Montgallet:452:328:5.45:0.54
-Daumesnil:461:316:5.46:0.56
-Michel Bizot:468:308:5.48:0.57
-Porte Dorée:478:291:5.49:0.58
-Porte de Charenton:470:285:5.51:1.00
-Liberté:475:274:5.53:1.02
-Charenton-Écoles:483:264:5.54:1.03
-École Vétérinaire de Maisons-Alfort:495:250:5.56:1.05
-Maisons-Alfort, Stade:503:240:5.58:1.07
-Maisons-Alfort les Juilliottes:509:232:6.00:1.09
-Créteil-l'Echat, Hôpital Henri Mondor:516:224:6.02:1.11
-Créteil-Université:522:216:6.03:1.12
-Créteil-Préfecture:529:207:6.06:1.15
+Pont de Sèvres
+Billancourt
+Marcel Sembat
+Porte de Saint-Cloud
+Exelmans
+Michel Ange Molitor
+Michel Ange Auteuil
+Jasmin
+Ranelagh
+La Muette
+Rue de la Pompe
+Trocadéro
+Iéna
+Alma Marceau
+Franklin D. Roosevelt
+Saint-Philippe du Roule
+Miromesnil
+Saint-Augustin
+Havre Caumartin
+Chaussée d'Antin, La Fayette
+Richelieu Drouot
+Rue Montmartre, Grands Boulevards
+Bonne Nouvelle
+Strasbourg Saint-Denis
+République
+Oberkampf
+Saint-Ambroise
+Voltaire
+Charonne
+Rue des Boulets
+Nation
+Buzenval
+Maraîchers
+Porte de Montreuil
+Robespierre
+Croix de Chavaux
+Mairie de Montreuil
 
-Pont de Sèvres:66:262:5.30:0.25
-Billancourt:77:270:5.31:0.27
-Marcel Sembat:90:280:5.32:0.28
-Porte de Saint-Cloud:101:290:*5.30:0.30
-Exelmans:112:301:5.31:0.32
-Michel Ange Molitor:119:324:5.32:0.33
-Michel Ange Auteuil:123:334:5.33:0.34
-Jasmin:129:352:5.34:0.35
-Ranelagh:133:366:5.35:0.36
-La Muette:139:384:5.36:0.37
-Rue de la Pompe:144:397:5.38:0.39
-Trocadéro:157:397:5.40:0.41
-Iéna:175:397:5.41:0.42
-Alma Marceau:193:404:5.42:0.43
-Franklin D. Roosevelt:214:421:5.44:0.45
-Saint-Philippe du Roule:225:430:5.45:0.46
-Miromesnil:237:440:5.46:0.47
-Saint-Augustin:254:452:5.48:0.49
-Havre Caumartin:268:465:5.49:0.50
-Chaussée d'Antin, La Fayette:284:472:5.50:0.51
-Richelieu Drouot:307:464:5.51:0.52
-Rue Montmartre, Grands Boulevards:325:459:5.52:0.53
-Bonne Nouvelle:340:454:5.53:0.54
-Strasbourg Saint-Denis:359:447:5.55:0.56
-République:399:435:*5.44:0.57
-Oberkampf:419:411:5.45:0.59
-Saint-Ambroise:428:401:5.46:1.00
-Voltaire:435:393:5.47:1.01
-Charonne:442:383:5.48:1.03
-Rue des Boulets:449:373:5.50:1.04
-Nation:466:357:5.51:1.05
-Buzenval:477:365:5.53:1.07
-Maraîchers:490:375:5.54:1.08
-Porte de Montreuil:498:382:*5.45:1.09
-Robespierre:509:390:5.46:1.11
-Croix de Chavaux:523:402:5.48:1.13
-Mairie de Montreuil:537:412:5.51:1.15
+Porte d'Auteuil
+Michel Ange Molitor
+Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danude
+Boulogne, Jean Jaurès
+Michel Ange Molitor
+Chardon Lagâche
+Mirabeau
+Javel
+Charles Michels
+Avenue Émile Zola
+La Motte Picquet, Grenelle
+Ségur
+Duroc
+Vaneau
+Sèvres Babylone
+Mabillon
+Odéon
+Cluny, La Sorbonne
+Maubert Mutualité
+Cardinal Lemoine
+Jussieu
+Gare d'Austerlitz
 
-Porte d'Auteuil:105:336:5.30:
-Michel Ange Molitor:119:324:5.31:0.51
-Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danude:67:307:5.35:0.47
-Boulogne, Jean Jaurès:79:316:5.36:0.49
-Michel Ange Molitor:119:324:*5.31:0.51
-Chardon Lagâche:134:318:5.32:0.52
-Mirabeau:141:321:5.33:0.54
-Javel:158:326:5.35:0.55
-Charles Michels:178:326:5.36:0.56
-Avenue Émile Zola:194:326:5.37:0.58
-La Motte Picquet, Grenelle:205:332:5.39:0.59
-Ségur:217:336:5.40:1.01
-Duroc:238:336:5.42:1.02
-Vaneau:248:343:5.43:1.04
-Sèvres Babylone:260:347:5.45:1.05
-Mabillon:288:347:5.46:1.06
-Odéon:300:347:5.47:1.08
-Cluny, La Sorbonne:319:340:5.49:1.09
-Maubert Mutualité:335:334:5.50:1.10
-Cardinal Lemoine:350:329:5.51:1.11
-Jussieu:367:324:5.52:1.12
-Gare d'Austerlitz:389:317:5.55:1.15
+Mairie des Lilas
+Porte des Lilas
+Télégraphe
+Place des Fêtes
+Jourdain
+Pyrénées
+Belleville
+Goncourt
+République
+Arts et Métiers
+Rambuteau
+Hôtel de Ville
+Châtelet
 
-Mairie des Lilas:518:474:5.30:1.00
-Porte des Lilas:498:474:5.31:1.01
-Télégraphe:476:480:5.32:1.03
-Place des Fêtes:467:481:*5.31:1.04
-Jourdain:449:474:5.31:1.05
-Pyrénées:439:466:5.32:1.06
-Belleville:428:456:5.34:1.07
-Goncourt:413:445:5.35:1.08
-République:398:433:5.36:1.09
-Arts et Métiers:374:414:5.38:1.11
-Rambuteau:365:402:5.39:1.12
-Hôtel de Ville:356:375:5.40:1.13
-Châtelet:324:383:5.42:1.15
+Porte de la Chapelle
+Marx Dormoy
+Marcadet Poissonniers
+Jules Joffrin
+Lamarck Caulaincourt
+Abbesses
+Pigalle
+Saint-Georges
+Notre Dame de Lorette
+Trinité d'Estienne d'Orves
+Saint-Lazare
+Madeleine
+Concorde
+Assemblée Nationale
+Solférino
+Rue du Bac
+Sèvres Babylone
+Rennes
+Notre-Dame-des-Champs
+Montparnasse Bienvenue
+Falguière
+Pasteur
+Volontaires
+Vaugirard
+Convention
+Porte de Versailles
+Corentin Celton
+Mairie d'Issy
 
-Porte de la Chapelle:384:582:5.30:0.39
-Marx Dormoy:376:557:5.31:0.40
-Marcadet Poissonniers:350:554:5.32:0.42
-Jules Joffrin:331:554:5.34:0.43
-Lamarck Caulaincourt:314:553:5.35:0.45
-Abbesses:308:536:5.36:0.46
-Pigalle:303:521:5.37:0.47
-Saint-Georges:300:511:5.39:0.48
-Notre Dame de Lorette:289:502:5.40:0.50
-Trinité d'Estienne d'Orves:280:495:5.41:0.51
-Saint-Lazare:259:478:5.42:0.52
-Madeleine:258:422:5.44:0.54
-Concorde:258:406:5.45:0.55
-Assemblée Nationale:258:382:5.47:0.57
-Solférino:258:371:5.48:0.58
-Rue du Bac:258:358:5.49:0.59
-Sèvres Babylone:260:347:5.50:1.00
-Rennes:271:333:5.51:*20.00
-Notre-Dame-des-Champs:278:320:5.52:*1.02
-Montparnasse Bienvenue:266:307:5.54:1.03
-Falguière:253:312:5.55:1.04
-Pasteur:243:307:5.56:1.06
-Volontaires:231:297:5.57:1.07
-Vaugirard:217:285:5.59:1.08
-Convention:202:273:6.00:1.09
-Porte de Versailles:197:258:6.02:1.11
-Corentin Celton:192:242:6.03:1.12
-Mairie d'Issy:187:226:6.06:1.15
+Gabriel Péri, Asnières-Gennevilliers
+Mairie de Clichy
+Porte de Clichy
+Brochant
+La Fourche
+Saint-Denis-Université
+Basilique de Saint-Denis
+Saint-Denis-Porte de Paris
+Carrefour Pleyel
+Mairie de Saint-Ouen
+Garibaldi
+Porte de Saint-Ouen
+Guy Môquet
+La Fourche
+Place de Clichy
+Liège
+Saint-Lazare
+Miromesnil
+Champs Élysées, Clémenceau
+Invalides
+Varenne
+Saint-Francois Xavier
+Duroc
+Montparnasse Bienvenue
+Gaité
+Pernety
+Plaisance
+Porte de Vanves
+Malakoff-Plateau de Vanves
+Malakoff-Rue Étienne Dolet
+Châtillon-Montrouge
 
-Gabriel Péri, Asnières-Gennevilliers:198:607:5.30:0.38
-Mairie de Clichy:215:585:5.32:0.41
-Porte de Clichy:238:558:5.34:0.43
-Brochant:249:544:5.36:0.44
-La Fourche:259:533:5.37:0.46
-Saint-Denis-Université:365:664:5.28:0.34
-Basilique de Saint-Denis:343:646:5.29:0.35
-Saint-Denis-Porte de Paris:332:637:5.31:0.37
-Carrefour Pleyel:314:622:5.33:0.40
-Mairie de Saint-Ouen:294:606:5.35:0.41
-Garibaldi:281:596:5.37:0.43
-Porte de Saint-Ouen:275:583:5.39:0.45
-Guy Môquet:267:560:5.40:0.46
-La Fourche:259:533:5.42:0.48
-Place de Clichy:259:508:5.43:0.49
-Liège:258:497:5.45:*20.00
-Saint-Lazare:258:478:5.46:*0.52
-Miromesnil:237:440:5.49:0.54
-Champs Élysées, Clémenceau:237:413:5.51:0.56
-Invalides:237:389:5.53:0.58
-Varenne:237:368:5.54:1.00
-Saint-Francois Xavier:237:359:5.55:1.01
-Duroc:238:336:5.56:1.02
-Montparnasse Bienvenue:263:300:5.58:1.04
-Gaité:259:282:6.00:1.05
-Pernety:254:269:6.01:1.07
-Plaisance:249:255:6.02:1.08
-Porte de Vanves:245:242:6.04:1.10
-Malakoff-Plateau de Vanves:239:225:6.06:1.11
-Malakoff-Rue Étienne Dolet:236:212:6.07:1.13
-Châtillon-Montrouge:229:193:6.10:1.15
+Madeleine
+Pyramides
+Châtelet
+Gare de Lyon
+Bercy
+Cour Saint-Émilion
+Bibliothèque François Mitterand
 
-Madeleine:258:422:5.30:1.05
-Pyramides:284:413:5.32:1.07
-Châtelet:323:380:5.34:1.09
-Gare de Lyon:418:321:5.36:1.11
-Bercy:437:296:5.38:1.13
-Cour Saint-Émilion:439:281:5.40:1.15
-Bibliothèque François Mitterand:424:268:5.42:1.17
-
-Montmartre bas:314:531
-Montmartre haut:313:539
-Montmartre haut:313:539
-Montmartre bas:314:531
+Montmartre bas
+Montmartre haut
+Montmartre haut
+Montmartre bas
 
 Saint Germain en Laye
 Le Vésinet-Le Pecq
@@ -409,12 +405,12 @@ Poissy
 Achères, Grand Cormier
 Maisons-Laffitte
 Nanterre-Préfecture
-Grande Arche de la Défense:78:469
-Charles de Gaulle, Étoile:171:439
-Auber:268:448
-Châtelet Les Halles:337:399
-Gare de Lyon:425:327
-Nation:463:348
+Grande Arche de la Défense
+Charles de Gaulle, Étoile
+Auber
+Châtelet Les Halles
+Gare de Lyon
+Nation
 Vincennes
 Vincennes
 Fontenay sous Bois
@@ -461,16 +457,16 @@ Fontenay aux Roses
 Sceaux
 Bourg-la-Reine
 Bourg-la-Reine
-Gentilly:302:220
-Cité Universitaire:302:235
-Denfert Rochereau:303:275
-Port Royal:310:298
-Luxembourg:315:315
-Saint-Michel, Notre Dame:325:346
-Châtelet Les Halles:335:393
-Gare du Nord:364:509
-La Plaine, Stade de France:374:609
-Aubervilliers, La Courneuve:390:522
+Gentilly
+Cité Universitaire
+Denfert Rochereau
+Port Royal
+Luxembourg
+Saint-Michel, Notre Dame
+Châtelet Les Halles
+Gare du Nord
+La Plaine, Stade de France
+Aubervilliers, La Courneuve
 Le Bourget
 Drancy
 Blanc Mesnil
@@ -495,15 +491,15 @@ Saint-Gratien
 Épinay-sur-Seine
 Gennevillers
 Les Grésillons
-Saint-Ouen:290:683
-Porte de Clichy:238:558
-Péreire:186:501
-Porte Maillot:136:442
-Avenue Foch:127:416
-Avenue Henri Martin:122:398
-Boulainvilliers:140:373
-Kennedy, Radio-France:154:355
-Champ de Mars, Tour Eiffeil:170:363
+Saint-Ouen
+Porte de Clichy
+Péreire
+Porte Maillot
+Avenue Foch
+Avenue Henri Martin
+Boulainvilliers
+Kennedy, Radio-France
+Champ de Mars, Tour Eiffeil
 Argenteuil
 Sannois
 Ermont, Eaubonne
@@ -519,16 +515,16 @@ Chaville-Vélizy
 Meudon-Val-Fleury
 Issy
 Issy-Plaine
-Boulevard Victor:142:277
-Javel:158:326
-Champ de Mars, Tour Eiffel:170:363
-Pont de l'Alma:193:390
-Invalides:237:391
-Musée d'Orsay:271:380
-Saint-Michel, Notre Dame:323:349
-Gare d'Austerlitz:388:317
-Boulevard Masséna:430:267
-Ivry-sur-Seine:454:236
+Boulevard Victor
+Javel
+Champ de Mars, Tour Eiffel
+Pont de l'Alma
+Invalides
+Musée d'Orsay
+Saint-Michel, Notre Dame
+Gare d'Austerlitz
+Boulevard Masséna
+Ivry-sur-Seine
 Vitry-sur-Seine
 Les Ardoines
 Choisy le Roi
@@ -591,12 +587,12 @@ Goussainville
 Villiers-le-Bel, Gonesse, Arnouville
 Garges, Sarcelles
 Pierrefitte, Stains
-Saint-Denis:327:649
-Stade de France:347:613
-Gare du Nord:361:511
-Châtelet-Les Halles:335:396
-Gare de Lyon:422:325
-Maison-Alfort, Alfortville:499:231
+Saint-Denis
+Stade de France
+Gare du Nord
+Châtelet-Les Halles
+Gare de Lyon
+Maison-Alfort, Alfortville
 Le Vert de Maisons
 Villeneuve-Prairie
 Villeneuve-Triage
@@ -635,9 +631,9 @@ Orangis, Bois de l'Épine
 Le Bras-de-Fer
 Corbeil-Essonnes
 
-Haussmann, Saint-Lazare:269:478
-Magenta:378:502
-Pantin:479:586
+Haussmann, Saint-Lazare
+Magenta
+Pantin
 Noisy-le-Sec
 Noisy-le-Sec
 Bondy
@@ -654,7 +650,7 @@ Les Boullereaux, Champigny
 Villiers-sur-Marnes, Le Plessis-Trévise
 
 #### Correspondances à pied, sans changer de billet
-####corr:a: Gare du Nord
+####corr
 La Chapelle
 Gare du Nord
 Poissonnière
@@ -662,7 +658,7 @@ Gare du Nord
 Magenta
 Gare du Nord
 La Chapelle
-####corr:b: Gare Saint Lazare 
+####corr
 Saint-Lazare
 Haussman, Saint-Lazare
 Havre Caumartin
@@ -674,23 +670,23 @@ Haussman, Saint-Lazare
 Saint-Lazare
 Saint-Augustin
 Saint-Lazare
-####corr:c: Gare de l'Est
+####corr
 Gare de l'Est
 Château Landon
 Gare de l'Est
-####corr:d: Châtelet Les Halles
+####corr
 Les Halles
 Châtelet Les Halles
 Châtelet
 Châtelet Les Halles
 Les Halles
-####corr:e: Saint-Michel
+####corr
 Saint-Michel
 Saint-Michel, Notre Dame
 Cluny, La Sorbonne
 Saint-Michel, Notre Dame
 Saint-Michel
-####corr:f: Gare de Lyon
+####corr
 Quai de la Rapée
 Gare de Lyon
 Gare d'Austerlitz
@@ -698,33 +694,33 @@ Gare de Lyon
 Bercy
 Gare de Lyon
 Quai de la Rapée
-####corr:g: Tour Eiffel
+####corr
 Bir-Hakeim
 Champ de Mars, Tour Eiffel
 Bir-Hakeim
-####corr:h: Musée d'Orsay 
+####corr
 Assemblée Nationale
 Musée d'Orsay
 Solférino
 Musée d'Orsay
 Assemblée Nationale
-####corr:i: Pont de l'Alma
+####corr
 Pont de l'Alma
 Alma Marceau
 Pont de l'Alma
-####corr:j: Porte Dauphine 
+####corr
 Porte Dauphine
 Avenue Foch
 Porte Dauphine
-####corr:k: Balard 
+####corr
 Balard
 Boulevard Victor
 Balard
-####corr:l: Rue de la Pompe 
+####corr
 Rue de la Pompe
 Avenue Henri Martin
 Rue de la Pompe
-####corr:m: La Muette
+####corr
 La Muette
 Boulainvilliers
 La Muette
