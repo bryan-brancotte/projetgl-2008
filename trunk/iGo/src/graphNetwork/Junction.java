@@ -69,7 +69,18 @@ public class Junction {
 		this.cost = cost;
 	}
 
+	/**
+	 * Utiliser le {@link GraphNetworkBuilder}
+	 */
+	@Deprecated
 	public void setEnable(boolean enable) {
+	}
+
+	/**
+	 * Setteur de l'état d'un jonction
+	 * @param enable
+	 */
+	public void setToEnable(boolean enable) {
 		this.enable = enable;
 	}
 
