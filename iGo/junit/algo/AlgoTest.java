@@ -233,7 +233,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m6, gnb.addStation(149, "Daumesnil"), 1);
 			gnb.addStationToRoute(m6, gnb.addStation(150, "Bel Air"), 1);
 			gnb.addStationToRoute(m6, gnb.addStation(151, "Picpus"), 1);
-			gnb.addStationToRoute(m6, gnb.getStationTest(22), 1);
+			gnb.addStationToRoute(m6, g.getStation(22), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(22), m6, g.getStation(22), 0, 1, false);
 
 			gnb.addStationToRoute(m7, gnb.addStation(153, "La Courneuve, 8 Mai 1945"), 1);
@@ -291,7 +291,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m8, gnb.addStation(198, "École Militaire"), 1);
 			gnb.addStationToRoute(m8, gnb.addStation(199, "La Tour-Maubourg"), 1);
 			gnb.addStationToRoute(m8, gnb.addStation(200, "Invalides"), 1);
-			gnb.addStationToRoute(m8, gnb.getStationTest(12), 1);
+			gnb.addStationToRoute(m8, g.getStation(12), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(12), m8, g.getStation(12), 0, 1, false);
 			gnb.addStationToRoute(m8, gnb.addStation(202, "Madeleine"), 1);
 			gnb.addStationToRoute(m8, g.getStation(168), 1);
@@ -490,7 +490,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m14, gnb.addStation(360, "Madeleine"), 1);
 			gnb.addStationToRoute(m14, g.getStation(169), 1);
 			gnb.addStationToRoute(m14, g.getStation(16), 1);
-			gnb.addStationToRoute(m14, gnb.getStationTest(20), 1);
+			gnb.addStationToRoute(m14, g.getStation(20), 1);
 			gnb.addStationToRoute(m14, g.getStation(147), 1);
 			gnb.addStationToRoute(m14, gnb.addStation(365, "Cour Saint-Émilion"), 1);
 			gnb.addStationToRoute(m14, gnb.addStation(366, "Bibliothèque François Mitterand"), 1);
