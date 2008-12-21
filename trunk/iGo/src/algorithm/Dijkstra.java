@@ -41,12 +41,14 @@ public class Dijkstra extends Algo {
 		PathInGraph p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 		graph.refreshGraph();
+		//TODO Affichage de test à virer
+		//System.out.println(graph);
 		origin = p.getOrigin();
 		destination = p.getDestination();
 		steps = p.getStepsArray();
 		once = new Vector<Service>();
-		for (int i=0;i<p.getStepsArray().length;i++) { once.add(p.getSevicesOnceArray()[i]); }
-		graph.refreshGraph(origin);
+		for (int i=0;i<p.getStepsArray().length;i++) { once.add(p.getServicesOnceArray()[i]); }
+		graph.refreshGraph();
 		
 		// Création du chemin
 		//TODO penser à enlever une partie des contraintes et pas une par une

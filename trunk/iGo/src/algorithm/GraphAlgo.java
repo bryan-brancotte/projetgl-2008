@@ -18,6 +18,7 @@ public class GraphAlgo {
 	private Service[] always;
 	
 	//TODO fonction temporaire pour test créée par Tony le 30 novembre
+	@Deprecated
 	public void refreshGraph(Station s) {
 		avoidStations = new Station[0];
 		always = new Service[0];
@@ -34,7 +35,7 @@ public class GraphAlgo {
 	 */
 	protected void refreshGraph() {
 		avoidStations = p.getAvoidStationsArray();
-		always = p.getSevicesAlwaysArray();
+		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
@@ -53,9 +54,7 @@ public class GraphAlgo {
 		Iterator<Junction> itInter = station.getJunctions();
 		while(itInter.hasNext()){
 			Junction j = itInter.next();
-			//System.out.print(station+" -> ");
-			//System.out.println(j.getOtherStation(station));
-			// Si la transition est possible
+			//TODO Probleme ici pour éviter les boucles
 			if (validChange(n,j)) {
 				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
 				if (newNode == null) {
@@ -118,6 +117,8 @@ public class GraphAlgo {
 	private boolean validChange (Node node,Junction junction) {
 		Station otherStation = junction.getOtherStation(node.getStation());
 		if (
+				//TODO A vérifier si possibilité d'un vrai graph orienté
+				//(node.getStation().equals(otherStation) && node.getRoute().equals(junction.getOtherRoute(otherStation))) ||
 				otherStation == null ||
 				isStationIn(otherStation,avoidStations) ||
 				!otherStation.isEnable() ||
@@ -170,7 +171,12 @@ public class GraphAlgo {
 		String s = "";
 		for (int i=0;i<graph.size();i++) {
 			s += graph.get(i).getStation().getName()+" - ";
-			s += graph.get(i).getRoute().getId()+"\n";
+			s += graph.get(i).getRoute().getId();
+			for (int j=0;j<graph.get(i).getTo().size();j++) {
+				s += " | "+graph.get(i).getTo().get(j).getNode().getStation().getName()+" - ";
+				s += graph.get(i).getTo().get(j).getNode().getRoute();
+			}
+			s +="\n";
 		}
 		return s;
 	}
