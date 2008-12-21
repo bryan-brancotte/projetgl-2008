@@ -1,10 +1,16 @@
 package iGoMaster;
 
-import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphResultBuilder;
 
 import java.util.Observable;
-import java.util.Observer;
+
+
+/**
+ * Une classe héritant de la classe abstraite Algo se doit de notifier le master
+ * de la terminaison de l'algorithme et de lui spécifier le PathInGraph qui vient
+ * d'être calculé. 
+ * Cf notifyObservers(Object o) avec un objet de type PathInGraph en argument.
+ */
 
 public abstract class Algo extends Observable {
 
@@ -30,27 +36,18 @@ public abstract class Algo extends Observable {
 	}
 
 	/**
-	 * fonction pour demander la résolution d'un nouveau chemin. On spécifie le départ et l'arrivé, on fournit le
-	 * réseau, et le monteur de PathInGraph avec un PathInGraph vide à l'interrieur.
+	 * Fonction pour demander la résolution d'un nouveau chemin. 
+	 * Le pathInGraph calculé sera communiqué au master par l'intermédiaire
+	 * de la méthode notify.
 	 * 
 	 * @param _pathBuilder
-	 * @return
+	 * 
 	 */
-	public abstract PathInGraph findPath(PathInGraphResultBuilder _path);
+	public abstract void findPath(PathInGraphResultBuilder _path);
 
 	/**
 	 */
 	public void setChanged() {
-	}
-
-	/**
-	 */
-	public void addObserver(Observer o) {
-	}
-
-	/**
-	 */
-	public void notifyObserver() {
 	}
 
 	/**
@@ -105,7 +102,7 @@ public abstract class Algo extends Observable {
 		}
 
 		/**
-		 * Surcharge de equals pour s'assuré que la comparaison sera bien faite.
+		 * Surcharge de equals pour s'assurer que la comparaison sera bien faite.
 		 */
 		public boolean equals(CriteriousForLowerPath ev) {
 			return (this.getValue() == ev.getValue());
