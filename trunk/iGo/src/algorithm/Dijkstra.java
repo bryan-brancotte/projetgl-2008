@@ -17,6 +17,7 @@ import algorithm.GraphAlgo.Node;
 
 public class Dijkstra extends Algo {
 
+	private PathInGraph p;
 	private GraphAlgo graph;
 	private Station origin, destination;
 	private Station[] steps;
@@ -38,9 +39,8 @@ public class Dijkstra extends Algo {
 
 	public PathInGraph findPath(PathInGraphResultBuilder prb) {
 
-		PathInGraph p = prb.getCurrentPathInGraph();
+		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
-		graph.refreshGraph();
 		//TODO Affichage de test à virer
 		//System.out.println(graph);
 		origin = p.getOrigin();
@@ -53,7 +53,7 @@ public class Dijkstra extends Algo {
 		// Création du chemin
 		//TODO penser à enlever une partie des contraintes et pas une par une
 		path = new LinkedList<Junction>();
-		while (path.size()==0 && once.size()!=0) {
+		while (path.size()==0) {
 			graph.defaultNodes();
 			if (steps.length==0) path.addAll(algo(origin,destination));
 			else {
@@ -61,10 +61,10 @@ public class Dijkstra extends Algo {
 				for (int i=0;i<steps.length-1;i++) path.addAll(algo(steps[i],steps[i+1]));
 				path.addAll(algo(steps[steps.length-1],destination));
 			}
-			
-			
-			if (path.size() != 0) once.remove(once.size()-1);
-			else return p;
+			if (path.size() == 0){
+				if (once.size()>0) once.remove(once.size()-1);
+				else return null;
+			}
 		}
 		
 		// Création du pathInGraph 
@@ -171,12 +171,12 @@ public class Dijkstra extends Algo {
 		float diffCost = newCost - newN.getCost();
 
 		boolean better = false;
-		switch (criterious1) {
+		switch (p.getMainCriterious()) {
 		case TIME:
 			if (diffTime < 0)
 				better = true;
 			else if (diffTime == 0) {
-				switch (criterious2) {
+				switch (p.getMinorCriterious()) {
 				case CHANGE:
 					if (diffChange < 0 || (diffChange == 0 && diffCost < 0))
 						better = true;
@@ -192,7 +192,7 @@ public class Dijkstra extends Algo {
 			if (diffChange < 0)
 				better = true;
 			else if (diffChange == 0) {
-				switch (criterious2) {
+				switch (p.getMinorCriterious()) {
 				case TIME:
 					if (diffTime < 0 || (diffTime == 0 && diffCost < 0))
 						better = true;
@@ -208,7 +208,7 @@ public class Dijkstra extends Algo {
 			if (diffCost < 0)
 				better = true;
 			else if (diffCost == 0) {
-				switch (criterious2) {
+				switch (p.getMinorCriterious()) {
 				case CHANGE:
 					if (diffChange < 0 || (diffChange == 0 && diffTime < 0))
 						better = true;

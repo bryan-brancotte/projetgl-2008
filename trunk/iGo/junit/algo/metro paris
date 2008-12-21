@@ -1,0 +1,730 @@
+
+Grande Arche de la Défense:77:465:5.30:0.39
+Esplanade de la Défense:91:461:5.31:0.41
+Pont de Neuilly:104:457:5.32:0.42
+Les Sablons:118:453:5.34:0.44
+Porte Maillot:132:448:*5.30:0.45
+Argentine:149:442:5.31:0.47
+Charles de Gaulle, Étoile:170:436:5.32:0.48
+George V:192:428:5.33:0.49
+Franklin D. Roosevelt:214:421:5.35:0.51
+Champs Élysées, Clémenceau:237:414:5.36:0.52
+Concorde:257:407:5.38:0.54
+Tuileries:278:400:5.39:0.55
+Palais Royal, Musée du Louvre:292:395:5.40:0.56
+Louvre, Rivoli:305:392:5.41:0.57
+Châtelet:324:386:5.43:0.59
+Hôtel de Ville:356:375:5.44:1.00
+Saint-Paul, Le Marais:380:367:5.45:1.01
+Bastille:403:360:5.47:1.03
+Gare de Lyon:428:331:5.49:1.05
+Reuilly Diderot:442:339:5.51:1.07
+Nation:464:351:5.53:1.09
+Porte de Vincennes:496:341:5.54:1.10
+Saint-Mandé, Tourelle:511:336:5.56:1.12
+Bérault:532:329:5.57:1.13
+Château de Vincennes:547:324:5.59:1.15
+
+Porte Dauphine:134:422:5.30:0.42
+Victor Hugo:148:418:5.31:0.43
+Charles de Gaulle, Étoile:170:437:5.33:0.45
+Ternes:188:451:5.34:0.46
+Courcelles:202:462:5.35:0.47
+Monceau:216:474:5.36:0.48
+Villiers:232:486:5.37:0.50
+Rome:248:499:5.39:0.51
+Place de Clichy:259:508:5.40:0.52
+Blanche:278:521:5.41:0.54
+Pigalle:303:521:5.42:0.55
+Anvers:324:521:5.44:0.56
+Barbès Rochechouart:350:521:5.45:0.57
+La Chapelle:372:521:5.47:0.59
+Stalingrad:408:516:5.48:1.00
+Jaurès:415:508:5.49:1.02
+Colonel Fabien:416:472:5.51:1.03
+Belleville:428:456:5.52:1.04
+Couronnes:439:442:5.53:1.06
+Ménilmontant:448:431:5.55:1.07
+Père Lachaise:460:416:5.56:1.08
+Philippe-Auguste:471:403:5.58:1.10
+Alexandre Dumas:472:386:5.59:1.11
+Avron:472:372:6.00:1.12
+Nation:466:357:6.03:1.15
+
+Pont de Levallois, Bécon:125:521:5.30:0.44
+Anatole France:138:517:5.31:0.45
+Louise Michel:154:512:5.32:0.46
+Porte de Champerret:172:506:5.33:0.48
+Péreire:187:501:5.34:0.49
+Wagram:200:497:5.35:0.50
+Malesherbes:213:493:5.36:0.51
+Villiers:231:487:5.38:0.53
+Europe:242:483:5.39:0.54
+Saint-Lazare:258:477:5.41:0.55
+Havre Caumartin:268:465:5.42:0.57
+Opéra:284:444:5.43:0.58
+Quatre Septembre:300:439:5.44:0.59
+Bourse:314:434:5.46:1.00
+Sentier:327:430:5.47:1.01
+Réaumur Sébastopol:351:422:5.48:1.03
+Arts et Métiers:373:417:5.49:1.04
+Temple:384:427:5.50:1.05
+République:397:433:5.51:1.06
+Parmentier:421:427:5.53:1.07
+Rue Saint-Maur:437:422:5.54:1.08
+Père Lachaise:460:416:5.55:1.10
+Gambetta:484:429:5.57:1.12
+Porte de Bagnolet:499:430:5.59:1.13
+Galliéni:527:429:6.01:1.15
+
+3bis:a:Gambetta:484:429:5.32:1.11
+3bis:a:Pelleport:489:448:5.33:1.12
+3bis:a:Saint-Fargeau:494:460:5.34:1.13
+3bis:a:Porte des Lilas:498:474:5.36:1.15
+
+Porte de Clignancourt:350:583:5.29:0.44
+Simplon:350:568:5.30:0.45
+Marcadet Poissonniers:350:554:5.31:0.46
+Château Rouge:350:532:5.32:0.47
+Barbès Rochechouart:350:521:5.33:0.48
+Gare du Nord:364:510:*5.33:0.50
+Gare de l'Est:367:484:5.34:0.51
+Château d'Eau:364:462:5.36:0.53
+Strasbourg Saint-Denis:359:447:5.37:0.54
+Réaumur Sébastopol:351:422:5.38:0.55
+Étienne Marcel:347:412:5.39:0.56
+Les Halles:337:404:5.41:0.57
+Châtelet:324:382:5.42:0.59
+Cité:317:366:5.43:1.00
+Saint-Michel:312:349:5.44:1.01
+Odéon:300:348:5.45:1.02
+Saint-Germain-des-Prés:284:352:5.47:1.04
+Saint-Sulpice:275:336:5.48:1.05
+Saint-Placide:272:324:5.49:1.06
+Montparnasse Bienvenue:267:306:5.50:1.07
+Vavin:282:300:5.52:1.08
+Raspail:292:289:5.53:1.10
+Denfert Rochereau:300:277:5.54:1.11
+Mouton-Duvernet:295:259:5.55:1.12
+Alésia:290:244:5.56:1.13
+Porte d'Orléans:285:232:5.59:1.15
+
+Bobigny, Pablo Picasso:522:593:5.30:0.39
+Bobigny-Pantin, Raymond Queneau:498:574:5.33:0.42
+Église de Pantin:484:563:*5.31:0.44
+Hoche:468:550:5.32:0.45
+Porte de Pantin:454:538:5.34:0.47
+Ourcq:442:529:5.35:0.49
+Laumière:430:519:5.37:0.50
+Jaurès:416:509:5.38:0.51
+Stalingrad:409:518:5.39:0.52
+Gare du Nord:369:507:5.42:0.55
+Gare de l'Est:368:484:5.44:0.57
+Jacques Bonsergent:386:448:5.46:0.59
+République:398:434:5.47:1.01
+Oberkampf:417:409:5.49:1.02
+Richard Lenoir:412:390:5.51:1.04
+Bréguet-Sabin:408:376:5.52:1.05
+Bastille:403:361:5.53:1.06
+Quai de la Rapée:393:328:5.55:1.08
+Gare d'Austerlitz:389:317:5.57:1.10
+Saint-Marcel:381:295:5.59:1.12
+Campo-Formio:376:278:6.00:1.13
+Place d'Italie:368:255:6.02:1.15
+
+Charles de Gaulle, Étoile:170:435:5.30:0.41
+Kléber:166:422:5.31:0.41
+Boissière:160:406:5.32:0.44
+Trocadéro:157:397:5.33:0.45
+Passy:157:373:5.34:0.46
+Bir-Hakeim:172:353:5.35:0.47
+Dupleix:180:344:5.37:0.48
+La Motte Picquet, Grenelle:204:332:5.38:0.49
+Cambronne:217:328:5.39:0.50
+Sèvres Lecourbe:232:321:5.40:0.52
+Pasteur:243:307:5.41:0.53
+Montparnasse Bienvenue:263:300:5.42:0.54
+Edgar Quinet:276:295:5.44:0.56
+Raspail:291:288:5.45:0.57
+Denfert Rochereau:302:276:5.46:0.58
+Saint-Jacques:321:269:5.47:0.59
+Glacière:337:265:5.49:1.00
+Corvisart:355:259:5.50:1.02
+Place d'Italie:368:254:5.51:1.03
+Nationale:389:258:5.53:1.05
+Chevaleret:404:269:5.54:1.06
+Quai de la Gare:420:282:5.55:1.07
+Bercy:437:296:5.56:1.08
+Dugommier:448:304:5.58:1.10
+Daumesnil:461:316:5.59:1.11
+Bel Air:471:324:6.00:1.12
+Picpus:473:336:6.01:1.13
+Nation:463:349:6.04:1.15
+
+La Courneuve, 8 Mai 1945:441:619:5.29:0.28
+Fort d'Aubervilliers:438:608:5.30:0.29
+Aubervilliers-Pantin, Quatre Chemins:433:595:5.32:0.31
+Porte de la Villette:429:579:5.34:0.33
+Corentin-Cariou:422:562:5.36:0.35
+Crimée:419:550:5.37:0.36
+Riquet:414:534:5.38:0.37
+Stalingrad:408:517:5.39:0.38
+Louis Blanc:402:497:5.40:0.40
+Château Landon:384:484:5.42:0.41
+Gare de l'Est:367:484:5.43:0.42
+Poissonnière:347:484:5.45:0.44
+Cadet:322:484:5.46:0.45
+Le Peletier:301:484:5.47:0.47
+Chaussée d'Antin, La Fayette:284:472:5.48:0.48
+Opéra:284:444:5.50:0.50
+Pyramides:284:413:5.52:0.51
+Palais Royal, Musée du Louvre:293:396:5.53:0.52
+Pont-Neuf:308:382:5.54:0.54
+Châtelet:322:378:5.56:0.55
+Pont-Marie:349:369:5.57:0.57
+Sully Morland:374:354:5.59:0.58
+Jussieu:367:324:6.00:1.00
+Place Monge:360:303:6.01:1.01
+Censier Daubenton:356:288:6.03:1.02
+Les Gobelins:353:272:6.04:1.03
+Place d'Italie:368:254:6.05:1.05
+Tolbiac:376:242:6.06:1.06
+Maison Blanche:386:232:6.08:1.07
+Porte d'Italie:394:223:6.09:1.08
+Porte de Choisy:405:232:6.10:1.10
+Porte d'Ivry:419:243:6.12:1.11
+Pierre Curie:430:234:6.13:1.12
+Mairie d'Ivry:439:223:6.16:1.15
+Maison Blanche:386:232:6.02:1.05
+le Kremlin-Bicêtre:385:217:6.04:1.07
+Villejuif, Léo Lagrange:385:206:6.06:1.09
+Villejuif, P. Vaillant Couturier:385:195:6.08:1.11
+Villejuif, Louis Aragon:385:184:6.11:1.13
+
+Place Balard:162:271:5.30:0.23
+Lourmel:173:279:5.31:0.24
+Boucicaut:185:289:5.32:0.25
+Félix Faure:192:300:5.33:0.26
+Commerce:196:311:5.34:0.28
+La Motte Picquet, Grenelle:203:333:5.35:0.29
+École Militaire:209:350:5.37:0.31
+La Tour-Maubourg:220:373:5.38:0.32
+Invalides:237:387:5.39:0.33
+Concorde:256:407:5.41:0.35
+Madeleine:257:423:5.43:0.36
+Opéra:284:444:5.44:0.38
+Richelieu Drouot:307:462:5.45:0.39
+Rue Montmartre, Grands Boulevards:324:457:5.47:0.40
+Bonne Nouvelle:339:452:5.48:0.41
+Strasbourg Saint-Denis:359:445:5.49:0.43
+République:395:432:*5.36:0.44
+Filles du Calvaire:397:413:5.37:0.46
+Saint-Sébastien-Froissart:397:394:5.38:0.47
+Chemin Vert:397:383:5.39:0.48
+Bastille:403:362:5.40:0.49
+Ledru Rollin:415:359:5.41:0.50
+Faidherbe-Chaligny:432:352:5.43:0.52
+Reuilly Diderot:442:339:5.44:0.53
+Montgallet:452:328:5.45:0.54
+Daumesnil:461:316:5.46:0.56
+Michel Bizot:468:308:5.48:0.57
+Porte Dorée:478:291:5.49:0.58
+Porte de Charenton:470:285:5.51:1.00
+Liberté:475:274:5.53:1.02
+Charenton-Écoles:483:264:5.54:1.03
+École Vétérinaire de Maisons-Alfort:495:250:5.56:1.05
+Maisons-Alfort, Stade:503:240:5.58:1.07
+Maisons-Alfort les Juilliottes:509:232:6.00:1.09
+Créteil-l'Echat, Hôpital Henri Mondor:516:224:6.02:1.11
+Créteil-Université:522:216:6.03:1.12
+Créteil-Préfecture:529:207:6.06:1.15
+
+Pont de Sèvres:66:262:5.30:0.25
+Billancourt:77:270:5.31:0.27
+Marcel Sembat:90:280:5.32:0.28
+Porte de Saint-Cloud:101:290:*5.30:0.30
+Exelmans:112:301:5.31:0.32
+Michel Ange Molitor:119:324:5.32:0.33
+Michel Ange Auteuil:123:334:5.33:0.34
+Jasmin:129:352:5.34:0.35
+Ranelagh:133:366:5.35:0.36
+La Muette:139:384:5.36:0.37
+Rue de la Pompe:144:397:5.38:0.39
+Trocadéro:157:397:5.40:0.41
+Iéna:175:397:5.41:0.42
+Alma Marceau:193:404:5.42:0.43
+Franklin D. Roosevelt:214:421:5.44:0.45
+Saint-Philippe du Roule:225:430:5.45:0.46
+Miromesnil:237:440:5.46:0.47
+Saint-Augustin:254:452:5.48:0.49
+Havre Caumartin:268:465:5.49:0.50
+Chaussée d'Antin, La Fayette:284:472:5.50:0.51
+Richelieu Drouot:307:464:5.51:0.52
+Rue Montmartre, Grands Boulevards:325:459:5.52:0.53
+Bonne Nouvelle:340:454:5.53:0.54
+Strasbourg Saint-Denis:359:447:5.55:0.56
+République:399:435:*5.44:0.57
+Oberkampf:419:411:5.45:0.59
+Saint-Ambroise:428:401:5.46:1.00
+Voltaire:435:393:5.47:1.01
+Charonne:442:383:5.48:1.03
+Rue des Boulets:449:373:5.50:1.04
+Nation:466:357:5.51:1.05
+Buzenval:477:365:5.53:1.07
+Maraîchers:490:375:5.54:1.08
+Porte de Montreuil:498:382:*5.45:1.09
+Robespierre:509:390:5.46:1.11
+Croix de Chavaux:523:402:5.48:1.13
+Mairie de Montreuil:537:412:5.51:1.15
+
+Porte d'Auteuil:105:336:5.30:
+Michel Ange Molitor:119:324:5.31:0.51
+Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danude:67:307:5.35:0.47
+Boulogne, Jean Jaurès:79:316:5.36:0.49
+Michel Ange Molitor:119:324:*5.31:0.51
+Chardon Lagâche:134:318:5.32:0.52
+Mirabeau:141:321:5.33:0.54
+Javel:158:326:5.35:0.55
+Charles Michels:178:326:5.36:0.56
+Avenue Émile Zola:194:326:5.37:0.58
+La Motte Picquet, Grenelle:205:332:5.39:0.59
+Ségur:217:336:5.40:1.01
+Duroc:238:336:5.42:1.02
+Vaneau:248:343:5.43:1.04
+Sèvres Babylone:260:347:5.45:1.05
+Mabillon:288:347:5.46:1.06
+Odéon:300:347:5.47:1.08
+Cluny, La Sorbonne:319:340:5.49:1.09
+Maubert Mutualité:335:334:5.50:1.10
+Cardinal Lemoine:350:329:5.51:1.11
+Jussieu:367:324:5.52:1.12
+Gare d'Austerlitz:389:317:5.55:1.15
+
+Mairie des Lilas:518:474:5.30:1.00
+Porte des Lilas:498:474:5.31:1.01
+Télégraphe:476:480:5.32:1.03
+Place des Fêtes:467:481:*5.31:1.04
+Jourdain:449:474:5.31:1.05
+Pyrénées:439:466:5.32:1.06
+Belleville:428:456:5.34:1.07
+Goncourt:413:445:5.35:1.08
+République:398:433:5.36:1.09
+Arts et Métiers:374:414:5.38:1.11
+Rambuteau:365:402:5.39:1.12
+Hôtel de Ville:356:375:5.40:1.13
+Châtelet:324:383:5.42:1.15
+
+Porte de la Chapelle:384:582:5.30:0.39
+Marx Dormoy:376:557:5.31:0.40
+Marcadet Poissonniers:350:554:5.32:0.42
+Jules Joffrin:331:554:5.34:0.43
+Lamarck Caulaincourt:314:553:5.35:0.45
+Abbesses:308:536:5.36:0.46
+Pigalle:303:521:5.37:0.47
+Saint-Georges:300:511:5.39:0.48
+Notre Dame de Lorette:289:502:5.40:0.50
+Trinité d'Estienne d'Orves:280:495:5.41:0.51
+Saint-Lazare:259:478:5.42:0.52
+Madeleine:258:422:5.44:0.54
+Concorde:258:406:5.45:0.55
+Assemblée Nationale:258:382:5.47:0.57
+Solférino:258:371:5.48:0.58
+Rue du Bac:258:358:5.49:0.59
+Sèvres Babylone:260:347:5.50:1.00
+Rennes:271:333:5.51:*20.00
+Notre-Dame-des-Champs:278:320:5.52:*1.02
+Montparnasse Bienvenue:266:307:5.54:1.03
+Falguière:253:312:5.55:1.04
+Pasteur:243:307:5.56:1.06
+Volontaires:231:297:5.57:1.07
+Vaugirard:217:285:5.59:1.08
+Convention:202:273:6.00:1.09
+Porte de Versailles:197:258:6.02:1.11
+Corentin Celton:192:242:6.03:1.12
+Mairie d'Issy:187:226:6.06:1.15
+
+Gabriel Péri, Asnières-Gennevilliers:198:607:5.30:0.38
+Mairie de Clichy:215:585:5.32:0.41
+Porte de Clichy:238:558:5.34:0.43
+Brochant:249:544:5.36:0.44
+La Fourche:259:533:5.37:0.46
+Saint-Denis-Université:365:664:5.28:0.34
+Basilique de Saint-Denis:343:646:5.29:0.35
+Saint-Denis-Porte de Paris:332:637:5.31:0.37
+Carrefour Pleyel:314:622:5.33:0.40
+Mairie de Saint-Ouen:294:606:5.35:0.41
+Garibaldi:281:596:5.37:0.43
+Porte de Saint-Ouen:275:583:5.39:0.45
+Guy Môquet:267:560:5.40:0.46
+La Fourche:259:533:5.42:0.48
+Place de Clichy:259:508:5.43:0.49
+Liège:258:497:5.45:*20.00
+Saint-Lazare:258:478:5.46:*0.52
+Miromesnil:237:440:5.49:0.54
+Champs Élysées, Clémenceau:237:413:5.51:0.56
+Invalides:237:389:5.53:0.58
+Varenne:237:368:5.54:1.00
+Saint-Francois Xavier:237:359:5.55:1.01
+Duroc:238:336:5.56:1.02
+Montparnasse Bienvenue:263:300:5.58:1.04
+Gaité:259:282:6.00:1.05
+Pernety:254:269:6.01:1.07
+Plaisance:249:255:6.02:1.08
+Porte de Vanves:245:242:6.04:1.10
+Malakoff-Plateau de Vanves:239:225:6.06:1.11
+Malakoff-Rue Étienne Dolet:236:212:6.07:1.13
+Châtillon-Montrouge:229:193:6.10:1.15
+
+Madeleine:258:422:5.30:1.05
+Pyramides:284:413:5.32:1.07
+Châtelet:323:380:5.34:1.09
+Gare de Lyon:418:321:5.36:1.11
+Bercy:437:296:5.38:1.13
+Cour Saint-Émilion:439:281:5.40:1.15
+Bibliothèque François Mitterand:424:268:5.42:1.17
+
+Montmartre bas:314:531
+Montmartre haut:313:539
+Montmartre haut:313:539
+Montmartre bas:314:531
+
+Saint Germain en Laye
+Le Vésinet-Le Pecq
+Le Vésinet Centre
+Chatou-Croissy
+Rueil-Malmaison
+Nanterre-Ville
+Nanterre-Université
+Nanterre-Préfecture
+Cergy-Le Haut
+Cergy-Saint-Christophe
+Neuville-Université
+Conflans-Fin d'Oise
+Achères-Ville
+Maisons-Laffitte
+Sartrouville
+Houilles, Carrières-sur-Seine
+Nanterre-Préfecture
+Poissy
+Achères, Grand Cormier
+Maisons-Laffitte
+Nanterre-Préfecture
+Grande Arche de la Défense:78:469
+Charles de Gaulle, Étoile:171:439
+Auber:268:448
+Châtelet Les Halles:337:399
+Gare de Lyon:425:327
+Nation:463:348
+Vincennes
+Vincennes
+Fontenay sous Bois
+Nogent sur Marne
+Joinville le Pont
+Saint Maur-Créteil
+Le Parc-Saint Maur
+Champigny
+La Varenne-Chennevières
+Sucy-Bonneuil
+Boissy-Saint-Léger
+Vincennes
+Val de Fontenay
+Neuilly-Plaisance
+Bry-sur-Marne
+Noisy le Grand, Mont d'Est
+Noisy-Champs, Noisy 3
+Noisiel
+Lognes
+Torcy
+Bussy Saint-Georges
+Marnes-la-Vallée, Chessy, Parc Disneyland
+
+Saint-Rémy-Lès-Chevreuse
+Courcelle-sur-Yvette
+Gif-sur-Yvette
+La Hacquinière
+Bures-sur-Yvette
+Orsay
+Le Guichet
+Lozère, École Polytechnique
+Palaiseau-Villebon
+Palaiseau
+Massy-Palaiseau
+Massy-Verrières
+Les Bâconnets
+Fontaine Michalon
+Antony
+Croix de Berny
+Parc de Sceaux
+Bourg-la-Reine
+Robinson
+Fontenay aux Roses
+Sceaux
+Bourg-la-Reine
+Bourg-la-Reine
+Gentilly:302:220
+Cité Universitaire:302:235
+Denfert Rochereau:303:275
+Port Royal:310:298
+Luxembourg:315:315
+Saint-Michel, Notre Dame:325:346
+Châtelet Les Halles:335:393
+Gare du Nord:364:509
+La Plaine, Stade de France:374:609
+Aubervilliers, La Courneuve:390:522
+Le Bourget
+Drancy
+Blanc Mesnil
+Aulnay-sous-Bois
+Aulnay-sous-Bois
+Sevran Beaudottes
+Villepinte
+Parc des Expositions
+Aéroport Charles de Gaulle 1
+Aéroport Charles de Gaulle 2 - TGV
+Aulnay-sous-Bois
+Sevran-Livry
+Vert-Galant
+Villeparisis
+Mitry-Claye
+
+Montigny, Beauchamp
+Franconville, Le Plessis-Bouchard
+Cernay
+Ermont, Eaubonne
+Saint-Gratien
+Épinay-sur-Seine
+Gennevillers
+Les Grésillons
+Saint-Ouen:290:683
+Porte de Clichy:238:558
+Péreire:186:501
+Porte Maillot:136:442
+Avenue Foch:127:416
+Avenue Henri Martin:122:398
+Boulainvilliers:140:373
+Kennedy, Radio-France:154:355
+Champ de Mars, Tour Eiffeil:170:363
+Argenteuil
+Sannois
+Ermont, Eaubonne
+Saint-Quentin-en-Yvelynes
+Saint-Cyr
+Versailles-Chantiers
+Viroflay-Rive Gauche
+Versailles-Rive Gauche
+Porchefontaine
+Viroflay-Rive Gauche
+Viroflay-Rive Gauche
+Chaville-Vélizy
+Meudon-Val-Fleury
+Issy
+Issy-Plaine
+Boulevard Victor:142:277
+Javel:158:326
+Champ de Mars, Tour Eiffel:170:363
+Pont de l'Alma:193:390
+Invalides:237:391
+Musée d'Orsay:271:380
+Saint-Michel, Notre Dame:323:349
+Gare d'Austerlitz:388:317
+Boulevard Masséna:430:267
+Ivry-sur-Seine:454:236
+Vitry-sur-Seine
+Les Ardoines
+Choisy le Roi
+Choisy le Roi
+Les Saules
+Orly-Ville
+Pont de Rungis, Aéroport d'Orly
+Rungis-La Fraternelle
+Chemin d'Antony
+Massy-Verrières
+Massy-Palaiseau
+Choisy le Roi
+Villeneuve-le-Roi
+Ablon
+Athis-Mons
+Juvisy-sur-Orge
+Savigny-sur-Orge
+Épinay-sur-Orge
+Sainte-Geneviève-des-Bois
+Saint-Michel-sur-Orge
+Brétigny-sur-Orge
+La Norville, Saint-Germain-lès-Arpajon
+Arpajon
+Égly
+Breuillet, Bruyères-le-Châtel
+Breuillet-Village
+Saint-Chéron
+Sermaise
+Dourdan
+Dourdan-la-Forêt
+Brétigny-sur-Orge
+Marolles-en-Hurepoix
+Bouray
+Lardy
+Chamarande
+Étréchy
+Étampes
+Saint-Martin d'Étampes
+Athis-Mons
+Juvisy-sur-Orge
+Savigny-sur-Orge
+Petit-Vaux
+Gravigny-Balizy
+Chilly-Mazarin
+Longjumeau
+Massy-Palaiseau
+Igny
+Bièvres
+Vauboyen
+Jouy-en-Josas
+Petit Jouy, Les Loges
+Versaille-Chantiers
+
+Orry-la-Ville, Coye
+La Borne Blanche
+Survilliers, Fosses
+Louvres
+Les Noues
+Goussainville
+Villiers-le-Bel, Gonesse, Arnouville
+Garges, Sarcelles
+Pierrefitte, Stains
+Saint-Denis:327:649
+Stade de France:347:613
+Gare du Nord:361:511
+Châtelet-Les Halles:335:396
+Gare de Lyon:422:325
+Maison-Alfort, Alfortville:499:231
+Le Vert de Maisons
+Villeneuve-Prairie
+Villeneuve-Triage
+Villeneuve-Saint-Georges
+Villeneuve-Saint-Georges
+Montgeron-Crosne
+Yerres
+Brunoy
+Boussy-Saint-Antoine
+Combs-la-Ville, Quincy
+Lieusaint-Moissy
+Savigny-le-Temple, Nandy
+Cesson
+Le Mée-sur-Seine
+Melun
+Villeneuve-Saint-Georges
+Juvisy-sur-Orge
+Viry-Châtillon
+Ris-Orangis
+Grand-Bourg
+Évry
+Corbeil-Essonnes
+Moulin-Galant
+Mennecy
+Ballancourt
+La Ferté-Alais
+Boutigny
+Maisse
+Buno-Gironville
+Boigneville
+Malesherbes
+Viry-Châtillon
+Grigny-Centre
+Orangis, Bois de l'Épine
+Évry-Courcouronnes
+Le Bras-de-Fer
+Corbeil-Essonnes
+
+Haussmann, Saint-Lazare:269:478
+Magenta:378:502
+Pantin:479:586
+Noisy-le-Sec
+Noisy-le-Sec
+Bondy
+Le Raincy-Villemomble-Montfermeil
+Gagny
+Le Chénay-Gagny
+Chelles, Gournay
+Noisy-le-Sec
+Rosny-Bois-Perrier
+Rosny-sous-Bois
+Val de Fontenay
+Nogent-Le Perreux
+Les Boullereaux, Champigny
+Villiers-sur-Marnes, Le Plessis-Trévise
+
+#### Correspondances à pied, sans changer de billet
+####corr:a: Gare du Nord
+La Chapelle
+Gare du Nord
+Poissonnière
+Gare du Nord
+Magenta
+Gare du Nord
+La Chapelle
+####corr:b: Gare Saint Lazare 
+Saint-Lazare
+Haussman, Saint-Lazare
+Havre Caumartin
+Auber
+Opéra
+Auber
+Havre Caumartin
+Haussman, Saint-Lazare
+Saint-Lazare
+Saint-Augustin
+Saint-Lazare
+####corr:c: Gare de l'Est
+Gare de l'Est
+Château Landon
+Gare de l'Est
+####corr:d: Châtelet Les Halles
+Les Halles
+Châtelet Les Halles
+Châtelet
+Châtelet Les Halles
+Les Halles
+####corr:e: Saint-Michel
+Saint-Michel
+Saint-Michel, Notre Dame
+Cluny, La Sorbonne
+Saint-Michel, Notre Dame
+Saint-Michel
+####corr:f: Gare de Lyon
+Quai de la Rapée
+Gare de Lyon
+Gare d'Austerlitz
+Gare de Lyon
+Bercy
+Gare de Lyon
+Quai de la Rapée
+####corr:g: Tour Eiffel
+Bir-Hakeim
+Champ de Mars, Tour Eiffel
+Bir-Hakeim
+####corr:h: Musée d'Orsay 
+Assemblée Nationale
+Musée d'Orsay
+Solférino
+Musée d'Orsay
+Assemblée Nationale
+####corr:i: Pont de l'Alma
+Pont de l'Alma
+Alma Marceau
+Pont de l'Alma
+####corr:j: Porte Dauphine 
+Porte Dauphine
+Avenue Foch
+Porte Dauphine
+####corr:k: Balard 
+Balard
+Boulevard Victor
+Balard
+####corr:l: Rue de la Pompe 
+Rue de la Pompe
+Avenue Henri Martin
+Rue de la Pompe
+####corr:m: La Muette
+La Muette
+Boulainvilliers
+La Muette
