@@ -687,8 +687,7 @@ public class NewSettingsPanel extends PanelState {
 				+ intermediatesStationsCollapsableArea.getArea().height + decalage2;
 		// imageOk;imageDel;
 
-		// TODO ........mk AutoComplet°........................
-		// TODO ........taf.........................
+		// TODO old auto completion
 
 		/***************************************************************************************************************
 		 * Languages
@@ -719,7 +718,6 @@ public class NewSettingsPanel extends PanelState {
 				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		deroullement = scrollBar.getDeroullement();
-		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
 
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
