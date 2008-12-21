@@ -2,7 +2,7 @@ package ihm.smartPhone;
 
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.KindRoute;
-import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.exception.ImpossibleValueException;
@@ -105,7 +105,12 @@ public class MainDemoIHM {
 			}
 
 			@Override
-			public boolean askForATravel(PathInGraphBuilder pathInGraphBuidable) {
+			public Iterator<String> getLanguages() {
+				return lang.getLanguages().iterator();
+			}
+
+			@Override
+			public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) {
 				(new ExecMultiThread<IHM>(ihm) {
 					@Override
 					public void run() {
@@ -122,8 +127,9 @@ public class MainDemoIHM {
 			}
 
 			@Override
-			public Iterator<String> getLanguages() {
-				return lang.getLanguages().iterator();
+			public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 			// }, iGoSmartPhoneSkin.PURPLE_LIGHT);
@@ -175,7 +181,7 @@ public class MainDemoIHM {
 			gnb.addRoute("2", "Trolley");
 			gnb.addRoute("3", "Subway");
 			gnb.addRoute("4", "Foot");
-			gnb.addService(1, "Wheel chair accessible");
+			gnb.addService(1, "Wheelchair accessible");
 			gnb.addService(2, "Coffee");
 			gnb.addService(3, "Flower");
 			gnb.addService(4, "Parking");

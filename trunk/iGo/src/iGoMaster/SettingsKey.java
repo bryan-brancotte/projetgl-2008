@@ -10,9 +10,13 @@ public enum SettingsKey {
 	 */
 	TRAVEL_MODE_(),
 	/**
-	 * Clef à laquel sera concaténé le moyen de transport
+	 * Clef représentant le premier crtière de calcule
 	 */
-	TRAVEL_CRITERIA(),
+	MAIN_TRAVEL_CRITERIA(),
+	/**
+	 * Clef représentant le second crtière de calcule
+	 */
+	MINOR_TRAVEL_CRITERIA(),
 	/**
 	 * Clef à laquel sera concaténé le moyen de transport
 	 */

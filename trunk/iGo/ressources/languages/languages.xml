@@ -147,6 +147,14 @@
 				<FRANCAIS value="Critère de calcul"/>
 				<ENGLISH value="Travel criteria"/>
 			</TravelCriteria>
+			<FirstTravelCriteria>
+				<FRANCAIS value="1er"/>
+				<ENGLISH value="1st"/>
+			</FirstTravelCriteria>
+			<SecondTravelCriteria>
+				<FRANCAIS value="2nd"/>
+				<ENGLISH value="2nd"/>
+			</SecondTravelCriteria>
 			<Cheaper>
 				<FRANCAIS value="Coût"/>
 				<ENGLISH value="Cheaper"/>
