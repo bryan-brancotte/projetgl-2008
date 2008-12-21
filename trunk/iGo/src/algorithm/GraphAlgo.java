@@ -104,14 +104,14 @@ public class GraphAlgo {
 	 * @return true si la junction est valide
 	 */
 	private boolean validChange (Node node,Junction junction) {
-		Station otherStation = junction.getOtherStation(node.getStation());
+		Station station = node.getStation();
+		Station otherStation = junction.getOtherStation(station);
 		if (
 				//TODO en attente de mise a jour réelle
-				//(!otherStation.equals(node.getStation()) && !node.getRoute().equals(junction.getOtherRoute(node.getStation()))) ||
 				otherStation == null ||
 				isStationIn(otherStation,avoidStations) ||
 				!otherStation.isEnable() ||
-				(otherStation.getId()==node.getStation().getId() && !allServicesIn(node.getStation()))
+				(!junction.isRouteLink() && (!allServicesIn(station) || !allServicesIn(otherStation)))
 			) return false;
 		else return true;
 	}
