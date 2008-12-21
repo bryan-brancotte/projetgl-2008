@@ -1,9 +1,11 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import iGoMaster.Algo;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.SettingsKey;
 import iGoMaster.SettingsValue;
@@ -24,6 +26,7 @@ import ihm.smartPhone.tools.PTScrollBar;
 import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.PanelTooled;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,16 +36,13 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
-import org.w3c.dom.Document;
-
 public class NewTravelPanel extends PanelState {
 
 	protected HashMap<String, Station> sationsHash;
 
 	private static final long serialVersionUID = 1L;
 
-	@Deprecated
-	protected Document settings = null;
+	protected PathInGraphConstraintBuilder pathBuilder;
 
 	protected String[] stations;
 	protected int deroullement;
@@ -63,28 +63,28 @@ public class NewTravelPanel extends PanelState {
 	protected LinkedList<PairPTRadioBoxs> ServicesRadioBoxs;
 	protected PTCollapsableArea servicesCollapsableArea;
 
-	protected final int quality = 4;
-	protected PTRadioBox[] qualityRadioBoxs;
-	protected PTCollapsableArea qualityCollapsableArea;
+	// protected final int quality = 4;
+	// protected PTRadioBox[] qualityRadioBoxs;
+	// protected PTCollapsableArea qualityCollapsableArea;
 
-//	protected final int intermediatesStations = 5;
-//	protected PTArea intermediatesStationsNew;
-//	protected PTAutoCompletionTextBox intermediatesStationsTextBox;
-//	protected PTCollapsableArea intermediatesStationsCollapsableArea;
-//	protected PTButton intermediatesStationsButton;
+	// protected final int intermediatesStations = 5;
+	// protected PTArea intermediatesStationsNew;
+	// protected PTAutoCompletionTextBox intermediatesStationsTextBox;
+	// protected PTCollapsableArea intermediatesStationsCollapsableArea;
+	// protected PTButton intermediatesStationsButton;
 
 	protected final int departureStation = 6;
 	protected PTArea departureStationNew;
 	protected PTAutoCompletionTextBox departureStationTextBox;
 	protected PTCollapsableArea departureStationCollapsableArea;
-//	protected PTButton departureStationButton;
+	// protected PTButton departureStationButton;
 
 	protected final int arrivalStation = 8;
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
 	protected PTCollapsableArea arrivalStationCollapsableArea;
-//	protected PTButton arrivalStationButton;
-	
+	// protected PTButton arrivalStationButton;
+
 	protected PTScrollBar scrollBar;
 
 	public NewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
@@ -132,17 +132,17 @@ public class NewTravelPanel extends PanelState {
 		travelCriteriaRadioBoxs[4] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[1] }, ex);// Faster
 		travelCriteriaRadioBoxs[5] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[2] }, ex);// Fewer Changes
 		travelCriteriaRadioBoxs[0].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				"0") == 0);
+				Algo.CriteriousForLowerPath.COST.toString()) == 0);
 		travelCriteriaRadioBoxs[1].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				"1") == 0);
+				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
 		travelCriteriaRadioBoxs[2].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				"2") == 0);
+				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
 		travelCriteriaRadioBoxs[3].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				"0") == 0);
+				Algo.CriteriousForLowerPath.COST.toString()) == 0);
 		travelCriteriaRadioBoxs[4].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				"1") == 0);
+				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
 		travelCriteriaRadioBoxs[5].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				"2") == 0);
+				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[0]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[1]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[2]);
@@ -204,73 +204,70 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Quality
 		 */
-		qualityCollapsableArea = makeCollapsableArea();
-		qualityCollapsableArea.changeCollapseState();
-		grp = new PTRadioBoxGroup(4);
-		ex = new CodeExecutor1P<PanelTooled>(this) {
-			@Override
-			public void execute() {
-				recordChangedSetting(quality, "GRAPHICAL_QUALITY");
-				// this.origine.;
-			}
-		};
-		qualityRadioBoxs = new PTRadioBox[4];
-		qualityRadioBoxs[0] = makeRadioButton(grp, ex);// AS_FAST_AS_WE_CAN
-		qualityRadioBoxs[1] = makeRadioButton(grp, ex);// TEXT_ANTI_ANTIALIASING
-		qualityRadioBoxs[2] = makeRadioButton(grp, ex);// FULL_ANTI_ANTIALIASING
-		qualityRadioBoxs[3] = makeRadioButton(grp, ex);// HIGHER_QUALITY
-		int i = IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue();
-		try {
-			i = Integer.parseInt(father.getConfig("GRAPHICAL_QUALITY"));
-		} catch (NumberFormatException e) {
-			father.setConfig("GRAPHICAL_QUALITY", i + "");
-			this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
-		}
-		qualityRadioBoxs[0].setClicked(IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() == i);
-		qualityRadioBoxs[1].setClicked(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() == i);
-		qualityRadioBoxs[2].setClicked(IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() == i);
-		qualityRadioBoxs[3].setClicked(IHMGraphicQuality.HIGHER_QUALITY.getValue() == i);
-		qualityCollapsableArea.addComponent(qualityRadioBoxs[0]);
-		qualityCollapsableArea.addComponent(qualityRadioBoxs[1]);
-		qualityCollapsableArea.addComponent(qualityRadioBoxs[2]);
-		qualityCollapsableArea.addComponent(qualityRadioBoxs[3]);
-
+		// qualityCollapsableArea = makeCollapsableArea();
+		// qualityCollapsableArea.changeCollapseState();
+		// grp = new PTRadioBoxGroup(4);
+		// ex = new CodeExecutor1P<PanelTooled>(this) {
+		// @Override
+		// public void execute() {
+		// recordChangedSetting(quality, "GRAPHICAL_QUALITY");
+		// // this.origine.;
+		// }
+		// };
+		// qualityRadioBoxs = new PTRadioBox[4];
+		// qualityRadioBoxs[0] = makeRadioButton(grp, ex);// AS_FAST_AS_WE_CAN
+		// qualityRadioBoxs[1] = makeRadioButton(grp, ex);// TEXT_ANTI_ANTIALIASING
+		// qualityRadioBoxs[2] = makeRadioButton(grp, ex);// FULL_ANTI_ANTIALIASING
+		// qualityRadioBoxs[3] = makeRadioButton(grp, ex);// HIGHER_QUALITY
+		// int i = IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue();
+		// try {
+		// i = Integer.parseInt(father.getConfig("GRAPHICAL_QUALITY"));
+		// } catch (NumberFormatException e) {
+		// father.setConfig("GRAPHICAL_QUALITY", i + "");
+		// this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
+		// }
+		// qualityRadioBoxs[0].setClicked(IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() == i);
+		// qualityRadioBoxs[1].setClicked(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() == i);
+		// qualityRadioBoxs[2].setClicked(IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() == i);
+		// qualityRadioBoxs[3].setClicked(IHMGraphicQuality.HIGHER_QUALITY.getValue() == i);
+		// qualityCollapsableArea.addComponent(qualityRadioBoxs[0]);
+		// qualityCollapsableArea.addComponent(qualityRadioBoxs[1]);
+		// qualityCollapsableArea.addComponent(qualityRadioBoxs[2]);
+		// qualityCollapsableArea.addComponent(qualityRadioBoxs[3]);
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
 		scrollBar = makeScrollBar();
 
 		/***************************************************************************************************************
-		 * departureStation 
+		 * stations array
 		 */
-		departureStationCollapsableArea  = makeCollapsableArea(); 
-		departureStationNew = makeArea(); 
+		sationsHash = new HashMap<String, Station>();
 		it = father.getStations();
-		sationsHash = new HashMap<String, Station>(); 
 		while (it.hasNext()) {
 			st = it.next();
 			sationsHash.put(st.getName(), st);
 		}
-		departureStationTextBox = makeAutoCompletionTextBox(sationsHash.keySet().toArray(new String[0])); 
+		stations = sationsHash.keySet().toArray(new String[0]);
+		/***************************************************************************************************************
+		 * departureStation
+		 */
+		departureStationCollapsableArea = makeCollapsableArea();
+		departureStationNew = makeArea();
+		departureStationTextBox = makeAutoCompletionTextBox(stations);
 		departureStationCollapsableArea.addComponent(departureStationTextBox);
 		departureStationCollapsableArea.addComponent(departureStationNew);
 
-		// TODO ........tafMake.........................
 		/***************************************************************************************************************
-		 *arrivalStation
+		 * arrivalStation
 		 */
-		arrivalStationCollapsableArea  = makeCollapsableArea();  
-		arrivalStationNew = makeArea(); 
-		 it = father.getStations();
-		sationsHash = new HashMap<String, Station>();
-		while (it.hasNext()) {
-			st = it.next();
-			sationsHash.put(st.getName(), st);
-		}
-		arrivalStationTextBox = makeAutoCompletionTextBox(sationsHash.keySet().toArray(new String[0])); 
+		arrivalStationCollapsableArea = makeCollapsableArea();
+		arrivalStationNew = makeArea();
+		arrivalStationTextBox = makeAutoCompletionTextBox(stations);
 		arrivalStationCollapsableArea.addComponent(departureStationTextBox);
 		arrivalStationCollapsableArea.addComponent(arrivalStationNew);
 
+		// TODO ........tafMake.........................
 		/***************************************************************************************************************
 		 * Station inter
 		 */
@@ -284,7 +281,7 @@ public class NewTravelPanel extends PanelState {
 		// st = it.next();
 		// sationsHash.put(st.getName(), st);
 		// }
-		// intermediatesStationsTextBox = makeAutoCompletionTextBox(sationsHash.keySet().toArray(new String[0]));
+		// intermediatesStationsTextBox = makeAutoCompletionTextBox(stations);
 		// intermediatesStationsButton = makeButton(new CodeExecutor1P<PanelTooled>(this) {
 		// @Override
 		// public void execute() {
@@ -293,10 +290,11 @@ public class NewTravelPanel extends PanelState {
 		// }
 		// });
 		// intermediatesStationsCollapsableArea.addComponent(intermediatesStationsNew);
-		//		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
+		// intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
 	}
 
 	protected void recordChangedSetting(int familly, String s) {
+		// TODO ........tafRecord
 		switch (familly) {
 		case travelMode:
 			for (PairPTCheckBox p : travelModeCheckBoxs)
@@ -310,29 +308,41 @@ public class NewTravelPanel extends PanelState {
 			break;
 		case mainTravelCriteria:
 			if (travelCriteriaRadioBoxs[0].isClicked()) {
-				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
+				// TODO z : à decommenter
+				// if (station != null)
+				// pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.COST);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[1].isClicked()) {
-				father.setConfig(s, SettingsValue.FASTER.getStringValue());
+				// TODO z : à decommenter
+				// if (station != null)
+				// pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.TIME);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[2].isClicked()) {
-				father.setConfig(s, SettingsValue.FEWER_CHANGES.getStringValue());
+				// TODO z : à decommenter
+				// if (station != null)
+				// pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.CHANGE);
 				return;
 			}
 			break;
 		case minorTravelCriteria:
 			if (travelCriteriaRadioBoxs[3].isClicked()) {
-				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
+				// TODO z : à decommenter
+				// if (station != null)
+				// pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.COST);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[4].isClicked()) {
-				father.setConfig(s, SettingsValue.FASTER.getStringValue());
+				// TODO z : à decommenter
+				// if (station != null)
+				// pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.TIME);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[5].isClicked()) {
-				father.setConfig(s, SettingsValue.FEWER_CHANGES.getStringValue());
+				// TODO z : à decommenter
+				// if (station != null)
+				// pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.CHANGE);
 				return;
 			}
 			break;
@@ -353,31 +363,31 @@ public class NewTravelPanel extends PanelState {
 					}
 				}
 			}
-		case quality:
-			if (qualityRadioBoxs[0].isClicked()) {
-				father.setConfig(s, IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() + "");
-				this.setQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
-				return;
-			}
-			if (qualityRadioBoxs[1].isClicked()) {
-				father.setConfig(s, IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() + "");
-				this.setQuality(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING);
-				return;
-			}
-			if (qualityRadioBoxs[2].isClicked()) {
-				father.setConfig(s, IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() + "");
-				this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
-				return;
-			}
-			if (qualityRadioBoxs[3].isClicked()) {
-				father.setConfig(s, IHMGraphicQuality.HIGHER_QUALITY.getValue() + "");
-				this.setQuality(IHMGraphicQuality.HIGHER_QUALITY);
-				return;
-			}
-			break;
-//		case intermediatesStations:
-//			System.out.println("Intermediates stations not handeled yet");
-//			break;
+			// case quality:
+			// if (qualityRadioBoxs[0].isClicked()) {
+			// father.setConfig(s, IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() + "");
+			// this.setQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
+			// return;
+			// }
+			// if (qualityRadioBoxs[1].isClicked()) {
+			// father.setConfig(s, IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() + "");
+			// this.setQuality(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING);
+			// return;
+			// }
+			// if (qualityRadioBoxs[2].isClicked()) {
+			// father.setConfig(s, IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() + "");
+			// this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
+			// return;
+			// }
+			// if (qualityRadioBoxs[3].isClicked()) {
+			// father.setConfig(s, IHMGraphicQuality.HIGHER_QUALITY.getValue() + "");
+			// this.setQuality(IHMGraphicQuality.HIGHER_QUALITY);
+			// return;
+			// }
+			// break;
+			// case intermediatesStations:
+			// System.out.println("Intermediates stations not handeled yet");
+			// break;
 		case departureStation:
 			System.out.println("departureStation not handeled yet");
 			break;
@@ -390,20 +400,104 @@ public class NewTravelPanel extends PanelState {
 		}
 	}
 
+	protected int prepareAutoCompletionStationTextBox(PTArea stationNew, PTAutoCompletionTextBox stationTextBox,
+			PTCollapsableArea stationCollapsableArea, String title, int ordonne, int decalage, int decalage2) {
+		int taille = 0;
+		if (!stationCollapsableArea.isCollapsed()) {
+			int width = getWidth() - decalage2 - decalage;
+			buffer.setFont(father.getSizeAdapteur().getSmallFont());
+			taille = (int) (buffer.getFont().getSize() * 1.3F);
+			stationTextBox.prepareArea(buffer, decalage2, stationCollapsableArea.getFirstOrdonneForComponents(buffer,
+					decalage, ordonne, title, father.getSizeAdapteur().getIntermediateFont()), width - decalage2
+					- decalage - father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
+			stationNew.update(buffer, stationTextBox.getArea().x, stationTextBox.getArea().y,
+					stationTextBox.getArea().height + (decalage >> 1) + taille, stationCollapsableArea.getArea().width,
+					null, null);
+		}
+		return taille;
+	}
+
+	protected Station drawAutoCompletionStationTextBox(PTArea stationNew, PTAutoCompletionTextBox stationTextBox,
+			PTCollapsableArea stationCollapsableArea, int ordonne, int decalage, int decalage2, int taille) {
+		if (stationCollapsableArea.isCollapsed())
+			return null;
+		stationTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorInside(), father
+				.getSkin().getColorLetter());
+		Station station = this.sationsHash.get(stationTextBox.getText());
+		if (station != null) {
+			// TODO good choix
+			// stationButton.draw(buffer, imageOk);
+			buffer.setFont(father.getSizeAdapteur().getSmallFont());
+			buffer.setColor(father.getSkin().getColorLetter());
+			int xActu, yActu;
+			Iterator<Route> itRoute = station.getRoutes();
+			Route route;
+			Iterator<Service> itService = station.getServices();
+			Service service;
+			xActu = stationTextBox.getArea().x;
+			yActu = stationTextBox.getArea().y + stationTextBox.getArea().height + (decalage >> 1);
+			String s = "";
+			while (itRoute.hasNext()) {
+				route = itRoute.next();
+				s += route.getId();
+				if (itRoute.hasNext())
+					s += ", ";
+			}
+			buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
+			xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
+
+			while (itService.hasNext()) {
+				service = itService.next();
+				s = service.getName().substring(0, 1);
+				buffer.setColor(father.getNetworkColorManager().getColorForService(service));
+				buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+				buffer.setColor(father.getSkin().getColorLetter());
+				buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+				buffer.drawString(s, xActu + (taille >> 1)
+						- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
+						+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+				xActu += taille + (decalage >> 1);
+			}
+			return station;
+		}
+		buffer.setColor(Color.red);
+		buffer.drawString(father.lg("InvalideStation"), stationTextBox.getArea().x, stationTextBox.getArea().y
+				+ stationTextBox.getArea().height + (decalage >> 1)
+				+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));
+		return null;
+	}
+
 	@Override
 	public void paint(Graphics g) {
 		int decalage = father.getSizeAdapteur().getSizeSmallFont();
 		int decalage2 = (decalage << 1);
 		int ordonne = decalage - deroullement;
 		int width;
-		int taille=0;
+		int taille;
 		int[] pos;
 		byte[] ord;
 		int tmp;
 		int cpt;
-//		PTRadioBox rb;
+		// PTRadioBox rb;
 		String s;
 		PTCheckBox chk;
+		Station station;
+
+		if (pathBuilder == null) {
+			g.setFont(father.getSizeAdapteur().getLargeFont());
+			g.setColor(Color.red);
+			s = "Impossible de construire";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1,
+					tmp = (getHeight() - getHeightString(s, g) * 7 >> 1));
+			s = "un nouveau trajet :";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			s = "le master à passé";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			s = "un constructeur vide";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			return;
+		}
+
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			buffer = null;
@@ -429,72 +523,36 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Departure
 		 */
-		// TODO ........tafPaint.........................
 		s = father.lg("Departure");
-		if (!departureStationCollapsableArea.isCollapsed()) {
-			width = getWidth() - decalage2 - decalage;
-//			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			taille = (int) (buffer.getFont().getSize() * 1.3F);
-			departureStationTextBox.prepareArea(buffer, decalage << 1, departureStationCollapsableArea
-					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-							.getIntermediateFont()), width - decalage2 - decalage
-					- father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
-			departureStationNew.update(buffer, departureStationTextBox.getArea().x,
-					departureStationTextBox.getArea().y, departureStationTextBox.getArea().height
-					+ (decalage >> 1)+taille, departureStationCollapsableArea.getArea().width, null,
-			null);
-		}
+		taille = prepareAutoCompletionStationTextBox(departureStationNew, departureStationTextBox,
+				departureStationCollapsableArea, s, ordonne, decalage, decalage2);
 		departureStationCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!departureStationCollapsableArea.isCollapsed()) {
-			departureStationTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-					.getColorInside(), father.getSkin().getColorLetter());
-			Station station = this.sationsHash.get(departureStationTextBox.getText());
-			if (station != null) {
-				//TODO good choix
-//				departureStationButton.draw(buffer, imageOk);
-				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-				buffer.setColor(father.getSkin().getColorLetter());
-				int xActu, yActu;
-				Iterator<Route> itRoute = station.getRoutes();
-				Route route;
-				Iterator<Service> itService = station.getServices();
-				Service service;
-				xActu = departureStationTextBox.getArea().x;
-				yActu = departureStationTextBox.getArea().y + departureStationTextBox.getArea().height
-						+ (decalage >> 1);
-				s = "";
-				while (itRoute.hasNext()) {
-					route = itRoute.next();
-					s += route.getId();
-					if (itRoute.hasNext())
-						s += ", ";
-				}
-				buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
-				xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
+		station = drawAutoCompletionStationTextBox(departureStationNew, departureStationTextBox,
+				departureStationCollapsableArea, ordonne, decalage, decalage2, taille);
+		if (station != null)
+			station.getId();
+		// TODO z : à decommenter
+		// if (station != null)
+		// pathBuilder.setOrigin(station);
+		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
+				+ decalage;
 
-				while (itService.hasNext()) {
-					service = itService.next();
-					s = service.getName().substring(0, 1);
-					buffer.setColor(father.getNetworkColorManager().getColorForService(service));
-					buffer.fillOval(xActu, yActu, taille + 1, taille + 1);
-					buffer.setColor(father.getSkin().getColorLetter());
-					buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
-					buffer.drawString(s, xActu + (taille >> 1)
-							- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
-							+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-					xActu += taille + (decalage >> 1);
-				}
-			} else {
-				//TODO bad choix 
-//				departureStationButton.setEnable(false);
-			}
-			// les stations déja choisie
-
-		}
-		ordonne = departureStationCollapsableArea.getArea().y
-				+ departureStationCollapsableArea.getArea().height + decalage;
-		// imageOk;imageDel;
+		/***************************************************************************************************************
+		 * Arrival
+		 */
+		// TODO ........tafPaint.........................
+		s = father.lg("Arrival");
+		taille = prepareAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
+				arrivalStationCollapsableArea, s, ordonne, decalage, decalage2);
+		arrivalStationCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
+				arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille);
+		// TODO z : à decommenter
+		// if (station != null)
+		// pathBuilder.setDestination(station);
+		ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Travel criteria
@@ -707,127 +765,126 @@ public class NewTravelPanel extends PanelState {
 							.getSkin().getColorLetter());
 		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage;
 
-
-//		/***************************************************************************************************************
-//		 * AutoCompletionTextArea
-//		 */
-		//TODO ........AutoCompletionTextArea
-//		s = father.lg("Departure");
-//		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-//			width = getWidth() - decalage2 - decalage;
-//			// intermediatesStationsNew.prepareArea(buffer, x, y, height, width)
-//			intermediatesStationsTextBox.prepareArea(buffer, decalage << 1, intermediatesStationsCollapsableArea
-//					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-//							.getIntermediateFont()), width - decalage2 - decalage
-//					- father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
-//			intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
-//					+ intermediatesStationsTextBox.getArea().width + decalage,
-//					intermediatesStationsTextBox.getArea().y, imageOk);
-//			intermediatesStationsNew.update(buffer, intermediatesStationsTextBox.getArea().x,
-//					intermediatesStationsTextBox.getArea().y, 40, intermediatesStationsTextBox.getArea().width, null,
-//					null);
-//		}
-//		intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-//				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-//		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-//			intermediatesStationsTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-//					.getColorInside(), father.getSkin().getColorLetter());
-//			Station station = this.sationsHash.get(intermediatesStationsTextBox.getText());
-//			if (station != null) {
-//				intermediatesStationsButton.draw(buffer, imageOk);
-//				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-//				buffer.setColor(father.getSkin().getColorLetter());
-//				int xActu, yActu, taille;
-//				Iterator<Route> itRoute = station.getRoutes();
-//				Route route;
-//				Iterator<Service> itService = station.getServices();
-//				Service service;
-//				xActu = intermediatesStationsTextBox.getArea().x;
-//				yActu = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
-//						+ (decalage >> 1);
-//				s = "";
-//				while (itRoute.hasNext()) {
-//					route = itRoute.next();
-//					s += route.getId();
-//					if (itRoute.hasNext())
-//						s += ", ";
-//				}
-//				buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
-//				xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
-//
-//				while (itService.hasNext()) {
-//					service = itService.next();
-//					s = service.getName().substring(0, 1);
-//					taille = (int) (buffer.getFont().getSize() * 1.3F);
-//					buffer.setColor(father.getNetworkColorManager().getColorForService(service));
-//					buffer.fillOval(xActu, yActu, taille + 1, taille + 1);
-//					buffer.setColor(father.getSkin().getColorLetter());
-//					buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
-//					buffer.drawString(s, xActu + (taille >> 1)
-//							- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
-//							+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-//					xActu += taille + (decalage >> 1);
-//				}
-//			} else {
-//				intermediatesStationsButton.setEnable(false);
-//			}
-//			// les stations déja choisie
-//
-//		}
-//		ordonne = intermediatesStationsCollapsableArea.getArea().y
-//				+ intermediatesStationsCollapsableArea.getArea().height + decalage;
-//		// imageOk;imageDel;
-		/***************************************************************************************************************
-		 * Quality
-		 */
-		s = father.lg("GraphicalQuality");
-		if (!qualityCollapsableArea.isCollapsed()) {
-			width = getWidth() - decalage2;
-
-			qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), qualityCollapsableArea
-					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-							.getIntermediateFont()), father.lg("Minimal"), father.getSizeAdapteur().getSmallFont());
-
-			qualityRadioBoxs[1].prepareArea(buffer, qualityRadioBoxs[0].getArea().x
-					+ qualityRadioBoxs[0].getArea().width + (decalage >> 1), qualityRadioBoxs[0].getArea().y, father
-					.lg("Low"), father.getSizeAdapteur().getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((qualityRadioBoxs[1].getArea().x + qualityRadioBoxs[1].getArea().width) > width)
-				qualityRadioBoxs[1].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[1].getArea().y
-						+ qualityRadioBoxs[1].getArea().height + (decalage >> 1), father.lg("Low"), father
-						.getSizeAdapteur().getSmallFont());
-
-			qualityRadioBoxs[2].prepareArea(buffer, qualityRadioBoxs[1].getArea().x
-					+ qualityRadioBoxs[1].getArea().width + (decalage >> 1), qualityRadioBoxs[1].getArea().y, father
-					.lg("Medium"), father.getSizeAdapteur().getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((qualityRadioBoxs[2].getArea().x + qualityRadioBoxs[2].getArea().width) > width)
-				qualityRadioBoxs[2].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[2].getArea().y
-						+ qualityRadioBoxs[2].getArea().height + (decalage >> 1), father.lg("Medium"), father
-						.getSizeAdapteur().getSmallFont());
-
-			qualityRadioBoxs[3].prepareArea(buffer, qualityRadioBoxs[2].getArea().x
-					+ qualityRadioBoxs[2].getArea().width + (decalage >> 1), qualityRadioBoxs[2].getArea().y, father
-					.lg("High"), father.getSizeAdapteur().getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((qualityRadioBoxs[3].getArea().x + qualityRadioBoxs[3].getArea().width) > width)
-				qualityRadioBoxs[3].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[3].getArea().y
-						+ qualityRadioBoxs[3].getArea().height + (decalage >> 1), father.lg("High"), father
-						.getSizeAdapteur().getSmallFont());
-		}
-		qualityCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
-				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!qualityCollapsableArea.isCollapsed()) {
-			qualityRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-					.getColorSubAreaInside(), father.getSkin().getColorLetter());
-			qualityRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-					.getColorSubAreaInside(), father.getSkin().getColorLetter());
-			qualityRadioBoxs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-					.getColorSubAreaInside(), father.getSkin().getColorLetter());
-			qualityRadioBoxs[3].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-					.getColorSubAreaInside(), father.getSkin().getColorLetter());
-		}
-		ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage;
+		// /***************************************************************************************************************
+		// * AutoCompletionTextArea
+		// */
+		// TODO ........AutoCompletionTextArea
+		// s = father.lg("Departure");
+		// if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+		// width = getWidth() - decalage2 - decalage;
+		// // intermediatesStationsNew.prepareArea(buffer, x, y, height, width)
+		// intermediatesStationsTextBox.prepareArea(buffer, decalage << 1, intermediatesStationsCollapsableArea
+		// .getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+		// .getIntermediateFont()), width - decalage2 - decalage
+		// - father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
+		// intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
+		// + intermediatesStationsTextBox.getArea().width + decalage,
+		// intermediatesStationsTextBox.getArea().y, imageOk);
+		// intermediatesStationsNew.update(buffer, intermediatesStationsTextBox.getArea().x,
+		// intermediatesStationsTextBox.getArea().y, 40, intermediatesStationsTextBox.getArea().width, null,
+		// null);
+		// }
+		// intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+		// .getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		// if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+		// intermediatesStationsTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+		// .getColorInside(), father.getSkin().getColorLetter());
+		// Station station = this.sationsHash.get(intermediatesStationsTextBox.getText());
+		// if (station != null) {
+		// intermediatesStationsButton.draw(buffer, imageOk);
+		// buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		// buffer.setColor(father.getSkin().getColorLetter());
+		// int xActu, yActu, taille;
+		// Iterator<Route> itRoute = station.getRoutes();
+		// Route route;
+		// Iterator<Service> itService = station.getServices();
+		// Service service;
+		// xActu = intermediatesStationsTextBox.getArea().x;
+		// yActu = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
+		// + (decalage >> 1);
+		// s = "";
+		// while (itRoute.hasNext()) {
+		// route = itRoute.next();
+		// s += route.getId();
+		// if (itRoute.hasNext())
+		// s += ", ";
+		// }
+		// buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
+		// xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
+		//
+		// while (itService.hasNext()) {
+		// service = itService.next();
+		// s = service.getName().substring(0, 1);
+		// taille = (int) (buffer.getFont().getSize() * 1.3F);
+		// buffer.setColor(father.getNetworkColorManager().getColorForService(service));
+		// buffer.fillOval(xActu, yActu, taille + 1, taille + 1);
+		// buffer.setColor(father.getSkin().getColorLetter());
+		// buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+		// buffer.drawString(s, xActu + (taille >> 1)
+		// - (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
+		// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+		// xActu += taille + (decalage >> 1);
+		// }
+		// } else {
+		// intermediatesStationsButton.setEnable(false);
+		// }
+		// // les stations déja choisie
+		//
+		// }
+		// ordonne = intermediatesStationsCollapsableArea.getArea().y
+		// + intermediatesStationsCollapsableArea.getArea().height + decalage;
+		// // imageOk;imageDel;
+		// /***************************************************************************************************************
+		// * Quality
+		// */
+		// s = father.lg("GraphicalQuality");
+		// if (!qualityCollapsableArea.isCollapsed()) {
+		// width = getWidth() - decalage2;
+		//
+		// qualityRadioBoxs[0].prepareArea(buffer, decalage + (decalage >> 1), qualityCollapsableArea
+		// .getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+		// .getIntermediateFont()), father.lg("Minimal"), father.getSizeAdapteur().getSmallFont());
+		//
+		// qualityRadioBoxs[1].prepareArea(buffer, qualityRadioBoxs[0].getArea().x
+		// + qualityRadioBoxs[0].getArea().width + (decalage >> 1), qualityRadioBoxs[0].getArea().y, father
+		// .lg("Low"), father.getSizeAdapteur().getSmallFont());
+		// // si ca sort du cadre, retour à la ligne
+		// if ((qualityRadioBoxs[1].getArea().x + qualityRadioBoxs[1].getArea().width) > width)
+		// qualityRadioBoxs[1].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[1].getArea().y
+		// + qualityRadioBoxs[1].getArea().height + (decalage >> 1), father.lg("Low"), father
+		// .getSizeAdapteur().getSmallFont());
+		//
+		// qualityRadioBoxs[2].prepareArea(buffer, qualityRadioBoxs[1].getArea().x
+		// + qualityRadioBoxs[1].getArea().width + (decalage >> 1), qualityRadioBoxs[1].getArea().y, father
+		// .lg("Medium"), father.getSizeAdapteur().getSmallFont());
+		// // si ca sort du cadre, retour à la ligne
+		// if ((qualityRadioBoxs[2].getArea().x + qualityRadioBoxs[2].getArea().width) > width)
+		// qualityRadioBoxs[2].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[2].getArea().y
+		// + qualityRadioBoxs[2].getArea().height + (decalage >> 1), father.lg("Medium"), father
+		// .getSizeAdapteur().getSmallFont());
+		//
+		// qualityRadioBoxs[3].prepareArea(buffer, qualityRadioBoxs[2].getArea().x
+		// + qualityRadioBoxs[2].getArea().width + (decalage >> 1), qualityRadioBoxs[2].getArea().y, father
+		// .lg("High"), father.getSizeAdapteur().getSmallFont());
+		// // si ca sort du cadre, retour à la ligne
+		// if ((qualityRadioBoxs[3].getArea().x + qualityRadioBoxs[3].getArea().width) > width)
+		// qualityRadioBoxs[3].prepareArea(buffer, decalage + (decalage >> 1), qualityRadioBoxs[3].getArea().y
+		// + qualityRadioBoxs[3].getArea().height + (decalage >> 1), father.lg("High"), father
+		// .getSizeAdapteur().getSmallFont());
+		// }
+		// qualityCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
+		// father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		// if (!qualityCollapsableArea.isCollapsed()) {
+		// qualityRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
+		// qualityRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
+		// qualityRadioBoxs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
+		// qualityRadioBoxs[3].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
+		// }
+		// ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * ScrollBar
@@ -864,6 +921,11 @@ public class NewTravelPanel extends PanelState {
 			}
 		});
 		lowerBar.repaint();
+	}
+
+	public void setPathInGraphConstraintBuilder(PathInGraphConstraintBuilder pathBuilder) {
+		this.pathBuilder = pathBuilder;
+
 	}
 
 }

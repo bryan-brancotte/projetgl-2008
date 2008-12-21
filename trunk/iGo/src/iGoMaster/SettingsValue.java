@@ -25,16 +25,19 @@ public enum SettingsValue {
 	 */
 	Always(2),
 	/**
-	 * Valeur indiquant un résoluation de l'algorithme pour le coput le plus faible
+	 * Utilisez Algo.CriteriousForLowerPath.COST
 	 */
+	@Deprecated
 	CHEAPER(0),
 	/**
-	 * Valeur indiquant un résoluation de l'algorithme pour le plus rapide
+	 * Utilisez Algo.CriteriousForLowerPath.TIME
 	 */
+	@Deprecated
 	FASTER(1),
 	/**
-	 * Valeur indiquant un résoluation de l'algorithme pour le moins de changement
+	 * Utilisez Algo.CriteriousForLowerPath.CHANGE
 	 */
+	@Deprecated
 	FEWER_CHANGES(2);
 
 	/**

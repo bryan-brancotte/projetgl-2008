@@ -239,6 +239,10 @@
 				<FRANCAIS value="Arrivée"/>
 				<ENGLISH value="Arrival"/>
 			</Arrival>
+			<InvalideStation>
+				<FRANCAIS value="Station inconnue"/>
+				<ENGLISH value="Unkown station"/>
+			</InvalideStation>
 		</fields>
 	</root>
 
