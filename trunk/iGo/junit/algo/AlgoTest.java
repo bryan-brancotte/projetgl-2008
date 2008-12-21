@@ -203,6 +203,7 @@ public class AlgoTest {
 
 			gnb.addStationToRoute(m6, g.getStation(8), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(8), m6, g.getStation(8), 0, 1, false);
+			gnb.linkStationBidirectional(m2, g.getStation(8), m6, g.getStation(8), 0, 1, false);
 			gnb.addStationToRoute(m6, gnb.addStation(126, "Kléber"), 1);
 			gnb.addStationToRoute(m6, gnb.addStation(127, "Boissière"), 1);
 			gnb.addStationToRoute(m6, gnb.addStation(128, "Trocadéro"), 1);
@@ -235,6 +236,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m6, gnb.addStation(151, "Picpus"), 1);
 			gnb.addStationToRoute(m6, g.getStation(22), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(22), m6, g.getStation(22), 0, 1, false);
+			gnb.linkStationBidirectional(m2, g.getStation(22), m6, g.getStation(22), 0, 1, false);
 
 			gnb.addStationToRoute(m7, gnb.addStation(153, "La Courneuve, 8 Mai 1945"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(154, "Fort d'Aubervilliers"), 1);
@@ -248,6 +250,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m7, gnb.addStation(162, "Château Landon"), 1);
 			gnb.addStationToRoute(m7, g.getStation(83), 1);
 			gnb.linkStationBidirectional(m4, g.getStation(83), m7, g.getStation(83), 0, 1, false);
+			gnb.linkStationBidirectional(m5, g.getStation(83), m7, g.getStation(83), 0, 1, false);
 			gnb.addStationToRoute(m7, gnb.addStation(164, "Poissonnière"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(165, "Cadet"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(166, "Le Peletier"), 1);
@@ -259,6 +262,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m7, gnb.addStation(171, "Pont-Neuf"), 1);
 			gnb.addStationToRoute(m7, g.getStation(16), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(16), m7, g.getStation(16), 0, 1, false);
+			gnb.linkStationBidirectional(m4, g.getStation(16), m7, g.getStation(16), 0, 1, false);
 			gnb.addStationToRoute(m7, gnb.addStation(173, "Pont-Marie"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(174, "Sully Morland"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(175, "Jussieu"), 1);
@@ -267,6 +271,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m7, gnb.addStation(178, "Les Gobelins"), 1);
 			gnb.addStationToRoute(m7, g.getStation(124), 1);
 			gnb.linkStationBidirectional(m5, g.getStation(124), m7, g.getStation(124), 0, 1, false);
+			gnb.linkStationBidirectional(m6, g.getStation(124), m7, g.getStation(124), 0, 1, false);
 			gnb.addStationToRoute(m7, gnb.addStation(180, "Tolbiac"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(181, "Maison Blanche"), 1);
 			gnb.addStationToRoute(m7, gnb.addStation(182, "Porte d'Italie"), 1);
@@ -303,11 +308,13 @@ public class AlgoTest {
 			gnb.linkStationBidirectional(m4, g.getStation(85), m8, g.getStation(85), 0, 1, false);
 			gnb.addStationToRoute(m8, g.getStation(70), 1);
 			gnb.linkStationBidirectional(m3, g.getStation(70), m8, g.getStation(70), 0, 1, false);
+			gnb.linkStationBidirectional(m5, g.getStation(70), m8, g.getStation(70), 0, 1, false);
 			gnb.addStationToRoute(m8, gnb.addStation(209, "Filles du Calvaire"), 1);
 			gnb.addStationToRoute(m8, gnb.addStation(210, "Saint-Sébastien-Froissart"), 1);
 			gnb.addStationToRoute(m8, gnb.addStation(211, "Chemin Vert"), 1);
 			gnb.addStationToRoute(m8, g.getStation(19), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(19), m8, g.getStation(19), 0, 1, false);
+			gnb.linkStationBidirectional(m5, g.getStation(19), m8, g.getStation(19), 0, 1, false);
 			gnb.addStationToRoute(m8, gnb.addStation(213, "Ledru Rollin"), 1);
 			gnb.addStationToRoute(m8, gnb.addStation(214, "Faidherbe-Chaligny"), 1);
 			gnb.addStationToRoute(m8, g.getStation(21), 1);
@@ -359,8 +366,11 @@ public class AlgoTest {
 			gnb.linkStationBidirectional(m8, g.getStation(206), m9, g.getStation(206), 0, 1, false);
 			gnb.addStationToRoute(m9, g.getStation(85), 1);
 			gnb.linkStationBidirectional(m4, g.getStation(85), m9, g.getStation(85), 0, 1, false);
+			gnb.linkStationBidirectional(m8, g.getStation(85), m9, g.getStation(85), 0, 1, false);
 			gnb.addStationToRoute(m9, g.getStation(70), 1);
 			gnb.linkStationBidirectional(m3, g.getStation(70), m9, g.getStation(70), 0, 1, false);
+			gnb.linkStationBidirectional(m5, g.getStation(70), m9, g.getStation(70), 0, 1, false);
+			gnb.linkStationBidirectional(m8, g.getStation(70), m9, g.getStation(70), 0, 1, false);
 			gnb.addStationToRoute(m9, g.getStation(116), 1);
 			gnb.linkStationBidirectional(m5, g.getStation(116), m9, g.getStation(116), 0, 1, false);
 			gnb.addStationToRoute(m9, gnb.addStation(255, "Saint-Ambroise"), 1);
@@ -390,6 +400,7 @@ public class AlgoTest {
 			gnb.addStationToRoute(m10, gnb.addStation(275, "Avenue Émile Zola"), 1);
 			gnb.addStationToRoute(m10, g.getStation(132), 1);
 			gnb.linkStationBidirectional(m6, g.getStation(132), m10, g.getStation(132), 0, 1, false);
+			gnb.linkStationBidirectional(m8, g.getStation(132), m10, g.getStation(132), 0, 1, false);
 			gnb.addStationToRoute(m10, gnb.addStation(277, "Ségur"), 1);
 			gnb.addStationToRoute(m10, gnb.addStation(278, "Duroc"), 1);
 			gnb.addStationToRoute(m10, gnb.addStation(279, "Vaneau"), 1);
@@ -423,6 +434,8 @@ public class AlgoTest {
 			gnb.linkStationBidirectional(m1, g.getStation(17), m11, g.getStation(17), 0, 1, false);
 			gnb.addStationToRoute(m11, g.getStation(16), 1);
 			gnb.linkStationBidirectional(m1, g.getStation(16), m11, g.getStation(16), 0, 1, false);
+			gnb.linkStationBidirectional(m4, g.getStation(16), m11, g.getStation(16), 0, 1, false);
+			gnb.linkStationBidirectional(m7, g.getStation(16), m11, g.getStation(16), 0, 1, false);
 
 			// TODO A FINIR J'AI MAL AUX YEUX ^^
 
@@ -521,10 +534,8 @@ public class AlgoTest {
 		} catch (ImpossibleValueException e) {
 			assertTrue("linkStation ne supporte pas un valeur normal", false);
 		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (StationNotOnRoadException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
