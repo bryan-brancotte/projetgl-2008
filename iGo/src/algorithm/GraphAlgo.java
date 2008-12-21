@@ -17,17 +17,6 @@ public class GraphAlgo {
 	private Station[] avoidStations;
 	private Service[] always;
 	
-	//TODO fonction temporaire pour test créée par Tony le 30 novembre
-	@Deprecated
-	public void refreshGraph(Station s) {
-		avoidStations = new Station[0];
-		always = new Service[0];
-		graph = new ArrayList<Node>();
-		Node n = new Node(s,s.getRoutes().next());
-		graph.add(n);
-		addLink(n);
-	}
-	
 	/**
 	 * Rafraichi le réseau avant un calcul
 	 * 
@@ -42,6 +31,7 @@ public class GraphAlgo {
 		Node n = new Node(s,s.getRoutes().next());
 		graph.add(n);
 		addLink(n);
+		//System.out.println(toString());
 	}
 	
 	/**
@@ -54,7 +44,6 @@ public class GraphAlgo {
 		Iterator<Junction> itInter = station.getJunctions();
 		while(itInter.hasNext()){
 			Junction j = itInter.next();
-			//TODO Probleme ici pour éviter les boucles
 			if (validChange(n,j)) {
 				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
 				if (newNode == null) {
@@ -117,8 +106,8 @@ public class GraphAlgo {
 	private boolean validChange (Node node,Junction junction) {
 		Station otherStation = junction.getOtherStation(node.getStation());
 		if (
-				//TODO A vérifier si possibilité d'un vrai graph orienté
-				//(node.getStation().equals(otherStation) && node.getRoute().equals(junction.getOtherRoute(otherStation))) ||
+				//TODO en attente de mise a jour réelle
+				(!otherStation.equals(node.getStation()) && !node.getRoute().equals(junction.getOtherRoute(node.getStation()))) ||
 				otherStation == null ||
 				isStationIn(otherStation,avoidStations) ||
 				!otherStation.isEnable() ||

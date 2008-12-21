@@ -65,11 +65,8 @@ public class AlgoTest {
 
 			gnb.defineEntryCost(sncf.getKindFromString("RER"), 4);
 
-			gnb.linkStation(rerC, massyPal, rerB, massyPal, 0, 3, false);
-			//TODO Ajouté pour avoir le sens inverse, à voir pour faire autrement ?
-			gnb.linkStation(rerB, massyPal, rerC, massyPal, 0, 3, false);
-			gnb.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1),
-					2, 9, true);
+			gnb.linkStationBidirectional(rerC, massyPal, rerB, massyPal, 0, 3, false);
+			gnb.linkStationBidirectional(rerC, sncf.getStation(9), rerB, sncf.getStation(1),2, 9, true);
 
 			gnb.addServiceToStation(sncf.getStation(9), gnb.addService(1,
 					"Journaux"));
@@ -104,7 +101,7 @@ public class AlgoTest {
 		Iterator<Junction> it = massy.getJunctions();
 		int nbJunctions = 0;
 		while (it.hasNext()) {
-			System.out.println(it.next());
+			it.next();
 			nbJunctions++;
 		}
 		/*
@@ -133,22 +130,27 @@ public class AlgoTest {
 
 		pcb.setMainCriterious(CriteriousForLowerPath.TIME);
 		pcb.setMinorCriterious(CriteriousForLowerPath.CHANGE);
-		pcb.setOrigin(gn.getStation(1));
-		pcb.setDestination(gn.getStation(5));
+		pcb.setOrigin(gn.getStation(3));
+		pcb.setDestination(gn.getStation(8));
 
 		PathInGraphResultBuilder prb = pc.getPathInGraphResultBuilder();
-
-		System.out.println("\n\n\n");
-		Iterator<Junction> j = gnb.getStationTest(10).getJunctions();
 		
 		bob = new Dijkstra();
 
 		PathInGraph p = bob.findPath(prb);
 
 		Iterator<Junction> it = p.getJunctions();
+		int time=0;
+		int changes=0;
 		while (it.hasNext()) {
-			System.out.println(it.next().toString());
+			Junction j=it.next();
+			time+=j.getTimeBetweenStations();
+			if (!j.isRouteLink()) changes++;
+			System.out.println(j.toString());
 		}
+		System.out.println("---------------------------------------");
+		System.out.println("Time : "+time+" minutes");
+		System.out.println(changes+" changements");
 	}
 
 	@Test
