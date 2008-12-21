@@ -487,32 +487,6 @@ public class GraphNetworkBuilder {
 		this.currentGraphNetwork = currentGraphNetwork;
 	}
 
-	/* test perso a virer */
-	public Station getStationTest(int id) {
-		Iterator<Station> it = currentGraphNetwork.getStations();
-
-		while (it.hasNext()) {
-			Station temp = it.next();
-			if (temp.getId() == id)
-				return temp;
-		}
-		return null;
-
-	}
-
-	/* test perso a virer */
-	public Service getServiceTest(int id) {
-		Iterator<Service> it = currentGraphNetwork.getServices();
-
-		while (it.hasNext()) {
-			Service temp = it.next();
-			if (temp.getId() == id)
-				return temp;
-		}
-		return null;
-
-	}
-
 	/**
 	 * setter de l'etat enable d'une station
 	 * 
