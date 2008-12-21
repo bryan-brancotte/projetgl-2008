@@ -207,9 +207,9 @@ public class GraphAlgo {
 		public void initValue () {
 			from = null;
 			relevance = 0;
-			time = Integer.MAX_VALUE/2;
-			changes = Integer.MAX_VALUE/2;
-			cost = Float.MAX_VALUE/2;
+			time = Integer.MAX_VALUE;
+			changes = Integer.MAX_VALUE;
+			cost = Float.MAX_VALUE;
 		}
 
 		public void addTo (Junction j, Node n) {
