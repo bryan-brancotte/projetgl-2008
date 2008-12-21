@@ -8,23 +8,24 @@ import graphNetwork.KindRoute;
 public interface GraphNetworkCostReceiver {
 
 	/**
-	 * Return the cost to acces to the network on the kind route specified
+	 * Accesseur qui va retourner le cout pour accéder au réseau avec le type de voie spécifié
 	 * 
 	 * @param to
-	 *            The kindRoute targeted
-	 * @return the cost
+	 *            	Le type de voie
+	 * @return
+	 * 				Le cout
 	 */
 	public abstract float getCost(KindRoute to);
 
 	/**
-	 * Return the cost to change from a kindRoute to an other KindRoute. If the cost doesn't existe, the returne cost
-	 * will be the same as float getCost(KindRouteReader to);
+	 * Retourne le cout a appliquer suite a un changement d'un type de voie à un autre type
+	 * de voie. Si ce cout n'existe pas, l'accesseur retournera le même résultat que getCost(KindRouteReader to.
 	 * 
 	 * @param from
-	 *            the kindRoute where you are
+	 *            le type de voie ou l'on est
 	 * @param to
-	 *            the KinfRoute where you go
-	 * @return the cost
+	 *            le type de voie ou l'on va
+	 * @return le cout applicable
 	 */
 	public abstract float getCost(KindRoute from, KindRoute to);
 
