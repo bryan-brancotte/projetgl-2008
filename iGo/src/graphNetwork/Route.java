@@ -1,7 +1,5 @@
 package graphNetwork;
 
-import graphNetwork.exception.StationNotOnRoadException;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -176,9 +174,8 @@ public class Route {
 	 * retourne l'etat enable d'une station
 	 * 
 	 * @param id
-	 *            id de la station recherchee
-	 * @return etat false si la station est dans la route ET desactiver : si vous passer un id de station qui n'est pas
-	 *         sur la route, nous la considererons comme active sur la ligne
+	 *            la station recherchée
+	 * @return etat false si la station est desactivé, ou dans la route ET est desactivé pour cette route.
 	 */
 	public boolean isStationEnable(Station station) {
 		if (!station.isEnable())
@@ -194,16 +191,15 @@ public class Route {
 	 * retourne l'etat enable d'une station
 	 * 
 	 * @param id
-	 *            id de la station recherchee
+	 *            id de la station recherchée
 	 * @return etat false si la station est dans la route ET desactiver : si vous passer un id de station qui n'est pas
 	 *         sur la route, nous la considererons comme active sur la ligne
-	 * @throws StationNotOnRoadException
 	 */
-	public boolean isStationEnable(int idStation) throws StationNotOnRoadException {
+	public boolean isStationEnable(int idStation) {
 		Station s;
 		if ((s = this.getStation(idStation)) != null)
-			throw new StationNotOnRoadException();
-		return isStationEnable(s);
+			return isStationEnable(s);
+		return true;
 	}
 
 	public String toString() {
