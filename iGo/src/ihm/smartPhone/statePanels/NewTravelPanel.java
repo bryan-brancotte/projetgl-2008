@@ -914,12 +914,13 @@ public class NewTravelPanel extends PanelState {
 				father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 			}
 		});
-		lowerBar.setRightCmd("Find a path", new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("lowerBar.RIGHT_CMD_ACTION_LISTENER");
-			}
-		});
+		if (pathBuilder != null)
+			lowerBar.setRightCmd("Find a path", new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("lowerBar.RIGHT_CMD_ACTION_LISTENER");
+				}
+			});
 		lowerBar.repaint();
 	}
 
