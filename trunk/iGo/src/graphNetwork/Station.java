@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import graphNetwork.exception.StationNotOnRoadException;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -102,6 +104,22 @@ public class Station {
 	}
 
 	/**
+	 * Retourne un iterateur sur les jonctions partantes de cette station et de la route passé en paramètre
+	 * 
+	 * @return un iterateur sur ces jonctions. Il peut être vide, mais jamais à null
+	 */
+	public Iterator<Junction> getJunctions(Route route) throws StationNotOnRoadException {
+		Iterator<Junction> itJ = this.junctions.iterator();
+		LinkedList<Junction> ret = new LinkedList<Junction>();
+		Junction j;
+		while (itJ.hasNext()) {
+			if ((j = itJ.next()).haveOnASide(route, this))
+				ret.add(j);
+		}
+		return ret.iterator();
+	}
+
+	/**
 	 * Retourne le nom d'un station
 	 * 
 	 * @return le nom de la station
@@ -170,8 +188,8 @@ public class Station {
 		this.name = name;
 	}
 
-	public String toString(){
-		return "Station : "+name+"("+id+")";
+	public String toString() {
+		return "Station : " + name + "(" + id + ")";
 	}
 	// /**
 	// * retourne une chaine representant la station

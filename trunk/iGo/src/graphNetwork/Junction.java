@@ -195,115 +195,15 @@ public class Junction {
 	public boolean equals(Route routeA, Station stationA, Route routeB, Station stationB) {
 		return (routeA == this.routeA && stationA == this.stationA && routeB == this.routeB && stationB == this.stationB);
 	}
-	// public Route getRoute(Station me) {// retourne la route d'une station pour cette jonction ou null si la station
-	// // n'est pas sur la jonction
-	// if (me.getId() == this.getStationA().getId())
-	// return this.getRouteA();
-	// if (me.getId() == this.getStationB().getId())
-	// return this.getRouteB();
-	// return null;
-	// }
 
-	// public Route getOtherRoute(Station s, Route r) {// retourne la route d'une jontion en fonction de l'autre route
-	// ou
-	// // null si la route n'est pas sur cette jonction
-	// if (s.getId() == getStationA().getId() && r.getId() == getRouteA().getId())
-	// return getRouteB();
-	// if (s.getId() == getStationB().getId() && r.getId() == getRouteB().getId())
-	// return getRouteA();
-	// return null;
-	// }
-	//
-	// public Station getOtherStation(Station s, Route r) {// retourne la station d'une jonction en fonction de l'autre
-	// // station et de la route qui lui est raccordee, ou null si la
-	// // station n'est pas sur cette jonction
-	// if (s.getId() == getStationA().getId() && r.getId() == getRouteA().getId())
-	// return getStationB();
-	// if (s.getId() == getStationB().getId() && r.getId() == getRouteB().getId())
-	// return getStationA();
-	// return null;
-	// }
-
-	// public Route getRouteA() {// retourne la premiere route de la jonction
-	// return routeA;
-	// }
-	//
-	// public Route getRouteB() {// retourne la deuxieme route de la jonction
-	// return routeB;
-	// }
-	//
-	// public Station getStationA() {// retourne la premiere station de la jonction
-	// return stationA;
-	// }
-	//
-	// public Station getStationB() {// retourne la deuxiemme station de la jonction
-	// return stationB;
-	// }
-
-	// protected void setRouteA(Route routeA) {// Mutateur de routeA. Vous ne devriez pas utiliser cette fonction car
-	// // GarphNetworkBuilder le fait, et de façon sûr. Définisez la Route
-	// // manuellement à votre risque et péril.
-	// this.routeA = routeA;
-	// }
-	//
-	// protected void setRouteB(Route routeB) {// Mutateur de routeB. Vous ne devriez pas utiliser cette fonction car
-	// // GarphNetworkBuilder le fait, et de façon sûr. Définisez la Route
-	// // manuellement à votre risque et péril.
-	// this.routeB = routeB;
-	// }
-	//
-	// protected void setStationA(Station stationA) {// Mutateur de stationA. Vous ne devriez pas utiliser cette
-	// fonction
-	// // car GarphNetworkBuilder le fait, et de façon sûr. Définisez la
-	// // Station manuellement à votre risque et péril.
-	// this.stationA = stationA;
-	// }
-	//
-	// protected void setStationB(Station stationB) {// Mutateur de stationB. Vous ne devriez pas utiliser cette
-	// fonction
-	// // car GarphNetworkBuilder le fait, et de façon sûr. Définisez la
-	// // Station manuellement à votre risque et péril.
-	// this.stationB = stationB;
-	// }
-
-	// protected void setTimeBetweenStations(int timeBetweenStations) throws ImpossibleValueException {// setter du
-	// temps
-	// // entre deux
-	// // stations
-	// this.timeBetweenStations = timeBetweenStations;
-	// }
-
-	// protected void setRouteLink(boolean routeLink) {// Mutateur de routeLink. Vous ne devriez pas utiliser cette
-	// // fonction car GarphNetworkBuilder le fait, et de façon sûr.
-	// // Définisez son etat routeLink manuellement à votre risque et
-	// // péril.
-	// this.routeLink = routeLink;
-	// }
-
-	// protected boolean equals (Junction j) {
-	// if (
-	// (j.getRouteA().getId() == routeA.getId() &&
-	// j.getRouteB().getId() == routeB.getId() &&
-	// j.getStationA().getId() == stationA.getId() &&
-	// j.getStationB().getId() == stationB.getId()) ||
-	// (j.getRouteA().getId() == routeB.getId() &&
-	// j.getRouteB().getId() == routeA.getId() &&
-	// j.getStationA().getId() == stationB.getId() &&
-	// j.getStationB().getId() == stationA.getId())
-	// )
-	// return true;
-	//		
-	// return false;
-	// }
-
-	// protected String toMyString() {
-	// String retour = "<junction>" + cost + ";" + enable + ";" + pedestrian + ";" + timeBetweenStations + ";"
-	// + routeLink;
-	// retour.concat(routeA.toMyString());
-	// retour.concat(routeB.toMyString());
-	// retour.concat(stationA.toMyString());
-	// retour.concat(stationB.toMyString());
-	// retour.concat("</junction>");
-	// return retour;
-	// }
+	/**
+	 * Permet de savoir si la station dont on passe la route passées en paramètre est un des cotés de la jonction
+	 * 
+	 * @param route
+	 * @param station
+	 * @return
+	 */
+	public boolean haveOnASide(Route route, Station station) {
+		return (route == this.routeA && station == this.stationA || route == this.routeB && station == this.stationB);
+	}
 }
