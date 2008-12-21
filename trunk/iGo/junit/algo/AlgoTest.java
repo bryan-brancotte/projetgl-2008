@@ -539,6 +539,7 @@ public class AlgoTest {
 			e.printStackTrace();
 		}
 
+		//
 		assertTrue("Construction sans problème", true);
 	}
 
