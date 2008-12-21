@@ -231,6 +231,14 @@
 				<FRANCAIS value="Thèmes de couleur"/>
 				<ENGLISH value="Color themes"/>
 			</Skin>
+			<Departure>
+				<FRANCAIS value="Départ"/>
+				<ENGLISH value="Departure"/>
+			</Departure>
+			<Arrival>
+				<FRANCAIS value="Arrivée"/>
+				<ENGLISH value="Arrival"/>
+			</Arrival>
 		</fields>
 	</root>
 
