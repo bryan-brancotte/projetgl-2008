@@ -124,6 +124,7 @@ public class SettingsPanel extends PanelState {
 	protected void buildInterfaceFromDomDocument() {
 		String s, valS;
 		PTRadioBoxGroup grp;
+		PTRadioBoxGroup[] grpTrans;
 		PTRadioBox rb;
 		CodeExecutor ex;
 		Service ser;
@@ -136,15 +137,19 @@ public class SettingsPanel extends PanelState {
 		travelCriteriaCollapsableArea = makeCollapsableArea();
 		travelCriteriaRadioBoxs = new PTRadioBox[6];
 		grp = new PTRadioBoxGroup(3);
+		grpTrans = new PTRadioBoxGroup[3];
+		grpTrans[0] = new PTRadioBoxGroup(2);
+		grpTrans[1] = new PTRadioBoxGroup(2);
+		grpTrans[2] = new PTRadioBoxGroup(2);
 		ex = new CodeExecutor() {
 			@Override
 			public void execute() {
 				recordChangedSetting(mainTravelCriteria, SettingsKey.MAIN_TRAVEL_CRITERIA.toString());
 			}
 		};
-		travelCriteriaRadioBoxs[0] = makeRadioButton(grp, ex);// Cheaper
-		travelCriteriaRadioBoxs[1] = makeRadioButton(grp, ex);// Faster
-		travelCriteriaRadioBoxs[2] = makeRadioButton(grp, ex);// Fewer Changes
+		travelCriteriaRadioBoxs[0] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[0] }, ex);// Cheaper
+		travelCriteriaRadioBoxs[1] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[1] });// Faster
+		travelCriteriaRadioBoxs[2] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[2] }, ex);// Fewer Changes
 		grp = new PTRadioBoxGroup(3);
 		ex = new CodeExecutor() {
 			@Override
@@ -152,9 +157,9 @@ public class SettingsPanel extends PanelState {
 				recordChangedSetting(minorTravelCriteria, SettingsKey.MAIN_TRAVEL_CRITERIA.toString());
 			}
 		};
-		travelCriteriaRadioBoxs[3] = makeRadioButton(grp, ex);// Cheaper
-		travelCriteriaRadioBoxs[4] = makeRadioButton(grp, ex);// Faster
-		travelCriteriaRadioBoxs[5] = makeRadioButton(grp, ex);// Fewer Changes
+		travelCriteriaRadioBoxs[3] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[0] }, ex);// Cheaper
+		travelCriteriaRadioBoxs[4] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[1] }, ex);// Faster
+		travelCriteriaRadioBoxs[5] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[2] }, ex);// Fewer Changes
 		travelCriteriaRadioBoxs[0].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
 				"0") == 0);
 		travelCriteriaRadioBoxs[1].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
@@ -337,15 +342,15 @@ public class SettingsPanel extends PanelState {
 			}
 			break;
 		case minorTravelCriteria:
-			if (travelCriteriaRadioBoxs[4].isClicked()) {
+			if (travelCriteriaRadioBoxs[3].isClicked()) {
 				father.setConfig(s, SettingsValue.CHEAPER.getStringValue());
 				return;
 			}
-			if (travelCriteriaRadioBoxs[5].isClicked()) {
+			if (travelCriteriaRadioBoxs[4].isClicked()) {
 				father.setConfig(s, SettingsValue.FASTER.getStringValue());
 				return;
 			}
-			if (travelCriteriaRadioBoxs[6].isClicked()) {
+			if (travelCriteriaRadioBoxs[5].isClicked()) {
 				father.setConfig(s, SettingsValue.FEWER_CHANGES.getStringValue());
 				return;
 			}
@@ -436,8 +441,9 @@ public class SettingsPanel extends PanelState {
 		s = father.lg("TravelCriteria");
 		if (!travelCriteriaCollapsableArea.isCollapsed()) {
 			width = getWidth() - decalage2;
-			tmp = getWidthString(father.lg("FirstTravelCriteria"), buffer,father.getSizeAdapteur().getSmallFont());
-			if ((cpt = getWidthString(father.lg("SecondTravelCriteria"), buffer,father.getSizeAdapteur().getSmallFont())) > tmp)
+			tmp = getWidthString(father.lg("FirstTravelCriteria"), buffer, father.getSizeAdapteur().getSmallFont());
+			if ((cpt = getWidthString(father.lg("SecondTravelCriteria"), buffer, father.getSizeAdapteur()
+					.getSmallFont())) > tmp)
 				tmp = cpt;
 			tmp += decalage + (decalage >> 1) + (decalage >> 2);
 			/***********************************************************************************************************
