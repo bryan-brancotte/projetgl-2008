@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import graphNetwork.exception.StationNotOnRoadException;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -123,23 +125,35 @@ public class Route {
 	/**
 	 * modifie l'etat enable d'une station
 	 * 
+	 * @param station
+	 *            la station a modifier
+	 * @param stationEnable
+	 *            nouvel etat enable de la station
+	 */
+	public void setStationEnable(Station station, boolean stationEnable) {
+		// activation
+		if (stationEnable) {
+			stationsDisabled.remove();
+			return;
+		}
+		// desactivation
+		if (!isStationEnable(station))
+			return;
+		Station s;
+		if ((s = station) != null)
+			stationsDisabled.add(s);
+	}
+
+	/**
+	 * modifie l'etat enable d'une station
+	 * 
 	 * @param id
 	 *            id de la station a modifier
 	 * @param stationEnable
 	 *            nouvel etat enable de la station
 	 */
 	public void setStationEnable(int idStation, boolean stationEnable) {
-		// activation
-		if (stationEnable) {
-			stationsDisabled.remove(this.getStation(idStation));
-			return;
-		}
-		// desactivation
-		if (!isStationEnable(idStation))
-			return;
-		Station s;
-		if ((s = this.getStation(idStation)) != null)
-			stationsDisabled.add(s);
+		setStationEnable(this.getStation(idStation), stationEnable);
 	}
 
 	/**
@@ -166,18 +180,34 @@ public class Route {
 	 * @return etat false si la station est dans la route ET desactiver : si vous passer un id de station qui n'est pas
 	 *         sur la route, nous la considererons comme active sur la ligne
 	 */
-	public boolean isStationEnable(int idStation) {
-		if (!this.getStation(idStation).isEnable())
+	public boolean isStationEnable(Station station) {
+		if (!station.isEnable())
 			return false;
 		Iterator<Station> s1 = stationsDisabled.iterator();
 		while (s1.hasNext())
-			if ((s1.next()).getId() == idStation)
+			if ((s1.next()) == station)
 				return false;
 		return true;
 	}
 
-	public String toString(){
-		return "Route : "+id;
+	/**
+	 * retourne l'etat enable d'une station
+	 * 
+	 * @param id
+	 *            id de la station recherchee
+	 * @return etat false si la station est dans la route ET desactiver : si vous passer un id de station qui n'est pas
+	 *         sur la route, nous la considererons comme active sur la ligne
+	 * @throws StationNotOnRoadException
+	 */
+	public boolean isStationEnable(int idStation) throws StationNotOnRoadException {
+		Station s;
+		if ((s = this.getStation(idStation)) != null)
+			throw new StationNotOnRoadException();
+		return isStationEnable(s);
+	}
+
+	public String toString() {
+		return "Route : " + id;
 	}
 
 }

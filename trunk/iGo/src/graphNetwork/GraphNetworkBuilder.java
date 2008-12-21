@@ -379,15 +379,26 @@ public class GraphNetworkBuilder {
 	 * on la met à jours plutôt que d'en créé un nouvelle.
 	 * 
 	 * @param routeOrigin
+	 *            la route origine
 	 * @param stationOrigin
+	 *            la station origine
 	 * @param routeDestination
+	 *            la route destination
 	 * @param stationDestination
+	 *            la station destination
 	 * @param cost
-	 * @param timeBetweenStations
+	 *            le coût pour emprunter le changement (positif ou null)
+	 * @param time
+	 *            le temps necessaire pour parcourir le chemin (positif ou null)
 	 * @param pedestrian
+	 *            ce lien est-il long?
+	 * @return
 	 * @throws StationNotOnRoadException
+	 *             jetée si une station n'est pas sur la route que l'on suppose.
 	 * @throws NullPointerException
+	 *             jetée si un des composant est null.
 	 * @throws ImpossibleValueException
+	 *             jetée si une valeur est incorrect.
 	 */
 	public void linkStationBidirectional(Route routeOrigin, Station stationOrigin, Route routeDestination,
 			Station stationDestination, float cost, int timeBetweenStations, boolean pedestrian)
@@ -500,5 +511,88 @@ public class GraphNetworkBuilder {
 		}
 		return null;
 
+	}
+
+	/**
+	 * setter de l'etat enable d'une station
+	 * 
+	 * @param station
+	 *            la station à modifier.
+	 * @param enable
+	 *            etat à definir
+	 * @return void
+	 */
+	public void setEnable(Station station, boolean enable) {
+		station.setEnable(enable);
+	}
+
+	/**
+	 * modifie l'etat enable d'une station
+	 * 
+	 * @param route
+	 *            la route sur laquel est la station.
+	 * @param station
+	 *            la station à modifier.
+	 * @param stationEnable
+	 *            etat à definir
+	 */
+	public void setEnable(Route route, Station station, boolean enable) {
+		route.setStationEnable(station, enable);
+	}
+
+	/**
+	 * setter de l'etat enable d'une route
+	 * 
+	 * @param route
+	 *            la route à modifier.
+	 * @param enable
+	 *            etat à definir
+	 * @return void
+	 */
+	public void setEnable(Route route, boolean enable) {
+		route.setEnable(enable);
+	}
+
+	/**
+	 * Trouve la/les jonctions entre les deux stations sur leurs routes respectives et leurs applique l'état passé en
+	 * paramètre
+	 * 
+	 * @param stationOrigin
+	 *            la première station
+	 * @param routeOrigin
+	 *            la route de la première station
+	 * @param stationDestination
+	 *            la seconde station
+	 * @param routeDestination
+	 *            la route de la seconde station
+	 * @param enable
+	 *            etat à definir
+	 * @throws StationNotOnRoadException
+	 *             jetée si une station n'est pas sur la route que l'on suppose.
+	 * @throws NullPointerException
+	 *             jetée si un des composant est null.
+	 */
+	public void setEnableJunctionsBetween(Route routeOrigin, Station stationOrigin, Route routeDestination,
+			Station stationDestination, boolean enable) throws StationNotOnRoadException {
+		if (routeOrigin == null)
+			throw new NullPointerException();
+		if (stationOrigin == null)
+			throw new NullPointerException();
+		if (routeDestination == null)
+			throw new NullPointerException();
+		if (stationDestination == null)
+			throw new NullPointerException();
+
+		if (!routeOrigin.stations.contains(stationOrigin))
+			throw new StationNotOnRoadException();
+		if (!routeDestination.stations.contains(stationDestination))
+			throw new StationNotOnRoadException();
+
+		Iterator<Junction> itJ = stationOrigin.getJunctions(routeOrigin);
+		Junction junction;
+		while (itJ.hasNext()) {
+			if ((junction = itJ.next()).haveOnASide(routeDestination, stationDestination))
+				junction.setEnable(enable);
+		}
 	}
 }
