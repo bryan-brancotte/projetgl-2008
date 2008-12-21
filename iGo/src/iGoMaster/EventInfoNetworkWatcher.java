@@ -13,7 +13,9 @@ import java.util.Vector;
  * 
  * Cette classe abstraite fournit les differents services afin de visualiser les evenements survenus sur le reseau
  * 
- * @author iGo
+ * Une classe héritant de la classe abstraite EventInfoNetworkWatcher doit notifier le master
+ * après chaque nouvelle mise à jour du réseau. Pour cela on pourra utiliser la méthode 
+ * notifyObservers(Object o). Un object null sera passé en argument.
  * 
  */
 public abstract class EventInfoNetworkWatcher extends Observable {
@@ -66,14 +68,5 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 	public void setChanged() {
 	}
 
-	/**
-	 */
-	public void addObserver(Observer o) {
-	}
-
-	/**
-	 */
-	public void notifyObservers() {
-	}
 
 }

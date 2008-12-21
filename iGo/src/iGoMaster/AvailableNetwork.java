@@ -3,27 +3,26 @@ package iGoMaster;
 import java.io.File;
 
 /**
- *  
  * @author iGo
  */
 public interface AvailableNetwork {
 
 	/**
-	 * getter of the name of this avaible network
-	 * @return the name of the avaible network
+	 * Accesseur qui permet d'obtenir le nom du réseau disponible
+	 * @return le nom du réseau
 	 */
 	public abstract String getName();
 
 	/**
-	 * getter of the descrition of this avaible network
-	 * @return the description of the avaible network
+	 * Accesseur qui permet d'obtenir une description du réseau disponible
+	 * @return la description du réseau
 	 */
 	public abstract String getDescription();
 		
 
 	/**
-	 * getter of the file
-	 * @return the file which contains the network
+	 * Accesseur qui permet d'accéder au fichier qui contient le réseau
+	 * @return le fichier qui contient le réseau
 	 */
 	public abstract File getFichier();
 
