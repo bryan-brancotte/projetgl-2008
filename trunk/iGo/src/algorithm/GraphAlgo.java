@@ -32,6 +32,7 @@ public class GraphAlgo {
 		Node n = new Node(s,s.getRoutes().next());
 		graph.add(n);
 		addLink(n);
+		//System.out.println(toString());
 	}
 	
 	/**
