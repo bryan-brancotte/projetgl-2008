@@ -33,7 +33,6 @@ public class AlgoTest {
 	protected PathInGraphResultBuilder pig;
 	protected Algo bob;
 
-
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter(AlgoTest.class);
 	}
@@ -53,14 +52,15 @@ public class AlgoTest {
 			gnb.addStationToRoute(rerB, gnb.addStation(1, "Paris"), 0);
 			gnb.addStationToRoute(rerB, gnb.addStation(2, "Antony"), 12);
 			gnb.addStationToRoute(rerB, gnb.addStation(3, "Croix de berny"), 1);
-			gnb.addStationToRoute(rerB, massyPal = gnb.addStation(10,
-					"Massy Palaiseau"), 10);
+			gnb.addStationToRoute(rerB, massyPal = gnb.addStation(10,"Massy Palaiseau"), 10);
 			gnb.addStationToRoute(rerB, gnb.addStation(4, "Le Guichet"), 9);
 			gnb.addStationToRoute(rerB, gnb.addStation(5, "Orsay Ville"), 1);
 
 			gnb.addStationToRoute(rerC, gnb.addStation(9, "Paris Austerlitz"),
 					0);
 			gnb.addStationToRoute(rerC, gnb.addStation(6, "Orly"), 15);
+			//TODO Ajouté ici
+			gnb.addStationToRoute(rerC, gnb.getStationTest(10), 15);
 			gnb.addStationToRoute(rerC, gnb.addStation(7, "Choisy"), 15);
 			gnb.addStationToRoute(rerC, gnb.addStation(8, "Juvisy"), 3);
 			gnb.addStationToRoute(rerC, massyPal, 25);
@@ -68,6 +68,8 @@ public class AlgoTest {
 			gnb.defineEntryCost(sncf.getKindFromString("RER"), 4);
 
 			gnb.linkStation(rerC, massyPal, rerB, massyPal, 0, 3, false);
+			//TODO Ajouté pour avoir le sens inverse, à voir pour faire autrement ?
+			gnb.linkStation(rerB, massyPal, rerC, massyPal, 0, 3, false);
 			gnb.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1),
 					2, 9, true);
 
@@ -94,38 +96,66 @@ public class AlgoTest {
 		} catch (ImpossibleValueException e) {
 			assertTrue("linkStation ne supporte pas un valeur normal", false);
 		}
-		
+
 		assertTrue("Construction sans problème", true);
 	}
 
 	@Test
+	public void verifGraphOriente () {
+		Station massy = sncf.getStation(10);
+		Iterator<Junction> it = massy.getJunctions();
+		int nbJunctions = 0;
+		while (it.hasNext()) {
+			System.out.print(it.next());
+			System.out.println();
+			nbJunctions++;
+		}
+		/*
+		 * Massy Palaiseau(RerB)<=>Le Guichet(RerB) : 0.0$ in 9 minutes
+		 * Massy Palaiseau(RerC)<=>Choisy(RerC) : 0.0$ in 15 minutes
+		 * Massy Palaiseau(RerC)=>Massy Palaiseau(RerB) : 0.0$ in 3 minutes
+		 * Massy Palaiseau(RerB)=>Massy Palaiseau(RerC) : 0.0$ in 3 minutes
+		 * 
+		 * Manque :
+		 * 
+		 * Massy Palaiseau(RerB)<=>Croix de Berny(RerB)
+		 * Massy Palaiseau(RerC)<=>Orly(RerC)
+		 * 
+		 */
+		assertTrue("mauvais nombre de jonctions",nbJunctions==6);
+		
+	}
+	
+	@Test
 	public void CréationGraph() {
 		GraphNetwork gn = gnb.getCurrentGraphNetwork();
-		PathInGraphCollectionBuilder pc = gn.getInstanceGraphCollectionBuilder();
+		PathInGraphCollectionBuilder pc = gn
+				.getInstancePathInGraphCollectionBuilder();
 		PathInGraphConstraintBuilder pcb = pc.getPathInGraphConstraintBuilder();
-		
+
 		pcb.setMainCriterious(CriteriousForLowerPath.TIME);
 		pcb.setMinorCriterious(CriteriousForLowerPath.CHANGE);
 		pcb.setOrigin(gn.getStation(1));
 		pcb.setDestination(gn.getStation(5));
-		
+
 		PathInGraphResultBuilder prb = pc.getPathInGraphResultBuilder();
+
+		System.out.println("\n\n\n");
+		Iterator<Junction> j = gnb.getStationTest(10).getJunctions();
 		
 		bob = new Dijkstra();
-		
+
 		PathInGraph p = bob.findPath(prb);
-		
+
 		Iterator<Junction> it = p.getJunctions();
 		while (it.hasNext()) {
-			System.out.println("toto");
 			System.out.println(it.next().toString());
 		}
 	}
-	
+
 	@Test
 	public void CalculPlusCourtChemin() {
-		
-		
+
 	}
-	
+
 }
