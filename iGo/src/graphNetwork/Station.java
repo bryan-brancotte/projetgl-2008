@@ -156,13 +156,21 @@ public class Station {
 	}
 
 	/**
+	 * Passer par le {@link GraphNetworkBuilder}
+	 */
+	@Deprecated
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	/**
 	 * setter de l'etat enable d'une station
 	 * 
 	 * @param enable
 	 *            etat a modifier
 	 * @return void
 	 */
-	public void setEnable(boolean enable) {
+	protected void setToEnable(boolean enable) {
 		this.enable = enable;
 	}
 

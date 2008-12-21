@@ -78,6 +78,14 @@ public class Route {
 	 * @param enable
 	 *            nouvel etat a appliquer a la route
 	 */
+	public void setToEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+	/**
+	 * Passer par le {@link GraphNetworkBuilder}
+	 */
+	@Deprecated
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
@@ -128,7 +136,7 @@ public class Route {
 	 * @param stationEnable
 	 *            nouvel etat enable de la station
 	 */
-	public void setStationEnable(Station station, boolean stationEnable) {
+	protected void setStationEnable(Station station, boolean stationEnable) {
 		// activation
 		if (stationEnable) {
 			stationsDisabled.remove();
@@ -143,14 +151,21 @@ public class Route {
 	}
 
 	/**
+	 * Utiliser le {@link GraphNetworkBuilder}
+	 */
+	@Deprecated
+	public void setStationEnable(int idStation, boolean stationEnable) {
+	}
+
+	/**
 	 * modifie l'etat enable d'une station
 	 * 
 	 * @param id
 	 *            id de la station a modifier
 	 * @param stationEnable
 	 *            nouvel etat enable de la station
-	 */
-	public void setStationEnable(int idStation, boolean stationEnable) {
+	 */ 
+	protected void setStationToEnable(int idStation, boolean stationEnable) {
 		setStationEnable(this.getStation(idStation), stationEnable);
 	}
 

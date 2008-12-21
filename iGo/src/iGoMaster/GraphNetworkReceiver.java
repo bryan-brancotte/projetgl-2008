@@ -4,7 +4,7 @@ import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 
-import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * 
@@ -31,6 +31,6 @@ public interface GraphNetworkReceiver {
 	 * @uml.property name="avaibleNetwork"
 	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" inverse="graphNetworkReceiver:iGoMaster.AvaibleNetwork"
 	 */
-	public Collection<AvailableNetwork> getAvaibleNetwork();
+	public Iterator<AvailableNetwork> getAvaibleNetwork();
 
 }

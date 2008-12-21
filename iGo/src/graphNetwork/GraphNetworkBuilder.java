@@ -497,7 +497,7 @@ public class GraphNetworkBuilder {
 	 * @return void
 	 */
 	public void setEnable(Station station, boolean enable) {
-		station.setEnable(enable);
+		station.setToEnable(enable);
 	}
 
 	/**
@@ -524,7 +524,7 @@ public class GraphNetworkBuilder {
 	 * @return void
 	 */
 	public void setEnable(Route route, boolean enable) {
-		route.setEnable(enable);
+		route.setToEnable(enable);
 	}
 
 	/**
@@ -566,7 +566,31 @@ public class GraphNetworkBuilder {
 		Junction junction;
 		while (itJ.hasNext()) {
 			if ((junction = itJ.next()).haveOnASide(routeDestination, stationDestination))
-				junction.setEnable(enable);
+				junction.setToEnable(enable);
+		}
+	}
+
+	/**
+	 * remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relative au
+	 * route, les jonctions.
+	 */
+	public void resetEnables() {
+		Iterator<Route> itRoute = currentGraphNetwork.routes.iterator();
+		Iterator<Station> itStation = currentGraphNetwork.stations.iterator();
+		Route route;
+		Station station;
+		Iterator<Junction> itJunction;
+
+		while (itRoute.hasNext()) {
+			(route = itRoute.next()).setToEnable(true);
+			route.resetDisabledStation();
+		}
+
+		while (itStation.hasNext()) {
+			itJunction = (station = itStation.next()).getJunctions();
+			while (itJunction.hasNext())
+				itJunction.next().setToEnable(true);
+			station.setToEnable(true);
 		}
 	}
 }

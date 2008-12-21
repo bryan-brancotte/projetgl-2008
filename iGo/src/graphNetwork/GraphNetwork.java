@@ -256,26 +256,9 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relative au
-	 * route, les jonctions.
+	 * Passer par le {@link GraphNetworkBuilder} 
 	 */
+	@Deprecated
 	public void resetEnables() {
-		Iterator<Route> itRoute = routes.iterator();
-		Iterator<Station> itStation = stations.iterator();
-		Route route;
-		Station station;
-		Iterator<Junction> itJunction;
-
-		while (itRoute.hasNext()) {
-			(route = itRoute.next()).setEnable(true);
-			route.resetDisabledStation();
-		}
-
-		while (itStation.hasNext()) {
-			itJunction = (station = itStation.next()).getJunctions();
-			while (itJunction.hasNext())
-				itJunction.next().setEnable(true);
-			station.setEnable(true);
-		}
 	}
 }
