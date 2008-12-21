@@ -26,16 +26,17 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	protected boolean key_char = false;
 	protected byte selectingWay = 0;
 	protected Font lastFont;
+	protected CodeExecutor action;
 
-	protected PTAutoCompletionTextBox(PanelTooled nvfather, Rectangle nvArea, String[] nvFields) {
+	protected PTAutoCompletionTextBox(PanelTooled nvfather, Rectangle nvArea, String[] nvFields, CodeExecutor theAction) {
 		super(nvfather, nvArea);
 		this.fields = nvFields;
-		fieldsMatching = new ArrayList<Integer>();
-		currentStringLeft = "";
-		currentStringSelected = "";
-		currentStringRight = "";
-		// father.addMouseListener(l)
-		father.addKeyListener(new KeyListener() {
+		this.action = theAction;
+		this.fieldsMatching = new ArrayList<Integer>();
+		this.currentStringLeft = "";
+		this.currentStringSelected = "";
+		this.currentStringRight = "";
+		this.father.addKeyListener(new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (!isInMe)
@@ -169,7 +170,8 @@ public class PTAutoCompletionTextBox extends PTComponent {
 					} else
 						return;
 				}
-
+				if (action != null)
+					action.execute();
 				father.repaint();
 			}
 

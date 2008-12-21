@@ -34,38 +34,33 @@ import org.xml.sax.SAXException;
 public class PathInGraph {
 
 	/**
-	 * GraphNetwork dans lequel le trajet a un sens, une existance
+	 * Liste des jonctions formant le trajet
 	 */
-	protected GraphNetwork univers;
-	/**
-	 * Liste des stations à éviter
-	 */
-	protected LinkedList<Station> avoidStations;
-
+	protected LinkedList<Junction> junctions;
 	/**
 	 * Le chemin à t'il été résolu?
 	 */
 	protected boolean resolved;
 	/**
-	 * le coût du chemin
+	 * La station d'origine
 	 */
-	protected float cost;
-	/**
-	 * la durée du chemin
-	 */
-	protected int time;
+	protected Station origin;
 	/**
 	 * La station de destination
 	 */
 	protected Station destination;
 	/**
-	 * Liste des jonctions formant le trajet
+	 * Critère principale pour la résolution de l'algo
 	 */
-	protected LinkedList<Junction> junctions;
+	protected CriteriousForLowerPath mainCriterious;
 	/**
-	 * La station d'origine
+	 * Critère secondaire pour la résolution de l'algo
 	 */
-	protected Station origin;
+	protected CriteriousForLowerPath minorCriterious;
+	/**
+	 * le coût du chemin
+	 */
+	protected float cost;
 	/**
 	 * Liste des services obligatoire sur l'ensemble des stations intermédiaire et extrèmes du trajet.
 	 */
@@ -79,35 +74,21 @@ public class PathInGraph {
 	 */
 	protected LinkedList<Station> steps;
 	/**
-	 * Critère principale pour la résolution de l'algo
+	 * Liste des stations à éviter
 	 */
-	protected CriteriousForLowerPath mainCriterious;
+	protected LinkedList<Station> avoidStations;
 	/**
-	 * Critère secondaire pour la résolution de l'algo
+	 * Liste des type de route que l'on ne veut pas prendre
 	 */
-	protected CriteriousForLowerPath minorCriterious;
-
-	public boolean isResolved() {
-		return resolved;
-	}
-
+	protected LinkedList<KindRoute> refusedKindRoute;
 	/**
-	 * Accesseur pour le critère principale dans la résolution de l'algo
-	 * 
-	 * @return
+	 * la durée du chemin
 	 */
-	public CriteriousForLowerPath getMainCriterious() {
-		return mainCriterious;
-	}
-
+	protected int time;
 	/**
-	 * Accesseur pour le critère secondaire dans la résolution de l'algo
-	 * 
-	 * @return
+	 * GraphNetwork dans lequel le trajet a un sens, une existance
 	 */
-	public CriteriousForLowerPath getMinorCriterious() {
-		return minorCriterious;
-	}
+	protected GraphNetwork univers;
 
 	/**
 	 * constructeur d'un trajet
@@ -118,6 +99,7 @@ public class PathInGraph {
 		servicesOnce = new LinkedList<Service>();
 		steps = new LinkedList<Station>();
 		avoidStations = new LinkedList<Station>();
+		refusedKindRoute = new LinkedList<KindRoute>();
 		// resolved = false;
 		cost = Float.NaN;
 		time = 0;
@@ -125,7 +107,6 @@ public class PathInGraph {
 		origin = null;
 		mainCriterious = CriteriousForLowerPath.NOT_DEFINED;
 		minorCriterious = CriteriousForLowerPath.NOT_DEFINED;
-
 	}
 
 	/**
@@ -267,12 +248,6 @@ public class PathInGraph {
 		return "";
 	}
 
-	private String getId(Station s) {
-		if (s == null)
-			return "null";
-		return s.getId() + "";
-	}
-
 	/**
 	 * Retourne un tableau avec l'ensemble des stations à éviter
 	 * 
@@ -307,15 +282,6 @@ public class PathInGraph {
 	 */
 	public Station getDestination() {
 		return destination;
-	}
-
-	/**
-	 * Retourne la station d'origine/de départ du chemin
-	 * 
-	 * @return
-	 */
-	public Station getOrigin() {
-		return origin;
 	}
 
 	/**
@@ -370,6 +336,12 @@ public class PathInGraph {
 		return univers;
 	}
 
+	private String getId(Station s) {
+		if (s == null)
+			return "null";
+		return s.getId() + "";
+	}
+
 	/**
 	 * Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
 	 * 
@@ -380,11 +352,30 @@ public class PathInGraph {
 	}
 
 	/**
-	 * use getServicesAlwaysArray()
+	 * Accesseur pour le critère principale dans la résolution de l'algo
+	 * 
+	 * @return
 	 */
-	@Deprecated
-	public Service[] getSevicesAlwaysArray() {
-		return servicesAlways.toArray(new Service[0]);
+	public CriteriousForLowerPath getMainCriterious() {
+		return mainCriterious;
+	}
+
+	/**
+	 * Accesseur pour le critère secondaire dans la résolution de l'algo
+	 * 
+	 * @return
+	 */
+	public CriteriousForLowerPath getMinorCriterious() {
+		return minorCriterious;
+	}
+
+	/**
+	 * Retourne la station d'origine/de départ du chemin
+	 * 
+	 * @return
+	 */
+	public Station getOrigin() {
+		return origin;
 	}
 
 	/**
@@ -397,28 +388,12 @@ public class PathInGraph {
 	}
 
 	/**
-	 * use getServicesAlwaysIter()
-	 */
-	@Deprecated
-	public Iterator<Service> getSevicesAlwaysIter() {
-		return servicesAlways.iterator();
-	}
-
-	/**
 	 * Retourne un iterateur décrivant les services requis tout au long du trajet
 	 * 
 	 * @return
 	 */
 	public Iterator<Service> getServicesAlwaysIter() {
 		return servicesAlways.iterator();
-	}
-
-	/**
-	 * use getServicesOnceArray()
-	 */
-	@Deprecated
-	public Service[] getSevicesOnceArray() {
-		return servicesOnce.toArray(new Service[0]);
 	}
 
 	/**
@@ -431,19 +406,43 @@ public class PathInGraph {
 	}
 
 	/**
-	 * use getServicesOnceIter()
-	 */
-	@Deprecated
-	public Iterator<Service> getSevicesOnceIter() {
-		return servicesOnce.iterator();
-	}
-
-	/**
 	 * Retourne un iterateur décrivant les services requis au moins une fois sur le trajet
 	 * 
 	 * @return
 	 */
 	public Iterator<Service> getServicesOnceIter() {
+		return servicesOnce.iterator();
+	}
+
+	/**
+	 * use getServicesAlwaysArray()
+	 */
+	@Deprecated
+	public Service[] getSevicesAlwaysArray() {
+		return servicesAlways.toArray(new Service[0]);
+	}
+
+	/**
+	 * use getServicesAlwaysIter()
+	 */
+	@Deprecated
+	public Iterator<Service> getSevicesAlwaysIter() {
+		return servicesAlways.iterator();
+	}
+
+	/**
+	 * use getServicesOnceArray()
+	 */
+	@Deprecated
+	public Service[] getSevicesOnceArray() {
+		return servicesOnce.toArray(new Service[0]);
+	}
+
+	/**
+	 * use getServicesOnceIter()
+	 */
+	@Deprecated
+	public Iterator<Service> getSevicesOnceIter() {
 		return servicesOnce.iterator();
 	}
 
@@ -490,19 +489,6 @@ public class PathInGraph {
 		String s;
 		Station station;
 		Service service;
-
-		origin = null;
-		destination = null;
-		cost = Float.NaN;
-		time = 0;
-		resolved = false;
-		junctions.clear();
-		servicesAlways.clear();
-		servicesOnce.clear();
-		steps.clear();
-		avoidStations.clear();
-		mainCriterious = CriteriousForLowerPath.NOT_DEFINED;
-		minorCriterious = CriteriousForLowerPath.NOT_DEFINED;
 
 		try {
 			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
@@ -599,11 +585,23 @@ public class PathInGraph {
 
 		} catch (SAXException e) {
 			e.printStackTrace();
+			this.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
+			this.reset();
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
+			this.reset();
 		}
+	}
+
+	/**
+	 * Accesseur permettant de savoir si le trajet à été résolut, et plus modifié ensuite
+	 * 
+	 * @return
+	 */
+	public boolean isResolved() {
+		return resolved;
 	}
 
 	/**
@@ -639,56 +637,38 @@ public class PathInGraph {
 		return true;
 	}
 
-	// /**
-	// * Un desciptif du trajet
-	// *
-	// * @return
-	// */
-	// public String toMyString() { //
-	// String retour = "<PathInGraph>" + cost + ";" + time + ";";
-	// return retour;
-	// retour.concat(univers.toMyString());
-	//				
-	// retour.concat("<stationList>");
-	// Iterator<Station> it1=avoidStations.iterator();
-	// while(it1.hasNext()){
-	// retour.concat(it1.next().toMyString());
-	// retour.concat(";");
-	// }
-	// retour.concat("</stationList>");
-	// retour.concat(destination.toMyString());
-	// retour.concat("<junctionList>");
-	// Iterator<Station> it2=avoidStations.iterator();
-	// while(it2.hasNext()){
-	// retour.concat(it2.next().toMyString());
-	// retour.concat(";");
-	// }
-	// retour.concat("</junctionList>");
-	// retour.concat(origin.toMyString());
-	// retour.concat("<serviceList>");
-	// Iterator<Service> it3=sevicesAlways.iterator();
-	// while(it3.hasNext()){
-	// retour.concat(it3.next().toMyString());
-	// retour.concat(";");
-	// }
-	// retour.concat("</junctionList>");
-	// retour.concat("<serviceList>");
-	// Iterator<Service> it4=sevicesOnce.iterator();
-	// while(it4.hasNext()){
-	// retour.concat(it4.next().toMyString());
-	// retour.concat(";");
-	// }
-	// retour.concat("</junctionList>");
-	// retour.concat("<stationList>");
-	// Iterator<Station> it5=steps.iterator();
-	// while(it5.hasNext()){
-	// retour.concat(it5.next().toMyString());
-	// retour.concat(";");
-	// }
-	// retour.concat("</stationList>");
-	//				
-	//				
-	// retour.concat("</PathInGraph>");
-	// }
+	protected void reset() {
 
+		origin = null;
+		destination = null;
+		cost = Float.NaN;
+		time = 0;
+		resolved = false;
+		junctions.clear();
+		servicesAlways.clear();
+		servicesOnce.clear();
+		steps.clear();
+		avoidStations.clear();
+		refusedKindRoute.clear();
+		mainCriterious = CriteriousForLowerPath.NOT_DEFINED;
+		minorCriterious = CriteriousForLowerPath.NOT_DEFINED;
+	}
+
+	/**
+	 * Retourne un iterateur sur les kindRoute que l'utilisateur refuse.
+	 * 
+	 * @return
+	 */
+	public Iterator<KindRoute> getRefusedKindRouteIter() {
+		return refusedKindRoute.iterator();
+	}
+
+	/**
+	 * Retourne un iterateur sur les kindRoute que l'utilisateur refuse.
+	 * 
+	 * @return
+	 */
+	public KindRoute[] getRefusedKindRouteArray() {
+		return refusedKindRoute.toArray(new KindRoute[0]);
+	}
 }

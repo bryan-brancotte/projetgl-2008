@@ -6,9 +6,9 @@ import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
-import iGoMaster.IHMGraphicQuality;
 import iGoMaster.SettingsKey;
 import iGoMaster.SettingsValue;
+import iGoMaster.Algo.CriteriousForLowerPath;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.statePanels.component.PairPTCheckBox;
@@ -24,7 +24,6 @@ import ihm.smartPhone.tools.PTRadioBox;
 import ihm.smartPhone.tools.PTRadioBoxGroup;
 import ihm.smartPhone.tools.PTScrollBar;
 import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.tools.PanelTooled;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -79,6 +78,8 @@ public class NewTravelPanel extends PanelState {
 	protected PTCollapsableArea departureStationCollapsableArea;
 	// protected PTButton departureStationButton;
 
+	protected boolean departureStationOrArrivalStationChanged;
+
 	protected final int arrivalStation = 8;
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
@@ -90,6 +91,7 @@ public class NewTravelPanel extends PanelState {
 	public NewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 		deroullement = 0;
+		departureStationOrArrivalStationChanged = true;
 		buildInterfaceFromDomDocument();
 	}
 
@@ -99,7 +101,10 @@ public class NewTravelPanel extends PanelState {
 		PTRadioBoxGroup[] grpTrans;
 		CodeExecutor ex;
 		Iterator<Station> it;
+		Iterator<KindRoute> itR;
+		Iterator<Service> itS;
 		Station st;
+		Service ser;
 
 		/***************************************************************************************************************
 		 * Travel criteria
@@ -156,7 +161,7 @@ public class NewTravelPanel extends PanelState {
 		travelModeCollapsableArea = makeCollapsableArea();
 		travelModeCollapsableArea.changeCollapseState();
 		travelModeCheckBoxs = new LinkedList<PairPTCheckBox>();
-		Iterator<KindRoute> itR = father.getKindRoutes();
+		itR = father.getKindRoutes();
 		PTCheckBox chk;
 		while (itR.hasNext()) {
 			chk = makeCheckBox(new CodeExecutor1P<String>(s = (itR.next().getKindOf())) {
@@ -165,7 +170,9 @@ public class NewTravelPanel extends PanelState {
 					recordChangedSetting(travelMode, this.origine);
 				}
 			});
-			chk.setClicked(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo("1") == 0);
+			chk
+					.setClicked(!(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo(
+							SettingsValue.DISABLE.toString()) == 0));
 			travelModeCollapsableArea.addComponent(chk);
 			travelModeCheckBoxs.add(new PairPTCheckBox(chk, s));
 		}
@@ -176,12 +183,12 @@ public class NewTravelPanel extends PanelState {
 		servicesCollapsableArea = makeCollapsableArea();
 		servicesCollapsableArea.changeCollapseState();
 		ServicesRadioBoxs = new LinkedList<PairPTRadioBoxs>();
-		Iterator<Service> itS = father.getServices();
+		itS = father.getServices();
 		PTRadioBox[] rbs;
 		while (itS.hasNext()) {
 			rbs = new PTRadioBox[3];
 			grp = new PTRadioBoxGroup(rbs.length);
-			ex = new CodeExecutor1P<String>(s = (itS.next().getName())) {
+			ex = new CodeExecutor1P<String>(s = (SettingsKey.SERVICES_.toString() + ((ser = itS.next()).getId()))) {
 				@Override
 				public void execute() {
 					recordChangedSetting(services, this.origine);
@@ -191,14 +198,14 @@ public class NewTravelPanel extends PanelState {
 				rbs[i] = makeRadioButton(grp, ex);
 				servicesCollapsableArea.addComponent(rbs[i]);
 			}
-			valS = father.getConfig(SettingsKey.SERVICES_ + s);
-			if (valS.compareTo("1") == 0)
+			valS = father.getConfig(s);
+			if (valS.compareTo(SettingsValue.Once.toString()) == 0)
 				rbs[1].setClicked(true);
-			else if (valS.compareTo("2") == 0)
+			else if (valS.compareTo(SettingsValue.Always.toString()) == 0)
 				rbs[2].setClicked(true);
 			else
 				rbs[0].setClicked(true);
-			ServicesRadioBoxs.add(new PairPTRadioBoxs(rbs, s));
+			ServicesRadioBoxs.add(new PairPTRadioBoxs(rbs, ser, s));
 		}
 
 		/***************************************************************************************************************
@@ -254,7 +261,13 @@ public class NewTravelPanel extends PanelState {
 		 */
 		departureStationCollapsableArea = makeCollapsableArea();
 		departureStationNew = makeArea();
-		departureStationTextBox = makeAutoCompletionTextBox(stations);
+		departureStationTextBox = makeAutoCompletionTextBox(stations, new CodeExecutor() {
+
+			@Override
+			public void execute() {
+				departureStationOrArrivalStationChanged = true;
+			}
+		});
 		departureStationCollapsableArea.addComponent(departureStationTextBox);
 		departureStationCollapsableArea.addComponent(departureStationNew);
 
@@ -263,7 +276,13 @@ public class NewTravelPanel extends PanelState {
 		 */
 		arrivalStationCollapsableArea = makeCollapsableArea();
 		arrivalStationNew = makeArea();
-		arrivalStationTextBox = makeAutoCompletionTextBox(stations);
+		arrivalStationTextBox = makeAutoCompletionTextBox(stations, new CodeExecutor() {
+
+			@Override
+			public void execute() {
+				departureStationOrArrivalStationChanged = true;
+			}
+		});
 		arrivalStationCollapsableArea.addComponent(departureStationTextBox);
 		arrivalStationCollapsableArea.addComponent(arrivalStationNew);
 
@@ -300,49 +319,43 @@ public class NewTravelPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
 					if (p.chk.isClicked())
-						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.ENABLE.getStringValue());
+						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.ENABLE.toString());
 					else
-						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.getStringValue());
+						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.toString());
 					return;
 				}
 			break;
 		case mainTravelCriteria:
 			if (travelCriteriaRadioBoxs[0].isClicked()) {
-				// TODO z : à decommenter
-				// if (station != null)
-				// pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.COST);
+				if (pathBuilder != null)
+					pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.COST);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[1].isClicked()) {
-				// TODO z : à decommenter
-				// if (station != null)
-				// pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.TIME);
+				if (pathBuilder != null)
+					pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.TIME);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[2].isClicked()) {
-				// TODO z : à decommenter
-				// if (station != null)
-				// pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.CHANGE);
+				if (pathBuilder != null)
+					pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.CHANGE);
 				return;
 			}
 			break;
 		case minorTravelCriteria:
 			if (travelCriteriaRadioBoxs[3].isClicked()) {
-				// TODO z : à decommenter
-				// if (station != null)
-				// pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.COST);
+				if (pathBuilder != null)
+					pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.COST);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[4].isClicked()) {
-				// TODO z : à decommenter
-				// if (station != null)
-				// pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.TIME);
+				if (pathBuilder != null)
+					pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.TIME);
 				return;
 			}
 			if (travelCriteriaRadioBoxs[5].isClicked()) {
-				// TODO z : à decommenter
-				// if (station != null)
-				// pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.CHANGE);
+				if (pathBuilder != null)
+					pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.CHANGE);
 				return;
 			}
 			break;
@@ -350,15 +363,15 @@ public class NewTravelPanel extends PanelState {
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
 					if (p.rbs[0].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Idle.getStringValue());
+						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Idle.toString());
 						return;
 					}
 					if (p.rbs[1].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Once.getStringValue());
+						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Once.toString());
 						return;
 					}
 					if (p.rbs[2].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Always.getStringValue());
+						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Always.toString());
 						return;
 					}
 				}
@@ -424,9 +437,8 @@ public class NewTravelPanel extends PanelState {
 		stationTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorInside(), father
 				.getSkin().getColorLetter());
 		Station station = this.sationsHash.get(stationTextBox.getText());
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		if (station != null) {
-			// TODO good choix
-			// stationButton.draw(buffer, imageOk);
 			buffer.setFont(father.getSizeAdapteur().getSmallFont());
 			buffer.setColor(father.getSkin().getColorLetter());
 			int xActu, yActu;
@@ -459,6 +471,12 @@ public class NewTravelPanel extends PanelState {
 				xActu += taille + (decalage >> 1);
 			}
 			return station;
+		}
+		if (stationTextBox.getText().isEmpty()) {
+			buffer.drawString(father.lg("FillThisField"), stationTextBox.getArea().x, stationTextBox.getArea().y
+					+ stationTextBox.getArea().height + (decalage >> 1)
+					+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));
+			return null;
 		}
 		buffer.setColor(Color.red);
 		buffer.drawString(father.lg("InvalideStation"), stationTextBox.getArea().x, stationTextBox.getArea().y
@@ -530,11 +548,8 @@ public class NewTravelPanel extends PanelState {
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(departureStationNew, departureStationTextBox,
 				departureStationCollapsableArea, ordonne, decalage, decalage2, taille);
-		if (station != null)
-			station.getId();
-		// TODO z : à decommenter
-		// if (station != null)
-		// pathBuilder.setOrigin(station);
+		if (departureStationOrArrivalStationChanged)
+			pathBuilder.setOrigin(station);
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
 				+ decalage;
 
@@ -549,9 +564,8 @@ public class NewTravelPanel extends PanelState {
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
 				arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille);
-		// TODO z : à decommenter
-		// if (station != null)
-		// pathBuilder.setDestination(station);
+		if (departureStationOrArrivalStationChanged)
+			pathBuilder.setDestination(station);
 		ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
@@ -677,11 +691,11 @@ public class NewTravelPanel extends PanelState {
 			// on trouve la largueur de la colonne des services
 			ord = new byte[ServicesRadioBoxs.size()];
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
-				tmp = getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont());
+				tmp = getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont());
 				if (tmp > (getWidth() - decalage2 - decalage >> 1)) {
 					ord[cpt] = 0;
 					tmp = 0;
-					String[] splited = p.name.split(" ");
+					String[] splited = p.service.getName().split(" ");
 					int myTmp;
 					for (String miniS : splited) {
 						ord[cpt]++;
@@ -707,12 +721,12 @@ public class NewTravelPanel extends PanelState {
 			cpt = -1;
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
 				tmp += width;
-				if (ord[++cpt]-- > 1)
+				if (ord[++cpt]-- >= 1)
 					tmp += width * ord[cpt] >> 1;
 				for (int i = 0; i < pos.length; i++) {
 					p.rbs[i].prepareArea(buffer, pos[i], tmp, "", father.getSizeAdapteur().getSmallFont(), true, false);
 				}
-				if (ord[cpt] > 1)
+				if (ord[cpt] >= 1)
 					tmp += width * ord[cpt] >> 1;
 			}
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
@@ -744,20 +758,25 @@ public class NewTravelPanel extends PanelState {
 				p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-				if (getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
+				if (getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
 						.getArea().width >> 1)) {
-					String[] splited = p.name.split(" ");
+					String[] splited = p.service.getName().split(" ");
 					tmp -= width;
 					for (String miniS : splited) {
 						tmp += width;
 						buffer.drawString(miniS, decalage << 1, tmp);
 					}
 				} else {
-					buffer.drawString(p.name, decalage << 1, tmp);
+					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
-				// buffer.setColor(father.getNetworkColorManager().getColorForService(p.))
-				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y, father.getSizeAdapteur()
-						.getSizeSmallFont() >> 1, father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.setColor(father.getNetworkColorManager().getColorForService(p.service));
+				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
+						father.getSizeAdapteur().getSizeSmallFont() >> 1,
+						father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.setColor(father.getSkin().getColorLetter());
+				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
+						father.getSizeAdapteur().getSizeSmallFont() >> 1,
+						father.getSizeAdapteur().getSizeSmallFont() >> 1);
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
@@ -896,9 +915,15 @@ public class NewTravelPanel extends PanelState {
 		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
 
 		/***************************************************************************************************************
+		 * on met le flag de modification de départ/arrvié à false
+		 */
+		departureStationOrArrivalStationChanged = false;
+
+		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */
 		g.drawImage(image, 0, 0, null);
+
 	}
 
 	@Override
@@ -926,7 +951,51 @@ public class NewTravelPanel extends PanelState {
 
 	public void setPathInGraphConstraintBuilder(PathInGraphConstraintBuilder pathBuilder) {
 		this.pathBuilder = pathBuilder;
-
+		initPathInGraphConstraintBuilder();
 	}
 
+	protected void initPathInGraphConstraintBuilder() {
+		if (pathBuilder == null)
+			return;
+
+		Iterator<KindRoute> itR;
+		KindRoute kind;
+		Iterator<Service> itS;
+		Service service;
+		String s;
+
+		if (father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
+				Algo.CriteriousForLowerPath.COST.toString()) == 0)
+			pathBuilder.setMainCriterious(CriteriousForLowerPath.COST);
+		else if (father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
+				Algo.CriteriousForLowerPath.TIME.toString()) == 0)
+			pathBuilder.setMainCriterious(CriteriousForLowerPath.TIME);
+		else if (father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
+				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0)
+			pathBuilder.setMainCriterious(CriteriousForLowerPath.CHANGE);
+
+		if (father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
+				Algo.CriteriousForLowerPath.COST.toString()) == 0)
+			pathBuilder.setMinorCriterious(CriteriousForLowerPath.COST);
+		else if (father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
+				Algo.CriteriousForLowerPath.TIME.toString()) == 0)
+			pathBuilder.setMinorCriterious(CriteriousForLowerPath.TIME);
+		else if (father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
+				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0)
+			pathBuilder.setMinorCriterious(CriteriousForLowerPath.CHANGE);
+
+		itR = father.getKindRoutes();
+		while (itR.hasNext())
+			if (father.getConfig(SettingsKey.TRAVEL_MODE_ + (kind = itR.next()).getKindOf()).compareTo("0") == 0)
+				pathBuilder.addRefusedKindRoute(kind);
+
+		itS = father.getServices();
+		while (itS.hasNext()) {
+			if ((father.getConfig(s = (SettingsKey.SERVICES_.toString() + (service = itS.next()).getId())))
+					.compareTo(SettingsValue.Always.toString()) == 0)
+				pathBuilder.addSeviceAlways(service);
+			else if (father.getConfig(s).compareTo(SettingsValue.Once.toString()) == 0)
+				pathBuilder.addSeviceOnce(service);
+		}
+	}
 }
