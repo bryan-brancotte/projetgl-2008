@@ -5,6 +5,7 @@ import graphNetwork.PathInGraph;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import graphNetwork.exception.StationNotOnRoadException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,19 +42,26 @@ public class GraphAlgo {
 	 */
 	private	void addLink (Node n) {
 		Station station = n.getStation();
-		Iterator<Junction> itInter = station.getJunctions();
-		while(itInter.hasNext()){
-			Junction j = itInter.next();
-			if (validChange(n,j)) {
-				Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
-				if (newNode == null) {
-					newNode = new Node(j.getOtherStation(station),j.getOtherRoute(station));
-					graph.add(newNode);
-					addLink(newNode);
+		Iterator<Junction> itInter;
+		try {
+			itInter = station.getJunctions(n.getRoute());
+			while(itInter.hasNext()){
+				Junction j = itInter.next();
+				if (validChange(n,j)) {
+					Node newNode = getNode(j.getOtherStation(station),j.getOtherRoute(station));
+					if (newNode == null) {
+						newNode = new Node(j.getOtherStation(station),j.getOtherRoute(station));
+						graph.add(newNode);
+						addLink(newNode);
+					}
+					if (!Links.contains(n.getToIter(),j)) n.addTo(j,newNode);
 				}
-				if (!Links.contains(n.getToIter(),j)) n.addTo(j,newNode);
 			}
+		} catch (StationNotOnRoadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 	
 	/**
