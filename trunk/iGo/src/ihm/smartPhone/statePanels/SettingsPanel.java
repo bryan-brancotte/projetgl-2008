@@ -9,6 +9,9 @@ import iGoMaster.SettingsValue;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
+import ihm.smartPhone.statePanels.component.PairPTCheckBox;
+import ihm.smartPhone.statePanels.component.PairPTRadioBox;
+import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.ImageLoader;
@@ -33,50 +36,7 @@ import org.w3c.dom.Document;
 
 public class SettingsPanel extends PanelState {
 
-	protected HashMap<String, Station> sationsHash;
-
-	protected class PairPTCheckBox {
-		public PTCheckBox chk;
-		public String name;
-
-		protected PairPTCheckBox(PTCheckBox chk, String name) {
-			super();
-			this.chk = chk;
-			this.name = name;
-		}
-	}
-
-	protected class PairPTRadioBoxs {
-		public PTRadioBox[] rbs;
-		public String name;
-		public Service service;
-
-		protected PairPTRadioBoxs(PTRadioBox[] rbs, String name) {
-			super();
-			this.rbs = rbs;
-			this.service = null;
-			this.name = name;
-		}
-
-		protected PairPTRadioBoxs(PTRadioBox[] rbs, Service service, String name) {
-			super();
-			this.rbs = rbs;
-			this.service = service;
-			this.name = name;
-		}
-	}
-
-	protected class PairPTRadioBox {
-		public PTRadioBox rb;
-		public String name;
-
-		protected PairPTRadioBox(PTRadioBox rb, String name) {
-			super();
-			this.rb = rb;
-			this.name = name;
-		}
-	}
-
+	protected HashMap<String, Station> sationsHash; 
 	private static final long serialVersionUID = 1L;
 
 	@Deprecated
@@ -118,10 +78,10 @@ public class SettingsPanel extends PanelState {
 	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 		deroullement = 0;
-		buildInterfaceFromDomDocument();
+		buildInterface();
 	}
 
-	protected void buildInterfaceFromDomDocument() {
+	protected void buildInterface() {
 		String s, valS;
 		PTRadioBoxGroup grp;
 		PTRadioBoxGroup[] grpTrans;
@@ -518,8 +478,7 @@ public class SettingsPanel extends PanelState {
 				t.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
 		}
-		ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height
-				+ decalage2;
+		ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Travel mode
@@ -546,7 +505,7 @@ public class SettingsPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				p.chk.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
-		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + decalage2;
+		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Services
@@ -650,7 +609,7 @@ public class SettingsPanel extends PanelState {
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
 					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
 							.getSkin().getColorLetter());
-		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage2;
+		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Quality
@@ -702,7 +661,7 @@ public class SettingsPanel extends PanelState {
 			qualityRadioBoxs[3].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
 					.getColorSubAreaInside(), father.getSkin().getColorLetter());
 		}
-		ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage2;
+		ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Languages
@@ -724,7 +683,7 @@ public class SettingsPanel extends PanelState {
 			for (PairPTRadioBox p : languagesRadioBoxs)
 				p.rb.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
-		ordonne = languagesCollapsableArea.getArea().y + languagesCollapsableArea.getArea().height + decalage2;
+		ordonne = languagesCollapsableArea.getArea().y + languagesCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Skin
@@ -747,7 +706,7 @@ public class SettingsPanel extends PanelState {
 			for (PairPTRadioBox p : skinsRadioBoxs)
 				p.rb.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
 						father.getSkin().getColorLetter());
-		ordonne = skinsCollapsableArea.getArea().y + skinsCollapsableArea.getArea().height + decalage2;
+		ordonne = skinsCollapsableArea.getArea().y + skinsCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * ScrollBar
