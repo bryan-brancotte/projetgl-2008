@@ -65,7 +65,7 @@ public class AlgoTest {
 
 			gnb.defineEntryCost(sncf.getKindFromString("RER"), 4);
 
-			gnb.linkStationBidirectional(rerC, massyPal, rerB, massyPal, 0, 3, false);
+			gnb.linkStationBidirectional(rerC, massyPal, rerB, massyPal, 0, 300, false);
 			gnb.linkStationBidirectional(rerC, sncf.getStation(9), rerB, sncf.getStation(1),2, 9, true);
 
 			gnb.addServiceToStation(sncf.getStation(9), gnb.addService(1,
