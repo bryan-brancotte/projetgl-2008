@@ -104,9 +104,9 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		PTRadioBox radioBox = new PTRadioBox(this, area);
 		for (PTRadioBoxGroup g : grp)
 			g.add(radioBox);
-		clickAndMoveWarningAndArray
-				.addInteractiveArea(area, new CodeExecutor4P<PTRadioBoxGroup[], PTRadioBox, CodeExecutor, PanelTooled>(
-						grp, radioBox, action, this) {
+		clickAndMoveWarningAndArray.addInteractiveArea(area,
+				new CodeExecutor4P<PTRadioBoxGroup[], PTRadioBox, CodeExecutor, PanelTooled>(grp, radioBox, action,
+						this) {
 					@Override
 					public void execute() {
 						for (PTRadioBoxGroup g : this.origineA)
@@ -138,7 +138,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 					@Override
 					public void execute() {
 						for (PTRadioBoxGroup g : this.origineA)
-							g.setAllNotClicked(); 
+							g.setAllNotClicked();
 						this.origineB.setClicked(true);
 						this.origineC.repaint();
 					}
@@ -190,29 +190,68 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		return checkBox;
 	}
 
+	/**
+	 * Crée un zone retractable.
+	 * 
+	 * @return
+	 */
 	public PTCollapsableArea makeCollapsableArea() {
 		Rectangle area = new Rectangle();
 		PTCollapsableArea collapsableArea = new PTCollapsableArea(this, area);
 		return collapsableArea;
 	}
 
+	/**
+	 * Crée un simple zone
+	 * 
+	 * @return
+	 */
 	public PTArea makeArea() {
 		Rectangle area = new Rectangle();
 		PTArea pta = new PTArea(this, area);
 		return pta;
 	}
 
+	/**
+	 * Crée un scrollBar vertical
+	 * 
+	 * @return
+	 */
 	public PTScrollBar makeScrollBar() {
 		Rectangle area = new Rectangle();
 		PTScrollBar sb = new PTScrollBar(this, area);
 		return sb;
 	}
 
+	/**
+	 * Créé une textBox avec l'autocompletion
+	 * 
+	 * @param fields
+	 *            les champs possible
+	 * @return
+	 */
 	public PTAutoCompletionTextBox makeAutoCompletionTextBox(String[] fields) {
 		if (fields == null)
 			return null;
 		Rectangle area = new Rectangle();
-		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields);
+		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, null);
+		return ac;
+	}
+
+	/**
+	 * Créé une textBox avec l'autocompletion.
+	 * 
+	 * @param fields
+	 *            les champs possible
+	 * @param action
+	 *            l'action qui sera exécuté si on modifie le contenu
+	 * @return
+	 */
+	public PTAutoCompletionTextBox makeAutoCompletionTextBox(String[] fields, CodeExecutor action) {
+		if (fields == null)
+			return null;
+		Rectangle area = new Rectangle();
+		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, action);
 		return ac;
 	}
 

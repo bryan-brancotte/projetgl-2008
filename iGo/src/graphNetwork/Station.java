@@ -197,6 +197,6 @@ public class Station {
 	}
 
 	public String toString() {
-		return "Station : " + name + "(" + id + ")";
+		return name + "(" + id + ")";
 	}
 }

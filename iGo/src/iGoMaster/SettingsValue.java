@@ -49,10 +49,6 @@ public enum SettingsValue {
 		return value;
 	}
 
-	public String getStringValue() {
-		return ""+value;
-	}
-
 	/**
 	 * Constructeur
 	 * 

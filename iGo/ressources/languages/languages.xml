@@ -243,6 +243,10 @@
 				<FRANCAIS value="Station inconnue"/>
 				<ENGLISH value="Unkown station"/>
 			</InvalideStation>
+			<FillThisField>
+				<FRANCAIS value="Veuillez remplir ce champs"/>
+				<ENGLISH value="Fill this field"/>
+			</FillThisField>
 		</fields>
 	</root>
 

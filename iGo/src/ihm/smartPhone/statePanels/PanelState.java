@@ -19,7 +19,7 @@ public abstract class PanelState extends PanelTooled {
 	 */
 	@Override
 	protected void finalize() throws Throwable {
-		System.out.println("Endding of :  " + this.getClass().getSimpleName());
+//		System.out.println("Endding of :  " + this.getClass().getSimpleName());
 		super.finalize();
 	}
 
@@ -51,7 +51,7 @@ public abstract class PanelState extends PanelTooled {
 	 */
 	public PanelState(IhmReceivingPanelState father, UpperBar upperBar, LowerBar lowerBar) {
 		this();
-		System.out.println("Creating of : " + this.getClass().getSimpleName());
+//		System.out.println("Creating of : " + this.getClass().getSimpleName());
 		this.father = father;
 		this.upperBar = upperBar;
 		this.lowerBar = lowerBar;

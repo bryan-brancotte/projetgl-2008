@@ -48,10 +48,10 @@ public class KindRoute {
 	protected static KindRoute addKind(String kindOf) {
 		if (kinds == null)
 			kinds = new LinkedList<KindRoute>();
-//		if (kindOf == null)
-//			return null;
-//		if (kindOf.isEmpty())
-//			return null;
+		// if (kindOf == null)
+		// return null;
+		// if (kindOf.isEmpty())
+		// return null;
 		KindRoute k = getKindFromString(kindOf);
 		if (k != null)
 			return k;
@@ -144,13 +144,7 @@ public class KindRoute {
 		this.cost = cost;
 	}
 
-	// /**
-	// * retourne une chaine representant le kindRoute
-	// *
-	// * @return la chaine
-	// *
-	// */
-	// protected String toMyString(){
-	// return "<kindRoute>"+cost+","+kindOf+"</kindRoute>";
-	// }
+	public String toString() {
+		return "KindRoute \"" + kindOf + "\"";
+	}
 }

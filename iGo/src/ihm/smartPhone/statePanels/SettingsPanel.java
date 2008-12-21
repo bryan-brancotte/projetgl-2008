@@ -33,15 +33,10 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
-import org.w3c.dom.Document;
-
 public class SettingsPanel extends PanelState {
 
 	protected HashMap<String, Station> stationsHash;
 	private static final long serialVersionUID = 1L;
-
-	@Deprecated
-	protected Document settings = null;
 
 	protected String[] stations;
 	protected int deroullement;
@@ -154,7 +149,7 @@ public class SettingsPanel extends PanelState {
 					recordChangedSetting(travelMode, this.origine);
 				}
 			});
-			chk.setClicked(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo("1") == 0);
+			chk.setClicked(!(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo(SettingsValue.DISABLE.toString()) == 0));
 			travelModeCollapsableArea.addComponent(chk);
 			travelModeCheckBoxs.add(new PairPTCheckBox(chk, s));
 		}
@@ -170,7 +165,7 @@ public class SettingsPanel extends PanelState {
 		while (itS.hasNext()) {
 			rbs = new PTRadioBox[3];
 			grp = new PTRadioBoxGroup(rbs.length);
-			ex = new CodeExecutor1P<String>(s = ((ser = itS.next()).getName())) {
+			ex = new CodeExecutor1P<String>(s = (SettingsKey.SERVICES_.toString() + ((ser = itS.next()).getId()))) {
 				@Override
 				public void execute() {
 					recordChangedSetting(services, this.origine);
@@ -180,10 +175,10 @@ public class SettingsPanel extends PanelState {
 				rbs[i] = makeRadioButton(grp, ex);
 				servicesCollapsableArea.addComponent(rbs[i]);
 			}
-			valS = father.getConfig(SettingsKey.SERVICES_ + s);
-			if (valS.compareTo("1") == 0)
+			valS = father.getConfig(s);
+			if (valS.compareTo(SettingsValue.Once.toString()) == 0)
 				rbs[1].setClicked(true);
-			else if (valS.compareTo("2") == 0)
+			else if (valS.compareTo(SettingsValue.Always.toString()) == 0)
 				rbs[2].setClicked(true);
 			else
 				rbs[0].setClicked(true);
@@ -282,9 +277,9 @@ public class SettingsPanel extends PanelState {
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
 					if (p.chk.isClicked())
-						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.ENABLE.getStringValue());
+						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.ENABLE.toString());
 					else
-						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.getStringValue());
+						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.toString());
 					return;
 				}
 			break;
@@ -320,15 +315,15 @@ public class SettingsPanel extends PanelState {
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
 					if (p.rbs[0].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Idle.getStringValue());
+						father.setConfig(s, SettingsValue.Idle.toString());
 						return;
 					}
 					if (p.rbs[1].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Once.getStringValue());
+						father.setConfig(s, SettingsValue.Once.toString());
 						return;
 					}
 					if (p.rbs[2].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Always.getStringValue());
+						father.setConfig(s, SettingsValue.Always.toString());
 						return;
 					}
 				}
@@ -519,11 +514,11 @@ public class SettingsPanel extends PanelState {
 			// on trouve la largueur de la colonne des services
 			ord = new byte[ServicesRadioBoxs.size()];
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
-				tmp = getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont());
+				tmp = getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont());
 				if (tmp > (getWidth() - decalage2 - decalage >> 1)) {
 					ord[cpt] = 0;
 					tmp = 0;
-					String[] splited = p.name.split(" ");
+					String[] splited = p.service.getName().split(" ");
 					int myTmp;
 					for (String miniS : splited) {
 						ord[cpt]++;
@@ -586,16 +581,16 @@ public class SettingsPanel extends PanelState {
 				p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-				if (getWidthString(p.name, buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
+				if (getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
 						.getArea().width >> 1)) {
-					String[] splited = p.name.split(" ");
+					String[] splited = p.service.getName().split(" ");
 					tmp -= width;
 					for (String miniS : splited) {
 						tmp += width;
 						buffer.drawString(miniS, decalage << 1, tmp);
 					}
 				} else {
-					buffer.drawString(p.name, decalage << 1, tmp);
+					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
 				buffer.setColor(father.getNetworkColorManager().getColorForService(p.service));
 				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),

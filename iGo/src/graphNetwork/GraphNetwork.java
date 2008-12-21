@@ -107,6 +107,8 @@ public class GraphNetwork {
 	 * à construire et pour le contruire. Chaqun de ces builder à en variable interne un pathInGraph lui aussi
 	 * fraichement créé
 	 * 
+	 * @param pathInString
+	 *            passe un PathInGraph sous forme XML.
 	 * @return l'instance de PathInGraphCollectionBuilder
 	 */
 	public PathInGraphCollectionBuilder getInstancePathInGraphCollectionBuilder(String pathInString) {
@@ -256,7 +258,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Passer par le {@link GraphNetworkBuilder} 
+	 * Passer par le {@link GraphNetworkBuilder}
 	 */
 	@Deprecated
 	public void resetEnables() {

@@ -128,8 +128,8 @@ public class MainDemoIHM {
 
 			@Override
 			public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
-				// TODO Auto-generated method stub
-				return null;
+				return gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder()
+						.getPathInGraphConstraintBuilder();
 			}
 
 			// }, iGoSmartPhoneSkin.PURPLE_LIGHT);
@@ -137,7 +137,7 @@ public class MainDemoIHM {
 			// }, iGoSmartPhoneSkin.WHITE);
 			// }, iGoSmartPhoneSkin.PINK);
 			// }, iGoSmartPhoneSkin.ORANGE);
-		}/*, iGoSmartPhoneSkin.BLACK/**/);
+		}/* , iGoSmartPhoneSkin.BLACK/* */);
 		ihm.start(true, 8);
 		new ExecMultiThread<IHM>(ihm) {
 
