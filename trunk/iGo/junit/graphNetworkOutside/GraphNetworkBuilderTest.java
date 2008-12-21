@@ -80,8 +80,7 @@ public class GraphNetworkBuilderTest {
 
 			bob.defineEntryCost(sncf.getKindFromString("RER"), 4);
 
-			bob.linkStation(rerC, massyPal, rerB, massyPal, 0, 3, false);
-			bob.linkStation(rerB, massyPal, rerC, massyPal, 0, 3, false);
+			bob.linkStationBidirectional(rerC, massyPal, rerB, massyPal, 0, 3, false);
 			bob.linkStation(rerC, sncf.getStation(9), rerB, sncf.getStation(1), 2, 9, true);
 			bob.linkStation(rerB, sncf.getStation(1), rerC, sncf.getStation(9), 5, 3, false);
 
@@ -392,7 +391,7 @@ public class GraphNetworkBuilderTest {
 		itJ.next();
 		assertTrue("la station 2 devrait avoir 2 jonction, et ici elle en a 1", itJ.hasNext());
 		itJ.next();
-		//elle en a bient 2
+		// elle en a bient 2
 		assertTrue("la station 2 devrait avoir 2 jonction, et ici elle en a plus", !itJ.hasNext());
 	}
 }

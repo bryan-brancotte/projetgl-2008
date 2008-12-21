@@ -334,8 +334,6 @@ public class GraphNetworkBuilder {
 			Station stationDestination, float cost, int timeBetweenStations, boolean pedestrian)
 			throws StationNotOnRoadException, NullPointerException, ImpossibleValueException {
 
-		// boolean sameStation;
-		// boolean sameRoute;
 		if (routeOrigin == null)
 			throw new NullPointerException();
 		if (stationOrigin == null)
@@ -354,10 +352,6 @@ public class GraphNetworkBuilder {
 			throw new ImpossibleValueException();
 		if (timeBetweenStations < 0)
 			throw new ImpossibleValueException();
-		//
-		// sameStation = stationOrigin == stationDestination;
-		// if ((sameRoute = (routeOrigin == routeDestination)) && sameStation)
-		// throw new ImpossibleValueException();
 
 		Iterator<Junction> itJ = stationOrigin.junctions.iterator();
 		Junction j;
@@ -367,73 +361,92 @@ public class GraphNetworkBuilder {
 				j.setCost(cost);
 				j.setPedestrian(pedestrian);
 				j.setTimeBetweenStations(timeBetweenStations);
-//				System.out.println("U:"+j);
 				return j;
 			}
 		}
-		j= new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
-				timeBetweenStations, routeDestination == routeOrigin, pedestrian);
-//		System.out.println("N:"+j);
+		j = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost, timeBetweenStations,
+				routeDestination == routeOrigin, pedestrian);
 		stationOrigin.addJunction(j);
-//		System.out.println(stationOrigin.junctions.size());
 		return j;
+	}
 
-		// if (sameStation) {
-		// if (j.isSameStation()) {
-		// }
-		// } else {
-		// if (j.getOtherStation(stationOrigin) == stationDestination) {
-		// }
-		// }
-		// if (sameRoute) {
-		// if (j.isSameRoute()) {
-		// }
-		// } else {
-		// if (j.getOtherRoute(stationOrigin) == routeDestination) {
-		// }
-		// }
+	/**
+	 * En travaillant sur le GraphNetwork courant, on lie deux station entre elles par un lien à faire à pied. On
+	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
+	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
+	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>Les jonctions sont monodirectionel, *
+	 * mais on en crée 2!</B><br/>Si dans un sens comme dans l'autre on trouve un jonction correspondant au critère,
+	 * on la met à jours plutôt que d'en créé un nouvelle.
+	 * 
+	 * @param routeOrigin
+	 * @param stationOrigin
+	 * @param routeDestination
+	 * @param stationDestination
+	 * @param cost
+	 * @param timeBetweenStations
+	 * @param pedestrian
+	 * @throws StationNotOnRoadException
+	 * @throws NullPointerException
+	 * @throws ImpossibleValueException
+	 */
+	public void linkStationBidirectional(Route routeOrigin, Station stationOrigin, Route routeDestination,
+			Station stationDestination, float cost, int timeBetweenStations, boolean pedestrian)
+			throws StationNotOnRoadException, NullPointerException, ImpossibleValueException {
 
-		// boolean done = false;
-		// Iterator<Route> itR = currentGraphNetwork.routes.iterator();
-		//
-		// Junction jOrigine = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
-		// time,
-		// true, pedestrian);
-		// Junction jDestination = new Junction(routeDestination, stationDestination, routeOrigin, stationOrigin, cost,
-		// time, true, pedestrian);
-		// Junction jRetour = null;
-		//
-		// while (itR.hasNext()) {
-		// Route temp = itR.next();
-		// if (temp.equals(routeOrigin)) { // dans la route origine
-		// Iterator<Station> itS = temp.getStations();
-		// while (itS.hasNext()) {
-		// Station temp2 = itS.next();
-		// if (temp2.equals(stationOrigin)) {// pour la station origine
-		// temp2.addJunction(jOrigine);// ajout d'une jonction vers
-		// jRetour = jOrigine; // la station dest
-		// done = true;
-		// }
-		// }
-		// }
-		// if (temp.equals(routeDestination)) { // dans la route destination
-		// Iterator<Station> itS = temp.getStations();
-		// while (itS.hasNext()) {
-		// Station temp2 = itS.next();
-		// if (temp2.equals(stationDestination)) {// pour la station
-		// // destination
-		// temp2.addJunction(jDestination);// ajout d'une jonction
-		// jRetour = jDestination; // vers la station
-		// // origine
-		// done = true;
-		// }
-		// }
-		// }
-		// }
-		// if (!done)
-		// throw new ImpossibleValueException();
-		//
-		// return jRetour;
+		if (routeOrigin == null)
+			throw new NullPointerException();
+		if (stationOrigin == null)
+			throw new NullPointerException();
+		if (routeDestination == null)
+			throw new NullPointerException();
+		if (stationDestination == null)
+			throw new NullPointerException();
+
+		if (!routeOrigin.stations.contains(stationOrigin))
+			throw new StationNotOnRoadException();
+		if (!routeDestination.stations.contains(stationDestination))
+			throw new StationNotOnRoadException();
+
+		if (cost < 0)
+			throw new ImpossibleValueException();
+		if (timeBetweenStations < 0)
+			throw new ImpossibleValueException();
+
+		Iterator<Junction> itJ;
+		Junction jOD = null;
+		Junction jDO = null;
+
+		// Jonction de Origine vers Destination
+		itJ = stationOrigin.junctions.iterator();
+		while (jOD == null && itJ.hasNext()) {
+			jOD = itJ.next();
+			if (jOD.equals(routeOrigin, stationOrigin, routeDestination, stationDestination)) {
+				jOD.setCost(cost);
+				jOD.setPedestrian(pedestrian);
+				jOD.setTimeBetweenStations(timeBetweenStations);
+			} else
+				jOD = null;
+		}
+		if (jOD == null) {
+			jOD = new Junction(routeOrigin, stationOrigin, routeDestination, stationDestination, cost,
+					timeBetweenStations, routeDestination == routeOrigin, pedestrian);
+			stationOrigin.addJunction(jOD);
+		}
+
+		// Jonction de Destination vers Origine
+		itJ = stationDestination.junctions.iterator();
+		while (jDO == null && itJ.hasNext()) {
+			jDO = itJ.next();
+			if (jDO.equals(routeDestination, stationDestination, routeOrigin, stationOrigin)) {
+				jDO.setCost(cost);
+				jDO.setPedestrian(pedestrian);
+				jDO.setTimeBetweenStations(timeBetweenStations);
+				return;
+			}
+		}
+		jDO = new Junction(routeDestination, stationDestination, routeOrigin, stationOrigin, cost, timeBetweenStations,
+				routeDestination == routeOrigin, pedestrian);
+		stationDestination.addJunction(jDO);
 	}
 
 	/**
