@@ -129,7 +129,7 @@ public class NewTravelPanel extends PanelState {
 		ex = new CodeExecutor() {
 			@Override
 			public void execute() {
-				recordChangedSetting(travelCriteria, SettingsKey.TRAVEL_CRITERIA.toString());
+				recordChangedSetting(travelCriteria, SettingsKey.MAIN_TRAVEL_CRITERIA.toString());
 			}
 		};
 		travelCriteriaRadioBoxs = new PTRadioBox[3];

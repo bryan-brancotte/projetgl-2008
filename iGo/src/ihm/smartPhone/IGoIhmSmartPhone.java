@@ -694,4 +694,10 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		}
 		return skins.iterator();
 	}
+
+	@Override
+	public boolean updateNetwork() {
+		// TODO updateNetwork
+		return false;
+	}
 }
