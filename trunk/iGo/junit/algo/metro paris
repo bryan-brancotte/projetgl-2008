@@ -235,149 +235,149 @@ gnb.addStationToRoute(m8, gnb.addStation(22,"Créteil-l'Echat, Hôpital Henri Mo
 gnb.addStationToRoute(m8, gnb.addStation(22,"Créteil-Université"), 0);
 gnb.addStationToRoute(m8, gnb.addStation(22,"Créteil-Préfecture"), 0);
 
-Pont de Sèvres
-Billancourt
-Marcel Sembat
-Porte de Saint-Cloud
-Exelmans
-Michel Ange Molitor
-Michel Ange Auteuil
-Jasmin
-Ranelagh
-La Muette
-Rue de la Pompe
-Trocadéro
-Iéna
-Alma Marceau
-Franklin D. Roosevelt
-Saint-Philippe du Roule
-Miromesnil
-Saint-Augustin
-Havre Caumartin
-Chaussée d'Antin, La Fayette
-Richelieu Drouot
-Rue Montmartre, Grands Boulevards
-Bonne Nouvelle
-Strasbourg Saint-Denis
-République
-Oberkampf
-Saint-Ambroise
-Voltaire
-Charonne
-Rue des Boulets
-Nation
-Buzenval
-Maraîchers
-Porte de Montreuil
-Robespierre
-Croix de Chavaux
-Mairie de Montreuil
+gnb.addStationToRoute(m9, gnb.addStation(23,"Pont de Sèvres"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Billancourt"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Marcel Sembat"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Porte de Saint-Cloud"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Exelmans"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Michel Ange Molitor"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Michel Ange Auteuil"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Jasmin"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"Ranelagh"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(23,"La Muette"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Rue de la Pompe"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Trocadéro"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Iéna"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Alma Marceau"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Franklin D. Roosevelt"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Saint-Philippe du Roule"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Miromesnil"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Saint-Augustin"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Havre Caumartin"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(24,"Chaussée d'Antin, La Fayette"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Richelieu Drouot"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Rue Montmartre, Grands Boulevards"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Bonne Nouvelle"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Strasbourg Saint-Denis"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"République"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Oberkampf"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Saint-Ambroise"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Voltaire"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Charonne"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(25,"Rue des Boulets"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Nation"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Buzenval"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Maraîchers"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Porte de Montreuil"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Robespierre"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Croix de Chavaux"), 0);
+gnb.addStationToRoute(m9, gnb.addStation(26,"Mairie de Montreuil"), 0);
 
-Porte d'Auteuil
-Michel Ange Molitor
-Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danude
-Boulogne, Jean Jaurès
-Michel Ange Molitor
-Chardon Lagâche
-Mirabeau
-Javel
-Charles Michels
-Avenue Émile Zola
-La Motte Picquet, Grenelle
-Ségur
-Duroc
-Vaneau
-Sèvres Babylone
-Mabillon
-Odéon
-Cluny, La Sorbonne
-Maubert Mutualité
-Cardinal Lemoine
-Jussieu
-Gare d'Austerlitz
+gnb.addStationToRoute(m10, gnb.addStation(26,"Porte d'Auteuil"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(26,"Michel Ange Molitor"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(26,"Boulogne, Pont de Saint-Cloud, Rond Point Rhin et Danude"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(26,"Boulogne, Jean Jaurès"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Michel Ange Molitor"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Chardon Lagâche"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Mirabeau"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Javel"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Charles Michels"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Avenue Émile Zola"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"La Motte Picquet, Grenelle"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Ségur"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Duroc"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(27,"Vaneau"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Sèvres Babylone"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Mabillon"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Odéon"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Cluny, La Sorbonne"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Maubert Mutualité"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Cardinal Lemoine"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Jussieu"), 0);
+gnb.addStationToRoute(m10, gnb.addStation(28,"Gare d'Austerlitz"), 0);
 
-Mairie des Lilas
-Porte des Lilas
-Télégraphe
-Place des Fêtes
-Jourdain
-Pyrénées
-Belleville
-Goncourt
-République
-Arts et Métiers
-Rambuteau
-Hôtel de Ville
-Châtelet
+gnb.addStationToRoute(m11, gnb.addStation(28,"Mairie des Lilas"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(28,"Porte des Lilas"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Télégraphe"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Place des Fêtes"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Jourdain"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Pyrénées"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Belleville"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Goncourt"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"République"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Arts et Métiers"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Rambuteau"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(29,"Hôtel de Ville"), 0);
+gnb.addStationToRoute(m11, gnb.addStation(30,"Châtelet"), 0);
 
-Porte de la Chapelle
-Marx Dormoy
-Marcadet Poissonniers
-Jules Joffrin
-Lamarck Caulaincourt
-Abbesses
-Pigalle
-Saint-Georges
-Notre Dame de Lorette
-Trinité d'Estienne d'Orves
-Saint-Lazare
-Madeleine
-Concorde
-Assemblée Nationale
-Solférino
-Rue du Bac
-Sèvres Babylone
-Rennes
-Notre-Dame-des-Champs
-Montparnasse Bienvenue
-Falguière
-Pasteur
-Volontaires
-Vaugirard
-Convention
-Porte de Versailles
-Corentin Celton
-Mairie d'Issy
+gnb.addStationToRoute(m12, gnb.addStation(30,"Porte de la Chapelle"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Marx Dormoy"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Marcadet Poissonniers"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Jules Joffrin"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Lamarck Caulaincourt"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Abbesses"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Pigalle"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Saint-Georges"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(30,"Notre Dame de Lorette"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Trinité d'Estienne d'Orves"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Saint-Lazare"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Madeleine"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Concorde"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Assemblée Nationale"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Solférino"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Rue du Bac"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Sèvres Babylone"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Rennes"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(31,"Notre-Dame-des-Champs"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Montparnasse Bienvenue"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Falguière"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Pasteur"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Volontaires"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Vaugirard"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Convention"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Porte de Versailles"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Corentin Celton"), 0);
+gnb.addStationToRoute(m12, gnb.addStation(32,"Mairie d'Issy"), 0);
 
-Gabriel Péri, Asnières-Gennevilliers
-Mairie de Clichy
-Porte de Clichy
-Brochant
-La Fourche
-Saint-Denis-Université
-Basilique de Saint-Denis
-Saint-Denis-Porte de Paris
-Carrefour Pleyel
-Mairie de Saint-Ouen
-Garibaldi
-Porte de Saint-Ouen
-Guy Môquet
-La Fourche
-Place de Clichy
-Liège
-Saint-Lazare
-Miromesnil
-Champs Élysées, Clémenceau
-Invalides
-Varenne
-Saint-Francois Xavier
-Duroc
-Montparnasse Bienvenue
-Gaité
-Pernety
-Plaisance
-Porte de Vanves
-Malakoff-Plateau de Vanves
-Malakoff-Rue Étienne Dolet
-Châtillon-Montrouge
+gnb.addStationToRoute(m13, gnb.addStation(32,"Gabriel Péri, Asnières-Gennevilliers"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Mairie de Clichy"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Porte de Clichy"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Brochant"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"La Fourche"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Saint-Denis-Université"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Basilique de Saint-Denis"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Saint-Denis-Porte de Paris"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Carrefour Pleyel"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Mairie de Saint-Ouen"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(33,"Garibaldi"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Porte de Saint-Ouen"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Guy Môquet"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"La Fourche"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Place de Clichy"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Liège"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Saint-Lazare"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Miromesnil"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Champs Élysées, Clémenceau"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Invalides"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(34,"Varenne"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Saint-Francois Xavier"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Duroc"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Montparnasse Bienvenue"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Gaité"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Pernety"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Plaisance"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Porte de Vanves"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Malakoff-Plateau de Vanves"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Malakoff-Rue Étienne Dolet"), 0);
+gnb.addStationToRoute(m13, gnb.addStation(35,"Châtillon-Montrouge"), 0);
 
-Madeleine
-Pyramides
-Châtelet
-Gare de Lyon
-Bercy
-Cour Saint-Émilion
-Bibliothèque François Mitterand
+gnb.addStationToRoute(m14, gnb.addStation(36,"Madeleine"), 0);
+gnb.addStationToRoute(m14, gnb.addStation(36,"Pyramides"), 0);
+gnb.addStationToRoute(m14, gnb.addStation(36,"Châtelet"), 0);
+gnb.addStationToRoute(m14, gnb.addStation(36,"Gare de Lyon"), 0);
+gnb.addStationToRoute(m14, gnb.addStation(36,"Bercy"), 0);
+gnb.addStationToRoute(m14, gnb.addStation(36,"Cour Saint-Émilion"), 0);
+gnb.addStationToRoute(m14, gnb.addStation(36,"Bibliothèque François Mitterand"), 0);
 
 Montmartre bas
 Montmartre haut
