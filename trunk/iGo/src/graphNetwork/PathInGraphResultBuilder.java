@@ -97,4 +97,11 @@ public class PathInGraphResultBuilder {
 			return false;
 		return true;
 	}
+
+	/**
+	 * efface les jonctions contenu dans la {@link PathInGraph} 
+	 */
+	public void resetJunctions() {
+		currentPathInGraph.junctions.clear();
+	}
 }
