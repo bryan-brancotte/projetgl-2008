@@ -26,12 +26,15 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	protected boolean key_char = false;
 	protected byte selectingWay = 0;
 	protected Font lastFont;
-	protected CodeExecutor action;
+	protected CodeExecutor actionOnChange;
+	protected CodeExecutor actionOnEnter;
 
-	protected PTAutoCompletionTextBox(PanelTooled nvfather, Rectangle nvArea, String[] nvFields, CodeExecutor theAction) {
+	protected PTAutoCompletionTextBox(PanelTooled nvfather, Rectangle nvArea, String[] nvFields,
+			CodeExecutor theActionOnChange, CodeExecutor theActionOnEnter) {
 		super(nvfather, nvArea);
 		this.fields = nvFields;
-		this.action = theAction;
+		this.actionOnChange = theActionOnChange;
+		this.actionOnEnter = theActionOnEnter;
 		this.fieldsMatching = new ArrayList<Integer>();
 		this.currentStringLeft = "";
 		this.currentStringSelected = "";
@@ -44,6 +47,13 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				int size;
 				key_char = false;
 				switch (e.getKeyCode()) {
+				// The void key :
+				case KeyEvent.VK_CONTROL:
+				case KeyEvent.VK_ALT:
+				case KeyEvent.VK_ALT_GRAPH:
+				case KeyEvent.VK_CONTEXT_MENU:
+					return;
+					// the usefull keys :
 				case KeyEvent.VK_KP_LEFT:
 				case KeyEvent.VK_LEFT:
 					if (isSelecting) {
@@ -146,11 +156,10 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				case KeyEvent.VK_SHIFT:
 					isSelecting = true;
 					break;
-				case KeyEvent.VK_CONTROL:
-				case KeyEvent.VK_ALT:
-				case KeyEvent.VK_ALT_GRAPH:
-				case KeyEvent.VK_CONTEXT_MENU:
-					return;
+				case KeyEvent.VK_ENTER:
+					if (actionOnEnter != null)
+						actionOnEnter.execute();
+					break;
 				case KeyEvent.VK_DOWN:
 				case KeyEvent.VK_KP_DOWN:
 					fieldMatched++;
@@ -170,8 +179,8 @@ public class PTAutoCompletionTextBox extends PTComponent {
 					} else
 						return;
 				}
-				if (action != null)
-					action.execute();
+				if (actionOnChange != null)
+					actionOnChange.execute();
 				father.repaint();
 			}
 
