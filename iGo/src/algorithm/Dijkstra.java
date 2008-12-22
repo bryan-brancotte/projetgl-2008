@@ -120,7 +120,6 @@ public class Dijkstra extends Algo {
 			currentPath.addAll(getMinimumDest(graph.getFirstNode(origin), v.get(0)));
 			for (int i = 1; i < v.size(); i++) {
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i)));
-				System.out.println(currentPath.size());
 			}
 
 			currentPath.addAll(algo(currentPosition, graph.getFirstNode(destination)));
