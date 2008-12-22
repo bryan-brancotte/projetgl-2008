@@ -11,20 +11,20 @@ import java.util.Vector;
 public class GraphNetwork {
 
 	/**
-	 * Liste des routes présente dans le GraphNetwork
+	 * Liste des routes présentes dans le GraphNetwork
 	 */
 	protected Vector<Route> routes;
 	/**
-	 * Liste des services présente dans le GraphNetwork
+	 * Liste des services présents dans le GraphNetwork
 	 */
 	protected Vector<Service> services;
 	/**
-	 * Liste des stations présente dans le GraphNetwork
+	 * Liste des stations présentes dans le GraphNetwork
 	 */
 	protected Vector<Station> stations;
 
 	/**
-	 * Construteur d'un objet GraphNetwork
+	 * Constructeur d'un objet GraphNetwork
 	 */
 	protected GraphNetwork() {
 		super();
@@ -50,7 +50,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec
+	 * Créé, initialise et retourne une instance du monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec
 	 * un nouveau trajet.
 	 * 
 	 * @return
@@ -62,7 +62,7 @@ public class GraphNetwork {
 
 	/**
 	 * 
-	 * Créé initialise et retourne une instance de monteur de PathInGraph : un PathInGraphBuilder initialisé avec le
+	 * Créé initialise et retourne une instance du monteur de PathInGraph : un PathInGraphBuilder initialisé avec le
 	 * trajet passé en paramètre.
 	 * 
 	 * @param path
@@ -89,9 +89,9 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé un nouvelle objet PathInGraphCollectionBuilder. Ce dernier contient les deux builder pour définir un chemin
-	 * à construire et pour le contruire. Chaqun de ces builder à en variable interne un pathInGraph lui aussi
-	 * fraichement créé
+	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin
+	 * à construire et pour le contruire. Chacun de ces builders possède une variable interne pathInGraph lui aussi
+	 * nouvellement créé
 	 * 
 	 * @return l'instance de PathInGraphCollectionBuilder
 	 */
@@ -103,12 +103,12 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé un nouvelle objet PathInGraphCollectionBuilder. Ce dernier contient les deux builder pour définir un chemin
-	 * à construire et pour le contruire. Chaqun de ces builder à en variable interne un pathInGraph lui aussi
-	 * fraichement créé
+	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin
+	 * à construire et pour le contruire. Chacun de ces builders a comme variable interne un pathInGraph lui aussi
+	 * nouvellement créé
 	 * 
 	 * @param pathInString
-	 *            passe un PathInGraph sous forme XML.
+	 *            passe un PathInGraph sous forme XML
 	 * @return l'instance de PathInGraphCollectionBuilder
 	 */
 	public PathInGraphCollectionBuilder getInstancePathInGraphCollectionBuilder(String pathInString) {
@@ -120,13 +120,13 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Retourne les changements présente entre les deux stations passé en paramètres.
+	 * Retourne les changements présents entre les deux stations passées en paramètre.
 	 * 
 	 * @param stationA
 	 *            la première station
 	 * @param stationB
 	 *            la seconde station
-	 * @return un iterateur sur les changements existant
+	 * @return un iterateur sur les changements existants
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
 		// Check by bryan
@@ -149,7 +149,7 @@ public class GraphNetwork {
 	 * 
 	 * @param kindOf
 	 *            le nom du type de route
-	 * @return le type de route, ou null s'il n'existe aps
+	 * @return le type de route, ou null s'il n'existe pas
 	 */
 	public KindRoute getKindFromString(String kindOf) {
 		if (kindOf == null)
@@ -188,7 +188,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Retourne un iterateur sur les routes existantes dans le réseau
+	 * Retourne un iterateur sur les routes existant dans le réseau
 	 * 
 	 * @return
 	 */
@@ -249,7 +249,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * retourne les stations existants dans le réseau
+	 * retourne les stations existant dans le réseau
 	 * 
 	 * @return
 	 */
