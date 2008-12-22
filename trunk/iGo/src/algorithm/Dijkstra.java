@@ -23,6 +23,8 @@ public class Dijkstra extends Algo {
 	private Station origin, destination;
 	private Station[] steps;
 	private Vector<Service> once;
+	private int compteur = 0;
+	private long timeComb;
 
 	/***************************************************************/
 
@@ -38,18 +40,20 @@ public class Dijkstra extends Algo {
 		Vector<Vector<Station>> allSteps = createAllSteps();
 
 		// Création du chemin
-		if (steps.length == 0) 
+		if (allSteps.size() == 0)
 			betterPath.addAll(algo(graph.getFirstNode(origin), graph.getFirstNode(destination)));
-		else 
-			algoComb(new Vector<Vector<Station>>(),allSteps);
-		
+		else {
+			timeComb = System.currentTimeMillis();
+			algoComb(new Vector<Vector<Station>>(), allSteps,0);
+		}
 
-		//TODO System.out.println(betterPath.size());
+		// TODO System.out.println(betterPath.size());
 		// Création du pathInGraph
 		Iterator<Junction> it = betterPath.iterator();
 		while (it.hasNext()) {
 			prb.addLast(it.next());
 		}
+		System.out.println(compteur + " Dijkstra effectués");
 	}
 
 	/**
@@ -76,6 +80,8 @@ public class Dijkstra extends Algo {
 				once.add(s);
 			// TODO else NOTIFIER QUE LA CONTRAINTE NE PEUT ETRE REMPLIE
 		}
+		Tools.removeServicesFromStation(origin, once);
+		Tools.removeServicesFromStation(destination, once);
 	}
 
 	/**
@@ -89,6 +95,7 @@ public class Dijkstra extends Algo {
 			Vector<Station> v = new Vector<Station>();
 			v.add(steps[i]);
 			allSteps.add(v);
+			Tools.removeServicesFromStation(steps[i], once);
 		}
 		for (int i = 0; i < once.size(); i++) {
 			Vector<Station> v = new Vector<Station>();
@@ -104,7 +111,7 @@ public class Dijkstra extends Algo {
 	 * @param vTot
 	 * @return
 	 */
-	private void algoComb(Vector<Vector<Station>> v, Vector<Vector<Station>> vTot) {
+	private void algoComb(Vector<Vector<Station>> v, Vector<Vector<Station>> vTot,int prof) {
 		if (v == null || vTot == null || vTot.size() == 0)
 			return;
 		if (v.size() == vTot.size()) {
@@ -115,15 +122,18 @@ public class Dijkstra extends Algo {
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i)));
 
 			currentPath.addAll(algo(currentPosition, graph.getFirstNode(destination)));
-			if (betterPath(currentPath, betterPath))
+			if (betterPath(currentPath, betterPath)) {
 				betterPath = currentPath;
+				//System.out.println(betterPath.get(0));
+			}
 		} else {
 			for (int i = 0; i < vTot.size(); i++) {
-				if (!v.contains(vTot.get(i))) {
-					v.add(vTot.get(i));
-					algoComb(v, vTot);
-					v.remove(vTot.get(i));
-				}
+				// Conditions d'arret
+				if (prof==0) timeComb =System.currentTimeMillis();  
+				if (prof>0 && System.currentTimeMillis()-timeComb>1000 && betterPath!=null && betterPath.size()!=0) return;
+				v.add(vTot.get(i));
+				algoComb(v, vTot,prof+1);
+				v.remove(vTot.get(i));
 			}
 		}
 		return;
@@ -136,18 +146,17 @@ public class Dijkstra extends Algo {
 	 * @return
 	 */
 	private ArrayList<Junction> getMinimumDest(Node origin, Vector<Station> vector) {
-		Node n0, n1;
-		n1 = graph.getFirstNode(vector.get(0));
-		ArrayList<Junction> list = algo(origin, n1), newList;
+		Node n;
+		currentPosition = n = graph.getFirstNode(vector.get(0));
+		ArrayList<Junction> list = algo(origin, n), newList;
 		for (int i = 1; i < vector.size(); i++) {
-			n0 = n1;
-			n1 = graph.getFirstNode(vector.get(i));
-			newList = algo(n0, n1);
+			n = graph.getFirstNode(vector.get(i));
+			newList = algo(origin, n);
 			if (betterPath(newList, list)) {
+				currentPosition=n;
 				list = newList;
 			}
 		}
-		currentPosition = n1;
 		return list;
 	}
 
@@ -186,6 +195,9 @@ public class Dijkstra extends Algo {
 	 * @return
 	 */
 	private ArrayList<Junction> algo(Node depart, Node arrivee) {
+		if (depart.getStation()==arrivee.getStation()) return new ArrayList<Junction>();
+		compteur++;
+		// if (compteur%100==0) System.out.println(compteur);
 
 		Node n, n1;
 		Link l;
