@@ -2,7 +2,7 @@ package iGoMaster;
 
 public enum SettingsValue {
 	/**
-	 * Valeur que prend un paramètre s'il est deseactivé
+	 * Valeur que prend un paramètre s'il est desactivé
 	 */
 	DISABLE(0),
 	/**
@@ -10,17 +10,17 @@ public enum SettingsValue {
 	 */
 	ENABLE(1),
 	/**
-	 * Valeur que prend un paramètre pour signifier qu'il faut l'utiliser au moins un fois. Typeiquement on s'en servira
+	 * Valeur que prend un paramètre pour signifier qu'il faut l'utiliser au moins un fois. Typiquement on s'en servira
 	 * pour les services.
 	 */
 	Idle(0),
 	/**
-	 * Valeur que prend un paramètre pour signifier qu'il faut l'utiliser chaque fois . Typeiquement on s'en servira
+	 * Valeur que prend un paramètre pour signifier qu'il faut l'utiliser à chaque fois . Typiquement on s'en servira
 	 * pour les services
 	 */
 	Once(1),
 	/**
-	 * Valeur que prend un paramètre pour signifier qu'il nous importe peut que l'on s'en serve ou pas. Typeiquement on
+	 * Valeur que prend un paramètre pour signifier qu'il nous importe peu que l'on s'en serve ou pas. Typiquement on
 	 * s'en servira pour les services.
 	 */
 	Always(2),
