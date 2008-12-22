@@ -511,6 +511,8 @@ public class AlgoTest {
 			gnb.addService(1, "Coffre");
 			for (int i = 30; i < 70; i++) {
 				gnb.addServiceToStation(g.getStation(i), g.getService(2));
+			}
+			for (int i = 30; i < 69; i++) {
 				gnb.addServiceToStation(g.getStation(i),g.getService(1));
 			}
 				
