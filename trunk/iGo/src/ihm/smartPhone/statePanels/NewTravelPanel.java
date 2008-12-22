@@ -37,7 +37,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.SortedMap;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -262,7 +261,7 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * stations array
 		 */
-//		long l = System.nanoTime();
+		// long l = System.nanoTime();
 		stationsHash = new HashMap<String, Station>();
 		Vector<String> v = new Vector<String>();
 		it = father.getStations();
@@ -278,7 +277,7 @@ public class NewTravelPanel extends PanelState {
 			}
 		});
 		stations = v.toArray(new String[0]);
-//		System.out.println((System.nanoTime() - l) * 1e-6 + " pour trier "+ stations.length);
+		// System.out.println((System.nanoTime() - l) * 1e-6 + " pour trier "+ stations.length);
 		/***************************************************************************************************************
 		 * departureStation
 		 */
@@ -323,14 +322,14 @@ public class NewTravelPanel extends PanelState {
 			st = it.next();
 			stationsHash.put(st.getName(), st);
 		}
-		intermediatesStationsTextBox = makeAutoCompletionTextBox(stations);
-		intermediatesStationsButton = makeButton(new CodeExecutor1P<PanelTooled>(this) {
+		intermediatesStationsButton = makeButton(ex = new CodeExecutor1P<PanelTooled>(this) {
 			@Override
 			public void execute() {
 				recordChangedSetting(intermediatesStations, intermediatesStationsTextBox.getText());
 				this.origine.repaint();
 			}
 		});
+		intermediatesStationsTextBox = makeAutoCompletionTextBox(stations, null, ex);
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsNew);
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
 	}

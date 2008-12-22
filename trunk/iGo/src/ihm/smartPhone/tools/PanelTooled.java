@@ -234,7 +234,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		if (fields == null)
 			return null;
 		Rectangle area = new Rectangle();
-		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, null);
+		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, null, null);
 		return ac;
 	}
 
@@ -251,7 +251,27 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		if (fields == null)
 			return null;
 		Rectangle area = new Rectangle();
-		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, action);
+		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, action, null);
+		return ac;
+	}
+
+	/**
+	 * Créé une textBox avec l'autocompletion.
+	 * 
+	 * @param fields
+	 *            les champs possible
+	 * @param action
+	 *            l'action qui sera exécuté si on modifie le contenu
+	 * @param action
+	 *            l'action qui sera exécuté si on appuie sur entrée
+	 * @return
+	 */
+	public PTAutoCompletionTextBox makeAutoCompletionTextBox(String[] fields, CodeExecutor actionOnChange,
+			CodeExecutor actionOnEnter) {
+		if (fields == null)
+			return null;
+		Rectangle area = new Rectangle();
+		PTAutoCompletionTextBox ac = new PTAutoCompletionTextBox(this, area, fields, actionOnChange, actionOnEnter);
 		return ac;
 	}
 
