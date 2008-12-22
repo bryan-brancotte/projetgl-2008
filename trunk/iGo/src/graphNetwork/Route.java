@@ -16,15 +16,15 @@ public class Route {
 	private LinkedList<Station> stationsDisabled;
 
 	/**
-	 * Constructeur d'un nouvelle objet avec un id spécifique et un type spécifique. L'unicité de l'id auprès des autre
-	 * instance n'est pas vérifié.
+	 * Constructeur d'un nouvel objet avec un id spécifique et un type spécifique. L'unicité de l'id auprès des autres
+	 * instances n'est pas vérifié.
 	 * 
 	 * @param id
 	 *            l'identifiant de cette ligne
 	 * @param kindRoute
 	 *            le type de cette ligne
 	 * @throws NullPointerException
-	 *             une exception est jetté si un des deux paramètre est null
+	 *             une exception est jetée si un des deux paramètres est null
 	 */
 	protected Route(String id, KindRoute kindRoute) throws NullPointerException {
 		super();
@@ -91,7 +91,7 @@ public class Route {
 	}
 
 	/**
-	 * réactive toute les stations qui était désativer dans la ligne
+	 * réactive toutes les stations qui était désativées dans la ligne
 	 */
 	public void resetDisabledStation() {
 		this.stationsDisabled.clear();
@@ -170,7 +170,7 @@ public class Route {
 	}
 
 	/**
-	 * Retourne la station dont on vient passer l'identifiant si cette dernière est bien dans la route.
+	 * Retourne la station dont on vient de passer l'identifiant si cette dernière est bien dans la route.
 	 * 
 	 * @param idStation
 	 *            l'identifiant de la sation
@@ -190,7 +190,7 @@ public class Route {
 	 * 
 	 * @param id
 	 *            la station recherchée
-	 * @return etat false si la station est desactivé, ou dans la route ET est desactivé pour cette route.
+	 * @return etat false si la station est desactivée, ou si elle est dans la route ET esactivée pour cette route.
 	 */
 	public boolean isStationEnable(Station station) {
 		if (!station.isEnable())
@@ -207,7 +207,7 @@ public class Route {
 	 * 
 	 * @param id
 	 *            id de la station recherchée
-	 * @return etat false si la station est dans la route ET desactiver : si vous passer un id de station qui n'est pas
+	 * @return etat false si la station est dans la route ET desactivée : si vous passer un id de station qui n'est pas
 	 *         sur la route, nous la considererons comme active sur la ligne
 	 */
 	public boolean isStationEnable(int idStation) {
