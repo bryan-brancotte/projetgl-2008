@@ -188,6 +188,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 						}
 						if (eventInfosNotApplied.size() > 0) {
 							status = EventInfoNetWorkWatcherStatus.NEW_UPDATE;
+							notifyObservers(null);
 						}
 
 						// System.out.println("----------------------------");
