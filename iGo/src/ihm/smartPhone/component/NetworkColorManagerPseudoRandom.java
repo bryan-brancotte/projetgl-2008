@@ -17,7 +17,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 	HashMap<Service, Color> colorServices;
 	LinkedList<Color> colorList;
 
-	protected NetworkColorManagerPseudoRandom() {
+	protected void initColor() {
 		colorRoutes = new HashMap<Route, Color>();
 		colorServices = new HashMap<Service, Color>();
 		colorList = new LinkedList<Color>();
@@ -42,36 +42,48 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorList.add(new Color(137, 38, 242));// pourpre
 	}
 
-	public NetworkColorManagerPseudoRandom(Master master) {
-		this();
-		Iterator<Route> itR;
-		Iterator<Station> itS = master.getStations();
-		Iterator<Color> itC = colorList.iterator();
-		Iterator<Service> itSer = master.getServices();
-		Route route;
-		Service service;
-		while (itS.hasNext()) {
-			itR = itS.next().getRoutes();
-			while (itR.hasNext()) {
-				if (!colorRoutes.containsKey(route = itR.next())) {
-					if (!itC.hasNext())
-						itC = colorList.iterator();
-					colorRoutes.put(route, itC.next());
+	protected void initHash() {
+		try {
+			Iterator<Route> itR;
+			Iterator<Station> itS = master.getStations();
+			Iterator<Color> itC = colorList.iterator();
+			Iterator<Service> itSer = master.getServices();
+			Route route;
+			Service service;
+			while (itS.hasNext()) {
+				itR = itS.next().getRoutes();
+				while (itR.hasNext()) {
+					if (!colorRoutes.containsKey(route = itR.next())) {
+						if (!itC.hasNext())
+							itC = colorList.iterator();
+						colorRoutes.put(route, itC.next());
+					}
 				}
 			}
-		}
 
-		while (itSer.hasNext()) {
-			if (!colorRoutes.containsKey(service = itSer.next())) {
-				if (!itC.hasNext())
-					itC = colorList.iterator();
-				colorServices.put(service, itC.next());
+			while (itSer.hasNext()) {
+				if (!colorRoutes.containsKey(service = itSer.next())) {
+					if (!itC.hasNext())
+						itC = colorList.iterator();
+					colorServices.put(service, itC.next());
+				}
 			}
+		} catch (Exception e) {
+			System.err.println("Le master ne peut fournir les services et route, nous retenreons plus tard");
+			e.printStackTrace();
 		}
+	}
+
+	public NetworkColorManagerPseudoRandom(Master master) {
+		this.master = master;
+		initColor();
+		initHash();
 	}
 
 	@Override
 	public Color getColorForRoute(Route r) {
+		if (colorRoutes.isEmpty())
+			initHash();
 		Color ret = colorRoutes.get(r);
 		if (ret == null)
 			return Color.blue;
@@ -80,6 +92,8 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 
 	@Override
 	public Color getColorForService(Service s) {
+		if (colorServices.isEmpty())
+			initHash();
 		Color ret = colorServices.get(s);
 		if (ret == null)
 			return Color.red;
