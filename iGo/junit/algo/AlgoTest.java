@@ -14,6 +14,7 @@ import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Algo;
 import iGoMaster.Algo.CriteriousForLowerPath;
+import iGoMaster.exception.NoRouteForStationException;
 
 import java.util.Iterator;
 import java.util.MissingResourceException;
@@ -578,7 +579,7 @@ public class AlgoTest {
 	}
 
 	@Test
-	public void CréationGraph() {
+	public void CréationGraph() throws NoRouteForStationException {
 		GraphNetwork gn = gnb.getCurrentGraphNetwork();
 		PathInGraphCollectionBuilder pc = gn.getInstancePathInGraphCollectionBuilder();
 		PathInGraphConstraintBuilder pcb = pc.getPathInGraphConstraintBuilder();
