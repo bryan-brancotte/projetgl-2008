@@ -108,7 +108,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
 					.toString());
 		if (this.master.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).isEmpty())
-			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
+			this.master.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
 					.toString());
 
 		this.setBackground(skin.getColorLine());
@@ -622,6 +622,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean returnPathAsked(PathInGraph path, String message) {
+		System.out.println(path);
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
 		this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
