@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 /**
  * 
- * Classe suivant les design patterns Factory (création controlé d'objet) et Builder (modification controlé d'objet).
+ * Classe qui utilise les design patterns Factory (création controlée d'objets) et Builder (modification controlée d'objets).
  * 
  * @author "iGo"
  * 
@@ -17,7 +17,7 @@ public class GraphNetworkBuilder {
 
 	/**
 	 * 
-	 * le GraphNetwork courant, celui où on est actuellement en travail
+	 * le GraphNetwork courant
 	 * 
 	 */
 	protected GraphNetwork currentGraphNetwork = null;
@@ -31,8 +31,8 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et l'ajoute au GraphNetwork courant. Si
-	 * l'identifiant passé existe déjà on jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et on l'ajoute au GraphNetwork courant. 
+	 * Si l'identifiant passé en paramètre existe déjà on jete une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant de la route, c'est aussi son nom. s'il est à null ou vide rien ne se passera.
@@ -64,7 +64,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
+	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et on l'ajoute au GraphNetwork courant. Si
 	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
@@ -80,7 +80,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et l'ajoute au GraphNetwork courant. Si
+	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et on l'ajoute au GraphNetwork courant. Si
 	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
@@ -110,14 +110,14 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on ajout un service à un station. Si le service est déja présent, on
+	 * En travaillant sur le GraphNetwork courant, on ajoute un service à un station. Si le service est déja présent, on
 	 * ne fait rien.
 	 * 
 	 * @param station
 	 *            la station en question
 	 * @param serviceToAdd
 	 *            le service en question
-	 * @return true si le service n'était pas présent, et l'est désormais. false si un des paramètre est null, ou que le
+	 * @return true si le service n'était pas présent, mais l'est désormais. false si un des paramètres est null, ou si le
 	 *         paramètre était déjà présent
 	 */
 	public boolean addServiceToStation(Station station, Service serviceToAdd) {
@@ -175,7 +175,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on ajout une station à un route. Si la station est déja présente, on
+	 * En travaillant sur le GraphNetwork courant, on ajoute une station à un route. Si la station est déja présente, on
 	 * ne fait rien.
 	 * 
 	 * @param route
@@ -281,17 +281,17 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * retourne l'actuelle GraphNetwork.
+	 * retourne le GraphNetwork courant.
 	 * 
-	 * @return le GraphNetwork courant ou null si'il n'y en a pas.
+	 * @return le GraphNetwork courant ou null s'il n'y en a pas.
 	 */
 	public GraphNetwork getCurrentGraphNetwork() {
 		return currentGraphNetwork;
 	}
 
 	/**
-	 * Fonction abandonné a cause d'un nom pas assez explicite. Retourne un nouvelle instance de GraphNetwork sans
-	 * jamais pouvoire le modifier
+	 * Fonction abandonnée a cause d'un nom pas assez explicite. Retourne un nouvelle instance de GraphNetwork sans
+	 * jamais pouvoir le modifier
 	 * 
 	 * @return un nouveau GraphNetwork que vous ne pourrez jamais modifier
 	 */
@@ -302,9 +302,9 @@ public class GraphNetworkBuilder {
 
 	/**
 	 * 
-	 * En travaillant sur le GraphNetwork courant, on lie deux station entre elles par un lien à faire à pied. On
+	 * En travaillant sur le GraphNetwork courant, on lie deux stations entre elles par un lien à faire à pied. On
 	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
-	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
+	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il faut resortir de la première station
 	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>La jonction est monodirectionel</B><br/>SI
 	 * jamais la jonction existe déja on la modifie et la retourne.
 	 * 
@@ -371,12 +371,12 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on lie deux station entre elles par un lien à faire à pied. On
+	 * En travaillant sur le GraphNetwork courant, on lie deux stations entre elles par un lien à faire à pied. On
 	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
 	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
-	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>Les jonctions sont monodirectionel, *
-	 * mais on en crée 2!</B><br/>Si dans un sens comme dans l'autre on trouve un jonction correspondant au critère,
-	 * on la met à jours plutôt que d'en créé un nouvelle.
+	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>Les jonctions sont monodirectionelles, *
+	 * mais on en crée 2!</B><br/>Si dans un sens comme dans l'autre on trouve une jonction correspondant au critère,
+	 * on la met à jour plutôt que d'en créer une nouvelle.
 	 * 
 	 * @param routeOrigin
 	 *            la route origine
@@ -396,7 +396,7 @@ public class GraphNetworkBuilder {
 	 * @throws StationNotOnRoadException
 	 *             jetée si une station n'est pas sur la route que l'on suppose.
 	 * @throws NullPointerException
-	 *             jetée si un des composant est null.
+	 *             jetée si un des composants est null.
 	 * @throws ImpossibleValueException
 	 *             jetée si une valeur est incorrect.
 	 */
@@ -461,7 +461,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Réinitialise le contenue de l'objet courant : on vide l'ensemble des conteneurs
+	 * Réinitialise le contenu de l'objet courant : on vide l'ensemble des conteneurs
 	 */
 	public void reset() {
 		currentGraphNetwork.routes.clear();
@@ -504,7 +504,7 @@ public class GraphNetworkBuilder {
 	 * modifie l'etat enable d'une station
 	 * 
 	 * @param route
-	 *            la route sur laquel est la station.
+	 *            la route sur laquelle est la station.
 	 * @param station
 	 *            la station à modifier.
 	 * @param stationEnable
@@ -528,7 +528,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Trouve la/les jonctions entre les deux stations sur leurs routes respectives et leurs applique l'état passé en
+	 * Trouve la/les jonctions entre les deux stations sur leurs routes respectives et leur applique l'état passé en
 	 * paramètre
 	 * 
 	 * @param stationOrigin
@@ -544,7 +544,7 @@ public class GraphNetworkBuilder {
 	 * @throws StationNotOnRoadException
 	 *             jetée si une station n'est pas sur la route que l'on suppose.
 	 * @throws NullPointerException
-	 *             jetée si un des composant est null.
+	 *             jetée si un des composants est null.
 	 */
 	public void setEnableJunctionsBetween(Route routeOrigin, Station stationOrigin, Route routeDestination,
 			Station stationDestination, boolean enable) throws StationNotOnRoadException {
@@ -571,8 +571,8 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relative au
-	 * route, les jonctions.
+	 * remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relatives aux
+	 * routes, les jonctions.
 	 */
 	public void resetEnables() {
 		Iterator<Route> itRoute = currentGraphNetwork.routes.iterator();
