@@ -112,8 +112,9 @@ public class Dijkstra extends Algo {
 	 * @return
 	 */
 	private void algoComb(ArrayList<ArrayList<Station>> v, ArrayList<ArrayList<Station>> vTot, int prof) {
-		if (v == null || vTot == null || vTot.size() == 0)
-			return;
+		if (prof==0) timeComb =System.currentTimeMillis();
+		if (prof>0 && System.currentTimeMillis()-timeComb>1000 && betterPath!=null && betterPath.size()!=0) return;
+		if (v == null || vTot == null || vTot.size() == 0) return;
 		if (v.size() == vTot.size()) {
 			ArrayList<Junction> currentPath = new ArrayList<Junction>();
 
@@ -130,8 +131,6 @@ public class Dijkstra extends Algo {
 			for (int i = 0; i < vTot.size(); i++) {
 				if (!v.contains(vTot.get(i))) {
 					// Conditions d'arret
-					if (prof==0) timeComb =System.currentTimeMillis();
-					if (prof>0 && System.currentTimeMillis()-timeComb>1000 && betterPath!=null && betterPath.size()!=0) return;
 					v.add(vTot.get(i));
 					algoComb(v, vTot, prof + 1);
 					v.remove(vTot.get(i));
