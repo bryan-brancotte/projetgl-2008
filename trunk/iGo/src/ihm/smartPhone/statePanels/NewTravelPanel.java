@@ -1095,7 +1095,7 @@ public class NewTravelPanel extends PanelState {
 					System.out.println("FindAPath.actionPerformed():" + pathBuilder.isValideForSolving());
 					if (pathBuilder.isValideForSolving()) {
 						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
-					}
+					}	
 				}
 			});
 		lowerBar.repaint();
