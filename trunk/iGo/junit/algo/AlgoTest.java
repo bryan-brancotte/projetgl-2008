@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.Junction;
-import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.PathInGraphResultBuilder;
