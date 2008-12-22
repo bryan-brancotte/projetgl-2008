@@ -71,7 +71,8 @@ public class NewTravelPanel extends PanelState {
 	// protected PTRadioBox[] qualityRadioBoxs;
 	// protected PTCollapsableArea qualityCollapsableArea;
 
-	protected final int intermediatesStations = 5;
+	protected final int intermediatesStationsAdd = 5;
+	protected final int intermediatesStationsRemove = 6;
 	protected PTArea intermediatesStationsNew;
 	protected PTAutoCompletionTextBox intermediatesStationsTextBox;
 	protected PTCollapsableArea intermediatesStationsCollapsableArea;
@@ -325,7 +326,7 @@ public class NewTravelPanel extends PanelState {
 		intermediatesStationsButton = makeButton(ex = new CodeExecutor1P<PanelTooled>(this) {
 			@Override
 			public void execute() {
-				recordChangedSetting(intermediatesStations, intermediatesStationsTextBox.getText());
+				recordChangedSetting(intermediatesStationsAdd, intermediatesStationsTextBox.getText());
 				this.origine.repaint();
 			}
 		});
@@ -420,12 +421,12 @@ public class NewTravelPanel extends PanelState {
 			// return;
 			// }
 			// break;
-		case intermediatesStations:
-			Station station;
-			if (pathBuilder.getCurrentPathInGraph().containsSteps(station = stationsHash.get(s))) {
-				pathBuilder.removeStepStations(station);
-				// TODO
-			} else {
+		case intermediatesStationsAdd:
+			Station station = stationsHash.get(s);
+			if (station != null && !pathBuilder.getCurrentPathInGraph().containsSteps(station)) {
+				// pathBuilder.removeStepStations(station);
+				// // TODO
+				// } else {
 				pathBuilder.addStepStations(station);
 				intermediatesStationsTextBox.setText("");
 			}

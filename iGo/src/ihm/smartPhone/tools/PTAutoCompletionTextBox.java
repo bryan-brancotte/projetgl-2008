@@ -49,6 +49,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				switch (e.getKeyCode()) {
 				// The void key :
 				case KeyEvent.VK_CONTROL:
+				case KeyEvent.VK_TAB:
 				case KeyEvent.VK_ALT:
 				case KeyEvent.VK_ALT_GRAPH:
 				case KeyEvent.VK_CONTEXT_MENU:
