@@ -225,14 +225,6 @@ public class Dijkstra extends Algo {
 		return Tools.extractJunctions(arrivee);
 	}
 
-	private void affichage(ArrayList<Junction> list) {
-		for (int i = 0; i < list.size(); i++) {
-			System.out.print(list.get(i) + " - ");
-		}
-		System.out.println();
-		System.out.println(list.size());
-	}
-
 	/**
 	 * 
 	 * @param j1
