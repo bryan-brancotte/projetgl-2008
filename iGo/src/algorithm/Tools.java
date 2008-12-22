@@ -2,12 +2,13 @@ package algorithm;
 
 import graphNetwork.Junction;
 import graphNetwork.Service;
-
+import graphNetwork.Station;
 import iGoMaster.Algo.CriteriousForLowerPath;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Vector;
 
 import algorithm.GraphAlgo.Link;
 import algorithm.GraphAlgo.Node;
@@ -85,6 +86,20 @@ public class Tools {
 					return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @param list
+	 */
+	protected static void removeServicesFromStation(Station s, Vector<Service> list) {
+		Iterator<Service> it = s.getServices();
+		while (it.hasNext()) {
+			Service serv = it.next();
+			if (list.contains(serv))
+				list.remove(serv);
+		}
 	}
 
 	// ////////////////////////////////////////////////////////////////////////////////////////

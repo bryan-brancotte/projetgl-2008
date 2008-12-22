@@ -507,6 +507,14 @@ public class AlgoTest {
 			gnb.addStationToRoute(m14, gnb.addStation(365, "Cour Saint-Émilion"), 1);
 			gnb.addStationToRoute(m14, gnb.addStation(366, "Bibliothèque François Mitterand"), 1);
 
+			gnb.addService(2, "Cafe");
+			gnb.addService(1, "Coffre");
+			for (int i = 30; i < 70; i++) {
+				gnb.addServiceToStation(g.getStation(i), g.getService(2));
+				gnb.addServiceToStation(g.getStation(i),g.getService(1));
+			}
+				
+
 			gnb.defineEntryCost(sncf.getKindFromString("RER"), 4);
 			/*
 			 * gnb.linkStationBidirectional(rerC, massyPal, rerB, massyPal, 0,
@@ -538,7 +546,6 @@ public class AlgoTest {
 			e.printStackTrace();
 		}
 
-		//
 		assertTrue("Construction sans problème", true);
 	}
 
@@ -574,12 +581,14 @@ public class AlgoTest {
 		PathInGraphCollectionBuilder pc = gn.getInstancePathInGraphCollectionBuilder();
 		PathInGraphConstraintBuilder pcb = pc.getPathInGraphConstraintBuilder();
 
-		pcb.setMainCriterious(CriteriousForLowerPath.CHANGE);
-		pcb.setMinorCriterious(CriteriousForLowerPath.TIME);
+		pcb.setMainCriterious(CriteriousForLowerPath.TIME);
+		pcb.setMinorCriterious(CriteriousForLowerPath.CHANGE);
 		pcb.setOrigin(gn.getStation(102));
 		pcb.setDestination(gn.getStation(103));
 		pcb.addStepStations(gn.getStation(77));
 		pcb.addStepStations(gn.getStation(27));
+		pcb.addSeviceOnce(gn.getService(2));
+		pcb.addSeviceOnce(gn.getService(1));
 
 		PathInGraphResultBuilder prb = pc.getPathInGraphResultBuilder();
 
@@ -603,7 +612,7 @@ public class AlgoTest {
 		System.out.println("Time : " + time + " minutes");
 		System.out.println(changes + " changements");
 		System.out.println("---------------------------------------");
-		System.out.println((end-begin)+" ms pour création du graph et calcul de l'itinéraire");
+		System.out.println((end - begin) + " ms pour création du graph et calcul de l'itinéraire");
 	}
 
 	@Test
