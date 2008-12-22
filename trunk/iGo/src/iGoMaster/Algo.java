@@ -2,9 +2,10 @@ package iGoMaster;
 
 import graphNetwork.PathInGraphResultBuilder;
 
+import iGoMaster.exception.NoRouteForStationException;
+
 import java.util.Observable;
 
-import algorithm.exception.NoRouteForStation;
 
 
 /**
@@ -43,10 +44,10 @@ public abstract class Algo extends Observable {
 	 * de la méthode notify.
 	 * 
 	 * @param _pathBuilder
-	 * @throws NoRouteForStation 
+	 * @throws NoRouteForStationException 
 	 * 
 	 */
-	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStation;
+	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStationException;
 
 	/**
 	 */

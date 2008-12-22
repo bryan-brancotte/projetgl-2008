@@ -6,13 +6,13 @@ import graphNetwork.PathInGraphResultBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
+import iGoMaster.exception.NoRouteForStationException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import algorithm.GraphAlgo.Link;
 import algorithm.GraphAlgo.Node;
-import algorithm.exception.NoRouteForStation;
 
 public class Dijkstra extends Algo {
 
@@ -31,7 +31,7 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStation {
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException {
 
 		// Initialisation des contraintes
 		initConstraints(prb);
@@ -62,9 +62,9 @@ public class Dijkstra extends Algo {
 	 * 
 	 * @param prb
 	 *            le pathInGraphResultBuilder fourni par iGoMaster
-	 * @throws NoRouteForStation 
+	 * @throws NoRouteForStationException 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStation {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 

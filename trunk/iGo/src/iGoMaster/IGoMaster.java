@@ -12,6 +12,7 @@ import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.ImpossibleStartingException;
 import iGoMaster.exception.NoNetworkException;
+import iGoMaster.exception.NoRouteForStationException;
 
 import java.util.ArrayList;
 import java.util.Observer;
@@ -24,7 +25,6 @@ import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 import algorithm.Dijkstra;
-import algorithm.exception.NoRouteForStation;
 
 import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
@@ -104,7 +104,7 @@ public class IGoMaster implements Master, Observer
 				System.out.println("elo --> Algo lancé");
 				try {
 					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
-				} catch (NoRouteForStation e1) {
+				} catch (NoRouteForStationException e1) {
 					e1.printStackTrace();
 				}
 				

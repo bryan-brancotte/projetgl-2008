@@ -7,11 +7,12 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
 
+import iGoMaster.exception.NoRouteForStationException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
-import algorithm.exception.NoRouteForStation;
 
 public class GraphAlgo {
 
@@ -23,9 +24,9 @@ public class GraphAlgo {
 	 * Rafraichi le réseau avant un calcul
 	 * 
 	 * @param p
-	 * @throws NoRouteForStation 
+	 * @throws NoRouteForStationException 
 	 */
-	protected void refreshGraph(PathInGraph p) throws NoRouteForStation {
+	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
@@ -34,7 +35,7 @@ public class GraphAlgo {
 		Node n;
 		if (s.getRoutes()!=null) n = new Node(s,s.getRoutes().next());
 		else
-			 throw new NoRouteForStation();
+			 throw new NoRouteForStationException();
 		graph.add(n);
 		addLink(n);
 		//System.out.println(toString());
