@@ -1,6 +1,6 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetwork;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
@@ -36,14 +36,14 @@ public class EventInfoStation implements EventInfo {
 	}
 
 	@Override
-	public void applyInfo(GraphNetwork graph) {
+	public void applyInfo(GraphNetworkBuilder graph) {
 
 		if (!isApplied()) {
 			System.out.println("entering into event info station");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
-				graph.getStation(id).setEnable(false);
+				graph.setEnable(id, false);
 			} else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
-				graph.getStation(id).setEnable(true);
+				graph.setEnable(id, true);
 			}
 			this.applied = true;
 		}

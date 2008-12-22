@@ -1,6 +1,5 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.EventInfoNetWorkWatcherStatus;
@@ -265,7 +264,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	 * Applique les informations contenues dans un événement
 	 */
 	@Override
-	public void applyInfo(GraphNetwork graph) {
+	public void applyInfo(GraphNetworkBuilder graph) {
 
 		for (EventInfo ev : getNewEventInfo()) {
 			ev.applyInfo(graph);
@@ -307,7 +306,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 						System.out.println("Event : " + ev.getMessage());
 					}
 					GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-					test.applyInfo(gnb.getCurrentGraphNetwork());
+					test.applyInfo(gnb);
 				}
 
 				test.stopWatching();

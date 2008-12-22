@@ -15,6 +15,8 @@ import iGoMaster.exception.GraphReceptionException;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +41,14 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	public GraphNetworkReceiverFolder(String f) {
 		super();
 		networks = new HashMap<String, AvailableNetwork>();
-		folder = new File(f);
+		try {
+			
+			System.out.println(new URI(f));
+			folder = new File(URLEncoder.encode(f, "UTF-8"));
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
@@ -308,7 +317,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 	public static void main(String[] args) {
 
-		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder("C:/Documents and Settings/Pierrick/Bureau/2008-2008_S9/Projet GL/doc/XML/");
+		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder(System.getProperty("user.dir")+"\\xml");
 
 		try {
 
