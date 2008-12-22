@@ -587,8 +587,8 @@ public class AlgoTest {
 		pcb.setDestination(gn.getStation(103));
 		pcb.addStepStations(gn.getStation(77));
 		pcb.addStepStations(gn.getStation(27));
-		pcb.addSeviceOnce(gn.getService(2));
-		pcb.addSeviceOnce(gn.getService(1));
+		//pcb.addSeviceOnce(gn.getService(2));
+		//pcb.addSeviceOnce(gn.getService(1));
 
 		PathInGraphResultBuilder prb = pc.getPathInGraphResultBuilder();
 
