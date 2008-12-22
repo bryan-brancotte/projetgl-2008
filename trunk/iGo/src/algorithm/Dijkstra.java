@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 import algorithm.GraphAlgo.Link;
 import algorithm.GraphAlgo.Node;
+import algorithm.exception.NoRouteForStation;
 
 public class Dijkstra extends Algo {
 
@@ -30,7 +31,7 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) {
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStation {
 
 		// Initialisation des contraintes
 		initConstraints(prb);
@@ -61,8 +62,9 @@ public class Dijkstra extends Algo {
 	 * 
 	 * @param prb
 	 *            le pathInGraphResultBuilder fourni par iGoMaster
+	 * @throws NoRouteForStation 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStation {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 

@@ -4,6 +4,8 @@ import graphNetwork.PathInGraphResultBuilder;
 
 import java.util.Observable;
 
+import algorithm.exception.NoRouteForStation;
+
 
 /**
  * Une classe héritant de la classe abstraite Algo se doit de notifier le master
@@ -41,9 +43,10 @@ public abstract class Algo extends Observable {
 	 * de la méthode notify.
 	 * 
 	 * @param _pathBuilder
+	 * @throws NoRouteForStation 
 	 * 
 	 */
-	public abstract void findPath(PathInGraphResultBuilder _path);
+	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStation;
 
 	/**
 	 */

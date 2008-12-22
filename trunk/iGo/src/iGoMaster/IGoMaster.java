@@ -24,6 +24,7 @@ import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 import algorithm.Dijkstra;
+import algorithm.exception.NoRouteForStation;
 
 import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
@@ -101,7 +102,11 @@ public class IGoMaster implements Master, Observer
 				threads.add(currentThread());
 				
 				System.out.println("elo --> Algo lancé");
-				algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+				try {
+					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+				} catch (NoRouteForStation e1) {
+					e1.printStackTrace();
+				}
 				
 				try {currentThread().wait();} 
 				catch (InterruptedException e) 
