@@ -583,8 +583,8 @@ public class AlgoTest {
 		PathInGraphCollectionBuilder pc = gn.getInstancePathInGraphCollectionBuilder();
 		PathInGraphConstraintBuilder pcb = pc.getPathInGraphConstraintBuilder();
 
-		pcb.setMainCriterious(CriteriousForLowerPath.CHANGE);
-		pcb.setMinorCriterious(CriteriousForLowerPath.TIME);
+		pcb.setMainCriterious(CriteriousForLowerPath.TIME);
+		pcb.setMinorCriterious(CriteriousForLowerPath.CHANGE);
 		pcb.setOrigin(gn.getStation(102));
 		pcb.setDestination(gn.getStation(103));
 		pcb.addStepStations(gn.getStation(77));
