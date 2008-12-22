@@ -6,6 +6,7 @@ import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import iGoMaster.Algo;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
@@ -103,6 +104,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			}
 		}
 		this.skin = skin;
+		if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).isEmpty())
+			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
+					.toString());
+		if (this.master.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).isEmpty())
+			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
+					.toString());
 
 		this.setBackground(skin.getColorLine());
 
@@ -508,9 +515,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
 				pathBuilder = newTravelPanel.getPathInGraphConstraintBuilder();
 			else if (this.actualState == IhmReceivingStates.LOAD_TRAVEL)
-//				pathBuilder = loadTravelPanel.getPathInGraphConstraintBuilder();
-			// this.setCurrentState(IhmReceivingStates.)
-			cleanPanelsStates(false);
+				// pathBuilder = loadTravelPanel.getPathInGraphConstraintBuilder();
+				// this.setCurrentState(IhmReceivingStates.)
+				cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
 			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
 			master.askForATravel(pathBuilder);
