@@ -33,7 +33,7 @@ public class GraphAlgo {
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
 		Node n;
-		if (s.getRoutes()!=null) n = new Node(s,s.getRoutes().next());
+		if (s.getRoutes()!=null && s.getRoutes().hasNext()) n = new Node(s,s.getRoutes().next());
 		else
 			 throw new NoRouteForStationException();
 		graph.add(n);
