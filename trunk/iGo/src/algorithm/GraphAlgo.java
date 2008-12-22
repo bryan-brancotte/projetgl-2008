@@ -13,7 +13,6 @@ import java.util.Vector;
 
 public class GraphAlgo {
 
-	private PathInGraph p;
 	private ArrayList<Node> graph;
 	private Station[] avoidStations;
 	private Service[] always;
@@ -23,7 +22,7 @@ public class GraphAlgo {
 	 * 
 	 * @param p
 	 */
-	protected void refreshGraph() {
+	protected void refreshGraph(PathInGraph p) {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
@@ -150,6 +149,21 @@ public class GraphAlgo {
 	}
 
 	/**
+	 * Retourne le premier noeud du graph correspondant à la station
+	 * 
+	 * @param s la station concernée
+	 * @return premier noeud du graph correspondant
+	 */
+	protected Node getFirstNode (Station s) {
+		Node n;
+		for (int i=0;i<graph.size();i++) {
+			n = graph.get(i);
+			if (s == n.getStation()) return n;
+		}
+		return null;
+	}
+
+	/**
 	 * Réinitialisation des poids de l'ensemble du graph de l'algorithme
 	 */
 	protected void defaultNodes () {
@@ -182,12 +196,9 @@ public class GraphAlgo {
 	
 	// Implémentation du singleton
 	private static GraphAlgo instance;
-	private GraphAlgo(PathInGraph p) {
-		this.p = p;
-	}
 	public static GraphAlgo getInstance(PathInGraph p) {
         if (null == instance) { // Premier appel
-            instance = new GraphAlgo(p);
+            instance = new GraphAlgo();
         }
         return instance;
     }
