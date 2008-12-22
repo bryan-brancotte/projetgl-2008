@@ -8,19 +8,19 @@ package iGoMaster;
 public enum IHMGraphicQuality {
 
 	/**
-	 * Qualité base, on dessine ausi vite que l'on peut
+	 * Qualité de base, on dessine aussi vite que l'on peut
 	 */
 	AS_FAST_AS_WE_CAN(10),
 	/**
-	 * On s'autorise un antialiasing sur les composants qui pourrais en avoir besoin
+	 * On autorise un antialiasing sur les composants qui pourraient en avoir besoin.
 	 */
 	TEXT_ANTI_ANTIALIASING(20),
 	/**
-	 * l'anti aliasing est appliquer sur les texts, mais aussi les dessins.
+	 * L'anti aliasing est appliqué sur les textes, mais aussi sur les dessins.
 	 */
 	FULL_ANTI_ANTIALIASING(30),
 	/**
-	 * On met la qualité au maximume. Anti Aliasing, dithering (tramage), ... tous ce qui peut être acitvé pour
+	 * La qualité est maximale. Anti Aliasing, dithering (tramage), ... tout ce qui peut être activé pour
 	 * améliorer la qualité graphique est activé.
 	 */
 	HIGHER_QUALITY(40);

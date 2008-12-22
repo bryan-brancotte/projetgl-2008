@@ -73,17 +73,17 @@ public interface Master {
 	public abstract void update(Observable o, Object arg);
 
 	/**
-	 * Demande au master de lui fournir un trajet respectant les contraintes passés en paramtères. Le master, après un
+	 * Demande au master de lui fournir un trajet respectant les contraintes passés en paramètres. Le master, après un
 	 * temps qu'il jugera necessaire, appellera l'IHM par la méthode returnPathAsked(...) ou il fournira un PathInGraph
-	 * Résolut
+	 * résolu.
 	 * 
-	 * @return true si la demande a bien été enregistrer
+	 * @return true si la demande a bien été enregistrée
 	 */
 	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable);
 
 	/**
 	 * Demande au master de lui fournir un PathInGraphConstraintBuilder dans lequel il va préparer divers paramètres
-	 * relatif à un trajet. L'IHM, après le temps qu'elle jugera necessaire, demandera au master de résoudre le chemin
+	 * relatifs à un trajet. L'IHM, après le temps qu'elle jugera necessaire, demandera au master de résoudre le chemin
 	 * par la méthode askForATravel(...) en passant en paramètre ce PathInGraphConstraintBuilder
 	 * 
 	 * @return un PathInGraphConstraintBuilder travaillant sur un PathInGraph vide
@@ -91,28 +91,28 @@ public interface Master {
 	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder();
 
 	/**
-	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
+	 * Retourne un itérateur décrivant l'ensemble des services présents sur le réseau
 	 * 
 	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<Service> getServices();
 
 	/**
-	 * Retourne un itérateur décrivant l'ensemble des services présent sur le réseau
+	 * Retourne un itérateur décrivant l'ensemble des services présents sur le réseau
 	 * 
 	 * @return l'iterateur sur les services. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<Station> getStations();
 
 	/**
-	 * Retourne un iterateur décrivant l'ensemble des types de route présent sur le réseau
+	 * Retourne un iterateur décrivant l'ensemble des types de route présents sur le réseau
 	 * 
 	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
 	 */
 	public Iterator<KindRoute> getKindRoutes();
 
 	/**
-	 * Retourne un iterateur avec l'ensemble des langues disponible pour le logiciel dans leur langue respective
+	 * Retourne un iterateur avec l'ensemble des langues disponibles pour le logiciel dans leurs langues respectives
 	 * 
 	 * @return l'iterateur sur les langues.
 	 */
