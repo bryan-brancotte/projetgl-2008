@@ -104,7 +104,7 @@ public class Station {
 	}
 
 	/**
-	 * Retourne un iterateur sur les jonctions partantes de cette station et de la route passé en paramètre
+	 * Retourne un iterateur sur les jonctions partantes de cette station et de la route passée en paramètre
 	 * 
 	 * @return un iterateur sur ces jonctions. Il peut être vide, mais jamais à null
 	 */
@@ -129,7 +129,7 @@ public class Station {
 	}
 
 	/**
-	 * Retourne les routes d'un station
+	 * Retourne les routes d'une station
 	 * 
 	 * @return un iterateur sur les routes de la station
 	 */
