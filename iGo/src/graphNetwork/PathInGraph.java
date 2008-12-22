@@ -806,4 +806,14 @@ public class PathInGraph {
 		mainCriterious = CriteriousForLowerPath.NOT_DEFINED;
 		minorCriterious = CriteriousForLowerPath.NOT_DEFINED;
 	}
+	
+	public String toString(){
+		String ret="";
+		ret+="PathInGraph :\n";
+		ret+="From:"+origin+"\n";
+		ret+="To : "+destination+"\n";
+		ret+="Cost:"+cost+"\n";
+		ret+="Time:"+time+"\n";
+		return ret;
+	}
 }
