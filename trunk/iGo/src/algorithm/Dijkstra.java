@@ -118,13 +118,14 @@ public class Dijkstra extends Algo {
 			ArrayList<Junction> currentPath = new ArrayList<Junction>();
 
 			currentPath.addAll(getMinimumDest(graph.getFirstNode(origin), v.get(0)));
-			for (int i = 1; i < v.size(); i++)
+			for (int i = 1; i < v.size(); i++) {
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i)));
+				System.out.println("test");
+			}
 
 			currentPath.addAll(algo(currentPosition, graph.getFirstNode(destination)));
 			if (betterPath(currentPath, betterPath)) {
 				betterPath = currentPath;
-				//System.out.println(betterPath.get(0));
 			}
 		} else {
 			for (int i = 0; i < vTot.size(); i++) {
