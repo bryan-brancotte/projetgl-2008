@@ -38,11 +38,12 @@ public class Dijkstra extends Algo {
 		// Création de l'ensemble des étapes obligatoires
 		ArrayList<ArrayList<Station>> allSteps = createAllSteps();
 
+		for (int i=0;i<allSteps.size();i++)
+			//System.out.println(allSteps.get(i));
 		// Création du chemin
 		if (allSteps.size() == 0)
 			betterPath.addAll(algo(graph.getFirstNode(origin), graph.getFirstNode(destination)));
 		else {
-			timeComb = System.currentTimeMillis();
 			algoComb(new ArrayList<ArrayList<Station>>(), allSteps, 0);
 		}
 
@@ -116,7 +117,6 @@ public class Dijkstra extends Algo {
 		if (v.size() == vTot.size()) {
 			ArrayList<Junction> currentPath = new ArrayList<Junction>();
 
-			System.out.println("--------------");
 			currentPath.addAll(getMinimumDest(graph.getFirstNode(origin), v.get(0)));
 			for (int i = 1; i < v.size(); i++) {
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i)));
@@ -197,9 +197,7 @@ public class Dijkstra extends Algo {
 	 * @return
 	 */
 	private ArrayList<Junction> algo(Node depart, Node arrivee) {
-		if (depart.getStation() == arrivee.getStation())
-			// return new ArrayList<Junction>();
-			return null;
+		if (depart.getStation() == arrivee.getStation()) return new ArrayList<Junction>();
 		compteur++;
 		// if (compteur%100==0) System.out.println(compteur);
 
