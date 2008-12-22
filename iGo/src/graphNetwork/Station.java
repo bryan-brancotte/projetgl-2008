@@ -160,7 +160,6 @@ public class Station {
 	 */
 	@Deprecated
 	public void setEnable(boolean enable) {
-		this.enable = enable;
 	}
 
 	/**

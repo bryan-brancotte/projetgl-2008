@@ -298,18 +298,18 @@ public class GraphNetworkBuilderTest {
 		while (itS.hasNext()) {
 			station = itS.next();
 			assertTrue("Toute les Stations doivent être enable", station.isEnable());
-			station.setEnable(false);
+			bob.setEnable(station, false);
 			assertTrue("La Station " + station.getId() + " devrait maintenant être disable", !station.isEnable());
-			station.setEnable(true);
+			bob.setEnable(station, true);
 			assertTrue("La Station " + station.getId() + " devrait maintenant être enable", station.isEnable());
 			itJ = station.getJunctions();
 			while (itJ.hasNext()) {
 				j = itJ.next();
 				assertTrue("Toute les Jonctions de la Station " + station.getId() + " doivent être enable", j
 						.isEnable());
-				j.setEnable(false);
+				bob.setEnable(j, false);
 				assertTrue("La Jonction " + j + " devrait maintenant être disable", !j.isEnable());
-				j.setEnable(true);
+				bob.setEnable(j, true);
 				assertTrue("La Jonction " + j + " devrait maintenant être enable", j.isEnable());
 
 			}
@@ -319,9 +319,9 @@ public class GraphNetworkBuilderTest {
 		while (itR.hasNext()) {
 			r = itR.next();
 			assertTrue("Toute les Routes doivent être enable", r.isEnable());
-			r.setEnable(false);
+			bob.setEnable(r, false);
 			assertTrue("La Jonction " + r + " devrait maintenant être disable", !r.isEnable());
-			r.setEnable(true);
+			bob.setEnable(r, true);
 			assertTrue("La Jonction " + r + " devrait maintenant être enable", r.isEnable());
 		}
 	}
@@ -329,25 +329,25 @@ public class GraphNetworkBuilderTest {
 	@Test
 	public void useOfEnableAndReset() {
 		constructionDUnReseauSansProbleme();
-		sncf.getStation(4).setEnable(false);
-		sncf.getStation(7).setEnable(false);
-		sncf.getRoute("RerB").setEnable(false);
-		sncf.getRoute("RerC").setEnable(false);
+		bob.setEnable(sncf.getStation(4), false);
+		bob.setEnable(sncf.getStation(7), false);
+		bob.setEnable(sncf.getRoute("RerB"), false);
+		bob.setEnable(sncf.getRoute("RerC"), false);
 		assertTrue("Il devrait y avoir des jonction pour la station 10", sncf.getStation(10).getJunctions().hasNext());
-		sncf.getStation(10).getJunctions().next().setEnable(false);
-		sncf.getRoute("RerB").setStationEnable(10, false);
+		bob.setEnable(sncf.getStation(10).getJunctions().next(), false);
+		bob.setEnable("RerB", 10, false);
 		assertTrue(!sncf.getRoute("RerB").isStationEnable(10));
 		assertTrue(sncf.getStation(10).isEnable());
-		sncf.resetEnables();
-		sncf.getStation(4).setEnable(false);
-		sncf.getStation(7).setEnable(false);
-		sncf.getRoute("RerB").setEnable(false);
-		sncf.getRoute("RerC").setEnable(false);
-		sncf.getStation(10).getJunctions().next().setEnable(false);
-		sncf.getStation(10).setEnable(false);
+		bob.resetEnables();
+		bob.setEnable(sncf.getStation(4), false);
+		bob.setEnable(sncf.getStation(7), false);
+		bob.setEnable(sncf.getRoute("RerB"), false);
+		bob.setEnable(sncf.getRoute("RerC"), false);
+		bob.setEnable(sncf.getStation(10).getJunctions().next(), false);
+		bob.setEnable(sncf.getStation(10), false);
 		assertTrue(!sncf.getRoute("RerB").isStationEnable(10));
 		assertTrue(!sncf.getStation(10).isEnable());
-		sncf.resetEnables();
+		bob.resetEnables();
 		assertTrue(sncf.getStation(4).isEnable());
 		assertTrue(sncf.getStation(7).isEnable());
 		assertTrue(sncf.getRoute("RerB").isEnable());

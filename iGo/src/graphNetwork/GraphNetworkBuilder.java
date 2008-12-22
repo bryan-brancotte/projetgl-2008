@@ -553,6 +553,19 @@ public class GraphNetworkBuilder {
 	 *            etat à definir
 	 * @return void
 	 */
+	public void setEnable(Junction junction, boolean enable) {
+		junction.setToEnable(enable);
+	}
+
+	/**
+	 * setter de l'etat enable d'une route
+	 * 
+	 * @param route
+	 *            la route à modifier.
+	 * @param enable
+	 *            etat à definir
+	 * @return void
+	 */
 	public void setEnable(Route route, boolean enable) {
 		route.setToEnable(enable);
 	}
