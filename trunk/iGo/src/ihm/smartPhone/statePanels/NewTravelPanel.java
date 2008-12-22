@@ -1092,8 +1092,9 @@ public class NewTravelPanel extends PanelState {
 			lowerBar.setRightCmd("Find a path", new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (pathBuilder.isValideForSolving())
-						System.out.println("lowerBar.RIGHT_CMD_ACTION_LISTENER");
+					if (pathBuilder.isValideForSolving()) {
+						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
+					}
 				}
 			});
 		lowerBar.repaint();
@@ -1102,6 +1103,10 @@ public class NewTravelPanel extends PanelState {
 	public void setPathInGraphConstraintBuilder(PathInGraphConstraintBuilder pathBuilder) {
 		this.pathBuilder = pathBuilder;
 		initPathInGraphConstraintBuilder();
+	}
+
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
+		return this.pathBuilder;
 	}
 
 	protected void initPathInGraphConstraintBuilder() {
