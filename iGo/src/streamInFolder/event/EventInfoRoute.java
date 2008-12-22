@@ -1,6 +1,6 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetwork;
+import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
@@ -37,7 +37,7 @@ public class EventInfoRoute implements EventInfo {
 	}
 
 	@Override
-	public void applyInfo(GraphNetwork graph) {
+	public void applyInfo(GraphNetworkBuilder graph) {
 		if (!isApplied()) {
 			System.out.println("entering into event info route");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
