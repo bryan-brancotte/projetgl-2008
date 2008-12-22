@@ -8,6 +8,7 @@ import graphNetwork.Station;
 import iGoMaster.Algo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -20,66 +21,120 @@ public class Dijkstra extends Algo {
 	private PathInGraph p;
 	private GraphAlgo graph;
 	private Station origin, destination;
-	private Station[] steps;
+	private Vector<Station> steps;
 	private Vector<Service> once;
 	private LinkedList<Junction> path;
+	private LinkedList<Station> actualStations;
 
-	/**
-	 * Fonction de test n'ayant pas d'interet une fois implémentée
-	 * 
-	 * @param g
-	 * @param o
-	 * @param f
-	 * @return
-	 */
-	public ArrayList<Junction> findPath(GraphAlgo g, Station o, Station f) {
-		graph = g;
-		return algo(o, f);
-	}
-
-	public PathInGraph findPath(PathInGraphResultBuilder prb) {
+	public void findPath(PathInGraphResultBuilder prb) {
 
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
-		// TODO Affichage de test à virer
-		// System.out.println(graph);
-		origin = p.getOrigin();
-		destination = p.getDestination();
-		steps = p.getStepsArray();
-		once = new Vector<Service>();
-		for (int i = 0; i < p.getStepsArray().length; i++) {
-			once.add(p.getServicesOnceArray()[i]);
-		}
+
+		// Raffraichissement du graph en fonction des nouvelles contraintes
 		graph.refreshGraph();
 
+		// Récupération des contraintes
+		origin = p.getOrigin();
+		destination = p.getDestination();
+		steps = new Vector<Station>();
+		for (int i=0;i<p.getStepsArray().length;i++)
+			steps.add(p.getStepsArray()[i]);
+		once = new Vector<Service>();
+		for (int i = 0; i < p.getServicesOnceArray().length; i++) {
+			Service s = p.getServicesOnceArray()[i];
+			if (isAccessibleService(s))
+				once.add(s);
+			// TODO else NOTIFIER QUE LA CONTRAINTE NE PEUT ETRE REMPLIE
+		}
+/*
+		Vector<Vector<Station>> stepsTemp = new Vector<Vector<Station>>();
+		for (int i = 0; i < steps.size(); i++) {
+			Vector<Station> v = new Vector<Station>();
+			v.add(steps.get(i));
+			stepsTemp.add(v);
+		}
+		for (int i = 0; i < once.size(); i++) {
+			Vector<Station> v = new Vector<Station>();
+			v.addAll(getAllStationswithService(once.get(i)));
+		}
+*/
 		// Création du chemin
-		// TODO penser à enlever une partie des contraintes et pas une par une
 		path = new LinkedList<Junction>();
-		while (path.size() == 0) {
-			graph.defaultNodes();
-			if (steps.length == 0)
-				path.addAll(algo(origin, destination));
-			else {
-				path.addAll(algo(origin, steps[0]));
-				for (int i = 0; i < steps.length - 1; i++)
-					path.addAll(algo(steps[i], steps[i + 1]));
-				path.addAll(algo(steps[steps.length - 1], destination));
-			}
-			if (path.size() == 0) {
-				if (once.size() > 0)
-					once.remove(once.size() - 1);
-				else
-					return null;
-			}
+		if (steps.size() == 0)
+			path.addAll(algo(origin, destination));
+		else {
+			path.addAll(algo(origin, steps.get(0)));
+			for (int i = 0; i < steps.size() - 1; i++)
+				path.addAll(algo(steps.get(i), steps.get(i+1)));
+			path.addAll(algo(steps.get(steps.size() - 1), destination));
 		}
 
 		// Création du pathInGraph
 		Iterator<Junction> it = path.iterator();
 		while (it.hasNext()) {
-			prb.addFront(it.next());
+			prb.addLast(it.next());
 		}
+	}
+/*
+	private Vector<Vector<Station>> algoComb(Vector<Vector<Station>> v, Vector<Vector<Station>> vTot) {
+		if (v==null || vTot==null || vTot.size()==0) return null; 
+		if (v.size() == vTot.size()) {
+			ArrayList<Junction> newStations = new ArrayList<Junction>();
+			newStations.addAll(getMinimumDest(origin,v.get(0)));
+			for (int i=1;i<v.size();i++) {
+				//TODO Verifier que la junction est dans le bon sens !
+				newStations.addAll(getMinimumDest(newStations.get(newStations.size()-1).get,v.get(0)));
+				newStations.add(s);
+			}
+			newStations.add(destination);
+			
+			
+		}
+		for (int i = 0; i < vTot.size() - v.size(); i++) {
+			if (!v.contains(vTot.get(i))) {
+				v.add(vTot.get(i));
+				algoComb(v, vTot);
+				v.remove(vTot.get(i));
+			}
+		}
+		return null;
+	}
+*/
+	private ArrayList<Junction> getMinimumDest(Station origin, Vector<Station> vector) {
+		ArrayList<Junction> list = algo(origin,vector.get(0)),newList;
+		for (int i=1;i<vector.size();i++) {
+			newList = algo(origin,vector.get(i));
+			if (betterPath(newList, list)) list=newList;
+		}
+		return list;
+	}
 
-		return p;
+	private Vector<Station> getAllStationswithService(Service s) {
+		Vector<Station> v = new Vector<Station>();
+		Iterator<Node> it = graph.getList();
+		while (it.hasNext()) {
+			Station station = it.next().getStation();
+			Iterator<Service> itServices = station.getServices();
+			while (itServices.hasNext()) {
+				if (itServices.next().equals(s)) {
+					v.add(station);
+					break;
+				}
+			}
+		}
+		return v;
+	}
+
+	private boolean isAccessibleService(Service s) {
+		Iterator<Node> itNode = graph.getList();
+		while (itNode.hasNext()) {
+			Iterator<Service> itServices = itNode.next().getStation().getServices();
+			while (itServices.hasNext())
+				if (itServices.next().equals(s))
+					return true;
+		}
+		return false;
 	}
 
 	/**
@@ -96,6 +151,8 @@ public class Dijkstra extends Algo {
 		Node n, n1;
 		Link l;
 		ArrayList<Node> pasEncoreVu = graph.getListClone();
+
+		graph.defaultNodes();
 
 		g = graph.getList();
 		while (g.hasNext()) {
@@ -133,6 +190,7 @@ public class Dijkstra extends Algo {
 			junctions.add(n.getFrom().getJunction());
 			n = n.getFrom().getNode();
 		}
+		Collections.reverse(junctions);
 		return junctions;
 	}
 
@@ -246,5 +304,82 @@ public class Dijkstra extends Algo {
 		if (better) {
 			newN.setAll(newTime, newChange, newCost, 0, n, j);
 		}
+	}
+
+	private boolean betterPath(ArrayList<Junction> j1,ArrayList<Junction> j2) {
+		if (j1==null) return false;
+		if (j2==null) return true;
+		
+		// TIME
+		int newTime = 0,oldTime = 0,diffTime,newChange = 0,oldChange = 0,diffChange;
+		float newCost = 0,oldCost = 0,diffCost;
+		for (int i=0;i<j1.size();i++) {
+			Junction j = j1.get(i); 
+			newTime+=j.getTimeBetweenStations();
+			newCost+=j.getCost();
+			if (!j.isRouteLink()) newChange++;
+		}
+		for (int i=0;i<j2.size();i++) {
+			Junction j = j2.get(i); 
+			oldTime+=j.getTimeBetweenStations();
+			oldCost+=j.getCost();
+			if (!j.isRouteLink()) oldChange++;
+		}
+		diffTime = newTime-oldTime;
+		diffCost = newCost-oldCost;
+		diffChange = newChange-oldChange;
+		
+		boolean better = false;
+		switch (p.getMainCriterious()) {
+		case TIME:
+			if (diffTime < 0)
+				better = true;
+			else if (diffTime == 0) {
+				switch (p.getMinorCriterious()) {
+				case CHANGE:
+					if (diffChange < 0 || (diffChange == 0 && diffCost < 0))
+						better = true;
+					break;
+				case COST:
+					if (diffCost < 0 || (diffCost == 0 && diffChange < 0))
+						better = true;
+					break;
+				}
+			}
+			break;
+		case CHANGE:
+			if (diffChange < 0)
+				better = true;
+			else if (diffChange == 0) {
+				switch (p.getMinorCriterious()) {
+				case TIME:
+					if (diffTime < 0 || (diffTime == 0 && diffCost < 0))
+						better = true;
+					break;
+				case COST:
+					if (diffCost < 0 || (diffCost == 0 && diffTime < 0))
+						better = true;
+					break;
+				}
+			}
+			break;
+		case COST:
+			if (diffCost < 0)
+				better = true;
+			else if (diffCost == 0) {
+				switch (p.getMinorCriterious()) {
+				case CHANGE:
+					if (diffChange < 0 || (diffChange == 0 && diffTime < 0))
+						better = true;
+					break;
+				case TIME:
+					if (diffTime < 0 || (diffTime == 0 && diffChange < 0))
+						better = true;
+					break;
+				}
+			}
+			break;
+		}
+		return better;
 	}
 }
