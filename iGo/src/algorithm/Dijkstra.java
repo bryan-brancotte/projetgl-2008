@@ -118,28 +118,24 @@ public class Dijkstra extends Algo {
 
 			System.out.println("--------------");
 			currentPath.addAll(getMinimumDest(graph.getFirstNode(origin), v.get(0)));
-			//affichage(currentPath);
-			System.out.println(currentPosition.getStation());
-			System.out.println(v.get(1));
 			for (int i = 1; i < v.size(); i++) {
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i)));
-				//affichage(currentPath);
 			}
 
 			currentPath.addAll(algo(currentPosition, graph.getFirstNode(destination)));
-			//affichage(currentPath);
 			if (betterPath(currentPath, betterPath)) {
 				betterPath = currentPath;
 			}
 		} else {
 			for (int i = 0; i < vTot.size(); i++) {
-				// Conditions d'arret
-				// if (prof==0) timeComb =System.currentTimeMillis();
-				// if (prof>0 && System.currentTimeMillis()-timeComb>1000 &&
-				// betterPath!=null && betterPath.size()!=0) return;
-				v.add(vTot.get(i));
-				algoComb(v, vTot, prof + 1);
-				v.remove(vTot.get(i));
+				if (!v.contains(vTot.get(i))) {
+					// Conditions d'arret
+					if (prof==0) timeComb =System.currentTimeMillis();
+					if (prof>0 && System.currentTimeMillis()-timeComb>1000 && betterPath!=null && betterPath.size()!=0) return;
+					v.add(vTot.get(i));
+					algoComb(v, vTot, prof + 1);
+					v.remove(vTot.get(i));
+				}
 			}
 		}
 		return;
