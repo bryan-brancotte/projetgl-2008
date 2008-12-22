@@ -3,6 +3,7 @@ package ihm.smartPhone;
 import graphNetwork.GraphNetwork;
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.IHM;
@@ -503,11 +504,15 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
+			PathInGraphConstraintBuilder pathBuilder = null;
+			if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
+				pathBuilder = newTravelPanel.getPathInGraphConstraintBuilder();
+			// else
+			// this.setCurrentState(IhmReceivingStates.)
 			cleanPanelsStates(false);
-			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
-			// TODO askForATravel(null)
-			master.askForATravel(null);
+			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
+			master.askForATravel(pathBuilder);
 			return true;
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
 			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(preferedState);
