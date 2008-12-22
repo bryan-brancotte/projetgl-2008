@@ -272,8 +272,25 @@ public class PTAutoCompletionTextBox extends PTComponent {
 		}
 	}
 
+	/**
+	 * Retourne le contenue intégrale de la zone de texte.
+	 * 
+	 * @return la chaine représentant le contenue peu importe la selection et position du pointeur
+	 */
 	public String getText() {
 		return currentStringLeft + currentStringSelected + currentStringRight;
+	}
+
+	/**
+	 * Définit le contenue de la zone de texte à la valeur passé en paramètre. Le pointeur est mit au début de la chaine
+	 * 
+	 * @param la
+	 *            chaine représentant le contenue peu importe la selection et position du pointeur
+	 */
+	public void setText(String s) {
+		currentStringLeft = "";
+		currentStringSelected = "";
+		currentStringRight = s;
 	}
 
 	@Override

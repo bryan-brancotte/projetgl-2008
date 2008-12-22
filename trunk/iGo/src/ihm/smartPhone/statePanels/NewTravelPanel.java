@@ -11,6 +11,7 @@ import iGoMaster.SettingsValue;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.statePanels.component.PairPTButtonStation;
 import ihm.smartPhone.statePanels.component.PairPTCheckBox;
 import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
 import ihm.smartPhone.tools.CodeExecutor;
@@ -18,12 +19,14 @@ import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.PTArea;
 import ihm.smartPhone.tools.PTAutoCompletionTextBox;
+import ihm.smartPhone.tools.PTButton;
 import ihm.smartPhone.tools.PTCheckBox;
 import ihm.smartPhone.tools.PTCollapsableArea;
 import ihm.smartPhone.tools.PTRadioBox;
 import ihm.smartPhone.tools.PTRadioBoxGroup;
 import ihm.smartPhone.tools.PTScrollBar;
 import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.tools.PanelTooled;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -32,12 +35,13 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
 public class NewTravelPanel extends PanelState {
 
-	protected HashMap<String, Station> sationsHash;
+	protected HashMap<String, Station> stationsHash;
 
 	private static final long serialVersionUID = 1L;
 
@@ -54,7 +58,7 @@ public class NewTravelPanel extends PanelState {
 	protected PTCollapsableArea travelModeCollapsableArea;
 
 	protected final int minorTravelCriteria = 2;
-	protected final int mainTravelCriteria = 7;
+	protected final int mainTravelCriteria = 4;
 	protected PTRadioBox[] travelCriteriaRadioBoxs;
 	protected PTCollapsableArea travelCriteriaCollapsableArea;
 
@@ -62,24 +66,29 @@ public class NewTravelPanel extends PanelState {
 	protected LinkedList<PairPTRadioBoxs> ServicesRadioBoxs;
 	protected PTCollapsableArea servicesCollapsableArea;
 
-	// protected final int quality = 4;
 	// protected PTRadioBox[] qualityRadioBoxs;
 	// protected PTCollapsableArea qualityCollapsableArea;
 
-	// protected final int intermediatesStations = 5;
-	// protected PTArea intermediatesStationsNew;
-	// protected PTAutoCompletionTextBox intermediatesStationsTextBox;
-	// protected PTCollapsableArea intermediatesStationsCollapsableArea;
-	// protected PTButton intermediatesStationsButton;
+	protected final int intermediatesStations = 5;
+	protected PTArea intermediatesStationsNew;
+	protected PTAutoCompletionTextBox intermediatesStationsTextBox;
+	protected PTCollapsableArea intermediatesStationsCollapsableArea;
+	protected PTButton intermediatesStationsButton;
+	// protected Vector<PairPTButtonStation> intermediatesStationsVect;
 
-	protected final int departureStation = 6;
+	protected final int avoidStations = 7;
+	protected PTArea avoidStationsNew;
+	protected PTAutoCompletionTextBox avoidStationsTextBox;
+	protected PTCollapsableArea avoidStationsCollapsableArea;
+	protected PTButton avoidStationsButton;
+	// protected Vector<PairPTButtonStation> avoidStationsVect;
+
 	protected boolean departureStationChanged;
 	protected PTArea departureStationNew;
 	protected PTAutoCompletionTextBox departureStationTextBox;
 	protected PTCollapsableArea departureStationCollapsableArea;
 	// protected PTButton departureStationButton;
 
-	protected final int arrivalStation = 8;
 	protected boolean arrivalStationChanged;
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
@@ -250,13 +259,13 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * stations array
 		 */
-		sationsHash = new HashMap<String, Station>();
+		stationsHash = new HashMap<String, Station>();
 		it = father.getStations();
 		while (it.hasNext()) {
 			st = it.next();
-			sationsHash.put(st.getName(), st);
+			stationsHash.put(st.getName(), st);
 		}
-		stations = sationsHash.keySet().toArray(new String[0]);
+		stations = stationsHash.keySet().toArray(new String[0]);
 		/***************************************************************************************************************
 		 * departureStation
 		 */
@@ -291,26 +300,25 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Station inter
 		 */
-		// intermediatesStationsCollapsableArea = makeCollapsableArea();
+		intermediatesStationsCollapsableArea = makeCollapsableArea();
 		// intermediatesStationsCollapsableArea.changeCollapseState();
-		// intermediatesStationsNew = makeArea();
-		// Iterator<Station> it = father.getStations();
-		// sationsHash = new HashMap<String, Station>();
-		// Station st;
-		// while (it.hasNext()) {
-		// st = it.next();
-		// sationsHash.put(st.getName(), st);
-		// }
-		// intermediatesStationsTextBox = makeAutoCompletionTextBox(stations);
-		// intermediatesStationsButton = makeButton(new CodeExecutor1P<PanelTooled>(this) {
-		// @Override
-		// public void execute() {
-		// recordChangedSetting(intermediatesStations, null);
-		// // this.origine.;
-		// }
-		// });
-		// intermediatesStationsCollapsableArea.addComponent(intermediatesStationsNew);
-		// intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
+		// intermediatesStationsVect = new Vector<PairPTButtonStation>();
+		intermediatesStationsNew = makeArea();
+		it = father.getStations();
+		stationsHash = new HashMap<String, Station>();
+		while (it.hasNext()) {
+			st = it.next();
+			stationsHash.put(st.getName(), st);
+		}
+		intermediatesStationsTextBox = makeAutoCompletionTextBox(stations);
+		intermediatesStationsButton = makeButton(new CodeExecutor1P<PanelTooled>(this) {
+			@Override
+			public void execute() {
+				recordChangedSetting(intermediatesStations, intermediatesStationsTextBox.getText());
+			}
+		});
+		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsNew);
+		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
 	}
 
 	protected void recordChangedSetting(int familly, String s) {
@@ -399,15 +407,24 @@ public class NewTravelPanel extends PanelState {
 			// return;
 			// }
 			// break;
-			// case intermediatesStations:
-			// System.out.println("Intermediates stations not handeled yet");
-			// break;
-		case departureStation:
-			System.out.println("departureStation not handeled yet");
+		case intermediatesStations:
+			Station station;
+			if (pathBuilder.getCurrentPathInGraph().containsSteps(station = stationsHash.get(s))) {
+				pathBuilder.removeStepStations(station);
+			} else {
+				pathBuilder.addStepStations(station);
+				intermediatesStationsTextBox.setText("");
+			}
 			break;
-		case arrivalStation:
-			System.out.println("arrivalStation not handeled yet");
-			break;
+		// case intermediatesStationsRemove:
+		// pathBuilder.removeStepStations(stationsHash.get(s));
+		// break;
+		// case avoidStationsAdd:
+		// pathBuilder.addAvoidStations(stationsHash.get(s));
+		// break;
+		// case avoidStationsRemove:
+		// pathBuilder.removeAvoidStations(stationsHash.get(s));
+		// break;
 		default:
 			System.out.println("Not handeled : " + familly + " : " + s);
 			break;
@@ -432,47 +449,51 @@ public class NewTravelPanel extends PanelState {
 	}
 
 	protected Station drawAutoCompletionStationTextBox(PTArea stationNew, PTAutoCompletionTextBox stationTextBox,
-			PTCollapsableArea stationCollapsableArea, int ordonne, int decalage, int decalage2, int taille) {
+			PTCollapsableArea stationCollapsableArea, int ordonne, int decalage, int decalage2, int taille,
+			boolean shouldFillTheField) {
 		if (stationCollapsableArea.isCollapsed())
 			return null;
 		stationTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorInside(), father
 				.getSkin().getColorLetter());
-		Station station = this.sationsHash.get(stationTextBox.getText());
+		Station station = this.stationsHash.get(stationTextBox.getText());
 		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		if (station != null) {
-			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			buffer.setColor(father.getSkin().getColorLetter());
+			// buffer.setFont(father.getSizeAdapteur().getSmallFont());
+			// buffer.setColor(father.getSkin().getColorLetter());
 			int xActu, yActu;
-			Iterator<Route> itRoute = station.getRoutes();
-			Route route;
-			Iterator<Service> itService = station.getServices();
-			Service service;
+			// Iterator<Route> itRoute = station.getRoutes();
+			// Route route;
+			// Iterator<Service> itService = station.getServices();
+			// Service service;
 			xActu = stationTextBox.getArea().x;
 			yActu = stationTextBox.getArea().y + stationTextBox.getArea().height + (decalage >> 1);
-			String s = "";
-			while (itRoute.hasNext()) {
-				route = itRoute.next();
-				s += route.getId();
-				if (itRoute.hasNext())
-					s += ", ";
-			}
-			buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
-			xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
-
-			while (itService.hasNext()) {
-				service = itService.next();
-				s = service.getName().substring(0, 1);
-				buffer.setColor(father.getNetworkColorManager().getColorForService(service));
-				buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
-				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
-				buffer.drawString(s, xActu + (taille >> 1)
-						- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
-						+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-				xActu += taille + (decalage >> 1);
-			}
+			// String s = "";
+			// while (itRoute.hasNext()) {
+			// route = itRoute.next();
+			// s += route.getId();
+			// if (itRoute.hasNext())
+			// s += ", ";
+			// }
+			// buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
+			// xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
+			//
+			// while (itService.hasNext()) {
+			// service = itService.next();
+			// s = service.getName().substring(0, 1);
+			// buffer.setColor(father.getNetworkColorManager().getColorForService(service));
+			// buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+			// buffer.setColor(father.getSkin().getColorLetter());
+			// buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+			// buffer.drawString(s, xActu + (taille >> 1)
+			// - (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
+			// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			// xActu += taille + (decalage >> 1);
+			// }
+			drawRoutesAndServices(xActu, yActu, decalage, taille, station);
 			return station;
 		}
+		if (!shouldFillTheField)
+			return null;
 		if (stationTextBox.getText().isEmpty()) {
 			buffer.drawString(father.lg("FillThisField"), stationTextBox.getArea().x, stationTextBox.getArea().y
 					+ stationTextBox.getArea().height + (decalage >> 1)
@@ -484,6 +505,36 @@ public class NewTravelPanel extends PanelState {
 				+ stationTextBox.getArea().height + (decalage >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));
 		return null;
+	}
+
+	protected void drawRoutesAndServices(int xActu, int yActu, int decalage, int taille, Station station) {
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		buffer.setColor(father.getSkin().getColorLetter());
+		Iterator<Route> itRoute = station.getRoutes();
+		Route route;
+		Iterator<Service> itService = station.getServices();
+		Service service;
+		String s = "";
+		while (itRoute.hasNext()) {
+			route = itRoute.next();
+			s += route.getId();
+			if (itRoute.hasNext())
+				s += ", ";
+		}
+		buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
+		xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
+
+		while (itService.hasNext()) {
+			service = itService.next();
+			s = service.getName().substring(0, 1);
+			buffer.setColor(father.getNetworkColorManager().getColorForService(service));
+			buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+			buffer.drawString(s, xActu + (taille >> 1) - (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1),
+					yActu + (taille >> 1) + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			xActu += taille + (decalage >> 1);
+		}
 	}
 
 	@Override
@@ -548,7 +599,7 @@ public class NewTravelPanel extends PanelState {
 		departureStationCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(departureStationNew, departureStationTextBox,
-				departureStationCollapsableArea, ordonne, decalage, decalage2, taille);
+				departureStationCollapsableArea, ordonne, decalage, decalage2, taille, true);
 		if (departureStationChanged)
 			pathBuilder.setOrigin(station);
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
@@ -557,14 +608,13 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Arrival
 		 */
-		// TODO ........tafPaint.........................
 		s = father.lg("Arrival");
 		taille = prepareAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
 				arrivalStationCollapsableArea, s, ordonne, decalage, decalage2);
 		arrivalStationCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
-				arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille);
+				arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille, true);
 		if (arrivalStationChanged)
 			pathBuilder.setDestination(station);
 		ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height + decalage;
@@ -785,6 +835,36 @@ public class NewTravelPanel extends PanelState {
 							.getSkin().getColorLetter());
 		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage;
 
+		/***************************************************************************************************************
+		 * Station intermediaire
+		 */
+		s = father.lg("IntermediatesStations");
+		taille = prepareAutoCompletionStationTextBox(intermediatesStationsNew, intermediatesStationsTextBox,
+				intermediatesStationsCollapsableArea, s, ordonne, decalage, decalage2);
+		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+			intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
+					+ intermediatesStationsTextBox.getArea().width + decalage,
+					intermediatesStationsTextBox.getArea().y, imageOk);
+			intermediatesStationsNew.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
+					* ((decalage >> 1) + taille);
+		}
+		// TODO ........tafPaint
+		intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		station = drawAutoCompletionStationTextBox(intermediatesStationsNew, intermediatesStationsTextBox,
+				intermediatesStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
+		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+			if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
+					|| pathBuilder.getCurrentPathInGraph().containsSteps(station)) {
+				intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
+			} else
+				intermediatesStationsButton.draw(buffer, imageOk);
+		}
+		 drawRoutesAndServices(xActu, yActu, decalage, taille, station);
+		// for(int i=0;)
+		// dessins des station déja rentré
+		ordonne = intermediatesStationsCollapsableArea.getArea().y
+				+ intermediatesStationsCollapsableArea.getArea().height + decalage;
 		// /***************************************************************************************************************
 		// * AutoCompletionTextArea
 		// */
@@ -905,7 +985,6 @@ public class NewTravelPanel extends PanelState {
 		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
 		// }
 		// ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage;
-
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
