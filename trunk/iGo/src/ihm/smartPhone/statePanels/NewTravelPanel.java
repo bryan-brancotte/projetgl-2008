@@ -32,9 +32,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.SortedMap;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
@@ -258,13 +262,23 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * stations array
 		 */
+//		long l = System.nanoTime();
 		stationsHash = new HashMap<String, Station>();
+		Vector<String> v = new Vector<String>();
 		it = father.getStations();
 		while (it.hasNext()) {
 			st = it.next();
 			stationsHash.put(st.getName(), st);
+			v.add(st.getName());
 		}
-		stations = stationsHash.keySet().toArray(new String[0]);
+		Collections.sort(v, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				return s1.compareTo(s2);
+			}
+		});
+		stations = v.toArray(new String[0]);
+//		System.out.println((System.nanoTime() - l) * 1e-6 + " pour trier "+ stations.length);
 		/***************************************************************************************************************
 		 * departureStation
 		 */
@@ -743,7 +757,7 @@ public class NewTravelPanel extends PanelState {
 		 * Services
 		 */
 		s = father.lg("Services");
-		if (!servicesCollapsableArea.isCollapsed()&&!ServicesRadioBoxs.isEmpty()) {
+		if (!servicesCollapsableArea.isCollapsed() && !ServicesRadioBoxs.isEmpty()) {
 			pos = new int[3];
 			width = 0;
 			cpt = 0;
