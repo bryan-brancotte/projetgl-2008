@@ -579,16 +579,17 @@ public class AlgoTest {
 		pcb.setMinorCriterious(CriteriousForLowerPath.CHANGE);
 		pcb.setOrigin(gn.getStation(102));
 		pcb.setDestination(gn.getStation(103));
+		pcb.addStepStations(gn.getStation(8));
 
 		PathInGraphResultBuilder prb = pc.getPathInGraphResultBuilder();
 
 		bob = new Dijkstra();
 
 		long begin = System.currentTimeMillis();
-		PathInGraph p = bob.findPath(prb);
+		bob.findPath(prb);
 		long end = System.currentTimeMillis();
 
-		Iterator<Junction> it = p.getJunctions();
+		Iterator<Junction> it = prb.getCurrentPathInGraph().getJunctions();
 		int time = 0;
 		int changes = 0;
 		while (it.hasNext()) {
