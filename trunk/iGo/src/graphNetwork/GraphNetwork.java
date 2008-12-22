@@ -50,34 +50,6 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé, initialise et retourne une instance du monteur de PathInGraph : un PathInGraphBuilder déjà initialisé avec
-	 * un nouveau trajet.
-	 * 
-	 * @return
-	 */
-	@Deprecated
-	public PathInGraphBuilder getInstancePathInGraphBuilder() {
-		return new PathInGraphBuilder(this);
-	}
-
-	/**
-	 * 
-	 * Créé initialise et retourne une instance du monteur de PathInGraph : un PathInGraphBuilder initialisé avec le
-	 * trajet passé en paramètre.
-	 * 
-	 * @param path
-	 *            le path à mettre dans le monteur.
-	 * @return le monteur, ou null si le path est null.
-	 */
-	@Deprecated
-	public PathInGraphBuilder getInstancePathInGraphBuilder(PathInGraph path) {
-		if (path == null)
-			return null;
-		PathInGraphBuilder b = new PathInGraphBuilder(this, path);
-		return b;
-	}
-
-	/**
 	 * use getInstancePathInGraphCollectionBuilder();
 	 */
 	@Deprecated
