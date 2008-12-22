@@ -13,12 +13,12 @@ public class Main {
 	/**
 	 * Chemin du dossier qui va contenir les réseaux disponibles
 	 */
-	final static String NETWORK = "F:/workspace/network";
+	final static String NETWORK = System.getProperty("user.dir")+"\\ressources\\xml";
 
 	/**
 	 * Chemin du fichier xml qui va recenser les mises à jour du réseau
 	 */
-	final static String EVENTS = "F:/workspace/event/TravelAltertGL2008.xml";
+	final static String EVENTS = System.getProperty("user.dir")+"\\ressources\\xml\\TravelAltertGL2008.xml";
 
 	/**
 	 * Main
