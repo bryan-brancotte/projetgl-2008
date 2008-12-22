@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraph;
-import graphNetwork.PathInGraphBuilder;
+import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.Route;
 import graphNetwork.Station;
 import graphNetwork.exception.ImpossibleValueException;
@@ -22,7 +22,7 @@ import org.junit.Test;
 public class PIGRobustesse {
 	protected GraphNetworkBuilder bob;
 	protected GraphNetwork sncf;
-	protected PathInGraphBuilder pigB;
+	protected PathInGraphCollectionBuilder pigColB;
 	protected PathInGraph pig;
 
 	@After
@@ -34,8 +34,8 @@ public class PIGRobustesse {
 		bob = new GraphNetworkBuilder();
 		sncf = bob.getCurrentGraphNetwork();
 		constructionDUnReseauSansProbleme();
-		pigB = sncf.getInstancePathInGraphBuilder();
-		pig = pigB.getCurrentPathInGraph();
+		pigColB = sncf.getInstancePathInGraphCollectionBuilder();
+		pig = pigColB.getPathInGraph();
 	}
 
 	public static junit.framework.Test suite() {
@@ -95,58 +95,21 @@ public class PIGRobustesse {
 	}
 
 	@Test
-	public void getCurrentPathInGraph() {
+	public void getPathInGraph() {
 		assertTrue("le graph actuelle de PIGB doit être non null", pig != null);
 	}
 
 	@Test
 	public void getInstancePathInGraphBuilder() {
 		assertTrue("le graph actuelle de PIGB doit être non null", pig != null);
-		assertTrue("Le graph du pathInGraph doit être le graph du GNB c'est à dire ici sncf", pigB
-				.getCurrentPathInGraph().getGraph() == sncf);
-	}
-
-	@Test
-	public void getInstancePathInGraphBuilderAvecParam() {
-		assertTrue("le graph actuelle de PIGB doit être non null", pig != null);
-		pigB = sncf.getInstancePathInGraphBuilder(pigB.getCurrentPathInGraph());
-		assertTrue("le nouveau PIGB doit être non null", pigB != null);
-		assertTrue("le PIG du nouveau PIGB doit être non l'ancien d'après ce que j'ai mit dans ce test", pigB
-				.getCurrentPathInGraph() == pig);
-	}
-
-	@Test
-	public void getInstancePathInGraphBuilderAvecParam2() {
-		pigB = sncf.getInstancePathInGraphBuilder(null);
-		assertTrue("le nouveau PIGB doit être null : le param est null", pigB == null);
-	}
-
-	@Test
-	public void addFront() {
-		try {
-			pigB.addFront(null);
-			assertTrue("LE chemin doit être vide : on a ajouté un null", pig.getJunctions().hasNext());
-		} catch (Exception e) {
-			assertTrue("Ce ne doit pas planter", false);
-			System.err.println(e);
-		}
-	}
-
-	@Test
-	public void addLast() {
-		try {
-			pigB.addLast(null);
-			assertTrue("LE chemin doit être vide : on a ajouté un null", pig.getJunctions().hasNext());
-		} catch (Exception e) {
-			assertTrue("Ce ne doit pas planter", false);
-			System.err.println(e);
-		}
+		assertTrue("Le graph du pathInGraph doit être le graph du GNB c'est à dire ici sncf", pigColB
+				.getPathInGraph().getGraph() == sncf);
 	}
 
 	@Test
 	public void equals() {
 		try {
-			assertTrue("pigB n'est pas null, sinon ca aurait planter", !pigB.equals(null));
+			assertTrue("pigColB n'est pas null, sinon ca aurait planter", !pigColB.equals(null));
 		} catch (Exception e) {
 			assertTrue("Ce ne doit pas planter", false);
 			System.err.println(e);
