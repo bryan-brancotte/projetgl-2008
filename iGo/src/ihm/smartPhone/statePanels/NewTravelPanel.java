@@ -1089,9 +1089,10 @@ public class NewTravelPanel extends PanelState {
 			}
 		});
 		if (pathBuilder != null)
-			lowerBar.setRightCmd("Find a path", new ActionListener() {
+			lowerBar.setRightCmd(father.lg("FindAPath"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					System.out.println("FindAPath.actionPerformed()");
 					if (pathBuilder.isValideForSolving()) {
 						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
 					}
