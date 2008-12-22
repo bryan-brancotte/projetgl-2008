@@ -12,7 +12,7 @@ public class KindRoute {
 
 	protected static LinkedList<KindRoute> kinds;
 	/**
-	 * Le coût d'entré sur le réseaux par cette ligne
+	 * Le coût d'entrée sur le réseaux pour cette ligne
 	 */
 	protected float cost;
 	/**
@@ -42,7 +42,7 @@ public class KindRoute {
 	 * Si le kind passé en paramètre n'existe pas on le crée et le retourne. S'il existe on le retourne.
 	 * 
 	 * @param kindOf
-	 *            nouveau kind à potentiellement ajouter
+	 *            nouveau kind qu'on va potentiellement ajouter
 	 * @return le kindroute correspondant au kindOf.
 	 */
 	protected static KindRoute addKind(String kindOf) {
@@ -82,7 +82,7 @@ public class KindRoute {
 	}
 
 	/**
-	 * constructeur par defaut defini en private pour eviter des allocation non controllee de KindRoute
+	 * constructeur par defaut defini en private pour eviter des allocations non controllees de KindRoute
 	 * 
 	 */
 	private KindRoute() {
