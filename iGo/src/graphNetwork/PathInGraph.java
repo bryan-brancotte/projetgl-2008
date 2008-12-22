@@ -38,7 +38,7 @@ public class PathInGraph {
 	 */
 	protected LinkedList<Junction> junctions;
 	/**
-	 * Le chemin à t'il été résolu?
+	 * Le chemin a t-il été résolu?
 	 */
 	protected boolean resolved;
 	/**
@@ -50,7 +50,7 @@ public class PathInGraph {
 	 */
 	protected Station destination;
 	/**
-	 * Critère principale pour la résolution de l'algo
+	 * Critère principal pour la résolution de l'algo
 	 */
 	protected CriteriousForLowerPath mainCriterious;
 	/**
@@ -62,7 +62,7 @@ public class PathInGraph {
 	 */
 	protected float cost;
 	/**
-	 * Liste des services obligatoire sur l'ensemble des stations intermédiaire et extrèmes du trajet.
+	 * Liste des services obligatoires sur l'ensemble des stations intermédiaire et extrèmes du trajet.
 	 */
 	protected LinkedList<Service> servicesAlways;
 	/**
@@ -70,7 +70,7 @@ public class PathInGraph {
 	 */
 	protected LinkedList<Service> servicesOnce;
 	/**
-	 * Liste des stations intermédiaires obligatoire.
+	 * Liste des stations intermédiaires obligatoires.
 	 */
 	protected LinkedList<Station> steps;
 	/**
@@ -78,7 +78,7 @@ public class PathInGraph {
 	 */
 	protected LinkedList<Station> avoidStations;
 	/**
-	 * Liste des type de route que l'on ne veut pas prendre
+	 * Liste des types de route que l'on ne veut pas prendre
 	 */
 	protected LinkedList<KindRoute> refusedKindRoute;
 	/**
@@ -86,7 +86,7 @@ public class PathInGraph {
 	 */
 	protected int time;
 	/**
-	 * GraphNetwork dans lequel le trajet a un sens, une existance
+	 * GraphNetwork dans lequel le trajet a un sens, une existence
 	 */
 	protected GraphNetwork univers;
 
@@ -124,7 +124,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Transcrit le trajet en une chaine qui pourra ensuite etre relue pour creer de nouveau trajet
+	 * Transcrit le trajet en une chaine qui pourra ensuite etre relue pour creer de nouveaux trajets
 	 * 
 	 * @return
 	 */
@@ -260,7 +260,7 @@ public class PathInGraph {
 	/**
 	 * Retourne un iterateur décrivant l'ensemble des stations à éviter
 	 * 
-	 * @return l'iterateur, ou un iterateur terminé s'il n'y a pas de station à éviter
+	 * @return l'iterateur, ou un iterateur terminé s'il n'y a pas de stations à éviter
 	 */
 	public Iterator<Station> getAvoidStationsIter() {
 		return avoidStations.iterator();
@@ -276,7 +276,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne la station d'arrivé du trajet.
+	 * Retourne la station d'arrivée du trajet.
 	 * 
 	 * @return
 	 */
@@ -285,9 +285,9 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne la première jonction a partir de laquel on peut toujours atteindre la fin du trajet.
+	 * Retourne la première jonction a partir de laquelle on peut toujours atteindre la fin du trajet.
 	 * 
-	 * @return l'intersection, ou null si la destination n'est pa satteignable
+	 * @return l'intersection, ou null si la destination n'est pas atteignable
 	 */
 	public Junction getFirstJunctionInTheLastAvaiblePart() {
 		// Rémi : trop long et trop couteux : O(2n) et création d'un vector (beurk)
@@ -328,7 +328,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne le GraphNetwork dans lequel le trajet à une existance.
+	 * Retourne le GraphNetwork dans lequel le trajet à une existence.
 	 * 
 	 * @return
 	 */
@@ -343,7 +343,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
+	 * Retourne un iterateur décrivant les jonctions qui forment le chemin dans le sens départ->fin
 	 * 
 	 * @return retourne un iterateur. Celui ci peut être vide, mais jamais à null
 	 */
@@ -352,7 +352,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Accesseur pour le critère principale dans la résolution de l'algo
+	 * Accesseur pour le critère principal dans la résolution de l'algo
 	 * 
 	 * @return
 	 */
@@ -379,7 +379,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un tableau avec tout les services requis tout au long du trajet
+	 * Retourne un tableau avec tous les services requis tout au long du trajet
 	 * 
 	 * @return
 	 */
@@ -397,7 +397,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un tableau avec tout les services requis au moins une fois sur le trajet.
+	 * Retourne un tableau avec tous les services requis au moins une fois sur le trajet.
 	 * 
 	 * @return
 	 */
@@ -447,7 +447,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un tableau contenant toutes les stations intermédiaire requise.
+	 * Retourne un tableau contenant toutes les stations intermédiaires requises.
 	 * 
 	 * @return
 	 */
@@ -456,7 +456,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un iterateur sur les stations intermédiaire requise.
+	 * Retourne un iterateur sur les stations intermédiaires requises.
 	 * 
 	 * @return
 	 */
@@ -596,7 +596,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Accesseur permettant de savoir si le trajet à été résolut, et plus modifié ensuite
+	 * Accesseur permettant de savoir si le trajet a été résolu, et plus modifié ensuite
 	 * 
 	 * @return
 	 */
@@ -619,7 +619,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la fin
+	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passée en paramètre jusqu'a la fin
 	 * 
 	 * @param junction
 	 * @return
