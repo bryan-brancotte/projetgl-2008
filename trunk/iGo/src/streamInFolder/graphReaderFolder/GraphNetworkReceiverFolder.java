@@ -41,14 +41,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	public GraphNetworkReceiverFolder(String f) {
 		super();
 		networks = new HashMap<String, AvailableNetwork>();
-		try {
-			
-			System.out.println(new URI(f));
-			folder = new File(URLEncoder.encode(f, "UTF-8"));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		folder = new File(f.replace("\\", "/"));
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
@@ -317,7 +310,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 	public static void main(String[] args) {
 
-		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder(System.getProperty("user.dir")+"\\xml");
+		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder(System.getProperty("user.dir")+"\\ressources\\xml");
 
 		try {
 
