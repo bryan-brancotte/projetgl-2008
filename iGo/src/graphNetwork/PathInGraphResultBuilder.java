@@ -1,6 +1,5 @@
 package graphNetwork;
 
-import iGoMaster.Algo.CriteriousForLowerPath;
 
 public class PathInGraphResultBuilder {
 
@@ -87,19 +86,11 @@ public class PathInGraphResultBuilder {
 	 * @return true si on peut le résoudre
 	 */
 	public boolean isValideForSolving() {
-		if (currentPathInGraph.destination == null)
-			return false;
-		if (currentPathInGraph.origin == null)
-			return false;
-		if (currentPathInGraph.mainCriterious == CriteriousForLowerPath.NOT_DEFINED)
-			return false;
-		if (currentPathInGraph.minorCriterious == CriteriousForLowerPath.NOT_DEFINED)
-			return false;
-		return true;
+		return currentPathInGraph.isValideForSolving();
 	}
 
 	/**
-	 * efface les jonctions contenu dans la {@link PathInGraph} 
+	 * efface les jonctions contenu dans la {@link PathInGraph}
 	 */
 	public void resetJunctions() {
 		currentPathInGraph.junctions.clear();
