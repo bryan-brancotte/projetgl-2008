@@ -104,14 +104,14 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			}
 		}
 		this.skin = skin;
+		this.setBackground(skin.getColorLine());
+
 		if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).isEmpty())
 			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
 					.toString());
 		if (this.master.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).isEmpty())
 			this.master.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
 					.toString());
-
-		this.setBackground(skin.getColorLine());
 
 		int i = 0;
 		try {
