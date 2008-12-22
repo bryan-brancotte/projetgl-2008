@@ -4,6 +4,8 @@ import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.StationNotOnRoadException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -659,5 +661,30 @@ public class GraphNetworkBuilder {
 				itJunction.next().setToEnable(true);
 			station.setToEnable(true);
 		}
+	}
+
+	/**
+	 * Trie tous les objets (routes, stations,...) contenu par ordre alphabétique.
+	 */
+	public void sortMembers() {
+		// routes services stations;
+		Collections.sort(currentGraphNetwork.routes, new Comparator<Route>() {
+			@Override
+			public int compare(Route r1, Route r2) {
+				return r1.getId().compareTo(r2.getId());
+			}
+		});
+		Collections.sort(currentGraphNetwork.services, new Comparator<Service>() {
+			@Override
+			public int compare(Service s1, Service s2) {
+				return s1.getName().compareTo(s2.getName());
+			}
+		});
+		Collections.sort(currentGraphNetwork.stations, new Comparator<Station>() {
+			@Override
+			public int compare(Station s1, Station s2) {
+				return s1.getName().compareTo(s2.getName());
+			}
+		});
 	}
 }
