@@ -1,6 +1,6 @@
 package iGoMaster;
 
-import graphNetwork.GraphNetwork;
+import graphNetwork.GraphNetworkBuilder;
 /**
  *  Interface permettant de n'avoir a traiter les evenements que comme des EventInfo,
  *  Utile lorsque l'on veut recuperer le message de chaque evenement pour l'IHM
@@ -21,7 +21,7 @@ public interface EventInfo {
 	 * @param graph
 	 *            le reseau en question
 	 */
-	public abstract void applyInfo(GraphNetwork graph);
+	public abstract void applyInfo(GraphNetworkBuilder graph);
 
 	/**
 	 * Retourne le message contenu dans l'evenement

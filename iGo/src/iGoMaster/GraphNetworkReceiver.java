@@ -5,6 +5,7 @@ import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 
 import java.util.Iterator;
+import java.util.Iterator;
 
 /**
  * 
@@ -23,13 +24,11 @@ public interface GraphNetworkReceiver {
 	 */
 	public void buildNewGraphNetwork(GraphNetworkBuilder graph, String networkChosen,
 			GraphNetworkCostReceiver costReceiver) throws GraphReceptionException, GraphConstructionException;
-
+	
 	/**
 	 * Donne tous les reseaux disponibles
 	 * 
 	 * @return Returns the collection of the avaibleNetwork.
-	 * @uml.property name="avaibleNetwork"
-	 * @uml.associationEnd readOnly="true" multiplicity="(0 -1)" inverse="graphNetworkReceiver:iGoMaster.AvaibleNetwork"
 	 */
 	public Iterator<AvailableNetwork> getAvaibleNetwork();
 

@@ -41,10 +41,10 @@ public class EventInfoRoute implements EventInfo {
 		if (!isApplied()) {
 			System.out.println("entering into event info route");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
-				graph.getRoute(idr).setEnable(false);
+				graph.setEnable(idr, false);
 			} 
 			else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
-				graph.getRoute(idr).setEnable(true);
+				graph.setEnable(idr, true);
 			}
 			this.applied = true;
 		}
