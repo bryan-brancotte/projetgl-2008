@@ -33,8 +33,8 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * En travaillant sur le PathInGraph courant, cree le chemin depuis la chaine passe en parametre. On ecrase le
-	 * contenue precedent du chemin
+	 * En travaillant sur le PathInGraph courant, crée le chemin depuis la chaine passée en paramètre. On écrase le
+	 * contenu précédent du chemin
 	 * 
 	 * @param pathInGraph
 	 *            la chaine representant le graph a importer
@@ -46,7 +46,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Accesseur pour le critère principale dans la résolution de l'algo
+	 * Accesseur pour le critère principal dans la résolution de l'algo
 	 * 
 	 * @return
 	 */
@@ -83,7 +83,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout à la liste des points de passages obligatoire la station passée en paramètre
+	 * Ajout à la liste des points de passage obligatoire la station passée en paramètre
 	 * 
 	 * @param station
 	 */
@@ -95,7 +95,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout à la liste des service à avoir à chaque station où l'on pose le pied, le service passé en paramètre
+	 * Ajout à la liste des services qu'il faut avoir à chaque station où l'on pose le pied, le service passé en paramètre
 	 * 
 	 * @param service
 	 */
@@ -107,7 +107,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout à la liste des service à avoir à au moins une station où l'on pose le pied, le service passé en paramètre
+	 * Ajout à la liste des services qu'il faut avoir au moins pour une station où l'on pose le pied, le service passé en paramètre
 	 * 
 	 * @param service
 	 */
