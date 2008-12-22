@@ -51,7 +51,8 @@ public class PathInGraphConstraintBuilder {
 	 * @return
 	 */
 	public void setMainCriterious(CriteriousForLowerPath c) {
-		System.out.println("setMainCriterious(" + c + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("setMainCriterious(" + c + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.mainCriterious = c;
 	}
@@ -62,7 +63,8 @@ public class PathInGraphConstraintBuilder {
 	 * @return
 	 */
 	public void setMinorCriterious(CriteriousForLowerPath c) {
-		System.out.println("setMinorCriterious(" + c + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("setMinorCriterious(" + c + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.minorCriterious = c;
 	}
@@ -74,7 +76,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param station
 	 */
 	public void addAvoidStations(Station station) {
-		System.out.println("addAvoidStations(" + station + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("addAvoidStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.avoidStations.add(station);
 	}
@@ -85,7 +88,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param station
 	 */
 	public void addStepStations(Station station) {
-		System.out.println("addStepStations(" + station + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("addStepStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.steps.add(station);
 	}
@@ -96,7 +100,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param service
 	 */
 	public void addSeviceOnce(Service service) {
-		System.out.println("addSeviceOnce(" + service + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("addSeviceOnce(" + service + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.servicesOnce.add(service);
 	}
@@ -107,7 +112,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param service
 	 */
 	public void addSeviceAlways(Service service) {
-		System.out.println("addSeviceAlways(" + service + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("addSeviceAlways(" + service + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.servicesAlways.add(service);
 	}
@@ -119,7 +125,8 @@ public class PathInGraphConstraintBuilder {
 	 *            la station en question
 	 */
 	public void setDestination(Station destination) {
-		System.out.println("setDestination(" + destination + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("setDestination(" + destination + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.destination = destination;
 	}
@@ -131,7 +138,8 @@ public class PathInGraphConstraintBuilder {
 	 *            la station en question
 	 */
 	public void setOrigin(Station origin) {
-		System.out.println("setOrigin(" + origin + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("setOrigin(" + origin + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.origin = origin;
 	}
@@ -143,7 +151,8 @@ public class PathInGraphConstraintBuilder {
 	 *            le type en question
 	 */
 	public void addRefusedKindRoute(KindRoute kind) {
-		System.out.println("addRefusedKindRoute(" + kind + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("addRefusedKindRoute(" + kind + ")");
 		this.currentPathInGraph.refusedKindRoute.add(kind);
 	}
 
@@ -154,7 +163,8 @@ public class PathInGraphConstraintBuilder {
 	 *            le type en question
 	 */
 	public void removeRefusedKindRoute(KindRoute kind) {
-		System.out.println("removeRefusedKindRoute(" + kind + ")");
+		if (System.getProperty("user.name").compareTo("Icarius") == 0)
+			System.out.println("removeRefusedKindRoute(" + kind + ")");
 		this.currentPathInGraph.refusedKindRoute.remove(kind);
 	}
 
