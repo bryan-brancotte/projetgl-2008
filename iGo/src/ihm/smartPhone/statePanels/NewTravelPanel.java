@@ -548,10 +548,12 @@ public class NewTravelPanel extends PanelState {
 		byte[] ord;
 		int tmp;
 		int cpt;
+		int x = 0, y = 0;
 		// PTRadioBox rb;
 		String s;
 		PTCheckBox chk;
 		Station station;
+		Iterator<Station> itS;
 
 		if (pathBuilder == null) {
 			g.setFont(father.getSizeAdapteur().getLargeFont());
@@ -845,6 +847,8 @@ public class NewTravelPanel extends PanelState {
 			intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
 					+ intermediatesStationsTextBox.getArea().width + decalage,
 					intermediatesStationsTextBox.getArea().y, imageOk);
+			x = intermediatesStationsNew.getArea().x;
+			y = intermediatesStationsNew.getArea().height + intermediatesStationsNew.getArea().y;
 			intermediatesStationsNew.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
 					* ((decalage >> 1) + taille);
 		}
@@ -859,8 +863,17 @@ public class NewTravelPanel extends PanelState {
 				intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
 			} else
 				intermediatesStationsButton.draw(buffer, imageOk);
+			itS = pathBuilder.getCurrentPathInGraph().getStepsIter();
+			// x = intermediatesStationsTextBox.getArea().x;
+			// y = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
+			// + (decalage >> 1) + taille;
+			while (itS.hasNext()) {
+				buffer.drawString((station = itS.next()).getName(), x, y);
+			}
+			// drawRoutesAndServices(intermediatesStationsTextBox.getArea().x,
+			// intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
+			// + (decalage >> 1) + taille, decalage, taille, itS.next());
 		}
-		 drawRoutesAndServices(xActu, yActu, decalage, taille, station);
 		// for(int i=0;)
 		// dessins des station déja rentré
 		ordonne = intermediatesStationsCollapsableArea.getArea().y

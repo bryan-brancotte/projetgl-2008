@@ -8,7 +8,8 @@ import java.util.Iterator;
 
 /**
  * 
- * Classe qui utilise les design patterns Factory (création controlée d'objets) et Builder (modification controlée d'objets).
+ * Classe qui utilise les design patterns Factory (création controlée d'objets) et Builder (modification controlée
+ * d'objets).
  * 
  * @author "iGo"
  * 
@@ -31,8 +32,8 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et on l'ajoute au GraphNetwork courant. 
-	 * Si l'identifiant passé en paramètre existe déjà on jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et on l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé en paramètre existe déjà on jete une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant de la route, c'est aussi son nom. s'il est à null ou vide rien ne se passera.
@@ -117,8 +118,8 @@ public class GraphNetworkBuilder {
 	 *            la station en question
 	 * @param serviceToAdd
 	 *            le service en question
-	 * @return true si le service n'était pas présent, mais l'est désormais. false si un des paramètres est null, ou si le
-	 *         paramètre était déjà présent
+	 * @return true si le service n'était pas présent, mais l'est désormais. false si un des paramètres est null, ou si
+	 *         le paramètre était déjà présent
 	 */
 	public boolean addServiceToStation(Station station, Service serviceToAdd) {
 		if (station == null)
@@ -374,9 +375,9 @@ public class GraphNetworkBuilder {
 	 * En travaillant sur le GraphNetwork courant, on lie deux stations entre elles par un lien à faire à pied. On
 	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
 	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
-	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>Les jonctions sont monodirectionelles, *
-	 * mais on en crée 2!</B><br/>Si dans un sens comme dans l'autre on trouve une jonction correspondant au critère,
-	 * on la met à jour plutôt que d'en créer une nouvelle.
+	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>Les jonctions sont
+	 * monodirectionelles, * mais on en crée 2!</B><br/>Si dans un sens comme dans l'autre on trouve une jonction
+	 * correspondant au critère, on la met à jour plutôt que d'en créer une nouvelle.
 	 * 
 	 * @param routeOrigin
 	 *            la route origine
@@ -501,6 +502,19 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
+	 * setter de l'etat enable d'une station
+	 * 
+	 * @param station
+	 *            l'id de la station à modifier.
+	 * @param enable
+	 *            etat à definir
+	 * @return void
+	 */
+	public void setEnable(int idStation, boolean enable) {
+		this.setEnable(this.currentGraphNetwork.getStation(idStation), enable);
+	}
+
+	/**
 	 * modifie l'etat enable d'une station
 	 * 
 	 * @param route
@@ -515,6 +529,20 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
+	 * modifie l'etat enable d'une station
+	 * 
+	 * @param route
+	 *            la route sur laquelle est la station.
+	 * @param station
+	 *            la station à modifier.
+	 * @param stationEnable
+	 *            etat à definir
+	 */
+	public void setEnable(String idRoute, int idStation, boolean enable) {
+		this.setEnable(currentGraphNetwork.getRoute(idRoute), currentGraphNetwork.getStation(idStation), enable);
+	}
+
+	/**
 	 * setter de l'etat enable d'une route
 	 * 
 	 * @param route
@@ -525,6 +553,45 @@ public class GraphNetworkBuilder {
 	 */
 	public void setEnable(Route route, boolean enable) {
 		route.setToEnable(enable);
+	}
+
+	/**
+	 * setter de l'etat enable d'une route
+	 * 
+	 * @param route
+	 *            l'id de la route à modifier.
+	 * @param enable
+	 *            etat à definir
+	 * @return void
+	 */
+	public void setEnable(String idRoute, boolean enable) {
+		this.setEnable(this.currentGraphNetwork.getRoute(idRoute), enable);
+	}
+
+	/**
+	 * Trouve la/les jonctions entre les deux stations sur leurs routes respectives et leur applique l'état passé en
+	 * paramètre
+	 * 
+	 * @param stationOrigin
+	 *            la première station
+	 * @param routeOrigin
+	 *            la route de la première station
+	 * @param stationDestination
+	 *            la seconde station
+	 * @param routeDestination
+	 *            la route de la seconde station
+	 * @param enable
+	 *            etat à definir
+	 * @throws StationNotOnRoadException
+	 *             jetée si une station n'est pas sur la route que l'on suppose.
+	 * @throws NullPointerException
+	 *             jetée si un des composants est null.
+	 */
+	public void setEnableJunctionsBetween(String idRouteOrigin, int idStationOrigin, String idRouteDestination,
+			int idStationDestination, boolean enable) throws StationNotOnRoadException {
+		this.setEnableJunctionsBetween(this.currentGraphNetwork.getRoute(idRouteOrigin), this.currentGraphNetwork
+				.getStation(idStationOrigin), this.currentGraphNetwork.getRoute(idRouteDestination),
+				this.currentGraphNetwork.getStation(idStationDestination), enable);
 	}
 
 	/**
