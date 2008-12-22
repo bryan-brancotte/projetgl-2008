@@ -507,7 +507,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			PathInGraphConstraintBuilder pathBuilder = null;
 			if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
 				pathBuilder = newTravelPanel.getPathInGraphConstraintBuilder();
-			// else
+			else if (this.actualState == IhmReceivingStates.LOAD_TRAVEL)
+//				pathBuilder = loadTravelPanel.getPathInGraphConstraintBuilder();
 			// this.setCurrentState(IhmReceivingStates.)
 			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
