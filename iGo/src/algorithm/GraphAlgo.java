@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
+import algorithm.exception.NoRouteForStation;
+
 public class GraphAlgo {
 
 	private ArrayList<Node> graph;
@@ -21,14 +23,18 @@ public class GraphAlgo {
 	 * Rafraichi le réseau avant un calcul
 	 * 
 	 * @param p
+	 * @throws NoRouteForStation 
 	 */
-	protected void refreshGraph(PathInGraph p) {
+	protected void refreshGraph(PathInGraph p) throws NoRouteForStation {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
-		Node n = new Node(s,s.getRoutes().next());
+		Node n;
+		if (s.getRoutes()!=null) n = new Node(s,s.getRoutes().next());
+		else
+			 throw new NoRouteForStation();
 		graph.add(n);
 		addLink(n);
 		//System.out.println(toString());
