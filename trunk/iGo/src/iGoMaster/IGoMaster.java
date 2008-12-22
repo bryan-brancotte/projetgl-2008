@@ -1,23 +1,312 @@
 package iGoMaster;
 
+import graphNetwork.Service;
+import graphNetwork.Station;
+import graphNetwork.KindRoute;
 import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.PathInGraphCollectionBuilder;
+import graphNetwork.PathInGraphConstraintBuilder;
 
-import java.util.Observable;
+import ihm.smartPhone.IGoIhmSmartPhone;
+import iGoMaster.exception.GraphConstructionException;
+import iGoMaster.exception.GraphReceptionException;
+import iGoMaster.exception.ImpossibleStartingException;
+import iGoMaster.exception.NoNetworkException;
+
+import java.util.ArrayList;
 import java.util.Observer;
+import java.util.Iterator;
+import java.util.Observable;
 
+import streamInFolder.event.EventInfoNetworkWatcherInFolderJDOM;
+import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
+import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
+import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
-/**
- *  
+import algorithm.Dijkstra;
+
+import xmlFeature.ConfigurationXML;
+import xmlFeature.LanguageXML;
+
+/**  
  * @author iGo
  */
-public class IGoMaster implements Master, Observer {
 
-	/**
-	 * @uml.property   name="ihm"
-	 * @uml.associationEnd   inverse="iGoMaster:ihm.smartPhone.IHM"
-	 */
+public class IGoMaster implements Master, Observer 
+{
+	
 	private IHM ihm;
+	private Algo algo;
+	private Language lg;
+	private Configuration config;
+	private AvailableNetwork network;
+	private GraphNetworkBuilder graphBuilder;
+	private GraphNetworkReceiver graphReceiver;
+	private EventInfoNetworkWatcher eventInfoNetwork;
+	private PathInGraphCollectionBuilder collectionBuilder;	
+	private GraphNetworkCostReceiver graphNetworkCostReceiver;
+	
+	private ArrayList<Thread> threads = new ArrayList<Thread>();
 
+	
+	/******************************************************************************/
+	/***************************** CONSTRUCTEUR ***********************************/
+	/******************************************************************************/
+	
+	public IGoMaster(String network, String event)
+	{
+		super();
+		
+		this.algo = new Dijkstra();
+		this.lg = new LanguageXML(); 
+		this.config = new ConfigurationXML();
+		this.ihm = new IGoIhmSmartPhone(this);
+		this.graphBuilder = new GraphNetworkBuilder();
+		this.graphReceiver = new GraphNetworkReceiverFolder(network);
+		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
+		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
+		
+		this.process();
+	}
+	
+	
+	/******************************************************************************/
+	/********************************** THREADS ***********************************/
+	/******************************************************************************/
+	
+	
+	/**  
+	 * Thread implicite qui surveillera les mises à jours du réseau tout au long de l'application
+	 */
+	private void watchEvent()
+	{
+		try {eventInfoNetwork.startWatching();} 
+		catch (ImpossibleStartingException e) 
+		{
+			System.err.print("La surveillance des évènements n'a pas pu être activée");
+		}
+	}
+	
+	/**  
+	 * Thread qui va permettre à l'algorithme de calculer un trajet
+	 * Voir avec tony pour le recouvrement de demande d'algorithme
+	 * Pour l'instant seule la première demande est traitée, les autres sont ignorées
+	 */
+	private void launchAlgo()
+	{
+		new Thread() 
+		{
+			public void run() 
+			{
+				threads.add(currentThread());
+				
+				System.out.println("elo --> Algo lancé");
+				algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+				
+				try {currentThread().wait();} 
+				catch (InterruptedException e) 
+				{
+					System.err.print("Thread interrompu inopinement. L'algorithme n'a peut être pas fini son calcul");
+					/**sauvegarde de l'ancien pathInGraph pour relancer l'algo?
+					launchAlgo();*/
+				}
+				
+				ihm.returnPathAsked(
+						collectionBuilder.getPathInGraph(),
+						"Haha message qui sert à rien?"
+						);
+				
+				threads.clear();
+			}
+		}.start();
+	}
+
+	
+	/******************************************************************************/
+	/********************************** PRIVATE ***********************************/
+	/******************************************************************************/
+	
+	/**  
+	 * Lancement des modules essentiels au fonctionnement de l'application
+	 */
+	private void process()
+	{
+		this.initObservers();
+		
+		if (this.getNetwork())
+		{
+			this.watchEvent();
+			this.launchIhm();
+		}
+	}
+	
+	/**  
+	 * Lancement de l'ihm
+	 */
+	private void launchIhm()
+	{
+		System.out.println("elo --> Start Visu");
+		ihm.start(false);
+	}
+	
+	/**  
+	 * Les classes observées par le master ajoutent ce dernier à leur liste d'observeurs.
+	 */
+	private void initObservers() 
+	{
+	    algo.addObserver(this);
+	    eventInfoNetwork.addObserver(this);	
+	}
+	
+	/**  
+	 * Le master récupère le réseau spécifié par le fichier XML.
+	 */
+	private boolean getNetwork()
+	{
+		try 
+		{
+			if (this.graphReceiver.getAvaibleNetwork().hasNext())
+			{
+				this.network = (AvailableNetworkInFolder)(this.graphReceiver.getAvaibleNetwork().next());
+				
+				System.out.println("elo --> Récupération de " + this.network.getName());
+			}
+			else throw new NoNetworkException("Pas de réseau disponible. Terminaison prématurée de l'application");
+			
+			this.graphReceiver.buildNewGraphNetwork(
+					this.graphBuilder,
+					this.network.getName(),
+					this.graphNetworkCostReceiver
+			);		
+		} 
+		catch (NoNetworkException e) 
+		{
+			System.err.print(e.getMessage());
+			return false;
+		}
+		catch (GraphReceptionException e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
+		catch (GraphConstructionException e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
+		
+	    this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
+		
+		return true;
+	}
+
+	/******************************************************************************/
+	/********************************** PUBLIC ************************************/
+	/******************************************************************************/
+	
+	@Override
+	public void update(Observable o, Object arg) 
+	{
+		System.out.println("elo --> update");
+		
+		/* Redefine equals? */
+		if (o.equals(algo))
+		{
+			if (arg.equals(collectionBuilder.getPathInGraph()))
+			{		
+				if (!threads.isEmpty()) threads.get(0).notify();
+				else System.err.print("Elo --> Un observable de type algo a produit un résultat. Le master n'attend rien. Update ignoré.");
+			}
+			else 
+			{
+				System.err.print("Elo --> L'algo n'a pas retourné le pathInGraph correspondant à la collection courante");
+			}
+		}
+		else if (o.equals(eventInfoNetwork))
+		{
+			eventInfoNetwork.applyInfo(graphBuilder.getCurrentGraphNetwork());
+			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
+		}
+	}
+	
+	
+	@Override
+	public void stop() 
+	{
+		System.out.println("elo --> Fermeture de l'application");
+		
+		try{eventInfoNetwork.stopWatching();}
+		catch (NullPointerException e)
+		{System.err.print("elo --> La surveillance des événements n'était pas activée ...");}
+		/**+stopperThreadAlgo*/
+	}
+
+	@Override
+	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) 
+	{
+		System.out.println("elo --> L'ihm demande un chemin");
+		try
+		{
+			if (threads.isEmpty()&& pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
+			{
+				this.launchAlgo();
+			}
+		}
+		catch (NullPointerException e)
+		{
+			System.err.println("elo --> Un builder de contrainte null est inutilisable");
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String lg(String key) {return lg.lg(key);}
+
+	@Override
+	public boolean setConfig(String key, String value) 
+	{
+		config.setValue(key, value);
+		
+		try{config.save();}
+		catch(Exception e){return false;} 	
+		
+		return true; 
+	}
+	
+	@Override
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() 
+	{
+		System.out.println("elo --> L'ihm demande un builder de contraintes");
+		
+		return this.collectionBuilder.getPathInGraphConstraintBuilder();
+	}
+	
+	@Override
+	public String config(String key) {return getConfig(key);}
+	
+	@Override
+	public String getConfig(String key) {return this.config.getValue(key);}
+
+	@Override
+	public Iterator<KindRoute> getKindRoutes() {return this.graphBuilder.getCurrentGraphNetwork().getKinds();}
+
+	@Override
+	public Iterator<Service> getServices() {return this.graphBuilder.getCurrentGraphNetwork().getServices();}
+
+	@Override
+	public Iterator<Station> getStations() {return this.graphBuilder.getCurrentGraphNetwork().getStations();}
+	
+	@Override
+	public Iterator<String> getLanguages() {return lg.getLanguages().iterator();}
+
+
+	
+	/******************************************************************************/
+	/************************SETTERS ET GETTERS ***********************************/
+	/******************************************************************************/
+	
+	
 	/**
 	 * Getter of the property <tt>ihm</tt>
 	 * 
@@ -38,13 +327,7 @@ public class IGoMaster implements Master, Observer {
 	public void setIhm(IHM ihm) {
 		this.ihm = ihm;
 	}
-
-	/**
-	 * @uml.property   name="graphReceiver"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkReceiver"
-	 */
-	private GraphNetworkReceiver graphReceiver;
-
+	
 	/**
 	 * Getter of the property <tt>graphReader</tt>
 	 * 
@@ -54,7 +337,7 @@ public class IGoMaster implements Master, Observer {
 	public GraphNetworkReceiver getGraphReader() {
 		return graphReceiver;
 	}
-
+	
 	/**
 	 * Setter of the property <tt>graphReader</tt>
 	 * 
@@ -65,18 +348,8 @@ public class IGoMaster implements Master, Observer {
 	public void setGraphReader(GraphNetworkReceiver graphReceiver) {
 		this.graphReceiver = graphReceiver;
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @uml.property   name="config"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Configuration"
-	 */
-	private Configuration config;
+	
+	
 
 	/**
 	 * Getter of the property <tt>config</tt>
@@ -99,11 +372,7 @@ public class IGoMaster implements Master, Observer {
 		this.config = config;
 	}
 
-	/**
-	 * @uml.property   name="lang"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.Language"
-	 */
-	private Language lang;
+
 
 	/**
 	 * Getter of the property <tt>lang</tt>
@@ -112,7 +381,7 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property name="lang"
 	 */
 	public Language getLang() {
-		return lang;
+		return this.lg;
 	}
 
 	/**
@@ -122,16 +391,11 @@ public class IGoMaster implements Master, Observer {
 	 *            The lang to set.
 	 * @uml.property name="lang"
 	 */
-	public void setLang(Language lang) {
-		this.lang = lang;
+	public void setLang(Language lg) {
+		this.lg = lg;
 	}
-
-	/**
-	 * @uml.property   name="algo"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.AlgoAbstract"
-	 */
-	private Algo algo;
-
+	
+	
 	/**
 	 * Getter of the property <tt>algo</tt>
 	 * 
@@ -152,17 +416,7 @@ public class IGoMaster implements Master, Observer {
 	public void setAlgo(Algo algo) {
 		this.algo = algo;
 	}
-
-	/**
-<<<<<<< .mine
-	 * @uml.property   name="graphNetworkBuilder"
-	 * @uml.associationEnd   inverse="iGoMaster:graphNetwork.GraphNetworkBuilder"
-=======
-	 * @uml.property name="graphNetworkBuilder"
-	 * @uml.associationEnd inverse="iGoMaster:graphNetwork.GraphNetworkFactory"
->>>>>>> .r494
-	 */
-	private GraphNetworkBuilder graphNetworkFactory;
+	
 
 	/**
 	 * Getter of the property <tt>graphNetworkBuilder</tt>
@@ -171,7 +425,7 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property name="graphNetworkBuilder"
 	 */
 	public GraphNetworkBuilder getGraphNetworkFactory() {
-		return graphNetworkFactory;
+		return this.graphBuilder;
 	}
 
 	/**
@@ -182,14 +436,14 @@ public class IGoMaster implements Master, Observer {
 	 * @uml.property name="graphNetworkBuilder"
 	 */
 	public void setGraphNetworkFactory(GraphNetworkBuilder graphNetworkBuilder) {
-		this.graphNetworkFactory = graphNetworkBuilder;
+		this.graphBuilder = graphNetworkBuilder;
 	}
 
 	/**
 	 * @uml.property   name="eventInfoNetwork"
 	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
 	 */
-	private EventInfoNetworkWatcher eventInfoNetwork;
+	
 
 	/**
 	 * Getter of the property <tt>eventInfoNetwork</tt>
@@ -212,25 +466,7 @@ public class IGoMaster implements Master, Observer {
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
 
-	public IGoMaster(IHM ihm, GraphNetworkReceiver graphReceiver, Configuration config, Language lang, Algo algo,
-			GraphNetworkBuilder graphNetworkFactory, EventInfoNetworkWatcher eventInfoNetwork,
-			GraphNetworkCostReceiver graphNetworkCostReceiver) {
-		super();
-		this.ihm = ihm;
-		this.graphReceiver = graphReceiver;
-		this.config = config;
-		this.lang = lang;
-		this.algo = algo;
-		this.graphNetworkFactory = graphNetworkFactory;
-		this.eventInfoNetwork = eventInfoNetwork;
-		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
-	}
 
-	/**
-	 * @uml.property   name="graphNetworkCostReceiver"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.GraphNetworkCostReceiver"
-	 */
-	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 
 	/**
 	 * Getter of the property <tt>graphNetworkCostReceiver</tt>
@@ -253,28 +489,7 @@ public class IGoMaster implements Master, Observer {
 		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
 	}
 
-	@Override
-	public String lg(String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void stop() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public String config(String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean askForATravel() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }
