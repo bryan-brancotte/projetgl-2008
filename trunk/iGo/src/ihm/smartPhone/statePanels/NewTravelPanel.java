@@ -73,14 +73,14 @@ public class NewTravelPanel extends PanelState {
 	// protected PTButton intermediatesStationsButton;
 
 	protected final int departureStation = 6;
+	protected boolean departureStationChanged;
 	protected PTArea departureStationNew;
 	protected PTAutoCompletionTextBox departureStationTextBox;
 	protected PTCollapsableArea departureStationCollapsableArea;
 	// protected PTButton departureStationButton;
 
-	protected boolean departureStationOrArrivalStationChanged;
-
 	protected final int arrivalStation = 8;
+	protected boolean arrivalStationChanged;
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
 	protected PTCollapsableArea arrivalStationCollapsableArea;
@@ -91,7 +91,8 @@ public class NewTravelPanel extends PanelState {
 	public NewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 		deroullement = 0;
-		departureStationOrArrivalStationChanged = true;
+		departureStationChanged = true;
+		arrivalStationChanged = true;
 		buildInterfaceFromDomDocument();
 	}
 
@@ -265,7 +266,7 @@ public class NewTravelPanel extends PanelState {
 
 			@Override
 			public void execute() {
-				departureStationOrArrivalStationChanged = true;
+				departureStationChanged = true;
 			}
 		});
 		departureStationCollapsableArea.addComponent(departureStationTextBox);
@@ -280,7 +281,7 @@ public class NewTravelPanel extends PanelState {
 
 			@Override
 			public void execute() {
-				departureStationOrArrivalStationChanged = true;
+				arrivalStationChanged = true;
 			}
 		});
 		arrivalStationCollapsableArea.addComponent(departureStationTextBox);
@@ -548,7 +549,7 @@ public class NewTravelPanel extends PanelState {
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(departureStationNew, departureStationTextBox,
 				departureStationCollapsableArea, ordonne, decalage, decalage2, taille);
-		if (departureStationOrArrivalStationChanged)
+		if (departureStationChanged)
 			pathBuilder.setOrigin(station);
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
 				+ decalage;
@@ -564,7 +565,7 @@ public class NewTravelPanel extends PanelState {
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
 				arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille);
-		if (departureStationOrArrivalStationChanged)
+		if (arrivalStationChanged)
 			pathBuilder.setDestination(station);
 		ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height + decalage;
 
@@ -917,7 +918,8 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * on met le flag de modification de départ/arrvié à false
 		 */
-		departureStationOrArrivalStationChanged = false;
+		departureStationChanged = false;
+		arrivalStationChanged = false;
 
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
@@ -943,7 +945,8 @@ public class NewTravelPanel extends PanelState {
 			lowerBar.setRightCmd("Find a path", new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("lowerBar.RIGHT_CMD_ACTION_LISTENER");
+					if (pathBuilder.isValideForSolving())
+						System.out.println("lowerBar.RIGHT_CMD_ACTION_LISTENER");
 				}
 			});
 		lowerBar.repaint();

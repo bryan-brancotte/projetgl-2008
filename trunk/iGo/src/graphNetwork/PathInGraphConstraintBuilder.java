@@ -136,13 +136,34 @@ public class PathInGraphConstraintBuilder {
 		currentPathInGraph.origin = origin;
 	}
 
-	public void addRefusedKindRoute(KindRoute kind){
+	/**
+	 * Ajout le type de route passé en paramètre à la liste des kind que l'on ne peut prendre
+	 * 
+	 * @param kind
+	 *            le type en question
+	 */
+	public void addRefusedKindRoute(KindRoute kind) {
 		System.out.println("addRefusedKindRoute(" + kind + ")");
 		this.currentPathInGraph.refusedKindRoute.add(kind);
 	}
 
-	public void removeRefusedKindRoute(KindRoute kind){
+	/**
+	 * Retire le type de route passé en paramètre à la liste des kind que l'on ne peut prendre
+	 * 
+	 * @param kind
+	 *            le type en question
+	 */
+	public void removeRefusedKindRoute(KindRoute kind) {
 		System.out.println("removeRefusedKindRoute(" + kind + ")");
 		this.currentPathInGraph.refusedKindRoute.remove(kind);
+	}
+
+	/**
+	 * Permet de savoir si le chemin est valide pour la résolution.
+	 * 
+	 * @return true si on peut le résoudre
+	 */
+	public boolean isValideForSolving() {
+		return currentPathInGraph.isValideForSolving();
 	}
 }

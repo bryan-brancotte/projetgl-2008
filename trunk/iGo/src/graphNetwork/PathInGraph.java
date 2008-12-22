@@ -671,4 +671,21 @@ public class PathInGraph {
 	public KindRoute[] getRefusedKindRouteArray() {
 		return refusedKindRoute.toArray(new KindRoute[0]);
 	}
+
+	/**
+	 * Permet de savoir si le chemin est valide pour la résolution.
+	 * 
+	 * @return true si on peut le résoudre
+	 */
+	protected boolean isValideForSolving() {
+		if (destination == null)
+			return false;
+		if (origin == null)
+			return false;
+		if (mainCriterious == CriteriousForLowerPath.NOT_DEFINED)
+			return false;
+		if (minorCriterious == CriteriousForLowerPath.NOT_DEFINED)
+			return false;
+		return true;
+	}
 }
