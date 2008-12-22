@@ -274,8 +274,6 @@ public class PathInGraph {
 
 			// Transformation
 			transformer.transform(source, resultat);
-			// System.out.println(outStream.toString("UTF-8"));
-			// return outStream.toString("UTF-8");
 			String[] ret = outStream.toString("UTF-8").split("\n");
 			int delta = 0;
 			String retBetter = "";
