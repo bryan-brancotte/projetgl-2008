@@ -118,7 +118,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 								description = child.getTextTrim();
 							}
 						}
-						gnb.addService(id, description, description);
+						gnb.addService(id, description, "");
 //						 System.out.println("Adding Service : " + id + " : " + description);
 					}
 
