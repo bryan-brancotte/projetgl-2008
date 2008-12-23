@@ -1,34 +1,35 @@
 package iGoMaster.exception;
 
 @SuppressWarnings("serial")
-public class NoNetworkException extends NetworkException{
+public class NetworkException extends Exception
+{
 
-	
 	/** 
 	* Crée une nouvelle instance de NetworkException 
 	*/  
-	public NoNetworkException() {}  
+	public NetworkException() {}  
 	
 	/** 
-	* Crée une nouvelle instance de NoNetworkException 
+	* Crée une nouvelle instance de NetworkException 
 	* @param message le message détaillant l'exception 
 	*/  
-	public NoNetworkException(String message) {  
+	public NetworkException(String message) {  
 		super(message); 
 	}  
 	/** 
-	* Crée une nouvelle instance deNoNetworkException 
+	* Crée une nouvelle instance de NetworkException 
 	* @param cause l'exception à l'origine de cette exception 
 	*/  
-	public NoNetworkException(Throwable cause) {  
+	public NetworkException(Throwable cause) {  
 		super(cause); 
 	}  
 	/** 
-	* Crée une nouvelle instance de NoNetworkException 
+	* Crée une nouvelle instance de NetworkException 
 	* @param message le message détaillant cette exception 
 	* @param cause l'exception à l'origine de cette exception 
 	*/  
-	public NoNetworkException(String message, Throwable cause) {  
+	public NetworkException(String message, Throwable cause) {  
 		super(message, cause); 
 	} 
+
 }

@@ -9,9 +9,11 @@ import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 
 import ihm.smartPhone.IGoIhmSmartPhone;
+import ihm.smartPhone.tools.ExecMultiThread;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.ImpossibleStartingException;
+import iGoMaster.exception.NetworkException;
 import iGoMaster.exception.NoNetworkException;
 import iGoMaster.exception.NoRouteForStationException;
 
@@ -50,6 +52,7 @@ public class IGoMaster implements Master, Observer
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
 	
+	NetworkException networkException = null;
 	
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
@@ -80,23 +83,28 @@ public class IGoMaster implements Master, Observer
 	/**  
 	 * Thread implicite qui surveillera les mises à jours du réseau tout au long de l'application
 	 */
-	private void watchEvent()
+	private boolean watchEvent()
 	{
-		try {eventInfoNetwork.startWatching();} 
+		try 
+		{
+			eventInfoNetwork.startWatching();
+		} 
 		catch (ImpossibleStartingException e) 
 		{
 			System.err.print("La surveillance des évènements n'a pas pu être activée");
+			return false;
 		}
+		
+		return true;
 	}
 	
 	/**  
 	 * Thread qui va permettre à l'algorithme de calculer un trajet
-	 * Voir avec tony pour le recouvrement de demande d'algorithme
-	 * Pour l'instant seule la première demande est traitée, les autres sont ignorées
 	 */
 	private void launchAlgo()
 	{
-		new Thread() 
+		
+		new Thread("true") 
 		{
 			public void run() 
 			{
@@ -107,17 +115,16 @@ public class IGoMaster implements Master, Observer
 				try 
 				{
 					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
-					
-					currentThread().interrupt();
 				} 
 				catch (NoRouteForStationException e) 
 				{
 					System.err.print("elo --> échec de l'algorithme, pas de route associée à la station");
 				}
-				
-				ihm.returnPathAsked(null,"Echec");
+
 			}
+			
 		}.start();
+		
 	}
 
 	
@@ -127,25 +134,58 @@ public class IGoMaster implements Master, Observer
 	
 	/**  
 	 * Lancement des modules essentiels au fonctionnement de l'application
+	 * Si on a pas de réseau on ne lance pas la surveillance des évènements
 	 */
 	private void process()
 	{
 		this.initObservers();
 		
-		if (this.getNetwork())
-		{
-			this.watchEvent();
-			this.launchIhm();
-		}
-	}
-	
-	/**  
-	 * Lancement de l'ihm
-	 */
-	private void launchIhm()
-	{
 		System.out.println("elo --> Start Visu");
-		ihm.start(false);
+		ihm.start(true,4);
+		
+		new ExecMultiThread<IHM>(ihm) 
+		{
+			
+			public void haveRest()
+			{
+				currentThread();
+				
+				try 
+				{
+					Thread.sleep(6000);
+				} 
+				catch (InterruptedException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+			
+			public void run() 
+			{
+				this.origine.showMessageSplashScreen("Réseau en cours de chargement");
+				
+				this.haveRest();
+				
+				if (getNetwork())
+				{	
+					this.origine.showMessageSplashScreen("Le réseau a bien été trouvé");
+					
+					this.haveRest();
+					
+					if (watchEvent())this.origine.showMessageSplashScreen("Surveillance des mises à jour du réseau activée");
+					else this.origine.showMessageSplashScreen("Attention mises à jour du réseau NON supportées");
+				}
+				else this.origine.showMessageSplashScreen("Réseau indisponible ou mal formé");
+					
+				this.haveRest();
+					
+				this.origine.showMessageSplashScreen("Chargement de l'interface principale ...");
+					 
+				this.haveRest();
+				 
+				this.origine.endSplashScreen();
+			}
+		}.start();
 	}
 	
 	/**  
@@ -170,31 +210,34 @@ public class IGoMaster implements Master, Observer
 				
 				System.out.println("elo --> Récupération de " + this.network.getName());
 			}
-			else throw new NoNetworkException("Pas de réseau disponible. Terminaison prématurée de l'application");
+			else throw new NoNetworkException("Pas de réseau disponible." +
+					" L'utilisateur ne pourra pas utiliser toutes les fonctionnalités de l'application.");
 			
 			this.graphReceiver.buildNewGraphNetwork(
 					this.graphBuilder,
 					this.network.getName(),
 					this.graphNetworkCostReceiver
-			);		
+			);	
+			
+			return true;
 		} 
 		catch (NoNetworkException e) 
 		{
-			System.err.print(e.getMessage());
-			return false;
+			networkException = e;
+			System.err.print(networkException.getMessage());
 		}
 		catch (GraphReceptionException e) 
 		{
-			e.printStackTrace();
-			return false;
+			networkException = new NetworkException("Erreur de réception du graphe");
+			System.err.print(networkException.getMessage());
 		}
 		catch (GraphConstructionException e) 
 		{
-			e.printStackTrace();
-			return false;
+			networkException = new NetworkException("Graphe mal formé");
+			System.err.print(networkException.getMessage());
 		}
 		
-		return true;
+		return false;
 	}
 
 	/******************************************************************************/
@@ -234,6 +277,7 @@ public class IGoMaster implements Master, Observer
 			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
 		}
 	}
+	
 	
 	
 	@Override
@@ -280,7 +324,7 @@ public class IGoMaster implements Master, Observer
 	}
 	
 	@Override
-	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() 
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NetworkException
 	{
 		System.out.println("elo --> L'ihm demande un builder de contraintes");
 		
@@ -290,7 +334,11 @@ public class IGoMaster implements Master, Observer
 		}
 			
 		this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
-			
+		
+		if (networkException!=null)
+		{
+			throw networkException;
+		}
 		return this.collectionBuilder.getPathInGraphConstraintBuilder();
 	}
 	
