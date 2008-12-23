@@ -198,6 +198,10 @@ public class MainDemoIHM {
 					.getStation(2), 5);
 			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()
 					.getStation(3), 7);
+			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerC"), gnb.getCurrentGraphNetwork()
+					.getStation(4), 12);
+			gnb.addStationToRoute(gnb.getCurrentGraphNetwork().getRoute("RerB"), gnb.getCurrentGraphNetwork()
+					.getStation(5), 3);
 			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(1), gnb.getCurrentGraphNetwork()
 					.getService(1));
 			gnb.addServiceToStation(gnb.getCurrentGraphNetwork().getStation(2), gnb.getCurrentGraphNetwork()

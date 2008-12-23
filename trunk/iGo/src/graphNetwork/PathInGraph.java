@@ -806,14 +806,29 @@ public class PathInGraph {
 		mainCriterious = CriteriousForLowerPath.NOT_DEFINED;
 		minorCriterious = CriteriousForLowerPath.NOT_DEFINED;
 	}
-	
-	public String toString(){
-		String ret="";
-		ret+="PathInGraph :\n";
-		ret+="From:"+origin+"\n";
-		ret+="To : "+destination+"\n";
-		ret+="Cost:"+cost+"\n";
-		ret+="Time:"+time+"\n";
+
+	public String toString() {
+		String ret = "";
+		ret += "PathInGraph :\n";
+		ret += "From:" + origin + "\n";
+		ret += "To : " + destination + "\n";
+		ret += "Cost:" + cost + "\n";
+		ret += "Time:" + time + "\n";
+		ret += "servicesOnce     :";
+		for (Service s : servicesOnce)
+			ret += s + ", ";
+		ret += "\nservicesAlways   :";
+		for (Service s : servicesAlways)
+			ret += s + ", ";
+		ret += "\nsteps            :";
+		for (Station s : steps)
+			ret += s + ", ";
+		ret += "\navoidStations    :";
+		for (Station s : avoidStations)
+			ret += s + ", ";
+		ret += "\nrefusedKindRoute :";
+		for (KindRoute s : refusedKindRoute)
+			ret += s + ", ";
 		return ret;
 	}
 }

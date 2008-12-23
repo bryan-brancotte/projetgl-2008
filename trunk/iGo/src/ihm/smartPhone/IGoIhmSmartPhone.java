@@ -653,6 +653,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean setConfig(String key, String value) {
+		if (actualState == IhmReceivingStates.SETTINGS)
+			newTravelPanel = null;
 		return master.setConfig(key, value);
 	}
 

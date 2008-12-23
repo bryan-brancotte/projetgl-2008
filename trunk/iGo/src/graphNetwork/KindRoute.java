@@ -145,6 +145,6 @@ public class KindRoute {
 	}
 
 	public String toString() {
-		return "KindRoute \"" + kindOf + "\"";
+		return "\"" + kindOf + "\"";
 	}
 }
