@@ -37,6 +37,10 @@ public class SettingsPanel extends PanelState {
 
 	protected HashMap<String, Station> stationsHash;
 	private static final long serialVersionUID = 1L;
+	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean shouldDoubleRepaint = true;
 
 	protected String[] stations;
 	protected int deroullement;
@@ -149,7 +153,9 @@ public class SettingsPanel extends PanelState {
 					recordChangedSetting(travelMode, this.origine);
 				}
 			});
-			chk.setClicked(!(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo(SettingsValue.DISABLE.toString()) == 0));
+			chk
+					.setClicked(!(father.getConfig(SettingsKey.TRAVEL_MODE_ + s).compareTo(
+							SettingsValue.DISABLE.toString()) == 0));
 			travelModeCollapsableArea.addComponent(chk);
 			travelModeCheckBoxs.add(new PairPTCheckBox(chk, s));
 		}
@@ -358,6 +364,19 @@ public class SettingsPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		draw();
+		if (shouldDoubleRepaint) {
+			shouldDoubleRepaint = false;
+			draw();
+		}
+
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
+		g.drawImage(image, 0, 0, null);
+	}
+
+	public void draw() {
 		int decalage = father.getSizeAdapteur().getSizeSmallFont();
 		int decalage2 = (decalage << 1);
 		int ordonne = decalage - deroullement;
@@ -592,7 +611,7 @@ public class SettingsPanel extends PanelState {
 				} else {
 					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
-				buffer.setColor(father.getNetworkColorManager().getColorForService(p.service));
+				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
 				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
 						father.getSizeAdapteur().getSizeSmallFont() >> 1,
 						father.getSizeAdapteur().getSizeSmallFont() >> 1);
@@ -710,13 +729,8 @@ public class SettingsPanel extends PanelState {
 		scrollBar.update(buffer, getWidth() - 1 - father.getSizeAdapteur().getSizeIntermediateFont(), father
 				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
 		deroullement = scrollBar.getDeroullement();
-		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
-
-		/***************************************************************************************************************
-		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
-		 */
-		g.drawImage(image, 0, 0, null);
 	}
 
 	@Override

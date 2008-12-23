@@ -5,6 +5,11 @@ import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import java.awt.Rectangle;
 
 public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
+	/**
+	 * ...
+	 */
+	private static final long serialVersionUID = -3099033334326367565L;
+
 	protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
 
 	/**

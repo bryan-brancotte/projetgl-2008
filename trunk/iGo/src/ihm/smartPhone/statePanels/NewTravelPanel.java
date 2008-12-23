@@ -13,6 +13,7 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.statePanels.component.PairPTCheckBox;
 import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
+import ihm.smartPhone.statePanels.component.ServiceToolTipText;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.CodeExecutor2P;
@@ -33,6 +34,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -45,34 +48,64 @@ import javax.swing.ImageIcon;
 
 public class NewTravelPanel extends PanelState {
 
+	/**
+	 * Le hash des stations
+	 */
 	protected HashMap<String, Station> stationsHash;
-
+	/**
+	 * ...
+	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Le chemin qu'on va paramètrer
+	 */
 	protected PathInGraphConstraintBuilder pathBuilder;
-
+	/**
+	 * Les nom des stations sous forme de tableau. Elles sont alphanumériquement triées
+	 */
 	protected String[] stations;
+	/**
+	 * La valeur du scroll de la barre de défilement
+	 */
 	protected int deroullement;
-
+	/**
+	 * L'image OK pour ajouter une station
+	 */
 	protected ImageIcon imageOk;
+	/**
+	 * L'image OK pour retirer une station
+	 */
 	protected ImageIcon imageDel;
-
+	/**
+	 * Conteneurs pour les zone d'aide des services
+	 */
+	protected LinkedList<ServiceToolTipText> serviceDisplayed;
+	protected LinkedList<ServiceToolTipText> servicePooled;
+	/**
+	 * Variables pour les type de transport autorisé
+	 */
 	protected final int travelMode = 1;
 	protected LinkedList<PairPTCheckBox> travelModeCheckBoxs;
 	protected PTCollapsableArea travelModeCollapsableArea;
 
+	/**
+	 * Variables pour les critères de calcul
+	 */
 	protected final int minorTravelCriteria = 2;
 	protected final int mainTravelCriteria = 4;
 	protected PTRadioBox[] travelCriteriaRadioBoxs;
 	protected PTCollapsableArea travelCriteriaCollapsableArea;
 
+	/**
+	 * Variables pour les services
+	 */
 	protected final int services = 3;
 	protected LinkedList<PairPTRadioBoxs> ServicesRadioBoxs;
 	protected PTCollapsableArea servicesCollapsableArea;
 
-	// protected PTRadioBox[] qualityRadioBoxs;
-	// protected PTCollapsableArea qualityCollapsableArea;
-
+	/**
+	 * Variables pour les stations intermédiaires
+	 */
 	protected final int intermediatesStationsAdd = 5;
 	protected final int intermediatesStationsRemove = 6;
 	protected PTArea intermediatesStationsArea;
@@ -81,6 +114,9 @@ public class NewTravelPanel extends PanelState {
 	protected PTButton intermediatesStationsButton;
 	protected Hashtable<Integer, PTButton> intermediatesStationsDel;
 
+	/**
+	 * Variables pour les stations à éviter
+	 */
 	protected final int avoidsStationsAdd = 7;
 	protected final int avoidsStationsRemove = 8;
 	protected PTArea avoidsStationsArea;
@@ -89,26 +125,69 @@ public class NewTravelPanel extends PanelState {
 	protected PTButton avoidsStationsButton;
 	protected Hashtable<Integer, PTButton> avoidsStationsDel;
 
+	/**
+	 * Variables pour la zone de texte de la station de départ
+	 */
 	protected boolean departureStationChanged;
 	protected PTArea departureStationArea;
 	protected PTAutoCompletionTextBox departureStationTextBox;
 	protected PTCollapsableArea departureStationCollapsableArea;
 
+	/**
+	 * Variables pour la zone de texte de la station de arrivé
+	 */
 	protected boolean arrivalStationChanged;
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
 	protected PTCollapsableArea arrivalStationCollapsableArea;
 
+	/**
+	 * Barre de défilement
+	 */
 	protected PTScrollBar scrollBar;
+	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean shouldDoubleRepaint = true;
 
-	public NewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
-		super(ihm, upperBar, lowerBar);
+	/**
+	 * Unique constructeur surchargeant le constructeur de PanelState. On y commande la construction de l'ihm
+	 * 
+	 * @param ihm
+	 * @param upperBar
+	 * @param lowerBar
+	 */
+	public NewTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar newlowerBar) {
+		super(ihm, upperBar, newlowerBar);
 		deroullement = 0;
 		departureStationChanged = true;
 		arrivalStationChanged = true;
+		serviceDisplayed = new LinkedList<ServiceToolTipText>();
+		servicePooled = new LinkedList<ServiceToolTipText>();
+		this.addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				boolean changed = false;
+				for (ServiceToolTipText s : serviceDisplayed)
+					changed = s.maybeOvered(e.getX(), e.getY()) || changed;
+				if (!changed) {
+					lowerBar.setLeftTitle("");
+					lowerBar.setLeftValue("");
+					lowerBar.repaint();
+				}
+			}
+		});
 		buildInterfaceFromDomDocument();
 	}
 
+	/**
+	 * Construction du contenu
+	 */
 	protected void buildInterfaceFromDomDocument() {
 		String s, valS;
 		PTRadioBoxGroup grp;
@@ -328,7 +407,7 @@ public class NewTravelPanel extends PanelState {
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
 		intermediatesStationsDel = new Hashtable<Integer, PTButton>();
 
-		// TODO ........tafMake.........................
+		// TODO z_make
 		/***************************************************************************************************************
 		 * Station avoid
 		 */
@@ -348,11 +427,18 @@ public class NewTravelPanel extends PanelState {
 		avoidsStationsDel = new Hashtable<Integer, PTButton>();
 	}
 
+	/**
+	 * Fonction enregistrant les modifications. Chaque modif est définit pas un entier étant sa famille, le string qui
+	 * suit est une information suplémentaire au sujet de la modification
+	 * 
+	 * @param familly
+	 * @param s
+	 */
+	// TODO z_recordChangedSetting
 	protected void recordChangedSetting(int familly, String s) {
 		Station station;
 		switch (familly) {
 		case travelMode:
-			// TODO ........tafRecord
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
 					Iterator<KindRoute> itR = father.getKindRoutes();
@@ -490,6 +576,25 @@ public class NewTravelPanel extends PanelState {
 		}
 	}
 
+	/**
+	 * Prépare une zone d'autocomplétion
+	 * 
+	 * @param stationNew
+	 *            la zone étant la surface de la PTAutoCompletionTextBox
+	 * @param stationTextBox
+	 *            la PTAutoCompletionTextBox en elle même
+	 * @param stationCollapsableArea
+	 *            la zone qui contient la PTAutoCompletionTextBox et la zone étandu
+	 * @param title
+	 *            le titre de la PTCollapsableArea
+	 * @param ordonne
+	 *            l'ordonnée à partir de laquelle il faut dessiner
+	 * @param decalage
+	 *            le decalage
+	 * @param decalage2
+	 *            le decalage fois 2
+	 * @return la taille des icones
+	 */
 	protected int prepareAutoCompletionStationTextBox(PTArea stationNew, PTAutoCompletionTextBox stationTextBox,
 			PTCollapsableArea stationCollapsableArea, String title, int ordonne, int decalage, int decalage2) {
 		int taille = 0;
@@ -507,6 +612,19 @@ public class NewTravelPanel extends PanelState {
 		return taille;
 	}
 
+	/**
+	 * Dessin la zone d'autocomplétion qu'on a préalablement préparé
+	 * 
+	 * @param stationNew
+	 * @param stationTextBox
+	 * @param stationCollapsableArea
+	 * @param ordonne
+	 * @param decalage
+	 * @param decalage2
+	 * @param taille
+	 * @param shouldFillTheField
+	 * @return
+	 */
 	protected Station drawAutoCompletionStationTextBox(PTArea stationNew, PTAutoCompletionTextBox stationTextBox,
 			PTCollapsableArea stationCollapsableArea, int ordonne, int decalage, int decalage2, int taille,
 			boolean shouldFillTheField) {
@@ -566,10 +684,20 @@ public class NewTravelPanel extends PanelState {
 		return null;
 	}
 
+	/**
+	 * Dessine pour une station données ses routes, puis ces services
+	 * 
+	 * @param xActu
+	 * @param yActu
+	 * @param decalage
+	 * @param taille
+	 * @param station
+	 */
 	protected void drawRoutesAndServices(int xActu, int yActu, int decalage, int taille, Station station) {
 		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		buffer.setColor(father.getSkin().getColorLetter());
 		Iterator<Route> itRoute = station.getRoutes();
+		ServiceToolTipText sttt;
 		Route route;
 		Iterator<Service> itService = station.getServices();
 		Service service;
@@ -586,7 +714,14 @@ public class NewTravelPanel extends PanelState {
 		while (itService.hasNext()) {
 			service = itService.next();
 			s = service.getName().substring(0, 1);
-			buffer.setColor(father.getNetworkColorManager().getColorForService(service));
+			if (servicePooled.isEmpty())
+				sttt = new ServiceToolTipText(new Rectangle(), lowerBar);
+			else
+				sttt = servicePooled.remove();
+			serviceDisplayed.add(sttt);
+			sttt.init(service);
+			buffer.setColor(father.getNetworkColorManager().getColor(service));
+			sttt.setBounds(xActu - 1, yActu - 1, taille + 2, taille + 2);
 			buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
 			buffer.setColor(father.getSkin().getColorLetter());
 			buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
@@ -598,6 +733,38 @@ public class NewTravelPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		int tmp;
+		String s;
+		if (pathBuilder == null) {
+			g.setFont(father.getSizeAdapteur().getLargeFont());
+			g.setColor(Color.red);
+			s = "Impossible de construire";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1,
+					tmp = (getHeight() - getHeightString(s, g) * 7 >> 1));
+			s = "un nouveau trajet :";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			s = "le master à passé";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			s = "un constructeur vide";
+			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			return;
+		}
+
+		draw();
+		if (shouldDoubleRepaint) {
+			shouldDoubleRepaint = false;
+			draw();
+		}
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
+		g.drawImage(image, 0, 0, null);
+	}
+
+	/**
+	 * Dessin en arrière plan de la fenetre
+	 */
+	public void draw() {
 		int decalage = father.getSizeAdapteur().getSizeSmallFont();
 		int decalageDemi = (decalage >> 1);
 		int decalage2 = (decalage << 1);
@@ -615,21 +782,9 @@ public class NewTravelPanel extends PanelState {
 		Station station;
 		Iterator<Station> itS;
 
-		if (pathBuilder == null) {
-			g.setFont(father.getSizeAdapteur().getLargeFont());
-			g.setColor(Color.red);
-			s = "Impossible de construire";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1,
-					tmp = (getHeight() - getHeightString(s, g) * 7 >> 1));
-			s = "un nouveau trajet :";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
-			s = "le master à passé";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
-			s = "un constructeur vide";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
-			return;
-		}
-
+		/***
+		 * Gestion du buffer mémoire
+		 */
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			buffer = null;
@@ -651,6 +806,13 @@ public class NewTravelPanel extends PanelState {
 			buffer.setColor(father.getSkin().getColorInside());
 			buffer.fillRect(0, 0, getWidth(), getHeight());
 		}
+
+		/*****
+		 * Swap des liste de zone de service
+		 */
+		LinkedList<ServiceToolTipText> serviceSwap = servicePooled;
+		servicePooled = serviceDisplayed;
+		serviceDisplayed = serviceSwap;
 
 		/***************************************************************************************************************
 		 * Departure
@@ -886,7 +1048,7 @@ public class NewTravelPanel extends PanelState {
 				} else {
 					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
-				buffer.setColor(father.getNetworkColorManager().getColorForService(p.service));
+				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
 				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
 						father.getSizeAdapteur().getSizeSmallFont() >> 1,
 						father.getSizeAdapteur().getSizeSmallFont() >> 1);
@@ -968,7 +1130,7 @@ public class NewTravelPanel extends PanelState {
 			avoidsStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getAvoidStationsCount()
 					* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 		}
-		// TODO ........tafPaint
+		// TODO z_paint
 		avoidsStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
@@ -1011,19 +1173,14 @@ public class NewTravelPanel extends PanelState {
 		scrollBar.update(buffer, getWidth() - 1 - father.getSizeAdapteur().getSizeIntermediateFont(), father
 				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
 		deroullement = scrollBar.getDeroullement();
-		// TODO améliorer le scroll actuelle il utimise des donnée du passé pour le presente. bug maximisation fenetre.
 
 		/***************************************************************************************************************
 		 * on met le flag de modification de départ/arrvié à false
 		 */
 		departureStationChanged = false;
 		arrivalStationChanged = false;
-
-		/***************************************************************************************************************
-		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
-		 */
-		g.drawImage(image, 0, 0, null);
 
 	}
 
@@ -1053,15 +1210,30 @@ public class NewTravelPanel extends PanelState {
 		lowerBar.repaint();
 	}
 
+	/**
+	 * Définit le trajet courant qui sera utiliser pour définir les paramètres de l'utilisateur. On considère qu'il est
+	 * vierge. Si l'objet est null, on affichera qu'on peut rien faire, et on ne proposera que de retourné au menu
+	 * principale
+	 * 
+	 * @param pathBuilder
+	 */
 	public void setPathInGraphConstraintBuilder(PathInGraphConstraintBuilder pathBuilder) {
 		this.pathBuilder = pathBuilder;
 		initPathInGraphConstraintBuilder();
 	}
 
+	/**
+	 * Retourne le trajet sur lequel on travaillait
+	 * 
+	 * @return
+	 */
 	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
 		return this.pathBuilder;
 	}
 
+	/**
+	 * Initialise le trajet en fonction des parmètres systèmes
+	 */
 	protected void initPathInGraphConstraintBuilder() {
 		if (pathBuilder == null)
 			return;

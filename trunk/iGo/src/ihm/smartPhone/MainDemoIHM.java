@@ -182,7 +182,7 @@ public class MainDemoIHM {
 			gnb.addRoute("3", "Subway");
 			gnb.addRoute("4", "Foot");
 			gnb.addService(1, "Wheelchair accessible");
-			gnb.addService(2, "Coffee");
+			gnb.addService(2, "Coffee","Machine à café automatique");
 			gnb.addService(3, "Flower");
 			gnb.addService(4, "Parking");
 			gnb.addStation(1, "Massy");

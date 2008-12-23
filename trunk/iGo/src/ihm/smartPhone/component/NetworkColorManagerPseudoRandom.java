@@ -80,7 +80,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 	}
 
 	@Override
-	public Color getColorForRoute(Route r) {
+	public Color getColor(Route r) {
 		if (colorRoutes.isEmpty())
 			initHash();
 		Color ret = colorRoutes.get(r);
@@ -90,7 +90,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 	}
 
 	@Override
-	public Color getColorForService(Service s) {
+	public Color getColor(Service s) {
 		if (colorServices.isEmpty())
 			initHash();
 		Color ret = colorServices.get(s);
