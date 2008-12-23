@@ -5,7 +5,9 @@ import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 
-import iGoMaster.exception.NetworkException;
+import iGoMaster.exception.GraphConstructionException;
+import iGoMaster.exception.GraphReceptionException;
+import iGoMaster.exception.NoNetworkException;
 
 import java.util.Iterator;
 import java.util.Observable;
@@ -89,9 +91,11 @@ public interface Master {
 	 * par la méthode askForATravel(...) en passant en paramètre ce PathInGraphConstraintBuilder
 	 * 
 	 * @return un PathInGraphConstraintBuilder travaillant sur un PathInGraph vide
+	 * @throws GraphConstructionException 
+	 * @throws GraphReceptionException 
 	 * @throws NoNetworkException 
 	 */
-	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NetworkException;
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NoNetworkException, GraphReceptionException, GraphConstructionException;
 
 	/**
 	 * Retourne un itérateur décrivant l'ensemble des services présents sur le réseau

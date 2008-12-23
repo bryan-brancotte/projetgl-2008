@@ -1,6 +1,6 @@
 package iGoMaster.exception;
 
 @SuppressWarnings("serial")
-public class GraphReceptionException extends NetworkException {
+public class GraphReceptionException extends Exception {
 
 }
