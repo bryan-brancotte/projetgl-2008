@@ -526,7 +526,7 @@ public class SettingsPanel extends PanelState {
 		 * Services
 		 */
 		s = father.lg("Services");
-		if (!servicesCollapsableArea.isCollapsed()) {
+		if (!servicesCollapsableArea.isCollapsed() && !ServicesRadioBoxs.isEmpty()) {
 			pos = new int[3];
 			width = 0;
 			cpt = 0;

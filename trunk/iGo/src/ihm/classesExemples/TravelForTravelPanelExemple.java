@@ -850,4 +850,10 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	public Iterator<SectionOfTravel> getTravel() {
 		return travel.iterator();
 	}
+
+	@Override
+	public void next() {
+		// TODO Auto-generated method stub
+		
+	}
 }

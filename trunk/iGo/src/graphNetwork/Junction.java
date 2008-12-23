@@ -134,7 +134,7 @@ public class Junction {
 	}
 
 	/**
-	 * Retourne la route supposé d'origine
+	 * Retourne la route supposé de destination
 	 * 
 	 * @return
 	 */
@@ -143,7 +143,7 @@ public class Junction {
 	}
 
 	/**
-	 * Retourne la route supposé de destination
+	 * Retourne la route supposé d'origine
 	 * 
 	 * @return
 	 */
@@ -161,7 +161,7 @@ public class Junction {
 	}
 
 	/**
-	 * Retourne la station supposé de destination
+	 * Retourne la station supposé d'origine
 	 * 
 	 * @return
 	 */
