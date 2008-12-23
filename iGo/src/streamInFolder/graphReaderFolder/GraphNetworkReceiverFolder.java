@@ -118,8 +118,8 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 								description = child.getTextTrim();
 							}
 						}
-						gnb.addService(id, "", description);
-						// System.out.println("Adding Service : " + id + " : " + description);
+						gnb.addService(id, description, description);
+						 System.out.println("Adding Service : " + id + " : " + description);
 					}
 
 					List<Element> stations = racine.getChild("StationsList").getChildren("Station");
@@ -150,9 +150,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						}
 						if (id != 0 && !name.equals("")) {
 							Station s = gnb.addStation(id, name);
-							// System.out.println("Adding Station : " + name);
+							 System.out.println("Adding Station : " + name);
 							for (int l = 0; l < idServicesStation.size(); l++) {
-								// System.out.println("\t Adding service : " + idServicesStation.get(l));
+								 System.out.println("\t Adding service : " + gnb.getCurrentGraphNetwork().getService(idServicesStation.get(l)).getName());
 								gnb.addServiceToStation(s, gnb.getCurrentGraphNetwork().getService(idServicesStation.get(l)));
 							}
 						}
