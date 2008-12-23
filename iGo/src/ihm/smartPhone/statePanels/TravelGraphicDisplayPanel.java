@@ -21,7 +21,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 

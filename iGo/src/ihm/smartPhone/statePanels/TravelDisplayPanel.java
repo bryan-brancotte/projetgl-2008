@@ -1,6 +1,5 @@
 package ihm.smartPhone.statePanels;
 
-import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -25,6 +24,10 @@ import javax.swing.JTextArea;
 
 public abstract class TravelDisplayPanel extends PanelState {
 
+	/**
+	 * ...
+	 */
+	private static final long serialVersionUID = -2413655590628034148L;
 	protected TravelDisplayPanel me = this;
 	protected TravelForDisplayPanel travel = null;
 	protected IhmReceivingStates actualState = IhmReceivingStates.PREVISU_TRAVEL;
@@ -43,8 +46,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar);
 		this.travel = travelForDisplayPanel;
-		if (travel == null)
-			travel = new TravelForTravelPanelExemple();
+		// if (travel == null)
+		// travel = new TravelForTravelPanelExemple();
 		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont();
 		if (imageWarning == null)
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
@@ -142,6 +145,10 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	@Override
 	public void giveControle() {
+		if (travel == null) {
+			me.setActualState(IhmReceivingStates.ERROR_STATE);
+			return;
+		}
 		upperBar.clearMessage();
 		if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
 			upperBar.setLeftCmd(father.lg("Edit"), new ActionListener() {

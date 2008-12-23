@@ -5,7 +5,11 @@ import graphNetwork.Route;
 import graphNetwork.Station;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 
+import java.util.ArrayList;
+
 public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
+
+	protected ArrayList<Junction> junctions;
 
 	public SectionOfTravelImplPathInGraph(Route route, Station station) {
 		super();
@@ -52,6 +56,7 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	}
 
 	public void addJunction(Junction j) {
+		junctions.add(j);
 		if (j.getOtherRoute(route) != route) {
 			station = j.getOtherStation(station);
 			enddingChangementTime = j.getTimeBetweenStations();
@@ -59,6 +64,12 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 		} else {
 			timeSection += j.getTimeBetweenStations();
 		}
+	}
 
+	public boolean isValide() {
+		for (Junction j : junctions)
+			if (!j.isEnable())
+				return false;
+		return true;
 	}
 }
