@@ -53,12 +53,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	public static final IHMGraphicQuality defaultQualityForIhm = IHMGraphicQuality.AS_FAST_AS_WE_CAN;
 
+	/**
+	 * Les composants et variables de l'ihm
+	 */
 	protected IGoFlowLayout sizeAdapteur = null;
 	protected iGoSmartPhoneSkin skin;
 	protected LinkedList<iGoSmartPhoneSkin> skins;
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 	protected NetworkColorManager networkColorManager;
+	protected TravelForTravelPanel travel; 
 
+	/**
+	 * Les 3 zones de l'IHM
+	 */
 	protected UpperBar upperBar;
 	protected int oldSizeLine = -1;
 	protected Panel centerPanel;
@@ -536,6 +543,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkTravelGraphicDisplayPanel();
 			}
 			travelGraphicPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
+			// travelGraphicPanel.setPathInGraph();
+			// TODO ......transmition path
 			addToCenterPanel(travelGraphicPanel);
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE) {
@@ -623,6 +632,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public boolean returnPathAsked(PathInGraph path, String message) {
 		System.out.println(path);
+		// TODO ......returnPathAsked
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
 		this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
