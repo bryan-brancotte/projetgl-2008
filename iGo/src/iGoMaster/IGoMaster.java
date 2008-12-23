@@ -102,26 +102,35 @@ public class IGoMaster implements Master, Observer
 				threads.add(currentThread());
 				
 				System.out.println("elo --> Algo lancé");
-				try {
-					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
-				} catch (NoRouteForStationException e1) {
-					e1.printStackTrace();
-				}
 				
-				try {currentThread().wait();} 
+				try 
+				{
+					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+				
+					currentThread().wait();
+					
+					System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
+					
+					/* Demander à tony comment savoir quelles contraintes sont relachées */
+					ihm.returnPathAsked(
+							collectionBuilder.getPathInGraph(),
+							"Haha message qui sert à rien?"
+							);
+					
+					threads.clear();
+					
+					currentThread().interrupt();
+				} 
+				catch (NoRouteForStationException e) 
+				{
+					System.err.print("elo --> échec de l'algorithme, pas de route associée à la station");
+				}
 				catch (InterruptedException e) 
 				{
-					System.err.print("Thread interrompu inopinement. L'algorithme n'a peut être pas fini son calcul");
-					/**sauvegarde de l'ancien pathInGraph pour relancer l'algo?
-					launchAlgo();*/
+					System.err.print("elo --> thread interrompu inopinement. L'algorithme n'a peut être pas fini son calcul");
 				}
 				
-				ihm.returnPathAsked(
-						collectionBuilder.getPathInGraph(),
-						"Haha message qui sert à rien?"
-						);
-				
-				threads.clear();
+				ihm.returnPathAsked(null,"Echec");
 			}
 		}.start();
 	}
