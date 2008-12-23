@@ -137,13 +137,25 @@ public class MainDemoIHM {
 			// }, iGoSmartPhoneSkin.WHITE);
 			// }, iGoSmartPhoneSkin.PINK);
 			// }, iGoSmartPhoneSkin.ORANGE);
-		}/* , iGoSmartPhoneSkin.BLACK/* */);
+		}/* , iGoSmartPhoneSkin.BLACK/ */);
 		ihm.start(true, 8);
 		new ExecMultiThread<IHM>(ihm) {
 
 			@Override
 			public void run() {
-				int t = 1;
+				try {
+					Thread.currentThread().sleep(10000);
+					this.origine.stop();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+		new ExecMultiThread<IHM>(ihm) {
+
+			@Override
+			public void run() {
+				int t = 100;
 				try {
 					Thread.currentThread().sleep(t * 10);
 					this.origine.showMessageSplashScreen("simplet");
@@ -182,7 +194,7 @@ public class MainDemoIHM {
 			gnb.addRoute("3", "Subway");
 			gnb.addRoute("4", "Foot");
 			gnb.addService(1, "Wheelchair accessible");
-			gnb.addService(2, "Coffee","Machine à café automatique");
+			gnb.addService(2, "Coffee", "Machine à café automatique");
 			gnb.addService(3, "Flower");
 			gnb.addService(4, "Parking");
 			gnb.addStation(1, "Massy");
