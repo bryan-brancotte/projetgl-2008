@@ -30,7 +30,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		destination = path.getDestination();
 		Iterator<Junction> itJ = path.getJunctions();
 		Junction junction;
-		SectionOfTravel section=new SectionOfTravel;
+		SectionOfTravel section=new SectionOfTravelImplPathInGraph();
 		while (itJ.hasNext()) {
 			junction = itJ.next();
 

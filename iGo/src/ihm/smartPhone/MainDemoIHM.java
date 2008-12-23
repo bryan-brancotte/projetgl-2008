@@ -128,6 +128,8 @@ public class MainDemoIHM {
 
 			@Override
 			public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
+				if(true)
+					return null;
 				return gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder()
 						.getPathInGraphConstraintBuilder();
 			}
@@ -145,7 +147,7 @@ public class MainDemoIHM {
 			public void run() {
 				try {
 					Thread.currentThread().sleep(10000);
-					this.origine.stop();
+//					this.origine.stop();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

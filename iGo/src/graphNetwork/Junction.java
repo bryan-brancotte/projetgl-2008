@@ -10,22 +10,22 @@ import graphNetwork.exception.StationNotOnRoadException;
 public class Junction {
 
 	private float cost = 0F;
+
 	private boolean enable = true;
+
 	private boolean pedestrian = false;
-	private Route routeA;
-	private Route routeB;
-	private Station stationB;
-	private Station stationA;
-	private int timeBetweenStations = 0;
+
+	private Route routeDestination;
+
 	/**
-	 * Permet de savoir si c'est une jonction entre deux stations qui sont sur la même ligne (et donc où vous restez dans
-	 * votre train), ou une jonction où vous devez descendre du train pour prendre un autre ligne
+	 * Permet de savoir si c'est une jonction entre deux stations qui sont sur la même ligne (et donc où vous restez
+	 * dans votre train), ou une jonction où vous devez descendre du train pour prendre un autre ligne
 	 */
 	private boolean routeLink = false;
-
-	protected void setTimeBetweenStations(int timeBetweenStations) {
-		this.timeBetweenStations = timeBetweenStations;
-	}
+	private Route routeOrigin;
+	private Station stationDestination;
+	private Station stationOrigin;
+	private int timeBetweenStations = 0;
 
 	/**
 	 * Constructeur d'une jonction, il propose de fournir l'ensemble des informations au sujet de la jonction en une
@@ -46,8 +46,8 @@ public class Junction {
 	 * @param routeLink
 	 *            est-ce un lien entre deux station de la même ligne, c'est à dire que l'on reste dans le wagon
 	 * @param pedestrian
-	 *            si le lien n'est pas routeLink, on doit descendre du wagon, mais devons nous aussi sortir de la station
-	 *            pour aller à une autre?
+	 *            si le lien n'est pas routeLink, on doit descendre du wagon, mais devons nous aussi sortir de la
+	 *            station pour aller à une autre?
 	 * @throws StationNotOnRoadException
 	 *             si une des stations fournies n'est pas sur la ligne où elle devrait être
 	 */
@@ -57,36 +57,25 @@ public class Junction {
 		super();
 		this.cost = cost;
 		this.pedestrian = pedestrian;
-		this.routeA = routeA;
-		this.routeB = routeB;
-		this.stationB = stationB;
-		this.stationA = stationA;
+		this.routeOrigin = routeA;
+		this.routeDestination = routeB;
+		this.stationDestination = stationB;
+		this.stationOrigin = stationA;
 		this.timeBetweenStations = timeBetweenStations;
 		this.routeLink = routeLink;
 	}
 
-	protected void setCost(float cost) {
-		this.cost = cost;
-	}
-
 	/**
-	 * Utiliser le {@link GraphNetworkBuilder}
-	 */
-	@Deprecated
-	public void setEnable(boolean enable) {
-	}
-
-	/**
-	 * Setteur de l'état d'un jonction
+	 * Permet de savoir si la jonction correspond bien à la jonction hypothétique passée en paramètre. Dans l'ordre A=>B
 	 * 
-	 * @param enable
+	 * @param routeA
+	 * @param stationA
+	 * @param routeB
+	 * @param stationB
+	 * @return true si la jonction lie le couple A=>B
 	 */
-	public void setToEnable(boolean enable) {
-		this.enable = enable;
-	}
-
-	protected void setPedestrian(boolean pedestrian) {
-		this.pedestrian = pedestrian;
+	public boolean equals(Route routeA, Station stationA, Route routeB, Station stationB) {
+		return (routeA == this.routeOrigin && stationA == this.stationOrigin && routeB == this.routeDestination && stationB == this.stationDestination);
 	}
 
 	/**
@@ -96,6 +85,109 @@ public class Junction {
 	 */
 	public float getCost() {
 		return this.cost;
+	}
+
+	/**
+	 * Retourne l'autre route de la jonction.
+	 * 
+	 * @param me
+	 *            la route qui vous sert de point de repère
+	 * @return l'autre route, ou null si la route passée en paramètre n'est pas dans la jonction
+	 */
+	public Route getOtherRoute(Route me) {
+		if (me.getId() == routeOrigin.getId())
+			return routeDestination;
+		if (me.getId() == routeDestination.getId())
+			return routeOrigin;
+		return null;
+	}
+
+	/**
+	 * Retourne la route sur laquelle est l'autre station. Attention si jamais le lien a la même station des deux coté,
+	 * cette méthode retournera toujours la routeB.
+	 * 
+	 * @param me
+	 *            la station qui sert de point de repère
+	 * @return l'autre route, ou null si la station passée en paramètre n'est pas dans la jonction
+	 */
+	public Route getOtherRoute(Station me) {
+		if (me.getId() == stationOrigin.getId())
+			return routeDestination;
+		if (me.getId() == stationDestination.getId())
+			return routeOrigin;
+		return null;
+	}
+
+	/**
+	 * Retourne l'autre station de la jonction.
+	 * 
+	 * @param me
+	 *            la station qui sert de point de repère
+	 * @return l'autre station, ou null si la station passée en paramètre n'est pas dans la jonction
+	 */
+	public Station getOtherStation(Station me) {
+		if (me.getId() == stationOrigin.getId())
+			return stationDestination;
+		if (me.getId() == stationDestination.getId())
+			return stationOrigin;
+		return null;
+	}
+
+	/**
+	 * Retourne la route supposé d'origine
+	 * 
+	 * @return
+	 */
+	public Route getRouteDestination() {
+		return routeDestination;
+	}
+
+	/**
+	 * Retourne la route supposé de destination
+	 * 
+	 * @return
+	 */
+	public Route getRouteOrigin() {
+		return routeOrigin;
+	}
+
+	/**
+	 * Retourne la station supposé de destination
+	 * 
+	 * @return
+	 */
+	public Station getStationDestination() {
+		return stationDestination;
+	}
+
+	/**
+	 * Retourne la station supposé de destination
+	 * 
+	 * @return
+	 */
+	public Station getStationOrigin() {
+		return stationOrigin;
+	}
+
+	/**
+	 * Informe du temps qu'il faut pour parcourir la jonction
+	 * 
+	 * @return
+	 */
+	public int getTimeBetweenStations() {
+		return this.timeBetweenStations;
+	}
+
+	/**
+	 * Permet de savoir si la station dont on passe la route en paramètre est un des cotés de la jonction
+	 * 
+	 * @param route
+	 * @param station
+	 * @return
+	 */
+	public boolean haveOnASide(Route route, Station station) {
+		return (route == this.routeOrigin && station == this.stationOrigin || route == this.routeDestination
+				&& station == this.stationDestination);
 	}
 
 	/**
@@ -117,70 +209,43 @@ public class Junction {
 	}
 
 	/**
-	 * Informe du temps qu'il faut pour parcourir la jonction
+	 * Accesseur permettant de savoir si la jonction relie deux stations sur la même ligne, ou si on doit sortir du
+	 * train pour passer d'un coté à l'autre de la jonction
 	 * 
-	 * @return
-	 */
-	public int getTimeBetweenStations() {
-		return this.timeBetweenStations;
-	}
-
-	/**
-	 * Retourne la route sur laquelle est l'autre station. Attention si jamais le lien a la même station des deux coté,
-	 * cette méthode retournera toujours la routeB.
-	 * 
-	 * @param me
-	 *            la station qui sert de point de repère
-	 * @return l'autre route, ou null si la station passée en paramètre n'est pas dans la jonction
-	 */
-	public Route getOtherRoute(Station me) {
-		if (me.getId() == stationA.getId())
-			return routeB;
-		if (me.getId() == stationB.getId())
-			return routeA;
-		return null;
-	}
-
-	/**
-	 * Retourne l'autre route de la jonction.
-	 * 
-	 * @param me
-	 *            la route qui vous sert de point de repère
-	 * @return l'autre route, ou null si la route passée en paramètre n'est pas dans la jonction
-	 */
-	public Route getOtherRoute(Route me) {
-		if (me.getId() == routeA.getId())
-			return routeB;
-		if (me.getId() == routeB.getId())
-			return routeA;
-		return null;
-	}
-
-	/**
-	 * Retourne l'autre station de la jonction.
-	 * 
-	 * @param me
-	 *            la station qui sert de point de repère
-	 * @return l'autre station, ou null si la station passée en paramètre n'est pas dans la jonction
-	 */
-	public Station getOtherStation(Station me) {
-		if (me.getId() == stationA.getId())
-			return stationB;
-		if (me.getId() == stationB.getId())
-			return stationA;
-		return null;
-	}
-
-	/**
-	 * Accesseur permettant de savoir si la jonction relie deux stations sur la même ligne, ou si on doit sortir du train
-	 * pour passer d'un coté à l'autre de la jonction
-	 * 
-	 * @return true si on reste dans notre train pour passer d'un coté à l'autre.</br> false si c'est un changement.</br>
-	 *         Le retour à true implique donc que le coût est à 0, que les routes sont les mêmes et que les stations sont
-	 *         différentes.</br>
+	 * @return true si on reste dans notre train pour passer d'un coté à l'autre.</br> false si c'est un
+	 *         changement.</br> Le retour à true implique donc que le coût est à 0, que les routes sont les mêmes et que
+	 *         les stations sont différentes.</br>
 	 */
 	public boolean isRouteLink() {
 		return routeLink;
+	}
+
+	protected void setCost(float cost) {
+		this.cost = cost;
+	}
+
+	/**
+	 * Utiliser le {@link GraphNetworkBuilder}
+	 */
+	@Deprecated
+	public void setEnable(boolean enable) {
+	}
+
+	protected void setPedestrian(boolean pedestrian) {
+		this.pedestrian = pedestrian;
+	}
+
+	protected void setTimeBetweenStations(int timeBetweenStations) {
+		this.timeBetweenStations = timeBetweenStations;
+	}
+
+	/**
+	 * Setteur de l'état d'un jonction
+	 * 
+	 * @param enable
+	 */
+	public void setToEnable(boolean enable) {
+		this.enable = enable;
 	}
 
 	/**
@@ -192,35 +257,12 @@ public class Junction {
 			s = "R_";
 		else
 			s = "C_";
-		s += stationA.getName() + "(" + routeA.getId() + ")";
-		if (routeA == routeB)
+		s += stationOrigin.getName() + "(" + routeOrigin.getId() + ")";
+		if (routeOrigin == routeDestination)
 			s += "<";
 		s += "=>";
-		s += stationB.getName() + "(" + routeB.getId() + ") : " + cost + "$ in " + timeBetweenStations + " minutes";
+		s += stationDestination.getName() + "(" + routeDestination.getId() + ") : " + cost + "$ in "
+				+ timeBetweenStations + " minutes";
 		return s;
-	}
-
-	/**
-	 * Permet de savoir si la jonction correspond bien à la jonction hypothétique passée en paramètre. Dans l'ordre A=>B
-	 * 
-	 * @param routeA
-	 * @param stationA
-	 * @param routeB
-	 * @param stationB
-	 * @return true si la jonction lie le couple A=>B
-	 */
-	public boolean equals(Route routeA, Station stationA, Route routeB, Station stationB) {
-		return (routeA == this.routeA && stationA == this.stationA && routeB == this.routeB && stationB == this.stationB);
-	}
-
-	/**
-	 * Permet de savoir si la station dont on passe la route en paramètre est un des cotés de la jonction
-	 * 
-	 * @param route
-	 * @param station
-	 * @return
-	 */
-	public boolean haveOnASide(Route route, Station station) {
-		return (route == this.routeA && station == this.stationA || route == this.routeB && station == this.stationB);
 	}
 }
