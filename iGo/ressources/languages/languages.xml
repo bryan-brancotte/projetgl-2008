@@ -227,6 +227,10 @@
 				<FRANCAIS value="Stations intermédiaires"/>
 				<ENGLISH value="Intermediates stations"/>
 			</IntermediatesStations>
+			<AvoidsStations>
+				<FRANCAIS value="Stations à éviter"/>
+				<ENGLISH value="Stations to avoid"/>
+			</AvoidsStations>
 			<Language>
 				<FRANCAIS value="Langue"/>
 				<ENGLISH value="Language"/>

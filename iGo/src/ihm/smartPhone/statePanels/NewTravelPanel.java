@@ -81,24 +81,23 @@ public class NewTravelPanel extends PanelState {
 	protected PTButton intermediatesStationsButton;
 	protected Hashtable<Integer, PTButton> intermediatesStationsDel;
 
-	protected final int avoidStations = 7;
-	protected PTArea avoidStationsArea;
-	protected PTAutoCompletionTextBox avoidStationsTextBox;
-	protected PTCollapsableArea avoidStationsCollapsableArea;
-	protected PTButton avoidStationsButton;
-	protected Hashtable<Integer, PTButton> avoidStationsDel;
+	protected final int avoidsStationsAdd = 7;
+	protected final int avoidsStationsRemove = 8;
+	protected PTArea avoidsStationsArea;
+	protected PTAutoCompletionTextBox avoidsStationsTextBox;
+	protected PTCollapsableArea avoidsStationsCollapsableArea;
+	protected PTButton avoidsStationsButton;
+	protected Hashtable<Integer, PTButton> avoidsStationsDel;
 
 	protected boolean departureStationChanged;
 	protected PTArea departureStationArea;
 	protected PTAutoCompletionTextBox departureStationTextBox;
 	protected PTCollapsableArea departureStationCollapsableArea;
-	// protected PTButton departureStationButton;
 
 	protected boolean arrivalStationChanged;
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
 	protected PTCollapsableArea arrivalStationCollapsableArea;
-	// protected PTButton arrivalStationButton;
 
 	protected PTScrollBar scrollBar;
 
@@ -311,20 +310,12 @@ public class NewTravelPanel extends PanelState {
 		arrivalStationCollapsableArea.addComponent(arrivalStationTextBox);
 		arrivalStationCollapsableArea.addComponent(arrivalStationNew);
 
-		// TODO ........tafMake.........................
 		/***************************************************************************************************************
 		 * Station inter
 		 */
 		intermediatesStationsCollapsableArea = makeCollapsableArea();
-		// intermediatesStationsCollapsableArea.changeCollapseState();
-		// intermediatesStationsVect = new Vector<PairPTButtonStation>();
+		intermediatesStationsCollapsableArea.changeCollapseState();
 		intermediatesStationsArea = makeArea();
-		it = father.getStations();
-		stationsHash = new HashMap<String, Station>();
-		while (it.hasNext()) {
-			st = it.next();
-			stationsHash.put(st.getName(), st);
-		}
 		intermediatesStationsButton = makeButton(ex = new CodeExecutor1P<PanelTooled>(this) {
 			@Override
 			public void execute() {
@@ -337,20 +328,41 @@ public class NewTravelPanel extends PanelState {
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
 		intermediatesStationsDel = new Hashtable<Integer, PTButton>();
 
-		// avoidStationsDel = new Hashtable<Integer, PTButton>();
+		// TODO ........tafMake.........................
+		/***************************************************************************************************************
+		 * Station avoid
+		 */
+		avoidsStationsCollapsableArea = makeCollapsableArea();
+		avoidsStationsCollapsableArea.changeCollapseState();
+		avoidsStationsArea = makeArea();
+		avoidsStationsButton = makeButton(ex = new CodeExecutor1P<PanelTooled>(this) {
+			@Override
+			public void execute() {
+				recordChangedSetting(avoidsStationsAdd, avoidsStationsTextBox.getText());
+				this.origine.repaint();
+			}
+		});
+		avoidsStationsTextBox = makeAutoCompletionTextBox(stations, null, ex);
+		avoidsStationsCollapsableArea.addComponent(avoidsStationsArea);
+		avoidsStationsCollapsableArea.addComponent(avoidsStationsTextBox);
+		avoidsStationsDel = new Hashtable<Integer, PTButton>();
 	}
 
 	protected void recordChangedSetting(int familly, String s) {
-		// TODO ........tafRecord
 		Station station;
 		switch (familly) {
 		case travelMode:
+			// TODO ........tafRecord
 			for (PairPTCheckBox p : travelModeCheckBoxs)
 				if (p.name.compareTo(s) == 0) {
-					if (p.chk.isClicked())
-						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.ENABLE.toString());
-					else
-						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.toString());
+					Iterator<KindRoute> itR = father.getKindRoutes();
+					KindRoute kind;
+					while (itR.hasNext())
+						if ((kind = itR.next()).getKindOf().compareTo(s) == 0)
+							if (p.chk.isClicked())
+								pathBuilder.removeRefusedKindRoute(kind);
+							else
+								pathBuilder.addRefusedKindRoute(kind);
 					return;
 				}
 			break;
@@ -391,42 +403,44 @@ public class NewTravelPanel extends PanelState {
 		case services:
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
+					Iterator<Service> itS = father.getServices();
+					Service service;
 					if (p.rbs[0].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Idle.toString());
+						while (itS.hasNext()) {
+							if ((SettingsKey.SERVICES_.toString() + (service = itS.next()).getId()).compareTo(s) == 0) {
+								pathBuilder.removeSeviceOnce(service);
+								pathBuilder.removeSeviceAlways(service);
+								return;
+							}
+						}
 						return;
 					}
 					if (p.rbs[1].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Once.toString());
+						while (itS.hasNext()) {
+							if ((SettingsKey.SERVICES_.toString() + (service = itS.next()).getId()).compareTo(s) == 0) {
+								if (pathBuilder.getCurrentPathInGraph().containsServicesOnce(service))
+									return;
+								pathBuilder.removeSeviceAlways(service);
+								pathBuilder.addSeviceOnce(service);
+								return;
+							}
+						}
 						return;
 					}
 					if (p.rbs[2].isClicked()) {
-						father.setConfig(SettingsKey.SERVICES_ + s, SettingsValue.Always.toString());
+						while (itS.hasNext()) {
+							if ((SettingsKey.SERVICES_.toString() + (service = itS.next()).getId()).compareTo(s) == 0) {
+								if (pathBuilder.getCurrentPathInGraph().containsServicesAlways(service))
+									return;
+								pathBuilder.addSeviceAlways(service);
+								pathBuilder.removeSeviceOnce(service);
+								return;
+							}
+						}
 						return;
 					}
 				}
 			}
-			// case quality:
-			// if (qualityRadioBoxs[0].isClicked()) {
-			// father.setConfig(s, IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() + "");
-			// this.setQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
-			// return;
-			// }
-			// if (qualityRadioBoxs[1].isClicked()) {
-			// father.setConfig(s, IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() + "");
-			// this.setQuality(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING);
-			// return;
-			// }
-			// if (qualityRadioBoxs[2].isClicked()) {
-			// father.setConfig(s, IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() + "");
-			// this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
-			// return;
-			// }
-			// if (qualityRadioBoxs[3].isClicked()) {
-			// father.setConfig(s, IHMGraphicQuality.HIGHER_QUALITY.getValue() + "");
-			// this.setQuality(IHMGraphicQuality.HIGHER_QUALITY);
-			// return;
-			// }
-			// break;
 		case intermediatesStationsAdd:
 			station = stationsHash.get(s);
 			if (station != null && !pathBuilder.getCurrentPathInGraph().containsSteps(station)) {
@@ -438,9 +452,6 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.repaint();
 					}
 				}));
-				// pathBuilder.removeStepStations(station);
-				// // TODO
-				// } else {
 				pathBuilder.addStepStations(station);
 				intermediatesStationsTextBox.setText("");
 			}
@@ -452,17 +463,29 @@ public class NewTravelPanel extends PanelState {
 				pathBuilder.removeStepStations(station);
 			}
 			break;
-		// case intermediatesStationsRemove:
-		// pathBuilder.removeStepStations(stationsHash.get(s));
-		// break;
-		// case avoidStationsAdd:
-		// pathBuilder.addAvoidStations(stationsHash.get(s));
-		// break;
-		// case avoidStationsRemove:
-		// pathBuilder.removeAvoidStations(stationsHash.get(s));
-		// break;
+		case avoidsStationsAdd:
+			station = stationsHash.get(s);
+			if (station != null && !pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)) {
+				avoidsStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this, s) {
+					@Override
+					public void execute() {
+						recordChangedSetting(avoidsStationsRemove, this.origineB);
+						this.origineA.repaint();
+					}
+				}));
+				pathBuilder.addAvoidStations(station);
+				avoidsStationsTextBox.setText("");
+			}
+			break;
+		case avoidsStationsRemove:
+			station = stationsHash.get(s);
+			if (station != null && pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)) {
+				avoidsStationsDel.remove(station.getId());
+				pathBuilder.removeAvoidStations(station);
+			}
+			break;
 		default:
-			System.out.println("Not handeled : " + familly + " : " + s);
+			System.err.println("NewTravel : record (" + familly + "," + s + " not handeled.");
 			break;
 		}
 	}
@@ -893,14 +916,15 @@ public class NewTravelPanel extends PanelState {
 			intermediatesStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
 					* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 		}
-		// TODO ........tafPaint
 		intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
 				intermediatesStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
 		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
 			if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
-					|| pathBuilder.getCurrentPathInGraph().containsSteps(station)) {
+					|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
+					|| pathBuilder.getCurrentPathInGraph().getDestination() == station
+					|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
 				intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
 			} else
 				intermediatesStationsButton.draw(buffer, imageOk);
@@ -925,134 +949,62 @@ public class NewTravelPanel extends PanelState {
 						rec.x + rec.width - decalage - imageDel.getIconWidth(),
 						rec.y + (rec.height - imageDel.getIconHeight() >> 1), imageDel);
 			}
-			// drawRoutesAndServices(intermediatesStationsTextBox.getArea().x,
-			// intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
-			// + decalageDemi + taille, decalage, taille, itS.next());
 		}
-		// for(int i=0;)
 		// dessins des station déja rentré
 		ordonne = intermediatesStationsCollapsableArea.getArea().y
 				+ intermediatesStationsCollapsableArea.getArea().height + decalage;
-		// /***************************************************************************************************************
-		// * AutoCompletionTextArea
-		// */
-		// TODO ........AutoCompletionTextArea
-		// s = father.lg("Departure");
-		// if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-		// width = getWidth() - decalage2 - decalage;
-		// // intermediatesStationsNew.prepareArea(buffer, x, y, height, width)
-		// intermediatesStationsTextBox.prepareArea(buffer, decalage << 1, intermediatesStationsCollapsableArea
-		// .getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-		// .getIntermediateFont()), width - decalage2 - decalage
-		// - father.getSizeAdapteur().getSizeSmallFont(), father.getSizeAdapteur().getSmallFont());
-		// intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
-		// + intermediatesStationsTextBox.getArea().width + decalage,
-		// intermediatesStationsTextBox.getArea().y, imageOk);
-		// intermediatesStationsNew.update(buffer, intermediatesStationsTextBox.getArea().x,
-		// intermediatesStationsTextBox.getArea().y, 40, intermediatesStationsTextBox.getArea().width, null,
-		// null);
-		// }
-		// intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-		// .getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		// if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-		// intermediatesStationsTextBox.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-		// .getColorInside(), father.getSkin().getColorLetter());
-		// Station station = this.sationsHash.get(intermediatesStationsTextBox.getText());
-		// if (station != null) {
-		// intermediatesStationsButton.draw(buffer, imageOk);
-		// buffer.setFont(father.getSizeAdapteur().getSmallFont());
-		// buffer.setColor(father.getSkin().getColorLetter());
-		// int xActu, yActu, taille;
-		// Iterator<Route> itRoute = station.getRoutes();
-		// Route route;
-		// Iterator<Service> itService = station.getServices();
-		// Service service;
-		// xActu = intermediatesStationsTextBox.getArea().x;
-		// yActu = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
-		// + decalageDemi;
-		// s = "";
-		// while (itRoute.hasNext()) {
-		// route = itRoute.next();
-		// s += route.getId();
-		// if (itRoute.hasNext())
-		// s += ", ";
-		// }
-		// buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
-		// xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + decalageDemi;
-		//
-		// while (itService.hasNext()) {
-		// service = itService.next();
-		// s = service.getName().substring(0, 1);
-		// taille = (int) (buffer.getFont().getSize() * 1.3F);
-		// buffer.setColor(father.getNetworkColorManager().getColorForService(service));
-		// buffer.fillOval(xActu, yActu, taille + 1, taille + 1);
-		// buffer.setColor(father.getSkin().getColorLetter());
-		// buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
-		// buffer.drawString(s, xActu + (taille >> 1)
-		// - (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
-		// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-		// xActu += taille + decalageDemi;
-		// }
-		// } else {
-		// intermediatesStationsButton.setEnable(false);
-		// }
-		// // les stations déja choisie
-		//
-		// }
-		// ordonne = intermediatesStationsCollapsableArea.getArea().y
-		// + intermediatesStationsCollapsableArea.getArea().height + decalage;
-		// // imageOk;imageDel;
-		// /***************************************************************************************************************
-		// * Quality
-		// */
-		// s = father.lg("GraphicalQuality");
-		// if (!qualityCollapsableArea.isCollapsed()) {
-		// width = getWidth() - decalage2;
-		//
-		// qualityRadioBoxs[0].prepareArea(buffer, decalage + decalageDemi, qualityCollapsableArea
-		// .getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-		// .getIntermediateFont()), father.lg("Minimal"), father.getSizeAdapteur().getSmallFont());
-		//
-		// qualityRadioBoxs[1].prepareArea(buffer, qualityRadioBoxs[0].getArea().x
-		// + qualityRadioBoxs[0].getArea().width + decalageDemi, qualityRadioBoxs[0].getArea().y, father
-		// .lg("Low"), father.getSizeAdapteur().getSmallFont());
-		// // si ca sort du cadre, retour à la ligne
-		// if ((qualityRadioBoxs[1].getArea().x + qualityRadioBoxs[1].getArea().width) > width)
-		// qualityRadioBoxs[1].prepareArea(buffer, decalage + decalageDemi, qualityRadioBoxs[1].getArea().y
-		// + qualityRadioBoxs[1].getArea().height + decalageDemi, father.lg("Low"), father
-		// .getSizeAdapteur().getSmallFont());
-		//
-		// qualityRadioBoxs[2].prepareArea(buffer, qualityRadioBoxs[1].getArea().x
-		// + qualityRadioBoxs[1].getArea().width + decalageDemi, qualityRadioBoxs[1].getArea().y, father
-		// .lg("Medium"), father.getSizeAdapteur().getSmallFont());
-		// // si ca sort du cadre, retour à la ligne
-		// if ((qualityRadioBoxs[2].getArea().x + qualityRadioBoxs[2].getArea().width) > width)
-		// qualityRadioBoxs[2].prepareArea(buffer, decalage + decalageDemi, qualityRadioBoxs[2].getArea().y
-		// + qualityRadioBoxs[2].getArea().height + decalageDemi, father.lg("Medium"), father
-		// .getSizeAdapteur().getSmallFont());
-		//
-		// qualityRadioBoxs[3].prepareArea(buffer, qualityRadioBoxs[2].getArea().x
-		// + qualityRadioBoxs[2].getArea().width + decalageDemi, qualityRadioBoxs[2].getArea().y, father
-		// .lg("High"), father.getSizeAdapteur().getSmallFont());
-		// // si ca sort du cadre, retour à la ligne
-		// if ((qualityRadioBoxs[3].getArea().x + qualityRadioBoxs[3].getArea().width) > width)
-		// qualityRadioBoxs[3].prepareArea(buffer, decalage + decalageDemi, qualityRadioBoxs[3].getArea().y
-		// + qualityRadioBoxs[3].getArea().height + decalageDemi, father.lg("High"), father
-		// .getSizeAdapteur().getSmallFont());
-		// }
-		// qualityCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
-		// father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		// if (!qualityCollapsableArea.isCollapsed()) {
-		// qualityRadioBoxs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
-		// qualityRadioBoxs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
-		// qualityRadioBoxs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
-		// qualityRadioBoxs[3].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
-		// .getColorSubAreaInside(), father.getSkin().getColorLetter());
-		// }
-		// ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage;
+
+		/***************************************************************************************************************
+		 * Station à éviter
+		 */
+		s = father.lg("AvoidsStations");
+		taille = prepareAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
+				avoidsStationsCollapsableArea, s, ordonne, decalage, decalage2);
+		if (!avoidsStationsCollapsableArea.isCollapsed()) {
+			avoidsStationsButton.prepareArea(buffer, avoidsStationsTextBox.getArea().x
+					+ avoidsStationsTextBox.getArea().width + decalage, avoidsStationsTextBox.getArea().y, imageOk);
+			rec.setBounds(avoidsStationsTextBox.getArea().x, avoidsStationsArea.getArea().height
+					+ avoidsStationsArea.getArea().y, avoidsStationsTextBox.getArea().width, 0);
+			avoidsStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getAvoidStationsCount()
+					* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
+		}
+		// TODO ........tafPaint
+		avoidsStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		station = drawAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
+				avoidsStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
+		if (!avoidsStationsCollapsableArea.isCollapsed()) {
+			if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
+					|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
+					|| pathBuilder.getCurrentPathInGraph().getDestination() == station
+					|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
+				avoidsStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
+			} else
+				avoidsStationsButton.draw(buffer, imageOk);
+			itS = pathBuilder.getCurrentPathInGraph().getAvoidStationsIter();
+			// x = avoidsStationsTextBox.getArea().x;
+			// y = avoidsStationsTextBox.getArea().y + avoidsStationsTextBox.getArea().height
+			// + decalageDemi + taille;
+			// rec.height += decalageDemi;
+			while (itS.hasNext()) {
+				station = itS.next();
+				rec.y += rec.height + decalageDemi;
+				rec.height = 0;
+				buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+				rec.height += getHeightString(station.getName(), buffer);
+				buffer.drawString(station.getName(), rec.x + decalageDemi, rec.y + rec.height);
+				// buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+				drawRoutesAndServices(rec.x + decalageDemi, rec.y + rec.height + decalageDemi, decalage, taille,
+						station);
+				rec.height += taille + decalage;
+				buffer.drawRect(rec.x, rec.y, rec.width, rec.height);
+				avoidsStationsDel.get(station.getId()).update(buffer,
+						rec.x + rec.width - decalage - imageDel.getIconWidth(),
+						rec.y + (rec.height - imageDel.getIconHeight() >> 1), imageDel);
+			}
+		}
+		// dessins des station déja rentré
+		ordonne = avoidsStationsCollapsableArea.getArea().y + avoidsStationsCollapsableArea.getArea().height + decalage;
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
@@ -1092,10 +1044,10 @@ public class NewTravelPanel extends PanelState {
 			lowerBar.setRightCmd(father.lg("FindAPath"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("FindAPath.actionPerformed():" + pathBuilder.isValideForSolving());
+					System.out.println(pathBuilder.getCurrentPathInGraph());
 					if (pathBuilder.isValideForSolving()) {
 						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
-					}	
+					}
 				}
 			});
 		lowerBar.repaint();
@@ -1142,7 +1094,8 @@ public class NewTravelPanel extends PanelState {
 
 		itR = father.getKindRoutes();
 		while (itR.hasNext())
-			if (father.getConfig(SettingsKey.TRAVEL_MODE_ + (kind = itR.next()).getKindOf()).compareTo("0") == 0)
+			if (father.getConfig(SettingsKey.TRAVEL_MODE_ + (kind = itR.next()).getKindOf()).compareTo(
+					SettingsValue.DISABLE.toString()) == 0)
 				pathBuilder.addRefusedKindRoute(kind);
 
 		itS = father.getServices();
