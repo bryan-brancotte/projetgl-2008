@@ -13,7 +13,7 @@ public class Route {
 	private String id = "";// @uml.property name="id"
 	private KindRoute kindRoute;// @uml.property name="kindRoute"
 	protected LinkedList<Station> stations;// @uml.property name="stations"
-	private LinkedList<Station> stationsDisabled;
+	protected LinkedList<Station> stationsDisabled;
 
 	/**
 	 * Constructeur d'un nouvel objet avec un id spécifique et un type spécifique. L'unicité de l'id auprès des autres
