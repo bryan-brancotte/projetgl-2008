@@ -49,11 +49,16 @@ public interface TravelForDisplayPanel {
 	public boolean update();
 
 	/**
-	 * Retourne le prochaine interchangement
+	 * Retourne le prochain point de passage
 	 * 
 	 * @return
 	 */
 	public String getNextStop();
+
+	/**
+	 * Passe à la prochaine section
+	 */
+	public void next();
 
 	/**
 	 * Retourne un iterateur sur la décomposition du trajet. Le premier element doit être une section de temps nulle qui

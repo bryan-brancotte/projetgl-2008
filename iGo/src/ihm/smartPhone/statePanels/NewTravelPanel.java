@@ -743,7 +743,7 @@ public class NewTravelPanel extends PanelState {
 					tmp = (getHeight() - getHeightString(s, g) * 7 >> 1));
 			s = "un nouveau trajet :";
 			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
-			s = "le master à passé";
+			s = "le master a passé";
 			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
 			s = "un constructeur vide";
 			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));

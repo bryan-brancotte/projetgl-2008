@@ -2,6 +2,7 @@ package ihm.smartPhone.component;
 
 import graphNetwork.Junction;
 import graphNetwork.PathInGraph;
+import graphNetwork.Route;
 import graphNetwork.Station;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 
@@ -9,6 +10,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPanel {
+
+	protected PathInGraph path;
 
 	protected Station origin;
 
@@ -24,35 +27,40 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	LinkedList<SectionOfTravel> travel;
 
+	LinkedList<SectionOfTravel> travelDone;
+
 	public TravelForDisplayPanelImplPathInGraph(PathInGraph path) {
 		super();
+		this.path = path;
 		origin = path.getOrigin();
 		destination = path.getDestination();
+		travel = new LinkedList<SectionOfTravel>();
 		Iterator<Junction> itJ = path.getJunctions();
-		Junction junction;
-		SectionOfTravel section=new SectionOfTravelImplPathInGraph();
-		while (itJ.hasNext()) {
-			junction = itJ.next();
+		Junction junction = itJ.next();
+		Station station = origin;
+		Route route = junction.getOtherRoute(junction.getOtherRoute(station));
+		SectionOfTravelImplPathInGraph section = new SectionOfTravelImplPathInGraph(route, origin);
 
+		itJ = path.getJunctions();
+		while (itJ.hasNext()) {
+			section.addJunction(junction = itJ.next());
+			station = junction.getOtherStation(station);
+			if (section.getEnddingChangementTime() != -1) {
+				travel.add(section);
+				route = junction.getOtherRoute(route);
+				section = new SectionOfTravelImplPathInGraph(route, origin);
+			}
 		}
 	}
 
 	@Override
 	public String getDestination() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getNextStop() {
-		// TODO Auto-generated method stub
-		return null;
+		return destination.getName();
 	}
 
 	@Override
 	public String getOrigine() {
-		// TODO Auto-generated method stub
-		return null;
+		return origin.getName();
 	}
 
 	@Override
@@ -81,4 +89,15 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		return false;
 	}
 
+	@Override
+	public String getNextStop() {
+		SectionOfTravel sectionOfTravel = travel.removeFirst();
+		travelDone.addLast(sectionOfTravel);
+		return travel.getFirst().getNameChangement();
+	}
+
+	@Override
+	public void next() {
+		travelDone.addLast(travel.removeFirst());
+	}
 }
