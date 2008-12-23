@@ -1,7 +1,7 @@
 package iGoMaster.exception;
 
 @SuppressWarnings("serial")
-public class NoNetworkException extends NetworkException{
+public class NoNetworkException extends Exception{
 
 	
 	/** 

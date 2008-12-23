@@ -1,6 +1,5 @@
 package iGoMaster;
 
-
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.KindRoute;
@@ -13,7 +12,6 @@ import ihm.smartPhone.tools.ExecMultiThread;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.ImpossibleStartingException;
-import iGoMaster.exception.NetworkException;
 import iGoMaster.exception.NoNetworkException;
 import iGoMaster.exception.NoRouteForStationException;
 
@@ -32,10 +30,19 @@ import algorithm.Dijkstra;
 import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
 
+/**
+ * Enumération : 
+ * "NetworkOk" si le réseau a bien été récupéré. 
+ * "NetworkDoesntExist" si aucun réseau n'a été trouvé. 
+ * "ConstructionFailed" si la transformation du réseau en graphNetwork a échoué. 
+ * "ReceptionFailed" si le réseau a été mal réceptionné. 
+ */
+enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionFailed};
+
+
 /**  
  * @author iGo
  */
-
 public class IGoMaster implements Master, Observer 
 {
 	
@@ -50,10 +57,11 @@ public class IGoMaster implements Master, Observer
 	private PathInGraphCollectionBuilder collectionBuilder;	
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 	
+	private StateNetwork stateNetwork;
+	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
 	
-	NetworkException networkException = null;
-	
+
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
 	/******************************************************************************/
@@ -104,7 +112,7 @@ public class IGoMaster implements Master, Observer
 	private void launchAlgo()
 	{
 		
-		new Thread("true") 
+		new Thread() 
 		{
 			public void run() 
 			{
@@ -119,8 +127,9 @@ public class IGoMaster implements Master, Observer
 				catch (NoRouteForStationException e) 
 				{
 					System.err.print("elo --> échec de l'algorithme, pas de route associée à la station");
+					/*OUch traiter l'exception*/
 				}
-
+				
 			}
 			
 		}.start();
@@ -131,6 +140,17 @@ public class IGoMaster implements Master, Observer
 	/******************************************************************************/
 	/********************************** PRIVATE ***********************************/
 	/******************************************************************************/
+	
+	/**
+	 * Définit si le réseau a bien été receptionné et transformé en GraphNetwork.
+	 */
+	private void setStateNetwork(StateNetwork state) {this.stateNetwork = state;}
+
+	/**
+	 * Description de l'état du réseau.
+	 * @return son état
+	 */
+	private StateNetwork getStateNetwork() {return stateNetwork;}
 	
 	/**  
 	 * Lancement des modules essentiels au fonctionnement de l'application
@@ -152,7 +172,7 @@ public class IGoMaster implements Master, Observer
 				
 				try 
 				{
-					Thread.sleep(6000);
+					Thread.sleep(5000);
 				} 
 				catch (InterruptedException e) 
 				{
@@ -202,6 +222,7 @@ public class IGoMaster implements Master, Observer
 	 */
 	private boolean getNetwork()
 	{
+		
 		try 
 		{
 			if (this.graphReceiver.getAvaibleNetwork().hasNext())
@@ -219,26 +240,28 @@ public class IGoMaster implements Master, Observer
 					this.graphNetworkCostReceiver
 			);	
 			
+			setStateNetwork(StateNetwork.NetworkOk);
 			return true;
 		} 
 		catch (NoNetworkException e) 
 		{
-			networkException = e;
-			System.err.print(networkException.getMessage());
+			setStateNetwork(StateNetwork.NetworkDoesntExist);
+			System.err.print(e.getMessage());
 		}
 		catch (GraphReceptionException e) 
 		{
-			networkException = new NetworkException("Erreur de réception du graphe");
-			System.err.print(networkException.getMessage());
+			setStateNetwork(StateNetwork.ReceptionFailed);
+			System.err.print("Erreur de réception du graphe");
 		}
 		catch (GraphConstructionException e) 
 		{
-			networkException = new NetworkException("Graphe mal formé");
-			System.err.print(networkException.getMessage());
+			setStateNetwork(StateNetwork.ConstructionFailed);
+			System.err.print("Graphe mal formé");
 		}
 		
 		return false;
 	}
+	
 
 	/******************************************************************************/
 	/********************************** PUBLIC ************************************/
@@ -288,6 +311,10 @@ public class IGoMaster implements Master, Observer
 		try{eventInfoNetwork.stopWatching();}
 		catch (NullPointerException e)
 		{System.err.print("elo --> La surveillance des événements n'était pas activée ...");}
+	
+		try{config.save();}
+		catch(Exception e){e.printStackTrace();} 	
+		
 	}
 
 	@Override
@@ -317,14 +344,11 @@ public class IGoMaster implements Master, Observer
 	{
 		config.setValue(key, value);
 		
-		try{config.save();}
-		catch(Exception e){return false;} 	
-		
 		return true; 
 	}
 	
 	@Override
-	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NetworkException
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NoNetworkException, GraphReceptionException, GraphConstructionException
 	{
 		System.out.println("elo --> L'ihm demande un builder de contraintes");
 		
@@ -333,12 +357,12 @@ public class IGoMaster implements Master, Observer
 			/* Attention un update va arriver que l'on doit ignorer */
 		}
 			
+		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
+		if (getStateNetwork() == StateNetwork.NetworkDoesntExist) throw new NoNetworkException();
+		if (getStateNetwork() == StateNetwork.ReceptionFailed) throw new GraphReceptionException();
+		
 		this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
 		
-		if (networkException!=null)
-		{
-			throw networkException;
-		}
 		return this.collectionBuilder.getPathInGraphConstraintBuilder();
 	}
 	
