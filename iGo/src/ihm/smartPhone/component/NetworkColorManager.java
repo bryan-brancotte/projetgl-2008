@@ -7,7 +7,7 @@ import java.awt.Color;
 
 public interface NetworkColorManager {
 
-	public Color getColorForRoute(Route r);
+	public Color getColor(Route r);
 
-	public Color getColorForService(Service s);
+	public Color getColor(Service s);
 }

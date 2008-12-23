@@ -84,10 +84,32 @@ public class UpperBar extends AbstractBar {
 
 	@Override
 	public void paint(Graphics g) {
-		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
-			graphicsTunning(this.buffer);
-			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		draw();
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
+		g.drawImage(image, 0, 0, null);
+	}
+
+	public void draw() {
+
+		/***
+		 * Gestion du buffer mémoire
+		 */
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+			imageIcone = null;
 		}
+		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
+			image = createImage(getWidth(), getHeight());
+			buffer = image.getGraphics();
+			graphicsTunning(buffer);
+		} else {
+			buffer.setColor(ihm.getSkin().getColorInside());
+			buffer.fillRect(0, 0, getWidth(), getHeight());
+		}
+		
 		int outsideR = ihm.getSkin().getColorOutside().getRed();
 		int outsideG = ihm.getSkin().getColorOutside().getGreen();
 		int outsideB = ihm.getSkin().getColorOutside().getBlue();
@@ -97,23 +119,23 @@ public class UpperBar extends AbstractBar {
 		float prog;
 		for (int i = 0; i < this.getHeight(); i++) {
 			prog = (float) i / this.getHeight();
-			g.setColor(new Color(outsideR + (int) (deltaR * prog), outsideG + (int) (deltaG * prog), outsideB
+			buffer.setColor(new Color(outsideR + (int) (deltaR * prog), outsideG + (int) (deltaG * prog), outsideB
 					+ (int) (deltaB * prog)));
-			g.drawLine(0, i, this.getWidth(), i);
+			buffer.drawLine(0, i, this.getWidth(), i);
 		}
 
 		if (icone != "") {
 			if (oldHeigth != getHeight())
 				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
 						.getImage();
-			g.drawImage(imageIcone, this.getWidth() - imageIcone.getWidth(null) >> 1, 1, null);
+			buffer.drawImage(imageIcone, this.getWidth() - imageIcone.getWidth(null) >> 1, 1, null);
 			oldHeigth = getHeight();
 		}
 
-		g.setColor(ihm.getSkin().getColorLetter());
-		drawStrings(g, FontSizeKind.LARGE);
-		drawStrings(g, FontSizeKind.INTERMEDIATE);
-		drawStrings(g, FontSizeKind.SMALL);
+		buffer.setColor(ihm.getSkin().getColorLetter());
+		drawStrings(buffer, FontSizeKind.LARGE);
+		drawStrings(buffer, FontSizeKind.INTERMEDIATE);
+		drawStrings(buffer, FontSizeKind.SMALL);
 	}
 
 	/**

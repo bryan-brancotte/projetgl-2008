@@ -33,7 +33,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	protected Polygon polygon = new Polygon();
 	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
-	protected LinkedList<Color> colorList;
 
 	/**
 	 * La dernière abscisse du pointeur
@@ -59,30 +58,34 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la grande largueur.
 	 */
 	protected int sizeLarge;
+	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean shouldDoubleRepaint = true;
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
-		colorList = new LinkedList<Color>();
-		colorList.add(new Color(242, 130, 38));// Orange
-		colorList.add(new Color(73, 12, 139));// pourpre foncé
-		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
-		colorList.add(new Color(114, 159, 220));// Bleu clair
-		colorList.add(new Color(208, 38, 242));// rose clair
-		colorList.add(new Color(12, 52, 139));// Bleu marrine
-		colorList.add(Color.cyan);
-		colorList.add(new Color(139, 69, 12));// marront
-		colorList.add(new Color(12, 128, 139));// Bleu turquoise
-		colorList.add(new Color(254, 170, 52));// Orange pastel
-		colorList.add(new Color(189, 107, 247));// violet pastel
-		colorList.add(new Color(139, 12, 65));// bordeau
-		colorList.add(new Color(242, 239, 38));// Jaune
-		colorList.add(new Color(141, 207, 80));// Vert clair
-		colorList.add(new Color(137, 12, 139));// violet foncé
-		colorList.add(new Color(52, 52, 254));// Bleu foncé
-		colorList.add(new Color(80, 139, 12));// Vert foncé
-		colorList.add(new Color(38, 116, 224));// Bleu
-		colorList.add(new Color(137, 38, 242));// pourpre
+		// colorList = new LinkedList<Color>();
+		// colorList.add(new Color(242, 130, 38));// Orange
+		// colorList.add(new Color(73, 12, 139));// pourpre foncé
+		// colorList.add(new Color(133, 242, 38));// Vert jeune pousse
+		// colorList.add(new Color(114, 159, 220));// Bleu clair
+		// colorList.add(new Color(208, 38, 242));// rose clair
+		// colorList.add(new Color(12, 52, 139));// Bleu marrine
+		// colorList.add(Color.cyan);
+		// colorList.add(new Color(139, 69, 12));// marront
+		// colorList.add(new Color(12, 128, 139));// Bleu turquoise
+		// colorList.add(new Color(254, 170, 52));// Orange pastel
+		// colorList.add(new Color(189, 107, 247));// violet pastel
+		// colorList.add(new Color(139, 12, 65));// bordeau
+		// colorList.add(new Color(242, 239, 38));// Jaune
+		// colorList.add(new Color(141, 207, 80));// Vert clair
+		// colorList.add(new Color(137, 12, 139));// violet foncé
+		// colorList.add(new Color(52, 52, 254));// Bleu foncé
+		// colorList.add(new Color(80, 139, 12));// Vert foncé
+		// colorList.add(new Color(38, 116, 224));// Bleu
+		// colorList.add(new Color(137, 38, 242));// pourpre
 		/***************************************************************************************************************
 		 * Création de l'image
 		 */
@@ -228,6 +231,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// return;
 		// on demande un reconstruction de l'image
 		buildImage();
+		if(shouldDoubleRepaint){
+			buffer.move(-(buffer.getWidthImage()>>1),0);
+			shouldDoubleRepaint=false;
+			buildImage();
+		}
 		// on efface l'écran puis on dessine cette image
 		// g.clearRect(0, 0, getWidth(), getHeight());
 		super.paint(buffer.getBuffer());
@@ -274,7 +282,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		int length;
 		int hypo;
 		Point center = new Point();
-		Iterator<Color> iterColor = colorList.iterator();
+		// Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
 		polygon.reset();
 		// on définit le début du dessin
@@ -297,10 +305,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		}
 		// in parcout les étapes du trajet
 		while (iterTravel.hasNext()) {
-			if (!iterColor.hasNext())
-				iterColor = colorList.iterator();
+			// if (!iterColor.hasNext())
+			// iterColor = colorList.iterator();
 			section = iterTravel.next();
-			buffer.setColor(iterColor.next());
+			buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
 			length = section.getTimeSection() * sizeLarge >> 2;
 			// System.out.println(section.getTimeSection());
 			if (orientation % 2 == 0) {

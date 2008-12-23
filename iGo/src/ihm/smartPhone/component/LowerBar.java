@@ -97,10 +97,32 @@ public class LowerBar extends AbstractBar {
 
 	@Override
 	public void paint(Graphics g) {
-		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
-			graphicsTunning(this.buffer);
-			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		draw();
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
+		g.drawImage(image, 0, 0, null);
+	}
+
+	public void draw() {
+
+		/***
+		 * Gestion du buffer mémoire
+		 */
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+			imageIcone = null;
 		}
+		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
+			image = createImage(getWidth(), getHeight());
+			buffer = image.getGraphics();
+			graphicsTunning(buffer);
+		} else {
+			buffer.setColor(ihm.getSkin().getColorInside());
+			buffer.fillRect(0, 0, getWidth(), getHeight());
+		}
+
 		int insideR = ihm.getSkin().getColorInside().getRed();
 		int insideG = ihm.getSkin().getColorInside().getGreen();
 		int insideB = ihm.getSkin().getColorInside().getBlue();
@@ -110,15 +132,15 @@ public class LowerBar extends AbstractBar {
 		float prog;
 		for (int i = 0; i < this.getHeight(); i++) {
 			prog = (float) i / this.getHeight();
-			g.setColor(new Color(insideR + (int) (deltaR * prog), insideG + (int) (deltaG * prog), insideB
+			buffer.setColor(new Color(insideR + (int) (deltaR * prog), insideG + (int) (deltaG * prog), insideB
 					+ (int) (deltaB * prog)));
-			g.drawLine(0, i, this.getWidth(), i);
+			buffer.drawLine(0, i, this.getWidth(), i);
 		}
 
-		g.setColor(ihm.getSkin().getColorLetter());
-		drawStrings(g, FontSizeKind.LARGE);
-		drawStrings(g, FontSizeKind.INTERMEDIATE);
-		drawStrings(g, FontSizeKind.SMALL);
+		buffer.setColor(ihm.getSkin().getColorLetter());
+		drawStrings(buffer, FontSizeKind.LARGE);
+		drawStrings(buffer, FontSizeKind.INTERMEDIATE);
+		drawStrings(buffer, FontSizeKind.SMALL);
 		if (icone != "") {
 			if ((imageIcone == null) || (oldHeigth != this.getHeight())) {
 				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
@@ -126,7 +148,7 @@ public class LowerBar extends AbstractBar {
 			}
 			iconeCmdArea.setBounds(this.getWidth() - imageIcone.getWidth(null) >> 1, 1, imageIcone.getHeight(null),
 					imageIcone.getWidth(null));
-			(g).drawImage(imageIcone, iconeCmdArea.x, iconeCmdArea.y, null);
+			buffer.drawImage(imageIcone, iconeCmdArea.x, iconeCmdArea.y, null);
 			oldHeigth = this.getHeight();
 		}
 	}
@@ -136,47 +158,47 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param g
 	 *            le Graphics où les chaines seront dessinés
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            le type de le police pour cette affichage
 	 */
-	protected void drawStrings(Graphics g, FontSizeKind fontKindSize) {
+	protected void drawStrings(Graphics g, FontSizeKind fontSizeKind) {
 		Font font = null;
 		int[] xs;
 		int[] ys;
 		int hs, ws, hs23, ws11;
 		Color colorFont = g.getColor();
-		if (fontKindSize == FontSizeKind.LARGE)
+		if (fontSizeKind == FontSizeKind.LARGE)
 			font = ihm.getSizeAdapteur().getLargeFont();
-		if (fontKindSize == FontSizeKind.INTERMEDIATE)
+		if (fontSizeKind == FontSizeKind.INTERMEDIATE)
 			font = ihm.getSizeAdapteur().getIntermediateFont();
-		if (fontKindSize == FontSizeKind.SMALL)
+		if (fontSizeKind == FontSizeKind.SMALL)
 			font = ihm.getSizeAdapteur().getSmallFont();
 		if (font == null)
 			return;
 		g.setFont(font);
 
-		if ((mainTitleSize == fontKindSize) && (mainTitle != ""))
+		if ((mainTitleSize == fontSizeKind) && (mainTitle != ""))
 			g.drawString(mainTitle, this.getWidth() - getWidthString(mainTitle, g, font) >> 1, this.getHeight()
 					+ getHeightString(mainTitle, g, font) >> 1);
 
-		if ((leftTitleSize == fontKindSize) && (leftTitle != ""))
+		if ((leftTitleSize == fontSizeKind) && (leftTitle != ""))
 			g.drawString(leftTitle, 0, getHeightString(leftTitle, g, font));
 
-		if ((leftValueSize == fontKindSize) && (leftValue != ""))
+		if ((leftValueSize == fontSizeKind) && (leftValue != ""))
 			g.drawString(leftValue, (this.getWidth() >> 2) - (getWidthString(leftValue, g, font) >> 1), this
 					.getHeight()
 					+ getHeightString(leftValue, g, font) >> 1);
 
-		if ((rigthTitleSize == fontKindSize) && (rigthTitle != ""))
+		if ((rigthTitleSize == fontSizeKind) && (rigthTitle != ""))
 			g.drawString(rigthTitle, this.getWidth() - getWidthString(rigthTitle, g, font), getHeightString(rigthTitle,
 					g, font));
 
-		if ((rigthValueSize == fontKindSize) && (rigthValue != ""))
+		if ((rigthValueSize == fontSizeKind) && (rigthValue != ""))
 			g.drawString(rigthValue, 3 * (this.getWidth() >> 2) - (getWidthString(rigthValue, g, font) >> 1), this
 					.getHeight()
 					+ getHeightString(rigthValue, g, font) >> 1);
 
-		if ((leftCmdSize == fontKindSize) && (leftCmd != "")) {
+		if ((leftCmdSize == fontSizeKind) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(leftCmd, g, font);
 			hs23 = (int) (hs * 0.667);
@@ -194,7 +216,7 @@ public class LowerBar extends AbstractBar {
 			g.drawString(leftCmd, hs + 1, this.getHeight() + hs >> 1);
 		}
 
-		if ((rigthCmdSize == fontKindSize) && (rigthCmd != "")) {
+		if ((rigthCmdSize == fontSizeKind) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(rigthCmd, g, font);
 			hs23 = (int) (hs * 0.667);
@@ -225,12 +247,12 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param mainTitle
 	 *            le titre
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            le type de taille
 	 */
-	public void setMainTitle(String mainTitle, FontSizeKind fontKindSize) {
+	public void setMainTitle(String mainTitle, FontSizeKind fontSizeKind) {
 		this.mainTitle = mainTitle;
-		this.mainTitleSize = fontKindSize;
+		this.mainTitleSize = fontSizeKind;
 	}
 
 	/**
@@ -248,12 +270,12 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param leftTitle
 	 *            le titre
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            le type de taille
 	 */
-	public void setLeftTitle(String leftTitle, FontSizeKind fontKindSize) {
+	public void setLeftTitle(String leftTitle, FontSizeKind fontSizeKind) {
 		this.leftTitle = leftTitle;
-		this.leftTitleSize = fontKindSize;
+		this.leftTitleSize = fontSizeKind;
 	}
 
 	/**
@@ -271,12 +293,12 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param leftValue
 	 *            la valeur
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            le type de taille
 	 */
-	public void setLeftValue(String leftValue, FontSizeKind fontKindSize) {
+	public void setLeftValue(String leftValue, FontSizeKind fontSizeKind) {
 		this.leftValue = leftValue;
-		this.leftValueSize = fontKindSize;
+		this.leftValueSize = fontSizeKind;
 	}
 
 	/**
@@ -294,12 +316,12 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param rigthTitle
 	 *            le titre
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            le type de taille
 	 */
-	public void setRightTitle(String rigthTitle, FontSizeKind fontKindSize) {
+	public void setRightTitle(String rigthTitle, FontSizeKind fontSizeKind) {
 		this.rigthTitle = rigthTitle;
-		this.rigthTitleSize = fontKindSize;
+		this.rigthTitleSize = fontSizeKind;
 	}
 
 	/**
@@ -317,12 +339,12 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param rigthValue
 	 *            la valeur
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            le type de taille
 	 */
-	public void setRightValue(String rigthValue, FontSizeKind fontKindSize) {
+	public void setRightValue(String rigthValue, FontSizeKind fontSizeKind) {
 		this.rigthValue = rigthValue;
-		this.rigthValueSize = fontKindSize;
+		this.rigthValueSize = fontSizeKind;
 	}
 
 	/**
@@ -340,13 +362,13 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param mainTitle
 	 *            le titre
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            la type de taille
 	 */
-	public void setLeftCmd(String leftCmd, ActionListener l, FontSizeKind fontKindSize) {
+	public void setLeftCmd(String leftCmd, ActionListener l, FontSizeKind fontSizeKind) {
 		leftCmdActionListener = l;
 		this.leftCmd = leftCmd;
-		this.leftCmdSize = fontKindSize;
+		this.leftCmdSize = fontSizeKind;
 		this.leftCmdArea.setBounds(0, 0, 0, 0);
 	}
 
@@ -365,13 +387,13 @@ public class LowerBar extends AbstractBar {
 	 * 
 	 * @param mainTitle
 	 *            le titre
-	 * @param fontKindSize
+	 * @param fontSizeKind
 	 *            la type de taille
 	 */
-	public void setRightCmd(String rigthCmd, ActionListener l, FontSizeKind fontKindSize) {
+	public void setRightCmd(String rigthCmd, ActionListener l, FontSizeKind fontSizeKind) {
 		rigthCmdActionListener = l;
 		this.rigthCmd = rigthCmd;
-		this.rigthCmdSize = fontKindSize;
+		this.rigthCmdSize = fontSizeKind;
 		this.rigthCmdArea.setBounds(0, 0, 0, 0);
 	}
 
