@@ -11,13 +11,19 @@ import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
 import iGoMaster.SettingsKey;
+import iGoMaster.exception.GraphConstructionException;
+import iGoMaster.exception.GraphReceptionException;
+import iGoMaster.exception.NetworkException;
+import iGoMaster.exception.NoNetworkException;
 import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.component.IGoFlowLayout;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.NetworkColorManager;
 import ihm.smartPhone.component.NetworkColorManagerPseudoRandom;
+import ihm.smartPhone.component.TravelForDisplayPanelImplPathInGraph;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
+import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MyWindowStateListener;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
@@ -61,7 +67,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected LinkedList<iGoSmartPhoneSkin> skins;
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 	protected NetworkColorManager networkColorManager;
-	protected TravelForTravelPanel travel; 
+	protected TravelForDisplayPanel travel;
 
 	/**
 	 * Les 3 zones de l'IHM
@@ -388,7 +394,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	protected void checkTravelGraphicDisplayPanel() {
 		if (travelGraphicPanel == null)
-			travelGraphicPanel = new TravelGraphicDisplayPanel(this, upperBar, lowerBar, null);
+			travelGraphicPanel = new TravelGraphicDisplayPanel(this, upperBar, lowerBar, travel);
 	}
 
 	protected void checkTravelArrayDisplayPanel() {
@@ -474,8 +480,21 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkNewTravelPanel();
 			}
 			centerPanel.add(newTravelPanel);
-			newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder());
-			newTravelPanel.giveControle();
+			// TODO meilleur gestion
+			try {
+				newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder());
+//				newTravelPanel.setPathInGraphConstraintBuilder(null);
+				newTravelPanel.giveControle();
+			} catch (NoNetworkException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (GraphReceptionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (GraphConstructionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.LOAD_TRAVEL) {
@@ -631,7 +650,13 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean returnPathAsked(PathInGraph path, String message) {
-		System.out.println(path);
+		try {
+			travel = new TravelForDisplayPanelImplPathInGraph(path);
+		} catch (Exception e) {
+			System.err.println("IGoIhmSmartPhone.returnPathAsked(null,\"" + message + "\"");
+			travel = null;
+		}
+		// System.out.println(path);
 		// TODO ......returnPathAsked
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
