@@ -1,5 +1,6 @@
 package iGoMaster;
 
+
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.KindRoute;
@@ -48,7 +49,7 @@ public class IGoMaster implements Master, Observer
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
-
+	
 	
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
@@ -106,28 +107,12 @@ public class IGoMaster implements Master, Observer
 				try 
 				{
 					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
-				
-					currentThread().wait();
-					
-					System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
-					
-					/* Demander à tony comment savoir quelles contraintes sont relachées */
-					ihm.returnPathAsked(
-							collectionBuilder.getPathInGraph(),
-							"Haha message qui sert à rien?"
-							);
-					
-					threads.clear();
 					
 					currentThread().interrupt();
 				} 
 				catch (NoRouteForStationException e) 
 				{
 					System.err.print("elo --> échec de l'algorithme, pas de route associée à la station");
-				}
-				catch (InterruptedException e) 
-				{
-					System.err.print("elo --> thread interrompu inopinement. L'algorithme n'a peut être pas fini son calcul");
 				}
 				
 				ihm.returnPathAsked(null,"Echec");
@@ -209,8 +194,6 @@ public class IGoMaster implements Master, Observer
 			return false;
 		}
 		
-	    this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
-		
 		return true;
 	}
 
@@ -227,9 +210,18 @@ public class IGoMaster implements Master, Observer
 		if (o.equals(algo))
 		{
 			if (arg.equals(collectionBuilder.getPathInGraph()))
-			{		
-				if (!threads.isEmpty()) threads.get(0).notify();
-				else System.err.print("Elo --> Un observable de type algo a produit un résultat. Le master n'attend rien. Update ignoré.");
+			{	
+				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
+				
+				/* Demander à tony comment savoir quelles contraintes sont relachées */
+				ihm.returnPathAsked(
+						collectionBuilder.getPathInGraph(),
+						"Haha message qui sert à rien?"
+						);
+				
+				threads.clear();
+				
+				//System.err.print("Elo --> Un observable de type algo a produit un résultat. Le master n'attend rien. Update ignoré.");
 			}
 			else 
 			{
@@ -252,7 +244,6 @@ public class IGoMaster implements Master, Observer
 		try{eventInfoNetwork.stopWatching();}
 		catch (NullPointerException e)
 		{System.err.print("elo --> La surveillance des événements n'était pas activée ...");}
-		/**+stopperThreadAlgo*/
 	}
 
 	@Override
@@ -293,6 +284,13 @@ public class IGoMaster implements Master, Observer
 	{
 		System.out.println("elo --> L'ihm demande un builder de contraintes");
 		
+		if (!threads.isEmpty())
+		{
+			/* Attention un update va arriver que l'on doit ignorer */
+		}
+			
+		this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
+			
 		return this.collectionBuilder.getPathInGraphConstraintBuilder();
 	}
 	
