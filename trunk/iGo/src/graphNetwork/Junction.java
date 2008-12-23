@@ -191,12 +191,20 @@ public class Junction {
 	}
 
 	/**
-	 * informe de l'utilisabilité de la jonction
+	 * informe de l'utilisabilité de la jonction : voici les critères : <br/>
+	 * <ul>
+	 * <li>Si la jonction est active</li>
+	 * <li>Si la route d'origine est active</li>
+	 * <li>Si la route de destination est active</li>
+	 * <li>Si la station d'origine est active, elle même ou sur la route d'origine</li>
+	 * <li>Si la station de destination est active, elle même ou sur la route de destination</li>
+	 * </ul>
 	 * 
 	 * @return true si on peut la traverser
 	 */
 	public boolean isEnable() {
-		return this.enable;
+		return (this.enable && routeOrigin.isEnable() && routeDestination.isEnable()
+				&& routeOrigin.isStationEnable(stationOrigin) && routeOrigin.isStationEnable(stationDestination));
 	}
 
 	/**

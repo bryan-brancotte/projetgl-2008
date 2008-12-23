@@ -1,12 +1,73 @@
 package ihm.smartPhone.statePanels;
 
 public enum IhmReceivingStates {
-	UNKNOWN(-20), SPLASH_SCREEN(-10), MAIN_INTERFACE(0), NEW_TRAVEL(10), LOAD_TRAVEL(20), SETTINGS(30), COMPUT_TRAVEL(
-			25), PREVISU_TRAVEL(40), EXPERIMENT_TRAVEL(50), GRAPHIC_MODE(1), ARRAY_MODE(2), PREVISU_TRAVEL_GRAPHIC_MODE(
-			PREVISU_TRAVEL.getValue() + GRAPHIC_MODE.getValue()), EXPERIMENT_TRAVEL_GRAPHIC_MODE(EXPERIMENT_TRAVEL
-			.getValue()
-			+ GRAPHIC_MODE.getValue()), PREVISU_TRAVEL_ARRAY_MODE(PREVISU_TRAVEL.getValue() + ARRAY_MODE.getValue()), EXPERIMENT_TRAVEL_ARRAY_MODE(
-			EXPERIMENT_TRAVEL.getValue() + ARRAY_MODE.getValue()), FAVORITES(6);
+	/**
+	 * 
+	 */
+	UNKNOWN(-20),
+	/**
+	 * 
+	 */
+	SPLASH_SCREEN(-10),
+	/**
+	 * 
+	 */
+	MAIN_INTERFACE(0),
+	/**
+	 * 
+	 */
+	NEW_TRAVEL(10),
+	/**
+	 * 
+	 */
+	LOAD_TRAVEL(20),
+	/**
+	 * 
+	 */
+	SETTINGS(30),
+	/**
+	 * 
+	 */
+	COMPUT_TRAVEL(25),
+	/**
+	 * 
+	 */
+
+	PREVISU_TRAVEL(40),
+	/**
+	 * 
+	 */
+	EXPERIMENT_TRAVEL(50),
+	/**
+	 * 
+	 */
+	GRAPHIC_MODE(1),
+	/**
+			 * 
+			 */
+	ARRAY_MODE(2),
+	/**
+	 * 
+	 */
+
+	PREVISU_TRAVEL_GRAPHIC_MODE(PREVISU_TRAVEL.getValue() + GRAPHIC_MODE.getValue()),
+	/**
+	 * 
+	 */
+	EXPERIMENT_TRAVEL_GRAPHIC_MODE(EXPERIMENT_TRAVEL.getValue() + GRAPHIC_MODE.getValue()),
+	/**
+	 * 
+	 */
+	PREVISU_TRAVEL_ARRAY_MODE(PREVISU_TRAVEL.getValue() + ARRAY_MODE.getValue()), EXPERIMENT_TRAVEL_ARRAY_MODE(
+			EXPERIMENT_TRAVEL.getValue() + ARRAY_MODE.getValue()),
+	/**
+	* 
+	*/
+	FAVORITES(60),
+	/**
+	* 
+	*/
+	ERROR_STATE(70);
 
 	protected int val;
 

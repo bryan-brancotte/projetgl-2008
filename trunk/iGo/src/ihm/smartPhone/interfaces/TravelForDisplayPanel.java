@@ -59,6 +59,12 @@ public interface TravelForDisplayPanel {
 	 * Passe à la prochaine section
 	 */
 	public void next();
+	
+	/**
+	 * Permet de savoir si le chemin est encore praticable à partir d'où on est actuellement
+	 * @return
+	 */
+	public boolean isValideFromWhereIAm();
 
 	/**
 	 * Retourne un iterateur sur la décomposition du trajet. Le premier element doit être une section de temps nulle qui

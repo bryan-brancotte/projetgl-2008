@@ -128,8 +128,8 @@ public class MainDemoIHM {
 
 			@Override
 			public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
-				if(true)
-					return null;
+//				if(true)
+//					return null;
 				return gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder()
 						.getPathInGraphConstraintBuilder();
 			}

@@ -856,4 +856,10 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public boolean isValideFromWhereIAm() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

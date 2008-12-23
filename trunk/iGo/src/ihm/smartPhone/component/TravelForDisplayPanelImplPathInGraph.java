@@ -100,4 +100,12 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	public void next() {
 		travelDone.addLast(travel.removeFirst());
 	}
+
+	@Override
+	public boolean isValideFromWhereIAm() {
+		for (SectionOfTravel t : travel)
+			if (!((SectionOfTravelImplPathInGraph) t).isValide())
+				return false;
+		return true;
+	}
 }

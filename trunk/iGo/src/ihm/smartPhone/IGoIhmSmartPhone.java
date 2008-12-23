@@ -483,17 +483,17 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			// TODO meilleur gestion
 			try {
 				newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder());
-//				newTravelPanel.setPathInGraphConstraintBuilder(null);
+				// newTravelPanel.setPathInGraphConstraintBuilder(null);
 				newTravelPanel.giveControle();
 			} catch (NoNetworkException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.setCurrentState(IhmReceivingStates.ERROR_STATE);
+				return false;
 			} catch (GraphReceptionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.setCurrentState(IhmReceivingStates.ERROR_STATE);
+				return false;
 			} catch (GraphConstructionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.setCurrentState(IhmReceivingStates.ERROR_STATE);
+				return false;
 			}
 			centerPanel.validate();
 			return true;
