@@ -5,6 +5,8 @@ import graphNetwork.Route;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 
 public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
+	
+	protected Route route;
 
 	@Override
 	public float getEnddingChangementCost() {
@@ -47,6 +49,7 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	}
 
 	public void addJunction(Junction j) {
+		route=null;
 		enddingChangementCost = j.getCost();
 		enddingChangementTime = j.getTimeBetweenStations();
 		timeSection += enddingChangementTime;
