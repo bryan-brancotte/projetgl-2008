@@ -21,8 +21,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorRoutes = new HashMap<Route, Color>();
 		colorServices = new HashMap<Service, Color>();
 		colorList = new LinkedList<Color>();
-		colorList.add(new Color(242, 130, 38));// Orange
-		colorList.add(new Color(73, 12, 139));// pourpre foncé
+//		colorList.add(new Color(73, 12, 139));// pourpre foncé
 		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
 		colorList.add(new Color(114, 159, 220));// Bleu clair
 		colorList.add(new Color(208, 38, 242));// rose clair
@@ -34,6 +33,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorList.add(new Color(189, 107, 247));// violet pastel
 		colorList.add(new Color(139, 12, 65));// bordeau
 		colorList.add(new Color(242, 239, 38));// Jaune
+//		colorList.add(new Color(242, 130, 38));// Orange
 		colorList.add(new Color(141, 207, 80));// Vert clair
 		colorList.add(new Color(137, 12, 139));// violet foncé
 		colorList.add(new Color(52, 52, 254));// Bleu foncé
