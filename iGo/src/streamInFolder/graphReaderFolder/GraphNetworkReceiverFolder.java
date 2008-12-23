@@ -169,49 +169,55 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : nodeChilds) {
 							if (child.getName().compareTo("ID") == 0) {
 								id = child.getTextTrim();
-								// System.out.println("id route " + id);
+//								 System.out.println("id route " + id);
 							}
 							else if (child.getName().compareTo("Kind") == 0) {
 								kindR = child.getTextTrim();
-								// System.out.println("kind route " + kindR);
+//								 System.out.println("kind route " + kindR);
 							}
 							else if (child.getName().compareTo("RouteSectionsList") == 0) {
 								List<Element> sectionsList = child.getChildren();
 
 								for (Element section : sectionsList) {
 									timeBetweenStations.add(Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
-									// System.out.println("Time between stations " + Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
+//									 System.out.println("Time between stations " + Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
 
-									List<Element> sectionStationsList = section.getChildren();
+									List<Element> sectionStationsList = section.getChild("SectionStationsList").getChildren();
 
 									Vector<Integer> idStations = new Vector<Integer>();
 
 									for (Element station : sectionStationsList) {
 										if (station.getName().compareTo("ID") == 0) {
-											// System.out.println("ID "+ Integer.parseInt(station.getTextTrim()));
+//											 System.out.println("ID "+ Integer.parseInt(station.getTextTrim()));
 											idStations.add(Integer.parseInt(station.getTextTrim()));
 										}
 
-										idSectionsStations.add(idStations);
 									}
+									idSectionsStations.add(idStations);
 								}
 							}
 
-							if (idSectionsStations.size() > 0 && timeBetweenStations.size() > 0
-									&& (timeBetweenStations.size() == idSectionsStations.size()) && !id.equals("") && !kindR.equals("")) {
-								// System.out.println("nous avons " + idSectionsStations.size() + " sections");
+							if (idSectionsStations.size() > 0 && timeBetweenStations.size() > 0 && !id.equals("") && !kindR.equals("")) {
+//								 System.out.println("nous avons " + idSectionsStations.size() + " sections");
 								Route r = gnb.addRoute(id, kindR);
-								// System.out.println("Adding Route : " + id);
+//								 System.out.println("Adding Route : " + id);
 								// System.out.println();
 								// System.out.println();
 								gnb.defineEntryCost(KindRoute.getKindFromString(kindR), giveCost.getCost(KindRoute.getKindFromString(kindR)));
 
 								for (int j = 0; j < idSectionsStations.size(); j++) {
+//									System.out.println("J : " + j);
 									for (int k = 0; k < idSectionsStations.get(j).size(); k++) {
+//										System.out.println("k : " + k);
 										gnb.addStationToRoute(r, gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)),
 												timeBetweenStations.get(j));
+//										System.out.println("Adding station to route " + r.getId() + " " + gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)) + " " + timeBetweenStations.get(j));
+//										System.out.println("Adding station to route " + r.getId());
+//										gnb.getCurrentGraphNetwork().getStation(1).
 									}
 								}
+//								System.out.println();
+//								System.out.println();
 							}
 						}
 					}
