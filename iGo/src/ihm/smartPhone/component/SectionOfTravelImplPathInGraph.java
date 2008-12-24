@@ -15,6 +15,7 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 		super();
 		this.route = route;
 		this.station = station;
+		this.junctions = new ArrayList<Junction>();
 	}
 
 	protected Route route;
