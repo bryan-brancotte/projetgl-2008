@@ -15,7 +15,8 @@ public enum AlgoKindOfException {
 	StationNotAccessibleException(2),
 	NoRouteForStationException(3),
 	StationNotOnRoadException(4),
-	UnknownException(5);
+	UnknownException(5),
+	EverythingFine(6);
 	
 	protected int value;
 
