@@ -188,5 +188,92 @@ public class Tools {
 	}
 
 	// ////////////////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * 
+	 * @param j1
+	 * @param j2
+	 * @return
+	 */
+	protected static boolean betterPath(ArrayList<Junction> j1, ArrayList<Junction> j2, CriteriousForLowerPath c1, CriteriousForLowerPath c2) {
+		if (j1 == null)
+			return false;
+		if (j2 == null)
+			return true;
+
+		// TIME
+		int newTime = 0, oldTime = 0, diffTime, newChange = 0, oldChange = 0, diffChange;
+		float newCost = 0, oldCost = 0, diffCost;
+		for (int i = 0; i < j1.size(); i++) {
+			Junction j = j1.get(i);
+			newTime += j.getTimeBetweenStations();
+			newCost += j.getCost();
+			if (!j.isRouteLink())
+				newChange++;
+		}
+		for (int i = 0; i < j2.size(); i++) {
+			Junction j = j2.get(i);
+			oldTime += j.getTimeBetweenStations();
+			oldCost += j.getCost();
+			if (!j.isRouteLink())
+				oldChange++;
+		}
+		diffTime = newTime - oldTime;
+		diffCost = newCost - oldCost;
+		diffChange = newChange - oldChange;
+
+		boolean better = false;
+		switch (c1) {
+		case TIME:
+			if (diffTime < 0)
+				better = true;
+			else if (diffTime == 0) {
+				switch (c2) {
+				case CHANGE:
+					if (diffChange < 0 || (diffChange == 0 && diffCost < 0))
+						better = true;
+					break;
+				case COST:
+					if (diffCost < 0 || (diffCost == 0 && diffChange < 0))
+						better = true;
+					break;
+				}
+			}
+			break;
+		case CHANGE:
+			if (diffChange < 0)
+				better = true;
+			else if (diffChange == 0) {
+				switch (c2) {
+				case TIME:
+					if (diffTime < 0 || (diffTime == 0 && diffCost < 0))
+						better = true;
+					break;
+				case COST:
+					if (diffCost < 0 || (diffCost == 0 && diffTime < 0))
+						better = true;
+					break;
+				}
+			}
+			break;
+		case COST:
+			if (diffCost < 0)
+				better = true;
+			else if (diffCost == 0) {
+				switch (c2) {
+				case CHANGE:
+					if (diffChange < 0 || (diffChange == 0 && diffTime < 0))
+						better = true;
+					break;
+				case TIME:
+					if (diffTime < 0 || (diffTime == 0 && diffChange < 0))
+						better = true;
+					break;
+				}
+			}
+			break;
+		}
+		return better;
+	}
 
 }
