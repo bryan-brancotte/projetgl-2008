@@ -187,10 +187,10 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 		lowerBar.clearMessage();
 		if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
-			lowerBar.setCenterIcone("button_save", new ActionListener() {
+			lowerBar.setCenterIcone("home", new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Saving soon avaible...");
+					father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
 			lowerBar.setLeftTitle(father.lg("TotalCost"));
