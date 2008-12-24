@@ -398,15 +398,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 					x /= length;
 					y /= length;
 					for (int i = length - 1; i > 0; i--) {
-						// buffer.drawLine(0, center.y - (int) (y * i), 1000, center.y - (int) (y * i));
-						// buffer.drawLine(center.x - (int) (x * i), 0, center.x - (int) (x * i), 1000);
 						buffer.setColor(father.getSkin().getColorInside());
 						buffer.fillOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 								- (sizeQuartLarge >> 1), sizeQuartLarge + 1, sizeQuartLarge + 1);
 						buffer.setColor(father.getSkin().getColorLine());
 						buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 								- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
-						// buffer.fillOval(x, y, width, height)
 					}
 				}
 				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,

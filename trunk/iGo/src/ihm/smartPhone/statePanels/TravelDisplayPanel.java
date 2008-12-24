@@ -146,8 +146,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 	@Override
 	public void giveControle() {
 		if (travel == null) {
-			father.setErrorState(father.lg("ERROR_IMPOSSIBLE"), father
-					.lg("ERROR_RETURN_NULL_TRAVEL_DETAILS"));
+			father.setErrorState(father.lg("ERROR_IMPOSSIBLE"), father.lg("ERROR_RETURN_NULL_TRAVEL_DETAILS"));
 			return;
 		}
 		upperBar.clearMessage();
@@ -162,7 +161,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					me.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
-					// father.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 				}
 			});
 			upperBar.setUpperTitle(father.lg("Destination"));
@@ -174,14 +172,19 @@ public abstract class TravelDisplayPanel extends PanelState {
 					JOptionPane.showMessageDialog(null, "Lost soon avaible...");
 				}
 			});
-			upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Next soon avaible...");
-				}
-			});
-			upperBar.setUpperTitle(father.lg("NextStop"));
-			upperBar.setMainTitle(travel.getNextStop());
+			if (travel.hasNext()) {
+				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						travel.next();
+						giveControle();
+						// JOptionPane.showMessageDialog(null, "Next soon avaible...");
+					}
+				});
+				upperBar.setUpperTitle(father.lg("NextStop"));
+				upperBar.setMainTitle(travel.getNextStop());
+			} else
+				upperBar.setMainTitle(father.lg("EndOfTravel"));
 		}
 		upperBar.repaint();
 

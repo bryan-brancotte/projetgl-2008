@@ -982,4 +982,10 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean hasNext() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
