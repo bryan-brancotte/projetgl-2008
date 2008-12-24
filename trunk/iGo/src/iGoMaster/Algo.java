@@ -58,11 +58,6 @@ public abstract class Algo extends Observable {
 	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException;
 
 	/**
-	 */
-	public void setChanged() {
-	}
-
-	/**
 	 * @uml.property name="iGoMaster"
 	 * @uml.associationEnd inverse="algo1:iGoMaster.IGoMaster"
 	 */
