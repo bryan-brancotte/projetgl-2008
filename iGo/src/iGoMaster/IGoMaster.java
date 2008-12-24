@@ -50,6 +50,8 @@ enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionF
 public class IGoMaster implements Master, Observer 
 {
 	
+	private final int THREAD_LENGTH = 1000;
+	
 	private IHM ihm;
 	private Algo algo;
 	private Language lg;
@@ -64,6 +66,8 @@ public class IGoMaster implements Master, Observer
 	private StateNetwork stateNetwork;
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
+	
+	
 	
 
 	/******************************************************************************/
@@ -126,19 +130,38 @@ public class IGoMaster implements Master, Observer
 				
 				try 
 				{
-						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
-				} catch (VoidPathException e) {
-					System.err.println("elo(de tony) --> échec de l'algorithme, le chemin n'existe pas");
-				} catch (ServiceNotAccessibleException e) {
-					System.err.println("elo(de tony) --> échec de l'algorithme, le service '"+e.getService().getName()+"' n'est pas accessible");
-				} catch (StationNotAccessibleException e) {
-					System.err.println("elo(de tony) --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
-				} catch (NoRouteForStationException e) {
+					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+				} 
+				catch (VoidPathException e) 
+				{
+					System.err.println("elo --> échec de l'algorithme, le chemin n'existe pas");
+					ihm.returnPathAsked(null, AlgoKindOfException.VoidPathException);
+				} 
+				catch (ServiceNotAccessibleException e) 
+				{
+					System.err.println("elo --> échec de l'algorithme, le service '"+e.getService().getName()+"' n'est pas accessible");
+					ihm.returnPathAsked(null, AlgoKindOfException.ServiceNotAccessibleException);
+				} 
+				catch (StationNotAccessibleException e) 
+				{
+					System.err.println("elo --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
+					ihm.returnPathAsked(null, AlgoKindOfException.StationNotAccessibleException);
+				} 
+				catch (NoRouteForStationException e) 
+				{
 					System.err.println("elo --> échec de l'algorithme, pas de route associée à la station "+e.getStation());
-				} catch (StationNotOnRoadException e) {
-					System.err.println("elo(de tony) --> échec de l'algorithme, la Station n'est pas sur la route");
+					ihm.returnPathAsked(null, AlgoKindOfException.NoRouteForStationException);
+				} 
+				catch (StationNotOnRoadException e) 
+				{
+					System.err.println("elo --> échec de l'algorithme, la Station n'est pas sur la route");
+					ihm.returnPathAsked(null, AlgoKindOfException.StationNotOnRoadException);
 				}
-				
+				catch (Exception e)
+				{
+					System.err.println("elo --> échec de l'algorithme suite à une erreur indéfinie");
+					ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
+				}
 			}
 			
 		}.start();
@@ -181,7 +204,7 @@ public class IGoMaster implements Master, Observer
 				
 				try 
 				{
-					Thread.sleep(5);
+					Thread.sleep(THREAD_LENGTH);
 				} 
 				catch (InterruptedException e) 
 				{
@@ -192,7 +215,7 @@ public class IGoMaster implements Master, Observer
 			public void run() 
 			{
 				this.origine.showMessageSplashScreen("Réseau en cours de chargement");
-				
+
 				this.haveRest();
 				
 				if (getNetwork())
@@ -284,14 +307,14 @@ public class IGoMaster implements Master, Observer
 		/* Redefine equals? */
 		if (o.equals(algo))
 		{
-			//TODO From Bryan : protection
-			if (arg!=null&&arg.equals(collectionBuilder.getPathInGraph()))
+			
+			if (arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
 				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
-				
+				System.out.println(collectionBuilder.getPathInGraph().getDestination().getName());
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraph(),
-						"Haha message qui sert à rien?"
+						null
 						);
 				
 				threads.clear();
@@ -351,7 +374,7 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public boolean setConfig(String key, String value) 
 	{
-		if (true/*TODO vérifier que je peut modifier les clef */)
+		if (true/*TODO vérifier que je peux modifier les clés */)
 		{
 			config.setValue(key, value);
 			if (key == SettingsKey.LANGUAGE.toString())

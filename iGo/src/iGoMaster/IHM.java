@@ -92,11 +92,11 @@ public interface IHM {
 	 * 
 	 * @param path
 	 *            le trajet calculé
-	 * @param message
-	 *            une information textuelle pour par exemple signaler qu'on n'a pas pu respecter tous les critères
+	 * @param algoKindOfException
+	 *            Si l'algo a rencontré une erreur, énum qui précise le type d'erreur. Sinon null.
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean returnPathAsked(PathInGraph path, String message);
+	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException);
 	
 	/**
 	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de
