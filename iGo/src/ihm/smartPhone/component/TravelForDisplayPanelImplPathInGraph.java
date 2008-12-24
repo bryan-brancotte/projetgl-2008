@@ -46,14 +46,16 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 			section.addJunction(junction = itJ.next());
 			station = junction.getOtherStation(station);
 			if (section.getEnddingChangementTime() != -1) {
-				travel.add(section);	
+				totalTime += section.getEnddingChangementTime() + section.getTimeSection();
+				travel.add(section);
 				route = junction.getOtherRoute(route);
 				section = new SectionOfTravelImplPathInGraph(route, origin);
 			}
 		}
 		travel.add(section);
-		if (section.getEnddingChangementTime() == -1)
-			section.enddingChangementTime = 0;
+		 if (section.getEnddingChangementTime() == -1)
+		section.enddingChangementTime = 0;
+		totalTime += section.getEnddingChangementTime() + section.getTimeSection();
 	}
 
 	@Override
