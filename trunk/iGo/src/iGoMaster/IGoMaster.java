@@ -15,7 +15,6 @@ import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.ImpossibleStartingException;
 import iGoMaster.exception.NoNetworkException;
 import iGoMaster.exception.NoRouteForStationException;
-import iGoMaster.exception.PathInGraphCurrentlyModifiedByAlgoException;
 import iGoMaster.exception.ServiceNotAccessibleException;
 import iGoMaster.exception.StationNotAccessibleException;
 import iGoMaster.exception.VoidPathException;
