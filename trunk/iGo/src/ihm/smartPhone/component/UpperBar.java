@@ -1,10 +1,8 @@
 package ihm.smartPhone.component;
 
 import ihm.smartPhone.IGoIhmSmartPhone;
-import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Color;
@@ -14,6 +12,9 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import libPT.MouseListenerClickAndMoveInArea;
+import libPT.PanelDoubleBufferingSoftwear;
 
 public class UpperBar extends AbstractBar {
 

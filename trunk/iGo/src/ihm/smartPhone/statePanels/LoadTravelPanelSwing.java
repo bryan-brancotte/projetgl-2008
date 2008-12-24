@@ -5,7 +5,6 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.statePanels.component.TravelPanel;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.VerticalFlowLayout;
 
 import java.awt.BorderLayout;
@@ -15,6 +14,8 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+
+import libPT.PanelDoubleBufferingSoftwear;
 
 /**
  * 

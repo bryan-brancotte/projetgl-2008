@@ -1,4 +1,5 @@
-package ihm.smartPhone.tools;
+package libPT;
+
 
 import java.awt.Color;
 import java.awt.Font;

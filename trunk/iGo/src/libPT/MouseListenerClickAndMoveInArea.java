@@ -1,4 +1,4 @@
-package ihm.smartPhone.listener;
+package libPT;
 
 import ihm.smartPhone.tools.CodeExecutor;
 
@@ -93,14 +93,14 @@ public class MouseListenerClickAndMoveInArea implements MouseListener, MouseMoti
 		}
 	}
 
-	public Rectangle addInteractiveArea(Rectangle area, CodeExecutor codeExecutor, boolean showHand) {
-		listAreaAndCodeExecutor.add(new AreaAndCodeExecutor(area, codeExecutor, showHand));
-		return area;
+	public AreaAndCodeExecutor addInteractiveArea(Rectangle area, CodeExecutor codeExecutor, boolean showHand) {
+		AreaAndCodeExecutor areaAndCodeExecutor;
+		listAreaAndCodeExecutor.add(areaAndCodeExecutor = new AreaAndCodeExecutor(area, codeExecutor, showHand));
+		return areaAndCodeExecutor;
 	}
 
-	public Rectangle addInteractiveArea(Rectangle area, CodeExecutor codeExecutor) {
-		this.addInteractiveArea(area, codeExecutor, true);
-		return area;
+	public AreaAndCodeExecutor addInteractiveArea(Rectangle area, CodeExecutor codeExecutor) {
+		return this.addInteractiveArea(area, codeExecutor, true);
 	}
 
 }

@@ -1,15 +1,19 @@
-package ihm.smartPhone.tools;
+package libPT;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import libPT.MouseListenerClickAndMoveInArea.AreaAndCodeExecutor;
+
 public abstract class PTComponent {
 
 	protected static Color colorRound = new Color(141, 207, 80);
 
 	protected Rectangle area;
+
+	protected AreaAndCodeExecutor areaCodEx;
 
 	protected String text = "Nothing";
 

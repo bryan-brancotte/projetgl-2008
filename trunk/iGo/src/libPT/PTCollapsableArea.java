@@ -1,4 +1,7 @@
-package ihm.smartPhone.tools;
+package libPT;
+
+import ihm.smartPhone.tools.CodeExecutor1P;
+import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Color;
 import java.awt.Font;

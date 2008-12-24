@@ -1,7 +1,7 @@
 package ihm.smartPhone.statePanels.component;
 
+import libPT.PTButton;
 import graphNetwork.Station;
-import ihm.smartPhone.tools.PTButton;
 
 public class PairPTButtonStation {
 	public PTButton cmd;

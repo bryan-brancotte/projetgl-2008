@@ -58,8 +58,8 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 
 	public void addJunction(Junction j) {
 		junctions.add(j);
+		station = j.getOtherStation(station);
 		if (j.getOtherRoute(route) != route) {
-			station = j.getOtherStation(station);
 			enddingChangementTime = j.getTimeBetweenStations();
 			enddingChangementCost = j.getCost();
 		} else {

@@ -1,7 +1,8 @@
-package ihm.smartPhone.tools;
+package libPT;
 
 import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.IGoIhmSmartPhone;
+import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Font;
 import java.awt.Graphics;
