@@ -229,18 +229,14 @@ public class NewTravelPanel extends PanelState {
 		travelCriteriaRadioBoxs[3] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[0] }, ex);// Cheaper
 		travelCriteriaRadioBoxs[4] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[1] }, ex);// Faster
 		travelCriteriaRadioBoxs[5] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[2] }, ex);// Fewer Changes
-		travelCriteriaRadioBoxs[0].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.COST.toString()) == 0);
-		travelCriteriaRadioBoxs[1].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
-		travelCriteriaRadioBoxs[2].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
-		travelCriteriaRadioBoxs[3].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.COST.toString()) == 0);
-		travelCriteriaRadioBoxs[4].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
-		travelCriteriaRadioBoxs[5].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
+		travelCriteriaRadioBoxs[0].setClicked((s = father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()))
+				.compareTo(Algo.CriteriousForLowerPath.COST.toString()) == 0);
+		travelCriteriaRadioBoxs[1].setClicked(s.compareTo(Algo.CriteriousForLowerPath.TIME.toString()) == 0);
+		travelCriteriaRadioBoxs[2].setClicked(s.compareTo(Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
+		travelCriteriaRadioBoxs[3].setClicked((s = father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()))
+				.compareTo(Algo.CriteriousForLowerPath.COST.toString()) == 0);
+		travelCriteriaRadioBoxs[4].setClicked(s.compareTo(Algo.CriteriousForLowerPath.TIME.toString()) == 0);
+		travelCriteriaRadioBoxs[5].setClicked(s.compareTo(Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[0]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[1]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[2]);

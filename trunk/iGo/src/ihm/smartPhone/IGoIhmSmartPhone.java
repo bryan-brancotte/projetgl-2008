@@ -656,10 +656,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public boolean returnPathAsked(PathInGraph path, String message) {
 		try {
 			travel = new TravelForDisplayPanelImplPathInGraph(path);
-		} catch (Exception e) {
-			System.err.println("IGoIhmSmartPhone.returnPathAsked(null,\"" + message + "\"");
-			travel = null;
-		}
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 System.err.println("IGoIhmSmartPhone.returnPathAsked(path,\"" + message + "\"\n" + path);
+		 travel = null;
+		 }
 		// System.out.println(path);
 		// TODO ......returnPathAsked
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
