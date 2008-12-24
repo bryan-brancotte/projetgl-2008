@@ -6,7 +6,6 @@ import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
-
 import iGoMaster.exception.NoRouteForStationException;
 
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ public class GraphAlgo {
 			 throw new NoRouteForStationException();
 		graph.add(n);
 		addLink(n);
-		//System.out.println(toString());
 	}
 	
 	/**
@@ -47,6 +45,7 @@ public class GraphAlgo {
 	 * @param n La racine du graph
 	 */
 	private	void addLink (Node n) {
+		System.out.println(n.getStation());
 		Station station = n.getStation();
 		Iterator<Junction> itInter;
 		try {
