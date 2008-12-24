@@ -7,6 +7,9 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
 import iGoMaster.exception.NoRouteForStationException;
+import iGoMaster.exception.ServiceNotAccessibleException;
+import iGoMaster.exception.StationNotAccessibleException;
+import iGoMaster.exception.VoidPathException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +34,7 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException {
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException {
 
 		// Initialisation des contraintes
 		initConstraints(prb);
@@ -39,16 +42,15 @@ public class Dijkstra extends Algo {
 		// Création de l'ensemble des étapes obligatoires
 		ArrayList<ArrayList<Station>> allSteps = createAllSteps();
 
-		for (int i=0;i<allSteps.size();i++)
-			//System.out.println(allSteps.get(i));
-		// Création du chemin
 		if (allSteps.size() == 0)
-			betterPath.addAll(algo(graph.getFirstNode(origin), graph.getFirstNode(destination)));
-		else {
+			betterPath = new ArrayList<Junction>(algo(graph.getFirstNode(origin), graph.getFirstNode(destination)));
+		else
+			// for (int i = 0; i < allSteps.size(); i++)
 			algoComb(new ArrayList<ArrayList<Station>>(), allSteps, 0);
-		}
 
-		// TODO System.out.println(betterPath.size());
+		if (betterPath == null)
+			throw new VoidPathException();
+
 		// Création du pathInGraph
 		Iterator<Junction> it = betterPath.iterator();
 		while (it.hasNext()) {
@@ -62,9 +64,11 @@ public class Dijkstra extends Algo {
 	 * 
 	 * @param prb
 	 *            le pathInGraphResultBuilder fourni par iGoMaster
-	 * @throws NoRouteForStationException 
+	 * @throws NoRouteForStationException
+	 * @throws ServiceNotAccessibleException
+	 * @throws StationNotAccessibleException
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 
@@ -72,15 +76,26 @@ public class Dijkstra extends Algo {
 		graph.refreshGraph(p);
 
 		// Récupération des contraintes
-		origin = p.getOrigin();
-		destination = p.getDestination();
+		if (graph.getFirstNode(p.getOrigin()) == null)
+			throw new StationNotAccessibleException(origin);
+		else
+			origin = p.getOrigin();
+		if (graph.getFirstNode(p.getDestination()) == null)
+			throw new StationNotAccessibleException(origin);
+		else
+			destination = p.getDestination();
 		steps = p.getStepsArray();
+		for (int i = 0; i < steps.length; i++) {
+			if (graph.getFirstNode(steps[i]) == null)
+				throw new StationNotAccessibleException(steps[i]);
+		}
 		once = new ArrayList<Service>();
 		for (int i = 0; i < p.getServicesOnceArray().length; i++) {
 			Service s = p.getServicesOnceArray()[i];
 			if (Tools.isAccessibleService(s, graph.getList()))
 				once.add(s);
-			// TODO else NOTIFIER QUE LA CONTRAINTE NE PEUT ETRE REMPLIE
+			else
+				throw new ServiceNotAccessibleException(s);
 		}
 		Tools.removeServicesFromStation(origin, once);
 		Tools.removeServicesFromStation(destination, once);
@@ -114,9 +129,12 @@ public class Dijkstra extends Algo {
 	 * @return
 	 */
 	private void algoComb(ArrayList<ArrayList<Station>> v, ArrayList<ArrayList<Station>> vTot, int prof) {
-		if (prof==0) timeComb =System.currentTimeMillis();
-		if (prof>0 && System.currentTimeMillis()-timeComb>1000 && betterPath!=null && betterPath.size()!=0) return;
-		if (v == null || vTot == null || vTot.size() == 0) return;
+		if (prof == 0)
+			timeComb = System.currentTimeMillis();
+		if (prof > 0 && System.currentTimeMillis() - timeComb > 1000 && betterPath != null && betterPath.size() != 0)
+			return;
+		if (v == null || vTot == null || vTot.size() == 0)
+			return;
 		if (v.size() == vTot.size()) {
 			ArrayList<Junction> currentPath = new ArrayList<Junction>();
 
@@ -198,7 +216,8 @@ public class Dijkstra extends Algo {
 	 * @return
 	 */
 	private ArrayList<Junction> algo(Node depart, Node arrivee) {
-		if (depart.getStation() == arrivee.getStation()) return new ArrayList<Junction>();
+		if (depart.getStation() == arrivee.getStation())
+			return new ArrayList<Junction>();
 		compteur++;
 		// if (compteur%100==0) System.out.println(compteur);
 
