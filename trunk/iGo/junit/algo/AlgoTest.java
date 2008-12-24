@@ -15,6 +15,9 @@ import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Algo;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
+import iGoMaster.exception.ServiceNotAccessibleException;
+import iGoMaster.exception.StationNotAccessibleException;
+import iGoMaster.exception.VoidPathException;
 
 import java.util.Iterator;
 import java.util.MissingResourceException;
@@ -598,7 +601,21 @@ public class AlgoTest {
 		bob = new Dijkstra();
 
 		long begin = System.currentTimeMillis();
-		bob.findPath(prb);
+		try {
+			bob.findPath(prb);
+		} catch (VoidPathException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceNotAccessibleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StationNotAccessibleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StationNotOnRoadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		long end = System.currentTimeMillis();
 
 		Iterator<Junction> it = prb.getCurrentPathInGraph().getJunctions();
