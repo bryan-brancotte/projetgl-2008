@@ -221,6 +221,8 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							}
 						}
 					}
+					System.out.println();
+					System.out.println();
 
 					List<Element> interchanges = racine.getChild("InterchangesList").getChildren("Interchange");
 					for (Element interchange : interchanges) {
@@ -231,11 +233,11 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : startChilds) {
 							if (child.getName().compareTo("Station") == 0) {
 								idStationStart = Integer.parseInt(child.getTextTrim());
-								// System.out.println("ID Station start : " + idStationStart);
+//								 System.out.println("ID Station start : " + idStationStart);
 							}
 							else if (child.getName().compareTo("Route") == 0) {
 								idRouteStart = child.getTextTrim();
-								// System.out.println("ID Route start : " + idRouteStart);
+//								 System.out.println("ID Route start : " + idRouteStart);
 							}
 						}
 
@@ -243,49 +245,58 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 						for (Element end : endList) {
 							List<Element> endChilds = end.getChildren();
+							int idStationEnd = 0;
+							String idRouteEnd = "";
+							boolean freeEnd = true;
+							boolean pedestrianEnd = true;
+							int timeEnd = 0;
 							for (Element child : endChilds) {
+								idStationEnd = 0;
+								idRouteEnd = "";
+								freeEnd = true;
+								pedestrianEnd = true;
+								timeEnd = 0;
 
-								int idStationEnd = 0;
-								String idRouteEnd = "";
-								boolean freeEnd = true;
-								boolean pedestrianEnd = true;
-								int timeEnd = 0;
 
 								if (child.getName().compareTo("Station") == 0) {
-									// System.out.println("ID Station end : " + child.getTextTrim());
+//									 System.out.println("\t ID Station end : " + child.getTextTrim());
 									idStationEnd = Integer.parseInt(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Route") == 0) {
-									// System.out.println("ID Route end : " + child.getTextTrim());
+//									 System.out.println("\t ID Route end : " + child.getTextTrim());
 									idRouteEnd = child.getTextTrim();
 								}
 								else if (child.getName().compareTo("Free") == 0) {
-									// System.out.println("ID free end : " + child.getTextTrim());
+//									 System.out.println("\t ID free end : " + child.getTextTrim());
 									freeEnd = Boolean.parseBoolean(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Pedestrian") == 0) {
-									// System.out.println("ID pedestrian end : " + child.getTextTrim());
+//									 System.out.println("\t ID pedestrian end : " + child.getTextTrim());
 									pedestrianEnd = Boolean.parseBoolean(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Time") == 0) {
-									// System.out.println("ID time end : " + child.getTextTrim());
+//									 System.out.println("\t ID time end : " + child.getTextTrim());
 									timeEnd = Integer.parseInt(child.getTextTrim());
 								}
+							}
 
-								if (idStationStart != 0 && !idRouteEnd.equals("") && idStationEnd != 0 && !idRouteEnd.equals("")) {
+							if (idStationStart != 0 && !idRouteStart.equals("") && idStationEnd != 0 && !idRouteEnd.equals("")) {
 
-									if (freeEnd == true) {
-										gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
-												idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
-												.getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
-									}
-									else {
-										gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
-												idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
-												.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
-												.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
-												pedestrianEnd);
-									}
+								if (freeEnd == true) {
+//									System.out.println("Free");
+//									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
+									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
+											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
+											.getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
+								}
+								else {
+//									System.out.println("NOT Free");
+//									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
+									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
+											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
+											.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
+											.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
+											pedestrianEnd);
 								}
 							}
 //							System.out.println("-");
