@@ -154,10 +154,10 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			this.setUndecorated(true);
 		}
 		String tmp = this.master.getConfig("GRAPHIC_OR_ARRAY_MODE");
-		if ((tmp == null) || (tmp.compareTo(IhmReceivingStates.GRAPHIC_MODE.toString()) == 0))
-			this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
-		else
+		if ((tmp == null) || (tmp.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0))
 			this.preferedState = IhmReceivingStates.ARRAY_MODE;
+		else
+			this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
 
 		/***************************************************************************************************************
 		 * Préparation des trois zones de données
@@ -400,7 +400,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	protected void checkTravelArrayDisplayPanel() {
 		if (travelArrayPanel == null)
-			travelArrayPanel = new TravelArrayDisplayPanel(this, upperBar, lowerBar, null);
+			travelArrayPanel = new TravelArrayDisplayPanel(this, upperBar, lowerBar, travel);
 	}
 
 	protected void checkNewTravelPanel() {
@@ -554,6 +554,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			return true;
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
 			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(preferedState);
+			System.out.println(actualState);
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) {
 			actualState = IhmReceivingStates.EXPERIMENT_TRAVEL.mergeState(preferedState);
 		}
