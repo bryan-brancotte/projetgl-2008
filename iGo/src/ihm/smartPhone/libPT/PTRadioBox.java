@@ -1,6 +1,5 @@
 package ihm.smartPhone.libPT;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -41,7 +40,8 @@ public class PTRadioBox extends PTComponent {
 		int delta = font.getSize() >> 2;
 		if (clicked) {
 			g.setColor(colorRound);
-			g.fillOval(area.x + delta, area.y + delta, font.getSize() - (delta<<1) + 1, font.getSize() - (delta<<1) + 1);
+			g.fillOval(area.x + delta, area.y + delta, font.getSize() - (delta << 1) + 1, font.getSize() - (delta << 1)
+					+ 1);
 			g.setColor(colorLetter);
 			g.drawOval(area.x + delta, area.y + delta, font.getSize() - (delta << 1), font.getSize() - (delta << 1));
 		}

@@ -1,21 +1,24 @@
 package ihm.smartPhone.statePanels;
 
-import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.libPT.PTScrollBar;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.statePanels.component.TravelPanel;
+import ihm.smartPhone.listener.MouseMotionListenerSimplificated;
+import ihm.smartPhone.statePanels.component.TravelPanelPT;
+import ihm.smartPhone.tools.CodeExecutor2P;
+import ihm.smartPhone.tools.CodeExecutor3P;
 import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
-
 
 /**
  * 
@@ -40,15 +43,23 @@ public class LoadTravelPanel extends PanelState {
 	/**
 	 * Barre de défilement
 	 */
-	protected LinkedList<TravelForTravelPanel> paths;
+	protected LinkedList<TravelPanelPT> travelPanels;
 	/**
-	 * L'image OK pour ajouter une station
+	 * L'image pour editer le trajet
 	 */
 	protected ImageIcon imageEdit;
 	/**
-	 * L'image OK pour retirer une station
+	 * L'image pour supprimer le trajet
 	 */
 	protected ImageIcon imageDel;
+	/**
+	 * L'image d'un trajet favorit
+	 */
+	protected ImageIcon imageFav = null;
+	/**
+	 * L'image d'un trajet non-favorit
+	 */
+	protected ImageIcon imageNoFav = null;
 
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 
@@ -63,14 +74,29 @@ public class LoadTravelPanel extends PanelState {
 	 * @param paths
 	 */
 	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
-			IhmReceivingStates actualState, LinkedList<TravelForTravelPanel> paths) {
+			IhmReceivingStates actualState, LinkedList<TravelForTravelPanel> travels) {
 		super(ihm, upperBar, lowerBar);
-		this.paths = paths;
+		travelPanels = new LinkedList<TravelPanelPT>();
 		if (actualState == IhmReceivingStates.FAVORITES)
 			this.actualState = IhmReceivingStates.FAVORITES;
 		else if (actualState == IhmReceivingStates.LOAD_TRAVEL)
 			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
-		buildInterface();
+		buildInterface(travels);
+		this.addMouseMotionListener(new MouseMotionListenerSimplificated<PanelState>(this) {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				boolean repaint = false;
+				boolean b;
+				for (TravelPanelPT t : travelPanels) {
+					if (t.isInMe ^ (b = t.area.contains(e.getX(), e.getY()))) {
+						t.isInMe = b;
+						repaint = true;
+					}
+				}
+				if (repaint)
+					this.origin.repaint();
+			}
+		});
 	}
 
 	@Override
@@ -91,6 +117,11 @@ public class LoadTravelPanel extends PanelState {
 		int decalageDemi = (decalage >> 1);
 		int decalage2 = (decalage << 1);
 		int ordonne = decalage - deroullement;
+		int x;
+		int y;
+		int nextX;
+		int i;
+		String tmp1, tmp2;
 
 		/***
 		 * Gestion du buffer mémoire
@@ -106,10 +137,14 @@ public class LoadTravelPanel extends PanelState {
 			buffer = image.getGraphics();
 			graphicsTunning(buffer);
 			// buffer.setColor(father.getSkin().getColorLetter());
-			if (imageEdit == null || imageEdit.getIconHeight() != father.getSizeAdapteur().getSizeSmallFont()) {
+			if (imageEdit == null || imageEdit.getIconHeight() != father.getSizeAdapteur().getSizeIntermediateFont()) {
 				imageEdit = ImageLoader.getRessourcesImageIcone("button_config", father.getSizeAdapteur()
-						.getSizeSmallFont(), father.getSizeAdapteur().getSizeSmallFont());
+						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
 				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
+						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
+				imageFav = ImageLoader.getRessourcesImageIcone("fav", father.getSizeAdapteur()
+						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
+				imageNoFav = ImageLoader.getRessourcesImageIcone("fav-no", father.getSizeAdapteur()
 						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
 			}
 		} else {
@@ -119,6 +154,94 @@ public class LoadTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Dessins des chemins
 		 */
+		for (TravelPanelPT t : travelPanels) {
+			t.area.setBounds(decalage, ordonne, getWidth() - decalage2 - decalage, (decalage << 1)
+					+ father.getSizeAdapteur().getSizeIntermediateFont()
+					+ (father.getSizeAdapteur().getSizeSmallFont() << 1));
+			buffer.setColor(father.getSkin().getColorSubAreaInside());
+			buffer.fillRect(t.area.x, t.area.y, t.area.width, t.area.height);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawRect(t.area.x, t.area.y, t.area.width, t.area.height);
+			if (t.isInMe)
+				buffer.drawRect(t.area.x + 1, t.area.y + 1, t.area.width - 2, t.area.height - 2);
+			x = t.area.x + decalageDemi;
+			y = t.area.y + decalageDemi;
+			if (t.pathBuilder.isFavorite())
+				t.cmdFav.update(buffer, x, y, imageFav);
+			else
+				t.cmdFav.update(buffer, x, y, imageNoFav);
+			t.cmdDel
+					.update(buffer, i = (t.area.x + t.area.width - decalageDemi - imageDel.getIconWidth()), y, imageDel);
+			t.cmdEdit.update(buffer, i - decalageDemi - imageEdit.getIconWidth(), y, imageEdit);
+			buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+
+			x += decalageDemi + imageFav.getIconWidth();
+			y += getHeightString(t.pathBuilder.getName(), buffer);
+			buffer.drawString(t.pathBuilder.getName(), x, y);
+
+			/***************************************************************************************************************
+			 * calcul du from to
+			 */
+			tmp1 = father.lg("From") + " : ";
+			tmp2 = father.lg("To") + " : ";
+			buffer.setFont(father.getSizeAdapteur().getSmallFont());
+			nextX = PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer) + x;
+			i = PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer) + x;
+			if (nextX < i)
+				nextX = i;
+
+			/***************************************************************************************************************
+			 * Dessin du from to
+			 */
+			buffer.setFont(father.getSizeAdapteur().getSmallFont());
+			y += getHeightString(tmp1, buffer) + decalageDemi;
+			buffer.drawString(tmp1, x, y);
+			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
+
+			/***************************************************************************************************************
+			 * Dessin des gares de départ et d'arrivée
+			 */
+			x = nextX;
+			tmp1 = t.pathBuilder.getOrigine();
+			tmp2 = t.pathBuilder.getDestination();
+			buffer.drawString(tmp1, x, y);
+			buffer.drawString(tmp2, x, y + getHeightString(tmp2, buffer) + decalageDemi);
+
+			//
+			//
+			/***************************************************************************************************************
+			 * calcul des valeurs
+			 */
+			tmp1 = t.pathBuilder.getTotalCost() + " " + father.lg("Money");
+			tmp2 = decomposeMinutesIntoHourMinutes(t.pathBuilder.getTotalTime(), father.lg("LetterForHour"), father
+					.lg("LetterForMinute"));
+			nextX = t.area.width + t.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
+			i = t.area.width + t.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
+			if (nextX > i)
+				nextX = i;
+
+			/***************************************************************************************************************
+			 * Dessin des valeurs
+			 */
+			x = nextX;
+			buffer.drawString(tmp1, x, y);
+			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
+
+			/***************************************************************************************************************
+			 * Dessin du coût et du temps
+			 */
+			tmp1 = father.lg("Cost") + " : ";
+			tmp2 = father.lg("Time") + " : ";
+			nextX = x - PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
+			i = x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
+			if (nextX > i)
+				nextX = i;
+			x = nextX;
+			buffer.drawString(tmp1, x, y);
+			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
+
+			ordonne += t.area.height + decalage;
+		}
 
 		/***************************************************************************************************************
 		 * ScrollBar
@@ -133,7 +256,50 @@ public class LoadTravelPanel extends PanelState {
 	/**
 	 * Construction du contenu
 	 */
-	protected void buildInterface() {
+	protected void buildInterface(LinkedList<TravelForTravelPanel> travels) {
+		TravelPanelPT travelPanel;
+		for (TravelForTravelPanel t : travels) {
+			this.travelPanels.add(travelPanel = new TravelPanelPT(null, null, null, new Rectangle(), t));
+			// la zone général
+			travelPanel.area = new Rectangle();
+			// la supression de l'obj
+			travelPanel.cmdDel = makeButton(new CodeExecutor3P<TravelForTravelPanel, PanelState, TravelPanelPT>(t,
+					this, travelPanel) {
+				@Override
+				public void execute() {
+					System.out.println("cmdDel");
+					this.origineC.cmdDel.terminate();
+					this.origineC.cmdEdit.terminate();
+					this.origineC.cmdFav.terminate();
+					travelPanels.remove(this.origineC);
+					this.origineA.delete();
+					this.origineB.repaint();
+
+				}
+			});
+			// sa mise en favorit
+			travelPanel.cmdFav = makeButton(new CodeExecutor2P<TravelForTravelPanel, PanelState>(t, this) {
+				@Override
+				public void execute() {
+					System.out.println("cmdFav");
+					this.origineA.setFavorite(!this.origineA.isFavorite());
+					this.origineB.repaint();
+				}
+			});
+			// son édition
+			travelPanel.cmdEdit = makeButton(new CodeExecutor2P<TravelForTravelPanel, PanelState>(t, this) {
+				@Override
+				public void execute() {
+					System.out.println("cmdEdit");
+					this.origineA.edit();
+					this.origineB.repaint();
+				}
+			});
+		}
+		/***************************************************************************************************************
+		 * ScrollBar
+		 */
+		scrollBar = makeScrollBar();
 	}
 
 	/**

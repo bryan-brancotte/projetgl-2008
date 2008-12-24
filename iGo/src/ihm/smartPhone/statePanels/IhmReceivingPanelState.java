@@ -69,7 +69,7 @@ public interface IhmReceivingPanelState {
 	 *            le nouvelle état;
 	 * @return true si on a bien appliqué le mutateur.
 	 */
-	public boolean setCurrentState(IhmReceivingStates currentState);
+	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates);
 
 	/**
 	 * Demande à passer dans l'état d'erreur avec ce titre et ce message

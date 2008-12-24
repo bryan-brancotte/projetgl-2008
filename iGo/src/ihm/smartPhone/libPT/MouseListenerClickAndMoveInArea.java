@@ -26,13 +26,21 @@ public class MouseListenerClickAndMoveInArea implements MouseListener, MouseMoti
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		LinkedList<AreaAndCodeExecutor> toDel = null;
 		for (AreaAndCodeExecutor areaAndCodeExecutor : listAreaAndCodeExecutor) {
-			if (areaAndCodeExecutor.area.contains(e.getPoint())) {
+			if (areaAndCodeExecutor.terminate) {
+				if (toDel == null)
+					toDel = new LinkedList<AreaAndCodeExecutor>();
+				toDel.add(areaAndCodeExecutor);
+			} else if (areaAndCodeExecutor.area.contains(e.getPoint())) {
 				areaAndCodeExecutor.codeExecutor.execute();
 				areaAndCodeExecutorPressed = null;
 				return;
 			}
 		}
+		if (toDel != null)
+			for (AreaAndCodeExecutor areaAndCodeExecutor : toDel)
+				listAreaAndCodeExecutor.remove(areaAndCodeExecutor);
 		areaAndCodeExecutorPressed = null;
 	}
 
@@ -84,6 +92,7 @@ public class MouseListenerClickAndMoveInArea implements MouseListener, MouseMoti
 		public Rectangle area;
 		public CodeExecutor codeExecutor;
 		public boolean showHand;
+		public boolean terminate;
 
 		public AreaAndCodeExecutor(Rectangle area, CodeExecutor codeExecutor, boolean showHand) {
 			super();

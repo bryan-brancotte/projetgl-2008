@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-
 public abstract class PTComponent {
 
 	protected static Color colorRound = new Color(141, 207, 80);
@@ -30,7 +29,19 @@ public abstract class PTComponent {
 	public Rectangle getArea() {
 		if (!this.isEnable())
 			return null;
+		if (areaCodEx != null)
+			return areaCodEx.area;
 		return area;
+	}
+
+	/**
+	 * Demande à l'objet de se terminer. Il devient alors inactif et invisible.
+	 */
+	public void terminate() {
+		if (areaCodEx != null)
+			areaCodEx.terminate = true;
+		this.setEnable(false);
+
 	}
 
 	/**
@@ -50,6 +61,14 @@ public abstract class PTComponent {
 	 */
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	protected PTComponent(PanelTooled father, AreaAndCodeExecutor areaCodEx) {
+		super();
+		this.areaCodEx = areaCodEx;
+		if (areaCodEx != null)
+			this.area = areaCodEx.area;
+		this.father = father;
 	}
 
 	protected PTComponent(PanelTooled father, Rectangle area) {

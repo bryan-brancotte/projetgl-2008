@@ -1,13 +1,11 @@
 package ihm.smartPhone.libPT;
 
-
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor2P;
 import ihm.smartPhone.tools.CodeExecutor3P;
 import ihm.smartPhone.tools.CodeExecutor4P;
 
 import java.awt.Rectangle;
-
 
 public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	/**
@@ -37,10 +35,13 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	public PTButton makeButton(CodeExecutor action) {
 		if (action == null)
 			throw new NullPointerException();
-		Rectangle rec;
-		clickAndMoveWarningAndArray.addInteractiveArea(rec = new Rectangle(), action);
-		PTButton ptb = new PTButton(this, rec);
-		return ptb;
+		return new PTButton(this, clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), action));
+	}
+
+	public PTReactiveArea makeReactiveArea(CodeExecutor action) {
+		if (action == null)
+			throw new NullPointerException();
+		return new PTReactiveArea(this, clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), action, false));
 	}
 
 	/**
@@ -60,7 +61,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		Rectangle area = new Rectangle();
 		PTRadioBox radioBox = new PTRadioBox(this, area);
 		grp.add(radioBox);
-		clickAndMoveWarningAndArray
+		radioBox.areaCodEx = clickAndMoveWarningAndArray
 				.addInteractiveArea(area, new CodeExecutor4P<PTRadioBoxGroup, PTRadioBox, CodeExecutor, PanelTooled>(
 						grp, radioBox, action, this) {
 					@Override
@@ -87,7 +88,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		Rectangle area = new Rectangle();
 		PTRadioBox radioBox = new PTRadioBox(this, area);
 		grp.add(radioBox);
-		clickAndMoveWarningAndArray.addInteractiveArea(area,
+		radioBox.areaCodEx = clickAndMoveWarningAndArray.addInteractiveArea(area,
 				new CodeExecutor3P<PTRadioBoxGroup, PTRadioBox, PanelTooled>(grp, radioBox, this) {
 					@Override
 					public void execute() {
@@ -117,7 +118,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		PTRadioBox radioBox = new PTRadioBox(this, area);
 		for (PTRadioBoxGroup g : grp)
 			g.add(radioBox);
-		clickAndMoveWarningAndArray.addInteractiveArea(area,
+		radioBox.areaCodEx = clickAndMoveWarningAndArray.addInteractiveArea(area,
 				new CodeExecutor4P<PTRadioBoxGroup[], PTRadioBox, CodeExecutor, PanelTooled>(grp, radioBox, action,
 						this) {
 					@Override
@@ -146,7 +147,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 		PTRadioBox radioBox = new PTRadioBox(this, area);
 		for (PTRadioBoxGroup g : grp)
 			g.add(radioBox);
-		clickAndMoveWarningAndArray.addInteractiveArea(area,
+		radioBox.areaCodEx = clickAndMoveWarningAndArray.addInteractiveArea(area,
 				new CodeExecutor3P<PTRadioBoxGroup[], PTRadioBox, PanelTooled>(grp, radioBox, this) {
 					@Override
 					public void execute() {
@@ -172,15 +173,15 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 			return makeCheckBox();
 		Rectangle area = new Rectangle();
 		PTCheckBox checkBox = new PTCheckBox(this, area);
-		clickAndMoveWarningAndArray.addInteractiveArea(area, new CodeExecutor3P<PTCheckBox, CodeExecutor, PanelTooled>(
-				checkBox, action, this) {
-			@Override
-			public void execute() {
-				this.origineA.changeClicked();
-				this.origineB.execute();
-				this.origineC.repaint();
-			}
-		});
+		checkBox.areaCodEx = clickAndMoveWarningAndArray.addInteractiveArea(area,
+				new CodeExecutor3P<PTCheckBox, CodeExecutor, PanelTooled>(checkBox, action, this) {
+					@Override
+					public void execute() {
+						this.origineA.changeClicked();
+						this.origineB.execute();
+						this.origineC.repaint();
+					}
+				});
 		return checkBox;
 	}
 
@@ -192,7 +193,7 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	public PTCheckBox makeCheckBox() {
 		Rectangle area = new Rectangle();
 		PTCheckBox checkBox = new PTCheckBox(this, area);
-		clickAndMoveWarningAndArray.addInteractiveArea(area,
+		checkBox.areaCodEx = clickAndMoveWarningAndArray.addInteractiveArea(area,
 				new CodeExecutor2P<PTCheckBox, PanelTooled>(checkBox, this) {
 					@Override
 					public void execute() {

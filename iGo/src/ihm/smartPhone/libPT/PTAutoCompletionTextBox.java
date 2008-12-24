@@ -12,9 +12,19 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 public class PTAutoCompletionTextBox extends PTComponent {
+
+	@Override
+	public void terminate() {
+		father.removeKeyListener(keyListener);
+		father.removeMouseListener(mouseListener);
+		father.removeMouseMotionListener(mouseMotionListener);
+		super.terminate();
+	}
 
 	protected String[] fields;
 	protected ArrayList<Integer> fieldsMatching;
@@ -29,6 +39,9 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	protected Font lastFont;
 	protected CodeExecutor actionOnChange;
 	protected CodeExecutor actionOnEnter;
+	protected KeyListener keyListener;
+	protected MouseMotionListener mouseMotionListener;
+	protected MouseListener mouseListener;
 
 	protected PTAutoCompletionTextBox(PanelTooled nvfather, Rectangle nvArea, String[] nvFields,
 			CodeExecutor theActionOnChange, CodeExecutor theActionOnEnter) {
@@ -40,7 +53,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 		this.currentStringLeft = "";
 		this.currentStringSelected = "";
 		this.currentStringRight = "";
-		this.father.addKeyListener(new KeyListener() {
+		this.father.addKeyListener(keyListener = new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (!isInMe)
@@ -133,7 +146,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 						currentStringLeft = currentStringLeft.substring(0, currentStringLeft.length() - 1);
 						key_char = true;
 						autoCompletion();
-						currentStringSelected="";
+						currentStringSelected = "";
 					}
 					break;
 				case KeyEvent.VK_HOME:
@@ -212,14 +225,14 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				// System.out.println("keyTyped");
 			}
 		});
-		father.addMouseMotionListener(new MouseMotionListenerSimplificated<PanelTooled>(father) {
+		father.addMouseMotionListener(mouseMotionListener= new MouseMotionListenerSimplificated<PanelTooled>(father) {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if (area.contains(e.getPoint()))
 					this.origin.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 			}
 		});
-		father.addMouseListener(new MouseListenerSimplificated<PanelTooled>(father) {
+		father.addMouseListener(mouseListener=new MouseListenerSimplificated<PanelTooled>(father) {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
