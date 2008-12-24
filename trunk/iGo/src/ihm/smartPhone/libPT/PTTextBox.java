@@ -1,5 +1,6 @@
 package ihm.smartPhone.libPT;
 
+import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea.AreaAndCodeExecutor;
 import ihm.smartPhone.listener.MouseListenerSimplificated;
 import ihm.smartPhone.listener.MouseMotionListenerSimplificated;
 
@@ -22,7 +23,7 @@ public class PTTextBox extends PTComponent {
 	protected byte selectingWay = 0;
 	protected Font lastFont;
 
-	protected PTTextBox(PanelTooled nvfather, Rectangle nvArea) {
+	protected PTTextBox(PanelTooled nvfather, AreaAndCodeExecutor nvArea) {
 		super(nvfather, nvArea);
 		currentStringLeft = "";
 		currentStringSelected = "";

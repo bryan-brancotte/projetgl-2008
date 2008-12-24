@@ -1,5 +1,6 @@
 package ihm.smartPhone.libPT;
 
+import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea.AreaAndCodeExecutor;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -19,7 +20,7 @@ public class PTButton extends PTComponent {
 	 * @param area
 	 *            sa zone
 	 */
-	protected PTButton(PanelTooled father, Rectangle area) {
+	protected PTButton(PanelTooled father, AreaAndCodeExecutor area) {
 		super(father, area);
 	}
 
@@ -58,7 +59,8 @@ public class PTButton extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
-		area.setBounds(x, y, PanelDoubleBufferingSoftwear.getWidthString(text, g, font), PanelDoubleBufferingSoftwear.getHeightString(text, g, font));
+		area.setBounds(x, y, PanelDoubleBufferingSoftwear.getWidthString(text, g, font), PanelDoubleBufferingSoftwear
+				.getHeightString(text, g, font));
 		return area;
 	}
 

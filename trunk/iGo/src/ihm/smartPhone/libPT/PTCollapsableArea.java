@@ -40,6 +40,18 @@ public class PTCollapsableArea extends PTComponent {
 				this.origine.father.repaint();
 			}
 		});
+		this.areaCodEx = buttonAddLess.areaCodEx;
+	}
+
+	/**
+	 * Retourne la zone courante du dessin si ce dernier est actif, sinon on retourne null
+	 * 
+	 * @return la zone active si l'objet est actif, null dans le cas contraire
+	 */
+	public Rectangle getArea() {
+		if (!this.isEnable())
+			return null;
+		return area;
 	}
 
 	public void addComponent(PTComponent ptc) {

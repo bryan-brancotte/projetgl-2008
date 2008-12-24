@@ -73,4 +73,19 @@ public interface TravelForTravelPanel {
 	 */
 	public boolean update();
 
+	/**
+	 * Demande le parcourt du chemin existant
+	 */
+	public void start();
+
+	/**
+	 * Demande la suppression du chemin représenté par cette objet
+	 */
+	public void delete();
+
+	/**
+	 * Demande l'édition du chemin représenté par cette objet
+	 */
+	public void edit();
+
 }

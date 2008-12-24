@@ -964,12 +964,7 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	@Override
 	public String getNextStop() {
 		return "Roosvelt";
-	}
-
-	@Override
-	public Iterator<SectionOfTravel> getTravel() {
-		return travel.iterator();
-	}
+	} 
 
 	@Override
 	public void next() {
@@ -987,5 +982,34 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Iterator<SectionOfTravel> getTravelDone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<SectionOfTravel> getTravelToDo() {
+		return travel.iterator();
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void edit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
 	}
 }
