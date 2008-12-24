@@ -284,7 +284,8 @@ public class IGoMaster implements Master, Observer
 		/* Redefine equals? */
 		if (o.equals(algo))
 		{
-			if (arg.equals(collectionBuilder.getPathInGraph()))
+			//TODO From Bryan : protection
+			if (arg!=null&&arg.equals(collectionBuilder.getPathInGraph()))
 			{	
 				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 				
