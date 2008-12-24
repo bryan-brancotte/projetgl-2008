@@ -18,6 +18,7 @@ import java.util.Iterator;
 
 import algorithm.GraphAlgo.Link;
 import algorithm.GraphAlgo.Node;
+import algorithm.exception.NodeNotFoundException;
 
 public class Dijkstra extends Algo {
 
@@ -38,17 +39,32 @@ public class Dijkstra extends Algo {
 
 	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
 
-		// Initialisation des contraintes
-		initConstraints(prb);
+		/*Iterator<Station> it3 = prb.getCurrentPathInGraph().getGraph().getStations();
+		while (it3.hasNext()) {
+			Station s = it3.next();
+			System.out.println(s);
+			Iterator<Route> it2 = s.getRoutes();
+			while (it2.hasNext()) {
+				System.out.println(it2.next());
+			}
+		}*/
+		
+		try {
+			// Initialisation des contraintes
+			initConstraints(prb);
+						
+			// Création de l'ensemble des étapes obligatoires
+			ArrayList<ArrayList<Station>> allSteps = createAllSteps();
 
-		// Création de l'ensemble des étapes obligatoires
-		ArrayList<ArrayList<Station>> allSteps = createAllSteps();
+			if (allSteps.size() == 0)
+				betterPath = new ArrayList<Junction>(algo(origin, destination));
+			else
+				// for (int i = 0; i < allSteps.size(); i++)
+				algoComb(new ArrayList<ArrayList<Station>>(), allSteps, 0);
 
-		if (allSteps.size() == 0)
-			betterPath = new ArrayList<Junction>(algo(origin, destination));
-		else
-			// for (int i = 0; i < allSteps.size(); i++)
-			algoComb(new ArrayList<ArrayList<Station>>(), allSteps, 0);
+		} catch (NodeNotFoundException e) {
+			System.err.println("Le noeud du couple "+e.getStation()+"-"+e.getRoute()+" n'existe pas");
+		}
 
 		if (betterPath == null)
 			throw new VoidPathException();
@@ -58,6 +74,7 @@ public class Dijkstra extends Algo {
 		while (it.hasNext()) {
 			prb.addLast(it.next());
 		}
+		
 		this.setChanged();
 		this.notifyObservers(p);
 		// System.out.println(compteur + " Dijkstra effectués");
@@ -72,8 +89,9 @@ public class Dijkstra extends Algo {
 	 * @throws ServiceNotAccessibleException
 	 * @throws StationNotAccessibleException
 	 * @throws StationNotOnRoadException
+	 * @throws NodeNotFoundException 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 
@@ -82,11 +100,11 @@ public class Dijkstra extends Algo {
 
 		// Récupération des contraintes
 		if (graph.getFirstNode(p.getOrigin()) == null)
-			throw new StationNotAccessibleException(origin);
+			throw new StationNotAccessibleException(p.getOrigin());
 		else
 			origin = p.getOrigin();
 		if (graph.getFirstNode(p.getDestination()) == null)
-			throw new StationNotAccessibleException(origin);
+			throw new StationNotAccessibleException(p.getDestination());
 		else
 			destination = p.getDestination();
 		steps = p.getStepsArray();
@@ -132,8 +150,10 @@ public class Dijkstra extends Algo {
 	 * @param v
 	 * @param vTot
 	 * @return
+	 * @throws NoRouteForStationException 
+	 * @throws NodeNotFoundException 
 	 */
-	private void algoComb(ArrayList<ArrayList<Station>> v, ArrayList<ArrayList<Station>> vTot, int prof) {
+	private void algoComb(ArrayList<ArrayList<Station>> v, ArrayList<ArrayList<Station>> vTot, int prof) throws NodeNotFoundException, NoRouteForStationException {
 		if (prof == 0)
 			timeComb = System.currentTimeMillis();
 		if (prof > 0 && System.currentTimeMillis() - timeComb > 1000 && betterPath != null && betterPath.size() != 0)
@@ -170,8 +190,9 @@ public class Dijkstra extends Algo {
 	 * @param origin
 	 * @param listStation
 	 * @return
+	 * @throws NoRouteForStationException 
 	 */
-	private ArrayList<Junction> getMinimumDest(Node origin, ArrayList<Station> listStation, boolean isGoingIn) {
+	private ArrayList<Junction> getMinimumDest(Node origin, ArrayList<Station> listStation, boolean isGoingIn) throws NoRouteForStationException {
 		Node n, best;
 		best = n = graph.getFirstNode(listStation.get(0));
 		ArrayList<Junction> list = algo(origin, n, isGoingIn), newList;
@@ -187,7 +208,7 @@ public class Dijkstra extends Algo {
 		return list;
 	}
 
-	private ArrayList<Junction> getMinimumDest(Station origin, ArrayList<Station> listStation) {
+	private ArrayList<Junction> getMinimumDest(Station origin, ArrayList<Station> listStation) throws NodeNotFoundException, NoRouteForStationException {
 		Iterator<Route> itOrigin = origin.getRoutes();
 		ArrayList<Junction> returnPath = null;
 		Node best = null;
@@ -235,15 +256,19 @@ public class Dijkstra extends Algo {
 	 * @param depart
 	 * @param arrivee
 	 * @return
+	 * @throws NoRouteForStationException 
+	 * @throws NodeNotFoundException 
 	 */
-	private ArrayList<Junction> algo(Station depart, Station arrivee) {
+	private ArrayList<Junction> algo(Station depart, Station arrivee) throws NoRouteForStationException, NodeNotFoundException {
 		Iterator<Route> itDepart = depart.getRoutes();
 		Iterator<Route> itArrivee = arrivee.getRoutes();
 		ArrayList<Junction> returnPath = null;
 		while (itDepart.hasNext()) {
 			Route rDepart = itDepart.next();
+			System.out.println(rDepart);
 			while (itArrivee.hasNext()) {
 				Route rArrivee = itArrivee.next();
+				System.out.println(rArrivee);
 				System.out.println(graph.getNode(depart, rDepart));
 				System.out.println(graph.getNode(arrivee, rArrivee));
 				ArrayList<Junction> currentPath = new ArrayList<Junction>(algo(graph.getNode(depart, rDepart), graph.getNode(arrivee, rArrivee), true));
@@ -261,8 +286,9 @@ public class Dijkstra extends Algo {
 	 * @param depart
 	 * @param arrivee
 	 * @return
+	 * @throws NodeNotFoundException 
 	 */
-	private ArrayList<Junction> algo(Node depart, Station arrivee) {
+	private ArrayList<Junction> algo(Node depart, Station arrivee) throws NodeNotFoundException {
 		Iterator<Route> itArrivee = arrivee.getRoutes();
 		ArrayList<Junction> returnPath = null;
 		while (itArrivee.hasNext()) {
