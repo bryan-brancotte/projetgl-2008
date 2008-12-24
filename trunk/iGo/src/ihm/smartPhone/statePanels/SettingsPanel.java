@@ -10,6 +10,13 @@ import iGoMaster.SettingsValue;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
+import ihm.smartPhone.libPT.PTCheckBox;
+import ihm.smartPhone.libPT.PTCollapsableArea;
+import ihm.smartPhone.libPT.PTRadioBox;
+import ihm.smartPhone.libPT.PTRadioBoxGroup;
+import ihm.smartPhone.libPT.PTScrollBar;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.libPT.PanelTooled;
 import ihm.smartPhone.statePanels.component.PairPTCheckBox;
 import ihm.smartPhone.statePanels.component.PairPTRadioBox;
 import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
@@ -26,13 +33,6 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
-import libPT.PTCheckBox;
-import libPT.PTCollapsableArea;
-import libPT.PTRadioBox;
-import libPT.PTRadioBoxGroup;
-import libPT.PTScrollBar;
-import libPT.PanelDoubleBufferingSoftwear;
-import libPT.PanelTooled;
 
 public class SettingsPanel extends PanelState {
 

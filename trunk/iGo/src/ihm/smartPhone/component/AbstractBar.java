@@ -1,7 +1,7 @@
 package ihm.smartPhone.component;
 
-import libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.IGoIhmSmartPhone;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 
 public abstract class AbstractBar extends PanelDoubleBufferingSoftwear {
 

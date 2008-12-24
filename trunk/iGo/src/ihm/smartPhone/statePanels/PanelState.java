@@ -2,10 +2,10 @@ package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.libPT.PanelTooled;
 
 import java.awt.Color;
 
-import libPT.PanelTooled;
 
 public abstract class PanelState extends PanelTooled {
 

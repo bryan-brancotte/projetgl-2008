@@ -3,6 +3,8 @@ package ihm.smartPhone.statePanels;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
+import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.AbsolutLayout;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
@@ -20,8 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import libPT.MouseListenerClickAndMoveInArea;
-import libPT.PanelDoubleBufferingSoftwear;
 
 public abstract class TravelDisplayPanel extends PanelState {
 

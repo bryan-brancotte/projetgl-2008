@@ -1,4 +1,4 @@
-package libPT;
+package ihm.smartPhone.libPT;
 
 import ihm.smartPhone.listener.MouseListenerSimplificated;
 import ihm.smartPhone.listener.MouseMotionListenerSimplificated;

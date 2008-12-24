@@ -1,6 +1,6 @@
 package ihm.smartPhone.statePanels.component;
 
-import libPT.PTCheckBox;
+import ihm.smartPhone.libPT.PTCheckBox;
 
 public class PairPTCheckBox {
 	public PTCheckBox chk;

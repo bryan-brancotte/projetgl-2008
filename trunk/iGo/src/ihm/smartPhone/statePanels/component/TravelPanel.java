@@ -1,6 +1,8 @@
 package ihm.smartPhone.statePanels.component;
 
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.tools.CodeExecutor;
@@ -18,8 +20,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.concurrent.Semaphore;
 
-import libPT.MouseListenerClickAndMoveInArea;
-import libPT.PanelDoubleBufferingSoftwear;
 
 public class TravelPanel extends PanelDoubleBufferingSoftwear {
 

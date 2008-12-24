@@ -2,13 +2,13 @@ package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import libPT.PanelDoubleBufferingSoftwear;
 
 public class ExemplePanel extends PanelState {
 	

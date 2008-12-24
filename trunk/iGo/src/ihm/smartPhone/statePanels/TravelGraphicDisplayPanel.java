@@ -4,6 +4,7 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,7 +22,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
 
-import libPT.PanelDoubleBufferingSoftwear;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 

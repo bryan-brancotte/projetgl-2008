@@ -4,6 +4,8 @@ import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+import ihm.smartPhone.libPT.PTScrollBar;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.statePanels.component.TravelPanel;
 import ihm.smartPhone.tools.ImageLoader;
 
@@ -14,8 +16,6 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
-import libPT.PTScrollBar;
-import libPT.PanelDoubleBufferingSoftwear;
 
 /**
  * 
