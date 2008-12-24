@@ -13,6 +13,11 @@ import java.awt.RenderingHints;
 public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4387520409545843805L;
+
+	/**
 	 * La qualité du dessin
 	 */
 	private static IHMGraphicQuality quality = IGoIhmSmartPhone.defaultQualityForIhm;
