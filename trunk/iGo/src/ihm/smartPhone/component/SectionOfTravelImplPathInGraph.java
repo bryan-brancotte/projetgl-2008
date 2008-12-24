@@ -73,4 +73,9 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 				return false;
 		return true;
 	}
+
+	@Override
+	public int getStationInSection() {
+		return junctions.size();
+	}
 }

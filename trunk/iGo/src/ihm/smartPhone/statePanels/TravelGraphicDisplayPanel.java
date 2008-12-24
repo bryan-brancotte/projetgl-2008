@@ -230,9 +230,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// return;
 		// on demande un reconstruction de l'image
 		buildImage();
-		if(shouldDoubleRepaint){
-			buffer.move(-(buffer.getWidthImage()>>1),0);
-			shouldDoubleRepaint=false;
+		if (shouldDoubleRepaint) {
+			buffer.move(-(buffer.getWidthImage() >> 1), 0);
+			shouldDoubleRepaint = false;
 			buildImage();
 		}
 		// on efface l'écran puis on dessine cette image
@@ -250,6 +250,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// sizeDemiLine = (int) (12 * scallImg);
 		sizeLarge = (int) (father.getSizeAdapteur().getSizeLargeFont() * 4 * buffer.getScallImg());
 		sizeQuadLarge = sizeLarge << 2;
+		int sizeDemiLarge = sizeLarge >> 1;
+		int sizeQuartLarge = sizeLarge >> 2;
 		// sizeQuadLarge = sizeLarge *4;
 		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * 3 * buffer.getScallImg()) >> 1;
 		sizeLine = (int) (father.getSizeAdapteur().getSizeLine() * buffer.getScallImg() * 2.5F);
@@ -266,8 +268,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 		}
 		if ((buffer.getWidthImage() != sizeQuadLarge * 5)
-				|| (buffer.getHeigthImage() != travel.getTotalTime() * (sizeLarge >> 2))) {
-			buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * (sizeLarge >> 2));
+				|| (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge)) {
+			buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeQuartLarge);
 		} else if (!buffer.isNeededRepaint()) {
 			return;
 		}
@@ -285,8 +287,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		int heightImageDrawn = buffer.getY();
 		polygon.reset();
 		// on définit le début du dessin
-		center.setLocation((sizeLarge >> 1) + sizeDemiLine + buffer.getX(), (sizeLarge >> 1) + sizeDemiLine
-				+ buffer.getY());
+		center.setLocation(sizeDemiLarge + sizeDemiLine + buffer.getX(), sizeDemiLarge + sizeDemiLine + buffer.getY());
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(0, 0);
 		polygon.addPoint(center.x, center.y);
@@ -300,7 +301,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		buffer.setColor(father.getSkin().getColorInside());
 		buffer.fillRect(0, 0, getWidth(), getHeight());
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
-			drawDelayedOval(buffer, center.x - (sizeLarge >> 1) - 1, center.y - (sizeLarge >> 1), sizeLarge, sizeLarge);
+			drawDelayedOval(buffer, center.x - sizeDemiLarge - 1, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 		}
 		// in parcout les étapes du trajet
 		while (iterTravel.hasNext()) {
@@ -308,7 +309,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			// iterColor = colorList.iterator();
 			section = iterTravel.next();
 			buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
-			length = section.getTimeSection() * sizeLarge >> 2;
+			length = section.getTimeSection() * sizeQuartLarge;
 			// System.out.println(section.getTimeSection());
 			if (orientation % 2 == 0) {
 				idToKeep = 2;
@@ -389,23 +390,41 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			} else {
 				// la zone
 				buffer.fillPolygon(polygon);
+				if ((length = section.getStationInSection()) > 0) {
+					float x = ((polygon.xpoints[idToModify] + polygon.xpoints[idToModify + 1]) >> 1)
+							- ((polygon.xpoints[idToKeep] + polygon.xpoints[idToKeep + 1]) >> 1);
+					float y = ((polygon.ypoints[idToModify] + polygon.ypoints[idToModify + 1]) >> 1)
+							- ((polygon.ypoints[idToKeep] + polygon.ypoints[idToKeep + 1]) >> 1);
+					x /= length;
+					y /= length;
+					for (int i = length - 1; i > 0; i--) {
+						// buffer.drawLine(0, center.y - (int) (y * i), 1000, center.y - (int) (y * i));
+						// buffer.drawLine(center.x - (int) (x * i), 0, center.x - (int) (x * i), 1000);
+						buffer.setColor(father.getSkin().getColorInside());
+						buffer.fillOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
+								- (sizeQuartLarge >> 1), sizeQuartLarge + 1, sizeQuartLarge + 1);
+						buffer.setColor(father.getSkin().getColorLine());
+						buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
+								- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
+						// buffer.fillOval(x, y, width, height)
+					}
+				}
 				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 						(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
-				drawDelayedOval(buffer, center.x - (sizeLarge >> 1), center.y - (sizeLarge >> 1), sizeLarge, sizeLarge);
+				drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 			}
 			buffer.setColor(father.getSkin().getColorLetter());
-			if (heightImageDrawn > (center.y - (sizeLarge >> 1))) {
+			if (heightImageDrawn > (center.y - sizeDemiLarge)) {
 				buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
-						+ (sizeLarge >> 2));
+						+ sizeQuartLarge);
 				heightImageDrawn = sizeDemiLine
 						+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn,
 								section);
 			} else {
-				buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, center.y
-						- (sizeLarge >> 2));
+				buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, center.y - sizeQuartLarge);
 				heightImageDrawn = sizeDemiLine
 						+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, center.y
-								- (sizeLarge >> 1), section);
+								- sizeDemiLarge, section);
 			}
 			// System.out.println(section.getNameChangement());
 			orientation = (++orientation % 6);
