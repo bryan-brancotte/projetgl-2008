@@ -1,7 +1,7 @@
 package ihm.smartPhone.statePanels.component;
 
+import libPT.PTRadioBox;
 import graphNetwork.Service;
-import ihm.smartPhone.tools.PTRadioBox;
 
 public class PairPTRadioBoxs {
 	public PTRadioBox[] rbs;

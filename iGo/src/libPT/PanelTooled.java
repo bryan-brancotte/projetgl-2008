@@ -1,8 +1,13 @@
-package ihm.smartPhone.tools;
+package libPT;
 
-import ihm.smartPhone.listener.MouseListenerClickAndMoveInArea;
+
+import ihm.smartPhone.tools.CodeExecutor;
+import ihm.smartPhone.tools.CodeExecutor2P;
+import ihm.smartPhone.tools.CodeExecutor3P;
+import ihm.smartPhone.tools.CodeExecutor4P;
 
 import java.awt.Rectangle;
+
 
 public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	/**
@@ -32,7 +37,10 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	public PTButton makeButton(CodeExecutor action) {
 		if (action == null)
 			throw new NullPointerException();
-		return new PTButton(this, clickAndMoveWarningAndArray.addInteractiveArea(new Rectangle(), action));
+		Rectangle rec;
+		clickAndMoveWarningAndArray.addInteractiveArea(rec = new Rectangle(), action);
+		PTButton ptb = new PTButton(this, rec);
+		return ptb;
 	}
 
 	/**

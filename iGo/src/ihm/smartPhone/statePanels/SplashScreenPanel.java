@@ -3,11 +3,12 @@ package ihm.smartPhone.statePanels;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.tools.ImageLoader;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Graphics;
 import java.awt.Image;
+
+import libPT.PanelDoubleBufferingSoftwear;
 
 public class SplashScreenPanel extends PanelState {
 

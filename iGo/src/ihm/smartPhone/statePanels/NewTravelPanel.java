@@ -18,16 +18,6 @@ import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.CodeExecutor2P;
 import ihm.smartPhone.tools.ImageLoader;
-import ihm.smartPhone.tools.PTArea;
-import ihm.smartPhone.tools.PTAutoCompletionTextBox;
-import ihm.smartPhone.tools.PTButton;
-import ihm.smartPhone.tools.PTCheckBox;
-import ihm.smartPhone.tools.PTCollapsableArea;
-import ihm.smartPhone.tools.PTRadioBox;
-import ihm.smartPhone.tools.PTRadioBoxGroup;
-import ihm.smartPhone.tools.PTScrollBar;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.tools.PanelTooled;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -45,6 +35,17 @@ import java.util.LinkedList;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+
+import libPT.PTArea;
+import libPT.PTAutoCompletionTextBox;
+import libPT.PTButton;
+import libPT.PTCheckBox;
+import libPT.PTCollapsableArea;
+import libPT.PTRadioBox;
+import libPT.PTRadioBoxGroup;
+import libPT.PTScrollBar;
+import libPT.PanelDoubleBufferingSoftwear;
+import libPT.PanelTooled;
 
 public class NewTravelPanel extends PanelState {
 
@@ -182,13 +183,13 @@ public class NewTravelPanel extends PanelState {
 				}
 			}
 		});
-		buildInterfaceFromDomDocument();
+		buildInterface();
 	}
 
 	/**
 	 * Construction du contenu
 	 */
-	protected void buildInterfaceFromDomDocument() {
+	protected void buildInterface() {
 		String s, valS;
 		PTRadioBoxGroup grp;
 		PTRadioBoxGroup[] grpTrans;

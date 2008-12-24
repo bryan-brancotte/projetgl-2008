@@ -4,7 +4,6 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,6 +20,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
+
+import libPT.PanelDoubleBufferingSoftwear;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
@@ -275,13 +276,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		}
 
 		SectionOfTravel section;
-		Iterator<SectionOfTravel> iterTravel = travel.getTravel();
+		Iterator<SectionOfTravel> iterTravel;
 
 		int orientation = 0;
 		int idToModify;
 		int idToKeep;
 		int length;
 		int hypo;
+		boolean firstPasseDone = false;
 		Point center = new Point();
 		// Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
@@ -304,128 +306,139 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			drawDelayedOval(buffer, center.x - sizeDemiLarge - 1, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 		}
 		// in parcout les étapes du trajet
-		while (iterTravel.hasNext()) {
-			// if (!iterColor.hasNext())
-			// iterColor = colorList.iterator();
-			section = iterTravel.next();
-			buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
-			length = section.getTimeSection() * sizeQuartLarge;
-			// System.out.println(section.getTimeSection());
-			if (orientation % 2 == 0) {
-				idToKeep = 2;
-				idToModify = 0;
-			} else {
-				idToKeep = 0;
-				idToModify = 2;
-			}
-			center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
-					polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
-			polygon.xpoints[idToKeep] = center.x + 1;
-			polygon.ypoints[idToKeep] = center.y;
-			polygon.xpoints[idToKeep + 1] = center.x + 1;
-			polygon.ypoints[idToKeep + 1] = center.y;
-			hypo = sizeQuadLarge * sizeQuadLarge;
-			hypo += length * length;
-			hypo = (int) Math.sqrt(hypo);
-			float cos, sin;
-
-			switch (orientation % 3) {
-			case 0:
-				polygon.xpoints[idToKeep] += -sizeDemiLine /* sin */;
-				// polygon.ypoints[idToKeep] += sizeDemiLine * cos;
-				polygon.xpoints[idToKeep + 1] += sizeDemiLine /* sin */;
-				// polygon.ypoints[idToKeep + 1] += sizeDemiLine * cos;
-				break;
-			case 1:
-				cos = (float) sizeQuadLarge / (float) hypo;
-				sin = (float) length / (float) hypo;
-				polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
-				polygon.ypoints[idToKeep] += sizeDemiLine * cos;
-				polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
-				polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
-				break;
-			case 2:
-				cos = -(float) sizeQuadLarge / (float) hypo;
-				sin = (float) length / (float) hypo;
-				polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
-				polygon.ypoints[idToKeep] += sizeDemiLine * cos;
-				polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
-				polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
-				break;
-			}
-
-			switch (orientation % 3) {
-			case 0:
-				polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1];
-				polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
-				polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep];
-				polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
-				center.setLocation(center.x, center.y + length);
-				break;
-			case 1:
-				polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] + sizeQuadLarge;
-				polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
-				polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] + sizeQuadLarge;
-				polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
-				center.setLocation(center.x + sizeQuadLarge, center.y + length);
-				break;
-			case 2:
-				polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] - sizeQuadLarge;
-				polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
-				polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] - sizeQuadLarge;
-				polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
-				center.setLocation(center.x - sizeQuadLarge, center.y + length);
-				break;
-			}
-			// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
-			// groupemement assez séparé.
-			if (polygon.ypoints[0] > buffer.getHeigthViewPort() + sizeLarge
-					&& polygon.ypoints[2] > buffer.getHeigthViewPort() + sizeLarge) {
-				// au dela de la zone
-				while (iterTravel.hasNext()) {
-					iterTravel.next();
+		iterTravel = travel.getTravelDone();
+		do {
+			while (iterTravel.hasNext()) {
+				// if (!iterColor.hasNext())
+				// iterColor = colorList.iterator();
+				section = iterTravel.next();
+				if (firstPasseDone)
+					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
+				else
+					buffer.setColor(father.getSkin().getColorSubAreaInside());
+				length = section.getTimeSection() * sizeQuartLarge;
+				// System.out.println(section.getTimeSection());
+				if (orientation % 2 == 0) {
+					idToKeep = 2;
+					idToModify = 0;
+				} else {
+					idToKeep = 0;
+					idToModify = 2;
 				}
-			} else if (polygon.ypoints[0] < -sizeLarge && polygon.ypoints[2] < -sizeLarge) {
-				// buffer.setColor(iterColor.next());
-			} else {
-				// la zone
-				buffer.fillPolygon(polygon);
-				if ((length = section.getStationInSection()) > 0) {
-					float x = ((polygon.xpoints[idToModify] + polygon.xpoints[idToModify + 1]) >> 1)
-							- ((polygon.xpoints[idToKeep] + polygon.xpoints[idToKeep + 1]) >> 1);
-					float y = ((polygon.ypoints[idToModify] + polygon.ypoints[idToModify + 1]) >> 1)
-							- ((polygon.ypoints[idToKeep] + polygon.ypoints[idToKeep + 1]) >> 1);
-					x /= length;
-					y /= length;
-					for (int i = length - 1; i > 0; i--) {
-						buffer.setColor(father.getSkin().getColorInside());
-						buffer.fillOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
-								- (sizeQuartLarge >> 1), sizeQuartLarge + 1, sizeQuartLarge + 1);
-						buffer.setColor(father.getSkin().getColorLine());
-						buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
-								- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
+				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
+						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
+				polygon.xpoints[idToKeep] = center.x + 1;
+				polygon.ypoints[idToKeep] = center.y;
+				polygon.xpoints[idToKeep + 1] = center.x + 1;
+				polygon.ypoints[idToKeep + 1] = center.y;
+				hypo = sizeQuadLarge * sizeQuadLarge;
+				hypo += length * length;
+				hypo = (int) Math.sqrt(hypo);
+				float cos, sin;
+
+				switch (orientation % 3) {
+				case 0:
+					polygon.xpoints[idToKeep] += -sizeDemiLine /* sin */;
+					// polygon.ypoints[idToKeep] += sizeDemiLine * cos;
+					polygon.xpoints[idToKeep + 1] += sizeDemiLine /* sin */;
+					// polygon.ypoints[idToKeep + 1] += sizeDemiLine * cos;
+					break;
+				case 1:
+					cos = (float) sizeQuadLarge / (float) hypo;
+					sin = (float) length / (float) hypo;
+					polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
+					polygon.ypoints[idToKeep] += sizeDemiLine * cos;
+					polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
+					polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
+					break;
+				case 2:
+					cos = -(float) sizeQuadLarge / (float) hypo;
+					sin = (float) length / (float) hypo;
+					polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
+					polygon.ypoints[idToKeep] += sizeDemiLine * cos;
+					polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
+					polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
+					break;
+				}
+
+				switch (orientation % 3) {
+				case 0:
+					polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1];
+					polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+					polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep];
+					polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+					center.setLocation(center.x, center.y + length);
+					break;
+				case 1:
+					polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] + sizeQuadLarge;
+					polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+					polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] + sizeQuadLarge;
+					polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+					center.setLocation(center.x + sizeQuadLarge, center.y + length);
+					break;
+				case 2:
+					polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] - sizeQuadLarge;
+					polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+					polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] - sizeQuadLarge;
+					polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+					center.setLocation(center.x - sizeQuadLarge, center.y + length);
+					break;
+				}
+				// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
+				// groupemement assez séparé.
+				if (polygon.ypoints[0] > buffer.getHeigthViewPort() + sizeLarge
+						&& polygon.ypoints[2] > buffer.getHeigthViewPort() + sizeLarge) {
+					// au dela de la zone
+					while (iterTravel.hasNext()) {
+						iterTravel.next();
 					}
+				} else if (polygon.ypoints[0] < -sizeLarge && polygon.ypoints[2] < -sizeLarge) {
+					// buffer.setColor(iterColor.next());
+				} else {
+					// la zone
+					buffer.fillPolygon(polygon);
+					if ((length = section.getStationInSection()) > 0) {
+						float x = ((polygon.xpoints[idToModify] + polygon.xpoints[idToModify + 1]) >> 1)
+								- ((polygon.xpoints[idToKeep] + polygon.xpoints[idToKeep + 1]) >> 1);
+						float y = ((polygon.ypoints[idToModify] + polygon.ypoints[idToModify + 1]) >> 1)
+								- ((polygon.ypoints[idToKeep] + polygon.ypoints[idToKeep + 1]) >> 1);
+						x /= length;
+						y /= length;
+						for (int i = length - 1; i > 0; i--) {
+							buffer.setColor(father.getSkin().getColorInside());
+							buffer.fillOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
+									- (sizeQuartLarge >> 1), sizeQuartLarge + 1, sizeQuartLarge + 1);
+							buffer.setColor(father.getSkin().getColorLine());
+							buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
+									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
+						}
+					}
+					drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
+							(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
+					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 				}
-				drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
-						(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
-				drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
+				buffer.setColor(father.getSkin().getColorLetter());
+				if (heightImageDrawn > (center.y - sizeDemiLarge)) {
+					buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
+							+ sizeQuartLarge);
+					heightImageDrawn = sizeDemiLine
+							+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge,
+									heightImageDrawn, section);
+				} else {
+					buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, center.y
+							- sizeQuartLarge);
+					heightImageDrawn = sizeDemiLine
+							+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, center.y
+									- sizeDemiLarge, section);
+				}
+				// System.out.println(section.getNameChangement());
+				orientation = (++orientation % 6);
 			}
-			buffer.setColor(father.getSkin().getColorLetter());
-			if (heightImageDrawn > (center.y - sizeDemiLarge)) {
-				buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
-						+ sizeQuartLarge);
-				heightImageDrawn = sizeDemiLine
-						+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn,
-								section);
-			} else {
-				buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, center.y - sizeQuartLarge);
-				heightImageDrawn = sizeDemiLine
-						+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, center.y
-								- sizeDemiLarge, section);
-			}
-			// System.out.println(section.getNameChangement());
-			orientation = (++orientation % 6);
-		}
+			if (firstPasseDone)
+				break;
+			firstPasseDone = true;
+			iterTravel = travel.getTravelToDo();
+		} while (true);
 		drawDelayedOval(null, 0, 0, 0, 0);
 	}
 

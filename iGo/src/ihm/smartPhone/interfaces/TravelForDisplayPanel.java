@@ -73,12 +73,20 @@ public interface TravelForDisplayPanel {
 	public boolean isValideFromWhereIAm();
 
 	/**
-	 * Retourne un iterateur sur la décomposition du trajet. Le premier element doit être une section de temps nulle qui
-	 * à pour changenemt la station de départ.
+	 * Retourne un iterateur sur la décomposition du trajet. Le premier element doit être la section en cours de
+	 * parcourt, ou à parcourir.
 	 * 
 	 * @return
 	 */
-	public Iterator<SectionOfTravel> getTravel();
+	public Iterator<SectionOfTravel> getTravelToDo();
+
+	/**
+	 * Retourne un iterateur sur la décomposition du trajet. la dernière section doit être celle qu'on vient de
+	 * terminer.
+	 * 
+	 * @return
+	 */
+	public Iterator<SectionOfTravel> getTravelDone();
 
 	/**
 	 * Interface décrivant un portion du trajet, un protion du trajet est la partie du trajet qui est sur la même ligne,

@@ -38,8 +38,6 @@ import ihm.smartPhone.statePanels.TravelArrayDisplayPanel;
 import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.tools.PanelTooled;
 import ihm.smartPhone.tools.SizeAdapteur;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
@@ -52,6 +50,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import libPT.PanelDoubleBufferingSoftwear;
+import libPT.PanelTooled;
 
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
@@ -554,7 +555,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			return true;
 		} else if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
 			actualState = IhmReceivingStates.PREVISU_TRAVEL.mergeState(preferedState);
-			System.out.println(actualState);
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) {
 			actualState = IhmReceivingStates.EXPERIMENT_TRAVEL.mergeState(preferedState);
 		}

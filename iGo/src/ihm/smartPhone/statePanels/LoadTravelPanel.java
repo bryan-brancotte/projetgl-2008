@@ -5,16 +5,17 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.statePanels.component.TravelPanel;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.tools.VerticalFlowLayout;
+import ihm.smartPhone.tools.ImageLoader;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.Panel;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+
+import javax.swing.ImageIcon;
+
+import libPT.PTScrollBar;
+import libPT.PanelDoubleBufferingSoftwear;
 
 /**
  * 
@@ -24,8 +25,30 @@ import java.util.LinkedList;
 public class LoadTravelPanel extends PanelState {
 
 	private static final long serialVersionUID = 1L;
-
-	protected Panel inside;
+	/**
+	 * La valeur du scroll de la barre de défilement
+	 */
+	protected int deroullement;
+	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean shouldDoubleRepaint = true;
+	/**
+	 * Barre de défilement
+	 */
+	protected PTScrollBar scrollBar;
+	/**
+	 * Barre de défilement
+	 */
+	protected LinkedList<TravelForTravelPanel> paths;
+	/**
+	 * L'image OK pour ajouter une station
+	 */
+	protected ImageIcon imageEdit;
+	/**
+	 * L'image OK pour retirer une station
+	 */
+	protected ImageIcon imageDel;
 
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 
@@ -42,41 +65,75 @@ public class LoadTravelPanel extends PanelState {
 	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			IhmReceivingStates actualState, LinkedList<TravelForTravelPanel> paths) {
 		super(ihm, upperBar, lowerBar);
-		ScrollPane sp = new ScrollPane();
-		inside = new Panel();
-		inside.setLayout(new VerticalFlowLayout(VerticalFlowLayout.TOP, true, false));
-		makeInside(paths);
-		sp.add(inside);
+		this.paths = paths;
 		if (actualState == IhmReceivingStates.FAVORITES)
 			this.actualState = IhmReceivingStates.FAVORITES;
 		else if (actualState == IhmReceivingStates.LOAD_TRAVEL)
 			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
-		else
-			throw new NoSuchFieldError("the kind " + actualState + " isn't allowed in a LoadTravelPanel");
-		this.setLayout(new BorderLayout());
-		this.add(sp);
+		buildInterface();
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		if(currentQuality!=PanelDoubleBufferingSoftwear.getQuality()){
-			graphicsTunning(this.buffer);
-			currentQuality=PanelDoubleBufferingSoftwear.getQuality();
+		draw();
+		if (shouldDoubleRepaint) {
+			shouldDoubleRepaint = false;
+			draw();
 		}
-		// g.drawString(this.getClass().getSimpleName(), 0, this.getHeight());
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
+		g.drawImage(image, 0, 0, null);
 	}
 
-	protected void makeInside(LinkedList<TravelForTravelPanel> paths) {
-		if (paths == null)
-			return;
-		inside.removeAll();
-		if (PanelDoubleBufferingSoftwear.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
-			for (TravelForTravelPanel t : paths)
-				inside.add(new TravelPanel(t, father,true));
-		} else {
-			for (TravelForTravelPanel t : paths)
-				inside.add(new TravelPanel(t, father,false));
+	public void draw() {
+		int decalage = father.getSizeAdapteur().getSizeSmallFont();
+		int decalageDemi = (decalage >> 1);
+		int decalage2 = (decalage << 1);
+		int ordonne = decalage - deroullement;
+
+		/***
+		 * Gestion du buffer mémoire
+		 */
+		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
+			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			buffer = null;
+			imageEdit = null;
+			imageDel = null;
 		}
+		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
+			image = createImage(getWidth(), getHeight());
+			buffer = image.getGraphics();
+			graphicsTunning(buffer);
+			// buffer.setColor(father.getSkin().getColorLetter());
+			if (imageEdit == null || imageEdit.getIconHeight() != father.getSizeAdapteur().getSizeSmallFont()) {
+				imageEdit = ImageLoader.getRessourcesImageIcone("button_config", father.getSizeAdapteur()
+						.getSizeSmallFont(), father.getSizeAdapteur().getSizeSmallFont());
+				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
+						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
+			}
+		} else {
+			buffer.setColor(father.getSkin().getColorInside());
+			buffer.fillRect(0, 0, getWidth(), getHeight());
+		}
+		/***************************************************************************************************************
+		 * Dessins des chemins
+		 */
+
+		/***************************************************************************************************************
+		 * ScrollBar
+		 */
+		scrollBar.update(buffer, getWidth() - 1 - father.getSizeAdapteur().getSizeIntermediateFont(), father
+				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
+		deroullement = scrollBar.getDeroullement();
+	}
+
+	/**
+	 * Construction du contenu
+	 */
+	protected void buildInterface() {
 	}
 
 	/**
@@ -99,15 +156,5 @@ public class LoadTravelPanel extends PanelState {
 			}
 		});
 		lowerBar.repaint();
-	}
-
-	/**
-	 * Donne le contrôle en spécifiant une nouvelle liste de chemin.
-	 * 
-	 * @param paths
-	 *            la nouvelle liste de chemin
-	 */
-	public void giveControle(LinkedList<TravelForTravelPanel> paths) {
-		makeInside(paths);
 	}
 }

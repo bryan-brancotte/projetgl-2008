@@ -16,13 +16,6 @@ import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.ImageLoader;
-import ihm.smartPhone.tools.PTCheckBox;
-import ihm.smartPhone.tools.PTCollapsableArea;
-import ihm.smartPhone.tools.PTRadioBox;
-import ihm.smartPhone.tools.PTRadioBoxGroup;
-import ihm.smartPhone.tools.PTScrollBar;
-import ihm.smartPhone.tools.PanelDoubleBufferingSoftwear;
-import ihm.smartPhone.tools.PanelTooled;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -32,6 +25,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
+
+import libPT.PTCheckBox;
+import libPT.PTCollapsableArea;
+import libPT.PTRadioBox;
+import libPT.PTRadioBoxGroup;
+import libPT.PTScrollBar;
+import libPT.PanelDoubleBufferingSoftwear;
+import libPT.PanelTooled;
 
 public class SettingsPanel extends PanelState {
 

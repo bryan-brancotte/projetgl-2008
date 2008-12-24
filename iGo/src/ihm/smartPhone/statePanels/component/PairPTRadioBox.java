@@ -1,6 +1,6 @@
 package ihm.smartPhone.statePanels.component;
 
-import ihm.smartPhone.tools.PTRadioBox;
+import libPT.PTRadioBox;
 
 public class PairPTRadioBox {
 	public PTRadioBox rb;
