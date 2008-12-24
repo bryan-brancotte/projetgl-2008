@@ -39,14 +39,6 @@ public class Dijkstra extends Algo {
 
 	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
 
-		/*
-		 * Iterator<Station> it3 =
-		 * prb.getCurrentPathInGraph().getGraph().getStations(); while
-		 * (it3.hasNext()) { Station s = it3.next(); System.out.println(s);
-		 * Iterator<Route> it2 = s.getRoutes(); while (it2.hasNext()) {
-		 * System.out.println(it2.next()); } }
-		 */
-
 		try {
 			// Initialisation des contraintes
 			initConstraints(prb);
@@ -69,9 +61,17 @@ public class Dijkstra extends Algo {
 
 		// Création du pathInGraph
 		Iterator<Junction> it = betterPath.iterator();
+		Junction j = it.next();
+		Route r = j.getMyRoute(origin);
+		prb.addLast(j);
+		float cost = p.getGraph().getEntryCost(r.getKindRoute());
 		while (it.hasNext()) {
-			prb.addLast(it.next());
+			j = it.next();
+			cost+=j.getCost();
+			prb.addLast(j);
 		}
+		prb.setCost(cost);
+		prb.setPathInGraphResolved();
 
 		this.setChanged();
 		this.notifyObservers(p);

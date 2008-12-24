@@ -79,6 +79,15 @@ public class PathInGraphResultBuilder {
 	public void setPathInGraphResolved() {
 		currentPathInGraph.resolved = true;
 	}
+	
+	/**
+	 * Mutateur définissant le cout du trajet
+	 * 
+	 * @param cost
+	 */
+	public void setCost(float cost) {
+		currentPathInGraph.cost=cost;
+	}
 
 	/**
 	 * Permet de savoir si le chemin est valide pour la résolution.

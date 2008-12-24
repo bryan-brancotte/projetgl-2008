@@ -101,6 +101,21 @@ public class Junction {
 			return routeOrigin;
 		return null;
 	}
+	
+	/**
+	 * Retourne l'autre route de la jonction.
+	 * 
+	 * @param me
+	 *            la route qui vous sert de point de repère
+	 * @return l'autre route, ou null si la route passée en paramètre n'est pas dans la jonction
+	 */
+	public Route getMyRoute(Station me) {
+		if (me.getId() == stationOrigin.getId())
+			return routeOrigin;
+		if (me.getId() == stationDestination.getId())
+			return routeDestination;
+		return null;
+	}
 
 	/**
 	 * Retourne la route sur laquelle est l'autre station. Attention si jamais le lien a la même station des deux coté,
