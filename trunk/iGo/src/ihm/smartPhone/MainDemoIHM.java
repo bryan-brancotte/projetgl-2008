@@ -117,7 +117,7 @@ public class MainDemoIHM {
 						try {
 							Thread.currentThread().sleep(1000);
 							System.out.println("tada!");
-							ihm.returnPathAsked(null, "pas trouvé");
+							ihm.returnPathAsked(null, null);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}

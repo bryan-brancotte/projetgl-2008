@@ -7,6 +7,7 @@ import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
+import iGoMaster.AlgoKindOfException;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
@@ -654,14 +655,14 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean returnPathAsked(PathInGraph path, String message) {
+	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException) {
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
 		try {
 			travel = new TravelForDisplayPanelImplPathInGraph(path);
 			System.out.println(travel);
 		} catch (Exception e) {
-			System.err.println("IGoIhmSmartPhone.returnPathAsked(path,\"" + message + "\"\n" + path);
+			//System.err.println("IGoIhmSmartPhone.returnPathAsked(path,\"" + message + "\"\n" + path);
 			e.printStackTrace();
 			travel = null;
 		}
