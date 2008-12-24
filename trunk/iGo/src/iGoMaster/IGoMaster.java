@@ -6,6 +6,7 @@ import graphNetwork.KindRoute;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
+import graphNetwork.exception.StationNotOnRoadException;
 
 import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.tools.ExecMultiThread;
@@ -134,6 +135,8 @@ public class IGoMaster implements Master, Observer
 					System.err.print("elo(de tony) --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
 				} catch (NoRouteForStationException e) {
 					System.err.print("elo --> échec de l'algorithme, pas de route associée à la station");
+				} catch (StationNotOnRoadException e) {
+					System.err.print("elo(de tony) --> échec de l'algorithme, la Station n'est pas sur la route");
 				}
 				
 			}

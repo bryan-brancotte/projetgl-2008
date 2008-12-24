@@ -5,6 +5,7 @@ import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphResultBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import graphNetwork.exception.StationNotOnRoadException;
 import iGoMaster.Algo;
 import iGoMaster.exception.NoRouteForStationException;
 import iGoMaster.exception.ServiceNotAccessibleException;
@@ -34,7 +35,7 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException {
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
 
 		// Initialisation des contraintes
 		initConstraints(prb);
@@ -56,7 +57,7 @@ public class Dijkstra extends Algo {
 		while (it.hasNext()) {
 			prb.addLast(it.next());
 		}
-		System.out.println(compteur + " Dijkstra effectués");
+		//System.out.println(compteur + " Dijkstra effectués");
 	}
 
 	/**
@@ -67,8 +68,9 @@ public class Dijkstra extends Algo {
 	 * @throws NoRouteForStationException
 	 * @throws ServiceNotAccessibleException
 	 * @throws StationNotAccessibleException
+	 * @throws StationNotOnRoadException 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 
