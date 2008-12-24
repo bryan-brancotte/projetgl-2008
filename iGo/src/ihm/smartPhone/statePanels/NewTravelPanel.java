@@ -35,6 +35,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,7 +46,6 @@ import java.util.LinkedList;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
-
 
 public class NewTravelPanel extends PanelState {
 
@@ -181,6 +181,37 @@ public class NewTravelPanel extends PanelState {
 					lowerBar.setLeftValue("");
 					lowerBar.repaint();
 				}
+			}
+		});
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (!servicesCollapsableArea.isCollapsed())
+					return;
+				boolean changed = false;
+				for (ServiceToolTipText s : serviceDisplayed)
+					changed = s.contains(e.getX(), e.getY()) || changed;
+				if (!changed)
+					return;
+				servicesCollapsableArea.changeCollapseState();
+				repaint();
 			}
 		});
 		buildInterface();
@@ -1035,13 +1066,13 @@ public class NewTravelPanel extends PanelState {
 					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
 				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
-				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
-						father.getSizeAdapteur().getSizeSmallFont() >> 1,
-						father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.fillOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +  (decalage >> 3),
+						father.getSizeAdapteur().getSizeIntermediateFont()>> 1,
+						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
 				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
-						father.getSizeAdapteur().getSizeSmallFont() >> 1,
-						father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.drawOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +   (decalage >> 3),
+						father.getSizeAdapteur().getSizeIntermediateFont() >> 1,
+						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,

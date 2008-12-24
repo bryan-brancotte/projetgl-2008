@@ -31,14 +31,18 @@ public class ServiceToolTipText {
 	public boolean maybeOvered(int x, int y) {
 		if (!area.contains(x, y))
 			return false;
-		if (service.getShortDescription() != null && !service.getShortDescription().isEmpty()){
+		if (service.getShortDescription() != null && !service.getShortDescription().isEmpty()) {
 			lowerBar.setLeftTitle(service.getName(), FontSizeKind.SMALL);
 			lowerBar.setLeftValue(service.getShortDescription(), FontSizeKind.SMALL);
-		}else{
+		} else {
 			lowerBar.setLeftValue(service.getName(), FontSizeKind.SMALL);
 		}
 		lowerBar.repaint();
 		return true;
+	}
+
+	public boolean contains(int x, int y) {
+		return area.contains(x, y);
 	}
 
 	public void setBounds(int x, int y, int width, int height) {
