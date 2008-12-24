@@ -259,31 +259,31 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							boolean pedestrianEnd = true;
 							int timeEnd = 0;
 							for (Element child : endChilds) {
-								idStationEnd = 0;
-								idRouteEnd = "";
-								freeEnd = true;
-								pedestrianEnd = true;
-								timeEnd = 0;
+//								idStationEnd = 0;
+//								idRouteEnd = "";
+//								freeEnd = true;
+//								pedestrianEnd = true;
+//								timeEnd = 0;
 
 
 								if (child.getName().compareTo("Station") == 0) {
-//									 System.out.println("\t ID Station end : " + child.getTextTrim());
+									 System.out.println("\t ID Station end : " + child.getTextTrim());
 									idStationEnd = Integer.parseInt(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Route") == 0) {
-//									 System.out.println("\t ID Route end : " + child.getTextTrim());
+									 System.out.println("\t ID Route end : " + child.getTextTrim());
 									idRouteEnd = child.getTextTrim();
 								}
 								else if (child.getName().compareTo("Free") == 0) {
-//									 System.out.println("\t ID free end : " + child.getTextTrim());
+									 System.out.println("\t ID free end : " + child.getTextTrim());
 									freeEnd = Boolean.parseBoolean(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Pedestrian") == 0) {
-//									 System.out.println("\t ID pedestrian end : " + child.getTextTrim());
+									 System.out.println("\t ID pedestrian end : " + child.getTextTrim());
 									pedestrianEnd = Boolean.parseBoolean(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Time") == 0) {
-//									 System.out.println("\t ID time end : " + child.getTextTrim());
+									 System.out.println("\t ID time end : " + child.getTextTrim());
 									timeEnd = Integer.parseInt(child.getTextTrim());
 								}
 							}
@@ -291,15 +291,15 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							if (idStationStart != 0 && !idRouteStart.equals("") && idStationEnd != 0 && !idRouteEnd.equals("")) {
 
 								if (freeEnd == true) {
-//									System.out.println("Free");
+									System.out.println("Free");
 //									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
 									gnb.linkStationBidirectional(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
 											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
 											.getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
 								}
 								else {
-//									System.out.println("NOT Free");
-//									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
+									System.out.println("NOT Free " + giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart).getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()));
+									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
 									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
 											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
 											.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
@@ -314,7 +314,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 											pedestrianEnd);
 								}
 							}
-//							System.out.println("-");
+							System.out.println("-");
 						}
 //						System.out.println();
 //						System.out.println();
