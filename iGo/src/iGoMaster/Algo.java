@@ -1,6 +1,7 @@
 package iGoMaster;
 
 import graphNetwork.PathInGraphResultBuilder;
+import graphNetwork.exception.StationNotOnRoadException;
 
 import iGoMaster.exception.NoRouteForStationException;
 import iGoMaster.exception.ServiceNotAccessibleException;
@@ -51,9 +52,10 @@ public abstract class Algo extends Observable {
 	 * @throws VoidPathException 
 	 * @throws ServiceNotAccessibleException 
 	 * @throws StationNotAccessibleException 
+	 * @throws StationNotOnRoadException 
 	 * 
 	 */
-	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException;
+	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException;
 
 	/**
 	 */
