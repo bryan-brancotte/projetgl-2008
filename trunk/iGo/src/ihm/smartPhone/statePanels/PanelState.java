@@ -8,6 +8,11 @@ import java.awt.Color;
 
 public abstract class PanelState extends PanelTooled {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2774267112418410102L;
+
 	@Override
 	public void setBackground(Color c) {
 		super.setBackground(c);
