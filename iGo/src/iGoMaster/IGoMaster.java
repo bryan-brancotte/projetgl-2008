@@ -289,7 +289,6 @@ public class IGoMaster implements Master, Observer
 			{	
 				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 				
-				/* Demander à tony comment savoir quelles contraintes sont relachées */
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraph(),
 						"Haha message qui sert à rien?"
