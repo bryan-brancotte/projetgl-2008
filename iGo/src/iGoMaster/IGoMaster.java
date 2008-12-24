@@ -352,9 +352,14 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public boolean setConfig(String key, String value) 
 	{
-		config.setValue(key, value);
-		
-		return true; 
+		if (true/*TODO vérifier que je peut modifier les clef */)
+		{
+			config.setValue(key, value);
+			if (key == SettingsKey.LANGUAGE.toString())
+				lg.setLanguage(value);
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
