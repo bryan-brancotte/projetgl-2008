@@ -128,8 +128,8 @@ public class MainDemoIHM {
 
 			@Override
 			public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
-//				if(true)
-//					return null;
+				// if(true)
+				// return null;
 				return gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder()
 						.getPathInGraphConstraintBuilder();
 			}
@@ -157,7 +157,7 @@ public class MainDemoIHM {
 
 			@Override
 			public void run() {
-				int t = 100;
+				int t = 1;
 				try {
 					Thread.currentThread().sleep(t * 10);
 					this.origine.showMessageSplashScreen("simplet");

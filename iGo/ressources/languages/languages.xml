@@ -255,6 +255,34 @@
 				<FRANCAIS value="Veuillez remplir ce champs"/>
 				<ENGLISH value="Fill this field"/>
 			</FillThisField>
+			<ERROR_RETURN_NULL_TRAVEL_TITLE>
+				<FRANCAIS value="Erreur dans le calcul du trajet"/>
+				<ENGLISH value="Error during the path computing"/>
+			</ERROR_RETURN_NULL_TRAVEL_TITLE>
+			<ERROR_RETURN_NULL_TRAVEL_DETAILS>
+				<FRANCAIS value="Le calcul à retourné une valeur inattendu : un chemin vide"/>
+				<ENGLISH value="The computing has returned an unexpected value : a null path"/>
+			</ERROR_RETURN_NULL_TRAVEL_DETAILS>
+			<ERROR_IMPOSSIBLE>
+				<FRANCAIS value="Impossible..."/>
+				<ENGLISH value="Impossible..."/>
+			</ERROR_IMPOSSIBLE>
+			<ERROR_RETURN_NULL_CONSTRAINT_BUILDER_DETAILS>
+				<FRANCAIS value="Impossible de construire un nouveau trajet : le master a passé un constructeur vide"/>
+				<ENGLISH value="Unable to build a new path : the master has sent me an empty constructor"/>
+			</ERROR_RETURN_NULL_CONSTRAINT_BUILDER_DETAILS>
+			<ERROR_RETURN_NO_NETWORK_EXCEPTION_DETAILS>
+				<FRANCAIS value="Impossible de construire un nouveau trajet : Il n'y a pas de réseau à charger"/>
+				<ENGLISH value="Unable to build a new path : There's no network to load"/>
+			</ERROR_RETURN_NO_NETWORK_EXCEPTION_DETAILS>
+			<ERROR_RETURN_NETWORK_RECEPTION_DETAILS>
+				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être charger"/>
+				<ENGLISH value="Unable to build a new path : The network couldn't be loaded"/>
+			</ERROR_RETURN_NETWORK_RECEPTION_DETAILS>
+			<ERROR_RETURN_NETWORK_CONSTRUCTION_DETAILS>
+				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être interprété"/>
+				<ENGLISH value="Unable to build a new path : The network couldn't be interpreted"/>
+			</ERROR_RETURN_NETWORK_CONSTRUCTION_DETAILS>
 		</fields>
 	</root>
 

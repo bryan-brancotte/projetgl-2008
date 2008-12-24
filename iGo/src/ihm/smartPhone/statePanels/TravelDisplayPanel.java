@@ -146,7 +146,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 	@Override
 	public void giveControle() {
 		if (travel == null) {
-			me.setActualState(IhmReceivingStates.ERROR_STATE);
+			father.setErrorState(father.lg("ERROR_IMPOSSIBLE"), father
+					.lg("ERROR_RETURN_NULL_TRAVEL_DETAILS"));
 			return;
 		}
 		upperBar.clearMessage();
