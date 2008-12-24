@@ -57,6 +57,7 @@ public class Dijkstra extends Algo {
 		while (it.hasNext()) {
 			prb.addLast(it.next());
 		}
+		this.notifyObservers();
 		//System.out.println(compteur + " Dijkstra effectués");
 	}
 
