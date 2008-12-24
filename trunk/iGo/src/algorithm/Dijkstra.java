@@ -57,8 +57,9 @@ public class Dijkstra extends Algo {
 		while (it.hasNext()) {
 			prb.addLast(it.next());
 		}
-		this.notifyObservers();
-		//System.out.println(compteur + " Dijkstra effectués");
+		this.setChanged();
+		this.notifyObservers(p);
+		// System.out.println(compteur + " Dijkstra effectués");
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class Dijkstra extends Algo {
 	 * @throws NoRouteForStationException
 	 * @throws ServiceNotAccessibleException
 	 * @throws StationNotAccessibleException
-	 * @throws StationNotOnRoadException 
+	 * @throws StationNotOnRoadException
 	 */
 	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
 		p = prb.getCurrentPathInGraph();
