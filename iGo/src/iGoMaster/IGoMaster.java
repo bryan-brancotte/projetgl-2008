@@ -15,6 +15,7 @@ import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.ImpossibleStartingException;
 import iGoMaster.exception.NoNetworkException;
 import iGoMaster.exception.NoRouteForStationException;
+import iGoMaster.exception.PathInGraphCurrentlyModifiedByAlgoException;
 import iGoMaster.exception.ServiceNotAccessibleException;
 import iGoMaster.exception.StationNotAccessibleException;
 import iGoMaster.exception.VoidPathException;
@@ -136,32 +137,40 @@ public class IGoMaster implements Master, Observer
 				{
 					System.err.println("elo --> échec de l'algorithme, le chemin n'existe pas");
 					ihm.returnPathAsked(null, AlgoKindOfException.VoidPathException);
+					threads.clear();
 				} 
 				catch (ServiceNotAccessibleException e) 
 				{
 					System.err.println("elo --> échec de l'algorithme, le service '"+e.getService().getName()+"' n'est pas accessible");
 					ihm.returnPathAsked(null, AlgoKindOfException.ServiceNotAccessibleException);
+					threads.clear();
 				} 
 				catch (StationNotAccessibleException e) 
 				{
 					System.err.println("elo --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
 					ihm.returnPathAsked(null, AlgoKindOfException.StationNotAccessibleException);
+					threads.clear();
 				} 
 				catch (NoRouteForStationException e) 
 				{
 					System.err.println("elo --> échec de l'algorithme, pas de route associée à la station "+e.getStation());
 					ihm.returnPathAsked(null, AlgoKindOfException.NoRouteForStationException);
+					threads.clear();
 				} 
 				catch (StationNotOnRoadException e) 
 				{
 					System.err.println("elo --> échec de l'algorithme, la Station n'est pas sur la route");
 					ihm.returnPathAsked(null, AlgoKindOfException.StationNotOnRoadException);
+					threads.clear();
 				}
 				catch (Exception e)
 				{
 					System.err.println("elo --> échec de l'algorithme suite à une erreur indéfinie");
 					ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
+					threads.clear();
 				}
+				
+				
 			}
 			
 		}.start();
@@ -311,10 +320,10 @@ public class IGoMaster implements Master, Observer
 			if (arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
 				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
-				System.out.println(collectionBuilder.getPathInGraph().getDestination().getName());
+				
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraph(),
-						null
+						AlgoKindOfException.EverythingFine
 						);
 				
 				threads.clear();
@@ -353,19 +362,21 @@ public class IGoMaster implements Master, Observer
 	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) 
 	{
 		System.out.println("elo --> L'ihm demande un chemin");
+		
 		try
 		{
-			if (threads.isEmpty()&& pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
+			if (threads.isEmpty() && pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
 			{
 				this.launchAlgo();
+				return true;
 			}
 		}
 		catch (NullPointerException e)
 		{
 			System.err.println("elo --> Un builder de contrainte null est inutilisable");
-			return false;
 		}
-		return true;
+		
+		return false;
 	}
 
 	@Override
@@ -385,13 +396,15 @@ public class IGoMaster implements Master, Observer
 	}
 	
 	@Override
-	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NoNetworkException, GraphReceptionException, GraphConstructionException
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() 
+	throws NoNetworkException, GraphReceptionException, GraphConstructionException
 	{
 		System.out.println("elo --> L'ihm demande un builder de contraintes");
 		
 		if (!threads.isEmpty())
 		{
-			/* Attention un update va arriver que l'on doit ignorer */
+			//algo.kill() en attente de tony pour qu'il n'y ai pas le faux update ...
+			//threads.clear();
 		}
 			
 		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
