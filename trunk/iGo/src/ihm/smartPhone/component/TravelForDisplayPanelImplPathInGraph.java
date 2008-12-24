@@ -51,7 +51,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 				section = new SectionOfTravelImplPathInGraph(route, origin);
 			}
 		}
-		travel.add(section);
+		travel.add(section); 
 	}
 
 	@Override
