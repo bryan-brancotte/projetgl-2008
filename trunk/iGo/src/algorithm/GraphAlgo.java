@@ -135,8 +135,10 @@ public class GraphAlgo {
 		Station station = node.getStation();
 		Station otherStation = junction.getOtherStation(station);
 		if (
-		// TODO en attente de mise a jour réelle
-		otherStation == null || isStationIn(otherStation, avoidStations) || !otherStation.isEnable() || (!junction.isRouteLink() && (!allServicesIn(station) || !allServicesIn(otherStation))))
+				isStationIn(otherStation, avoidStations) || 
+				!otherStation.isEnable() || 
+				(!junction.isRouteLink() && (!allServicesIn(station)))
+			)
 			return false;
 		else
 			return true;
@@ -204,20 +206,6 @@ public class GraphAlgo {
 	 */
 	protected ArrayList<Node> getListClone() {
 		return new ArrayList<Node>(graph);
-	}
-
-	public String toString() {
-		String s = "";
-		for (int i = 0; i < graph.size(); i++) {
-			s += graph.get(i).getStation().getName() + " - ";
-			s += graph.get(i).getRoute().getId();
-			for (int j = 0; j < graph.get(i).getTo().size(); j++) {
-				s += " | " + graph.get(i).getTo().get(j).getNode().getStation().getName() + " - ";
-				s += graph.get(i).getTo().get(j).getNode().getRoute();
-			}
-			s += "\n";
-		}
-		return s;
 	}
 
 	/*****************************************************************/
@@ -326,11 +314,6 @@ public class GraphAlgo {
 
 		public Iterator<Link> getToIter() {
 			return to.iterator();
-		}
-
-		// TODO a virer uniquement pour les tests
-		public Vector<Link> getTo() {
-			return to;
 		}
 
 	}
