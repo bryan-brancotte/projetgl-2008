@@ -604,16 +604,12 @@ public class AlgoTest {
 		try {
 			bob.findPath(prb);
 		} catch (VoidPathException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ServiceNotAccessibleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (StationNotAccessibleException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (StationNotOnRoadException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		long end = System.currentTimeMillis();
