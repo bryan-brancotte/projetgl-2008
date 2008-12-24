@@ -55,10 +55,9 @@ public class GraphAlgo {
 	private void addLink(Node n) throws StationNotOnRoadException {
 		Station station = n.getStation();
 		Iterator<Junction> itInter;
-		itInter = station.getJunctions();
+		itInter = station.getJunctions(n.getRoute());
 		while (itInter.hasNext()) {
 			Junction j = itInter.next();
-			System.out.println(station+" -> "+j);
 			if (validChange(n, j)) {
 				Node newNode;
 				newNode = getNode(j.getOtherStation(station), j.getOtherRoute(station));
