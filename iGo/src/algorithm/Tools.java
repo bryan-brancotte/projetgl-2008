@@ -29,8 +29,14 @@ public class Tools {
 			junctions.add(n.getFrom().getJunction());
 			n = n.getFrom().getNode();
 		}
-		// TODO Penser a supprimer les débuts et fin avec changement au départ
+		
+		// TODO Verifier que les suppressions sont exactes !
+		while (junctions.size()>1 && !junctions.get(0).isRouteLink())
+			junctions.remove(0);
 		Collections.reverse(junctions);
+		while (junctions.size()>1 && !junctions.get(0).isRouteLink())
+			junctions.remove(0);
+		
 		return junctions;
 	}
 
@@ -113,7 +119,6 @@ public class Tools {
 	 *            l'ancien noeud
 	 */
 	protected static void betterWay(Link l, Node n, CriteriousForLowerPath c1, CriteriousForLowerPath c2) {
-		// TODO faire les conditions
 		Node newN = l.getNode();
 		Junction j = l.getJunction();
 
