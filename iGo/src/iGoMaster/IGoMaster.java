@@ -128,15 +128,15 @@ public class IGoMaster implements Master, Observer
 				{
 						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 				} catch (VoidPathException e) {
-					System.err.print("elo(de tony) --> échec de l'algorithme, le chemin n'existe pas");
+					System.err.println("elo(de tony) --> échec de l'algorithme, le chemin n'existe pas");
 				} catch (ServiceNotAccessibleException e) {
-					System.err.print("elo(de tony) --> échec de l'algorithme, le service '"+e.getService().getName()+"' n'est pas accessible");
+					System.err.println("elo(de tony) --> échec de l'algorithme, le service '"+e.getService().getName()+"' n'est pas accessible");
 				} catch (StationNotAccessibleException e) {
-					System.err.print("elo(de tony) --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
+					System.err.println("elo(de tony) --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
 				} catch (NoRouteForStationException e) {
-					System.err.print("elo --> échec de l'algorithme, pas de route associée à la station");
+					System.err.println("elo --> échec de l'algorithme, pas de route associée à la station "+e.getStation());
 				} catch (StationNotOnRoadException e) {
-					System.err.print("elo(de tony) --> échec de l'algorithme, la Station n'est pas sur la route");
+					System.err.println("elo(de tony) --> échec de l'algorithme, la Station n'est pas sur la route");
 				}
 				
 			}

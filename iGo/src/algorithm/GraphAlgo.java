@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 
+import algorithm.exception.NodeNotFoundException;
+
 public class GraphAlgo {
 
 	private ArrayList<Node> graph;
@@ -23,9 +25,10 @@ public class GraphAlgo {
 	 * 
 	 * @param p
 	 * @throws NoRouteForStationException
-	 * @throws StationNotOnRoadException 
+	 * @throws StationNotOnRoadException
+	 * @throws NodeNotFoundException
 	 */
-	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException {
+	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
@@ -35,7 +38,7 @@ public class GraphAlgo {
 		if (s.getRoutes() != null && s.getRoutes().hasNext())
 			n = new Node(s, s.getRoutes().next());
 		else
-			throw new NoRouteForStationException();
+			throw new NoRouteForStationException(s);
 		graph.add(n);
 		addLink(n);
 	}
@@ -46,7 +49,8 @@ public class GraphAlgo {
 	 * 
 	 * @param n
 	 *            La racine du graph
-	 * @throws StationNotOnRoadException 
+	 * @throws StationNotOnRoadException
+	 * @throws NodeNotFoundException
 	 */
 	private void addLink(Node n) throws StationNotOnRoadException {
 		Station station = n.getStation();
@@ -55,7 +59,8 @@ public class GraphAlgo {
 		while (itInter.hasNext()) {
 			Junction j = itInter.next();
 			if (validChange(n, j)) {
-				Node newNode = getNode(j.getOtherStation(station), j.getOtherRoute(station));
+				Node newNode;
+				newNode = getNode(j.getOtherStation(station), j.getOtherRoute(station));
 				if (newNode == null) {
 					newNode = new Node(j.getOtherStation(station), j.getOtherRoute(station));
 					graph.add(newNode);
@@ -154,9 +159,10 @@ public class GraphAlgo {
 	 * @param r
 	 *            la route empruntée
 	 * @return noeud du graph correspondant
+	 * @throws NodeNotFoundException
 	 */
 	protected Node getNode(Station s, Route r) {
-		Node n;
+		Node n = null;
 		for (int i = 0; i < graph.size(); i++) {
 			n = graph.get(i);
 			if (s == n.getStation() && r == n.getRoute())
@@ -171,14 +177,16 @@ public class GraphAlgo {
 	 * @param s
 	 *            la station concernée
 	 * @return premier noeud du graph correspondant
+	 * @throws NoRouteForStationException
 	 */
-	protected Node getFirstNode(Station s) {
-		Node n;
+	protected Node getFirstNode(Station s) throws NoRouteForStationException {
+		Node n = null;
 		for (int i = 0; i < graph.size(); i++) {
-			n = graph.get(i);
-			if (s == n.getStation())
-				return n;
+			if (s == graph.get(i).getStation())
+				return graph.get(i);
 		}
+		if (n == null)
+			throw new NoRouteForStationException(s);
 		return null;
 	}
 
