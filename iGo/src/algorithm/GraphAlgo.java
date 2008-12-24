@@ -58,6 +58,7 @@ public class GraphAlgo {
 		itInter = station.getJunctions(n.getRoute());
 		while (itInter.hasNext()) {
 			Junction j = itInter.next();
+			System.out.println(station+" -> "+j);
 			if (validChange(n, j)) {
 				Node newNode;
 				newNode = getNode(j.getOtherStation(station), j.getOtherRoute(station));
