@@ -59,9 +59,10 @@ public interface TravelForDisplayPanel {
 	 * Passe à la prochaine section
 	 */
 	public void next();
-	
+
 	/**
 	 * Permet de savoir si le chemin est encore praticable à partir d'où on est actuellement
+	 * 
 	 * @return
 	 */
 	public boolean isValideFromWhereIAm();
@@ -90,6 +91,13 @@ public interface TravelForDisplayPanel {
 		 * @return
 		 */
 		public int getTimeSection();
+
+		/**
+		 * Retourne le nombre de station dans la section.
+		 * 
+		 * @return
+		 */
+		public int getStationInSection();
 
 		/**
 		 * Retourne le coût nécessaire pour franchir le changement terminant cette section.
