@@ -293,7 +293,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 								if (freeEnd == true) {
 //									System.out.println("Free");
 //									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
-									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
+									gnb.linkStationBidirectional(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
 											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
 											.getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
 								}
@@ -304,6 +304,13 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
 											.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
 											.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
+											pedestrianEnd);
+									
+//									gnb.linkStation(routeOrigin, stationOrigin, routeDestination, stationDestination, cost, timeBetweenStations, pedestrian)
+									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork().getStation(
+											idStationEnd), gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork()
+											.getStation(idStationStart), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd)
+											.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteStart).getKindRoute()), timeEnd,
 											pedestrianEnd);
 								}
 							}
