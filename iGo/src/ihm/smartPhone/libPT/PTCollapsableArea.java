@@ -1,4 +1,4 @@
-package libPT;
+package ihm.smartPhone.libPT;
 
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.ImageLoader;

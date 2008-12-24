@@ -2,6 +2,8 @@ package ihm.smartPhone.statePanels;
 
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
+import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
@@ -13,8 +15,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import libPT.MouseListenerClickAndMoveInArea;
-import libPT.PanelDoubleBufferingSoftwear;
 
 public class MainPanel extends PanelState {
 

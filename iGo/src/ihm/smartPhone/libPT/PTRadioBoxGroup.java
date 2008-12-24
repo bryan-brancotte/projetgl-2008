@@ -1,4 +1,4 @@
-package libPT;
+package ihm.smartPhone.libPT;
 
 import java.util.LinkedList;
 

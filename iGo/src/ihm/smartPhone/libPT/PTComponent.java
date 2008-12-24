@@ -1,11 +1,12 @@
-package libPT;
+package ihm.smartPhone.libPT;
+
+import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea.AreaAndCodeExecutor;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import libPT.MouseListenerClickAndMoveInArea.AreaAndCodeExecutor;
 
 public abstract class PTComponent {
 

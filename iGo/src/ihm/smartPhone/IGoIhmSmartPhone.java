@@ -24,6 +24,8 @@ import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.libPT.PanelTooled;
 import ihm.smartPhone.listener.MyWindowStateListener;
 import ihm.smartPhone.statePanels.ErrorPanel;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
@@ -51,8 +53,6 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-import libPT.PanelDoubleBufferingSoftwear;
-import libPT.PanelTooled;
 
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
