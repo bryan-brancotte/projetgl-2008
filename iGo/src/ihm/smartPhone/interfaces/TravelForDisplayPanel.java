@@ -61,6 +61,11 @@ public interface TravelForDisplayPanel {
 	public void next();
 
 	/**
+	 * Permet de savoir s'il reste des section à parcourir
+	 */
+	public boolean hasNext();
+
+	/**
 	 * Permet de savoir si le chemin est encore praticable à partir d'où on est actuellement
 	 * 
 	 * @return

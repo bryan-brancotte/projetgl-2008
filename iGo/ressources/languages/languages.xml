@@ -283,6 +283,10 @@
 				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être interprété"/>
 				<ENGLISH value="Unable to build a new path : The network couldn't be interpreted"/>
 			</ERROR_RETURN_NETWORK_CONSTRUCTION_DETAILS>
+			<EndOfTravel>
+				<FRANCAIS value="Vous êtes arrivé !"/>
+				<ENGLISH value="You've just arrived !"/>
+			</EndOfTravel>
 		</fields>
 	</root>
 
