@@ -15,10 +15,12 @@ public class ErrorPanel extends PanelState {
 	 * 
 	 */
 	private static final long serialVersionUID = -2498019488605606802L;
+
 	/**
 	 * le message à afficher
 	 */
 	protected String message;
+
 	/**
 	 * le titre de la frame
 	 */
@@ -28,18 +30,6 @@ public class ErrorPanel extends PanelState {
 		super(father, upperBar, lowerBar);
 		this.message = "";
 		this.title = "";
-	}
-
-	public ErrorPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar lowerBar, String title) {
-		super(father, upperBar, lowerBar);
-		this.title = title;
-		this.message = "";
-	}
-
-	public ErrorPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar lowerBar, String message, String title) {
-		super(father, upperBar, lowerBar);
-		this.message = message;
-		this.title = title;
 	}
 
 	@Override
@@ -64,8 +54,40 @@ public class ErrorPanel extends PanelState {
 	@Override
 	public void paint(Graphics g) {
 		graphicsTunning(buffer);
-		Image img = ImageLoader.getRessourcesImageIcone("time", getWidth() >> 3, getWidth() >> 3).getImage();
-		g.drawImage(img, this.getWidth() - img.getWidth(null) >> 1, this.getHeight() - img.getHeight(null) >> 1, null);
+		Image img = ImageLoader.getRessourcesImageIcone("button_cancel", getWidth() >> 3, getWidth() >> 3).getImage();
+		g.drawImage(img, this.getWidth() - img.getWidth(null) >> 1, (this.getHeight() >> 1) - img.getHeight(null) >> 1,
+				null);
+		if (message == null || message.isEmpty())
+			return;
+		String tmp;
+		String[] cut = message.split(" ");
+		int heigth = (this.getHeight() >> 2) + img.getHeight(null);
+		int heigthTmp;
+		int mw = (int) (getWidth() * 0.8);
+		int i = 0;
+		g.setFont(father.getSizeAdapteur().getIntermediateFont());
+
+		while (i < cut.length) {
+			tmp = "";
+			while (i < cut.length && getWidthString(tmp + " " + cut[i], g) < mw) {
+				tmp += " " + cut[i++];
+			}
+			if (tmp.isEmpty()) {
+				tmp = cut[i].substring(0, cut[i].length() >> 1);
+				cut[i] = cut[i].substring(cut[i].length() >> 1);
+			}
+			g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth
+					+ (heigthTmp = getHeightString(message, g)));
+			heigth += heigthTmp << 1;
+		}
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

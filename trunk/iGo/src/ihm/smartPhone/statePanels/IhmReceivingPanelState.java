@@ -72,6 +72,15 @@ public interface IhmReceivingPanelState {
 	public boolean setCurrentState(IhmReceivingStates currentState);
 
 	/**
+	 * Demande à passer dans l'état d'erreur avec ce titre et ce message
+	 * 
+	 * @param title
+	 * @param message
+	 * @return
+	 */
+	public void setErrorState(String title, String message);
+
+	/**
 	 * Retourne l'état actuel
 	 * 
 	 * @return l'état actuel.

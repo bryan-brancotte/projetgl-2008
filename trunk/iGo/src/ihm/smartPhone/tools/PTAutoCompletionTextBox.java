@@ -130,6 +130,9 @@ public class PTAutoCompletionTextBox extends PTComponent {
 						if (currentStringLeft.length() < 1)
 							return;
 						currentStringLeft = currentStringLeft.substring(0, currentStringLeft.length() - 1);
+						key_char = true;
+						autoCompletion();
+						currentStringSelected="";
 					}
 					break;
 				case KeyEvent.VK_HOME:
@@ -260,7 +263,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	}
 
 	protected void autoCompletion() {
-		if ((currentStringRight.isEmpty())/* && (currentStringLeft.length() > 0)/* */) {
+		if ((currentStringRight.isEmpty())/* && (currentStringLeft.length() > 0)/ */) {
 			int cpt;
 
 			if (key_char || currentStringLeft.isEmpty()) {

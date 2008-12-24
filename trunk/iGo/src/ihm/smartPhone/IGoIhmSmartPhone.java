@@ -13,7 +13,6 @@ import iGoMaster.Master;
 import iGoMaster.SettingsKey;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
-import iGoMaster.exception.NetworkException;
 import iGoMaster.exception.NoNetworkException;
 import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.component.IGoFlowLayout;
@@ -26,6 +25,7 @@ import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.listener.MyWindowStateListener;
+import ihm.smartPhone.statePanels.ErrorPanel;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 import ihm.smartPhone.statePanels.LoadTravelPanel;
@@ -89,6 +89,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected NewTravelPanel newTravelPanel = null;
 	protected TravelDisplayPanel travelGraphicPanel = null;
 	protected TravelDisplayPanel travelArrayPanel = null;
+	protected ErrorPanel errorPanel = null;
 	protected boolean quitMessage = false;
 
 	/**
@@ -407,6 +408,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			newTravelPanel = new NewTravelPanel(this, upperBar, lowerBar);
 	}
 
+	protected void checkErrorPanel() {
+		if (errorPanel == null)
+			errorPanel = new ErrorPanel(this, upperBar, lowerBar);
+	}
+
 	@Override
 	public void stop() {
 		this.endInterface();
@@ -479,24 +485,22 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				cleanPanelsStates(true);
 				checkNewTravelPanel();
 			}
-			centerPanel.add(newTravelPanel);
-			// TODO meilleur gestion
 			try {
 				newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder());
-				// newTravelPanel.setPathInGraphConstraintBuilder(null);
+				centerPanel.add(newTravelPanel);
 				newTravelPanel.giveControle();
+				centerPanel.validate();
+				return true;
 			} catch (NoNetworkException e) {
-				this.setCurrentState(IhmReceivingStates.ERROR_STATE);
+				this.setErrorState(this.lg("ERROR_IMPOSSIBLE"), this.lg("ERROR_RETURN_NO_NETWORK_EXCEPTION_DETAILS"));
 				return false;
 			} catch (GraphReceptionException e) {
-				this.setCurrentState(IhmReceivingStates.ERROR_STATE);
+				this.setErrorState(this.lg("ERROR_IMPOSSIBLE"), this.lg("ERROR_RETURN_NETWORK_RECEPTION_DETAILS"));
 				return false;
 			} catch (GraphConstructionException e) {
-				this.setCurrentState(IhmReceivingStates.ERROR_STATE);
+				this.setErrorState(this.lg("ERROR_IMPOSSIBLE"), this.lg("ERROR_RETURN_NETWORK_CONSTRUCTION_DETAILS"));
 				return false;
 			}
-			centerPanel.validate();
-			return true;
 		} else if (actualState == IhmReceivingStates.LOAD_TRAVEL) {
 			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
 			centerPanel.removeAll();
@@ -738,11 +742,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (skins == null) {
 			skins = new LinkedList<iGoSmartPhoneSkin>();
 			skins.add(iGoSmartPhoneSkin.BLACK);
-			skins.add(iGoSmartPhoneSkin.WHITE);
 			skins.add(iGoSmartPhoneSkin.ORANGE);
 			skins.add(iGoSmartPhoneSkin.BLUE);
 			skins.add(iGoSmartPhoneSkin.PINK);
 			skins.add(iGoSmartPhoneSkin.PURPLE_LIGHT);
+			skins.add(iGoSmartPhoneSkin.WHITE);
 		}
 		return skins.iterator();
 	}
@@ -751,5 +755,22 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public boolean updateNetwork() {
 		// TODO updateNetwork
 		return true;
+	}
+
+	@Override
+	public void setErrorState(String title, String message) {
+		this.actualState = IhmReceivingStates.ERROR_STATE;
+		centerPanel.removeAll();
+		try {
+			checkErrorPanel();
+		} catch (OutOfMemoryError e) {
+			cleanPanelsStates(true);
+			checkErrorPanel();
+		}
+		centerPanel.add(errorPanel);
+		errorPanel.setMessage(message);
+		errorPanel.setTitle(title);
+		errorPanel.giveControle();
+		centerPanel.validate();
 	}
 }

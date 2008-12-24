@@ -733,20 +733,9 @@ public class NewTravelPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
-		int tmp;
-		String s;
 		if (pathBuilder == null) {
-			g.setFont(father.getSizeAdapteur().getLargeFont());
-			g.setColor(Color.red);
-			s = "Impossible de construire";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1,
-					tmp = (getHeight() - getHeightString(s, g) * 7 >> 1));
-			s = "un nouveau trajet :";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
-			s = "le master a passé";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
-			s = "un constructeur vide";
-			g.drawString(s, getWidth() - getWidthString(s, g) >> 1, tmp = (tmp + (getHeightString(s, g) << 1)));
+			father.setErrorState(father.lg("ERROR_IMPOSSIBLE"), father
+					.lg("ERROR_RETURN_NULL_CONSTRAINT_BUILDER_DETAILS"));
 			return;
 		}
 
