@@ -613,13 +613,13 @@ public class SettingsPanel extends PanelState {
 					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
 				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
-				buffer.fillOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
-						father.getSizeAdapteur().getSizeSmallFont() >> 1,
-						father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.fillOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +  (decalage >> 3),
+						father.getSizeAdapteur().getSizeIntermediateFont()>> 1,
+						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
 				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(decalage + (decalage >> 2), p.rbs[0].getArea().y + (decalage >> 3) + (decalage >> 3),
-						father.getSizeAdapteur().getSizeSmallFont() >> 1,
-						father.getSizeAdapteur().getSizeSmallFont() >> 1);
+				buffer.drawOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +   (decalage >> 3),
+						father.getSizeAdapteur().getSizeIntermediateFont() >> 1,
+						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
