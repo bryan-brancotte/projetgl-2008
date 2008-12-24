@@ -212,6 +212,14 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 										gnb.addStationToRoute(r, gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)),
 												timeBetweenStations.get(j));
 //										System.out.println("Adding station to route " + r.getId() + " " + gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)) + " " + timeBetweenStations.get(j));
+//										
+//										Iterator iTr = gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)).getRoutes();
+//										System.out.println("Verification station " + gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)));
+//										while (iTr.hasNext()) {
+//											Route rte = (Route) iTr.next();
+//											System.out.println("\t route " + rte);
+//										}
+										
 //										System.out.println("Adding station to route " + r.getId());
 //										gnb.getCurrentGraphNetwork().getStation(1).
 									}
@@ -221,8 +229,8 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							}
 						}
 					}
-					System.out.println();
-					System.out.println();
+//					System.out.println();
+//					System.out.println();
 
 					List<Element> interchanges = racine.getChild("InterchangesList").getChildren("Interchange");
 					for (Element interchange : interchanges) {
