@@ -5,7 +5,6 @@ import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 
 import java.util.Iterator;
-import java.util.Iterator;
 
 /**
  * 
