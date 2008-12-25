@@ -116,14 +116,14 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (skin == null) {
 			Iterator<iGoSmartPhoneSkin> itS = this.getSkins();
 			String s = this.master.getConfig(SettingsKey.SKIN.toString());
-			if (s.compareTo("") == 0) {
+			if (s.compareTo("") != 0) {
 				while (itS.hasNext())
 					if ((skin = itS.next()).toString().compareTo(s) == 0) {
 						this.skin = skin;
 						break;
 					}
 			} else {
-				this.master.setConfig(SettingsKey.SKIN.toString(), this.skin.toString());
+				this.master.setConfig(SettingsKey.SKIN.toString(), this.skin.toString()); 
 			}
 		}
 		this.setBackground(this.skin.getColorLine());
@@ -476,7 +476,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.MAIN_INTERFACE) {
-			System.out.println(this.actualState);
+//			System.out.println(this.actualState);
 			if (this.actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE
 					|| this.actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE
 					|| this.actualState == IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE
