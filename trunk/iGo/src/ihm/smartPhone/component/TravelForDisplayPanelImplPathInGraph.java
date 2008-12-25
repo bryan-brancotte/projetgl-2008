@@ -52,7 +52,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 				route = junction.getOtherRoute(route);
 				section = new SectionOfTravelImplPathInGraph(route, station);
 			}
-		} 
+		}
 		travel.add(section);
 		if (section.getEnddingChangementTime() == -1)
 			section.enddingChangementTime = 0;
@@ -108,7 +108,8 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	@Override
 	public void next() {
-		remainingTime -= travel.getFirst().getTimeSection() - travel.getFirst().getEnddingChangementTime();
+		System.out.println(travel.getFirst().getTimeSection() + " " + travel.getFirst().getEnddingChangementTime());
+		remainingTime -= (travel.getFirst().getTimeSection() + travel.getFirst().getEnddingChangementTime());
 		travelDone.addLast(travel.removeFirst());
 	}
 
