@@ -1,6 +1,5 @@
 package graphNetwork;
 
-
 public class PathInGraphResultBuilder {
 
 	/**
@@ -79,14 +78,14 @@ public class PathInGraphResultBuilder {
 	public void setPathInGraphResolved() {
 		currentPathInGraph.resolved = true;
 	}
-	
+
 	/**
 	 * Mutateur définissant le cout du trajet
 	 * 
 	 * @param cost
 	 */
 	public void setCost(float cost) {
-		currentPathInGraph.cost=cost;
+		currentPathInGraph.cost = cost;
 	}
 
 	/**
@@ -103,5 +102,14 @@ public class PathInGraphResultBuilder {
 	 */
 	public void resetJunctions() {
 		currentPathInGraph.junctions.clear();
+	}
+
+	/**
+	 * mutateur de coût de début du chemin
+	 * 
+	 * @return
+	 */
+	public void setEntryCost(float entryCost) {
+		currentPathInGraph.entryCost = entryCost;
 	}
 }

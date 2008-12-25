@@ -28,8 +28,8 @@
 				<ENGLISH value="SEPTA Presents"/>
 			</SplashScreenUpperTitle>
 			<iGoVersion>
-				<FRANCAIS value="iGo v0.1"/>
-				<ENGLISH value="iGo v0.1"/>
+				<FRANCAIS value="iGo v0.5"/>
+				<ENGLISH value="iGo v0.5"/>
 			</iGoVersion>
 			<DoYouWantToQuit>
 				<FRANCAIS value="Voulez vous quitter l'application ?"/>
@@ -275,6 +275,26 @@
 				<FRANCAIS value="Problème..."/>
 				<ENGLISH value="Problem..."/>
 			</ERROR_Problem>
+			<ERROR_VoidPathException>
+				<FRANCAIS value=""/>
+				<ENGLISH value=""/>
+			</ERROR_VoidPathException>
+			<ERROR_ServiceNotAccessibleException>
+				<FRANCAIS value="Un service n'est pas accessible, veuillez réduir vos exigences."/>
+				<ENGLISH value="Unreachable service, please reduce your requirements."/>
+			</ERROR_ServiceNotAccessibleException>
+			<ERROR_NoRouteForStationException>
+				<FRANCAIS value="NoRouteForStationException"/>
+				<ENGLISH value="NoRouteForStationException"/>
+			</ERROR_NoRouteForStationException>
+			<ERROR_StationNotOnRoadException>
+				<FRANCAIS value="Une station du réseau n'est sur aucune route, le fichier du réseaux doit être invalide"/>
+				<ENGLISH value="A station haven't any route, the network file probably contain a mistake"/>
+			</ERROR_StationNotOnRoadException>
+			<ERROR_UnknownException>
+				<FRANCAIS value="Un problème indeterminé est survenue"/>
+				<ENGLISH value="An unspecified problem occurred"/>
+			</ERROR_UnknownException>
 			<ERROR_ReturnNullConstraintBuilder>
 				<FRANCAIS value="Impossible de construire un nouveau trajet : le master a passé un constructeur vide"/>
 				<ENGLISH value="Unable to build a new path : the master has sent me an empty constructor"/>

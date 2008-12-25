@@ -412,7 +412,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
 						}
 					}
-					if (!firstPasseDone)
+					if (firstPasseDone)
+						buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
+					else
 						buffer.setColor(father.getSkin().getColorSubAreaInside());
 					drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 							(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
