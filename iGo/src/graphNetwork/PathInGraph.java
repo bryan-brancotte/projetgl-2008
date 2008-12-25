@@ -32,15 +32,18 @@ import org.xml.sax.SAXException;
  * @author iGo
  */
 public class PathInGraph {
-
 	/**
 	 * Liste des stations à éviter
 	 */
 	protected LinkedList<Station> avoidStations;
 	/**
-	 * le coût du chemin
+	 * le coût total du chemin
 	 */
 	protected float cost;
+	/**
+	 * le coût que l'on va devoir payer pour commencer le trajet : le coût d'accès au premier type de ligne
+	 */
+	protected float entryCost;
 	/**
 	 * La station de destination
 	 */
@@ -102,6 +105,7 @@ public class PathInGraph {
 		refusedKindRoute = new LinkedList<KindRoute>();
 		// resolved = false;
 		cost = Float.NaN;
+		entryCost = 1000;
 		time = 0;
 		destination = null;
 		origin = null;
@@ -790,11 +794,21 @@ public class PathInGraph {
 		return true;
 	}
 
+	/**
+	 * Accesseur de coût de début du chemin
+	 * 
+	 * @return
+	 */
+	public float getEntryCost() {
+		return entryCost;
+	}
+
 	protected void reset() {
 
 		origin = null;
 		destination = null;
 		cost = Float.NaN;
+		entryCost = 1000;
 		time = 0;
 		resolved = false;
 		junctions.clear();

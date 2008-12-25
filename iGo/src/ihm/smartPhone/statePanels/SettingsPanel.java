@@ -33,7 +33,6 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
-
 public class SettingsPanel extends PanelState {
 
 	protected HashMap<String, Station> stationsHash;
@@ -121,18 +120,14 @@ public class SettingsPanel extends PanelState {
 		travelCriteriaRadioBoxs[3] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[0] }, ex);// Cheaper
 		travelCriteriaRadioBoxs[4] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[1] }, ex);// Faster
 		travelCriteriaRadioBoxs[5] = makeRadioButton(new PTRadioBoxGroup[] { grp, grpTrans[2] }, ex);// Fewer Changes
-		travelCriteriaRadioBoxs[0].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.COST.toString()) == 0);
-		travelCriteriaRadioBoxs[1].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
-		travelCriteriaRadioBoxs[2].setClicked(father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
-		travelCriteriaRadioBoxs[3].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.COST.toString()) == 0);
-		travelCriteriaRadioBoxs[4].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.TIME.toString()) == 0);
-		travelCriteriaRadioBoxs[5].setClicked(father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
+		travelCriteriaRadioBoxs[0].setClicked((s = father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()))
+				.compareTo(Algo.CriteriousForLowerPath.COST.toString()) == 0);
+		travelCriteriaRadioBoxs[1].setClicked(s.compareTo(Algo.CriteriousForLowerPath.TIME.toString()) == 0);
+		travelCriteriaRadioBoxs[2].setClicked(s.compareTo(Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
+		travelCriteriaRadioBoxs[3].setClicked((s = father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()))
+				.compareTo(Algo.CriteriousForLowerPath.COST.toString()) == 0);
+		travelCriteriaRadioBoxs[4].setClicked(s.compareTo(Algo.CriteriousForLowerPath.TIME.toString()) == 0);
+		travelCriteriaRadioBoxs[5].setClicked(s.compareTo(Algo.CriteriousForLowerPath.CHANGE.toString()) == 0);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[0]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[1]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[2]);
@@ -291,33 +286,23 @@ public class SettingsPanel extends PanelState {
 				}
 			break;
 		case mainTravelCriteria:
+		case minorTravelCriteria:
 			if (travelCriteriaRadioBoxs[0].isClicked()) {
 				father.setConfig(s, Algo.CriteriousForLowerPath.COST.toString());
-				return;
-			}
-			if (travelCriteriaRadioBoxs[1].isClicked()) {
+			} else if (travelCriteriaRadioBoxs[1].isClicked()) {
 				father.setConfig(s, Algo.CriteriousForLowerPath.TIME.toString());
-				return;
-			}
-			if (travelCriteriaRadioBoxs[2].isClicked()) {
+			} else if (travelCriteriaRadioBoxs[2].isClicked()) {
 				father.setConfig(s, Algo.CriteriousForLowerPath.CHANGE.toString());
-				return;
 			}
-			break;
-		case minorTravelCriteria:
+
 			if (travelCriteriaRadioBoxs[3].isClicked()) {
 				father.setConfig(s, Algo.CriteriousForLowerPath.COST.toString());
-				return;
-			}
-			if (travelCriteriaRadioBoxs[4].isClicked()) {
+			} else if (travelCriteriaRadioBoxs[4].isClicked()) {
 				father.setConfig(s, Algo.CriteriousForLowerPath.TIME.toString());
-				return;
-			}
-			if (travelCriteriaRadioBoxs[5].isClicked()) {
+			} else if (travelCriteriaRadioBoxs[5].isClicked()) {
 				father.setConfig(s, Algo.CriteriousForLowerPath.CHANGE.toString());
-				return;
 			}
-			break;
+			return;
 		case services:
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
@@ -613,13 +598,13 @@ public class SettingsPanel extends PanelState {
 					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
 				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
-				buffer.fillOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +  (decalage >> 3),
-						father.getSizeAdapteur().getSizeIntermediateFont()>> 1,
-						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
+				buffer.fillOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
+						.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
+						.getSizeIntermediateFont() >> 1);
 				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +   (decalage >> 3),
-						father.getSizeAdapteur().getSizeIntermediateFont() >> 1,
-						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
+				buffer.drawOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
+						.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
+						.getSizeIntermediateFont() >> 1);
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
