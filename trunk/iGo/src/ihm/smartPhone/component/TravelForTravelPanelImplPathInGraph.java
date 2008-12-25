@@ -1,30 +1,26 @@
 package ihm.smartPhone.component;
 
-import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphConstraintBuilder;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
-import ihm.smartPhone.statePanels.IhmReceivingPanelState;
-import ihm.smartPhone.statePanels.IhmReceivingStates;
 
-public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel {
+public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel {
 
-	protected PathInGraph path;
-	protected IhmReceivingPanelState father;
-
-	@Override
-	public void delete() {
-		// TODO TravelForTravelPanelImplPathInGraph.delete
-
+	public TravelForTravelPanelImplPathInGraph(PathInGraphConstraintBuilder path) {
+		super();
+		this.path = path;
 	}
 
-	@Override
-	public void edit() {
-		// TODO TravelForTravelPanelImplPathInGraph.edit
+	protected PathInGraphConstraintBuilder path;
 
-	}
+	@Override
+	public abstract void delete();
+
+	@Override
+	public abstract void edit();
 
 	@Override
 	public String getDestination() {
-		return path.getDestination().getName();
+		return path.getCurrentPathInGraph().getDestination().getName();
 	}
 
 	@Override
@@ -35,7 +31,7 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 
 	@Override
 	public String getOrigine() {
-		return path.getOrigin().getName();
+		return path.getCurrentPathInGraph().getOrigin().getName();
 	}
 
 	@Override
@@ -45,7 +41,7 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 
 	@Override
 	public int getTotalTime() {
-		return path.getTime();
+		return path.getCurrentPathInGraph().getTime();
 	}
 
 	@Override
@@ -67,9 +63,7 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 	}
 
 	@Override
-	public void start() {
-		father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
-	}
+	public abstract void start();
 
 	@Override
 	public boolean update() {

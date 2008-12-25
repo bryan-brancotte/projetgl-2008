@@ -1,8 +1,10 @@
 package ihm.classesExemples;
 
 import graphNetwork.Route;
+import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+import ihm.smartPhone.statePanels.IhmReceivingStates;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -12,9 +14,11 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	protected boolean fav = (((this.hashCode() >> 1) << 1) == this.hashCode());
 	protected String name = "Nom (" + this.hashCode() + ")";
 	protected LinkedList<SectionOfTravel> travel;
+	protected IGoIhmSmartPhone father;
 
-	public TravelForTravelPanelExemple() {
+	public TravelForTravelPanelExemple(IGoIhmSmartPhone father) {
 		super();
+		this.father = father;
 		travel = new LinkedList<SectionOfTravel>();
 		travel.add(new SectionOfTravel() {
 
@@ -964,7 +968,7 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	@Override
 	public String getNextStop() {
 		return "Roosvelt";
-	} 
+	}
 
 	@Override
 	public void next() {
@@ -998,18 +1002,17 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 	@Override
 	public void delete() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void edit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-		
+		father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
 	}
 }

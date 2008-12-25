@@ -16,6 +16,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
@@ -95,6 +96,45 @@ public class LoadTravelPanel extends PanelState {
 				}
 				if (repaint)
 					this.origin.repaint();
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				mouseMoved(e);
+			}
+		});
+		this.addMouseListener(new MouseListener() {
+
+			protected TravelPanelPT toStart;
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				for (TravelPanelPT t : travelPanels)
+					if (t.isInMe)
+						toStart = t;
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				for (TravelPanelPT t : travelPanels) {
+					if (t.isInMe) {
+						if (t != toStart)
+							return;
+						toStart.pathBuilder.start();
+					}
+				}
 			}
 		});
 	}
