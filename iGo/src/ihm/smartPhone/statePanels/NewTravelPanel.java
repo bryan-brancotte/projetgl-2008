@@ -699,7 +699,7 @@ public class NewTravelPanel extends PanelState {
 		}
 		if (!shouldFillTheField)
 			return null;
-		if (stationTextBox.getText().isEmpty()) {
+		if (stationTextBox.getText().compareTo("") == 0) {
 			buffer.drawString(father.lg("FillThisField"), stationTextBox.getArea().x, stationTextBox.getArea().y
 					+ stationTextBox.getArea().height + (decalage >> 1)
 					+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));

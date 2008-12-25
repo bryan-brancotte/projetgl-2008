@@ -245,7 +245,7 @@ public class SettingsPanel extends PanelState {
 			});
 			rb.setClicked(father.getConfig(SettingsKey.SKIN.toString()).compareTo(sk.toString()) == 0);
 			skinsCollapsableArea.addComponent(rb);
-			skinsRadioBoxs.add(new PairPTRadioBox(rb, sk.toString()));
+			skinsRadioBoxs.add(new PairPTRadioBox(rb, father.lg(sk.toString())));
 		}
 
 		/***************************************************************************************************************

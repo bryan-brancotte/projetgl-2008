@@ -57,7 +57,7 @@ public class ErrorPanel extends PanelState {
 		Image img = ImageLoader.getRessourcesImageIcone("button_cancel", getWidth() >> 3, getWidth() >> 3).getImage();
 		g.drawImage(img, this.getWidth() - img.getWidth(null) >> 1, (this.getHeight() >> 1) - img.getHeight(null) >> 1,
 				null);
-		if (message == null || message.isEmpty())
+		if (message == null || message.compareTo("") == 0)
 			return;
 		String tmp;
 		String[] cut = message.split(" ");
@@ -72,7 +72,7 @@ public class ErrorPanel extends PanelState {
 			while (i < cut.length && getWidthString(tmp + " " + cut[i], g) < mw) {
 				tmp += " " + cut[i++];
 			}
-			if (tmp.isEmpty()) {
+			if (tmp.compareTo("") == 0) {
 				tmp = cut[i].substring(0, cut[i].length() >> 1);
 				cut[i] = cut[i].substring(cut[i].length() >> 1);
 			}

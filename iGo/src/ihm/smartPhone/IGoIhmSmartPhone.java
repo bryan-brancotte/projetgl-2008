@@ -49,6 +49,8 @@ import java.awt.Frame;
 import java.awt.Panel;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -58,7 +60,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	private static final long serialVersionUID = 1L;
 
-	public static final IHMGraphicQuality defaultQualityForIhm = IHMGraphicQuality.AS_FAST_AS_WE_CAN;
+	public static final IHMGraphicQuality defaultQualityForIhm = IHMGraphicQuality.FULL_ANTI_ANTIALIASING;
 
 	/**
 	 * Les composants et variables de l'ihm
@@ -110,20 +112,25 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		System.out.println(sizeAdapteur);
 		this.setLayout(sizeAdapteur);
 		this.master = master;
+		this.skin = iGoSmartPhoneSkin.White;
 		if (skin == null) {
 			Iterator<iGoSmartPhoneSkin> itS = this.getSkins();
 			String s = this.master.getConfig(SettingsKey.SKIN.toString());
-			while (itS.hasNext()) {
-				if ((skin = itS.next()).toString().compareTo(s) == 0)
-					break;
+			if (s.compareTo("") == 0) {
+				while (itS.hasNext())
+					if ((skin = itS.next()).toString().compareTo(s) == 0) {
+						this.skin = skin;
+						break;
+					}
+			} else {
+				this.master.setConfig(SettingsKey.SKIN.toString(), this.skin.toString());
 			}
 		}
-		this.skin = skin;
-		this.setBackground(skin.getColorLine());
-		if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).isEmpty())
+		this.setBackground(this.skin.getColorLine());
+		if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo("") == 0)
 			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
 					.toString());
-		if (this.master.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).isEmpty())
+		if (this.master.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo("") == 0)
 			if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
 					Algo.CriteriousForLowerPath.TIME.toString()) != 0)
 				this.master.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
@@ -170,21 +177,21 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		 * Barre supérieure
 		 */
 		upperBar = new UpperBar(this, false);
-		upperBar.setBackground(skin.getColorInside());
+		upperBar.setBackground(this.skin.getColorInside());
 		this.add(upperBar);
 
 		/***************************************************************************************************************
 		 * Barre inférieure
 		 */
 		lowerBar = new LowerBar(this, false);
-		lowerBar.setBackground(skin.getColorInside());
+		lowerBar.setBackground(this.skin.getColorInside());
 		this.add(lowerBar);
 
 		/***************************************************************************************************************
 		 * Zone principale
 		 */
 		centerPanel = new Panel(new BorderLayout(0, 0));
-		centerPanel.setBackground(skin.getColorInside());
+		centerPanel.setBackground(this.skin.getColorInside());
 		centerPanel.add(new VoidPanel(this));
 		this.add(centerPanel);
 
@@ -779,6 +786,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			skins.add(iGoSmartPhoneSkin.Water);
 			skins.add(iGoSmartPhoneSkin.WaterPool);
 			skins.add(iGoSmartPhoneSkin.White);
+			Collections.sort(skins, new Comparator<iGoSmartPhoneSkin>() {
+				@Override
+				public int compare(iGoSmartPhoneSkin o1, iGoSmartPhoneSkin o2) {
+					return master.lg(o1.toString()).compareTo(master.lg(o2.toString()));
+				}
+			});
 		}
 		return skins.iterator();
 	}
