@@ -168,8 +168,6 @@ public class IGoMaster implements Master, Observer
 					ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
 					threads.clear();
 				}
-				
-				
 			}
 			
 		}.start();
@@ -313,7 +311,7 @@ public class IGoMaster implements Master, Observer
 		System.out.println("elo --> update");
 		
 		/* Redefine equals? */
-		if (o.equals(algo))
+		if (o.equals(algo) && o!=null)
 		{
 			
 			if (arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
@@ -334,8 +332,9 @@ public class IGoMaster implements Master, Observer
 				System.err.print("Elo --> L'algo n'a pas retourné le pathInGraph correspondant à la collection courante");
 			}
 		}
-		else if (o.equals(eventInfoNetwork))
+		else if (o.equals(eventInfoNetwork) && o!=null && arg==null)
 		{
+			/** TODO : N'appliquer les changements que si pas d'algo ni rien!!! */
 			eventInfoNetwork.applyInfo(graphBuilder);
 			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
 		}
