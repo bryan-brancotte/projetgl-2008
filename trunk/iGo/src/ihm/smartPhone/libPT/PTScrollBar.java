@@ -33,6 +33,8 @@ public class PTScrollBar extends PTComponent {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				if (!(insideMe |= area.contains(e.getPoint())))
+					return;
 				int delta = (area.width >> 2);
 				int max = (area.height - (delta << 1));
 				deroullement = e.getY() - area.y - delta;

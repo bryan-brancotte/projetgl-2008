@@ -766,12 +766,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public Iterator<iGoSmartPhoneSkin> getSkins() {
 		if (skins == null) {
 			skins = new LinkedList<iGoSmartPhoneSkin>();
-			skins.add(iGoSmartPhoneSkin.BLACK);
-			skins.add(iGoSmartPhoneSkin.ORANGE);
-			skins.add(iGoSmartPhoneSkin.BLUE);
-			skins.add(iGoSmartPhoneSkin.PINK);
-			skins.add(iGoSmartPhoneSkin.PURPLE_LIGHT);
-			skins.add(iGoSmartPhoneSkin.WHITE);
+			skins.add(iGoSmartPhoneSkin.Black);
+			skins.add(iGoSmartPhoneSkin.Blue);
+			skins.add(iGoSmartPhoneSkin.Cherry);
+			skins.add(iGoSmartPhoneSkin.Green);
+			skins.add(iGoSmartPhoneSkin.Orange);
+			skins.add(iGoSmartPhoneSkin.Pink);
+			skins.add(iGoSmartPhoneSkin.PinkPurple);
+			skins.add(iGoSmartPhoneSkin.Purple);
+			skins.add(iGoSmartPhoneSkin.Sand);
+			skins.add(iGoSmartPhoneSkin.YellowGreen);
+			skins.add(iGoSmartPhoneSkin.Water);
+			skins.add(iGoSmartPhoneSkin.WaterPool);
+			skins.add(iGoSmartPhoneSkin.White);
 		}
 		return skins.iterator();
 	}
