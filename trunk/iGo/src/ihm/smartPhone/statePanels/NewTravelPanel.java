@@ -762,8 +762,8 @@ public class NewTravelPanel extends PanelState {
 	@Override
 	public void paint(Graphics g) {
 		if (pathBuilder == null) {
-			father.setErrorState(father.lg("ERROR_IMPOSSIBLE"), father
-					.lg("ERROR_RETURN_NULL_CONSTRAINT_BUILDER_DETAILS"));
+			father.setErrorState(father.lg("ERROR_Impossible"), father
+					.lg("ERROR_ReturnNullConstraintBuilder"));
 			return;
 		}
 

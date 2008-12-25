@@ -50,7 +50,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 				totalTime += section.getEnddingChangementTime() + section.getTimeSection();
 				travel.add(section);
 				route = junction.getOtherRoute(route);
-				section = new SectionOfTravelImplPathInGraph(route, origin);
+				section = new SectionOfTravelImplPathInGraph(route, station);
 			}
 		} 
 		travel.add(section);

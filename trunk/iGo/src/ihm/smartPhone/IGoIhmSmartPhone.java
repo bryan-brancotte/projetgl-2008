@@ -54,7 +54,6 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
 	private static final long serialVersionUID = 1L;
@@ -494,13 +493,13 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				centerPanel.validate();
 				return true;
 			} catch (NoNetworkException e) {
-				this.setErrorState(this.lg("ERROR_IMPOSSIBLE"), this.lg("ERROR_RETURN_NO_NETWORK_EXCEPTION_DETAILS"));
+				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ReturnNoNetworkException"));
 				return false;
 			} catch (GraphReceptionException e) {
-				this.setErrorState(this.lg("ERROR_IMPOSSIBLE"), this.lg("ERROR_RETURN_NETWORK_RECEPTION_DETAILS"));
+				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NetworkReception"));
 				return false;
 			} catch (GraphConstructionException e) {
-				this.setErrorState(this.lg("ERROR_IMPOSSIBLE"), this.lg("ERROR_RETURN_NETWORK_CONSTRUCTION_DETAILS"));
+				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NetworkConstruction"));
 				return false;
 			}
 		} else if (actualState == IhmReceivingStates.LOAD_TRAVEL) {
@@ -658,17 +657,26 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException) {
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
-		try {
-			travel = new TravelForDisplayPanelImplPathInGraph(path);
-			System.out.println(travel);
-		} catch (Exception e) {
-			//System.err.println("IGoIhmSmartPhone.returnPathAsked(path,\"" + message + "\"\n" + path);
-			e.printStackTrace();
-			travel = null;
+		if (algoKindOfException == AlgoKindOfException.EverythingFine) {
+			// ba c'est bon quoi.
+			if (path == null) {
+				setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_ReturnNullTravelDetails"));
+				return false;
+			}
+			try {
+				travel = new TravelForDisplayPanelImplPathInGraph(path);
+			} catch (Exception e) {
+				setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_BuildingTravelFromResult"));
+				e.printStackTrace();
+				return false;
+			}
+			this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
+			return true;
+		} else {
+			setErrorState(this.lg("ERROR_Impossible"), this.lg(algoKindOfException.toString()));
 		}
+		return false;
 		// TODO ......returnPathAsked
-		this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
-		return true;
 	}
 
 	@Override
