@@ -120,7 +120,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		}
 		this.skin = skin;
 		this.setBackground(skin.getColorLine());
-
+		System.out.println("IGoIhmSmartPhone.IGoIhmSmartPhone(1)");
 		if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).isEmpty())
 			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
 					.toString());
@@ -465,6 +465,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.MAIN_INTERFACE) {
+			if (this.actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE
+					|| this.actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE
+					|| this.actualState == IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE
+					|| this.actualState == IhmReceivingStates.PREVISU_TRAVEL_GRAPHIC_MODE
+					|| this.actualState == IhmReceivingStates.NEW_TRAVEL)
+				cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.MAIN_INTERFACE;
 			centerPanel.removeAll();
 			try {
@@ -543,6 +549,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			return true;
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
 			PathInGraphConstraintBuilder pathBuilder = null;
+			cleanPanelsStates(false);
 			if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
 				pathBuilder = newTravelPanel.getPathInGraphConstraintBuilder();
 			else if (this.actualState == IhmReceivingStates.LOAD_TRAVEL)
