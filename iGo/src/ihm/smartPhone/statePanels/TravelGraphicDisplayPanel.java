@@ -22,7 +22,6 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
 
-
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	protected GraphicsViewPort buffer;
@@ -413,6 +412,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
 						}
 					}
+					if (!firstPasseDone)
+						buffer.setColor(father.getSkin().getColorSubAreaInside());
 					drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 							(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);

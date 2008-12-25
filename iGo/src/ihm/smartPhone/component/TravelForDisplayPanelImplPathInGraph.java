@@ -108,7 +108,6 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	@Override
 	public void next() {
-		System.out.println(travel.getFirst().getTimeSection() + " " + travel.getFirst().getEnddingChangementTime());
 		remainingTime -= (travel.getFirst().getTimeSection() + travel.getFirst().getEnddingChangementTime());
 		travelDone.addLast(travel.removeFirst());
 	}
