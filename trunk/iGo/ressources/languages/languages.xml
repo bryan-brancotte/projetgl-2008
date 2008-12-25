@@ -311,6 +311,58 @@
 				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être interprété"/>
 				<ENGLISH value="Unable to build a new path : The network couldn't be interpreted"/>
 			</ERROR_NetworkConstruction>
+			<White>
+				<FRANCAIS value="Classique"/>
+				<ENGLISH value="Classical"/>
+			</White>
+			<Purple>
+				<FRANCAIS value="Pourpre"/>
+				<ENGLISH value="Purple"/>
+			</Purple>
+			<Blue>
+				<FRANCAIS value="Bleu"/>
+				<ENGLISH value="Blue"/>
+			</Blue>
+			<Pink>
+				<FRANCAIS value="Rose"/>
+				<ENGLISH value="Pink"/>
+			</Pink>
+			<Orange>
+				<FRANCAIS value="Orange"/>
+				<ENGLISH value="Orange"/>
+			</Orange>
+			<Sand>
+				<FRANCAIS value="Sable"/>
+				<ENGLISH value="Sand"/>
+			</Sand>
+			<YellowGreen>
+				<FRANCAIS value="Jaune-vert"/>
+				<ENGLISH value="Yellow-green"/>
+			</YellowGreen>
+			<Green>
+				<FRANCAIS value="Vert"/>
+				<ENGLISH value="Green"/>
+			</Green>
+			<WaterPool>
+				<FRANCAIS value="Piscine"/>
+				<ENGLISH value="WaterPool"/>
+			</WaterPool>
+			<Water>
+				<FRANCAIS value="Eau"/>
+				<ENGLISH value="Water"/>
+			</Water>
+			<PinkPurple>
+				<FRANCAIS value="Violet"/>
+				<ENGLISH value="PinkPurple"/>
+			</PinkPurple>
+			<Cherry>
+				<FRANCAIS value="Rouge cerise"/>
+				<ENGLISH value="Cherry"/>
+			</Cherry>
+			<Black>
+				<FRANCAIS value="Noir"/>
+				<ENGLISH value="Black"/>
+			</Black>
 		</fields>
 	</root>
 

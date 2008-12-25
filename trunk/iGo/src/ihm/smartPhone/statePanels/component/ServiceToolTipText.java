@@ -31,7 +31,7 @@ public class ServiceToolTipText {
 	public boolean maybeOvered(int x, int y) {
 		if (!area.contains(x, y))
 			return false;
-		if (service.getShortDescription() != null && !service.getShortDescription().isEmpty()) {
+		if (service.getShortDescription() != null && !(service.getShortDescription().compareTo("") == 0)) {
 			lowerBar.setLeftTitle(service.getName(), FontSizeKind.SMALL);
 			lowerBar.setLeftValue(service.getShortDescription(), FontSizeKind.SMALL);
 		} else {

@@ -50,7 +50,7 @@ public class KindRoute {
 			kinds = new LinkedList<KindRoute>();
 		// if (kindOf == null)
 		// return null;
-		// if (kindOf.isEmpty())
+		// if (kindOf.compareTo("") == 0)
 		// return null;
 		KindRoute k = getKindFromString(kindOf);
 		if (k != null)

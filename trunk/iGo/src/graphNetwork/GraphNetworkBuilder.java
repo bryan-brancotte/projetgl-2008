@@ -51,9 +51,9 @@ public class GraphNetworkBuilder {
 			return null;
 		if (kindOf == null)
 			return null;
-		if (id.isEmpty())
+		if (id.compareTo("") == 0)
 			return null;
-		if (kindOf.isEmpty())
+		if (kindOf.compareTo("") == 0)
 			return null;
 
 		for (int i = 0; i < currentGraphNetwork.routes.size(); i++)
@@ -100,7 +100,7 @@ public class GraphNetworkBuilder {
 			throws ViolationOfUnicityInIdentificationException {
 		if (name == null)
 			return null;
-		if (name.isEmpty())
+		if (name.compareTo("") == 0)
 			return null;
 
 		for (int i = 0; i < currentGraphNetwork.services.size(); i++)
@@ -165,7 +165,7 @@ public class GraphNetworkBuilder {
 	public Station addStation(int id, String name) throws ViolationOfUnicityInIdentificationException {
 		if (name == null)
 			return null;
-		if (name.isEmpty())
+		if (name.compareTo("") == 0)
 			return null;
 
 		for (int i = 0; i < currentGraphNetwork.stations.size(); i++)

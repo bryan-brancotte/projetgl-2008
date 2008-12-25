@@ -52,7 +52,7 @@ public class PTTextBox extends PTComponent {
 								return;
 							currentStringRight = currentStringSelected.charAt(size) + currentStringRight;
 							currentStringSelected = currentStringSelected.substring(0, size);
-							if (currentStringSelected.isEmpty())
+							if (currentStringSelected.compareTo("") == 0)
 								selectingWay = 0;
 						}
 					} else if (currentStringSelected.length() > 0) {
@@ -80,7 +80,7 @@ public class PTTextBox extends PTComponent {
 								return;
 							currentStringLeft += currentStringSelected.charAt(0);
 							currentStringSelected = currentStringSelected.substring(1);
-							if (currentStringSelected.isEmpty())
+							if (currentStringSelected.compareTo("") == 0)
 								selectingWay = 0;
 						}
 					} else if (currentStringSelected.length() > 0) {

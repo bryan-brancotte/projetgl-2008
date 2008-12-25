@@ -619,7 +619,7 @@ public class PathInGraph {
 	 * @param pathInString
 	 */
 	protected void importPath(String pathInString) {
-		if (pathInString == null || pathInString.isEmpty())
+		if (pathInString == null || pathInString.compareTo("") == 0)
 			return;
 		Document doc;
 		int i;
