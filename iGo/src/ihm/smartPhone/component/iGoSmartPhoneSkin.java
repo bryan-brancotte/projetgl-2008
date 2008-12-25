@@ -1,12 +1,14 @@
 package ihm.smartPhone.component;
 
+import ihm.smartPhone.tools.ColorTools;
+
 import java.awt.Color;
 
 public enum iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
-	WHITE(
+	White(
 
 	new Color(115, 115, 115),
 
@@ -16,7 +18,7 @@ public enum iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
-	PURPLE_LIGHT(
+	Purple(
 
 	new Color(144, 30, 196),
 
@@ -26,17 +28,11 @@ public enum iGoSmartPhoneSkin {
 	/**
 	 *
 	 */
-	BLUE(
-
-	new Color(22, 78, 147),
-
-	new Color(141, 141, 141),
-
-	new Color(251, 251, 251)),
+	Blue(226, Color.black),
 	/**
 	 * 
 	 */
-	PINK(
+	Pink(
 
 	new Color(220, 41, 181),
 
@@ -46,7 +42,7 @@ public enum iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
-	ORANGE(
+	Orange(
 
 	new Color(196, 119, 30),
 
@@ -58,7 +54,35 @@ public enum iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
-	BLACK(
+	Sand(32, Color.black),
+	/**
+	 * 
+	 */
+	YellowGreen(60, Color.black),
+	/**
+	 * 
+	 */
+	Green(90, Color.black),
+	/**
+	 * 
+	 */
+	WaterPool(165, Color.black),
+	/**
+	 * 
+	 */
+	Water(200, Color.black),
+	/**
+			 * 
+			 */
+	PinkPurple(300, Color.black),
+	/**
+			 * 
+			 */
+	Cherry(350, Color.black),
+	/**
+	 * 
+	 */
+	Black(
 
 	new Color(115, 115, 115),
 
@@ -130,6 +154,34 @@ public enum iGoSmartPhoneSkin {
 		this.colorOutside = colorOutside;
 		this.colorLine = colorLine;
 		this.colorInside = colorInside;
+		this.colorLetter = colorLetter;
+		if (colorInside.getRed() < 128)
+			this.colorSubAreaInside = new Color(255 - (int) (colorLetter.getRed() * 0.9), 255 - (int) (colorLetter
+					.getGreen() * 0.9), 255 - (int) (colorLetter.getBlue() * 0.9));
+		else
+			this.colorSubAreaInside = new Color((int) (colorInside.getRed() * 0.9),
+					(int) (colorInside.getGreen() * 0.9), (int) (colorInside.getBlue() * 0.9));
+	}
+
+	/**
+	 * Constructeur de l'enum skin
+	 * 
+	 * @param colorOutside
+	 *            couleur à laquelle début de la dégradé (depuis l'exterrieur)
+	 * @param colorLine
+	 *            couleur des ligne séparatrice
+	 * @param colorInside
+	 *            couleur à laquelle se finit de la dégradé (à l'interrieur)
+	 * @param colorLetter
+	 *            couleur de la police
+	 * @param displayLine
+	 *            affiche t'on les lignes
+	 */
+	private iGoSmartPhoneSkin(int Teinte, Color colorLetter) {
+		// Teinte += 8;
+		this.colorOutside = ColorTools.getColorFromHSV(Teinte, 85, 77);
+		this.colorLine = ColorTools.getColorFromHSV(Teinte, 57, 91);
+		this.colorInside = ColorTools.getColorFromHSV(Teinte, 4, 97);
 		this.colorLetter = colorLetter;
 		if (colorInside.getRed() < 128)
 			this.colorSubAreaInside = new Color(255 - (int) (colorLetter.getRed() * 0.9), 255 - (int) (colorLetter

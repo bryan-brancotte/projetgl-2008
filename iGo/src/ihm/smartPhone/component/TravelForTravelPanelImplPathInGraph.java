@@ -5,7 +5,6 @@ import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.statePanels.IhmReceivingPanelState;
 import ihm.smartPhone.statePanels.IhmReceivingStates;
 
-
 public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel {
 
 	protected PathInGraph path;
@@ -13,14 +12,14 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
-		
+		// TODO TravelForTravelPanelImplPathInGraph.delete
+
 	}
 
 	@Override
 	public void edit() {
-		// TODO Auto-generated method stub
-		
+		// TODO TravelForTravelPanelImplPathInGraph.edit
+
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
+		// TODO TravelForTravelPanelImplPathInGraph.getName
 		return null;
 	}
 
@@ -51,20 +50,20 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 
 	@Override
 	public boolean isFavorite() {
-		// TODO Auto-generated method stub
+		// TODO TravelForTravelPanelImplPathInGraph.isFavorite
 		return false;
 	}
 
 	@Override
 	public void setFavorite(boolean isFav) {
-		// TODO Auto-generated method stub
-		
+		// TODO TravelForTravelPanelImplPathInGraph.setFavorite
+
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+		// TODO TravelForTravelPanelImplPathInGraph.setName
+
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel
 
 	@Override
 	public boolean update() {
-		// TODO Auto-generated method stub
+		// TODO TravelForTravelPanelImplPathInGraph.update
 		return false;
 	}
 
