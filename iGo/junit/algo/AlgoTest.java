@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import algorithm.Dijkstra;
+import algorithm.exception.NonValidPathException;
 
 public class AlgoTest {
 
@@ -610,6 +611,8 @@ public class AlgoTest {
 		} catch (StationNotAccessibleException e) {
 			e.printStackTrace();
 		} catch (StationNotOnRoadException e) {
+			e.printStackTrace();
+		} catch (NonValidPathException e) {
 			e.printStackTrace();
 		}
 		long end = System.currentTimeMillis();
