@@ -649,7 +649,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkTravelArrayDisplayPanel();
 			}
 			addToCenterPanel(travelArrayPanel);
-			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
+//			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			travelArrayPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			return true;
 		}
@@ -680,6 +680,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		newTravelPanel = null;
 		mainPanel = null;
 		travelGraphicPanel = null;
+		travelArrayPanel=null;
 	}
 
 	/**
