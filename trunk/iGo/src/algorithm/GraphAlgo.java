@@ -31,6 +31,8 @@ public class GraphAlgo {
 	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
+		System.out.println("------------");
+		System.out.println(always.length);
 		// Initialisation du graph
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
