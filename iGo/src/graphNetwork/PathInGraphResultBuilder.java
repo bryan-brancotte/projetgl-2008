@@ -87,6 +87,15 @@ public class PathInGraphResultBuilder {
 	public void setCost(float cost) {
 		currentPathInGraph.cost = cost;
 	}
+	
+	/**
+	 * Mutateur définisant le temps de trajet
+	 * 
+	 * @param time
+	 */
+	public void setTime(int time){
+		currentPathInGraph.time = time;
+	}
 
 	/**
 	 * Permet de savoir si le chemin est valide pour la résolution.
