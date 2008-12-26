@@ -47,13 +47,12 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 				try {
 					doc = sxb.build(fichier);
 				} catch (JDOMException e) {
-					// TODO Auto-generated catch block
+					System.err.println("Ce Fichier XML n\'est pas un fichier XML valide");
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					System.err.println("Erreur de lecture");
 					e.printStackTrace();
 				}
-				// Document doc = parser.getDocument();
 
 				Element racine;
 				racine = doc.getRootElement();
@@ -222,7 +221,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	}
 
 	/**
-	 * Demarre la surveillance du dossier
+	 * @see EventInfoNetworkWatcher#startWatching()
 	 */
 	@Override
 	public void startWatching() throws ImpossibleStartingException {
@@ -235,7 +234,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	}
 
 	/**
-	 * Arrete la surveillance du dossier
+	 * @see EventInfoNetworkWatcher#stopWatching()
 	 */
 	@Override
 	public void stopWatching() {
@@ -247,7 +246,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	}
 
 	/**
-	 * Donne le status de la surveillance
+	 * @see EventInfoNetworkWatcher#getStatus()
 	 */
 	@Override
 	public EventInfoNetWorkWatcherStatus getStatus() {
@@ -255,7 +254,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	}
 
 	/**
-	 * Applique les informations contenues dans un événement
+	 * @see EventInfoNetworkWatcher#applyInfo(GraphNetworkBuilder)
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
@@ -268,7 +267,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	}
 
 	/**
-	 * Renvoie les nouveaux evenements
+	 * @see EventInfoNetworkWatcher#getNewEventInfo()
 	 */
 	@Override
 	public Collection<EventInfo> getNewEventInfo() {

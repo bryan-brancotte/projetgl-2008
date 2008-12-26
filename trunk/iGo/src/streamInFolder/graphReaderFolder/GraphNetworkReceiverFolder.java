@@ -15,8 +15,6 @@ import iGoMaster.exception.GraphReceptionException;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -58,10 +56,13 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 	/**
 	 */
-	public boolean updateGraph() {
-		return false;
-	}
+//	public boolean updateGraph() {
+//		return false;
+//	}
 
+	/**
+	 * @see GraphNetworkReceiver#getAvaibleNetwork()
+	 */
 	@Override
 	public Iterator<AvailableNetwork> getAvaibleNetwork() {
 		if (networks != null) {
@@ -71,6 +72,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 			return null;
 	}
 
+	/**
+	 * @see GraphNetworkReceiver#buildNewGraphNetwork(GraphNetworkBuilder, String, GraphNetworkCostReceiver)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void buildNewGraphNetwork(GraphNetworkBuilder gnb, String networkChosen, GraphNetworkCostReceiver costReceiver)
@@ -94,10 +98,10 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 					try {
 						doc = sxb.build(networks.get(networkChosen).getFichier().toURI().toString());
 					} catch (JDOMException e) {
-						// TODO Auto-generated catch block
+						System.err.println("Ce Fichier XML n\'est pas un fichier XML valide");
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						System.err.println("Erreur de lecture");
 						e.printStackTrace();
 					}
 
