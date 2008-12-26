@@ -1,6 +1,7 @@
 package ihm.classesExemples;
 
 import graphNetwork.Route;
+import graphNetwork.Service;
 import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
@@ -56,6 +57,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			public int getStationInSection() {
 				return 4;
 			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 		travel.add(new SectionOfTravel() {
 
@@ -93,6 +100,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			public int getTimeSection() {
 				return 32;
 			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 		travel.add(new SectionOfTravel() {
 
@@ -130,6 +143,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			public int getTimeSection() {
 				return 11;
 			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 		travel.add(new SectionOfTravel() {
 
@@ -151,6 +170,657 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			@Override
 			public int getEnddingChangementTime() {
 				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Roosvelt";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "1";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 5;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 12;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Southern Stadium";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "8";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 32;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public String getNameChangement() {
+				return "Market - Frankford";
+			}
+
+			@Override
+			public String getNameRoute() {
+				return "4";
+			}
+
+			@Override
+			public int getTimeSection() {
+				return 11;
+			}
+		});
+		travel.add(new SectionOfTravel() {
+
+			@Override
+			public float getEnddingChangementCost() {
+				return 0;
+			}
+
+			@Override
+			public int getStationInSection() {
+				return 4;
+			}
+
+			@Override
+			public Route getRoute() {
+				return null;
+			}
+
+			@Override
+			public int getEnddingChangementTime() {
+				return 2;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 			@Override
@@ -201,558 +871,9 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			}
 
 			@Override
-			public int getTimeSection() {
-				return 32;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public Route getRoute() {
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
 				return null;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Market - Frankford";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "4";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Roosvelt";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "1";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 5;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 12;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Southern Stadium";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "8";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 32;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Market - Frankford";
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "4";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Roosvelt";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "1";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 5;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 12;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Southern Stadium";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "8";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 32;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Market - Frankford";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "4";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Roosvelt";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "1";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 5;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 12;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Southern Stadium";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "8";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 32;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Market - Frankford";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "4";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Roosvelt";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "1";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 5;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 12;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Southern Stadium";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "8";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 32;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Market - Frankford";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "4";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 0;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 2;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Roosvelt";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "1";
-			}
-
-			@Override
-			public int getTimeSection() {
-				return 11;
-			}
-		});
-		travel.add(new SectionOfTravel() {
-
-			@Override
-			public float getEnddingChangementCost() {
-				return 5;
-			}
-
-			@Override
-			public int getStationInSection() {
-				return 4;
-			}
-
-			@Override
-			public Route getRoute() {
-				return null;
-			}
-
-			@Override
-			public int getEnddingChangementTime() {
-				return 12;
-			}
-
-			@Override
-			public String getNameChangement() {
-				return "Southern Stadium";
-			}
-
-			@Override
-			public String getNameRoute() {
-				return "8";
 			}
 
 			@Override
@@ -788,6 +909,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			}
 
 			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
 			public String getNameRoute() {
 				return "4";
 			}
@@ -820,6 +947,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			}
 
 			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
 			public String getNameChangement() {
 				return "Roosvelt";
 			}
@@ -849,6 +982,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			@Override
 			public int getEnddingChangementTime() {
 				return 12;
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 			@Override
@@ -896,6 +1035,12 @@ public class TravelForTravelPanelExemple implements TravelForTravelPanel, Travel
 			@Override
 			public String getNameChangement() {
 				return "Market - Frankford";
+			}
+
+			@Override
+			public Iterator<Service> getEnddingChangementServices() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 
 			@Override

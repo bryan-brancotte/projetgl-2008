@@ -1,5 +1,6 @@
 package ihm.smartPhone.statePanels;
 
+import graphNetwork.Service;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -308,15 +309,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		iterTravel = travel.getTravelDone();
 		do {
 			while (iterTravel.hasNext()) {
-				// if (!iterColor.hasNext())
-				// iterColor = colorList.iterator();
 				section = iterTravel.next();
 				if (firstPasseDone)
 					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
 				else
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
 				length = section.getTimeSection() * sizeQuartLarge;
-				// System.out.println(section.getTimeSection());
 				if (orientation % 2 == 0) {
 					idToKeep = 2;
 					idToModify = 0;
@@ -532,25 +530,34 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		String[] words = new String[5];
 		int[] xs = new int[5];
 		int[] ys = new int[5];
+		int xService, yService;
+		Service service;
+		Iterator<Service> itService = section.getEnddingChangementServices();
+		int taille = (itService.hasNext()) ? (int) (g.getFont().getSize() * 1.3F) : 0;
+
 		g.setColor(father.getSkin().getColorLetter());
-		// g.drawRect(xRec, yRec, sizeQuadLarge, sizeLarge);
+		// le titre
 		words[0] = section.getNameChangement();
-		xs[0] = xRec + (sizeDemiLine << 1);
+		xs[0] = (xService = xRec + (sizeDemiLine << 1));
 		ys[0] = yRec + (sizeDemiLine >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString("A", g.getImage().getGraphics(), g.getFont());
-		// buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		nextX = 0;
 
+		// les services
+		yService = ys[0] + (sizeDemiLine >> 1);
+
+		// colone gauche
 		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
 			words[1] = father.lg("Cost") + " : ";
 		words[2] = father.lg("Time") + " : ";
 
 		xs[1] = xs[0];
 		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
-			ys[1] = ys[0] + (sizeDemiLine >> 1)
+			ys[1] = yService + (sizeDemiLine >> 1) + taille
 					+ PanelDoubleBufferingSoftwear.getHeightString(words[1], g.getImage().getGraphics(), g.getFont());
 		else
-			ys[1] = ys[0];
+			ys[1] = yService + taille;
+
 		xs[2] = xs[1];
 		ys[2] = ys[1] + (sizeDemiLine >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(words[2], g.getImage().getGraphics(), g.getFont());
@@ -565,6 +572,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		else
 			xs[3] = nextX;
 
+		// colonne droite
 		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
 			if (section.getEnddingChangementCost() == 0)
 				words[3] = father.lg("Free");
@@ -574,11 +582,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				father.lg("LetterForMinute"));
 
 		// xs[3]=x;
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
-			ys[3] = ys[0] + (sizeDemiLine >> 1)
-					+ PanelDoubleBufferingSoftwear.getHeightString(words[3], g.getImage().getGraphics(), g.getFont());
-		else
-			ys[3] = ys[0];
+		// if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+		// ys[3] = ys[0] + (sizeDemiLine >> 1)
+		// + PanelDoubleBufferingSoftwear.getHeightString(words[3], g.getImage().getGraphics(), g.getFont());
+		// else
+		// ys[3] = ys[0];
+		ys[3] = ys[1];
 		xs[4] = xs[3];
 		ys[4] = ys[3] + (sizeDemiLine >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(words[4], g.getImage().getGraphics(), g.getFont());
@@ -631,9 +640,23 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			for (i = 0; i < 5; i++)
 				if (words[i] != null)
 					g.drawString(words[i], xs[i], ys[i]);
+
+			while (itService.hasNext()) {
+				service = itService.next();
+				words[0] = service.getName().substring(0, 1);
+				g.setColor(father.getNetworkColorManager().getColor(service));
+				// sttt.setBounds(xService - 1, yService - 1, taille + 2, taille + 2);
+				g.fillOval(xService - 1, yService - 1, taille + 2, taille + 2);
+				g.setColor(father.getSkin().getColorLetter());
+				g.drawOval(xService - 1, yService - 1, taille + 2, taille + 2);
+				g.drawString(words[0], xService + (taille >> 1)
+						- (PanelDoubleBufferingSoftwear.getWidthString(words[0], g.getBuffer()) >> 1), yService
+						+ (taille >> 1) + (PanelDoubleBufferingSoftwear.getHeightString(words[0], g.getBuffer()) >> 1));
+				xService += taille + sizeDemiLine;
+			}
 		}
-		buffer.extendsHeight(ys[4] + (sizeDemiLine << 1) - buffer.getY());
-		buffer.extendsWidth(xEnder - buffer.getX() + sizeDemiLine);
+		g.extendsHeight(ys[4] + (sizeDemiLine << 1) - buffer.getY());
+		g.extendsWidth(xEnder - buffer.getX() + sizeDemiLine);
 		return ys[4] + sizeDemiLine;
 	}
 

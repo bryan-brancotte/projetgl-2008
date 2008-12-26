@@ -2,14 +2,17 @@ package ihm.smartPhone.component;
 
 import graphNetwork.Junction;
 import graphNetwork.Route;
+import graphNetwork.Service;
 import graphNetwork.Station;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 
 	protected ArrayList<Junction> junctions;
+	protected ArrayList<Service> services;
 
 	public SectionOfTravelImplPathInGraph(Route route, Station station) {
 		super();
@@ -57,6 +60,7 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	}
 
 	public void addJunction(Junction j) {
+		services = null;
 		junctions.add(j);
 		station = j.getOtherStation(station);
 		if (j.getOtherRoute(route) != route) {
@@ -77,5 +81,12 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	@Override
 	public int getStationInSection() {
 		return junctions.size();
+	}
+
+	@Override
+	public Iterator<Service> getEnddingChangementServices() {
+		if (station != null)
+			return station.getServices();
+		return (new ArrayList<Service>()).iterator();
 	}
 }
