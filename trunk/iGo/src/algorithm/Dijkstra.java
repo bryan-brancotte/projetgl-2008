@@ -67,7 +67,7 @@ public class Dijkstra extends Algo {
 		prb.addLast(j);
 		prb.setEntryCost(p.getGraph().getEntryCost(r.getKindRoute()));
 		float cost = p.getGraph().getEntryCost(r.getKindRoute());
-		int time=0;
+		int time=j.getTimeBetweenStations();
 		while (it.hasNext()) {
 			j = it.next();
 			cost+=j.getCost();
