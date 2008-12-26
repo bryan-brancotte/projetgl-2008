@@ -7,6 +7,14 @@ package graphNetwork.exception;
  */
 public class ViolationOfUnicityInIdentificationException extends Exception {
 
+//	public ViolationOfUnicityInIdentificationException() {
+//		super();
+//	}
+
+	public ViolationOfUnicityInIdentificationException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */
