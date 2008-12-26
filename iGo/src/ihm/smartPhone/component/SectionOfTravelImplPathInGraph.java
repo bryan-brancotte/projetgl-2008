@@ -41,6 +41,11 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	}
 
 	@Override
+	public Station getChangement() {
+		return station;
+	}
+
+	@Override
 	public String getNameRoute() {
 		return route.getId();
 	}

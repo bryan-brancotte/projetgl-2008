@@ -255,6 +255,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		int sizeQuartLarge = sizeLarge >> 2;
 		// sizeQuadLarge = sizeLarge *4;
 		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * 3 * buffer.getScallImg()) >> 1;
+		sizeDemiLine = (sizeDemiLine > 0) ? sizeDemiLine : 1;
 		sizeLine = (int) (father.getSizeAdapteur().getSizeLine() * buffer.getScallImg() * 2.5F);
 		sizeLine = sizeLine < 1 ? 1 : sizeLine;
 		// if (sizeLine < 1)
@@ -314,7 +315,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
 				else
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
-				length = section.getTimeSection() * sizeQuartLarge;
+				if (section.getTimeSection() < 8)
+					length = (sizeQuartLarge << 3);
+				else
+					length = section.getTimeSection() * sizeQuartLarge;
 				if (orientation % 2 == 0) {
 					idToKeep = 2;
 					idToModify = 0;
@@ -405,7 +409,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 							buffer.setColor(father.getSkin().getColorInside());
 							buffer.fillOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 									- (sizeQuartLarge >> 1), sizeQuartLarge + 1, sizeQuartLarge + 1);
-							buffer.setColor(father.getSkin().getColorLine());
+							if (firstPasseDone)
+								buffer.setColor(father.getSkin().getColorLine());
 							buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
 						}

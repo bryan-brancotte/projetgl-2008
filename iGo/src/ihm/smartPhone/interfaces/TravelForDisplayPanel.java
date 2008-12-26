@@ -2,6 +2,7 @@ package ihm.smartPhone.interfaces;
 
 import graphNetwork.Route;
 import graphNetwork.Service;
+import graphNetwork.Station;
 
 import java.util.Iterator;
 
@@ -13,6 +14,13 @@ public interface TravelForDisplayPanel {
 	 * @return
 	 */
 	public String getOrigine();
+
+	/**
+	 * Retourne le nom de la station d'origine.
+	 * 
+	 * @return
+	 */
+	public Station getOrigineStation();
 
 	/**
 	 * Retourne le nom de la sation de destination.
@@ -154,6 +162,13 @@ public interface TravelForDisplayPanel {
 		 * @return
 		 */
 		public String getNameChangement();
+
+		/**
+		 * Retourne la station qui sert de changement
+		 * 
+		 * @return
+		 */
+		public Station getChangement();
 	}
 
 }

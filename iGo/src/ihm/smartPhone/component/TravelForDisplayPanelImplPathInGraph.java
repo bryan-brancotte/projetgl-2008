@@ -39,7 +39,8 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		Iterator<Junction> itJ = path.getJunctions();
 		Junction junction = itJ.next();
 		Station station = origin;
-		totalCost=path.getEntryCost();
+		totalCost = path.getCost();
+		totalTime = path.getTime();
 		Route route = junction.getOtherRoute(junction.getOtherRoute(station));
 		SectionOfTravelImplPathInGraph section = new SectionOfTravelImplPathInGraph(route, origin);
 
@@ -48,8 +49,6 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 			section.addJunction(junction = itJ.next());
 			station = junction.getOtherStation(station);
 			if (section.getEnddingChangementTime() != -1) {
-				totalTime += section.getEnddingChangementTime() + section.getTimeSection();
-				totalCost+=section.getEnddingChangementCost();
 				travel.add(section);
 				route = junction.getOtherRoute(route);
 				section = new SectionOfTravelImplPathInGraph(route, station);
@@ -58,8 +57,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		travel.add(section);
 		if (section.getEnddingChangementTime() == -1)
 			section.enddingChangementTime = 0;
-		totalTime += section.getEnddingChangementTime() + section.getTimeSection();
-		remainingTime = totalTime;
+		remainingTime = getTotalTime();
 	}
 
 	@Override
@@ -125,5 +123,10 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	@Override
 	public boolean hasNext() {
 		return !travel.isEmpty();
+	}
+
+	@Override
+	public Station getOrigineStation() {
+		return origin;
 	}
 }

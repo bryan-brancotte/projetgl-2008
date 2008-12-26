@@ -15,7 +15,6 @@ import iGoMaster.SettingsKey;
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.NoNetworkException;
-import ihm.classesExemples.TravelForTravelPanelExemple;
 import ihm.smartPhone.component.IGoFlowLayout;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.NetworkColorManager;
@@ -382,26 +381,26 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected void checkLoadTravelPanel() {
 		if (loadTravelPanel == null) {
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			for (int i = 0; i < 5; i++)
-				lst.add(new TravelForTravelPanelExemple(this));
+			// for (int i = 0; i < 5; i++)
+			// lst.add(new TravelForTravelPanelExemple(this));
 			loadTravelPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.LOAD_TRAVEL, lst);
 			new TravelForTravelPanelImplPathInGraph(null) {
 
 				@Override
 				public void delete() {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void edit() {
-					pathBuilderInAction=path;
+					pathBuilderInAction = path;
 					setCurrentState(IhmReceivingStates.NEW_TRAVEL);
 				}
 
 				@Override
 				public void start() {
-					pathBuilderInAction=path;
+					pathBuilderInAction = path;
 					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
 				}
 			};
@@ -411,13 +410,13 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected void checkFavoritesPanel() {
 		if (favoritesPanel == null) {
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			TravelForTravelPanel t = new TravelForTravelPanelExemple(this);
-			for (int i = 0; i < 5; t = new TravelForTravelPanelExemple(this)) {
-				if (t.isFavorite()) {
-					lst.add(t);
-					i++;
-				}
-			}
+			// TravelForTravelPanel t = new TravelForTravelPanelExemple(this);
+			// for (int i = 0; i < 5; t = new TravelForTravelPanelExemple(this)) {
+			// if (t.isFavorite()) {
+			// lst.add(t);
+			// i++;
+			// }
+			// }
 			favoritesPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.FAVORITES, lst);
 		}
 	}
@@ -637,7 +636,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkTravelArrayDisplayPanel();
 			}
 			addToCenterPanel(travelArrayPanel);
-			travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
+			// travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			travelArrayPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
