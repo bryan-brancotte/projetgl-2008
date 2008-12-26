@@ -30,8 +30,8 @@ public class Dijkstra extends Algo {
 	private Station origin, destination;
 	private Station[] steps;
 	private ArrayList<Service> once;
-	private int compteur = 0;
 	private long timeComb;
+	private boolean isAborted;
 
 	/***************************************************************/
 
@@ -40,6 +40,7 @@ public class Dijkstra extends Algo {
 
 	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidPathException {
 
+		isAborted=false;
 		try {
 			// Initialisation des contraintes
 			initConstraints(prb);
@@ -80,7 +81,6 @@ public class Dijkstra extends Algo {
 
 		this.setChanged();
 		this.notifyObservers(p);
-		// System.out.println(compteur + " Dijkstra effectués");
 	}
 
 	/**
@@ -160,7 +160,7 @@ public class Dijkstra extends Algo {
 	private void algoComb(ArrayList<ArrayList<Station>> v, ArrayList<ArrayList<Station>> vTot, int prof) throws NodeNotFoundException, NoRouteForStationException {
 		if (prof == 0)
 			timeComb = System.currentTimeMillis();
-		if (prof > 0 && System.currentTimeMillis() - timeComb > 1000 && betterPath != null && betterPath.size() != 0)
+		if ((prof > 0 && System.currentTimeMillis() - timeComb > 1000 && betterPath != null && betterPath.size() != 0) || isAborted)
 			return;
 		if (v == null || vTot == null || vTot.size() == 0)
 			return;
@@ -265,6 +265,7 @@ public class Dijkstra extends Algo {
 	 * @throws NodeNotFoundException
 	 */
 	private ArrayList<Junction> algo(Station depart, Station arrivee) throws NoRouteForStationException, NodeNotFoundException {
+		if (isAborted) return null;
 		Iterator<Route> itDepart = depart.getRoutes();
 		Iterator<Route> itArrivee = arrivee.getRoutes();
 		ArrayList<Junction> returnPath = null;
@@ -285,6 +286,10 @@ public class Dijkstra extends Algo {
 			}
 		}
 		return returnPath;
+	}
+	
+	public void abort() {
+		isAborted=true;
 	}
 
 	/**
@@ -319,8 +324,6 @@ public class Dijkstra extends Algo {
 	private ArrayList<Junction> algo(Node depart, Node arrivee, boolean isGoingIn) {
 		if (depart.getStation() == arrivee.getStation())
 			return new ArrayList<Junction>();
-		compteur++;
-		// if (compteur%100==0) System.out.println(compteur);
 
 		Node n, n1;
 		Link l;
