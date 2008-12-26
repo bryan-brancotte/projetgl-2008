@@ -25,6 +25,8 @@ import java.util.Iterator;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
+	protected boolean affichageDroite = false;
+
 	protected GraphicsViewPort buffer;
 
 	protected int image;
@@ -311,10 +313,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		do {
 			while (iterTravel.hasNext()) {
 				section = iterTravel.next();
-				if (firstPasseDone)
-					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
-				else
-					buffer.setColor(father.getSkin().getColorSubAreaInside());
 				if (section.getTimeSection() < 8)
 					length = (sizeQuartLarge << 3);
 				else
@@ -322,68 +320,104 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				if (orientation % 2 == 0) {
 					idToKeep = 2;
 					idToModify = 0;
+					if (affichageDroite)
+						for (int i = 0; i < 4; i++)
+							polygon.xpoints[i] += sizeQuadLarge;
 				} else {
 					idToKeep = 0;
 					idToModify = 2;
+					if (affichageDroite)
+						for (int i = 0; i < 4; i++)
+							polygon.xpoints[i] -= sizeQuadLarge;
 				}
 				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
+				
+				drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
+
+				if (firstPasseDone)
+					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
+				else
+					buffer.setColor(father.getSkin().getColorSubAreaInside());
+				
 				polygon.xpoints[idToKeep] = center.x + 1;
 				polygon.ypoints[idToKeep] = center.y;
 				polygon.xpoints[idToKeep + 1] = center.x + 1;
 				polygon.ypoints[idToKeep + 1] = center.y;
+				
 				hypo = sizeQuadLarge * sizeQuadLarge;
 				hypo += length * length;
 				hypo = (int) Math.sqrt(hypo);
 				float cos, sin;
 
-				switch (orientation % 3) {
-				case 0:
-					polygon.xpoints[idToKeep] += -sizeDemiLine /* sin */;
-					// polygon.ypoints[idToKeep] += sizeDemiLine * cos;
-					polygon.xpoints[idToKeep + 1] += sizeDemiLine /* sin */;
-					// polygon.ypoints[idToKeep + 1] += sizeDemiLine * cos;
-					break;
-				case 1:
-					cos = (float) sizeQuadLarge / (float) hypo;
-					sin = (float) length / (float) hypo;
-					polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
-					polygon.ypoints[idToKeep] += sizeDemiLine * cos;
-					polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
-					polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
-					break;
-				case 2:
-					cos = -(float) sizeQuadLarge / (float) hypo;
-					sin = (float) length / (float) hypo;
-					polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
-					polygon.ypoints[idToKeep] += sizeDemiLine * cos;
-					polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
-					polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
-					break;
-				}
+				if (affichageDroite) {
+					polygon.xpoints[idToKeep] -= sizeDemiLine;
+					polygon.xpoints[idToKeep + 1] += sizeDemiLine;
+					switch (orientation % 2) {
+					case 0:
+						polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] + 0;
+						polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+						polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] + 0;
+						polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+						center.setLocation(center.x, center.y + length);
+						break;
+					case 1:
+						polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] - 0;
+						polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+						polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] - 0;
+						polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+						center.setLocation(center.x, center.y + length);
+						break;
+					}
+				} else {
+					switch (orientation % 3) {
+					case 0:
+						polygon.xpoints[idToKeep] += -sizeDemiLine /* sin */;
+						// polygon.ypoints[idToKeep] += sizeDemiLine * cos;
+						polygon.xpoints[idToKeep + 1] += sizeDemiLine /* sin */;
+						// polygon.ypoints[idToKeep + 1] += sizeDemiLine * cos;
+						break;
+					case 1:
+						cos = (float) sizeQuadLarge / (float) hypo;
+						sin = (float) length / (float) hypo;
+						polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
+						polygon.ypoints[idToKeep] += sizeDemiLine * cos;
+						polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
+						polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
+						break;
+					case 2:
+						cos = -(float) sizeQuadLarge / (float) hypo;
+						sin = (float) length / (float) hypo;
+						polygon.xpoints[idToKeep] += -sizeDemiLine * sin;
+						polygon.ypoints[idToKeep] += sizeDemiLine * cos;
+						polygon.xpoints[idToKeep + 1] += sizeDemiLine * sin;
+						polygon.ypoints[idToKeep + 1] += -sizeDemiLine * cos;
+						break;
+					}
 
-				switch (orientation % 3) {
-				case 0:
-					polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1];
-					polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
-					polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep];
-					polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
-					center.setLocation(center.x, center.y + length);
-					break;
-				case 1:
-					polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] + sizeQuadLarge;
-					polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
-					polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] + sizeQuadLarge;
-					polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
-					center.setLocation(center.x + sizeQuadLarge, center.y + length);
-					break;
-				case 2:
-					polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] - sizeQuadLarge;
-					polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
-					polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] - sizeQuadLarge;
-					polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
-					center.setLocation(center.x - sizeQuadLarge, center.y + length);
-					break;
+					switch (orientation % 3) {
+					case 0:
+						polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1];
+						polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+						polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep];
+						polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+						center.setLocation(center.x, center.y + length);
+						break;
+					case 1:
+						polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] + sizeQuadLarge;
+						polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+						polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] + sizeQuadLarge;
+						polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+						center.setLocation(center.x + sizeQuadLarge, center.y + length);
+						break;
+					case 2:
+						polygon.xpoints[idToModify] = polygon.xpoints[idToKeep + 1] - sizeQuadLarge;
+						polygon.ypoints[idToModify] = polygon.ypoints[idToKeep + 1] + length;
+						polygon.xpoints[idToModify + 1] = polygon.xpoints[idToKeep] - sizeQuadLarge;
+						polygon.ypoints[idToModify + 1] = polygon.ypoints[idToKeep] + length;
+						center.setLocation(center.x - sizeQuadLarge, center.y + length);
+						break;
+					}
 				}
 				// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
 				// groupemement assez séparé.

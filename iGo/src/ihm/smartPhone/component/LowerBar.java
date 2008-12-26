@@ -416,13 +416,13 @@ public class LowerBar extends AbstractBar {
 	public void setCenterIcone(String icone, ActionListener l) {
 		if (getClass().getResource("/images/" + icone + ".png") != null) {
 			iconeCmdActionListener = l;
-			if (this.icone == icone)
-				imageIcone = null;
+			if (this.icone != icone)
+				oldHeigth = -1;
 			this.icone = icone;
 		} else {
 			this.icone = "";
-			oldHeigth = -1;
 			imageIcone = null;
+			oldHeigth = -1;
 			this.iconeCmdArea.setBounds(0, 0, 0, 0);
 		}
 	}
