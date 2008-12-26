@@ -15,7 +15,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class LowerBar extends AbstractBar {
 
 	private static final long serialVersionUID = 1L;
@@ -417,6 +416,8 @@ public class LowerBar extends AbstractBar {
 	public void setCenterIcone(String icone, ActionListener l) {
 		if (getClass().getResource("/images/" + icone + ".png") != null) {
 			iconeCmdActionListener = l;
+			if (this.icone == icone)
+				imageIcone = null;
 			this.icone = icone;
 		} else {
 			this.icone = "";

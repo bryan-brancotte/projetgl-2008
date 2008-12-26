@@ -169,6 +169,13 @@ public interface TravelForDisplayPanel {
 		 * @return
 		 */
 		public Station getChangement();
+
+		/**
+		 * Retourne la station qui termine la ligne dans ce sens
+		 * 
+		 * @return
+		 */
+		public Station getDirection();
 	}
 
 }

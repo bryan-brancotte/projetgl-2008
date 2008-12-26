@@ -1,5 +1,7 @@
 package graphNetwork;
 
+import graphNetwork.exception.StationNotOnRoadException;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -164,7 +166,7 @@ public class Route {
 	 *            id de la station a modifier
 	 * @param stationEnable
 	 *            nouvel etat enable de la station
-	 */ 
+	 */
 	protected void setStationToEnable(int idStation, boolean stationEnable) {
 		setStationEnable(this.getStation(idStation), stationEnable);
 	}
@@ -221,4 +223,32 @@ public class Route {
 		return "Route : " + id;
 	}
 
+	/**
+	 * Retourne la station de fin sur la ligne courante dans le sens stationOrigin vers stationDestination
+	 * 
+	 * @param stationA
+	 * @param stationB
+	 * @return
+	 * @throws StationNotOnRoadException
+	 */
+	public Station getDirection(Station stationOrigin, Station stationDestination) throws StationNotOnRoadException {
+		if (!this.stations.contains(stationOrigin))
+			throw new StationNotOnRoadException("Route " + this + " does not contains " + stationOrigin);
+		if (!this.stations.contains(stationDestination))
+			throw new StationNotOnRoadException("Route " + this + " does not contains " + stationDestination);
+		Iterator<Station> itS = this.stations.iterator();
+		boolean thisWay = true;
+		Station station = null;
+		while (itS.hasNext()) {
+			if ((station = itS.next()) == stationOrigin) {
+				break;
+			} else if (station == stationDestination) {
+				thisWay = false;
+			}
+		}
+		if (thisWay)
+			return stations.getLast();
+		else
+			return stations.getFirst();
+	}
 }

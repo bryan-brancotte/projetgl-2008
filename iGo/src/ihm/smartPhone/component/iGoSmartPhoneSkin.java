@@ -180,7 +180,7 @@ public enum iGoSmartPhoneSkin {
 	private iGoSmartPhoneSkin(int Teinte, Color colorLetter) {
 		// Teinte += 8;
 		this.colorOutside = ColorTools.getColorFromHSV(Teinte, 85, 77);
-		this.colorLine = ColorTools.getColorFromHSV(Teinte, 57, 91);
+		this.colorLine = ColorTools.getColorFromHSV(Teinte, 32, 91);
 		this.colorInside = ColorTools.getColorFromHSV(Teinte, 4, 97);
 		this.colorLetter = colorLetter;
 		if (colorInside.getRed() < 128)
