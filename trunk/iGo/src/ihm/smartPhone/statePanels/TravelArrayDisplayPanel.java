@@ -72,7 +72,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		int inLeft;
 		int inRight;
 		int height;
-		int i;
+		int i, j;
 		String s;
 		String letterForHour = father.lg("LetterForHour");
 		String letterForMinute = father.lg("LetterForMinute");
@@ -111,17 +111,22 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			inLeft = i;
 		inLeft += (decalage << 1);
 
-		inRight = getWidthString(father.lg("Free"), buffer);
-		i = getWidthString(decomposeMinutesIntoHourMinutes(711, letterForHour, letterForMinute), buffer);
+		inRight = getWidthString(father.lg("Cost") + " : ", buffer);
+		i = getWidthString(father.lg("Time") + " : ", buffer);
 		if (inRight < i)
 			inRight = i;
-		inRight = getWidth() - (decalage << 1) - inRight;
+
+		j = getWidthString("888" + father.lg("Money"), buffer);
+		i = getWidthString(decomposeMinutesIntoHourMinutes(711, letterForHour, letterForMinute), buffer);
+		if (j < i)
+			j = i;
+		inRight = getWidth() - (decalage << 1) - inRight - j;
 
 		/**
 		 * Station d'origine
 		 */
-		height = drawStation(this.travel.getOrigineStation(), decalage, ordonnee, decalage, inLeft, inRight, getWidth()
-				- (decalage << 1));
+		height = drawStation(this.travel.getOrigineStation(), this.travel.getEntryCost(), 0, decalage, ordonnee,
+				decalage, inLeft, inRight, getWidth() - (decalage << 1));
 		buffer.drawString(s = father.lg("Departure"), decalage + (inLeft - decalage - getWidthString(s, buffer) >> 1),
 				ordonnee + (height + getHeightString(s, buffer) >> 1));
 		ordonnee += decalage + height;
@@ -131,7 +136,8 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				ordonnee += decalage
 						+ drawRoute((section = iterTravel.next()).getRoute(), section.getDirection(), decalage,
 								ordonnee, decalage, inLeft, inRight, getWidth() - (decalage << 1));
-				height = drawStation(section.getChangement(), decalage, ordonnee, decalage, inLeft, inRight, getWidth()
+				height = drawStation(section.getChangement(), section.getEnddingChangementCost(), section
+						.getEnddingChangementTime(), decalage, ordonnee, decalage, inLeft, inRight, getWidth()
 						- (decalage << 1));
 				if ((firstPasseDone || !travel.hasNext()) && !iterTravel.hasNext())
 					buffer.drawString(s = father.lg("Arrival"), decalage
@@ -163,22 +169,32 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * @param station
 	 * @return
 	 */
-	protected int drawStation(Station station, int decalage, int ordonnee, int left, int inLeft, int inRigth, int rigth) {
+	protected int drawStation(Station station, float cost, int time, int decalage, int ordonnee, int left, int inLeft,
+			int inRigth, int rigth) {
 		int taille;
 		int height;
+		int i;
 		Service service;
 		String s;
 		int xService;
 		int yService;
 		Iterator<Service> itService;
 
+		/**
+		 * Variable
+		 */
 		height = buffer.getFont().getSize() + decalage;
 		if ((itService = station.getServices()).hasNext())
 			height += (int) ((taille = buffer.getFont().getSize()) * 1.3F);
+		else
+			height += buffer.getFont().getSize();
 		taille = (int) (buffer.getFont().getSize() * 1.3F);
 		xService = inLeft + (decalage >> 1);
 		yService = ordonnee + (decalage >> 1) + buffer.getFont().getSize();
 
+		/**
+		 * Cadre
+		 */
 		buffer.setColor(father.getSkin().getColorSubAreaInside());
 		buffer.fillRect(left, ordonnee, rigth - left, height);
 		buffer.setColor(father.getSkin().getColorLine());
@@ -187,6 +203,9 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		buffer.setColor(father.getSkin().getColorLetter());
 		buffer.drawRect(left, ordonnee, rigth - left, height);
 
+		/**
+		 * Station et service
+		 */
 		if (itService.hasNext()) {
 			buffer.drawString(station.getName(), xService, ordonnee + buffer.getFont().getSize());
 
@@ -207,6 +226,40 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 					+ (height + getHeightString(station.getName(), buffer) - (decalage >> 2) >> 1));
 		}
 
+		/**
+		 * Coût et temps : nom
+		 */
+		xService = inRigth + (decalage >> 1);
+		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+			s = father.lg("Cost") + " : ";
+			buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
+					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			taille = getWidthString(s, buffer);
+			s = father.lg("Time") + " : ";
+			buffer.drawString(s, xService, ordonnee + (height >> 2)
+					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			i = getWidthString(s, buffer);
+			if (taille < i)
+				taille = i;
+			xService += taille;// inRigth + (decalage >> 1);
+
+			/**
+			 * Temps
+			 */
+			if (cost == 0)
+				s = father.lg("Free");
+			else
+				s = cost + " " + father.lg("Money");
+			buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
+					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			buffer.drawString(decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father
+					.lg("LetterForMinute")), xService, ordonnee + (height >> 2)
+					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+		} else {
+			buffer.drawString(s = father.lg("Time") + " : "
+					+ decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute")),
+					xService, ordonnee + (height + getHeightString(s, buffer) >> 1));
+		}
 		return height;
 	}
 
