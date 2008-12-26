@@ -30,6 +30,7 @@ import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 import algorithm.Dijkstra;
+import algorithm.exception.NonValidPathException;
 
 import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
@@ -160,6 +161,12 @@ public class IGoMaster implements Master, Observer
 				{
 					System.err.println("elo --> échec de l'algorithme, la Station n'est pas sur la route");
 					ihm.returnPathAsked(null, AlgoKindOfException.StationNotOnRoadException);
+					threads.clear();
+				}
+				catch (NonValidPathException e)
+				{
+					System.err.println("elo --> échec de l'algorithme, la Station n'est pas sur la route");
+					ihm.returnPathAsked(null, AlgoKindOfException.NonValidPathException);
 					threads.clear();
 				}
 				catch (Exception e)
