@@ -44,7 +44,6 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		Station station = origin;
 		totalCost = path.getCost();
 		totalTime = path.getTime();
-		System.out.println(totalTime);
 		entryCost=path.getEntryCost();
 		Route route = junction.getOtherRoute(junction.getOtherRoute(station));
 		SectionOfTravelImplPathInGraph section = new SectionOfTravelImplPathInGraph(route, origin);
