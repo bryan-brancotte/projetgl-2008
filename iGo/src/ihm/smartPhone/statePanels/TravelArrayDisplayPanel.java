@@ -126,7 +126,8 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		 * Station d'origine
 		 */
 		height = drawStation(this.travel.getOrigineStation(), this.travel.getEntryCost(), 0, decalage, ordonnee,
-				decalage, inLeft, inRight, getWidth() - (decalage << 1));
+				this.actualState == IhmReceivingStates.PREVISU_TRAVEL, decalage, inLeft, inRight, getWidth()
+						- (decalage << 1));
 		buffer.drawString(s = father.lg("Departure"), decalage + (inLeft - decalage - getWidthString(s, buffer) >> 1),
 				ordonnee + (height + getHeightString(s, buffer) >> 1));
 		ordonnee += decalage + height;
@@ -134,11 +135,12 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		do {
 			while (iterTravel.hasNext()) {
 				ordonnee += decalage
-						+ drawRoute((section = iterTravel.next()).getRoute(), section.getDirection(), decalage,
-								ordonnee, decalage, inLeft, inRight, getWidth() - (decalage << 1));
+						+ drawRoute((section = iterTravel.next()).getRoute(), section.getTimeSection(), section
+								.getDirection(), decalage, ordonnee, firstPasseDone, decalage, inLeft, inRight,
+								getWidth() - (decalage << 1));
 				height = drawStation(section.getChangement(), section.getEnddingChangementCost(), section
-						.getEnddingChangementTime(), decalage, ordonnee, decalage, inLeft, inRight, getWidth()
-						- (decalage << 1));
+						.getEnddingChangementTime(), decalage, ordonnee, firstPasseDone, decalage, inLeft, inRight,
+						getWidth() - (decalage << 1));
 				if ((firstPasseDone || !travel.hasNext()) && !iterTravel.hasNext())
 					buffer.drawString(s = father.lg("Arrival"), decalage
 							+ (inLeft - decalage - getWidthString(s, buffer) >> 1), ordonnee
@@ -169,8 +171,8 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * @param station
 	 * @return
 	 */
-	protected int drawStation(Station station, float cost, int time, int decalage, int ordonnee, int left, int inLeft,
-			int inRigth, int rigth) {
+	protected int drawStation(Station station, float cost, int time, int decalage, int ordonnee,
+			boolean hasBeenTraveled, int left, int inLeft, int inRigth, int rigth) {
 		int taille;
 		int height;
 		int i;
@@ -195,7 +197,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		/**
 		 * Cadre
 		 */
-		buffer.setColor(father.getSkin().getColorSubAreaInside());
+		if (hasBeenTraveled)
+			buffer.setColor(father.getSkin().getColorSubAreaInside());
+		else
+			buffer.setColor(father.getSkin().getColorInside());
 		buffer.fillRect(left, ordonnee, rigth - left, height);
 		buffer.setColor(father.getSkin().getColorLine());
 		buffer.drawLine(inLeft, ordonnee, inLeft, ordonnee + height);
@@ -263,12 +268,16 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		return height;
 	}
 
-	protected int drawRoute(Route route, Station direction, int decalage, int ordonnee, int left, int inLeft,
-			int inRigth, int rigth) {
+	protected int drawRoute(Route route, int time, Station direction, int decalage, int ordonnee,
+			boolean hasBeenTraveled, int left, int inLeft, int inRigth, int rigth) {
 		int taille;
+		String s;
 		int height = (taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F)) + decalage;
 
-		buffer.setColor(father.getSkin().getColorSubAreaInside());
+		if (hasBeenTraveled)
+			buffer.setColor(father.getSkin().getColorSubAreaInside());
+		else
+			buffer.setColor(father.getSkin().getColorInside());
 		buffer.fillRect(left, ordonnee, rigth - left, height);
 		buffer.setColor(father.getSkin().getColorLine());
 		buffer.drawLine(inLeft, ordonnee, inLeft, ordonnee + height);
@@ -287,6 +296,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 		buffer.drawString(father.lg("Direction") + " : " + direction.getName(), inLeft + decalage, ordonnee
 				+ (height + getHeightString(route.getId(), buffer) >> 1));
+
+		buffer.drawString(s = father.lg("Time") + " : "
+				+ decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute")),
+				inRigth + (decalage >> 1), ordonnee + (height + getHeightString(s, buffer) >> 1));
 
 		return height;
 	}
