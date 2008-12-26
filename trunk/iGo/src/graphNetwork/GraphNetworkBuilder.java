@@ -58,7 +58,7 @@ public class GraphNetworkBuilder {
 
 		for (int i = 0; i < currentGraphNetwork.routes.size(); i++)
 			if (currentGraphNetwork.routes.get(i).getId().compareTo(id) == 0)
-				throw new ViolationOfUnicityInIdentificationException();
+				throw new ViolationOfUnicityInIdentificationException("The road " + id + "already existe");
 
 		Route route;
 		currentGraphNetwork.routes.add(route = new Route(id, KindRoute.addKind(kindOf)));
@@ -105,7 +105,7 @@ public class GraphNetworkBuilder {
 
 		for (int i = 0; i < currentGraphNetwork.services.size(); i++)
 			if (currentGraphNetwork.services.get(i).getId() == id)
-				throw new ViolationOfUnicityInIdentificationException();
+				throw new ViolationOfUnicityInIdentificationException("The service " + id + "already existe");
 
 		Service service;
 		currentGraphNetwork.services.add(service = new Service(id, name, description));
@@ -170,7 +170,7 @@ public class GraphNetworkBuilder {
 
 		for (int i = 0; i < currentGraphNetwork.stations.size(); i++)
 			if (currentGraphNetwork.stations.get(i).getId() == id)
-				throw new ViolationOfUnicityInIdentificationException();
+				throw new ViolationOfUnicityInIdentificationException("The station " + id + "already existe");
 
 		Station s;
 		currentGraphNetwork.stations.add(s = new Station(id, name));
@@ -193,7 +193,8 @@ public class GraphNetworkBuilder {
 	public boolean addStationToRoute(Route route, Station stationToAdd, int time) throws ImpossibleValueException {
 		// stationtoadd
 		if (time < 0)
-			throw new ImpossibleValueException();
+			throw new ImpossibleValueException("Adding " + stationToAdd + " to " + route + " : time should >=0 (here="
+					+ time);
 		if (route == null)
 			return false;
 		if (stationToAdd == null)
@@ -271,7 +272,8 @@ public class GraphNetworkBuilder {
 		if (kind == null)
 			return;
 		if (cost < 0)
-			throw new ImpossibleValueException();
+			throw new ImpossibleValueException("Defining entry cost for " + kind + " should be with a cost >=0 (here="
+					+ cost);
 		kind.setKindCost(cost);
 	}
 
@@ -308,8 +310,9 @@ public class GraphNetworkBuilder {
 	 * En travaillant sur le GraphNetwork courant, on lie deux stations entre elles par un lien à faire à pied. On
 	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
 	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il faut resortir de la première station
-	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>La jonction est monodirectionel</B><br/>SI
-	 * jamais la jonction existe déja on la modifie et la retourne.
+	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/>
+	 * <B>La jonction est monodirectionel</B><br/>
+	 * SI jamais la jonction existe déja on la modifie et la retourne.
 	 * 
 	 * @param routeOrigin
 	 *            la route origine
@@ -338,23 +341,30 @@ public class GraphNetworkBuilder {
 			throws StationNotOnRoadException, NullPointerException, ImpossibleValueException {
 
 		if (routeOrigin == null)
-			throw new NullPointerException();
+			throw new NullPointerException("routeOrigin is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 		if (stationOrigin == null)
-			throw new NullPointerException();
+			throw new NullPointerException("stationOrigin is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 		if (routeDestination == null)
-			throw new NullPointerException();
+			throw new NullPointerException("routeDestination is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 		if (stationDestination == null)
-			throw new NullPointerException();
+			throw new NullPointerException("stationDestination is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 
 		if (!routeOrigin.stations.contains(stationOrigin))
-			throw new StationNotOnRoadException();
+			throw new StationNotOnRoadException("Route " + routeOrigin + " does not contains " + stationOrigin);
 		if (!routeDestination.stations.contains(stationDestination))
-			throw new StationNotOnRoadException();
+			throw new StationNotOnRoadException("Route " + routeDestination + " does not contains "
+					+ stationDestination);
 
 		if (cost < 0)
-			throw new ImpossibleValueException();
+			throw new ImpossibleValueException("Linking " + stationOrigin + " and " + stationDestination
+					+ " : cost should >=0 (here=" + cost);
 		if (timeBetweenStations < 0)
-			throw new ImpossibleValueException();
+			throw new ImpossibleValueException("Linking " + stationOrigin + " and " + stationDestination
+					+ " : timeBetweenStations should >=0 (here=" + timeBetweenStations);
 
 		Iterator<Junction> itJ = stationOrigin.junctions.iterator();
 		Junction j;
@@ -377,9 +387,10 @@ public class GraphNetworkBuilder {
 	 * En travaillant sur le GraphNetwork courant, on lie deux stations entre elles par un lien à faire à pied. On
 	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
 	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
-	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/><B>Les jonctions sont
-	 * monodirectionelles, * mais on en crée 2!</B><br/>Si dans un sens comme dans l'autre on trouve une jonction
-	 * correspondant au critère, on la met à jour plutôt que d'en créer une nouvelle.
+	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/>
+	 * <B>Les jonctions sont monodirectionelles, * mais on en crée 2!</B><br/>
+	 * Si dans un sens comme dans l'autre on trouve une jonction correspondant au critère, on la met à jour plutôt que
+	 * d'en créer une nouvelle.
 	 * 
 	 * @param routeOrigin
 	 *            la route origine
@@ -408,23 +419,30 @@ public class GraphNetworkBuilder {
 			throws StationNotOnRoadException, NullPointerException, ImpossibleValueException {
 
 		if (routeOrigin == null)
-			throw new NullPointerException();
+			throw new NullPointerException("routeOrigin is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 		if (stationOrigin == null)
-			throw new NullPointerException();
+			throw new NullPointerException("stationOrigin is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 		if (routeDestination == null)
-			throw new NullPointerException();
+			throw new NullPointerException("routeDestination is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 		if (stationDestination == null)
-			throw new NullPointerException();
+			throw new NullPointerException("stationDestination is null (cost is " + cost + "$ and time is"
+					+ timeBetweenStations);
 
 		if (!routeOrigin.stations.contains(stationOrigin))
-			throw new StationNotOnRoadException();
+			throw new StationNotOnRoadException("Route " + routeOrigin + " does not contains " + stationOrigin);
 		if (!routeDestination.stations.contains(stationDestination))
-			throw new StationNotOnRoadException();
+			throw new StationNotOnRoadException("Route " + routeDestination + " does not contains "
+					+ stationDestination);
 
 		if (cost < 0)
-			throw new ImpossibleValueException();
+			throw new ImpossibleValueException("Linking " + stationOrigin + " and " + stationDestination
+					+ " : cost should >=0 (here=" + cost);
 		if (timeBetweenStations < 0)
-			throw new ImpossibleValueException();
+			throw new ImpossibleValueException("Linking " + stationOrigin + " and " + stationDestination
+					+ " : timeBetweenStations should >=0 (here=" + timeBetweenStations);
 
 		Iterator<Junction> itJ;
 		Junction jOD = null;
@@ -630,19 +648,21 @@ public class GraphNetworkBuilder {
 	 */
 	public void setEnableJunctionsBetween(Route routeOrigin, Station stationOrigin, Route routeDestination,
 			Station stationDestination, boolean enable) throws StationNotOnRoadException {
+
 		if (routeOrigin == null)
-			throw new NullPointerException();
+			throw new NullPointerException("routeOrigin is null");
 		if (stationOrigin == null)
-			throw new NullPointerException();
+			throw new NullPointerException("stationOrigin is null");
 		if (routeDestination == null)
-			throw new NullPointerException();
+			throw new NullPointerException("routeDestination is null");
 		if (stationDestination == null)
-			throw new NullPointerException();
+			throw new NullPointerException("stationDestination is null");
 
 		if (!routeOrigin.stations.contains(stationOrigin))
-			throw new StationNotOnRoadException();
+			throw new StationNotOnRoadException("Route " + routeOrigin + " does not contains " + stationOrigin);
 		if (!routeDestination.stations.contains(stationDestination))
-			throw new StationNotOnRoadException();
+			throw new StationNotOnRoadException("Route " + routeDestination + " does not contains "
+					+ stationDestination);
 
 		Iterator<Junction> itJ = stationOrigin.getJunctions(routeOrigin);
 		Junction junction;

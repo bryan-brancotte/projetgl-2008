@@ -8,6 +8,14 @@ package graphNetwork.exception;
  */
 public class ImpossibleValueException extends Exception {
 
+//	public ImpossibleValueException() {
+//		super();
+//	}
+
+	public ImpossibleValueException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */

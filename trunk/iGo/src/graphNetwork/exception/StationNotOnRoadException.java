@@ -7,6 +7,14 @@ package graphNetwork.exception;
  */
 public class StationNotOnRoadException extends Exception {
 
+//	public StationNotOnRoadException() {
+//		super();
+//	}
+
+	public StationNotOnRoadException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */
