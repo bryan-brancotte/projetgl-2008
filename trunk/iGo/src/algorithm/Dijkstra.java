@@ -19,6 +19,7 @@ import java.util.Iterator;
 import algorithm.GraphAlgo.Link;
 import algorithm.GraphAlgo.Node;
 import algorithm.exception.NodeNotFoundException;
+import algorithm.exception.NonValidPathException;
 
 public class Dijkstra extends Algo {
 
@@ -37,7 +38,7 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException {
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidPathException {
 
 		try {
 			// Initialisation des contraintes
@@ -92,8 +93,9 @@ public class Dijkstra extends Algo {
 	 * @throws StationNotAccessibleException
 	 * @throws StationNotOnRoadException
 	 * @throws NodeNotFoundException
+	 * @throws NonValidPathException 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidPathException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 

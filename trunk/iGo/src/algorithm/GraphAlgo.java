@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import algorithm.exception.NodeNotFoundException;
+import algorithm.exception.NonValidPathException;
 
 public class GraphAlgo {
 
@@ -27,12 +28,11 @@ public class GraphAlgo {
 	 * @throws NoRouteForStationException
 	 * @throws StationNotOnRoadException
 	 * @throws NodeNotFoundException
+	 * @throws NonValidPathException 
 	 */
-	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException {
+	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidPathException {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
-		System.out.println("------------");
-		System.out.println(always.length);
 		// Initialisation du graph
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
@@ -41,8 +41,11 @@ public class GraphAlgo {
 			n = new Node(s, s.getRoutes().next());
 		else
 			throw new NoRouteForStationException(s);
-		graph.add(n);
-		addLink(n);
+		if (allServicesIn(p.getOrigin()) && allServicesIn(p.getDestination())) {
+			graph.add(n);
+			addLink(n);
+		}
+		else throw new NonValidPathException();
 	}
 
 	/**
