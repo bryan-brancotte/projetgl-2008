@@ -50,7 +50,7 @@ enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionF
 public class IGoMaster implements Master, Observer 
 {
 	
-	private final int THREAD_LENGTH = 1000;
+	private final int THREAD_LENGTH = (System.getProperty("user.name").compareTo("elodie") == 0)?1000:0;
 	
 	private IHM ihm;
 	private Algo algo;
