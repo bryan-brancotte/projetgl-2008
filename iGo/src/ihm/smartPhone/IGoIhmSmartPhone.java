@@ -477,6 +477,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean setCurrentState(IhmReceivingStates actualState) {
+		return setCurrentState(actualState, null);
+	}
+
+	@Override
+	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraph path) {
 		if (actualState == this.actualState)
 			return true;
 		if (actualState != IhmReceivingStates.SPLASH_SCREEN) {
@@ -581,7 +586,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
-			//TODO à finir...
+			// TODO à finir...
 			// pathBuilderInAction = null;
 			if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
 				pathBuilderInAction = newTravelPanel.getPathInGraphConstraintBuilder();
