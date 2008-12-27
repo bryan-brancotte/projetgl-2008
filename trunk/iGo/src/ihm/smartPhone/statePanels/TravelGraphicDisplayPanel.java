@@ -315,6 +315,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				section = iterTravel.next();
 				if (section.getTimeSection() < 8)
 					length = (sizeQuartLarge << 3);
+				else if (section.getTimeSection() > 64)
+					length = (sizeQuartLarge << 6);
 				else
 					length = section.getTimeSection() * sizeQuartLarge;
 				if (orientation % 2 == 0) {
@@ -332,19 +334,19 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				}
 				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
-				
+
 				drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 
 				if (firstPasseDone)
 					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
 				else
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
-				
+
 				polygon.xpoints[idToKeep] = center.x + 1;
 				polygon.ypoints[idToKeep] = center.y;
 				polygon.xpoints[idToKeep + 1] = center.x + 1;
 				polygon.ypoints[idToKeep + 1] = center.y;
-				
+
 				hypo = sizeQuadLarge * sizeQuadLarge;
 				hypo += length * length;
 				hypo = (int) Math.sqrt(hypo);

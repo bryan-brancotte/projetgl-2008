@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-
 public abstract class TravelDisplayPanel extends PanelState {
 
 	/**
@@ -92,7 +91,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		popUpMessage = new PopUpMessage(this);
 	}
 
-	public void setActualState(IhmReceivingStates actualState) {
+	public void setCurrentState(IhmReceivingStates actualState) {
 		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
 			this.actualState = actualState;
 			giveControle();
@@ -155,13 +154,13 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setLeftCmd(father.lg("Edit"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					JOptionPane.showMessageDialog(null, "Edit soon avaible...");
+					father.setCurrentState(IhmReceivingStates.EDIT_TRAVEL, travel.getPath());
 				}
 			});
 			upperBar.setRightCmd(father.lg("Start"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					me.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+					me.setCurrentState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 				}
 			});
 			upperBar.setUpperTitle(father.lg("Destination"));

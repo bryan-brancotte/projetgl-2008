@@ -715,7 +715,6 @@ public class PathInGraph {
 										if (station != null)
 											avoidStations.add(station);
 									}
-
 							}
 						}
 						// langues.put(nodesPathInGraph.item(i).getAttributes().getNamedItem("value").getNodeValue(),
@@ -733,6 +732,32 @@ public class PathInGraph {
 			e.printStackTrace();
 			this.reset();
 		}
+	}
+
+	/**
+	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
+	 * 
+	 * @param pathInString
+	 */
+	protected void importPath(PathInGraph org) {
+		if (org == null)
+			return;
+		origin = org.getOrigin();
+		destination = org.getDestination();
+		cost = org.getCost();
+		time = org.getTime();
+		mainCriterious = org.getMainCriterious();
+		minorCriterious = org.getMinorCriterious();
+		servicesAlways.clear();
+		servicesAlways.addAll(org.servicesAlways);
+		servicesOnce.clear();
+		servicesOnce.addAll(org.servicesOnce);
+		avoidStations.clear();
+		avoidStations.addAll(org.avoidStations);
+		refusedKindRoute.clear();
+		refusedKindRoute.addAll(org.refusedKindRoute);
+		steps.clear();
+		steps.addAll(org.steps);
 	}
 
 	/**

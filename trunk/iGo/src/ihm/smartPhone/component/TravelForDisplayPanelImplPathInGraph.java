@@ -11,7 +11,6 @@ import java.util.LinkedList;
 
 public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPanel {
 
-
 	protected PathInGraph path;
 
 	protected Station origin;
@@ -44,13 +43,14 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		Station station = origin;
 		totalCost = path.getCost();
 		totalTime = path.getTime();
-		entryCost=path.getEntryCost();
+		entryCost = path.getEntryCost();
 		Route route = junction.getOtherRoute(junction.getOtherRoute(station));
 		SectionOfTravelImplPathInGraph section = new SectionOfTravelImplPathInGraph(route, origin);
 
 		itJ = path.getJunctions();
 		while (itJ.hasNext()) {
 			section.addJunction(junction = itJ.next());
+			System.out.println(junction);
 			station = junction.getOtherStation(station);
 			if (section.getEnddingChangementTime() != -1) {
 				travel.add(section);
@@ -133,9 +133,14 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	public Station getOrigineStation() {
 		return origin;
 	}
-	
+
 	@Override
 	public float getEntryCost() {
 		return entryCost;
+	}
+
+	@Override
+	public PathInGraph getPath() {
+		return path;
 	}
 }

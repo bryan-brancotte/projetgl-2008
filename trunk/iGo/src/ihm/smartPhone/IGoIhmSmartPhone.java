@@ -41,6 +41,7 @@ import ihm.smartPhone.statePanels.TravelArrayDisplayPanel;
 import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
+import ihm.smartPhone.statePanels.NewTravelPanel.NewTravelPanelState;
 import ihm.smartPhone.tools.SizeAdapteur;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
@@ -71,7 +72,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 	protected NetworkColorManager networkColorManager;
 	protected TravelForDisplayPanel travel;
-	protected PathInGraphConstraintBuilder pathBuilderInAction;
+	// protected PathInGraphConstraintBuilder pathBuilderInAction;
 
 	/**
 	 * Les 3 zones de l'IHM
@@ -394,14 +395,14 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void edit() {
-					pathBuilderInAction = path;
-					setCurrentState(IhmReceivingStates.NEW_TRAVEL);
+					// pathBuilderInAction = path;
+					setCurrentState(IhmReceivingStates.NEW_TRAVEL, path);
 				}
 
 				@Override
 				public void start() {
-					pathBuilderInAction = path;
-					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
+					// pathBuilderInAction = path;
+					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
 				}
 			};
 		}
@@ -477,11 +478,23 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean setCurrentState(IhmReceivingStates actualState) {
-		return setCurrentState(actualState, null);
+		return setCurrentState(actualState, null, null);
 	}
 
 	@Override
 	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraph path) {
+		return setCurrentState(actualState, null, path);
+	}
+
+	@Override
+	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder) {
+		return setCurrentState(actualState, pathBuilder, null);
+	}
+
+	@Override
+	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder,
+			PathInGraph path) {
+
 		if (actualState == this.actualState)
 			return true;
 		if (actualState != IhmReceivingStates.SPLASH_SCREEN) {
@@ -507,7 +520,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					|| this.actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE
 					|| this.actualState == IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE
 					|| this.actualState == IhmReceivingStates.PREVISU_TRAVEL_GRAPHIC_MODE
-					|| this.actualState == IhmReceivingStates.NEW_TRAVEL)
+					|| this.actualState == IhmReceivingStates.NEW_TRAVEL
+					|| this.actualState == IhmReceivingStates.EDIT_TRAVEL
+					|| this.actualState == IhmReceivingStates.LOST_IN_TRAVEL)
 				cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.MAIN_INTERFACE;
 			centerPanel.removeAll();
@@ -531,7 +546,37 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkNewTravelPanel();
 			}
 			try {
-				newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder());
+				newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder(),
+						NewTravelPanelState.NEW_TRAVEL);
+				centerPanel.add(newTravelPanel);
+				newTravelPanel.giveControle();
+				centerPanel.validate();
+				return true;
+			} catch (NoNetworkException e) {
+				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ReturnNoNetworkException"));
+				return false;
+			} catch (GraphReceptionException e) {
+				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NetworkReception"));
+				return false;
+			} catch (GraphConstructionException e) {
+				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NetworkConstruction"));
+				return false;
+			}
+		} else if (actualState == IhmReceivingStates.EDIT_TRAVEL) {
+			if (path == null)
+				return false;
+			this.actualState = IhmReceivingStates.EDIT_TRAVEL;
+			centerPanel.removeAll();
+			try {
+				checkNewTravelPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkNewTravelPanel();
+			}
+			try {
+				pathBuilder = master.getPathInGraphConstraintBuilder();
+				pathBuilder.importPath(path);
+				newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
 				centerPanel.add(newTravelPanel);
 				newTravelPanel.giveControle();
 				centerPanel.validate();
@@ -588,8 +633,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
 			// TODO à finir...
 			// pathBuilderInAction = null;
-			if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
-				pathBuilderInAction = newTravelPanel.getPathInGraphConstraintBuilder();
+			// if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
+			// pathBuilderInAction = newTravelPanel.getPathInGraphConstraintBuilder();
 			// else if (this.actualState == IhmReceivingStates.LOAD_TRAVEL)
 			// pathBuilder = loadTravelPanel.getPathInGraphConstraintBuilder();
 			// System.out.println("not yet");
@@ -597,7 +642,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
 			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
-			if (master.askForATravel(pathBuilderInAction))
+			if (master.askForATravel(pathBuilder))
 				return true;
 			setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_UnknownException"));
 			return false;
@@ -614,7 +659,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				cleanPanelsStates(true);
 				checkTravelGraphicDisplayPanel();
 			}
-			travelGraphicPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
+			travelGraphicPanel.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
 			// travelGraphicPanel.setPathInGraph();
 			// TODO ......transmition path
 			addToCenterPanel(travelGraphicPanel);
@@ -629,7 +674,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				}
 				centerPanel.add(travelGraphicPanel);
 			}
-			travelGraphicPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+			travelGraphicPanel.setCurrentState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			addToCenterPanel(travelGraphicPanel);
 			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE;
 			return true;
@@ -643,7 +688,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			}
 			addToCenterPanel(travelArrayPanel);
 			// travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
-			travelArrayPanel.setActualState(IhmReceivingStates.PREVISU_TRAVEL);
+			travelArrayPanel.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
 			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE;
@@ -656,7 +701,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			}
 			addToCenterPanel(travelArrayPanel);
 			// travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
-			travelArrayPanel.setActualState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+			travelArrayPanel.setCurrentState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			return true;
 		}
 		return false;
@@ -727,7 +772,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_" + algoKindOfException.toString()));
 		}
 		return false;
-		// TODO ......returnPathAsked
 	}
 
 	@Override

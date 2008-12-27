@@ -1,6 +1,7 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
 import graphNetwork.Service;
@@ -49,6 +50,10 @@ import javax.swing.ImageIcon;
 
 public class NewTravelPanel extends PanelState {
 
+	public enum NewTravelPanelState {
+		NEW_TRAVEL, EDIT_TRAVEL, LOST_TRAVEL, BUILDING;
+	};
+
 	/**
 	 * Le hash des stations
 	 */
@@ -78,6 +83,10 @@ public class NewTravelPanel extends PanelState {
 	 */
 	protected ImageIcon imageDel;
 	/**
+	 * Etat de l'objet
+	 */
+	NewTravelPanelState mode = NewTravelPanelState.BUILDING;
+	/**
 	 * Conteneurs pour les zone d'aide des services
 	 */
 	protected LinkedList<ServiceToolTipText> serviceDisplayed;
@@ -101,7 +110,7 @@ public class NewTravelPanel extends PanelState {
 	 * Variables pour les services
 	 */
 	protected final int services = 3;
-	protected LinkedList<PairPTRadioBoxs> ServicesRadioBoxs;
+	protected LinkedList<PairPTRadioBoxs> servicesRadioBoxs;
 	protected PTCollapsableArea servicesCollapsableArea;
 
 	/**
@@ -303,7 +312,7 @@ public class NewTravelPanel extends PanelState {
 		 */
 		servicesCollapsableArea = makeCollapsableArea();
 		servicesCollapsableArea.changeCollapseState();
-		ServicesRadioBoxs = new LinkedList<PairPTRadioBoxs>();
+		servicesRadioBoxs = new LinkedList<PairPTRadioBoxs>();
 		itS = father.getServices();
 		PTRadioBox[] rbs;
 		while (itS.hasNext()) {
@@ -326,7 +335,7 @@ public class NewTravelPanel extends PanelState {
 				rbs[2].setClicked(true);
 			else
 				rbs[0].setClicked(true);
-			ServicesRadioBoxs.add(new PairPTRadioBoxs(rbs, ser, s));
+			servicesRadioBoxs.add(new PairPTRadioBoxs(rbs, ser, s));
 		}
 
 		/***************************************************************************************************************
@@ -515,7 +524,7 @@ public class NewTravelPanel extends PanelState {
 			}
 			break;
 		case services:
-			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
+			for (PairPTRadioBoxs p : servicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
 					Iterator<Service> itS = father.getServices();
 					Service service;
@@ -557,7 +566,9 @@ public class NewTravelPanel extends PanelState {
 			}
 		case intermediatesStationsAdd:
 			station = stationsHash.get(s);
-			if (station != null && !pathBuilder.getCurrentPathInGraph().containsSteps(station)) {
+			System.out.println("intermediatesStationsAdd" + s + ":" + station);
+			if (station != null
+					&& (!pathBuilder.getCurrentPathInGraph().containsSteps(station) || mode == NewTravelPanelState.BUILDING)) {
 				intermediatesStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this,
 						s) {
 					@Override
@@ -579,7 +590,9 @@ public class NewTravelPanel extends PanelState {
 			break;
 		case avoidsStationsAdd:
 			station = stationsHash.get(s);
-			if (station != null && !pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)) {
+			System.out.println("avoidsStationsAdd" + s + ":" + station);
+			if (station != null
+					&& (!pathBuilder.getCurrentPathInGraph().containsAvoidStation(station) || mode == NewTravelPanelState.BUILDING)) {
 				avoidsStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this, s) {
 					@Override
 					public void execute() {
@@ -762,8 +775,7 @@ public class NewTravelPanel extends PanelState {
 	@Override
 	public void paint(Graphics g) {
 		if (pathBuilder == null) {
-			father.setErrorState(father.lg("ERROR_Impossible"), father
-					.lg("ERROR_ReturnNullConstraintBuilder"));
+			father.setErrorState(father.lg("ERROR_Impossible"), father.lg("ERROR_ReturnNullConstraintBuilder"));
 			return;
 		}
 
@@ -980,13 +992,13 @@ public class NewTravelPanel extends PanelState {
 		 * Services
 		 */
 		s = father.lg("Services");
-		if (!servicesCollapsableArea.isCollapsed() && !ServicesRadioBoxs.isEmpty()) {
+		if (!servicesCollapsableArea.isCollapsed() && !servicesRadioBoxs.isEmpty()) {
 			pos = new int[3];
 			width = 0;
 			cpt = 0;
 			// on trouve la largueur de la colonne des services
-			ord = new byte[ServicesRadioBoxs.size()];
-			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
+			ord = new byte[servicesRadioBoxs.size()];
+			for (PairPTRadioBoxs p : servicesRadioBoxs) {
 				tmp = getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont());
 				if (tmp > (getWidth() - decalage2 - decalage >> 1)) {
 					ord[cpt] = 0;
@@ -1015,7 +1027,7 @@ public class NewTravelPanel extends PanelState {
 					.getSizeAdapteur().getIntermediateFont());
 			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont()) + decalageDemi;
 			cpt = -1;
-			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
+			for (PairPTRadioBoxs p : servicesRadioBoxs) {
 				tmp += width;
 				if (ord[++cpt]-- >= 1)
 					tmp += width * ord[cpt] >> 1;
@@ -1045,7 +1057,7 @@ public class NewTravelPanel extends PanelState {
 			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont());
 			tmp += width;
 			width += decalageDemi;
-			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
+			for (PairPTRadioBoxs p : servicesRadioBoxs) {
 				tmp += width;
 				p.rbs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(),
 						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
@@ -1066,13 +1078,13 @@ public class NewTravelPanel extends PanelState {
 					buffer.drawString(p.service.getName(), decalage << 1, tmp);
 				}
 				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
-				buffer.fillOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +  (decalage >> 3),
-						father.getSizeAdapteur().getSizeIntermediateFont()>> 1,
-						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
+				buffer.fillOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
+						.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
+						.getSizeIntermediateFont() >> 1);
 				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(decalage + (decalage >> 2)-1, p.rbs[0].getArea().y +   (decalage >> 3),
-						father.getSizeAdapteur().getSizeIntermediateFont() >> 1,
-						father.getSizeAdapteur().getSizeIntermediateFont() >> 1);
+				buffer.drawOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
+						.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
+						.getSizeIntermediateFont() >> 1);
 			}
 		} else
 			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
@@ -1204,7 +1216,19 @@ public class NewTravelPanel extends PanelState {
 	@Override
 	public void giveControle() {
 		upperBar.clearMessage();
-		upperBar.setMainTitle(father.lg("NewTravel"));
+		switch (mode) {
+		case EDIT_TRAVEL:
+			upperBar.setMainTitle(father.lg("EditTravel"));
+			break;
+		case LOST_TRAVEL:
+			upperBar.setMainTitle(father.lg("LostTravel"));
+			break;
+		case NEW_TRAVEL:
+			upperBar.setMainTitle(father.lg("NewTravel"));
+			break;
+		default:
+			break;
+		}
 		upperBar.repaint();
 
 		lowerBar.clearMessage();
@@ -1220,7 +1244,7 @@ public class NewTravelPanel extends PanelState {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(pathBuilder.getCurrentPathInGraph());
 					if (pathBuilder.isValideForSolving()) {
-						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL);
+						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, pathBuilder);
 					}
 				}
 			});
@@ -1234,9 +1258,29 @@ public class NewTravelPanel extends PanelState {
 	 * 
 	 * @param pathBuilder
 	 */
-	public void setPathInGraphConstraintBuilder(PathInGraphConstraintBuilder pathBuilder) {
+	public void setPathInGraphConstraintBuilder(PathInGraphConstraintBuilder pathBuilder,
+			NewTravelPanelState newTravelPanelState) {
 		this.pathBuilder = pathBuilder;
-		initPathInGraphConstraintBuilder();
+		mode = NewTravelPanelState.BUILDING;
+		if (newTravelPanelState == NewTravelPanelState.EDIT_TRAVEL
+				|| newTravelPanelState == NewTravelPanelState.LOST_TRAVEL)
+			readPathInGraphConstraintBuilder();
+		else if (newTravelPanelState == NewTravelPanelState.NEW_TRAVEL)
+			initPathInGraphConstraintBuilder();
+		// switch (newTravelPanelState) {
+		// case EDIT_TRAVEL:
+		// readPathInGraphConstraintBuilder();
+		// break;
+		// case LOST_TRAVEL:
+		// readPathInGraphConstraintBuilder();
+		// break;
+		// case NEW_TRAVEL:
+		// initPathInGraphConstraintBuilder();
+		// break;
+		// default:
+		// break;
+		// }
+		mode = newTravelPanelState;
 	}
 
 	/**
@@ -1246,6 +1290,97 @@ public class NewTravelPanel extends PanelState {
 	 */
 	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() {
 		return this.pathBuilder;
+	}
+
+	/**
+	 * Initialise le trajet en fonction des parmètres systèmes
+	 */
+	protected void readPathInGraphConstraintBuilder() {
+		PathInGraph p = pathBuilder.getCurrentPathInGraph();
+
+		this.departureStationTextBox.setText(p.getOrigin().getName());
+		this.arrivalStationTextBox.setText(p.getDestination().getName());
+		/***************************************************************************************************************
+		 * Travel Criteria
+		 */
+		travelCriteriaRadioBoxs[0].setClicked(p.getMainCriterious() == Algo.CriteriousForLowerPath.COST);
+		travelCriteriaRadioBoxs[1].setClicked(p.getMainCriterious() == Algo.CriteriousForLowerPath.TIME);
+		travelCriteriaRadioBoxs[2].setClicked(p.getMainCriterious() == Algo.CriteriousForLowerPath.CHANGE);
+		travelCriteriaRadioBoxs[3].setClicked(p.getMinorCriterious() == Algo.CriteriousForLowerPath.COST);
+		travelCriteriaRadioBoxs[4].setClicked(p.getMinorCriterious() == Algo.CriteriousForLowerPath.TIME);
+		travelCriteriaRadioBoxs[5].setClicked(p.getMinorCriterious() == Algo.CriteriousForLowerPath.CHANGE);
+
+		/***************************************************************************************************************
+		 * Travel Mode
+		 */
+		Iterator<KindRoute> itRefusedKindRoute = p.getRefusedKindRouteIter();
+		KindRoute kindRoute;
+		for (PairPTCheckBox pChk : travelModeCheckBoxs)
+			pChk.chk.setClicked(true);
+		while (itRefusedKindRoute.hasNext()) {
+			System.out.println(kindRoute = itRefusedKindRoute.next());
+			for (PairPTCheckBox pChk : travelModeCheckBoxs) {
+				if (pChk.name.compareTo(kindRoute.getKindOf()) == 0) {
+					pChk.chk.setClicked(false);
+					break;
+				}
+			}
+		}
+
+		/***************************************************************************************************************
+		 * Services
+		 */
+		Iterator<Service> itService;
+		Service service;
+		for (PairPTRadioBoxs pRbx : servicesRadioBoxs)
+			pRbx.rbs[0].setClicked(true);
+		/***************************************************************************************************************
+		 * Always
+		 */
+		itService = p.getServicesAlwaysIter();
+		while (itService.hasNext()) {
+			service = itService.next();
+			for (PairPTRadioBoxs pRbx : servicesRadioBoxs) {
+				if (pRbx.name.compareTo(SettingsKey.SERVICES_.toString() + service.getId()) == 0) {
+					pRbx.rbs[0].setClicked(false);
+					pRbx.rbs[1].setClicked(false);
+					pRbx.rbs[2].setClicked(true);
+					break;
+				}
+			}
+		}
+		/***************************************************************************************************************
+		 * Once
+		 */
+		itService = p.getServicesOnceIter();
+		while (itService.hasNext()) {
+			service = itService.next();
+			for (PairPTRadioBoxs pRbx : servicesRadioBoxs) {
+				if (pRbx.name.compareTo(SettingsKey.SERVICES_.toString() + service.getId()) == 0) {
+					pRbx.rbs[0].setClicked(false);
+					pRbx.rbs[1].setClicked(true);
+					pRbx.rbs[2].setClicked(false);
+					break;
+				}
+			}
+		}
+
+		/***************************************************************************************************************
+		 * Station
+		 */
+		Iterator<Station> itStation;
+		/***************************************************************************************************************
+		 * Avoid
+		 */
+		itStation = p.getAvoidStationsIter();
+		while (itStation.hasNext())
+			recordChangedSetting(avoidsStationsAdd, itStation.next().getName());
+		/***************************************************************************************************************
+		 * Step
+		 */
+		itStation = p.getStepsIter();
+		while (itStation.hasNext())
+			recordChangedSetting(intermediatesStationsAdd, itStation.next().getName());
 	}
 
 	/**

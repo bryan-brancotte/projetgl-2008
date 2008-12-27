@@ -102,7 +102,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * En travaillant sur le PathInGraph courant, cree le chemin depuis la chaine passe en parametre. On ecrase le
+	 * En travaillant sur le PathInGraph courant, cree le chemin depuis la chaine passé en parametre. On ecrase le
 	 * contenue precedent du chemin
 	 * 
 	 * @param pathInGraph
@@ -111,6 +111,19 @@ public class PathInGraphConstraintBuilder {
 	 */
 	public void importPath(String pathInString) {
 		this.currentPathInGraph.importPath(pathInString);
+		this.currentPathInGraph.resolved = false;
+	}
+
+	/**
+	 * En travaillant sur le PathInGraph courant, cree le chemin depuis le chemin passé en parametre. On ecrase le
+	 * contenue precedent du chemin
+	 * 
+	 * @param pathInGraph
+	 *            la chaine representant le graph a importer
+	 * @return void
+	 */
+	public void importPath(PathInGraph path) {
+		this.currentPathInGraph.importPath(path);
 		this.currentPathInGraph.resolved = false;
 	}
 

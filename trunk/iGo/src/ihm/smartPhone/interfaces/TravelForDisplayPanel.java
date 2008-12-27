@@ -1,5 +1,6 @@
 package ihm.smartPhone.interfaces;
 
+import graphNetwork.PathInGraph;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -177,6 +178,13 @@ public interface TravelForDisplayPanel {
 	 * Passe à la prochaine section
 	 */
 	public void next();
+
+	/**
+	 * retourne le path a partir duquel le {@link TravelForDisplayPanel} à été construit
+	 * 
+	 * @return
+	 */
+	public PathInGraph getPath();
 
 	/**
 	 * Demande un mise à jours du contenue.

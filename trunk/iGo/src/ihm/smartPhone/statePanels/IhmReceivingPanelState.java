@@ -2,6 +2,7 @@ package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import ihm.smartPhone.component.NetworkColorManager;
@@ -69,7 +70,7 @@ public interface IhmReceivingPanelState {
 	 * @param currentState
 	 *            le nouvelle état;
 	 * @param path
-	 *            un chemin qui à un rapport avec cette demande
+	 *            un {@link PathInGraph} associé au passage à cette état
 	 * @return true si on a bien appliqué le mutateur.
 	 */
 	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates, PathInGraph path);
@@ -83,6 +84,33 @@ public interface IhmReceivingPanelState {
 	 * @return true si on a bien appliqué le mutateur.
 	 */
 	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates);
+
+	/**
+	 * Demande de passé à l'état passé en paramètre. L'application de cette demande est laissé à la discretion de la
+	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
+	 * 
+	 * @param actualState
+	 *            l'état
+	 * @param pathBuilder
+	 *            un {@link PathInGraphConstraintBuilder} associé au passage à cette état
+	 * @return
+	 */
+	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder);
+
+	/**
+	 * Demande de passé à l'état passé en paramètre. L'application de cette demande est laissé à la discretion de la
+	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
+	 * 
+	 * @param actualState
+	 * @param pathBuilder
+	 *            un {@link PathInGraphConstraintBuilder} associé au passage à cette état
+	 * @param path
+	 *            un {@link PathInGraph} associé au passage à cette état
+	 * @param path
+	 * @return
+	 */
+	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder,
+			PathInGraph path);
 
 	/**
 	 * Demande à passer dans l'état d'erreur avec ce titre et ce message
