@@ -144,8 +144,7 @@ public class PIGBuilderRobustesse {
 			pigColB.getPathInGraphResultBuilder().addFront(
 					bob.linkStation(sncf.getRoute("RerB"), sncf.getStation(1), sncf.getRoute("RerC"), sncf
 							.getStation(9), 2, 20, true));
-			// TODO passé cette méthode en public...
-			pigColB.getPathInGraphConstraintBuilder().importPath(null);
+			pigColB.getPathInGraphConstraintBuilder().importPath((String)null);
 			assertTrue("Le path actuelle doit maintenant être vide", pigColB.getPathInGraph().getJunctions().hasNext());
 		} catch (Exception e) {
 			assertTrue("Ce ne doit pas planter", false);

@@ -59,6 +59,14 @@
 				<FRANCAIS value="Nouveau trajet"/>
 				<ENGLISH value="New travel"/>
 			</NewTravel>
+			<EditTravel>
+				<FRANCAIS value="Editer un trajet"/>
+				<ENGLISH value="Edit a travel"/>
+			</EditTravel>
+			<LostTravel>
+				<FRANCAIS value="Perdu dans votre trajet"/>
+				<ENGLISH value="Lost in your trip"/>
+			</LostTravel>
 			<From>
 				<FRANCAIS value="De"/>
 				<ENGLISH value="From"/>

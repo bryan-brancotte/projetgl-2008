@@ -95,13 +95,13 @@ public class Junction {
 	 * @return l'autre route, ou null si la route passée en paramètre n'est pas dans la jonction
 	 */
 	public Route getOtherRoute(Route me) {
-		if (me.getId() == routeOrigin.getId())
+		if (me.getId().compareTo(routeOrigin.getId()) == 0)
 			return routeDestination;
-		if (me.getId() == routeDestination.getId())
+		if (me.getId().compareTo(routeDestination.getId()) == 0)
 			return routeOrigin;
 		return null;
 	}
-	
+
 	/**
 	 * Retourne l'autre route de la jonction.
 	 * 

@@ -20,6 +20,14 @@ public enum IhmReceivingStates {
 	/**
 	 * 
 	 */
+	EDIT_TRAVEL(11),
+	/**
+	 * 
+	 */
+	LOST_IN_TRAVEL(12),
+	/**
+	 * 
+	 */
 	LOAD_TRAVEL(20),
 	/**
 	 * 
