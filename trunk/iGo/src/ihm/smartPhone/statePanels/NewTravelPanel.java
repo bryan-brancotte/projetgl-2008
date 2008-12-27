@@ -846,6 +846,9 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Departure
 		 */
+		if(this.mode==NewTravelPanelState.LOST_TRAVEL)
+			s = father.lg("WhereYouAre");
+		else
 		s = father.lg("Departure");
 		taille = prepareAutoCompletionStationTextBox(departureStationArea, departureStationTextBox,
 				departureStationCollapsableArea, s, ordonne, decalage, decalage2);
@@ -1262,24 +1265,25 @@ public class NewTravelPanel extends PanelState {
 			NewTravelPanelState newTravelPanelState) {
 		this.pathBuilder = pathBuilder;
 		mode = NewTravelPanelState.BUILDING;
-		if (newTravelPanelState == NewTravelPanelState.EDIT_TRAVEL
-				|| newTravelPanelState == NewTravelPanelState.LOST_TRAVEL)
-			readPathInGraphConstraintBuilder();
-		else if (newTravelPanelState == NewTravelPanelState.NEW_TRAVEL)
-			initPathInGraphConstraintBuilder();
-		// switch (newTravelPanelState) {
-		// case EDIT_TRAVEL:
+		// if (newTravelPanelState == NewTravelPanelState.EDIT_TRAVEL
+		// || newTravelPanelState == NewTravelPanelState.LOST_TRAVEL)
 		// readPathInGraphConstraintBuilder();
-		// break;
-		// case LOST_TRAVEL:
-		// readPathInGraphConstraintBuilder();
-		// break;
-		// case NEW_TRAVEL:
+		// else if (newTravelPanelState == NewTravelPanelState.NEW_TRAVEL)
 		// initPathInGraphConstraintBuilder();
-		// break;
-		// default:
-		// break;
-		// }
+		switch (newTravelPanelState) {
+		case EDIT_TRAVEL:
+			readPathInGraphConstraintBuilder();
+			break;
+		case LOST_TRAVEL:
+			readPathInGraphConstraintBuilder();
+			departureStationTextBox.setText("");
+			break;
+		case NEW_TRAVEL:
+			initPathInGraphConstraintBuilder();
+			break;
+		default:
+			break;
+		}
 		mode = newTravelPanelState;
 	}
 

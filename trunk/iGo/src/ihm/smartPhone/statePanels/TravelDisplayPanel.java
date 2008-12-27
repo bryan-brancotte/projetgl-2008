@@ -169,8 +169,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					travel.getDestination();
-					JOptionPane.showMessageDialog(null, "Lost soon avaible...");
+					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
 				}
 			});
 			if (travel.hasNext()) {
@@ -179,7 +178,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 					public void actionPerformed(ActionEvent e) {
 						travel.next();
 						giveControle();
-						// JOptionPane.showMessageDialog(null, "Next soon avaible...");
 					}
 				});
 				upperBar.setUpperTitle(father.lg("NextStop"));
