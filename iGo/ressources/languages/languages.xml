@@ -251,6 +251,10 @@
 				<FRANCAIS value="Départ"/>
 				<ENGLISH value="Departure"/>
 			</Departure>
+			<WhereYouAre>
+				<FRANCAIS value="Où vous êtes ?"/>
+				<ENGLISH value="Where you are ?"/>
+			</WhereYouAre>
 			<Arrival>
 				<FRANCAIS value="Arrivée"/>
 				<ENGLISH value="Arrival"/>

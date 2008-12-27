@@ -536,36 +536,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			mainPanel.giveControle();
 			centerPanel.validate();
 			return true;
-		} else if (actualState == IhmReceivingStates.NEW_TRAVEL) {
-			this.actualState = IhmReceivingStates.NEW_TRAVEL;
-			centerPanel.removeAll();
-			try {
-				checkNewTravelPanel();
-			} catch (OutOfMemoryError e) {
-				cleanPanelsStates(true);
-				checkNewTravelPanel();
-			}
-			try {
-				newTravelPanel.setPathInGraphConstraintBuilder(master.getPathInGraphConstraintBuilder(),
-						NewTravelPanelState.NEW_TRAVEL);
-				centerPanel.add(newTravelPanel);
-				newTravelPanel.giveControle();
-				centerPanel.validate();
-				return true;
-			} catch (NoNetworkException e) {
-				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ReturnNoNetworkException"));
+		} else if (actualState == IhmReceivingStates.NEW_TRAVEL || actualState == IhmReceivingStates.EDIT_TRAVEL
+				|| actualState == IhmReceivingStates.LOST_IN_TRAVEL) {
+			if (actualState != IhmReceivingStates.NEW_TRAVEL && path == null)
 				return false;
-			} catch (GraphReceptionException e) {
-				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NetworkReception"));
-				return false;
-			} catch (GraphConstructionException e) {
-				this.setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NetworkConstruction"));
-				return false;
-			}
-		} else if (actualState == IhmReceivingStates.EDIT_TRAVEL) {
-			if (path == null)
-				return false;
-			this.actualState = IhmReceivingStates.EDIT_TRAVEL;
+			this.actualState = actualState;
 			centerPanel.removeAll();
 			try {
 				checkNewTravelPanel();
@@ -575,8 +550,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			}
 			try {
 				pathBuilder = master.getPathInGraphConstraintBuilder();
-				pathBuilder.importPath(path);
-				newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
+				switch (actualState) {
+				case NEW_TRAVEL:
+					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.NEW_TRAVEL);
+					break;
+				case LOST_IN_TRAVEL:
+					pathBuilder.importPath(path);
+					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
+					break;
+				case EDIT_TRAVEL:
+					pathBuilder.importPath(path);
+					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
+					break;
+				}
 				centerPanel.add(newTravelPanel);
 				newTravelPanel.giveControle();
 				centerPanel.validate();
