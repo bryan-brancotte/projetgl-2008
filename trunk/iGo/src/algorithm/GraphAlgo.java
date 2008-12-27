@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import algorithm.exception.NodeNotFoundException;
+import algorithm.exception.NonValidOriginException;
 import algorithm.exception.NonValidPathException;
 
 public class GraphAlgo {
@@ -45,7 +46,23 @@ public class GraphAlgo {
 			graph.add(n);
 			addLink(n);
 		}
-		else throw new NonValidPathException();
+		else {
+			if (!allServicesIn(p.getOrigin())) {
+				ArrayList<Service> list = new ArrayList<Service>();
+				for(Service service : always) {
+					boolean found=false;
+					Iterator<Service> it = p.getOrigin().getServices();
+					while (it.hasNext()) {
+						if (it.next()==service) {
+							found=true;
+							break;
+						}
+					}
+					if (!found) list.add(service);
+				}
+				throw new NonValidOriginException(list);
+			}
+		}
 	}
 
 	/**
