@@ -800,6 +800,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public boolean setConfig(String key, String value) {
 		if (actualState == IhmReceivingStates.SETTINGS)
 			newTravelPanel = null;
+
+		if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
+			if (value.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0)
+				this.preferedState = IhmReceivingStates.ARRAY_MODE;
+			else
+				this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
 		return master.setConfig(key, value);
 	}
 
