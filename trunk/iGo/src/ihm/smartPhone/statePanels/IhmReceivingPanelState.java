@@ -1,6 +1,7 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraph;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import ihm.smartPhone.component.NetworkColorManager;
@@ -62,7 +63,19 @@ public interface IhmReceivingPanelState {
 	public String lg(String key);
 
 	/**
-	 * Demande de passé à l'état passé en paramètre. l'application de cette demande est laissé à la discretion de la
+	 * Demande de passé à l'état passé en paramètre. L'application de cette demande est laissé à la discretion de la
+	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
+	 * 
+	 * @param currentState
+	 *            le nouvelle état;
+	 * @param path
+	 *            un chemin qui à un rapport avec cette demande
+	 * @return true si on a bien appliqué le mutateur.
+	 */
+	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates, PathInGraph path);
+
+	/**
+	 * Demande de passé à l'état passé en paramètre. L'application de cette demande est laissé à la discretion de la
 	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
 	 * 
 	 * @param currentState

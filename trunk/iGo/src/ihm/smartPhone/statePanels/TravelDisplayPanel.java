@@ -170,6 +170,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					travel.getDestination();
 					JOptionPane.showMessageDialog(null, "Lost soon avaible...");
 				}
 			});
