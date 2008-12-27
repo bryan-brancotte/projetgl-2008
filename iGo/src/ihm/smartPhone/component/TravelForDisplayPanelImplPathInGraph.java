@@ -50,7 +50,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		itJ = path.getJunctions();
 		while (itJ.hasNext()) {
 			section.addJunction(junction = itJ.next());
-			System.out.println(junction);
+//			System.out.println(junction);
 			station = junction.getOtherStation(station);
 			if (section.getEnddingChangementTime() != -1) {
 				travel.add(section);
