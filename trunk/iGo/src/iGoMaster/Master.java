@@ -1,6 +1,7 @@
 package iGoMaster;
 
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -91,11 +92,12 @@ public interface Master {
 	 * par la méthode askForATravel(...) en passant en paramètre ce PathInGraphConstraintBuilder
 	 * 
 	 * @return un PathInGraphConstraintBuilder travaillant sur un PathInGraph vide
-	 * @throws GraphConstructionException 
-	 * @throws GraphReceptionException 
-	 * @throws NoNetworkException 
+	 * @throws GraphConstructionException
+	 * @throws GraphReceptionException
+	 * @throws NoNetworkException
 	 */
-	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NoNetworkException, GraphReceptionException, GraphConstructionException;
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NoNetworkException,
+			GraphReceptionException, GraphConstructionException;
 
 	/**
 	 * Retourne un itérateur décrivant l'ensemble des services présents sur le réseau
@@ -124,4 +126,46 @@ public interface Master {
 	 * @return l'iterateur sur les langues.
 	 */
 	public Iterator<String> getLanguages();
+
+	/**
+	 * Cette methode permet de marquer un itinéraire comme etant un itinéraire favori
+	 * 
+	 * @param pig
+	 *            Itinéraire a mettre en favoris
+	 */
+	public void markAsFavorite(PathInGraph pig);
+
+	/**
+	 * 
+	 * 
+	 * Cette methode permet d'enlever un itinéraire de la mémoire, quelque soit l'endroit où il se trouve
+	 * 
+	 * @param pig
+	 *            Itinéraire à enlever
+	 */
+	public void removeFromRecents(PathInGraph pig);
+
+	/**
+	 * Cette methode permet d'enlever un itinéraire des itinéraires favoris. Il n'est forcement supprime définitivement,
+	 * juste retire des favoris
+	 * 
+	 * @param pig
+	 *            Itinéraire a enlever des favoris
+	 */
+	public void removeFromFavorites(PathInGraph pig);
+
+	/**
+	 * Donne tous les itinéraires recents
+	 * 
+	 * @return Iterator sur un PathInGraph
+	 */
+	public Iterator<PathInGraph> getRecentsPaths();
+
+	/**
+	 * Donne tous les itinéraires favoris
+	 * 
+	 * @return Iterator sur un PathInGraph
+	 */
+	public Iterator<PathInGraph> getFavoritesPaths();
+
 }
