@@ -10,22 +10,16 @@ package iGoMaster;
 
 public enum AlgoKindOfException {
 	
-	VoidPathException(0),
-	ServiceNotAccessibleException(1),
-	StationNotAccessibleException(2),
-	NoRouteForStationException(3),
-	StationNotOnRoadException(4),
-	NonValidPathException(5),
-	UnknownException(6),
-	EverythingFine(7);
+	VoidPathException(),
+	ServiceNotAccessibleException(),
+	StationNotAccessibleException(),
+	NoRouteForStationException(),
+	StationNotOnRoadException(),
+	NonValidPathException(),
+	NodeNotFoundException(),
+	NonValidOriginException(),
+	NonValidDestinationException(),
+	UnknownException(),
+	EverythingFine();
 	
-	protected int value;
-
-	private AlgoKindOfException(int value) {
-		this.value = value;
-	}
-
-	public int getAlgoKindOfException() {
-		return this.value;
-	}
 }
