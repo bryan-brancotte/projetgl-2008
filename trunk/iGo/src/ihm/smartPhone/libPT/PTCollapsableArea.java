@@ -89,7 +89,7 @@ public class PTCollapsableArea extends PTComponent {
 		g.fillRect(area.x, area.y, area.width, area.height);
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, area.width, area.height);
-		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr);
+		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr + (area.x >> 1) - (area.x >> 2));
 		ImageIcon imageButton;
 		if (collapsed) {
 			if (imageButtonAdd == null || imageButtonAdd.getIconHeight() != font.getSize()) {

@@ -226,24 +226,20 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	public void paint(Graphics g) {
-		// Un mutex est placé afin de ne pas lancer plusieur paint en même temps (et gagner du temps). Ce mutex a
-		// autrefois éviter des execution inutils, mais ne semble plus être utils désormais. Il est laissé an attendant
-		// un optimisation
-		// if (!buffer.isNeededRepaint())
-		// return;
-		// on demande un reconstruction de l'image
 		buildImage();
 		if (shouldDoubleRepaint) {
-			buffer.move(-(buffer.getWidthImage() >> 1), 0);
+			if (buffer.getHeigthImage() < buffer.getHeigthViewPort()) {
+				buffer.increasScallImg(buffer.getWidthViewPort() / buffer.getWidthImage());
+				buildImage();
+			}
+			buffer.move(0, -(buffer.getHeigthViewPort() - buffer.getHeigthImage() >> 1));
+			buffer.move(-(buffer.getWidthViewPort() - buffer.getWidthImage() >> 1), 0);
 			shouldDoubleRepaint = false;
 			buildImage();
 		}
-		// on efface l'écran puis on dessine cette image
-		// g.clearRect(0, 0, getWidth(), getHeight());
 		super.paint(buffer.getBuffer());
 		g.drawImage(buffer.getImage(), 0, 0, null);
 		buffer.hasBeenDrawn();
-		// g.drawString("qefzer", 10, 10);
 	}
 
 	public void buildImage() {
@@ -319,7 +315,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		do {
 			while (iterTravel.hasNext()) {
 				section = iterTravel.next();
-				if (section.getTimeSection() < 8)
+				if (section.getTimeSection() < 16 && father.getSizeAdapteur().getSizeSmallFont() < 12)
+					length = (sizeQuartLarge << 4);
+				else if (section.getTimeSection() < 8)
 					length = (sizeQuartLarge << 3);
 				else if (section.getTimeSection() > 64)
 					length = (sizeQuartLarge << 6);

@@ -259,10 +259,10 @@
 				<FRANCAIS value="Arrivée"/>
 				<ENGLISH value="Arrival"/>
 			</Arrival>
-			<Direction>
-				<FRANCAIS value="Direction"/>
-				<ENGLISH value="Direction"/>
-			</Direction>
+			<DirectionInArrayMode>
+				<FRANCAIS value="⇒"/>
+				<ENGLISH value="⇒	"/>
+			</DirectionInArrayMode>
 			<InvalideStation>
 				<FRANCAIS value="Station inconnue"/>
 				<ENGLISH value="Unkown station"/>
