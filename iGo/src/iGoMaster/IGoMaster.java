@@ -185,7 +185,6 @@ public class IGoMaster implements Master, Observer
 				*/
 				catch (Exception e)
 				{
-					System.err.println("elo --> échec de l'algorithme suite à une erreur indéfinie");
 					ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
 					threads.clear();
 				}
@@ -423,6 +422,12 @@ public class IGoMaster implements Master, Observer
 		if (!threads.isEmpty())
 		{
 			algo.abort();
+			try {
+				threads.get(0).join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			threads.clear();
 		}
 			
