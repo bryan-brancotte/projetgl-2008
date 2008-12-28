@@ -328,6 +328,8 @@ public class IGoMaster implements Master, Observer
 						AlgoKindOfException.EverythingFine
 						);
 				
+				pathInGraphsToRemember.addAsRecent(collectionBuilder.getPathInGraph());
+				
 				threads.clear();
 			}
 			else 
