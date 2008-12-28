@@ -500,39 +500,36 @@ public class NewTravelPanel extends PanelState {
 				}
 			break;
 		case mainTravelCriteria:
-			if (travelCriteriaRadioBoxs[0].isClicked()) {
-				if (pathBuilder != null)
-					pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.COST);
-				return;
-			}
-			if (travelCriteriaRadioBoxs[1].isClicked()) {
-				if (pathBuilder != null)
-					pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.TIME);
-				return;
-			}
-			if (travelCriteriaRadioBoxs[2].isClicked()) {
-				if (pathBuilder != null)
-					pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.CHANGE);
-				return;
-			}
-			break;
 		case minorTravelCriteria:
-			if (travelCriteriaRadioBoxs[3].isClicked()) {
-				if (pathBuilder != null)
-					pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.COST);
-				return;
+			if (travelCriteriaRadioBoxs[0].isClicked())
+				pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.COST);
+			else if (travelCriteriaRadioBoxs[1].isClicked())
+				pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.TIME);
+			else if (travelCriteriaRadioBoxs[2].isClicked())
+				pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.CHANGE);
+			else if (travelCriteriaRadioBoxs[3].isClicked()) {
+				travelCriteriaRadioBoxs[1].setClicked(true);
+				pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.TIME);
+			} else {
+				travelCriteriaRadioBoxs[0].setClicked(true);
+				pathBuilder.setMainCriterious(Algo.CriteriousForLowerPath.COST);
 			}
-			if (travelCriteriaRadioBoxs[4].isClicked()) {
-				if (pathBuilder != null)
-					pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.TIME);
-				return;
+
+			if (travelCriteriaRadioBoxs[3].isClicked())
+				pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.COST);
+			else if (travelCriteriaRadioBoxs[4].isClicked())
+				pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.TIME);
+			else if (travelCriteriaRadioBoxs[5].isClicked())
+				pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.CHANGE);
+			else if (travelCriteriaRadioBoxs[0].isClicked()) {
+				travelCriteriaRadioBoxs[4].setClicked(true);
+				pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.TIME);
+			} else {
+				travelCriteriaRadioBoxs[3].setClicked(true);
+				pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.COST);
 			}
-			if (travelCriteriaRadioBoxs[5].isClicked()) {
-				if (pathBuilder != null)
-					pathBuilder.setMinorCriterious(Algo.CriteriousForLowerPath.CHANGE);
-				return;
-			}
-			break;
+
+			return;
 		case services:
 			for (PairPTRadioBoxs p : servicesRadioBoxs) {
 				if (s.compareTo(p.name) == 0) {
@@ -1410,24 +1407,20 @@ public class NewTravelPanel extends PanelState {
 		Service service;
 		String s;
 
-		if (father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.COST.toString()) == 0)
+		if ((s = father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()))
+				.compareTo(Algo.CriteriousForLowerPath.COST.toString()) == 0)
 			pathBuilder.setMainCriterious(CriteriousForLowerPath.COST);
-		else if (father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.TIME.toString()) == 0)
+		else if (s.compareTo(Algo.CriteriousForLowerPath.TIME.toString()) == 0)
 			pathBuilder.setMainCriterious(CriteriousForLowerPath.TIME);
-		else if (father.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0)
+		else if (s.compareTo(Algo.CriteriousForLowerPath.CHANGE.toString()) == 0)
 			pathBuilder.setMainCriterious(CriteriousForLowerPath.CHANGE);
 
-		if (father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.COST.toString()) == 0)
+		if ((s = father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()))
+				.compareTo(Algo.CriteriousForLowerPath.COST.toString()) == 0)
 			pathBuilder.setMinorCriterious(CriteriousForLowerPath.COST);
-		else if (father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.TIME.toString()) == 0)
+		else if (s.compareTo(Algo.CriteriousForLowerPath.TIME.toString()) == 0)
 			pathBuilder.setMinorCriterious(CriteriousForLowerPath.TIME);
-		else if (father.getConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString()).compareTo(
-				Algo.CriteriousForLowerPath.CHANGE.toString()) == 0)
+		else if (s.compareTo(Algo.CriteriousForLowerPath.CHANGE.toString()) == 0)
 			pathBuilder.setMinorCriterious(CriteriousForLowerPath.CHANGE);
 
 		itR = father.getKindRoutes();

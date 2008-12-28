@@ -287,7 +287,6 @@ public class SettingsPanel extends PanelState {
 			break;
 		case mainTravelCriteria:
 		case minorTravelCriteria:
-			System.out.println(s);
 			if (travelCriteriaRadioBoxs[0].isClicked())
 				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
 			else if (travelCriteriaRadioBoxs[1].isClicked())
