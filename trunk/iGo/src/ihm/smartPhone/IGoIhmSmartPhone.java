@@ -8,7 +8,6 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
 import iGoMaster.AlgoKindOfException;
-import iGoMaster.AlgoKindOfInformation;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
@@ -21,7 +20,6 @@ import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.NetworkColorManager;
 import ihm.smartPhone.component.NetworkColorManagerPseudoRandom;
 import ihm.smartPhone.component.TravelForDisplayPanelImplPathInGraph;
-import ihm.smartPhone.component.TravelForTravelPanelImplPathInGraph;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -893,8 +891,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfInformation, Station station, Service service) {
-		// TODO infoPathAsked
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }
