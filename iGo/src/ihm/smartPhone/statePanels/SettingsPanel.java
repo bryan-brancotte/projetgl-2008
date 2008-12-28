@@ -287,21 +287,35 @@ public class SettingsPanel extends PanelState {
 			break;
 		case mainTravelCriteria:
 		case minorTravelCriteria:
-			if (travelCriteriaRadioBoxs[0].isClicked()) {
-				father.setConfig(s, Algo.CriteriousForLowerPath.COST.toString());
-			} else if (travelCriteriaRadioBoxs[1].isClicked()) {
-				father.setConfig(s, Algo.CriteriousForLowerPath.TIME.toString());
-			} else if (travelCriteriaRadioBoxs[2].isClicked()) {
-				father.setConfig(s, Algo.CriteriousForLowerPath.CHANGE.toString());
+			System.out.println(s);
+			if (travelCriteriaRadioBoxs[0].isClicked())
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
+			else if (travelCriteriaRadioBoxs[1].isClicked())
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+			else if (travelCriteriaRadioBoxs[2].isClicked())
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.CHANGE.toString());
+			else if (travelCriteriaRadioBoxs[3].isClicked()) {
+				travelCriteriaRadioBoxs[1].setClicked(true);
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+			} else {
+				travelCriteriaRadioBoxs[0].setClicked(true);
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
 			}
 
-			if (travelCriteriaRadioBoxs[3].isClicked()) {
-				father.setConfig(s, Algo.CriteriousForLowerPath.COST.toString());
-			} else if (travelCriteriaRadioBoxs[4].isClicked()) {
-				father.setConfig(s, Algo.CriteriousForLowerPath.TIME.toString());
-			} else if (travelCriteriaRadioBoxs[5].isClicked()) {
-				father.setConfig(s, Algo.CriteriousForLowerPath.CHANGE.toString());
+			if (travelCriteriaRadioBoxs[3].isClicked())
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
+			else if (travelCriteriaRadioBoxs[4].isClicked())
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+			else if (travelCriteriaRadioBoxs[5].isClicked())
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.CHANGE.toString());
+			else if (travelCriteriaRadioBoxs[0].isClicked()) {
+				travelCriteriaRadioBoxs[4].setClicked(true);
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+			} else {
+				travelCriteriaRadioBoxs[3].setClicked(true);
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
 			}
+
 			return;
 		case services:
 			for (PairPTRadioBoxs p : ServicesRadioBoxs) {
@@ -689,7 +703,6 @@ public class SettingsPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Skin
 		 */
-		// TODO skin : à finir
 		s = father.lg("Skin");
 		rb = null;
 		if (!skinsCollapsableArea.isCollapsed()) {

@@ -97,6 +97,15 @@ public interface IHM {
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
 	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException);
+
+	/**
+	 * Fournit à l'IHM un trajet selon les critères qu'elle a choisi.
+	 * 
+	 * @param algoKindOfException
+	 *            Si l'algo a rencontré une erreur, énum qui précise le type d'erreur. Sinon null.
+	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
+	 */
+	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfException);
 	
 	/**
 	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de

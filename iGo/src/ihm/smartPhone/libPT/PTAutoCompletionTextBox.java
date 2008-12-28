@@ -1,7 +1,6 @@
 package ihm.smartPhone.libPT;
 
 import ihm.smartPhone.listener.MouseListenerSimplificated;
-import ihm.smartPhone.listener.MouseMotionListenerSimplificated;
 import ihm.smartPhone.tools.CodeExecutor;
 
 import java.awt.Color;
@@ -225,17 +224,29 @@ public class PTAutoCompletionTextBox extends PTComponent {
 				// System.out.println("keyTyped");
 			}
 		});
-		father.addMouseMotionListener(mouseMotionListener= new MouseMotionListenerSimplificated<PanelTooled>(father) {
+		father.addMouseMotionListener(mouseMotionListener = new MouseMotionListener() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if (area.contains(e.getPoint()))
-					this.origin.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+					father.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
 			}
 		});
-		father.addMouseListener(mouseListener=new MouseListenerSimplificated<PanelTooled>(father) {
+		father.addMouseListener(mouseListener = new MouseListenerSimplificated<PanelTooled>(father) {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
 				if (area.contains(e.getPoint())) {
 					currentStringLeft = currentStringLeft + currentStringSelected + currentStringRight;
 					currentStringSelected = "";
@@ -246,7 +257,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 									father.buffer, lastFont) < (e.getX() - area.x - (lastFont.getSize() >> 1))) {
 						i++;
 					}
-					if (--i < 0)
+					if (i < 0)
 						i = 0;
 					if (i < currentStringLeft.length()) {
 						currentStringRight = currentStringLeft.substring(i);
@@ -263,14 +274,6 @@ public class PTAutoCompletionTextBox extends PTComponent {
 						father.repaint();
 					}
 				}
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
 			}
 
 		});
@@ -326,6 +329,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 		g.fillRect(area.x, area.y, area.width, area.height);
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, area.width, area.height);
+		g.setFont(lastFont);
 		g.drawString(currentStringLeft + currentStringSelected + currentStringRight, area.x + (font.getSize() >> 1),
 				area.y + area.height - (font.getSize() >> 2));
 		if (currentStringSelected.length() > 0) {

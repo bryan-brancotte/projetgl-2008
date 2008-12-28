@@ -192,7 +192,7 @@ public class PTTextBox extends PTComponent {
 									father.buffer, lastFont) < (e.getX() - area.x - (lastFont.getSize() >> 1))) {
 						i++;
 					}
-					if (--i < 0)
+					if (i < 0)
 						i = 0;
 					if (i < currentStringLeft.length()) {
 						currentStringRight = currentStringLeft.substring(i);

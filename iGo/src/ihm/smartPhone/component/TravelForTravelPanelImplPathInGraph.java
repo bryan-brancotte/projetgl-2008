@@ -25,7 +25,7 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public String getName() {
-		// TODO TravelForTravelPanelImplPathInGraph.getName
+		// TODO getName
 		return null;
 	}
 
@@ -46,19 +46,19 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public boolean isFavorite() {
-		// TODO TravelForTravelPanelImplPathInGraph.isFavorite
+		// TODO isFavorite
 		return false;
 	}
 
 	@Override
 	public void setFavorite(boolean isFav) {
-		// TODO TravelForTravelPanelImplPathInGraph.setFavorite
+		// TODO setFavorite
 
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO TravelForTravelPanelImplPathInGraph.setName
+		// TODO setName
 
 	}
 
@@ -67,7 +67,7 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public boolean update() {
-		// TODO TravelForTravelPanelImplPathInGraph.update
+		// TODO update
 		return false;
 	}
 

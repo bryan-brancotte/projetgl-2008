@@ -176,20 +176,30 @@ public class NewTravelPanel extends PanelState {
 		servicePooled = new LinkedList<ServiceToolTipText>();
 		this.addMouseMotionListener(new MouseMotionListener() {
 
+			protected ServiceToolTipText overed = null;
+
 			@Override
 			public void mouseDragged(MouseEvent e) {
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				boolean changed = false;
 				for (ServiceToolTipText s : serviceDisplayed)
-					changed = s.maybeOvered(e.getX(), e.getY()) || changed;
-				if (!changed) {
-					lowerBar.setLeftTitle("");
-					lowerBar.setLeftValue("");
-					lowerBar.repaint();
-				}
+					if (s.contains(e.getX(), e.getY())) {
+						if (overed != s) {
+							System.out.println(System.nanoTime());
+							s.maybeOvered(e.getX(), e.getY());
+							overed = s;
+						}
+						return;
+					}
+				if (overed == null)
+					return;
+				System.out.println(System.nanoTime());
+				lowerBar.setLeftTitle("");
+				lowerBar.setLeftValue("");
+				lowerBar.repaint();
+				overed = null;
 			}
 		});
 		this.addMouseListener(new MouseListener() {
@@ -846,10 +856,10 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Departure
 		 */
-		if(this.mode==NewTravelPanelState.LOST_TRAVEL)
+		if (this.mode == NewTravelPanelState.LOST_TRAVEL)
 			s = father.lg("WhereYouAre");
 		else
-		s = father.lg("Departure");
+			s = father.lg("Departure");
 		taille = prepareAutoCompletionStationTextBox(departureStationArea, departureStationTextBox,
 				departureStationCollapsableArea, s, ordonne, decalage, decalage2);
 		departureStationCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()

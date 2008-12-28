@@ -30,7 +30,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 	private static final long serialVersionUID = -2413655590628034148L;
 	protected TravelDisplayPanel me = this;
 	protected TravelForDisplayPanel travel = null;
-	protected IhmReceivingStates actualState = IhmReceivingStates.PREVISU_TRAVEL;
+	protected IhmReceivingStates currentState = IhmReceivingStates.PREVISU_TRAVEL;
 
 	protected static Image imageWarning;
 	protected Rectangle iconeWarningArea = null;
@@ -93,7 +93,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	public void setCurrentState(IhmReceivingStates actualState) {
 		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
-			this.actualState = actualState;
+			this.currentState = actualState;
 			giveControle();
 		}
 	}
@@ -150,7 +150,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			return;
 		}
 		upperBar.clearMessage();
-		if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+		if (currentState == IhmReceivingStates.PREVISU_TRAVEL) {
 			upperBar.setLeftCmd(father.lg("Edit"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -188,7 +188,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		upperBar.repaint();
 
 		lowerBar.clearMessage();
-		if (actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+		if (currentState == IhmReceivingStates.PREVISU_TRAVEL) {
 			lowerBar.setCenterIcone("home", new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

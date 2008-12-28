@@ -216,7 +216,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
 		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
-		father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(actualState));
+		father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
 	}
 
 	@Override
@@ -614,12 +614,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		yService = ys[0] + (sizeDemiLine >> 1);
 
 		// colone gauche
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL)
 			words[1] = father.lg("Cost") + " : ";
 		words[2] = father.lg("Time") + " : ";
 
 		xs[1] = xs[0];
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL)
 			ys[1] = yService + (sizeDemiLine >> 1) + taille
 					+ PanelDoubleBufferingSoftwear.getHeightString(words[1], g.getImage().getGraphics(), g.getFont());
 		else
@@ -628,7 +628,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		xs[2] = xs[1];
 		ys[2] = ys[1] + (sizeDemiLine >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(words[2], g.getImage().getGraphics(), g.getFont());
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL)
 			nextX = xs[2]
 					+ PanelDoubleBufferingSoftwear.getWidthString(words[1], g.getImage().getGraphics(), g.getFont())
 					+ (sizeDemiLine >> 1);
@@ -640,7 +640,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			xs[3] = nextX;
 
 		// colonne droite
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL)
 			if (costChangement == 0)
 				words[3] = father.lg("Free");
 			else
@@ -658,7 +658,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		xs[4] = xs[3];
 		ys[4] = ys[3] + (sizeDemiLine >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(words[4], g.getImage().getGraphics(), g.getFont());
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
+		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL)
 			nextX = xs[4]
 					+ PanelDoubleBufferingSoftwear.getWidthString(words[3], g.getImage().getGraphics(), g.getFont())
 					+ (sizeDemiLine << 1);
