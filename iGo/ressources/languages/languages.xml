@@ -3,6 +3,7 @@
 		<languages>
 			<lang balise="ENGLISH" value="English"/>
 			<lang balise="FRANCAIS" value="Français"/>
+			<lang balise="GEEK" value="D'jeuns"></lang>
 			<!-- <lang balise="CHINESE" value="Chinese 中国"/>-->
 			<!-- When &#10; appears in the file, it mean an end of line. Keep it in the translation for a better good looking ;)-->
 		</languages>
@@ -13,35 +14,43 @@
 			<ProgName>
 				<FRANCAIS value="iGo"/>
 				<ENGLISH value="iGo"/>
+				<GEEK value="iGo"/>
 			</ProgName>
 			<KeyUnknown>
 				<FRANCAIS value="CléInconnue"/>
 				<ENGLISH value="KeyUnknown"/>
+				<GEEK value="C koi cet ASCII ?"/>
 			</KeyUnknown>
 			<!--HomeDocName will be a directory name, be careful of how you name it-->
 			<HomeDirectoryName>
 				<FRANCAIS value="iGoDoc"/>
 				<ENGLISH value="iGoDoc"/>
+				<GEEK value="iGoDoc"/>
 			</HomeDirectoryName>
 			<SplashScreenUpperTitle>
 				<FRANCAIS value="SEPTA Presente"/>
 				<ENGLISH value="SEPTA Presents"/>
+				<GEEK value="SEPTA presents"/>
 			</SplashScreenUpperTitle>
 			<iGoVersion>
 				<FRANCAIS value="iGo v0.5"/>
 				<ENGLISH value="iGo v0.5"/>
+				<GEEK value="iGo v0.5"/>
 			</iGoVersion>
 			<DoYouWantToQuit>
 				<FRANCAIS value="Voulez vous quitter l'application ?"/>
 				<ENGLISH value="Do you want to quit ?"/>
+				<GEEK value="Tu veux nous abandonner ?"/>
 			</DoYouWantToQuit>
 			<New>
 				<FRANCAIS value="Nouveau"/>
 				<ENGLISH value="New"/>
+				<GEEK value="MkTravel"/>
 			</New>
 			<MainLoad>
 				<FRANCAIS value="Trajet récent"/>
 				<ENGLISH value="Recent travel"/>
+				<GEEK value=""/>
 			</MainLoad>
 			<Settings>
 				<FRANCAIS value="Paramètres"/>
