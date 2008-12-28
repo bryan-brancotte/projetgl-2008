@@ -12,6 +12,8 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	protected PathInGraphConstraintBuilder path;
 
+	protected boolean isFav = false;
+
 	@Override
 	public abstract void delete();
 
@@ -26,7 +28,7 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 	@Override
 	public String getName() {
 		// TODO getName
-		return null;
+		return "";
 	}
 
 	@Override
@@ -46,15 +48,11 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public boolean isFavorite() {
-		// TODO isFavorite
-		return false;
+		return isFav;
 	}
 
 	@Override
-	public void setFavorite(boolean isFav) {
-		// TODO setFavorite
-
-	}
+	public abstract void setFavorite(boolean isFav);
 
 	@Override
 	public void setName(String name) {

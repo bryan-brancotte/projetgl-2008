@@ -2,6 +2,7 @@ package ihm.smartPhone;
 
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.KindRoute;
+import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -132,6 +133,36 @@ public class MainDemoIHM {
 				// return null;
 				return gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder()
 						.getPathInGraphConstraintBuilder();
+			}
+
+			@Override
+			public void delete(PathInGraph pig) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public Iterator<PathInGraph> getFavoritesPaths() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Iterator<PathInGraph> getRecentsPaths() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void markAsFavorite(PathInGraph pig) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void removeFromFavorites(PathInGraph pig) {
+				// TODO Auto-generated method stub
+				
 			}
 
 			// }, iGoSmartPhoneSkin.PURPLE_LIGHT);

@@ -37,7 +37,9 @@ public class LanguageXML implements Language {
 		correspondanceKeyWord = new HashMap<String, String>();
 		langues = new HashMap<String, String>();
 		LoadLanguages();
-		setLanguage(lang);
+		if (!setLanguage(lang))
+			if (!setLanguage((new Locale(System.getProperty("user.language"))).getDisplayLanguage()))
+				setLanguage(DEFAULT_LANGUAGE);
 	}
 
 	public LanguageXML(String lang, boolean forceChoixLangue) {
@@ -73,22 +75,25 @@ public class LanguageXML implements Language {
 			LoadLanguage();
 			return true;
 		}
-		String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-		if (langues.containsKey(nameCap)) {
-			langue = nameCap;
-			LoadLanguage();
-			return true;
+		String nameCap;
+		if (name.length() > 1) {
+			nameCap = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+			if (langues.containsKey(nameCap)) {
+				langue = nameCap;
+				LoadLanguage();
+				return true;
+			}
 		}
 		nameCap = null;
 		boolean alreadyMatch = false;
 		for (String s : langues.keySet()) {
-			if(s.length() >= name.length()) 
-			if (s.length() >= name.length() && s.substring(0, name.length()).compareToIgnoreCase(name) == 0)
-				if (nameCap != null)
-					alreadyMatch = true;
-				else
-					nameCap = s;
-		} 
+			if (s.length() >= name.length())
+				if (s.length() >= name.length() && s.substring(0, name.length()).compareToIgnoreCase(name) == 0)
+					if (nameCap != null)
+						alreadyMatch = true;
+					else
+						nameCap = s;
+		}
 		if (nameCap != null && !alreadyMatch) {
 			langue = nameCap;
 			LoadLanguage();
