@@ -173,11 +173,9 @@ public class Dijkstra extends Algo {
 
 			currentPath.addAll(getMinimumDest(origin, v.get(0)));
 			for (int i = 1; i < v.size(); i++) {
-				System.out.println(currentPosition);
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i), false));
 			}
-			System.out.println(currentPosition);
-
+			
 			currentPath.addAll(algo(currentPosition, destination));
 			if (Tools.betterPath(currentPath, betterPath, p.getMainCriterious(), p.getMinorCriterious())) {
 				betterPath = currentPath;
