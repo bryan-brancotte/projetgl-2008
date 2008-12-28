@@ -173,12 +173,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 					giveControle();
 				}
 			});
-//			upperBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
-//				}
-//			});
 			if (travel.hasNext()) {
 				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
 					@Override
@@ -208,7 +202,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getTotalTime(), father.lg("LetterForHour"),
 					father.lg("LetterForMinute")));
 		} else {
-			lowerBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
+			lowerBar.setLeftCenteredCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());

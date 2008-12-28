@@ -187,7 +187,6 @@ public class NewTravelPanel extends PanelState {
 				for (ServiceToolTipText s : serviceDisplayed)
 					if (s.contains(e.getX(), e.getY())) {
 						if (overed != s) {
-							System.out.println(System.nanoTime());
 							s.maybeOvered(e.getX(), e.getY());
 							overed = s;
 						}
@@ -195,7 +194,6 @@ public class NewTravelPanel extends PanelState {
 					}
 				if (overed == null)
 					return;
-				System.out.println(System.nanoTime());
 				lowerBar.setLeftTitle("");
 				lowerBar.setLeftValue("");
 				lowerBar.repaint();
@@ -573,7 +571,7 @@ public class NewTravelPanel extends PanelState {
 			}
 		case intermediatesStationsAdd:
 			station = stationsHash.get(s);
-			System.out.println("intermediatesStationsAdd" + s + ":" + station);
+//			System.out.println("intermediatesStationsAdd" + s + ":" + station);
 			if (station != null
 					&& (!pathBuilder.getCurrentPathInGraph().containsSteps(station) || mode == NewTravelPanelState.BUILDING)) {
 				intermediatesStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this,
@@ -597,7 +595,7 @@ public class NewTravelPanel extends PanelState {
 			break;
 		case avoidsStationsAdd:
 			station = stationsHash.get(s);
-			System.out.println("avoidsStationsAdd" + s + ":" + station);
+			// System.out.println("avoidsStationsAdd" + s + ":" + station);
 			if (station != null
 					&& (!pathBuilder.getCurrentPathInGraph().containsAvoidStation(station) || mode == NewTravelPanelState.BUILDING)) {
 				avoidsStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this, s) {
@@ -1252,7 +1250,7 @@ public class NewTravelPanel extends PanelState {
 			lowerBar.setRightCmd(father.lg("FindAPath"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(pathBuilder.getCurrentPathInGraph());
+					// System.out.println(pathBuilder.getCurrentPathInGraph());
 					if (pathBuilder.isValideForSolving()) {
 						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, pathBuilder);
 					}
@@ -1329,7 +1327,7 @@ public class NewTravelPanel extends PanelState {
 		for (PairPTCheckBox pChk : travelModeCheckBoxs)
 			pChk.chk.setClicked(true);
 		while (itRefusedKindRoute.hasNext()) {
-			System.out.println(kindRoute = itRefusedKindRoute.next());
+			kindRoute = itRefusedKindRoute.next();
 			for (PairPTCheckBox pChk : travelModeCheckBoxs) {
 				if (pChk.name.compareTo(kindRoute.getKindOf()) == 0) {
 					pChk.chk.setClicked(false);

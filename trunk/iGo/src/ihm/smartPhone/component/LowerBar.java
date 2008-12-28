@@ -36,6 +36,11 @@ public class LowerBar extends AbstractBar {
 	protected Rectangle leftCmdArea = null;
 	protected ActionListener leftCmdActionListener = null;
 
+	protected String leftCenteredCmd;
+	protected FontSizeKind leftCenteredCmdSize;
+	protected Rectangle leftCenteredCmdArea = null;
+	protected ActionListener leftCenteredCmdActionListener = null;
+
 	protected String rigthCmd;
 	protected FontSizeKind rigthCmdSize;
 	protected Rectangle rigthCmdArea = null;
@@ -59,6 +64,7 @@ public class LowerBar extends AbstractBar {
 		super(ihm);
 		iconeCmdArea = new Rectangle();
 		leftCmdArea = new Rectangle();
+		leftCenteredCmdArea = new Rectangle();
 		rigthCmdArea = new Rectangle();
 		if (demo) {
 			setCenterIcone("button_save", null);
@@ -137,7 +143,6 @@ public class LowerBar extends AbstractBar {
 				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
 						.getImage();
 			}
-			System.out.println(icone);
 			iconeCmdArea.setBounds(this.getWidth() - imageIcone.getWidth(null) >> 1, 1, imageIcone.getHeight(null),
 					imageIcone.getWidth(null));
 			buffer.drawImage(imageIcone, iconeCmdArea.x, iconeCmdArea.y, null);
@@ -157,7 +162,7 @@ public class LowerBar extends AbstractBar {
 		Font font = null;
 		int[] xs;
 		int[] ys;
-		int hs, ws, hs23, ws11;
+		int hs, ws, hs23, hs11, ws11;
 		Color colorFont = g.getColor();
 		if (fontSizeKind == FontSizeKind.LARGE)
 			font = ihm.getSizeAdapteur().getLargeFont();
@@ -189,6 +194,35 @@ public class LowerBar extends AbstractBar {
 			g.drawString(rigthValue, 3 * (this.getWidth() >> 2) - (getWidthString(rigthValue, g, font) >> 1), this
 					.getHeight()
 					+ getHeightString(rigthValue, g, font) >> 1);
+
+		if ((leftCenteredCmdSize == fontSizeKind) && (leftCenteredCmd != "")) {
+			ws11 = (ws = getWidthString(leftCenteredCmd, g, font)) << 1;
+			hs11 = (int) (1.2 * (hs = getHeightString(leftCenteredCmd, g, font)));
+			g.setColor(ihm.getSkin().getColorInside());
+			g.fillRoundRect((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11, hs11, ihm
+					.getSizeAdapteur().getSizeSmallFont() >> 1, ihm.getSizeAdapteur().getSizeSmallFont() >> 1);
+			g.setColor(ihm.getSkin().getColorOutside());
+			g.drawRoundRect((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11, hs11, (ihm
+					.getSizeAdapteur().getSizeSmallFont() >> 1) + 1,
+					(ihm.getSizeAdapteur().getSizeSmallFont() >> 1) + 1);
+			g.setColor(ihm.getSkin().getColorLetter());
+			g.drawString(leftCenteredCmd, (this.getWidth() >> 2) - (ws >> 1), this.getHeight() + hs >> 1);
+			// g.setColor(ihm.getSkin().getColorInside());
+			// hs = getHeightString(leftCenteredCmd, g, font);
+			// hs11 = (int) (hs * 0.667);
+			// ws11 = (int) (getWidthString(leftCenteredCmd, g, font) * 1.1);
+			// xs = new int[] { hs23 + 1, hs + ws11, hs + ws11, hs23 + 1, 1 };
+			// ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
+			// (this.getHeight() >> 1) + hs23 + 1, (this.getHeight() >> 1) + hs23 + 1, this.getHeight() >> 1 };
+			// leftCenteredCmdArea.setBounds(xs[0], ys[0], xs[2] - xs[0], ys[2] - ys[0]);
+			// g.fillPolygon(xs, ys, xs.length);
+			// g.setColor(ihm.getSkin().getColorLine());
+			// ys[2]--;
+			// ys[3]--;
+			// g.drawPolygon(xs, ys, xs.length);
+			// g.setColor(colorFont);
+			// g.drawString(leftCenteredCmd, hs + 1, this.getHeight() + hs >> 1);
+		}
 
 		if ((leftCmdSize == fontSizeKind) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
@@ -365,6 +399,21 @@ public class LowerBar extends AbstractBar {
 	}
 
 	/**
+	 * Définit la chaine de la commande de gauche avec la taille spécifiée
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 * @param fontSizeKind
+	 *            la type de taille
+	 */
+	public void setLeftCenteredCmd(String leftCenteredCmd, ActionListener l, FontSizeKind fontSizeKind) {
+		leftCmdActionListener = l;
+		this.leftCenteredCmd = leftCenteredCmd;
+		this.leftCenteredCmdSize = fontSizeKind;
+		this.leftCenteredCmdArea.setBounds(0, 0, 0, 0);
+	}
+
+	/**
 	 * Définit la chaine de la commande de gauche avec la taille par défaut
 	 * 
 	 * @param mainTitle
@@ -372,6 +421,16 @@ public class LowerBar extends AbstractBar {
 	 */
 	public void setLeftCmd(String leftCmd, ActionListener l) {
 		setLeftCmd(leftCmd, l, FontSizeKind.INTERMEDIATE);
+	}
+
+	/**
+	 * Définit la chaine de la commande de gauche avec la taille par défaut
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 */
+	public void setLeftCenteredCmd(String leftCenteredCmd, ActionListener l) {
+		setLeftCenteredCmd(leftCenteredCmd, l, FontSizeKind.INTERMEDIATE);
 	}
 
 	/**
