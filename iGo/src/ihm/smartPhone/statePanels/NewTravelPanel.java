@@ -573,7 +573,8 @@ public class NewTravelPanel extends PanelState {
 			station = stationsHash.get(s);
 			// System.out.println("intermediatesStationsAdd" + s + ":" + station);
 			if (station != null
-					&& (!pathBuilder.getCurrentPathInGraph().containsSteps(station) || mode == NewTravelPanelState.BUILDING)) {
+					&& (mode == NewTravelPanelState.BUILDING || !pathBuilder.getCurrentPathInGraph().containsSteps(
+							station))) {
 				intermediatesStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this,
 						s) {
 					@Override
@@ -582,7 +583,8 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.repaint();
 					}
 				}));
-				pathBuilder.addStepStations(station);
+				if (mode != NewTravelPanelState.BUILDING)
+					pathBuilder.addStepStations(station);
 				intermediatesStationsTextBox.setText("");
 			}
 			break;
@@ -597,7 +599,8 @@ public class NewTravelPanel extends PanelState {
 			station = stationsHash.get(s);
 			// System.out.println("avoidsStationsAdd" + s + ":" + station);
 			if (station != null
-					&& (!pathBuilder.getCurrentPathInGraph().containsAvoidStation(station) || mode == NewTravelPanelState.BUILDING)) {
+					&& (mode == NewTravelPanelState.BUILDING || !pathBuilder.getCurrentPathInGraph()
+							.containsAvoidStation(station))) {
 				avoidsStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this, s) {
 					@Override
 					public void execute() {
@@ -605,7 +608,8 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.repaint();
 					}
 				}));
-				pathBuilder.addAvoidStations(station);
+				if (mode != NewTravelPanelState.BUILDING)
+					pathBuilder.addAvoidStations(station);
 				avoidsStationsTextBox.setText("");
 			}
 			break;
@@ -1390,7 +1394,7 @@ public class NewTravelPanel extends PanelState {
 		itStation = p.getStepsIter();
 		Station station;
 		while (itStation.hasNext()) {
-			station=itStation.next();
+			station = itStation.next();
 			recordChangedSetting(intermediatesStationsAdd, station.getName());
 		}
 	}

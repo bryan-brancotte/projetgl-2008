@@ -4,8 +4,8 @@ import iGoMaster.Algo.CriteriousForLowerPath;
 
 public class PathInGraphConstraintBuilder {
 
-	protected boolean dispSysout = true;
-	//protected boolean dispSysout = false|| (System.getProperty("user.name").compareTo("Icarius") == 0);
+	// protected boolean dispSysout = true;
+	protected boolean dispSysout = (System.getProperty("user.name").compareTo("Icarius") == 0);
 
 	/**
 	 * Le trajet actuellement traité

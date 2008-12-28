@@ -166,13 +166,19 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setUpperTitle(father.lg("Destination"));
 			upperBar.setMainTitle(travel.getDestination());
 		} else {
-			upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
+			upperBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					travel.previous();
-					giveControle();
+					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
 				}
 			});
+			// upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
+			// @Override
+			// public void actionPerformed(ActionEvent e) {
+			// travel.previous();
+			// giveControle();
+			// }
+			// });
 			if (travel.hasNext()) {
 				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
 					@Override
@@ -202,12 +208,12 @@ public abstract class TravelDisplayPanel extends PanelState {
 			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getTotalTime(), father.lg("LetterForHour"),
 					father.lg("LetterForMinute")));
 		} else {
-			lowerBar.setLeftCenteredCmd(father.lg("Lost"), new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
-				}
-			});
+			// lowerBar.setLeftCenteredCmd(father.lg("Lost"), new ActionListener() {
+			// @Override
+			// public void actionPerformed(ActionEvent e) {
+			// father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
+			// }
+			// });
 			lowerBar.setCenterIcone("home", new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
