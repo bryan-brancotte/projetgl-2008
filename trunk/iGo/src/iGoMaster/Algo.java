@@ -54,6 +54,9 @@ public abstract class Algo extends Observable {
 	public IGoMaster getIGoMaster() {
 		return goMaster;
 	}
+	
+	public abstract void abort();
+	
 
 	/**
 	 * Setter of the property <tt>iGoMaster</tt>
