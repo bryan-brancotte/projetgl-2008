@@ -95,15 +95,6 @@ public class LowerBar extends AbstractBar {
 		this.addMouseMotionListener(l);
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		draw();
-		/***************************************************************************************************************
-		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
-		 */
-		g.drawImage(image, 0, 0, null);
-	}
-
 	public void draw() {
 
 		/***
@@ -141,11 +132,12 @@ public class LowerBar extends AbstractBar {
 		drawStrings(buffer, FontSizeKind.LARGE);
 		drawStrings(buffer, FontSizeKind.INTERMEDIATE);
 		drawStrings(buffer, FontSizeKind.SMALL);
-		if (icone != "") {
+		if (icone.length() != 0) {
 			if ((imageIcone == null) || (oldHeigth != this.getHeight())) {
 				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
 						.getImage();
 			}
+			System.out.println(icone);
 			iconeCmdArea.setBounds(this.getWidth() - imageIcone.getWidth(null) >> 1, 1, imageIcone.getHeight(null),
 					imageIcone.getWidth(null));
 			buffer.drawImage(imageIcone, iconeCmdArea.x, iconeCmdArea.y, null);
@@ -414,10 +406,11 @@ public class LowerBar extends AbstractBar {
 	 *            le nom de l'icone
 	 */
 	public void setCenterIcone(String icone, ActionListener l) {
+		lookDraw.acquireUninterruptibly();
 		if (getClass().getResource("/images/" + icone + ".png") != null) {
 			iconeCmdActionListener = l;
-			if (this.icone != icone)
-				oldHeigth = -1;
+			if (this.icone.compareToIgnoreCase(icone) != 0)
+				imageIcone = null;
 			this.icone = icone;
 		} else {
 			this.icone = "";
@@ -425,6 +418,7 @@ public class LowerBar extends AbstractBar {
 			oldHeigth = -1;
 			this.iconeCmdArea.setBounds(0, 0, 0, 0);
 		}
+		lookDraw.release();
 	}
 
 	@Override

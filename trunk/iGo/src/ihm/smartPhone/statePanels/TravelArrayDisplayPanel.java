@@ -126,7 +126,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		 * Station d'origine
 		 */
 		height = drawStation(this.travel.getOrigineStation(), this.travel.getEntryCost(), 0, decalage, ordonnee,
-				this.actualState == IhmReceivingStates.PREVISU_TRAVEL, decalage, inLeft, inRight, getWidth()
+				this.currentState == IhmReceivingStates.PREVISU_TRAVEL, decalage, inLeft, inRight, getWidth()
 						- (decalage << 1));
 		buffer.drawString(s = father.lg("Departure"), decalage + (inLeft - decalage - getWidthString(s, buffer) >> 1),
 				ordonnee + (height + getHeightString(s, buffer) >> 1));
@@ -235,7 +235,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		 * Coût et temps : nom
 		 */
 		xService = inRigth + (decalage >> 1);
-		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL) {
+		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL) {
 			s = father.lg("Cost") + " : ";
 			buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
 					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
@@ -307,7 +307,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
 		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.GRAPHIC_MODE.toString());
-		father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(actualState));
+		father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
 	}
 
 	@Override

@@ -61,6 +61,8 @@ public abstract class PTComponent {
 	 */
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+		if (!enable)
+			this.area.setBounds(-1, -1, 0, 0);
 	}
 
 	protected PTComponent(PanelTooled father, AreaAndCodeExecutor areaCodEx) {

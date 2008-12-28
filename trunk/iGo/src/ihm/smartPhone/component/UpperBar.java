@@ -15,7 +15,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class UpperBar extends AbstractBar {
 
 	private static final long serialVersionUID = 1L;
@@ -84,14 +83,6 @@ public class UpperBar extends AbstractBar {
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		draw();
-		/***************************************************************************************************************
-		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
-		 */
-		g.drawImage(image, 0, 0, null);
-	}
-
 	public void draw() {
 
 		/***
@@ -110,7 +101,7 @@ public class UpperBar extends AbstractBar {
 			buffer.setColor(ihm.getSkin().getColorInside());
 			buffer.fillRect(0, 0, getWidth(), getHeight());
 		}
-		
+
 		int outsideR = ihm.getSkin().getColorOutside().getRed();
 		int outsideG = ihm.getSkin().getColorOutside().getGreen();
 		int outsideB = ihm.getSkin().getColorOutside().getBlue();
@@ -369,13 +360,17 @@ public class UpperBar extends AbstractBar {
 	 *            le nom de l'icone
 	 */
 	public void setCenterIcone(String icone) {
-		if (getClass().getResource("/images/" + icone + ".png") != null)
+		lookDraw.acquireUninterruptibly();
+		if (getClass().getResource("/images/" + icone + ".png") != null) {
+			if (this.icone.compareToIgnoreCase(icone) != 0)
+				imageIcone = null;
 			this.icone = icone;
-		else {
+		} else {
 			this.icone = "";
 			oldHeigth = -1;
 			imageIcone = null;
 		}
+		lookDraw.release();
 	}
 
 	@Override

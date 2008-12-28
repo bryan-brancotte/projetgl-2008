@@ -101,7 +101,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	@Override
 	public boolean update() {
-		// TODO TravelForDisplayPanelImplPathInGraph;update
+		// TODO TFD.update
 		return false;
 	}
 

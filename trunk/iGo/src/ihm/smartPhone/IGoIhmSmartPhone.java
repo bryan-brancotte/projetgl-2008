@@ -8,6 +8,7 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
 import iGoMaster.AlgoKindOfException;
+import iGoMaster.AlgoKindOfInformation;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
 import iGoMaster.Master;
@@ -389,7 +390,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void delete() {
-					// TODO Auto-generated method stub
+					// TODO delete PIG
 
 				}
 
@@ -617,17 +618,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			centerPanel.validate();
 			return true;
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
-			// TODO à finir...
-			// pathBuilderInAction = null;
-			// if (this.actualState == IhmReceivingStates.NEW_TRAVEL)
-			// pathBuilderInAction = newTravelPanel.getPathInGraphConstraintBuilder();
-			// else if (this.actualState == IhmReceivingStates.LOAD_TRAVEL)
-			// pathBuilder = loadTravelPanel.getPathInGraphConstraintBuilder();
-			// System.out.println("not yet");
-			// this.setCurrentState(IhmReceivingStates.)
 			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
-			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
+			VoidPanel vp;
+			addToCenterPanel(vp = new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
+			vp.giveControle();
+			centerPanel.validate();
 			if (master.askForATravel(pathBuilder))
 				return true;
 			setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_UnknownException"));
@@ -646,23 +642,18 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkTravelGraphicDisplayPanel();
 			}
 			travelGraphicPanel.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
-			// travelGraphicPanel.setPathInGraph();
-			// TODO ......transmition path
 			addToCenterPanel(travelGraphicPanel);
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE) {
-			if (this.actualState != IhmReceivingStates.PREVISU_TRAVEL_GRAPHIC_MODE) {
-				try {
-					checkTravelGraphicDisplayPanel();
-				} catch (OutOfMemoryError e) {
-					cleanPanelsStates(true);
-					checkTravelGraphicDisplayPanel();
-				}
-				centerPanel.add(travelGraphicPanel);
+			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE;
+			try {
+				checkTravelGraphicDisplayPanel();
+			} catch (OutOfMemoryError e) {
+				cleanPanelsStates(true);
+				checkTravelGraphicDisplayPanel();
 			}
 			travelGraphicPanel.setCurrentState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 			addToCenterPanel(travelGraphicPanel);
-			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_GRAPHIC_MODE;
 			return true;
 		} else /**/if (actualState == IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE) {
 			this.actualState = IhmReceivingStates.PREVISU_TRAVEL_ARRAY_MODE;
@@ -672,9 +663,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				cleanPanelsStates(true);
 				checkTravelArrayDisplayPanel();
 			}
-			addToCenterPanel(travelArrayPanel);
-			// travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			travelArrayPanel.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
+			addToCenterPanel(travelArrayPanel);
 			return true;
 		} else if (actualState == IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE) {
 			this.actualState = IhmReceivingStates.EXPERIMENT_TRAVEL_ARRAY_MODE;
@@ -685,9 +675,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				cleanPanelsStates(true);
 				checkTravelArrayDisplayPanel();
 			}
-			addToCenterPanel(travelArrayPanel);
-			// travelArrayPanel.displayPopUpMessage("Info", "En cours de création, merci.", null);
 			travelArrayPanel.setCurrentState(IhmReceivingStates.EXPERIMENT_TRAVEL);
+			addToCenterPanel(travelArrayPanel);
 			return true;
 		}
 		return false;
@@ -883,5 +872,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		errorPanel.setTitle(title);
 		errorPanel.giveControle();
 		centerPanel.validate();
+	}
+
+	@Override
+	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfException) {
+		// TODO infoPathAsked
+		return false;
 	}
 }
