@@ -77,28 +77,28 @@ public class IGoMaster implements Master, Observer {
 		super();
 		long l = System.nanoTime();
 		this.algo = new Dijkstra();
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.lg = new LanguageXML();
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.config = new ConfigurationXML();
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.ihm = new IGoIhmSmartPhone(this);
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.graphBuilder = new GraphNetworkBuilder();
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		l = System.nanoTime();
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
-		System.out.println("\t\t\t"+(System.nanoTime() - l) * 1e-3);
+		System.out.println("\t\t\t"+(int)((System.nanoTime() - l) * 1e-3)*1e-3);
 		this.process();
 	}
 
