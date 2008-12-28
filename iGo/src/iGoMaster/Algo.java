@@ -10,6 +10,8 @@ import iGoMaster.exception.VoidPathException;
 
 import java.util.Observable;
 
+import algorithm.exception.NonValidDestinationException;
+import algorithm.exception.NonValidOriginException;
 import algorithm.exception.NonValidPathException;
 
 
@@ -29,15 +31,28 @@ public abstract class Algo extends Observable {
 	 * de la méthode notify.
 	 * 
 	 * @param _pathBuilder
+	 * 
 	 * @throws NoRouteForStationException 
 	 * @throws VoidPathException 
 	 * @throws ServiceNotAccessibleException 
 	 * @throws StationNotAccessibleException 
 	 * @throws StationNotOnRoadException 
-	 * @throws NonValidPathException 
+	 * @throws NonValidDestinationException
+	 * @throws NonValidOriginException
+	 * @throws NoRouteForStationException
 	 * 
 	 */
-	public abstract void findPath(PathInGraphResultBuilder _path) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidPathException;
+	
+	public abstract void findPath(PathInGraphResultBuilder _path) 
+	throws NoRouteForStationException,
+	VoidPathException,
+	ServiceNotAccessibleException,
+	StationNotAccessibleException,
+	StationNotOnRoadException,
+	NoRouteForStationException,
+	VoidPathException,
+	NonValidOriginException,
+	NonValidDestinationException;
 
 	/**
 	 * @uml.property name="iGoMaster"

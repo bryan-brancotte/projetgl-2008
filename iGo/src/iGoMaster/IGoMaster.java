@@ -30,10 +30,9 @@ import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 import algorithm.Dijkstra;
-import algorithm.exception.NodeNotFoundException;
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
-import algorithm.exception.NonValidPathException;
+
 
 import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
@@ -161,17 +160,6 @@ public class IGoMaster implements Master, Observer
 					ihm.returnPathAsked(null, AlgoKindOfException.StationNotOnRoadException);
 					threads.clear();
 				}
-				catch (NonValidPathException e)
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.NonValidPathException);
-					threads.clear();
-				}
-				// En attente de tony
-				/*catch (NodeNotFoundException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.NodeNotFoundException);
-					threads.clear();
-				} 
 				catch (NonValidOriginException e) 
 				{
 					ihm.returnPathAsked(null, AlgoKindOfException.NonValidOriginException);
@@ -182,7 +170,6 @@ public class IGoMaster implements Master, Observer
 					ihm.returnPathAsked(null, AlgoKindOfException.NonValidDestinationException);
 					threads.clear();
 				}
-				*/
 				catch (Exception e)
 				{
 					ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
