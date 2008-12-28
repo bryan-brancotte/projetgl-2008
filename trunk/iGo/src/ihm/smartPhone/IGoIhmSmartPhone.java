@@ -543,6 +543,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				return false;
 			this.actualState = actualState;
 			centerPanel.removeAll();
+			newTravelPanel=null;
 			try {
 				checkNewTravelPanel();
 			} catch (OutOfMemoryError e) {
@@ -556,7 +557,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.NEW_TRAVEL);
 					break;
 				case LOST_IN_TRAVEL:
-					pathBuilder.importPath(path);
+					String xml=path.exportPath();
+					pathBuilder.importPath(xml);
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
 				case EDIT_TRAVEL:
