@@ -1,6 +1,5 @@
 package iGoMaster.exception;
 
-import graphNetwork.Route;
 import graphNetwork.Station;
 
 public class NoRouteForStationException extends Exception {
