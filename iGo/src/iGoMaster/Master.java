@@ -143,7 +143,7 @@ public interface Master {
 	 * @param pig
 	 *            Itinéraire à enlever
 	 */
-	public void removeFromRecents(PathInGraph pig);
+	public void delete(PathInGraph pig);
 
 	/**
 	 * Cette methode permet d'enlever un itinéraire des itinéraires favoris. Il n'est forcement supprime définitivement,
