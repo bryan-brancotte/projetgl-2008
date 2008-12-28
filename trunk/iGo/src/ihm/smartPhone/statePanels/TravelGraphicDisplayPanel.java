@@ -274,7 +274,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			return;
 		}
 
-		SectionOfTravel section;
+		SectionOfTravel section = null;
 		Iterator<SectionOfTravel> iterTravel;
 
 		int orientation = 0;

@@ -3,6 +3,7 @@ package ihm.smartPhone.component;
 import graphNetwork.Junction;
 import graphNetwork.PathInGraph;
 import graphNetwork.Route;
+import graphNetwork.Service;
 import graphNetwork.Station;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 
@@ -38,6 +39,16 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		destination = path.getDestination();
 		travel = new LinkedList<SectionOfTravel>();
 		travelDone = new LinkedList<SectionOfTravel>();
+
+		LinkedList<Service> serviceToFind = new LinkedList<Service>();
+		Iterator<Service> itS = path.getServicesOnceIter();
+		while (itS.hasNext())
+			serviceToFind.add(itS.next());
+
+		itS = origin.getServices();
+		while (itS.hasNext())
+			serviceToFind.remove(itS.next());
+
 		Iterator<Junction> itJ = path.getJunctions();
 		Junction junction = itJ.next();
 		Station station = origin;
@@ -51,6 +62,15 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		while (itJ.hasNext()) {
 			section.addJunction(junction = itJ.next());
 			station = junction.getOtherStation(station);
+			if (serviceToFind.size() > 0) {
+				itS = station.getServices();
+				while (itS.hasNext())
+					if (serviceToFind.remove(itS.next()))
+						if (section.getEnddingChangementTime() == -1) {
+							section.enddingChangementTime = 0;
+							section.enddingChangementCost = 0;
+						}
+			}
 			if (path.containsSteps(station)) {
 				section.enddingChangementTime = 0;
 				section.enddingChangementCost = 0;
