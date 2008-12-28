@@ -85,6 +85,12 @@ public class LowerBar extends AbstractBar {
 				leftCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
 			}
 		});
+		l.addInteractiveArea(leftCenteredCmdArea, new CodeExecutor() {
+			@Override
+			public void execute() {
+				leftCenteredCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
+			}
+		});
 		l.addInteractiveArea(rigthCmdArea, new CodeExecutor() {
 			@Override
 			public void execute() {
@@ -199,12 +205,15 @@ public class LowerBar extends AbstractBar {
 			ws11 = (ws = getWidthString(leftCenteredCmd, g, font)) << 1;
 			hs11 = (int) (1.2 * (hs = getHeightString(leftCenteredCmd, g, font)));
 			g.setColor(ihm.getSkin().getColorInside());
-			g.fillRoundRect((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11, hs11, ihm
-					.getSizeAdapteur().getSizeSmallFont() >> 1, ihm.getSizeAdapteur().getSizeSmallFont() >> 1);
-			g.setColor(ihm.getSkin().getColorOutside());
-			g.drawRoundRect((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11, hs11, (ihm
-					.getSizeAdapteur().getSizeSmallFont() >> 1) + 1,
-					(ihm.getSizeAdapteur().getSizeSmallFont() >> 1) + 1);
+			leftCenteredCmdArea.setBounds((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11,
+					hs11);
+			g.fillRoundRect(leftCenteredCmdArea.x, leftCenteredCmdArea.y, leftCenteredCmdArea.width,
+					leftCenteredCmdArea.height, ihm.getSizeAdapteur().getSizeSmallFont() >> 1, ihm.getSizeAdapteur()
+							.getSizeSmallFont() >> 1);
+			g.setColor(ihm.getSkin().getColorLine());
+			g.drawRoundRect(leftCenteredCmdArea.x, leftCenteredCmdArea.y, leftCenteredCmdArea.width,
+					leftCenteredCmdArea.height, ihm.getSizeAdapteur().getSizeSmallFont() >> 1, ihm.getSizeAdapteur()
+							.getSizeSmallFont() >> 1);
 			g.setColor(ihm.getSkin().getColorLetter());
 			g.drawString(leftCenteredCmd, (this.getWidth() >> 2) - (ws >> 1), this.getHeight() + hs >> 1);
 			// g.setColor(ihm.getSkin().getColorInside());
@@ -407,7 +416,7 @@ public class LowerBar extends AbstractBar {
 	 *            la type de taille
 	 */
 	public void setLeftCenteredCmd(String leftCenteredCmd, ActionListener l, FontSizeKind fontSizeKind) {
-		leftCmdActionListener = l;
+		leftCenteredCmdActionListener = l;
 		this.leftCenteredCmd = leftCenteredCmd;
 		this.leftCenteredCmdSize = fontSizeKind;
 		this.leftCenteredCmdArea.setBounds(0, 0, 0, 0);
@@ -489,6 +498,7 @@ public class LowerBar extends AbstractBar {
 		this.setRightTitle("");
 		this.setRightValue("");
 		this.setLeftCmd("", null);
+		this.setLeftCenteredCmd("", null);
 		this.setRightCmd("", null);
 	}
 }
