@@ -123,6 +123,10 @@
 				<FRANCAIS value="Suivant"/>
 				<ENGLISH value="Next"/>
 			</Next>
+			<Previous>
+				<FRANCAIS value="Précédent"/>
+				<ENGLISH value="Previous"/>
+			</Previous>
 			<NextStop>
 				<FRANCAIS value="Prochain changement"/>
 				<ENGLISH value="Next change"/>

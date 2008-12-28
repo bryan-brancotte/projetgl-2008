@@ -875,7 +875,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfException) {
+	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfInformation, Station station, Service service) {
 		// TODO infoPathAsked
 		return false;
 	}

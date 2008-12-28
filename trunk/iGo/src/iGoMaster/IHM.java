@@ -1,10 +1,13 @@
 package iGoMaster;
 
 import graphNetwork.PathInGraph;
+import graphNetwork.Route;
+import graphNetwork.Service;
+import graphNetwork.Station;
 
 /**
- * Interface décrivant les fonctionnalités de l'IHM. Une ihm ne peut être utilisée par le master que si 
- * elle répond à ce cahier des charges.
+ * Interface décrivant les fonctionnalités de l'IHM. Une ihm ne peut être utilisée par le master que si elle répond à ce
+ * cahier des charges.
  * 
  * @author iGo
  * 
@@ -37,8 +40,8 @@ public interface IHM {
 	 * affichée, l'appel de la méthode sera null.
 	 * 
 	 * @param step
-	 *            Le nombre d'étapes effectuées. Si numéro de l'étape est inférieur à 0 ou supérieur au maxStepInSlashScreen, 
-	 *            l'étape courante ne sera pas modifiée
+	 *            Le nombre d'étapes effectuées. Si numéro de l'étape est inférieur à 0 ou supérieur au
+	 *            maxStepInSlashScreen, l'étape courante ne sera pas modifiée
 	 */
 	public void setStepInSplashScreen(int step);
 
@@ -50,12 +53,13 @@ public interface IHM {
 	public int getStepInSplashScreen();
 
 	/**
-	 * Redéfinit le nombre maximum d'étapes dans l'écran de chargement. Le nombre d'étapes courant sera modifié s'il
-	 * va au delà des nouvelles bornes. Si l'interface de chargement n'est pas ou plus affichée, l'appel de la méthode sera null.
+	 * Redéfinit le nombre maximum d'étapes dans l'écran de chargement. Le nombre d'étapes courant sera modifié s'il va
+	 * au delà des nouvelles bornes. Si l'interface de chargement n'est pas ou plus affichée, l'appel de la méthode sera
+	 * null.
 	 * 
 	 * @param step
-	 *            Le nouveau maximum. Si la valeur du pas est inférieure à 0 l'interface passera dans l'état
-	 *            qu'on aurait pu obtenir en lancant l'interface sans lui fournir le nombre d'étapes.
+	 *            Le nouveau maximum. Si la valeur du pas est inférieure à 0 l'interface passera dans l'état qu'on
+	 *            aurait pu obtenir en lancant l'interface sans lui fournir le nombre d'étapes.
 	 */
 	public void setMaxStepInSplashScreen(int step);
 
@@ -67,9 +71,8 @@ public interface IHM {
 	public int getMaxStepInSplashScreen();
 
 	/**
-	 * Si l'ihm se trouve à l'étape de l'écran de chargement, on remplace ce dernier
-	 * par l'interface principale. Si l'interface de chargement n'est pas
-	 * ou plus affichée, la méthode n'aura pas d'effet.
+	 * Si l'ihm se trouve à l'étape de l'écran de chargement, on remplace ce dernier par l'interface principale. Si
+	 * l'interface de chargement n'est pas ou plus affichée, la méthode n'aura pas d'effet.
 	 */
 	public void endSplashScreen();
 
@@ -99,18 +102,21 @@ public interface IHM {
 	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException);
 
 	/**
-	 * Fournit à l'IHM un trajet selon les critères qu'elle a choisi.
+	 * Informe l'utilisateur des relaxation de contrainte
 	 * 
-	 * @param algoKindOfException
-	 *            Si l'algo a rencontré une erreur, énum qui précise le type d'erreur. Sinon null.
+	 * @param algoKindOfInformation
+	 *            Les relaxation sucessive
+	 * @param station
+	 *            la station ayant un rappport avec le algoKindOfInformation ou null
+	 * @param service
+	 *            le service ayant un rappport avec le algoKindOfInformation ou null
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfException);
-	
+	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfInformation, Station station, Service service);
+
 	/**
-	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de
-	 * nouveaux évènements.
-	 *
+	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de nouveaux évènements.
+	 * 
 	 * @return vrai si la mise à jour s'est déroulée correctement.
 	 */
 	public boolean updateNetwork();
