@@ -634,41 +634,25 @@ public class IGoMaster implements Master, Observer
 
 
 	@Override
-	public void delete(PathInGraph pig) 
-	{
+	public void delete(PathInGraph pig) {
 		this.pathInGraphsToRemember.removeFromFavorites(pig);
 		this.pathInGraphsToRemember.removeFromRecents(pig);	
 	}
 
 
 	@Override
-	public Iterator<PathInGraph> getFavoritesPaths()
-	{
-		return this.pathInGraphsToRemember.getFavoritesPaths();
-	}
+	public Iterator<PathInGraph> getFavoritesPaths(){return this.pathInGraphsToRemember.getFavoritesPaths();}
 
 
 	@Override
-	public Iterator<PathInGraph> getRecentsPaths() 
-	{
-		return this.pathInGraphsToRemember.getRecentsPaths();
-	}
+	public Iterator<PathInGraph> getRecentsPaths() {return this.pathInGraphsToRemember.getRecentsPaths();}
 
 
 	@Override
-	public void markAsFavorite(PathInGraph pig) 
-	{
-		this.pathInGraphsToRemember.markAsFavorite(pig);
-	}
+	public void markAsFavorite(PathInGraph pig) {this.pathInGraphsToRemember.markAsFavorite(pig);}
 
 
 	@Override
-	public void removeFromFavorites(PathInGraph pig) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
+	public void removeFromFavorites(PathInGraph pig) {this.pathInGraphsToRemember.removeFromFavorites(pig);}
 
 }
