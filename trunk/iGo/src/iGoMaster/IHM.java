@@ -103,15 +103,13 @@ public interface IHM {
 	/**
 	 * Informe l'utilisateur des relaxation de contrainte
 	 * 
-	 * @param algoKindOfInformation
+	 * @param AlgoKindOfException
 	 *            Les relaxation sucessive
-	 * @param station
-	 *            la station ayant un rappport avec le algoKindOfInformation ou null
 	 * @param service
 	 *            le service ayant un rappport avec le algoKindOfInformation ou null
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean infoPathAsked(AlgoKindOfInformation algoKindOfInformation, Station station, Service service);
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service);
 
 	/**
 	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de nouveaux évènements.
