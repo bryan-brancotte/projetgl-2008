@@ -571,7 +571,7 @@ public class NewTravelPanel extends PanelState {
 			}
 		case intermediatesStationsAdd:
 			station = stationsHash.get(s);
-//			System.out.println("intermediatesStationsAdd" + s + ":" + station);
+			// System.out.println("intermediatesStationsAdd" + s + ":" + station);
 			if (station != null
 					&& (!pathBuilder.getCurrentPathInGraph().containsSteps(station) || mode == NewTravelPanelState.BUILDING)) {
 				intermediatesStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this,
@@ -1388,8 +1388,11 @@ public class NewTravelPanel extends PanelState {
 		 * Step
 		 */
 		itStation = p.getStepsIter();
-		while (itStation.hasNext())
-			recordChangedSetting(intermediatesStationsAdd, itStation.next().getName());
+		Station station;
+		while (itStation.hasNext()) {
+			station=itStation.next();
+			recordChangedSetting(intermediatesStationsAdd, station.getName());
+		}
 	}
 
 	/**
