@@ -758,6 +758,24 @@ public class PathInGraph {
 		refusedKindRoute.addAll(org.refusedKindRoute);
 		steps.clear();
 		steps.addAll(org.steps);
+
+		// servicesAlways.clear();
+		// for (Service s : org.servicesAlways)
+		// servicesAlways.add(s);
+		// servicesOnce.clear();
+		// for (Service s : org.servicesOnce)
+		// servicesOnce.add(s);
+		// avoidStations.clear();
+		// for (Station s : org.avoidStations)
+		// avoidStations.add(s);
+		// refusedKindRoute.clear();
+		// for (KindRoute s : org.refusedKindRoute)
+		// refusedKindRoute.add(s);
+		// steps.clear();
+		// for (Station s : org.steps)
+		// steps.add(s);
+		//		
+		//		
 	}
 
 	/**
