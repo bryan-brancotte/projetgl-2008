@@ -29,6 +29,7 @@ import streamInFolder.event.EventInfoNetworkWatcherInFolderJDOM;
 import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
+import streamInFolder.recentsAndFavoritesGraphs.RecentsAndFavoritesPathsInGraphReceiver;
 
 import algorithm.Dijkstra;
 import algorithm.exception.NonValidDestinationException;
@@ -67,6 +68,8 @@ public class IGoMaster implements Master, Observer
 	private PathInGraphCollectionBuilder collectionBuilder;	
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 	
+	private RecentsAndFavoritesPathsInGraph pathInGraphsToRemember;
+	
 	private StateNetwork stateNetwork;
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
@@ -88,6 +91,7 @@ public class IGoMaster implements Master, Observer
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
+		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver();
 		
         this.process();
 	}
@@ -630,30 +634,31 @@ public class IGoMaster implements Master, Observer
 
 
 	@Override
-	public void delete(PathInGraph pig) {
-		// TODO Auto-generated method stub
-		
+	public void delete(PathInGraph pig) 
+	{
+		this.pathInGraphsToRemember.removeFromFavorites(pig);
+		this.pathInGraphsToRemember.removeFromRecents(pig);	
 	}
 
 
 	@Override
-	public Iterator<PathInGraph> getFavoritesPaths() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<PathInGraph> getFavoritesPaths()
+	{
+		return this.pathInGraphsToRemember.getFavoritesPaths();
 	}
 
 
 	@Override
-	public Iterator<PathInGraph> getRecentsPaths() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<PathInGraph> getRecentsPaths() 
+	{
+		return this.pathInGraphsToRemember.getRecentsPaths();
 	}
 
 
 	@Override
-	public void markAsFavorite(PathInGraph pig) {
-		// TODO Auto-generated method stub
-		
+	public void markAsFavorite(PathInGraph pig) 
+	{
+		this.pathInGraphsToRemember.markAsFavorite(pig);
 	}
 
 
