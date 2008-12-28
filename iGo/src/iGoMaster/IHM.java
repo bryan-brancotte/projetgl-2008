@@ -2,7 +2,7 @@ package iGoMaster;
 
 import graphNetwork.PathInGraph;
 import graphNetwork.Service;
-import graphNetwork.Station;
+
 
 /**
  * Interface décrivant les fonctionnalités de l'IHM. Une ihm ne peut être utilisée par le master que si elle répond à ce
