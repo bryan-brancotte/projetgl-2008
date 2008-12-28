@@ -85,6 +85,7 @@ public class Dijkstra extends Algo {
 
 		this.setChanged();
 		this.notifyObservers(p);
+		steps=null;
 	}
 
 	/**
