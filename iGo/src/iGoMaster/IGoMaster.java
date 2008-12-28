@@ -83,12 +83,19 @@ public class IGoMaster implements Master, Observer
 		super();
 		
 		this.algo = new Dijkstra();
+		System.out.println(System.nanoTime());
 		this.lg = new LanguageXML(); 
+		System.out.println(System.nanoTime());
 		this.config = new ConfigurationXML();
+		System.out.println(System.nanoTime());
 		this.ihm = new IGoIhmSmartPhone(this);
+		System.out.println(System.nanoTime());
 		this.graphBuilder = new GraphNetworkBuilder();
+		System.out.println(System.nanoTime());
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
+		System.out.println(System.nanoTime());
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
+		System.out.println(System.nanoTime());
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
 		
 		this.process();
