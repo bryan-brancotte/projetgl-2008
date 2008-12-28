@@ -55,6 +55,9 @@ public abstract class Algo extends Observable {
 		return goMaster;
 	}
 	
+	/**
+	 * Permet au master d'arrêter proprement un algorithme en cours.
+	 */
 	public abstract void abort();
 	
 
