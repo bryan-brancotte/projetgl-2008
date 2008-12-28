@@ -19,7 +19,7 @@
 			<KeyUnknown>
 				<FRANCAIS value="CléInconnue"/>
 				<ENGLISH value="KeyUnknown"/>
-				<GEEK value="C koi cet ASCII ?"/>
+				<GEEK value="What's this ASCII ?"/>
 			</KeyUnknown>
 			<!--HomeDocName will be a directory name, be careful of how you name it-->
 			<HomeDirectoryName>
@@ -40,7 +40,7 @@
 			<DoYouWantToQuit>
 				<FRANCAIS value="Voulez vous quitter l'application ?"/>
 				<ENGLISH value="Do you want to quit ?"/>
-				<GEEK value="Tu veux nous abandonner ?"/>
+				<GEEK value="Nobody kills this program ?"/>
 			</DoYouWantToQuit>
 			<New>
 				<FRANCAIS value="Nouveau"/>
@@ -60,142 +60,177 @@
 			<Favorites>
 				<FRANCAIS value="Favoris"/>
 				<ENGLISH value="Favorites"/>
+				<GEEK value=".bashrc"/>
 			</Favorites>
 			<LoadTravel>
 				<FRANCAIS value="Charger un trajet récent"/>
 				<ENGLISH value="Load recent travel"/>
+				<GEEK value="$load"/>
 			</LoadTravel>
 			<NewTravel>
 				<FRANCAIS value="Nouveau trajet"/>
 				<ENGLISH value="New travel"/>
+				<GEEK value="touch travel"/>
 			</NewTravel>
 			<EditTravel>
 				<FRANCAIS value="Editer un trajet"/>
 				<ENGLISH value="Edit a travel"/>
+				<GEEK value="Vi travel"/>
 			</EditTravel>
 			<LostTravel>
 				<FRANCAIS value="Perdu dans votre trajet"/>
 				<ENGLISH value="Lost in your trip"/>
+				<GEEK value="I'm a looser"/>
 			</LostTravel>
 			<From>
 				<FRANCAIS value="De"/>
 				<ENGLISH value="From"/>
+				<GEEK value="cd .."/>
 			</From>
 			<To>
 				<FRANCAIS value="À"/>
 				<ENGLISH value="To"/>
+				<GEEK value="tab"/>
 			</To>
 			<Money>
 				<FRANCAIS value="€"/>
 				<ENGLISH value="$"/>
+				<GEEK value="bits"/>
 			</Money>
 			<Cost>
 				<FRANCAIS value="Coût"/>
 				<ENGLISH value="Cost"/>
+				<GEEK value="Cost"/>
 			</Cost>
 			<Time>
 				<FRANCAIS value="Temps"/>
 				<ENGLISH value="Time"/>
+				<GEEK value="Time"/>
 			</Time>
 			<LetterForHour>
 				<FRANCAIS value="h"/>
 				<ENGLISH value="h"/>
+				<GEEK value="h"/>
 			</LetterForHour>
 			<LetterForMinute>
 				<FRANCAIS value="min"/>
 				<ENGLISH value="min"/>
+				<GEEK value="min"/>
 			</LetterForMinute>
 			<Edit>
 				<FRANCAIS value="Changer"/>
 				<ENGLISH value="Edit"/>
+				<GEEK value="Vi"/>
 			</Edit>
 			<Start>
 				<FRANCAIS value="Lancer"/>
 				<ENGLISH value="Start"/>
+				<GEEK value="/etc/init"/>
 			</Start>
 			<TotalCost>
 				<FRANCAIS value="Coût total"/>
 				<ENGLISH value="Total cost"/>
+				<GEEK value="Total cost"/>
 			</TotalCost>
 			<TotalTime>
 				<FRANCAIS value="Temps total"/>
 				<ENGLISH value="Total time"/>
+				<GEEK value="Total Time"/>
 			</TotalTime>
 			<RemainingTime>
 				<FRANCAIS value="Temps restant"/>
 				<ENGLISH value="Remaining time"/>
+				<GEEK value="Time Before Destruction"/>
 			</RemainingTime>
 			<Lost>
 				<FRANCAIS value="Perdu"/>
 				<ENGLISH value="Lost"/>
+				<GEEK value=" man this"/>
 			</Lost>
 			<Next>
 				<FRANCAIS value="Suivant"/>
 				<ENGLISH value="Next"/>
+				<GEEK value="tab"/>
 			</Next>
 			<Previous>
 				<FRANCAIS value="Précédent"/>
 				<ENGLISH value="Previous"/>
+				<GEEK value="cd .."/>
 			</Previous>
 			<NextStop>
 				<FRANCAIS value="Prochain changement"/>
 				<ENGLISH value="Next change"/>
+				<GEEK value="it.next()"/>
 			</NextStop>
 			<DoYouWantToQuitYourActualTravel>
 				<FRANCAIS value="Voulez vous quitter votre trajet actuel?&#10;Votre progression sera perdue."/>
 				<ENGLISH value="Do you want to quit your current travel?&#10;Your journey will be lost."/>
+				<GEEK value="You CANNOT quit your travel ! I'll kill you."/>
 			</DoYouWantToQuitYourActualTravel>
 			<Destination>
 				<FRANCAIS value="Destination"/>
 				<ENGLISH value="Destination"/>
+				<GEEK value="Destination"/>
 			</Destination>
 			<Free>
 				<FRANCAIS value="Gratuit"/>
 				<ENGLISH value="Free"/>
+				<GEEK value="Freedom"/>
 			</Free>
 			<GoToArrayMode>
 				<FRANCAIS value="Mode tableau →"/>
 				<ENGLISH value="Array mode →"/>
+				<GEEK value="Geek mode"/>
 			</GoToArrayMode>
 			<GoToGraphicMode>
 				<FRANCAIS value="Mode graphique →"/>
 				<ENGLISH value="Graphic mode →"/>
+				<GEEK value="Stupid mode"/>
 			</GoToGraphicMode>
 			<ComputingANewPath>
 				<FRANCAIS value="Calcul du trajet..."/>
 				<ENGLISH value="Computing the path..."/>
+				<GEEK value="Searching in progress ..."/>
 			</ComputingANewPath>
 			<FindAPath>
 				<FRANCAIS value="Calculer un trajet"/>
 				<ENGLISH value="Find a path"/>
+				<GEEK value="solve"/>
 			</FindAPath>
 			<TravelCriteria>
 				<FRANCAIS value="Critère de calcul"/>
 				<ENGLISH value="Travel criteria"/>
+				<GEEK value="chmod"/>
 			</TravelCriteria>
 			<FirstTravelCriteria>
 				<FRANCAIS value="1er"/>
 				<ENGLISH value="1st"/>
+				<GEEK value="0"/>
 			</FirstTravelCriteria>
 			<SecondTravelCriteria>
 				<FRANCAIS value="2nd"/>
 				<ENGLISH value="2nd"/>
+				<GEEK value="1"/>
 			</SecondTravelCriteria>
 			<Cheaper>
 				<FRANCAIS value="Coût"/>
 				<ENGLISH value="Cheaper"/>
+				<GEEK value="Radin"/>
 			</Cheaper>
 			<Faster>
 				<FRANCAIS value="Rapidité"/>
 				<ENGLISH value="Faster"/>
+				<GEEK value="Flash"/>
 			</Faster>
 			<FewerChanges>
 				<FRANCAIS value="Changement"/>
 				<ENGLISH value="Fewer Changes"/>
+				<GEEK value="Associal"/>
 			</FewerChanges>
 			<TravelMode>
 				<FRANCAIS value="Moyen de transport"/>
 				<ENGLISH value="Travel mode"/>
+				<GEEK value=""/>
 			</TravelMode>
 			<Trolley>
 				<FRANCAIS value="Tramway"/>
