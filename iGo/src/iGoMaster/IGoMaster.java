@@ -82,15 +82,15 @@ public class IGoMaster implements Master, Observer
 		super();
 		
 		this.algo = new Dijkstra();
-		this.lg = new LanguageXML(); 
 		this.config = new ConfigurationXML();
+		this.lg = new LanguageXML( config.getValue(SettingsKey.LANGUAGE.toString()));
 		this.ihm = new IGoIhmSmartPhone(this);
 		this.graphBuilder = new GraphNetworkBuilder();
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
 		
-		this.process();
+        this.process();
 	}
 	
 	
@@ -122,63 +122,58 @@ public class IGoMaster implements Master, Observer
 	 */
 	private void launchAlgo()
 	{
-		
 		new Thread() 
 		{
+			boolean exception = true;
+			
+			public void dealWithExceptions(AlgoKindOfException kindOfException)
+			{
+				System.out.println("elo --> Le master a rencontré une exception venant d'algo");
+				System.out.println(kindOfException.toString());
+				
+				ihm.returnPathAsked(null, kindOfException);
+				threads.clear();
+				exception = false;
+			}
+			
+			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service)
+			{
+				System.out.println("elo --> Le master a relaché une contrainte");
+				
+				ihm.infoPathAsked(kindOfException, service);
+				
+				if (kindOfException==AlgoKindOfException.ServiceNotAccessibleException)
+					collectionBuilder.getPathInGraphConstraintBuilder().removeSeviceOnce(service);
+				
+				exception = true;
+			}
+			
+			
 			public void run() 
 			{
+		
 				threads.add(currentThread());
 				
 				System.out.println("elo --> Algo lancé");
 				
-				try 
-				{
+				while (exception)
+				{	
+					try 
+					{
 						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
-				} 
-				catch (VoidPathException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.VoidPathException);
-					threads.clear();
-				} 
-				catch (ServiceNotAccessibleException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.ServiceNotAccessibleException);
-					threads.clear();
-				} 
-				catch (StationNotAccessibleException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.StationNotAccessibleException);
-					threads.clear();
-				} 
-				catch (NoRouteForStationException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.NoRouteForStationException);
-					threads.clear();
-				} 
-				catch (StationNotOnRoadException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.StationNotOnRoadException);
-					threads.clear();
-				}
-				catch (NonValidOriginException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.NonValidOriginException);
-					threads.clear();
-				}
-				catch (NonValidDestinationException e) 
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.NonValidDestinationException);
-					threads.clear();
-				}
-				catch (Exception e)
-				{
-					ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
-					threads.clear();
+						exception = false;
+					}
+					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 
+					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 	 
+					catch (StationNotOnRoadException e) {dealWithExceptions(AlgoKindOfException.StationNotOnRoadException);} 
+					catch (NonValidOriginException e) {dealWithExceptions(AlgoKindOfException.NonValidOriginException);} 
+					catch (NonValidDestinationException e) {dealWithExceptions(AlgoKindOfException.NonValidDestinationException);} 
+					catch (ServiceNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.ServiceNotAccessibleException, e.getService());} 
+					catch (StationNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.StationNotAccessibleException);}
+					catch (Exception e){dealWithExceptions(AlgoKindOfException.UnknownException);} 
 				}
 			}
-			
 		}.start();
-		
 	}
 
 	
