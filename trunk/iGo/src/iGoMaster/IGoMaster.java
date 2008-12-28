@@ -71,8 +71,6 @@ public class IGoMaster implements Master, Observer
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
 	
-	private boolean blockingDatasForNetworkUpdate = false;
-	
 
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
@@ -335,7 +333,6 @@ public class IGoMaster implements Master, Observer
 		}
 		else if (o.equals(eventInfoNetwork) && o!=null && arg==null)
 		{
-			blockingDatasForNetworkUpdate = true;
 			
 			if (!threads.isEmpty())
 			{	
@@ -344,9 +341,7 @@ public class IGoMaster implements Master, Observer
 			}
 			
 			eventInfoNetwork.applyInfo(graphBuilder);
-			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
-			
-			blockingDatasForNetworkUpdate = false;
+			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");	
 		}
 	}
 	
@@ -416,8 +411,6 @@ public class IGoMaster implements Master, Observer
 			catch (InterruptedException e) {e.printStackTrace();}
 			threads.clear();
 		}
-		
-		/** TODO : Statuer sur l'avenir du boolean blockData machin : voir with Bryan */
 		
 		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
 		if (getStateNetwork() == StateNetwork.NetworkDoesntExist) throw new NoNetworkException();

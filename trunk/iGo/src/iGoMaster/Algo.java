@@ -12,7 +12,6 @@ import java.util.Observable;
 
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
-import algorithm.exception.NonValidPathException;
 
 
 
