@@ -40,7 +40,7 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidPathException {
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidOriginException, NonValidDestinationException {
 
 		isAborted=false;
 		try {
