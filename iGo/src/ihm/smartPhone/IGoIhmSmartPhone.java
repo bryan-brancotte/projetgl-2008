@@ -383,29 +383,40 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected void checkLoadTravelPanel() {
 		if (loadTravelPanel == null) {
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			// for (int i = 0; i < 5; i++)
-			// lst.add(new TravelForTravelPanelExemple(this));
+			Iterator<PathInGraph> itP = master.getRecentsPaths();
+			while (itP.hasNext()) {
+				PathInGraph pathInGraph = (PathInGraph) itP.next();
+				
+			}
+//			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next()) {
+//
+//				@Override
+//				public void delete() {
+//					master.delete(path.getCurrentPathInGraph());
+//				}
+//
+//				@Override
+//				public void edit() {
+//					setCurrentState(IhmReceivingStates.NEW_TRAVEL, path);
+//				}
+//
+//				@Override
+//				public void start() {
+//					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
+//				}
+//
+//				@Override
+//				public void setFavorite(boolean isFav) {
+//					if (isFav) {
+//						master.markAsFavorite(path.getCurrentPathInGraph());
+//					} else {
+//						master.removeFromFavorites(path.getCurrentPathInGraph());
+//					}
+//					this.isFav = isFav;
+//				}
+//			});
 			loadTravelPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.LOAD_TRAVEL, lst);
-			new TravelForTravelPanelImplPathInGraph(null) {
 
-				@Override
-				public void delete() {
-					// TODO delete PIG
-
-				}
-
-				@Override
-				public void edit() {
-					// pathBuilderInAction = path;
-					setCurrentState(IhmReceivingStates.NEW_TRAVEL, path);
-				}
-
-				@Override
-				public void start() {
-					// pathBuilderInAction = path;
-					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
-				}
-			};
 		}
 	}
 
@@ -543,7 +554,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				return false;
 			this.actualState = actualState;
 			centerPanel.removeAll();
-			newTravelPanel=null;
+			newTravelPanel = null;
 			try {
 				checkNewTravelPanel();
 			} catch (OutOfMemoryError e) {
@@ -557,7 +568,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.NEW_TRAVEL);
 					break;
 				case LOST_IN_TRAVEL:
-					String xml=path.exportPath();
+					String xml = path.exportPath();
 					pathBuilder.importPath(xml);
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
@@ -775,6 +786,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (actualState == IhmReceivingStates.SETTINGS)
 			newTravelPanel = null;
 
+		if (key.compareTo(SettingsKey.LANGUAGE.toString()) == 0)
+			sortSkin();
+
 		if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
 			if (value.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0)
 				this.preferedState = IhmReceivingStates.ARRAY_MODE;
@@ -840,14 +854,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			skins.add(iGoSmartPhoneSkin.Water);
 			skins.add(iGoSmartPhoneSkin.WaterPool);
 			skins.add(iGoSmartPhoneSkin.White);
-			Collections.sort(skins, new Comparator<iGoSmartPhoneSkin>() {
-				@Override
-				public int compare(iGoSmartPhoneSkin o1, iGoSmartPhoneSkin o2) {
-					return master.lg(o1.toString()).compareTo(master.lg(o2.toString()));
-				}
-			});
+			sortSkin();
 		}
 		return skins.iterator();
+	}
+
+	protected void sortSkin() {
+		Collections.sort(skins, new Comparator<iGoSmartPhoneSkin>() {
+			@Override
+			public int compare(iGoSmartPhoneSkin o1, iGoSmartPhoneSkin o2) {
+				return master.lg(o1.toString()).compareTo(master.lg(o2.toString()));
+			}
+		});
+
 	}
 
 	@Override

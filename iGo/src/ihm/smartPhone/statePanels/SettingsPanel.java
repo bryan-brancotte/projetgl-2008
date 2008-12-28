@@ -88,7 +88,6 @@ public class SettingsPanel extends PanelState {
 		PTRadioBox rb;
 		CodeExecutor ex;
 		Service ser;
-		iGoSmartPhoneSkin sk;
 		boolean bool;
 
 		/***************************************************************************************************************
@@ -229,24 +228,7 @@ public class SettingsPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Skin
 		 */
-		grp = new PTRadioBoxGroup();
-		skinsCollapsableArea = makeCollapsableArea();
-		skinsRadioBoxs = new LinkedList<PairPTRadioBox>();
-		skinsCollapsableArea.changeCollapseState();
-		Iterator<iGoSmartPhoneSkin> itSkin = father.getSkins();
-		bool = false;
-		while (itSkin.hasNext()) {
-			rb = makeRadioButton(grp, new CodeExecutor1P<iGoSmartPhoneSkin>(sk = (itSkin.next())) {
-				@Override
-				public void execute() {
-					father.setConfig(SettingsKey.SKIN.toString(), this.origine.toString());
-					father.setSkin(this.origine);
-				}
-			});
-			rb.setClicked(father.getConfig(SettingsKey.SKIN.toString()).compareTo(sk.toString()) == 0);
-			skinsCollapsableArea.addComponent(rb);
-			skinsRadioBoxs.add(new PairPTRadioBox(rb, father.lg(sk.toString())));
-		}
+		makeSkinArea();
 
 		/***************************************************************************************************************
 		 * Languages
@@ -261,6 +243,7 @@ public class SettingsPanel extends PanelState {
 				@Override
 				public void execute() {
 					father.setConfig(SettingsKey.LANGUAGE.toString(), this.origine);
+					makeSkinArea();
 					upperBar.setMainTitle(father.lg("Settings"));
 				}
 			});
@@ -271,6 +254,35 @@ public class SettingsPanel extends PanelState {
 		}
 		if (bool)
 			languagesCollapsableArea.changeCollapseState();
+	}
+
+	protected void makeSkinArea() {
+		PTRadioBoxGroup grp;
+		PTRadioBox rb;
+		iGoSmartPhoneSkin sk;
+		boolean collapsed = true;
+		if (skinsCollapsableArea != null)
+			collapsed = skinsCollapsableArea.isCollapsed();
+
+		grp = new PTRadioBoxGroup();
+		skinsCollapsableArea = makeCollapsableArea();
+		skinsRadioBoxs = new LinkedList<PairPTRadioBox>();
+		skinsCollapsableArea.changeCollapseState();
+		Iterator<iGoSmartPhoneSkin> itSkin = father.getSkins();
+		while (itSkin.hasNext()) {
+			rb = makeRadioButton(grp, new CodeExecutor1P<iGoSmartPhoneSkin>(sk = (itSkin.next())) {
+				@Override
+				public void execute() {
+					father.setConfig(SettingsKey.SKIN.toString(), this.origine.toString());
+					father.setSkin(this.origine);
+				}
+			});
+			rb.setClicked(father.getConfig(SettingsKey.SKIN.toString()).compareTo(sk.toString()) == 0);
+			skinsCollapsableArea.addComponent(rb);
+			skinsRadioBoxs.add(new PairPTRadioBox(rb, father.lg(sk.toString())));
+		}
+		if (!collapsed)
+			skinsCollapsableArea.changeCollapseState();
 	}
 
 	protected void recordChangedSetting(int familly, String s) {
@@ -288,31 +300,41 @@ public class SettingsPanel extends PanelState {
 		case mainTravelCriteria:
 		case minorTravelCriteria:
 			if (travelCriteriaRadioBoxs[0].isClicked())
-				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
+						.toString());
 			else if (travelCriteriaRadioBoxs[1].isClicked())
-				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
+						.toString());
 			else if (travelCriteriaRadioBoxs[2].isClicked())
-				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.CHANGE.toString());
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.CHANGE
+						.toString());
 			else if (travelCriteriaRadioBoxs[3].isClicked()) {
 				travelCriteriaRadioBoxs[1].setClicked(true);
-				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
+						.toString());
 			} else {
 				travelCriteriaRadioBoxs[0].setClicked(true);
-				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
+				father.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
+						.toString());
 			}
 
 			if (travelCriteriaRadioBoxs[3].isClicked())
-				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
+						.toString());
 			else if (travelCriteriaRadioBoxs[4].isClicked())
-				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
+						.toString());
 			else if (travelCriteriaRadioBoxs[5].isClicked())
-				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.CHANGE.toString());
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.CHANGE
+						.toString());
 			else if (travelCriteriaRadioBoxs[0].isClicked()) {
 				travelCriteriaRadioBoxs[4].setClicked(true);
-				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME.toString());
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.TIME
+						.toString());
 			} else {
 				travelCriteriaRadioBoxs[3].setClicked(true);
-				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST.toString());
+				father.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
+						.toString());
 			}
 
 			return;
