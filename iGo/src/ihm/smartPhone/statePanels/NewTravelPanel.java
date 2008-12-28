@@ -873,341 +873,359 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Arrival
 		 */
-		s = father.lg("Arrival");
-		taille = prepareAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
-				arrivalStationCollapsableArea, s, ordonne, decalage, decalage2);
-		arrivalStationCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
-				arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille, true);
-		if (arrivalStationChanged)
-			pathBuilder.setDestination(station);
-		ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height + decalage;
+		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+			s = father.lg("Arrival");
+			taille = prepareAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
+					arrivalStationCollapsableArea, s, ordonne, decalage, decalage2);
+			arrivalStationCollapsableArea
+					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
+							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
+					arrivalStationCollapsableArea, ordonne, decalage, decalage2, taille, true);
+			if (arrivalStationChanged)
+				pathBuilder.setDestination(station);
+			ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height
+					+ decalage;
+		}
 
 		/***************************************************************************************************************
 		 * Travel criteria
 		 */
-		s = father.lg("TravelCriteria");
-		if (!travelCriteriaCollapsableArea.isCollapsed()) {
-			width = getWidth() - decalage2;
-			tmp = getWidthString(father.lg("FirstTravelCriteria"), buffer, father.getSizeAdapteur().getSmallFont());
-			if ((cpt = getWidthString(father.lg("SecondTravelCriteria"), buffer, father.getSizeAdapteur()
-					.getSmallFont())) > tmp)
-				tmp = cpt;
-			tmp += decalage + decalageDemi + (decalage >> 2);
-			/***********************************************************************************************************
-			 * main Cheaper
-			 */
-			travelCriteriaRadioBoxs[0].prepareArea(buffer, tmp, travelCriteriaCollapsableArea
-					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-							.getIntermediateFont()), father.lg("Cheaper"), father.getSizeAdapteur().getSmallFont());
-			/***********************************************************************************************************
-			 * main faster
-			 */
-			travelCriteriaRadioBoxs[1].prepareArea(buffer, travelCriteriaRadioBoxs[0].getArea().x
-					+ travelCriteriaRadioBoxs[0].getArea().width + decalageDemi,
-					travelCriteriaRadioBoxs[0].getArea().y, father.lg("Faster"), father.getSizeAdapteur()
-							.getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((travelCriteriaRadioBoxs[1].getArea().x + travelCriteriaRadioBoxs[1].getArea().width) > width)
-				travelCriteriaRadioBoxs[1].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[1].getArea().y
-						+ travelCriteriaRadioBoxs[1].getArea().height + decalageDemi, father.lg("Faster"), father
+		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+			s = father.lg("TravelCriteria");
+			if (!travelCriteriaCollapsableArea.isCollapsed()) {
+				width = getWidth() - decalage2;
+				tmp = getWidthString(father.lg("FirstTravelCriteria"), buffer, father.getSizeAdapteur().getSmallFont());
+				if ((cpt = getWidthString(father.lg("SecondTravelCriteria"), buffer, father.getSizeAdapteur()
+						.getSmallFont())) > tmp)
+					tmp = cpt;
+				tmp += decalage + decalageDemi + (decalage >> 2);
+				/***********************************************************************************************************
+				 * main Cheaper
+				 */
+				travelCriteriaRadioBoxs[0].prepareArea(buffer, tmp, travelCriteriaCollapsableArea
+						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+								.getIntermediateFont()), father.lg("Cheaper"), father.getSizeAdapteur().getSmallFont());
+				/***********************************************************************************************************
+				 * main faster
+				 */
+				travelCriteriaRadioBoxs[1].prepareArea(buffer, travelCriteriaRadioBoxs[0].getArea().x
+						+ travelCriteriaRadioBoxs[0].getArea().width + decalageDemi, travelCriteriaRadioBoxs[0]
+						.getArea().y, father.lg("Faster"), father.getSizeAdapteur().getSmallFont());
+				// si ca sort du cadre, retour à la ligne
+				if ((travelCriteriaRadioBoxs[1].getArea().x + travelCriteriaRadioBoxs[1].getArea().width) > width)
+					travelCriteriaRadioBoxs[1].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[1].getArea().y
+							+ travelCriteriaRadioBoxs[1].getArea().height + decalageDemi, father.lg("Faster"), father
+							.getSizeAdapteur().getSmallFont());
+				/***********************************************************************************************************
+				 * main changes
+				 */
+				travelCriteriaRadioBoxs[2].prepareArea(buffer, travelCriteriaRadioBoxs[1].getArea().x
+						+ travelCriteriaRadioBoxs[1].getArea().width + decalageDemi, travelCriteriaRadioBoxs[1]
+						.getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur().getSmallFont());
+				// si ca sort du cadre, retour à la ligne
+				if ((travelCriteriaRadioBoxs[2].getArea().x + travelCriteriaRadioBoxs[2].getArea().width) > width)
+					travelCriteriaRadioBoxs[2].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[2].getArea().y
+							+ travelCriteriaRadioBoxs[2].getArea().height + decalageDemi, father.lg("FewerChanges"),
+							father.getSizeAdapteur().getSmallFont());
+				/***********************************************************************************************************
+				 * minor Cheaper
+				 */
+				travelCriteriaRadioBoxs[3].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[2].getArea().y
+						+ travelCriteriaRadioBoxs[2].getArea().height + decalageDemi, father.lg("Cheaper"), father
 						.getSizeAdapteur().getSmallFont());
-			/***********************************************************************************************************
-			 * main changes
-			 */
-			travelCriteriaRadioBoxs[2].prepareArea(buffer, travelCriteriaRadioBoxs[1].getArea().x
-					+ travelCriteriaRadioBoxs[1].getArea().width + decalageDemi,
-					travelCriteriaRadioBoxs[1].getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur()
-							.getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((travelCriteriaRadioBoxs[2].getArea().x + travelCriteriaRadioBoxs[2].getArea().width) > width)
-				travelCriteriaRadioBoxs[2].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[2].getArea().y
-						+ travelCriteriaRadioBoxs[2].getArea().height + decalageDemi, father.lg("FewerChanges"), father
-						.getSizeAdapteur().getSmallFont());
-			/***********************************************************************************************************
-			 * minor Cheaper
-			 */
-			travelCriteriaRadioBoxs[3].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[2].getArea().y
-					+ travelCriteriaRadioBoxs[2].getArea().height + decalageDemi, father.lg("Cheaper"), father
-					.getSizeAdapteur().getSmallFont());
-			/***********************************************************************************************************
-			 * minor faster
-			 */
-			travelCriteriaRadioBoxs[4].prepareArea(buffer, travelCriteriaRadioBoxs[3].getArea().x
-					+ travelCriteriaRadioBoxs[3].getArea().width + decalageDemi,
-					travelCriteriaRadioBoxs[3].getArea().y, father.lg("Faster"), father.getSizeAdapteur()
-							.getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((travelCriteriaRadioBoxs[4].getArea().x + travelCriteriaRadioBoxs[4].getArea().width) > width)
-				travelCriteriaRadioBoxs[4].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[4].getArea().y
-						+ travelCriteriaRadioBoxs[4].getArea().height + decalageDemi, father.lg("Faster"), father
-						.getSizeAdapteur().getSmallFont());
-			/***********************************************************************************************************
-			 * minor changes
-			 */
-			travelCriteriaRadioBoxs[5].prepareArea(buffer, travelCriteriaRadioBoxs[4].getArea().x
-					+ travelCriteriaRadioBoxs[4].getArea().width + decalageDemi,
-					travelCriteriaRadioBoxs[4].getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur()
-							.getSmallFont());
-			// si ca sort du cadre, retour à la ligne
-			if ((travelCriteriaRadioBoxs[5].getArea().x + travelCriteriaRadioBoxs[5].getArea().width) > width)
-				travelCriteriaRadioBoxs[5].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[5].getArea().y
-						+ travelCriteriaRadioBoxs[5].getArea().height + decalageDemi, father.lg("FewerChanges"), father
-						.getSizeAdapteur().getSmallFont());
+				/***********************************************************************************************************
+				 * minor faster
+				 */
+				travelCriteriaRadioBoxs[4].prepareArea(buffer, travelCriteriaRadioBoxs[3].getArea().x
+						+ travelCriteriaRadioBoxs[3].getArea().width + decalageDemi, travelCriteriaRadioBoxs[3]
+						.getArea().y, father.lg("Faster"), father.getSizeAdapteur().getSmallFont());
+				// si ca sort du cadre, retour à la ligne
+				if ((travelCriteriaRadioBoxs[4].getArea().x + travelCriteriaRadioBoxs[4].getArea().width) > width)
+					travelCriteriaRadioBoxs[4].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[4].getArea().y
+							+ travelCriteriaRadioBoxs[4].getArea().height + decalageDemi, father.lg("Faster"), father
+							.getSizeAdapteur().getSmallFont());
+				/***********************************************************************************************************
+				 * minor changes
+				 */
+				travelCriteriaRadioBoxs[5].prepareArea(buffer, travelCriteriaRadioBoxs[4].getArea().x
+						+ travelCriteriaRadioBoxs[4].getArea().width + decalageDemi, travelCriteriaRadioBoxs[4]
+						.getArea().y, father.lg("FewerChanges"), father.getSizeAdapteur().getSmallFont());
+				// si ca sort du cadre, retour à la ligne
+				if ((travelCriteriaRadioBoxs[5].getArea().x + travelCriteriaRadioBoxs[5].getArea().width) > width)
+					travelCriteriaRadioBoxs[5].prepareArea(buffer, tmp, travelCriteriaRadioBoxs[5].getArea().y
+							+ travelCriteriaRadioBoxs[5].getArea().height + decalageDemi, father.lg("FewerChanges"),
+							father.getSizeAdapteur().getSmallFont());
 
+			}
+			travelCriteriaCollapsableArea
+					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
+							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			if (!travelCriteriaCollapsableArea.isCollapsed()) {
+				buffer.setFont(father.getSizeAdapteur().getSmallFont());
+				s = father.lg("FirstTravelCriteria");
+				buffer.drawString(s, decalage + decalageDemi, travelCriteriaRadioBoxs[0].getArea().y
+						+ getHeightString(s, buffer));
+				s = father.lg("SecondTravelCriteria");
+				buffer.drawString(s, decalage + decalageDemi, travelCriteriaRadioBoxs[3].getArea().y
+						+ getHeightString(s, buffer));
+				for (PTRadioBox t : travelCriteriaRadioBoxs)
+					t.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
+							father.getSkin().getColorLetter());
+			}
+			ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height
+					+ decalage;
 		}
-		travelCriteriaCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!travelCriteriaCollapsableArea.isCollapsed()) {
-			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			s = father.lg("FirstTravelCriteria");
-			buffer.drawString(s, decalage + decalageDemi, travelCriteriaRadioBoxs[0].getArea().y
-					+ getHeightString(s, buffer));
-			s = father.lg("SecondTravelCriteria");
-			buffer.drawString(s, decalage + decalageDemi, travelCriteriaRadioBoxs[3].getArea().y
-					+ getHeightString(s, buffer));
-			for (PTRadioBox t : travelCriteriaRadioBoxs)
-				t.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
-						father.getSkin().getColorLetter());
-		}
-		ordonne = travelCriteriaCollapsableArea.getArea().y + travelCriteriaCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Travel mode
 		 */
-		chk = null;
-		s = father.lg("TravelMode");
-		if (!travelModeCollapsableArea.isCollapsed()) {
-			for (PairPTCheckBox p : travelModeCheckBoxs) {
-				p.chk.prepareArea(buffer, (chk == null) ? decalage + decalageDemi : chk.getArea().x
-						+ chk.getArea().width + decalageDemi, (chk == null) ? travelCriteriaCollapsableArea
-						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-								.getIntermediateFont()) : chk.getArea().y, p.name, father.getSizeAdapteur()
-						.getSmallFont());
-				if ((p.chk.getArea().x + p.chk.getArea().width) > (getWidth() - decalage)) {
-					p.chk.prepareArea(buffer, decalage + decalageDemi, p.chk.getArea().y + p.chk.getArea().height
-							+ decalageDemi, p.name, father.getSizeAdapteur().getSmallFont());
+		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+			chk = null;
+			s = father.lg("TravelMode");
+			if (!travelModeCollapsableArea.isCollapsed()) {
+				for (PairPTCheckBox p : travelModeCheckBoxs) {
+					p.chk.prepareArea(buffer, (chk == null) ? decalage + decalageDemi : chk.getArea().x
+							+ chk.getArea().width + decalageDemi, (chk == null) ? travelCriteriaCollapsableArea
+							.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+									.getIntermediateFont()) : chk.getArea().y, p.name, father.getSizeAdapteur()
+							.getSmallFont());
+					if ((p.chk.getArea().x + p.chk.getArea().width) > (getWidth() - decalage)) {
+						p.chk.prepareArea(buffer, decalage + decalageDemi, p.chk.getArea().y + p.chk.getArea().height
+								+ decalageDemi, p.name, father.getSizeAdapteur().getSmallFont());
+					}
+					chk = p.chk;
 				}
-				chk = p.chk;
 			}
+			travelModeCollapsableArea
+					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
+							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			if (!travelModeCollapsableArea.isCollapsed())
+				for (PairPTCheckBox p : travelModeCheckBoxs)
+					p.chk.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+							.getColorSubAreaInside(), father.getSkin().getColorLetter());
+			ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + decalage;
 		}
-		travelModeCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
-				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!travelModeCollapsableArea.isCollapsed())
-			for (PairPTCheckBox p : travelModeCheckBoxs)
-				p.chk.draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin().getColorSubAreaInside(),
-						father.getSkin().getColorLetter());
-		ordonne = travelModeCollapsableArea.getArea().y + travelModeCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Services
 		 */
-		s = father.lg("Services");
-		if (!servicesCollapsableArea.isCollapsed() && !servicesRadioBoxs.isEmpty()) {
-			pos = new int[3];
-			width = 0;
-			cpt = 0;
-			// on trouve la largueur de la colonne des services
-			ord = new byte[servicesRadioBoxs.size()];
-			for (PairPTRadioBoxs p : servicesRadioBoxs) {
-				tmp = getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont());
-				if (tmp > (getWidth() - decalage2 - decalage >> 1)) {
-					ord[cpt] = 0;
-					tmp = 0;
-					String[] splited = p.service.getName().split(" ");
-					int myTmp;
-					for (String miniS : splited) {
-						ord[cpt]++;
-						myTmp = getWidthString(miniS, buffer, father.getSizeAdapteur().getSmallFont());
-						if (myTmp > tmp)
-							tmp = myTmp;
+		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+			s = father.lg("Services");
+			if (!servicesCollapsableArea.isCollapsed() && !servicesRadioBoxs.isEmpty()) {
+				pos = new int[3];
+				width = 0;
+				cpt = 0;
+				// on trouve la largueur de la colonne des services
+				ord = new byte[servicesRadioBoxs.size()];
+				for (PairPTRadioBoxs p : servicesRadioBoxs) {
+					tmp = getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont());
+					if (tmp > (getWidth() - decalage2 - decalage >> 1)) {
+						ord[cpt] = 0;
+						tmp = 0;
+						String[] splited = p.service.getName().split(" ");
+						int myTmp;
+						for (String miniS : splited) {
+							ord[cpt]++;
+							myTmp = getWidthString(miniS, buffer, father.getSizeAdapteur().getSmallFont());
+							if (myTmp > tmp)
+								tmp = myTmp;
+						}
+					} else {
+						ord[cpt] = 1;
 					}
-				} else {
-					ord[cpt] = 1;
+					cpt++;
+					if (tmp > width)
+						width = tmp;
 				}
-				cpt++;
-				if (tmp > width)
-					width = tmp;
-			}
-			// on calcul les positions des 3 colone de valehbur des services
-			tmp = (((getWidth() - decalage2 - decalage - width) / 3) >> 1);
-			pos[0] = decalage + width + tmp;
-			pos[1] = pos[0] + (tmp << 1);
-			pos[2] = pos[1] + (tmp << 1);
-			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-					.getSizeAdapteur().getIntermediateFont());
-			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont()) + decalageDemi;
-			cpt = -1;
-			for (PairPTRadioBoxs p : servicesRadioBoxs) {
-				tmp += width;
-				if (ord[++cpt]-- >= 1)
-					tmp += width * ord[cpt] >> 1;
-				for (int i = 0; i < pos.length; i++) {
-					p.rbs[i].prepareArea(buffer, pos[i], tmp, "", father.getSizeAdapteur().getSmallFont(), true, false);
+				// on calcul les positions des 3 colone de valehbur des services
+				tmp = (((getWidth() - decalage2 - decalage - width) / 3) >> 1);
+				pos[0] = decalage + width + tmp;
+				pos[1] = pos[0] + (tmp << 1);
+				pos[2] = pos[1] + (tmp << 1);
+				tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+						.getSizeAdapteur().getIntermediateFont());
+				width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont()) + decalageDemi;
+				cpt = -1;
+				for (PairPTRadioBoxs p : servicesRadioBoxs) {
+					tmp += width;
+					if (ord[++cpt]-- >= 1)
+						tmp += width * ord[cpt] >> 1;
+					for (int i = 0; i < pos.length; i++) {
+						p.rbs[i].prepareArea(buffer, pos[i], tmp, "", father.getSizeAdapteur().getSmallFont(), true,
+								false);
+					}
+					if (ord[cpt] >= 1)
+						tmp += width * ord[cpt] >> 1;
 				}
-				if (ord[cpt] >= 1)
-					tmp += width * ord[cpt] >> 1;
-			}
-			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
-					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
-							.getSkin().getColorLetter());
-			// ____________Idle_Once_Always
-			// __Coffre_____O_____O____X___
-			// __Handi______O_____X____O___
-			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-					.getSizeAdapteur().getIntermediateFont());
-			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			buffer.drawString(father.lg(SettingsValue.Idle.toString()), pos[0]
-					- (getWidthString(father.lg(SettingsValue.Idle.toString()), buffer) >> 1), tmp);
-			buffer.drawString(father.lg(SettingsValue.Once.toString()), pos[1]
-					- (getWidthString(father.lg(SettingsValue.Once.toString()), buffer) >> 1), tmp);
-			buffer.drawString(father.lg(SettingsValue.Always.toString()), pos[2]
-					- (getWidthString(father.lg(SettingsValue.Always.toString()), buffer) >> 1), tmp);
-			tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
-					.getSizeAdapteur().getIntermediateFont());
-			width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont());
-			tmp += width;
-			width += decalageDemi;
-			for (PairPTRadioBoxs p : servicesRadioBoxs) {
-				tmp += width;
-				p.rbs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(),
-						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-				p.rbs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(),
-						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-				p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(),
-						father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+				servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+						.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin()
+						.getColorLetter());
+				// ____________Idle_Once_Always
+				// __Coffre_____O_____O____X___
+				// __Handi______O_____X____O___
+				tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+						.getSizeAdapteur().getIntermediateFont());
 				buffer.setFont(father.getSizeAdapteur().getSmallFont());
-				if (getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
-						.getArea().width >> 1)) {
-					String[] splited = p.service.getName().split(" ");
-					tmp -= width;
-					for (String miniS : splited) {
-						tmp += width;
-						buffer.drawString(miniS, decalage << 1, tmp);
+				buffer.drawString(father.lg(SettingsValue.Idle.toString()), pos[0]
+						- (getWidthString(father.lg(SettingsValue.Idle.toString()), buffer) >> 1), tmp);
+				buffer.drawString(father.lg(SettingsValue.Once.toString()), pos[1]
+						- (getWidthString(father.lg(SettingsValue.Once.toString()), buffer) >> 1), tmp);
+				buffer.drawString(father.lg(SettingsValue.Always.toString()), pos[2]
+						- (getWidthString(father.lg(SettingsValue.Always.toString()), buffer) >> 1), tmp);
+				tmp = servicesCollapsableArea.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father
+						.getSizeAdapteur().getIntermediateFont());
+				width = getHeightString("", buffer, father.getSizeAdapteur().getSmallFont());
+				tmp += width;
+				width += decalageDemi;
+				for (PairPTRadioBoxs p : servicesRadioBoxs) {
+					tmp += width;
+					p.rbs[0].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+							.getColorSubAreaInside(), father.getSkin().getColorLetter());
+					p.rbs[1].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+							.getColorSubAreaInside(), father.getSkin().getColorLetter());
+					p.rbs[2].draw(buffer, father.getSizeAdapteur().getSmallFont(), father.getSkin()
+							.getColorSubAreaInside(), father.getSkin().getColorLetter());
+					buffer.setFont(father.getSizeAdapteur().getSmallFont());
+					if (getWidthString(p.service.getName(), buffer, father.getSizeAdapteur().getSmallFont()) > (servicesCollapsableArea
+							.getArea().width >> 1)) {
+						String[] splited = p.service.getName().split(" ");
+						tmp -= width;
+						for (String miniS : splited) {
+							tmp += width;
+							buffer.drawString(miniS, decalage << 1, tmp);
+						}
+					} else {
+						buffer.drawString(p.service.getName(), decalage << 1, tmp);
 					}
-				} else {
-					buffer.drawString(p.service.getName(), decalage << 1, tmp);
+					buffer.setColor(father.getNetworkColorManager().getColor(p.service));
+					buffer.fillOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
+							.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
+							.getSizeIntermediateFont() >> 1);
+					buffer.setColor(father.getSkin().getColorLetter());
+					buffer.drawOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
+							.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
+							.getSizeIntermediateFont() >> 1);
 				}
-				buffer.setColor(father.getNetworkColorManager().getColor(p.service));
-				buffer.fillOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
-						.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
-						.getSizeIntermediateFont() >> 1);
-				buffer.setColor(father.getSkin().getColorLetter());
-				buffer.drawOval(decalage + (decalage >> 2) - 1, p.rbs[0].getArea().y + (decalage >> 3), father
-						.getSizeAdapteur().getSizeIntermediateFont() >> 1, father.getSizeAdapteur()
-						.getSizeIntermediateFont() >> 1);
-			}
-		} else
-			servicesCollapsableArea.update(buffer, decalage, ordonne, s,
-					father.getSizeAdapteur().getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father
-							.getSkin().getColorLetter());
-		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage;
+			} else
+				servicesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+						.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin()
+						.getColorLetter());
+			ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage;
+		}
 
 		/***************************************************************************************************************
 		 * Station intermediaire
 		 */
-		s = father.lg("IntermediatesStations");
-		taille = prepareAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
-				intermediatesStationsCollapsableArea, s, ordonne, decalage, decalage2);
-		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-			intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
-					+ intermediatesStationsTextBox.getArea().width + decalage,
-					intermediatesStationsTextBox.getArea().y, imageOk);
-			rec.setBounds(intermediatesStationsTextBox.getArea().x, intermediatesStationsArea.getArea().height
-					+ intermediatesStationsArea.getArea().y, intermediatesStationsTextBox.getArea().width, 0);
-			intermediatesStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
-					* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
-		}
-		intermediatesStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		station = drawAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
-				intermediatesStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
-		if (!intermediatesStationsCollapsableArea.isCollapsed()) {
-			if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
-					|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
-					|| pathBuilder.getCurrentPathInGraph().getDestination() == station
-					|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
-				intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
-			} else
-				intermediatesStationsButton.draw(buffer, imageOk);
-			itS = pathBuilder.getCurrentPathInGraph().getStepsIter();
-			// x = intermediatesStationsTextBox.getArea().x;
-			// y = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
-			// + decalageDemi + taille;
-			// rec.height += decalageDemi;
-			while (itS.hasNext()) {
-				station = itS.next();
-				rec.y += rec.height + decalageDemi;
-				rec.height = 0;
-				buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
-				rec.height += getHeightString(station.getName(), buffer);
-				buffer.drawString(station.getName(), rec.x + decalageDemi, rec.y + rec.height);
-				// buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
-				drawRoutesAndServices(rec.x + decalageDemi, rec.y + rec.height + decalageDemi, decalage, taille,
-						station);
-				rec.height += taille + decalage;
-				buffer.drawRect(rec.x, rec.y, rec.width, rec.height);
-				intermediatesStationsDel.get(station.getId()).update(buffer,
-						rec.x + rec.width - decalage - imageDel.getIconWidth(),
-						rec.y + (rec.height - imageDel.getIconHeight() >> 1), imageDel);
+		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+			s = father.lg("IntermediatesStations");
+			taille = prepareAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
+					intermediatesStationsCollapsableArea, s, ordonne, decalage, decalage2);
+			if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+				intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
+						+ intermediatesStationsTextBox.getArea().width + decalage, intermediatesStationsTextBox
+						.getArea().y, imageOk);
+				rec.setBounds(intermediatesStationsTextBox.getArea().x, intermediatesStationsArea.getArea().height
+						+ intermediatesStationsArea.getArea().y, intermediatesStationsTextBox.getArea().width, 0);
+				intermediatesStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
+						* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 			}
+			intermediatesStationsCollapsableArea
+					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
+							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			station = drawAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
+					intermediatesStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
+			if (!intermediatesStationsCollapsableArea.isCollapsed()) {
+				if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
+						|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
+						|| pathBuilder.getCurrentPathInGraph().getDestination() == station
+						|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
+					intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
+				} else
+					intermediatesStationsButton.draw(buffer, imageOk);
+				itS = pathBuilder.getCurrentPathInGraph().getStepsIter();
+				// x = intermediatesStationsTextBox.getArea().x;
+				// y = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
+				// + decalageDemi + taille;
+				// rec.height += decalageDemi;
+				while (itS.hasNext()) {
+					station = itS.next();
+					rec.y += rec.height + decalageDemi;
+					rec.height = 0;
+					buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+					rec.height += getHeightString(station.getName(), buffer);
+					buffer.drawString(station.getName(), rec.x + decalageDemi, rec.y + rec.height);
+					// buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+					drawRoutesAndServices(rec.x + decalageDemi, rec.y + rec.height + decalageDemi, decalage, taille,
+							station);
+					rec.height += taille + decalage;
+					buffer.drawRect(rec.x, rec.y, rec.width, rec.height);
+					intermediatesStationsDel.get(station.getId()).update(buffer,
+							rec.x + rec.width - decalage - imageDel.getIconWidth(),
+							rec.y + (rec.height - imageDel.getIconHeight() >> 1), imageDel);
+				}
+			}
+			// dessins des station déja rentré
+			ordonne = intermediatesStationsCollapsableArea.getArea().y
+					+ intermediatesStationsCollapsableArea.getArea().height + decalage;
 		}
-		// dessins des station déja rentré
-		ordonne = intermediatesStationsCollapsableArea.getArea().y
-				+ intermediatesStationsCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Station à éviter
 		 */
-		s = father.lg("AvoidsStations");
-		taille = prepareAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
-				avoidsStationsCollapsableArea, s, ordonne, decalage, decalage2);
-		if (!avoidsStationsCollapsableArea.isCollapsed()) {
-			avoidsStationsButton.prepareArea(buffer, avoidsStationsTextBox.getArea().x
-					+ avoidsStationsTextBox.getArea().width + decalage, avoidsStationsTextBox.getArea().y, imageOk);
-			rec.setBounds(avoidsStationsTextBox.getArea().x, avoidsStationsArea.getArea().height
-					+ avoidsStationsArea.getArea().y, avoidsStationsTextBox.getArea().width, 0);
-			avoidsStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getAvoidStationsCount()
-					* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
-		}
-		// TODO z_paint
-		avoidsStationsCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		station = drawAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
-				avoidsStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
-		if (!avoidsStationsCollapsableArea.isCollapsed()) {
-			if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
-					|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
-					|| pathBuilder.getCurrentPathInGraph().getDestination() == station
-					|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
-				avoidsStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
-			} else
-				avoidsStationsButton.draw(buffer, imageOk);
-			itS = pathBuilder.getCurrentPathInGraph().getAvoidStationsIter();
-			// x = avoidsStationsTextBox.getArea().x;
-			// y = avoidsStationsTextBox.getArea().y + avoidsStationsTextBox.getArea().height
-			// + decalageDemi + taille;
-			// rec.height += decalageDemi;
-			while (itS.hasNext()) {
-				station = itS.next();
-				rec.y += rec.height + decalageDemi;
-				rec.height = 0;
-				buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
-				rec.height += getHeightString(station.getName(), buffer);
-				buffer.drawString(station.getName(), rec.x + decalageDemi, rec.y + rec.height);
-				// buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
-				drawRoutesAndServices(rec.x + decalageDemi, rec.y + rec.height + decalageDemi, decalage, taille,
-						station);
-				rec.height += taille + decalage;
-				buffer.drawRect(rec.x, rec.y, rec.width, rec.height);
-				avoidsStationsDel.get(station.getId()).update(buffer,
-						rec.x + rec.width - decalage - imageDel.getIconWidth(),
-						rec.y + (rec.height - imageDel.getIconHeight() >> 1), imageDel);
+		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+			s = father.lg("AvoidsStations");
+			taille = prepareAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
+					avoidsStationsCollapsableArea, s, ordonne, decalage, decalage2);
+			if (!avoidsStationsCollapsableArea.isCollapsed()) {
+				avoidsStationsButton.prepareArea(buffer, avoidsStationsTextBox.getArea().x
+						+ avoidsStationsTextBox.getArea().width + decalage, avoidsStationsTextBox.getArea().y, imageOk);
+				rec.setBounds(avoidsStationsTextBox.getArea().x, avoidsStationsArea.getArea().height
+						+ avoidsStationsArea.getArea().y, avoidsStationsTextBox.getArea().width, 0);
+				avoidsStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getAvoidStationsCount()
+						* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 			}
+			// TODO z_paint
+			avoidsStationsCollapsableArea
+					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
+							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+			station = drawAutoCompletionStationTextBox(avoidsStationsArea, avoidsStationsTextBox,
+					avoidsStationsCollapsableArea, ordonne, decalage, decalage2, taille, false);
+			if (!avoidsStationsCollapsableArea.isCollapsed()) {
+				if (station == null || pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
+						|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
+						|| pathBuilder.getCurrentPathInGraph().getDestination() == station
+						|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
+					avoidsStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
+				} else
+					avoidsStationsButton.draw(buffer, imageOk);
+				itS = pathBuilder.getCurrentPathInGraph().getAvoidStationsIter();
+				// x = avoidsStationsTextBox.getArea().x;
+				// y = avoidsStationsTextBox.getArea().y + avoidsStationsTextBox.getArea().height
+				// + decalageDemi + taille;
+				// rec.height += decalageDemi;
+				while (itS.hasNext()) {
+					station = itS.next();
+					rec.y += rec.height + decalageDemi;
+					rec.height = 0;
+					buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+					rec.height += getHeightString(station.getName(), buffer);
+					buffer.drawString(station.getName(), rec.x + decalageDemi, rec.y + rec.height);
+					// buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+					drawRoutesAndServices(rec.x + decalageDemi, rec.y + rec.height + decalageDemi, decalage, taille,
+							station);
+					rec.height += taille + decalage;
+					buffer.drawRect(rec.x, rec.y, rec.width, rec.height);
+					avoidsStationsDel.get(station.getId()).update(buffer,
+							rec.x + rec.width - decalage - imageDel.getIconWidth(),
+							rec.y + (rec.height - imageDel.getIconHeight() >> 1), imageDel);
+				}
+			}
+			// dessins des station déja rentré
+			ordonne = avoidsStationsCollapsableArea.getArea().y + avoidsStationsCollapsableArea.getArea().height
+					+ decalage;
 		}
-		// dessins des station déja rentré
-		ordonne = avoidsStationsCollapsableArea.getArea().y + avoidsStationsCollapsableArea.getArea().height + decalage;
+
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
@@ -1251,7 +1269,8 @@ public class NewTravelPanel extends PanelState {
 			}
 		});
 		if (pathBuilder != null)
-			lowerBar.setRightCmd(father.lg("FindAPath"), new ActionListener() {
+			lowerBar.setRightCmd((this.mode != NewTravelPanelState.LOST_TRAVEL) ? father.lg("FindAPath") : father
+					.lg("CatchUpYourPath"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// System.out.println(pathBuilder.getCurrentPathInGraph());
