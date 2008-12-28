@@ -230,207 +230,257 @@
 			<TravelMode>
 				<FRANCAIS value="Moyen de transport"/>
 				<ENGLISH value="Travel mode"/>
-				<GEEK value=""/>
+				<GEEK value="Compilateur"/>
 			</TravelMode>
 			<Trolley>
 				<FRANCAIS value="Tramway"/>
 				<ENGLISH value="Trolley"/>
+				<GEEK value="Trolley"/>
 			</Trolley>
 			<Subway>
 				<FRANCAIS value="Metro"/>
 				<ENGLISH value="Subway"/>
+				<GEEK value="Subway"/>
 			</Subway>
 			<Train>
 				<FRANCAIS value="Train"/>
 				<ENGLISH value="Train"/>
+				<GEEK value="Train"/>
 			</Train>
 			<Idle>
 				<FRANCAIS value="Indif"/>
 				<ENGLISH value="No care"/>
+				<GEEK value="42"/>
 			</Idle>
 			<Once>
 				<FRANCAIS value="Présent"/>
 				<ENGLISH value="Once"/>
+				<GEEK value="singleton"/>
 			</Once>
 			<Always>
 				<FRANCAIS value="Partout"/>
 				<ENGLISH value="Always"/>
+				<GEEK value="while(1)"/>
 			</Always>
 			<Services>
 				<FRANCAIS value="Services"/>
 				<ENGLISH value="Services"/>
+				<GEEK value="Services"/>
 			</Services>
 			<Minimal>
 				<FRANCAIS value="Minimale"/>
 				<ENGLISH value="Minimal"/>
+				<GEEK value="MINVALUE"/>
 			</Minimal>
 			<Low>
 				<FRANCAIS value="Basse"/>
 				<ENGLISH value="Low"/>
+				<GEEK value="2"/>
 			</Low>
 			<Medium>
 				<FRANCAIS value="Intermediaire"/>
 				<ENGLISH value="Medium"/>
+				<GEEK value="512"/>
 			</Medium>
 			<High>
 				<FRANCAIS value="Haute"/>
 				<ENGLISH value="High"/>
+				<GEEK value="MAXVALUE"/>
 			</High>
 			<GraphicalQuality>
 				<FRANCAIS value="Qualité graphique"/>
 				<ENGLISH value="Graphical Quality"/>
+				<GEEK value="Shader"/>
 			</GraphicalQuality>
 			<IntermediatesStations>
 				<FRANCAIS value="Stations intermédiaires"/>
 				<ENGLISH value="Intermediates stations"/>
+				<GEEK value="Goto"/>
 			</IntermediatesStations>
 			<AvoidsStations>
 				<FRANCAIS value="Stations à éviter"/>
 				<ENGLISH value="Stations to avoid"/>
+				<GEEK value="Break"/>
 			</AvoidsStations>
 			<Language>
 				<FRANCAIS value="Langue"/>
 				<ENGLISH value="Language"/>
+				<GEEK value="L4NGU4GE"/>
 			</Language>
 			<Skin>
 				<FRANCAIS value="Thèmes de couleur"/>
 				<ENGLISH value="Color themes"/>
+				<GEEK value="#00FF00"/>
 			</Skin>
 			<Departure>
 				<FRANCAIS value="Départ"/>
 				<ENGLISH value="Departure"/>
+				<GEEK value="Begin"/>
 			</Departure>
 			<WhereYouAre>
 				<FRANCAIS value="Où êtes-vous ?"/>
 				<ENGLISH value="Where are you?"/>
+				<GEEK value="Ping ?"/>
 			</WhereYouAre>
 			<Arrival>
 				<FRANCAIS value="Arrivée"/>
 				<ENGLISH value="Arrival"/>
+				<GEEK value="end"/>
 			</Arrival>
 			<DirectionInArrayMode>
 				<FRANCAIS value="⇒"/>
 				<ENGLISH value="⇒"/>
+				<GEEK value="⇒"/>
 			</DirectionInArrayMode>
 			<InvalideStation>
 				<FRANCAIS value="Station inconnue"/>
 				<ENGLISH value="Unkown station"/>
+				<GEEK value="Windows Station"/>
 			</InvalideStation>
 			<FillThisField>
 				<FRANCAIS value="Veuillez remplir ce champs"/>
 				<ENGLISH value="Fill this field"/>
+				<GEEK value="Are you silly ?"/>
 			</FillThisField>
 			<EndOfTravel>
 				<FRANCAIS value="Vous êtes arrivé !"/>
 				<ENGLISH value="You've just arrived !"/>
+				<GEEK value="You can go coding at home!"/>
 			</EndOfTravel>
 			<ERROR_ReturnNullTravelDetails>
 				<FRANCAIS value="Le calcul à retourné une valeur inattendu : un chemin vide"/>
 				<ENGLISH value="The computing has returned an unexpected value : a null path"/>
+				<GEEK value="Failure at 0x232534, Void List"/>
 			</ERROR_ReturnNullTravelDetails>
 			<ERROR_BuildingTravelFromResult>
 				<FRANCAIS value="La construction du chemin à partir du résultat a échoué."/>
 				<ENGLISH value="The construction of the path from the result has failed"/>
+				<GEEK value="Failure at 0x111111, Flushing RAM"/>
 			</ERROR_BuildingTravelFromResult>
 			<ERROR_Impossible>
 				<FRANCAIS value="Impossible..."/>
 				<ENGLISH value="Impossible..."/>
+				<GEEK value="Impossible is not geek, but that's really Impossible"/>
 			</ERROR_Impossible>
 			<ERROR_Problem>
 				<FRANCAIS value="Problème..."/>
 				<ENGLISH value="Problem..."/>
+				<GEEK value="An error has occured"/>
 			</ERROR_Problem>
 			<ERROR_VoidPathException>
 				<FRANCAIS value=""/>
 				<ENGLISH value=""/>
+				<GEEK value=""/>
 			</ERROR_VoidPathException>
 			<ERROR_ServiceNotAccessibleException>
 				<FRANCAIS value="Un service n'est pas accessible, veuillez réduir vos exigences."/>
 				<ENGLISH value="Unreachable service, please reduce your requirements."/>
+				<GEEK value="Don't be so exigent"/>
 			</ERROR_ServiceNotAccessibleException>
 			<ERROR_NoRouteForStationException>
 				<FRANCAIS value="NoRouteForStationException"/>
 				<ENGLISH value="NoRouteForStationException"/>
+				<GEEK value="NoRouteForStationException"/>
 			</ERROR_NoRouteForStationException>
 			<ERROR_StationNotOnRoadException>
 				<FRANCAIS value="Une station du réseau n'est sur aucune route, le fichier du réseaux doit être invalide"/>
 				<ENGLISH value="A station haven't any route, the network file probably contain a mistake"/>
+				<GEEK value="Invalid Path"/>
 			</ERROR_StationNotOnRoadException>
 			<ERROR_UnknownException>
 				<FRANCAIS value="Un problème indeterminé est survenue"/>
 				<ENGLISH value="An unspecified problem occurred"/>
+				<GEEK value="A system Bug"/>
 			</ERROR_UnknownException>
 			<ERROR_ReturnNullConstraintBuilder>
 				<FRANCAIS value="Impossible de construire un nouveau trajet : le master a passé un constructeur vide"/>
 				<ENGLISH value="Unable to build a new path : the master has sent me an empty constructor"/>
+				<GEEK value=""/>
 			</ERROR_ReturnNullConstraintBuilder>
 			<ERROR_ReturnNoNetworkException>
 				<FRANCAIS value="Impossible de construire un nouveau trajet : Il n'y a pas de réseau à charger"/>
 				<ENGLISH value="Unable to build a new path : There's no network to load"/>
+				<GEEK value=""/>
 			</ERROR_ReturnNoNetworkException>
 			<ERROR_NetworkReception>
 				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être charger"/>
 				<ENGLISH value="Unable to build a new path : The network couldn't be loaded"/>
+				<GEEK value=""/>
 			</ERROR_NetworkReception>
 			<ERROR_NetworkConstruction>
 				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être interprété"/>
 				<ENGLISH value="Unable to build a new path : The network couldn't be interpreted"/>
+				<GEEK value=""/>
 			</ERROR_NetworkConstruction>
 			<White>
 				<FRANCAIS value="Classique"/>
 				<ENGLISH value="Classical"/>
+				<GEEK value="W.I.B"/>
 			</White>
 			<Purple>
 				<FRANCAIS value="Pourpre"/>
 				<ENGLISH value="Purple"/>
+				<GEEK value="Beurk"/>
 			</Purple>
 			<Blue>
 				<FRANCAIS value="Bleu"/>
 				<ENGLISH value="Blue"/>
+				<GEEK value="The best"/>
 			</Blue>
 			<Pink>
 				<FRANCAIS value="Rose"/>
 				<ENGLISH value="Pink"/>
+				<GEEK value="Bitch"/>
 			</Pink>
 			<Orange>
 				<FRANCAIS value="Orange"/>
 				<ENGLISH value="Orange"/>
+				<GEEK value="Chemical"/>
 			</Orange>
 			<Sand>
 				<FRANCAIS value="Sable"/>
 				<ENGLISH value="Sand"/>
+				<GEEK value="Sand"/>
 			</Sand>
 			<YellowGreen>
 				<FRANCAIS value="Jaune-vert"/>
 				<ENGLISH value="Yellow-green"/>
+				<GEEK value="Ugly"/>
 			</YellowGreen>
 			<Green>
 				<FRANCAIS value="Vert"/>
 				<ENGLISH value="Green"/>
+				<GEEK value="Green"/>
 			</Green>
 			<WaterPool>
 				<FRANCAIS value="Piscine"/>
 				<ENGLISH value="WaterPool"/>
+				<GEEK value="WaterPool"/>
 			</WaterPool>
 			<Water>
 				<FRANCAIS value="Eau"/>
 				<ENGLISH value="Water"/>
+				<GEEK value="Water"/>
 			</Water>
 			<PinkPurple>
 				<FRANCAIS value="Violet"/>
 				<ENGLISH value="PinkPurple"/>
+				<GEEK value="PinkPurple"/>
 			</PinkPurple>
 			<Cherry>
 				<FRANCAIS value="Rouge cerise"/>
 				<ENGLISH value="Cherry"/>
+				<GEEK value="Cherry"/>
 			</Cherry>
 			<Black>
 				<FRANCAIS value="Noir"/>
 				<ENGLISH value="Black"/>
+				<GEEK value="B.I.B"/>
 			</Black>
 			<CatchUpYourPath>
 				<FRANCAIS value="Rattraper votre chemin"/>
 				<ENGLISH value="Catch up your path"/>
+				<GEEK value="R.T.F.M."/>
 			</CatchUpYourPath>
 		</fields>
 	</root>
