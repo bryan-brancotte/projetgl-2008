@@ -180,6 +180,11 @@ public interface TravelForDisplayPanel {
 	public void next();
 
 	/**
+	 * Revient à la précédente section
+	 */
+	public void previous();
+
+	/**
 	 * retourne le path a partir duquel le {@link TravelForDisplayPanel} à été construit
 	 * 
 	 * @return
