@@ -3,7 +3,7 @@
 		<languages>
 			<lang balise="ENGLISH" value="English"/>
 			<lang balise="FRANCAIS" value="Français"/>
-			<lang balise="GEEK" value="D'jeuns"></lang>
+			<lang balise="GEEK" value="Geek"></lang>
 			<!-- <lang balise="CHINESE" value="Chinese 中国"/>-->
 			<!-- When &#10; appears in the file, it mean an end of line. Keep it in the translation for a better good looking ;)-->
 		</languages>
@@ -340,7 +340,7 @@
 			<FillThisField>
 				<FRANCAIS value="Veuillez remplir ce champs"/>
 				<ENGLISH value="Fill this field"/>
-				<GEEK value="Are you silly ?"/>
+				<GEEK value="Needed"/>
 			</FillThisField>
 			<EndOfTravel>
 				<FRANCAIS value="Vous êtes arrivé !"/>
