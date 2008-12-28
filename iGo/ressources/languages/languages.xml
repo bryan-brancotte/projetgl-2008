@@ -96,7 +96,7 @@
 				<ENGLISH value="min"/>
 			</LetterForMinute>
 			<Edit>
-				<FRANCAIS value="Editer"/>
+				<FRANCAIS value="Changer"/>
 				<ENGLISH value="Edit"/>
 			</Edit>
 			<Start>
@@ -256,8 +256,8 @@
 				<ENGLISH value="Departure"/>
 			</Departure>
 			<WhereYouAre>
-				<FRANCAIS value="Où vous êtes ?"/>
-				<ENGLISH value="Where you are ?"/>
+				<FRANCAIS value="Où êtes-vous ?"/>
+				<ENGLISH value="Where are you?"/>
 			</WhereYouAre>
 			<Arrival>
 				<FRANCAIS value="Arrivée"/>
@@ -265,7 +265,7 @@
 			</Arrival>
 			<DirectionInArrayMode>
 				<FRANCAIS value="⇒"/>
-				<ENGLISH value="⇒	"/>
+				<ENGLISH value="⇒"/>
 			</DirectionInArrayMode>
 			<InvalideStation>
 				<FRANCAIS value="Station inconnue"/>
