@@ -408,8 +408,8 @@ public class IGoMaster implements Master, Observer
 		
 		if (!threads.isEmpty())
 		{
-			//algo.kill() en attente de tony pour qu'il n'y ai pas le faux update ...
-			//threads.clear();
+			algo.abort();
+			threads.clear();
 		}
 			
 		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
