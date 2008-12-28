@@ -91,8 +91,10 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * @return la hauteur dessiné de la chaine
 	 */
 	protected static int getHeightString(String s, Graphics g, Font f) {
+//		System.out.println(g.getFontMetrics(f).getStringBounds(s, g).getHeight() + " VS " + f.getSize() * 0.85 + " VS "
+//				+ f.getSize() * 0.95 + " VS " + f.getSize());
 		// return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
-		return (int) (f.getSize() * 0.85);/**/
+		return (int) (f.getSize() * 0.95);/**/
 	}
 
 	/**
@@ -105,8 +107,8 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * @return la hauteur dessiné de la chaine
 	 */
 	protected static int getHeightString(String s, Graphics g) {
-		// return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
-		return g.getFont().getSize();/**/
+		// return (int) g.getFontMetrics().getStringBounds(s, g).getHeight(); /*size of string
+		return (int) (g.getFont().getSize() * 0.95);/**/
 	}
 
 	/**
@@ -166,13 +168,13 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	}
 
 	public static void graphicsTunning(Graphics buffer) {
-		if (buffer==null)
+		if (buffer == null)
 			return;
-			graphicsTunning((Graphics2D)buffer);
+		graphicsTunning((Graphics2D) buffer);
 	}
 
 	public static void graphicsTunning(Graphics2D buffer) {
-		if (buffer==null)
+		if (buffer == null)
 			return;
 		if (PanelDoubleBufferingSoftwear.getQuality().getValue() >= IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue()) {
 			buffer.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

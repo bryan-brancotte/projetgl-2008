@@ -294,7 +294,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		// buffer.drawString(route.getId(), decalage + (inLeft - decalage - getWidthString(route.getId(), buffer) >> 1),
 		// ordonnee + (height + getHeightString(route.getId(), buffer) >> 1));
 
-		buffer.drawString(father.lg("Direction") + " : " + direction.getName(), inLeft + decalage, ordonnee
+		buffer.drawString(father.lg("DirectionInArrayMode") + direction.getName(), inLeft + (decalage >> 1), ordonnee
 				+ (height + getHeightString(route.getId(), buffer) >> 1));
 
 		buffer.drawString(s = father.lg("Time") + " : "
