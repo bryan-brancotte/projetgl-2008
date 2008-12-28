@@ -43,6 +43,8 @@ public class Dijkstra extends Algo {
 	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidOriginException, NonValidDestinationException {
 
 		isAborted=false;
+		betterPath=null;
+		currentPosition=null;
 		try {
 			// Initialisation des contraintes
 			initConstraints(prb);
@@ -139,9 +141,11 @@ public class Dijkstra extends Algo {
 	 */
 	private ArrayList<ArrayList<Station>> createAllSteps() {
 		ArrayList<ArrayList<Station>> allSteps = new ArrayList<ArrayList<Station>>();
+		System.out.println(steps.length);
 		for (int i = 0; i < steps.length; i++) {
 			ArrayList<Station> v = new ArrayList<Station>();
 			v.add(steps[i]);
+			System.out.println(v.size());
 			allSteps.add(v);
 			Tools.removeServicesFromStation(steps[i], once);
 		}
