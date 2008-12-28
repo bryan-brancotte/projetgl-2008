@@ -30,12 +30,12 @@ public class Tools {
 			n = n.getFrom().getNode();
 		}
 		
-		// TODO Verifier que les suppressions sont exactes !
-		while (junctions.size()>1 && !junctions.get(0).isRouteLink())
+		// TODO Suppressions vraiment utiles ?
+		/*while (junctions.size()>1 && !junctions.get(0).isRouteLink())
 			junctions.remove(0);
+		while (junctions.size()>1 && !junctions.get(0).isRouteLink())
+			junctions.remove(0);*/
 		Collections.reverse(junctions);
-		while (junctions.size()>1 && !junctions.get(0).isRouteLink())
-			junctions.remove(0);
 		
 		return junctions;
 	}

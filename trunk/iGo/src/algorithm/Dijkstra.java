@@ -19,6 +19,8 @@ import java.util.Iterator;
 import algorithm.GraphAlgo.Link;
 import algorithm.GraphAlgo.Node;
 import algorithm.exception.NodeNotFoundException;
+import algorithm.exception.NonValidDestinationException;
+import algorithm.exception.NonValidOriginException;
 import algorithm.exception.NonValidPathException;
 
 public class Dijkstra extends Algo {
@@ -93,9 +95,11 @@ public class Dijkstra extends Algo {
 	 * @throws StationNotAccessibleException
 	 * @throws StationNotOnRoadException
 	 * @throws NodeNotFoundException
+	 * @throws NonValidDestinationException 
+	 * @throws NonValidOriginException 
 	 * @throws NonValidPathException 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidPathException {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException{
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 
@@ -169,8 +173,10 @@ public class Dijkstra extends Algo {
 
 			currentPath.addAll(getMinimumDest(origin, v.get(0)));
 			for (int i = 1; i < v.size(); i++) {
+				System.out.println(currentPosition);
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i), false));
 			}
+			System.out.println(currentPosition);
 
 			currentPath.addAll(algo(currentPosition, destination));
 			if (Tools.betterPath(currentPath, betterPath, p.getMainCriterious(), p.getMinorCriterious())) {

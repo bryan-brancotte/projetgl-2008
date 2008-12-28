@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import algorithm.exception.NodeNotFoundException;
+import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
 import algorithm.exception.NonValidPathException;
 
@@ -29,9 +30,11 @@ public class GraphAlgo {
 	 * @throws NoRouteForStationException
 	 * @throws StationNotOnRoadException
 	 * @throws NodeNotFoundException
+	 * @throws NonValidOriginException 
+	 * @throws NonValidDestinationException 
 	 * @throws NonValidPathException 
 	 */
-	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidPathException {
+	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
@@ -61,6 +64,21 @@ public class GraphAlgo {
 					if (!found) list.add(service);
 				}
 				throw new NonValidOriginException(list);
+			}
+			else {
+				ArrayList<Service> list = new ArrayList<Service>();
+				for(Service service : always) {
+					boolean found=false;
+					Iterator<Service> it = p.getDestination().getServices();
+					while (it.hasNext()) {
+						if (it.next()==service) {
+							found=true;
+							break;
+						}
+					}
+					if (!found) list.add(service);
+				}
+				throw new NonValidDestinationException(list);
 			}
 		}
 	}
@@ -337,7 +355,10 @@ public class GraphAlgo {
 		public Iterator<Link> getToIter() {
 			return to.iterator();
 		}
-
+		
+		public String toString () {
+			return "["+station+","+route+"]";
+		}
 	}
 
 	/*****************************************************************/
