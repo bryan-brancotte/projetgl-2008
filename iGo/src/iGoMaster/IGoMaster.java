@@ -54,7 +54,7 @@ enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionF
 public class IGoMaster implements Master, Observer 
 {
 	
-	private final int THREAD_LENGTH = (System.getProperty("user.name").compareTo("elodie") == 0)?1000:0;
+	private final int THREAD_LENGTH = (System.getProperty("user.name").compareTo("elodie") == 0)?3000:0;
 	
 	private IHM ihm;
 	private Algo algo;
@@ -71,7 +71,7 @@ public class IGoMaster implements Master, Observer
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
 	
-	
+	private boolean blockingDatasForNetworkUpdate = false;
 	
 
 	/******************************************************************************/
@@ -163,6 +163,8 @@ public class IGoMaster implements Master, Observer
 					{
 						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 						exception = false;
+						System.out.println("elo --> Aucune exception n'a été lancée par algo");
+						
 					}
 					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 
 					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 	 
@@ -313,11 +315,9 @@ public class IGoMaster implements Master, Observer
 	{
 		System.out.println("elo --> update");
 		
-		/* Redefine equals? */
 		if (o.equals(algo) && o!=null)
 		{
-			
-			if (arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
+			if (!threads.isEmpty() && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
 				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 				
@@ -327,19 +327,26 @@ public class IGoMaster implements Master, Observer
 						);
 				
 				threads.clear();
-				
-				//System.err.print("Elo --> Un observable de type algo a produit un résultat. Le master n'attend rien. Update ignoré.");
 			}
 			else 
 			{
-				System.err.print("Elo --> L'algo n'a pas retourné le pathInGraph correspondant à la collection courante");
+				ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
 			}
 		}
 		else if (o.equals(eventInfoNetwork) && o!=null && arg==null)
 		{
-			/** TODO : N'appliquer les changements que si pas d'algo ni rien!!! */
+			blockingDatasForNetworkUpdate = true;
+			
+			if (!threads.isEmpty())
+			{	
+				try {threads.get(0).join();} 
+				catch (InterruptedException e) {e.printStackTrace();}
+			}
+			
 			eventInfoNetwork.applyInfo(graphBuilder);
 			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
+			
+			blockingDatasForNetworkUpdate = false;
 		}
 	}
 	
@@ -409,7 +416,9 @@ public class IGoMaster implements Master, Observer
 			catch (InterruptedException e) {e.printStackTrace();}
 			threads.clear();
 		}
-			
+		
+		/** TODO : Statuer sur l'avenir du boolean blockData machin : voir with Bryan */
+		
 		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
 		if (getStateNetwork() == StateNetwork.NetworkDoesntExist) throw new NoNetworkException();
 		if (getStateNetwork() == StateNetwork.ReceptionFailed) throw new GraphReceptionException();
