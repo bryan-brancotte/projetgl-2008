@@ -30,6 +30,9 @@ import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 import algorithm.Dijkstra;
+import algorithm.exception.NodeNotFoundException;
+import algorithm.exception.NonValidDestinationException;
+import algorithm.exception.NonValidOriginException;
 import algorithm.exception.NonValidPathException;
 
 import xmlFeature.ConfigurationXML;
@@ -131,44 +134,55 @@ public class IGoMaster implements Master, Observer
 				
 				try 
 				{
-					algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 				} 
 				catch (VoidPathException e) 
 				{
-					System.err.println("elo --> échec de l'algorithme, le chemin n'existe pas");
 					ihm.returnPathAsked(null, AlgoKindOfException.VoidPathException);
 					threads.clear();
 				} 
 				catch (ServiceNotAccessibleException e) 
 				{
-					System.err.println("elo --> échec de l'algorithme, le service '"+e.getService().getName()+"' n'est pas accessible");
 					ihm.returnPathAsked(null, AlgoKindOfException.ServiceNotAccessibleException);
 					threads.clear();
 				} 
 				catch (StationNotAccessibleException e) 
 				{
-					System.err.println("elo --> échec de l'algorithme, la Station '"+e.getStation().getName()+"' n'est pas accessible");
 					ihm.returnPathAsked(null, AlgoKindOfException.StationNotAccessibleException);
 					threads.clear();
 				} 
 				catch (NoRouteForStationException e) 
 				{
-					System.err.println("elo --> échec de l'algorithme, pas de route associée à la station "+e.getStation());
 					ihm.returnPathAsked(null, AlgoKindOfException.NoRouteForStationException);
 					threads.clear();
 				} 
 				catch (StationNotOnRoadException e) 
 				{
-					System.err.println("elo --> échec de l'algorithme, la Station n'est pas sur la route");
 					ihm.returnPathAsked(null, AlgoKindOfException.StationNotOnRoadException);
 					threads.clear();
 				}
 				catch (NonValidPathException e)
 				{
-					System.err.println("elo --> échec de l'algorithme, la Station n'est pas sur la route");
 					ihm.returnPathAsked(null, AlgoKindOfException.NonValidPathException);
 					threads.clear();
 				}
+				// En attente de tony
+				/*catch (NodeNotFoundException e) 
+				{
+					ihm.returnPathAsked(null, AlgoKindOfException.NodeNotFoundException);
+					threads.clear();
+				} 
+				catch (NonValidOriginException e) 
+				{
+					ihm.returnPathAsked(null, AlgoKindOfException.NonValidOriginException);
+					threads.clear();
+				}
+				catch (NonValidDestinationException e) 
+				{
+					ihm.returnPathAsked(null, AlgoKindOfException.NonValidDestinationException);
+					threads.clear();
+				}
+				*/
 				catch (Exception e)
 				{
 					System.err.println("elo --> échec de l'algorithme suite à une erreur indéfinie");
