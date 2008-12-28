@@ -620,10 +620,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
 			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
-			VoidPanel vp;
-			addToCenterPanel(vp = new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
-			vp.giveControle();
-			centerPanel.validate();
+			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
 			if (master.askForATravel(pathBuilder))
 				return true;
 			setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_UnknownException"));
