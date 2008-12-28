@@ -50,11 +50,12 @@
 			<MainLoad>
 				<FRANCAIS value="Trajet récent"/>
 				<ENGLISH value="Recent travel"/>
-				<GEEK value=""/>
+				<GEEK value="cd .."/>
 			</MainLoad>
 			<Settings>
 				<FRANCAIS value="Paramètres"/>
 				<ENGLISH value="Settings"/>
+				<GEEK value="R.T.F.M"/>
 			</Settings>
 			<Favorites>
 				<FRANCAIS value="Favoris"/>
@@ -392,6 +393,10 @@
 				<FRANCAIS value="Noir"/>
 				<ENGLISH value="Black"/>
 			</Black>
+			<CatchUpYourPath>
+				<FRANCAIS value="Rattraper votre chemin"/>
+				<ENGLISH value="Catch up your path"/>
+			</CatchUpYourPath>
 		</fields>
 	</root>
 
