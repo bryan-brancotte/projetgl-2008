@@ -303,10 +303,16 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
 		buffer.setColor(father.getSkin().getColorInside());
-		buffer.setColor(father.getSkin().getColorInside());
 		buffer.fillRect(0, 0, getWidth(), getHeight());
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
 			drawDelayedOval(buffer, center.x - sizeDemiLarge - 1, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
+					+ sizeDemiLine + sizeQuartLarge);
+			heightImageDrawn = sizeDemiLine
+					+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
+							+ sizeDemiLine, travel.getOrigineStation().getServices(), travel.getOrigine(), travel
+							.getEntryCost(), 0);
 		}
 		// in parcout les étapes du trajet
 		iterTravel = travel.getTravelDone();
@@ -335,7 +341,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
 
-				drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
+				if (affichageDroite)
+					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 
 				if (firstPasseDone)
 					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
@@ -567,18 +574,37 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * @return l'abscisse où l'on a finit de dessiner.
 	 */
 	protected int drawInformationsStation(GraphicsViewPort g, int xRec, int yRec, SectionOfTravel section) {
+		return drawInformationsStation(g, xRec, yRec, section.getEnddingChangementServices(), section
+				.getNameChangement(), section.getEnddingChangementCost(), section.getEnddingChangementTime());
+	}
+
+	/**
+	 * Fonction permettant de dessiner le cadre décrivant le station du changement. Il retourne ensuite l'abscisse
+	 * jusqu'a laquelle on a dessiné.
+	 * 
+	 * @param g
+	 *            le Graphics où l'on va dessiner le rectangle.
+	 * @param x
+	 *            l'abscisse.
+	 * @param y
+	 *            l'ordonné.
+	 * @param section
+	 *            la section que l'on achève.
+	 * @return l'abscisse où l'on a finit de dessiner.
+	 */
+	protected int drawInformationsStation(GraphicsViewPort g, int xRec, int yRec, Iterator<Service> itService,
+			String nameChangement, float costChangement, int timeChangement) {
 		int nextX, i, xEnder;
 		String[] words = new String[5];
 		int[] xs = new int[5];
 		int[] ys = new int[5];
 		int xService, yService;
 		Service service;
-		Iterator<Service> itService = section.getEnddingChangementServices();
 		int taille = (itService.hasNext()) ? (int) (g.getFont().getSize() * 1.3F) : 0;
 
 		g.setColor(father.getSkin().getColorLetter());
 		// le titre
-		words[0] = section.getNameChangement();
+		words[0] = nameChangement;
 		xs[0] = (xService = xRec + (sizeDemiLine << 1));
 		ys[0] = yRec + (sizeDemiLine >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString("A", g.getImage().getGraphics(), g.getFont());
@@ -615,12 +641,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 		// colonne droite
 		if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
-			if (section.getEnddingChangementCost() == 0)
+			if (costChangement == 0)
 				words[3] = father.lg("Free");
 			else
-				words[3] = section.getEnddingChangementCost() + " " + father.lg("Money");
-		words[4] = decomposeMinutesIntoHourMinutes(section.getEnddingChangementTime(), father.lg("LetterForHour"),
-				father.lg("LetterForMinute"));
+				words[3] = costChangement + " " + father.lg("Money");
+		words[4] = decomposeMinutesIntoHourMinutes(timeChangement, father.lg("LetterForHour"), father
+				.lg("LetterForMinute"));
 
 		// xs[3]=x;
 		// if (this.actualState == IhmReceivingStates.PREVISU_TRAVEL)
@@ -640,10 +666,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				+ (sizeDemiLine << 1);
 		if (i > nextX)
 			nextX = i;
-		i = xRec
-				+ (sizeDemiLine << 1)
-				+ PanelDoubleBufferingSoftwear.getWidthString(section.getNameChangement(), g.getImage().getGraphics(),
-						g.getFont()) + (sizeDemiLine << 1);
+		i = xRec + (sizeDemiLine << 1)
+				+ PanelDoubleBufferingSoftwear.getWidthString(nameChangement, g.getImage().getGraphics(), g.getFont())
+				+ (sizeDemiLine << 1);
 		if (i > nextX)
 			xEnder = i;
 		else
