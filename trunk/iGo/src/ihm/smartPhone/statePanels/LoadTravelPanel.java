@@ -159,12 +159,7 @@ public class LoadTravelPanel extends PanelState {
 		int decalage = father.getSizeAdapteur().getSizeSmallFont();
 		int decalageDemi = (decalage >> 1);
 		int decalage2 = (decalage << 1);
-		int ordonne = decalage - deroullement;
-		int x;
-		int y;
-		int nextX;
-		int i;
-		String tmp1, tmp2;
+		int ordonnee = decalage - deroullement;
 
 		/***
 		 * Gestion du buffer mémoire
@@ -197,103 +192,131 @@ public class LoadTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Dessins des chemins
 		 */
-		for (TravelPanelPT t : travelPanels) {
-			t.area.setBounds(decalage, ordonne, getWidth() - decalage2 - decalage, (decalage << 1)
-					+ father.getSizeAdapteur().getSizeIntermediateFont()
-					+ (father.getSizeAdapteur().getSizeSmallFont() << 1));
-			buffer.setColor(father.getSkin().getColorSubAreaInside());
-			buffer.fillRect(t.area.x, t.area.y, t.area.width, t.area.height);
-			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawRect(t.area.x, t.area.y, t.area.width, t.area.height);
-			if (t.isInMe)
-				buffer.drawRect(t.area.x + 1, t.area.y + 1, t.area.width - 2, t.area.height - 2);
-			x = t.area.x + decalageDemi;
-			y = t.area.y + decalageDemi;
-			if (t.pathBuilder.isFavorite())
-				t.cmdFav.update(buffer, x, y, imageFav);
-			else
-				t.cmdFav.update(buffer, x, y, imageNoFav);
-			t.cmdDel
-					.update(buffer, i = (t.area.x + t.area.width - decalageDemi - imageDel.getIconWidth()), y, imageDel);
-			t.cmdEdit.update(buffer, i - decalageDemi - imageEdit.getIconWidth(), y, imageEdit);
-			buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
-
-			x += decalageDemi + imageFav.getIconWidth();
-			y += getHeightString(t.pathBuilder.getName(), buffer);
-			buffer.drawString(t.pathBuilder.getName(), x, y);
-
-			/***************************************************************************************************************
-			 * calcul du from to
-			 */
-			tmp1 = father.lg("FromAndTwoDot");
-			tmp2 = father.lg("ToAndTwoDot");
-			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			nextX = PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer) + x;
-			i = PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer) + x;
-			if (nextX < i)
-				nextX = i;
-
-			/***************************************************************************************************************
-			 * Dessin du from to
-			 */
-			buffer.setFont(father.getSizeAdapteur().getSmallFont());
-			y += getHeightString(tmp1, buffer) + decalageDemi;
-			buffer.drawString(tmp1, x, y);
-			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
-
-			/***************************************************************************************************************
-			 * Dessin des gares de départ et d'arrivée
-			 */
-			x = nextX;
-			tmp1 = t.pathBuilder.getOrigine();
-			tmp2 = t.pathBuilder.getDestination();
-			buffer.drawString(tmp1, x, y);
-			buffer.drawString(tmp2, x, y + getHeightString(tmp2, buffer) + decalageDemi);
-
-			//
-			//
-			/***************************************************************************************************************
-			 * calcul des valeurs
-			 */
-			tmp1 = t.pathBuilder.getTotalCost() + " " + father.lg("Money");
-			tmp2 = decomposeMinutesIntoHourMinutes(t.pathBuilder.getTotalTime(), father.lg("LetterForHour"), father
-					.lg("LetterForMinute"));
-			nextX = t.area.width + t.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
-			i = t.area.width + t.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
-			if (nextX > i)
-				nextX = i;
-
-			/***************************************************************************************************************
-			 * Dessin des valeurs
-			 */
-			x = nextX;
-			buffer.drawString(tmp1, x, y);
-			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
-
-			/***************************************************************************************************************
-			 * Dessin du coût et du temps
-			 */
-			tmp1 = father.lg("Cost") + " : ";
-			tmp2 = father.lg("Time") + " : ";
-			nextX = x - PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
-			i = x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
-			if (nextX > i)
-				nextX = i;
-			x = nextX;
-			buffer.drawString(tmp1, x, y);
-			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
-
-			ordonne += t.area.height + decalage;
+		for (TravelPanelPT travelPanelPT : travelPanels) {
+			drawPathLikeInTheDoc(travelPanelPT, ordonnee, decalage, decalageDemi, decalage2);
+			ordonnee += travelPanelPT.area.height + decalage;
 		}
 
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
 		scrollBar.update(buffer, getWidth() - 1 - father.getSizeAdapteur().getSizeIntermediateFont(), father
-				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
+				.getSizeAdapteur().getSizeIntermediateFont(), ordonnee + deroullement - getHeight(), deroullement,
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
 		deroullement = scrollBar.getDeroullement();
+	}
+
+	protected void drawPathWithMoreInfo(TravelPanelPT travelPanelPT, int ordonnee, int decalage, int decalageDemi,
+			int decalage2) {
+	}
+
+	protected void drawPathLikeInTheDoc(TravelPanelPT travelPanelPT, int ordonnee, int decalage, int decalageDemi,
+			int decalage2) {
+		int x;
+		int y;
+		int nextX;
+		int i;
+		int endRight;
+		String tmp1, tmp2;
+		travelPanelPT.area.setBounds(decalage, ordonnee, getWidth() - decalage2 - decalage, (decalage << 1)
+				+ father.getSizeAdapteur().getSizeIntermediateFont()
+				+ (father.getSizeAdapteur().getSizeSmallFont() << 1));
+		buffer.setColor(father.getSkin().getColorSubAreaInside());
+		buffer
+				.fillRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
+						travelPanelPT.area.height);
+		buffer.setColor(father.getSkin().getColorLetter());
+		buffer
+				.drawRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
+						travelPanelPT.area.height);
+		if (travelPanelPT.isInMe)
+			buffer.drawRect(travelPanelPT.area.x + 1, travelPanelPT.area.y + 1, travelPanelPT.area.width - 2,
+					travelPanelPT.area.height - 2);
+		x = travelPanelPT.area.x + decalageDemi;
+		y = travelPanelPT.area.y + decalageDemi;
+		if (travelPanelPT.pathBuilder.isFavorite())
+			travelPanelPT.cmdFav.update(buffer, x, y, imageFav);
+		else
+			travelPanelPT.cmdFav.update(buffer, x, y, imageNoFav);
+		travelPanelPT.cmdDel.update(buffer,
+				i = (travelPanelPT.area.x + travelPanelPT.area.width - decalageDemi - imageDel.getIconWidth()), y,
+				imageDel);
+		travelPanelPT.cmdEdit.update(buffer, i - decalageDemi - imageEdit.getIconWidth(), y, imageEdit);
+		buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
+
+		x += decalageDemi >> 2;
+		y += getHeightString(travelPanelPT.pathBuilder.getName(), buffer);
+		buffer.drawString(travelPanelPT.pathBuilder.getName(), x, y);
+
+		/***************************************************************************************************************
+		 * calcul du from to
+		 */
+		tmp1 = father.lg("FromAndTwoDot") + " ";
+		tmp2 = father.lg("ToAndTwoDot") + " ";
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		nextX = PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer) + x;
+		i = PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer) + x;
+		if (nextX < i)
+			nextX = i;
+
+		/***************************************************************************************************************
+		 * Dessin du from to
+		 */
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		y += getHeightString(tmp1, buffer) + decalageDemi;
+		buffer.drawString(tmp1, x, y);
+		buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
+
+		/***************************************************************************************************************
+		 * Dessin des gares de départ et d'arrivée
+		 */
+		x = nextX;
+		tmp1 = travelPanelPT.pathBuilder.getOrigine();
+		tmp2 = travelPanelPT.pathBuilder.getDestination();
+		buffer.drawString(tmp1, x, y);
+		buffer.drawString(tmp2, x, y + getHeightString(tmp2, buffer) + decalageDemi);
+		endRight=getWidthString(tmp1, buffer);
+		i=getWidthString(tmp2, buffer);
+		if(i>endRight)
+			endRight=i;
+		endRight+=x;
+
+		//
+		//
+		/***************************************************************************************************************
+		 * calcul des valeurs
+		 */
+		tmp1 = travelPanelPT.pathBuilder.getTotalCost() + " " + father.lg("Money");
+		tmp2 = decomposeMinutesIntoHourMinutes(travelPanelPT.pathBuilder.getTotalTime(), father.lg("LetterForHour"),
+				father.lg("LetterForMinute"));
+		nextX = travelPanelPT.area.width + travelPanelPT.area.x
+				- PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
+		i = travelPanelPT.area.width + travelPanelPT.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
+		if (nextX > i)
+			nextX = i;
+
+		/***************************************************************************************************************
+		 * Dessin des valeurs
+		 */
+		x = nextX;
+		buffer.drawString(tmp1, x, y);
+		buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
+
+		/***************************************************************************************************************
+		 * Dessin du coût et du temps
+		 */
+		tmp1 = father.lg("Cost") + " : ";
+		tmp2 = father.lg("Time") + " : ";
+		nextX = x - PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
+		i = x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
+		if (nextX > i)
+			nextX = i;
+		if (nextX > endRight) {
+			x = nextX;
+			buffer.drawString(tmp1, x, y);
+			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
+		}
 	}
 
 	/**

@@ -83,14 +83,14 @@
 				<GEEK value="I'm a looser"/>
 			</LostTravel>
 			<FromAndTwoDot>
-				<FRANCAIS value="De :"/>
-				<ENGLISH value="From :"/>
-				<GEEK value="From :"/> 
+				<FRANCAIS value="↦"/>
+				<ENGLISH value="↦"/>
+				<GEEK value="↦"/> 
 			</FromAndTwoDot>
 			<ToAndTwoDot>
-				<FRANCAIS value="A :"/>
-				<ENGLISH value="To :"/>
-				<ENGLISH value="To :"/>
+				<FRANCAIS value="⇥"/>
+				<ENGLISH value="⇥"/>
+				<GEEK value="⇥ "/>
 			</ToAndTwoDot>
 			<TrippleArrowLeft>
 				<FRANCAIS value="⇛"/>
