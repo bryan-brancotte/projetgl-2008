@@ -69,7 +69,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 				}
 			}
 		} catch (Exception e) {
-			System.err.println("Dans le cadre de la gestion des couleurs le master ne peut fournir les services et route, nous retenterons plus tard");
+			//System.err.println("Dans le cadre de la gestion des couleurs le master ne peut fournir les services et route, nous retenterons plus tard");
 		}
 	}
 
