@@ -39,7 +39,7 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public float getTotalCost() {
-		return -1F;
+		return  path.getCost();
 	}
 
 	@Override

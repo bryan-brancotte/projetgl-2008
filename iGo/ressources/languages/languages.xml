@@ -82,16 +82,21 @@
 				<ENGLISH value="Lost in your trip"/>
 				<GEEK value="I'm a looser"/>
 			</LostTravel>
-			<From>
-				<FRANCAIS value="De"/>
-				<ENGLISH value="From"/>
-				<GEEK value="cd .."/>
-			</From>
-			<To>
-				<FRANCAIS value="À"/>
-				<ENGLISH value="To"/>
-				<GEEK value="tab"/>
-			</To>
+			<FromAndTwoDot>
+				<FRANCAIS value="De :"/>
+				<ENGLISH value="From :"/>
+				<GEEK value="From :"/> 
+			</FromAndTwoDot>
+			<ToAndTwoDot>
+				<FRANCAIS value="A :"/>
+				<ENGLISH value="To :"/>
+				<ENGLISH value="To :"/>
+			</ToAndTwoDot>
+			<TrippleArrowLeft>
+				<FRANCAIS value="⇛"/>
+				<ENGLISH value="⇛"/>
+				<GEEK value="⇛"/>
+			</TrippleArrowLeft>
 			<Money>
 				<FRANCAIS value="€"/>
 				<ENGLISH value="$"/>
