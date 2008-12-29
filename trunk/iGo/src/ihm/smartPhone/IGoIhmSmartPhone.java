@@ -3,6 +3,7 @@ package ihm.smartPhone;
 import graphNetwork.GraphNetwork;
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -382,9 +383,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected void checkLoadTravelPanel() {
 		if (loadTravelPanel == null) {
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			Iterator<PathInGraph> itP = master.getRecentsPaths();
+			Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
 			while (itP.hasNext()) {
-				lst.add(new TravelForTravelPanelImplPathInGraph(itP.next(), false) {
+				lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraph(), false) {
 
 					@Override
 					public void delete() {
@@ -419,9 +420,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected void checkFavoritesPanel() {
 		if (favoritesPanel == null) {
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			Iterator<PathInGraph> itP = master.getFavoritesPaths();
+			Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
 			while (itP.hasNext()) {
-				lst.add(new TravelForTravelPanelImplPathInGraph(itP.next(), true) {
+				lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraph(), true) {
 
 					@Override
 					public void delete() {

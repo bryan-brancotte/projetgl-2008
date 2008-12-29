@@ -2,6 +2,7 @@ package iGoMaster;
 
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -159,13 +160,13 @@ public interface Master {
 	 * 
 	 * @return Iterator sur un PathInGraph
 	 */
-	public Iterator<PathInGraph> getRecentsPaths();
+	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths();
 
 	/**
 	 * Donne tous les itinéraires favoris
 	 * 
 	 * @return Iterator sur un PathInGraph
 	 */
-	public Iterator<PathInGraph> getFavoritesPaths();
+	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths();
 
 }

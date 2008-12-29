@@ -29,6 +29,7 @@ import streamInFolder.event.EventInfoNetworkWatcherInFolderJDOM;
 import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
+import streamInFolder.recentsAndFavoritesGraphs.RecentsAndFavoritesPathsInGraphReaderInFolder;
 import streamInFolder.recentsAndFavoritesGraphs.RecentsAndFavoritesPathsInGraphReceiver;
 
 import algorithm.Dijkstra;
@@ -91,7 +92,7 @@ public class IGoMaster implements Master, Observer
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
-		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver();
+		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver(this.graphBuilder, new RecentsAndFavoritesPathsInGraphReaderInFolder());
 		
         this.process();
 	}
@@ -643,11 +644,11 @@ public class IGoMaster implements Master, Observer
 
 
 	@Override
-	public Iterator<PathInGraph> getFavoritesPaths(){return this.pathInGraphsToRemember.getFavoritesPaths();}
+	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths(){return this.pathInGraphsToRemember.getFavoritesPaths();}
 
 
 	@Override
-	public Iterator<PathInGraph> getRecentsPaths() {return this.pathInGraphsToRemember.getRecentsPaths();}
+	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {return this.pathInGraphsToRemember.getRecentsPaths();}
 
 
 	@Override

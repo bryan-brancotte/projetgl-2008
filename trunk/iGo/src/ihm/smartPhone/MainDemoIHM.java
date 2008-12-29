@@ -3,6 +3,7 @@ package ihm.smartPhone;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -140,12 +141,12 @@ public class MainDemoIHM {
 			}
 
 			@Override
-			public Iterator<PathInGraph> getFavoritesPaths() {
+			public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths() {
 				return null;
 			}
 
 			@Override
-			public Iterator<PathInGraph> getRecentsPaths() {
+			public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
 				return null;
 			}
 

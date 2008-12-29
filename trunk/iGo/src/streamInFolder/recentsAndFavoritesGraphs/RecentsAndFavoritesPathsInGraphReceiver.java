@@ -1,45 +1,58 @@
 package streamInFolder.recentsAndFavoritesGraphs;
 
+import graphNetwork.GraphNetworkBuilder;
+import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphCollectionBuilder;
+import iGoMaster.RecentsAndFavoritesPathsInGraph;
+import iGoMaster.RecentsAndFavoritesPathsInGraphReader;
+
 import java.util.Iterator;
 
-import graphNetwork.PathInGraph;
-import iGoMaster.RecentsAndFavoritesPathsInGraph;
-
 public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavoritesPathsInGraph {
+	
+	private RecentsAndFavoritesPathsInGraphReader rafpigr;
+	
+	public RecentsAndFavoritesPathsInGraphReceiver(GraphNetworkBuilder gnb, RecentsAndFavoritesPathsInGraphReader raf) {
+		super();
+		rafpigr = raf;
+		rafpigr.readPath(gnb);
+	}
 
 	@Override
 	public void addAsRecent(PathInGraph pig) {
-		// TODO Auto-generated method stub
-		
+		rafpigr.addAsRecent(pig);
 	}
 
 	@Override
-	public Iterator<PathInGraph> getFavoritesPaths() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths() {
+		return rafpigr.getFavoritesPaths();
 	}
 
 	@Override
-	public Iterator<PathInGraph> getRecentsPaths() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
+		return rafpigr.getRecentsPaths();
 	}
 
 	@Override
 	public void markAsFavorite(PathInGraph pig) {
-		// TODO Auto-generated method stub
-		
+		rafpigr.markAsFavorite(pig);
 	}
 
 	@Override
 	public void removeFromFavorites(PathInGraph pig) {
-		// TODO Auto-generated method stub
-		
+		rafpigr.removeFromFavorites(pig);
 	}
 
 	@Override
 	public void removeFromRecents(PathInGraph pig) {
-		// TODO Auto-generated method stub
+		rafpigr.removeFromRecents(pig);
+	}
+	
+	public static void main(String[] args) {
+
+		RecentsAndFavoritesPathsInGraphReceiver gnrf = new RecentsAndFavoritesPathsInGraphReceiver(new GraphNetworkBuilder(), new RecentsAndFavoritesPathsInGraphReaderInFolder());
+		
+		
 		
 	}
 
