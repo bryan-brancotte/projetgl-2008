@@ -89,8 +89,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected IhmReceivingStates preferedState;
 	protected SplashScreenPanel splashScreenPanel = null;
 	protected MainPanel mainPanel = null;
-	protected LoadTravelPanel loadTravelPanel = null;
-	protected LoadTravelPanel favoritesPanel = null;
 	protected SettingsPanel settingsPanel = null;
 	protected NewTravelPanel newTravelPanel = null;
 	protected TravelDisplayPanel travelGraphicPanel = null;
@@ -380,81 +378,79 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			mainPanel = new MainPanel(this, upperBar, lowerBar);
 	}
 
-	protected void checkLoadTravelPanel() {
-		if (loadTravelPanel == null) {
-			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
-			PathInGraphCollectionBuilder pigCol;
-			while (itP.hasNext()) {
-				lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraph(), master
-						.isFavoritesPaths(pigCol)) {
+	protected LoadTravelPanel checkLoadTravelPanel() {
+		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
+		Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
+		PathInGraphCollectionBuilder pigCol;
+		while (itP.hasNext()) {
+			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraph(), master
+					.isFavoritesPaths(pigCol)) {
 
-					@Override
-					public void delete() {
-						master.delete(path);
-					}
+				@Override
+				public void delete() {
+					master.delete(path);
+				}
 
-					@Override
-					public void edit() {
-						setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path);
-					}
+				@Override
+				public void edit() {
+					setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path);
+				}
 
-					@Override
-					public void start() {
-						master.delete(path);
-						setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
-					}
+				@Override
+				public void start() {
+					master.delete(path);
+					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
+				}
 
-					@Override
-					public void setFavorite(boolean isFav) {
-						if (isFav) {
-							master.markAsFavorite(path);
-						} else {
-							master.removeFromFavorites(path);
-						}
-						this.isFav = isFav;
+				@Override
+				public void setFavorite(boolean isFav) {
+					if (isFav) {
+						master.markAsFavorite(path);
+					} else {
+						master.removeFromFavorites(path);
 					}
-				});
-			}
-			loadTravelPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.LOAD_TRAVEL, lst);
+					this.isFav = isFav;
+				}
+			});
 		}
+		return new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.LOAD_TRAVEL, lst);
+
 	}
 
-	protected void checkFavoritesPanel() {
-		if (favoritesPanel == null) {
-			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
-			Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
-			while (itP.hasNext()) {
-				lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraph(), true) {
+	protected LoadTravelPanel checkFavoritesPanel() {
+		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
+		Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
+		while (itP.hasNext()) {
+			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraph(), true) {
 
-					@Override
-					public void delete() {
-						master.delete(path);
-					}
+				@Override
+				public void delete() {
+					master.delete(path);
+				}
 
-					@Override
-					public void edit() {
-						setCurrentState(IhmReceivingStates.NEW_TRAVEL, path);
-					}
+				@Override
+				public void edit() {
+					setCurrentState(IhmReceivingStates.NEW_TRAVEL, path);
+				}
 
-					@Override
-					public void start() {
-						setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
-					}
+				@Override
+				public void start() {
+					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
+				}
 
-					@Override
-					public void setFavorite(boolean isFav) {
-						if (isFav) {
-							master.markAsFavorite(path);
-						} else {
-							master.removeFromFavorites(path);
-						}
-						this.isFav = isFav;
+				@Override
+				public void setFavorite(boolean isFav) {
+					if (isFav) {
+						master.markAsFavorite(path);
+					} else {
+						master.removeFromFavorites(path);
 					}
-				});
-			}
-			favoritesPanel = new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.FAVORITES, lst);
+					this.isFav = isFav;
+				}
+			});
 		}
+		return new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.FAVORITES, lst);
+
 	}
 
 	protected void checkSettingsPanel() {
@@ -624,11 +620,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		} else if (actualState == IhmReceivingStates.LOAD_TRAVEL) {
 			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
 			centerPanel.removeAll();
+			LoadTravelPanel loadTravelPanel = null;
 			try {
-				checkLoadTravelPanel();
+				loadTravelPanel = checkLoadTravelPanel();
 			} catch (OutOfMemoryError e) {
 				cleanPanelsStates(true);
-				checkLoadTravelPanel();
+				loadTravelPanel = checkLoadTravelPanel();
 			}
 			centerPanel.add(loadTravelPanel);
 			loadTravelPanel.giveControle();
@@ -639,11 +636,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		} else if (actualState == IhmReceivingStates.FAVORITES) {
 			this.actualState = IhmReceivingStates.FAVORITES;
 			centerPanel.removeAll();
+			LoadTravelPanel favoritesPanel = null;
 			try {
-				checkFavoritesPanel();
+				favoritesPanel = checkFavoritesPanel();
 			} catch (OutOfMemoryError e) {
 				cleanPanelsStates(true);
-				checkFavoritesPanel();
+				favoritesPanel = checkFavoritesPanel();
 			}
 			centerPanel.add(favoritesPanel);
 			favoritesPanel.giveControle();
@@ -775,7 +773,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (dueToAnError)
 			PanelTooled.setStaticQuality(IHMGraphicQuality.AS_FAST_AS_WE_CAN);
 		splashScreenPanel = null;
-		loadTravelPanel = null;
 		settingsPanel = null;
 		newTravelPanel = null;
 		mainPanel = null;
@@ -885,10 +882,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			splashScreenPanel.setBackground(skin.getColorInside());
 		if (mainPanel != null)
 			mainPanel.setBackground(skin.getColorInside());
-		if (loadTravelPanel != null)
-			loadTravelPanel.setBackground(skin.getColorInside());
-		if (favoritesPanel != null)
-			favoritesPanel.setBackground(skin.getColorInside());
 		if (settingsPanel != null)
 			settingsPanel.setBackground(skin.getColorInside());
 		if (newTravelPanel != null)
