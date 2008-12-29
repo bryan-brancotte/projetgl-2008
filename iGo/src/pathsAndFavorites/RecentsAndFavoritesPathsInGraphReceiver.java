@@ -1,12 +1,14 @@
-package streamInFolder.recentsAndFavoritesGraphs;
+package pathsAndFavorites;
 
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphCollectionBuilder;
 import iGoMaster.RecentsAndFavoritesPathsInGraph;
-import iGoMaster.RecentsAndFavoritesPathsInGraphReader;
 
 import java.util.Iterator;
+
+import streamInFolder.recentsAndFavoritesGraphs.RecentsAndFavoritesPathsInGraphReaderInFolder;
+
 
 public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavoritesPathsInGraph {
 	
@@ -15,7 +17,7 @@ public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavori
 	public RecentsAndFavoritesPathsInGraphReceiver(GraphNetworkBuilder gnb, RecentsAndFavoritesPathsInGraphReader raf) {
 		super();
 		rafpigr = raf;
-		rafpigr.readPath(gnb);
+		rafpigr.readPath(gnb, MAX_RECENTS_PATHS);
 	}
 
 	@Override
