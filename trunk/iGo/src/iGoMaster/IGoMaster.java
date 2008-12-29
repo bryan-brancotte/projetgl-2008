@@ -158,7 +158,7 @@ public class IGoMaster implements Master, Observer
 		
 				threads.add(currentThread());
 				
-				System.out.println("elo --> Algo lancé");
+				//System.out.println("elo --> Algo lancé");
 				
 				while (exception)
 				{	
@@ -166,7 +166,7 @@ public class IGoMaster implements Master, Observer
 					{
 						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 						exception = false;
-						System.out.println("elo --> Aucune exception n'a été lancée par algo");
+						//System.out.println("elo --> Aucune exception n'a été lancée par algo");
 						
 					}
 					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 
@@ -206,7 +206,7 @@ public class IGoMaster implements Master, Observer
 	{
 		this.initObservers();
 		
-		System.out.println("elo --> Start Visu");
+		//System.out.println("elo --> Start Visu");
 		ihm.start(true,4);
 		
 		new ExecMultiThread<IHM>(ihm) 
@@ -275,7 +275,7 @@ public class IGoMaster implements Master, Observer
 			{
 				this.network = (AvailableNetworkInFolder)(this.graphReceiver.getAvaibleNetwork().next());
 				
-				System.out.println("elo --> Récupération de " + this.network.getName());
+				//System.out.println("elo --> Récupération de " + this.network.getName());
 			}
 			else throw new NoNetworkException("Pas de réseau disponible." +
 					" L'utilisateur ne pourra pas utiliser toutes les fonctionnalités de l'application.");
@@ -316,13 +316,13 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		System.out.println("elo --> update");
+		//System.out.println("elo --> update");
 		
 		if (o.equals(algo) && o!=null)
 		{
 			if (!threads.isEmpty() && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
-				System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
+				//System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 				
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraph(),
@@ -357,7 +357,7 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public void stop() 
 	{
-		System.out.println("elo --> Fermeture de l'application");
+		//System.out.println("elo --> Fermeture de l'application");
 		
 		try{eventInfoNetwork.stopWatching();}
 		catch (NullPointerException e)
@@ -371,7 +371,7 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) 
 	{
-		System.out.println("elo --> L'ihm demande un chemin");
+		//System.out.println("elo --> L'ihm demande un chemin");
 		
 		try
 		{
@@ -409,7 +409,7 @@ public class IGoMaster implements Master, Observer
 	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() 
 	throws NoNetworkException, GraphReceptionException, GraphConstructionException
 	{
-		System.out.println("elo --> L'ihm demande un builder de contraintes");
+		//System.out.println("elo --> L'ihm demande un builder de contraintes");
 		
 		if (!threads.isEmpty())
 		{
