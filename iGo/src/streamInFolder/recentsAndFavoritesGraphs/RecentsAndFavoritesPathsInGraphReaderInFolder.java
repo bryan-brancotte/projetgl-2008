@@ -67,7 +67,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 								allLignes += curLigne; 
 							}
 							allLignes = allLignes.split("null")[0];
-							System.out.println("Pierrick --> " + allLignes);
+//							System.out.println("Pierrick --> " + allLignes);
 //							System.out.println("Pierrick --> ---------------------------------");
 							if (fr.getName().contains("fav")) {
 								favorites.add(gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes));
@@ -98,10 +98,6 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
 		readFiles();
 		if (recents != null) {
-			Iterator<PathInGraphCollectionBuilder> test = recents.iterator();
-			while (test.hasNext()) {
-				System.out.println("Pierrick --> iterator " + test.next().getPathInGraph().exportPath());
-			}
 			return recents.iterator();
 		}
 		else
@@ -112,7 +108,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	public void addAsRecent(PathInGraph pig) {
 		numFile++;
 		String fileName = path + "PIG_" + numFile + ".xml";
-		System.out.println("Pierrick --> filename " +  fileName);
+//		System.out.println("Pierrick --> filename " +  fileName);
 		File newFile = new File(fileName);
 		try {
 			FileWriter fw = new FileWriter(newFile);
