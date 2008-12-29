@@ -225,7 +225,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	public void markAsFavorite(PathInGraph pig) {
 		if (!favoritesMap.containsKey(pig)) {
 			try {
-				System.out.println(recentsMap.get(pig));
+//				System.out.println(recentsMap.get(pig));
 				File source = recentsMap.get(pig);
 //				System.out.println("NEW NAME " + source.getAbsolutePath());
 				String name = source.getAbsolutePath().split("\\.xml")[0] + "_fav.xml";
