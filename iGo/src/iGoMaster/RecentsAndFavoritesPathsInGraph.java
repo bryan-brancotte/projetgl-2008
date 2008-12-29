@@ -49,7 +49,7 @@ public interface RecentsAndFavoritesPathsInGraph {
 	public boolean isFavorite(PathInGraph pig);
 
 	/**
-	 * Cette methode permet d'enlever un itinéraire de la mémoire, quelque soit l'endroit où il se trouve
+	 * Cette methode permet de supprimer un itineraire recent
 	 * 
 	 * @param pig
 	 *            Itinéraire à enlever
