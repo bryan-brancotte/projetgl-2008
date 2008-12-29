@@ -271,7 +271,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public boolean isFavorite(PathInGraph pig) {
-		return favorites.contains(pig);
+		return favoritesMap.containsKey(pig);
 	}
 
 }
