@@ -62,7 +62,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	@SuppressWarnings("unchecked")
 	@Override
 	public void readFiles() {
-		System.out.println("READ PATH");
+//		System.out.println("READ PATH");
 		if (folder.isDirectory()) {
 			try {
 				favorites.clear();
@@ -100,6 +100,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 							int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
 							if (num > numFile) {
 								numFile = num;
+//								System.out.println("numfile " + numFile);
 							}
 							FileReader frr = new FileReader(fr);
 							BufferedReader br = new BufferedReader(frr);
@@ -171,7 +172,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 				try {
 					for (File fr : folder.listFiles()) {
 						if (fr.getName().contains("PIG") && fr.getName().contains(".xml")) {
-							if (fr.getName().split("\\.")[0].split("_")[1] != null) {
+							if (fr.getName().split("\\.xml")[0].split("_")[1] != null) {
 								if (!fr.getName().contains("fav")) {
 //									System.out.println("Last modified : "+ fr.lastModified() + " name " + fr.getName());
 									int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
@@ -200,7 +201,21 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		else {
 			fileName = path + "PIG_" + numFile + ".xml";
 		}
+
 //		 System.out.println("Pierrick --> filename " + fileName);
+		
+		ArrayList<String> cof = new ArrayList<String>();
+		for (File f : folder.listFiles()) {
+			cof.add(f.getAbsolutePath().replace("\\", "/"));
+			cof.add(f.getAbsolutePath().replace("\\", "/").split("\\.xml")[0] + "_fav.xml");
+			cof.add(f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml")[0] + ".xml");
+//			System.out.println("Jai " + f.getAbsolutePath().replace("\\", "/") + " et " + f.getAbsolutePath().replace("\\", "/").split("\\.xml")[0] + "_fav.xml" + " et " +f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml")[0] + ".xml");
+		}
+		if (cof.contains(fileName)) {
+			addAsRecent(pig);
+			return;
+		}
+		
 		File newFile = new File(fileName);
 		try {
 			FileWriter fw = new FileWriter(newFile);
@@ -230,6 +245,8 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 //				System.out.println("NEW NAME " + source.getAbsolutePath());
 				String name = source.getAbsolutePath().split("\\.xml")[0] + "_fav.xml";
 //				System.out.println("NEW NAME " + name);
+				
+				
 				File destination = new File(name);
 				source.renameTo(destination);
 //				recentsMap.remove(pig);
@@ -251,7 +268,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			toDelete.delete();
 			favoritesMap.remove(pig);
 			favoritesMapPIGC.remove(pig);
-//			addAsRecent(pig);
+			addAsRecent(pig);
 		}
 		// TODO Auto-generated method stub
 //		addAsRecent
