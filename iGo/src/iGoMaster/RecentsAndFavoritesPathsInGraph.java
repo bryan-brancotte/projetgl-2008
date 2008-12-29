@@ -1,6 +1,7 @@
 package iGoMaster;
 
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphCollectionBuilder;
 
 import java.util.Iterator;
 
@@ -62,12 +63,12 @@ public interface RecentsAndFavoritesPathsInGraph {
 	 * 
 	 * @return Iterator sur un PathInGraph
 	 */
-	public Iterator<PathInGraph> getRecentsPaths();
+	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths();
 
 	/**
 	 * Donne tous les itinéraires favoris
 	 * 
 	 * @return Iterator sur un PathInGraph
 	 */
-	public Iterator<PathInGraph> getFavoritesPaths();
+	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths();
 }
