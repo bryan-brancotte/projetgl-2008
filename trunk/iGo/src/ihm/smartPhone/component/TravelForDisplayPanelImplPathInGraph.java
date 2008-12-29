@@ -51,6 +51,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 		Iterator<Junction> itJ = path.getJunctions();
 		Junction junction = itJ.next();
+		Junction nextJunction = null;
 		Station station = origin;
 		totalCost = path.getCost();
 		totalTime = path.getTime();
@@ -60,13 +61,20 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 		itJ = path.getJunctions();
 		while (itJ.hasNext()) {
-			section.addJunction(junction = itJ.next());
+			if (nextJunction != null) {
+				junction = nextJunction;
+				nextJunction = null;
+			} else {
+				junction = itJ.next();
+			}
+			section.addJunction(junction);
 			station = junction.getOtherStation(station);
-			if (serviceToFind.size() > 0) {
+			if (serviceToFind.size() > 0 && itJ.hasNext()) {
+				nextJunction = itJ.next();
 				itS = station.getServices();
 				while (itS.hasNext())
 					if (serviceToFind.remove(itS.next()))
-						if (section.getEnddingChangementTime() == -1) {
+						if (section.getEnddingChangementTime() == -1 && nextJunction.isRouteLink()) {
 							section.enddingChangementTime = 0;
 							section.enddingChangementCost = 0;
 						}

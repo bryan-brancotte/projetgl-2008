@@ -892,7 +892,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 *            le coefficient par lequel le coefficient actuelle va être divisé
 		 */
 		public void decreasScallImg(float coef) {
-			if (((widthViewPort - widthImage) > 0) && ((heightViewPort - heightImage) > 0))
+			if (((widthViewPort - widthImage) > -(widthViewPort >> 5))
+					&& ((heightViewPort - heightImage) > (heightViewPort >> 5)))
 				return;
 			scallImg /= coef;
 			neededRepaint = true;
@@ -954,6 +955,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			graphicsTunning(this.buffer);
 		}
 
+		@Deprecated
 		public void setSizeImage(int width, int height) {
 			if (width < 10)
 				width = 10;

@@ -398,6 +398,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void start() {
+					master.delete(path.getCurrentPathInGraph());
 					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path.getCurrentPathInGraph());
 				}
 
