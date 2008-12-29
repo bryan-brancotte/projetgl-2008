@@ -141,7 +141,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths() {
-		System.out.println("get fav");
+//		System.out.println("get fav");
 		readFiles();
 		if (favorites != null) {
 			return favorites.iterator();
@@ -152,7 +152,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
-		System.out.println("get recents");
+//		System.out.println("get recents");
 		readFiles();
 		if (recents != null) {
 			return recents.iterator();
@@ -246,7 +246,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	@Override
 	public void removeFromFavorites(PathInGraph pig) {
 		if (favoritesMap.containsKey(pig)) {
-			System.out.println("Remove from favorites");
+//			System.out.println("Remove from favorites");
 			File toDelete = favoritesMap.get(pig);
 			toDelete.delete();
 			favoritesMap.remove(pig);
@@ -261,7 +261,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	@Override
 	public void removeFromRecents(PathInGraph pig) {
 		if (recentsMap.containsKey(pig)) {
-			System.out.println("Remove from recents");
+//			System.out.println("Remove from recents");
 			File toDelete = recentsMap.get(pig);
 			toDelete.delete();
 			recentsMap.remove(pig);
