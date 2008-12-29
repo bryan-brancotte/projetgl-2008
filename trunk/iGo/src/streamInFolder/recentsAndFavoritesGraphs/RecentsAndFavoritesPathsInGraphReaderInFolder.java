@@ -24,6 +24,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	private File folder;
 	private String path;
 	private int numFile=0;
+	private GraphNetworkBuilder gnb;
 
 	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
 	String PIG_DIR = "paths/";
@@ -37,7 +38,14 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		folder = new File(path);
 	}
 	
-	public void readPath(GraphNetworkBuilder gnb) {
+	public void readPath(GraphNetworkBuilder gn) {
+		gnb = gn;
+		if (!folder.isDirectory()) {
+			folder.mkdir();
+		}
+	}
+	
+	public void readFiles() {
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
@@ -72,13 +80,11 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 				e.printStackTrace();
 			}
 		}
-		else {
-			folder.mkdir();
-		}
 	}
 	
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths() {
+		readFiles();
 		if (favorites != null) {
 			return favorites.iterator();
 		}
@@ -88,6 +94,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
+		readFiles();
 		if (recents != null) {
 			Iterator<PathInGraphCollectionBuilder> test = recents.iterator();
 			while (test.hasNext()) {
