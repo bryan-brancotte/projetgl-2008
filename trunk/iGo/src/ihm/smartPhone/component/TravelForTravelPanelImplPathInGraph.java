@@ -1,17 +1,17 @@
 package ihm.smartPhone.component;
 
-import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphConstraintBuilder;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 
 public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel {
 
-	public TravelForTravelPanelImplPathInGraph(PathInGraph path,boolean isFav) {
+	public TravelForTravelPanelImplPathInGraph(PathInGraphConstraintBuilder path, boolean isFav) {
 		super();
 		this.path = path;
 		this.isFav = isFav;
 	}
 
-	protected PathInGraph path;
+	protected PathInGraphConstraintBuilder path;
 
 	protected boolean isFav = false;
 
@@ -23,7 +23,7 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public String getDestination() {
-		return path.getDestination().getName();
+		return path.getCurrentPathInGraph().getDestination().getName();
 	}
 
 	@Override
@@ -34,17 +34,17 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public String getOrigine() {
-		return path.getOrigin().getName();
+		return path.getCurrentPathInGraph().getOrigin().getName();
 	}
 
 	@Override
 	public float getTotalCost() {
-		return  path.getCost();
+		return path.getCurrentPathInGraph().getCost();
 	}
 
 	@Override
 	public int getTotalTime() {
-		return path.getTime();
+		return path.getCurrentPathInGraph().getTime();
 	}
 
 	@Override

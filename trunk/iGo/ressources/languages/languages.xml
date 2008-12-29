@@ -33,9 +33,9 @@
 				<GEEK value="SEPTA presents"/>
 			</SplashScreenUpperTitle>
 			<iGoVersion>
-				<FRANCAIS value="iGo v0.5"/>
-				<ENGLISH value="iGo v0.5"/>
-				<GEEK value="iGo v0.5"/>
+				<FRANCAIS value="iGo beta"/>
+				<ENGLISH value="iGo beta"/>
+				<GEEK value="iGo beta"/>
 			</iGoVersion>
 			<DoYouWantToQuit>
 				<FRANCAIS value="Voulez vous quitter l'application ?"/>

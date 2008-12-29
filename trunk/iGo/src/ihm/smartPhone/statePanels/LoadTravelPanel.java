@@ -276,11 +276,11 @@ public class LoadTravelPanel extends PanelState {
 		tmp2 = travelPanelPT.pathBuilder.getDestination();
 		buffer.drawString(tmp1, x, y);
 		buffer.drawString(tmp2, x, y + getHeightString(tmp2, buffer) + decalageDemi);
-		endRight=getWidthString(tmp1, buffer);
-		i=getWidthString(tmp2, buffer);
-		if(i>endRight)
-			endRight=i;
-		endRight+=x;
+		endRight = getWidthString(tmp1, buffer);
+		i = getWidthString(tmp2, buffer);
+		if (i > endRight)
+			endRight = i;
+		endRight += x;
 
 		//
 		//
@@ -333,7 +333,6 @@ public class LoadTravelPanel extends PanelState {
 					this, travelPanel) {
 				@Override
 				public void execute() {
-					System.out.println("cmdDel");
 					this.origineC.cmdDel.terminate();
 					this.origineC.cmdEdit.terminate();
 					this.origineC.cmdFav.terminate();
@@ -347,7 +346,6 @@ public class LoadTravelPanel extends PanelState {
 			travelPanel.cmdFav = makeButton(new CodeExecutor2P<TravelForTravelPanel, PanelState>(t, this) {
 				@Override
 				public void execute() {
-					System.out.println("cmdFav");
 					this.origineA.setFavorite(!this.origineA.isFavorite());
 					this.origineB.repaint();
 				}
@@ -356,7 +354,6 @@ public class LoadTravelPanel extends PanelState {
 			travelPanel.cmdEdit = makeButton(new CodeExecutor2P<TravelForTravelPanel, PanelState>(t, this) {
 				@Override
 				public void execute() {
-					System.out.println("cmdEdit");
 					this.origineA.edit();
 					this.origineB.repaint();
 				}
