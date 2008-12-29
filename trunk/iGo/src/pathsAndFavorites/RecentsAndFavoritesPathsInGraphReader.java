@@ -1,17 +1,31 @@
-package iGoMaster;
+package pathsAndFavorites;
 
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphCollectionBuilder;
 
 import java.util.Iterator;
-
+/**
+ * Interface permettant de ne pas avoir a se soucier du moyen de sauvegarde des fichiers. On peut vouloir les sauvegarder dans un fichier, dans une
+ * base de donnees, ou ailleurs.
+ * 
+ * La classe RecentsAndFavoritesPathsInGraphReceiver utilise cette interface, et est donc indifferente au moyen de sauvegarde
+ * 
+ * @author iGo
+ * 
+ */
 public interface RecentsAndFavoritesPathsInGraphReader {
 
 	/**
-	 * Permet de lire le repertoire contenant les chemins
+	 * Permet de preparer la lecture du repertoire contenant les chemins
 	 */
-	public void readPath(GraphNetworkBuilder gnb);
+	public void readPath(GraphNetworkBuilder gnb, int mrp);
+	
+
+	/**
+	 * Importe les chemins presents dans le repertoire
+	 */
+	public void readFiles();
 	
 	
 	/**
