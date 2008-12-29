@@ -49,6 +49,11 @@ public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavori
 	public void removeFromRecents(PathInGraph pig) {
 		rafpigr.removeFromRecents(pig);
 	}
+
+	@Override
+	public boolean isFavorite(PathInGraph pig) {
+		return rafpigr.isFavorite(pig);
+	}
 	
 	public static void main(String[] args) {
 
@@ -57,5 +62,6 @@ public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavori
 		
 		
 	}
+
 
 }

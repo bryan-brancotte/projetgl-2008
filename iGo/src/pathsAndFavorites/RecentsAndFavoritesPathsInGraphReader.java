@@ -47,7 +47,7 @@ public interface RecentsAndFavoritesPathsInGraphReader {
 	/**
 	 * 
 	 * 
-	 * Cette methode permet d'enlever un itinéraire de la mémoire, quelque soit l'endroit où il se trouve
+	 * Cette methode permet de supprimer un itineraire recent
 	 * 
 	 * @param pig
 	 *            Itinéraire à enlever
@@ -62,6 +62,16 @@ public interface RecentsAndFavoritesPathsInGraphReader {
 	 *            Itinéraire a enlever des favoris
 	 */
 	public void removeFromFavorites(PathInGraph pig);
+	
+
+	/**
+	 * Cette methode permet de savoir si un itinéraire est marqué comme etant un itinéraire favori
+	 * 
+	 * @param pig
+	 *            Itinéraire a mettre en favoris
+	 * @return true s'il est favoris
+	 */
+	public boolean isFavorite(PathInGraph pig);
 	
 	
 	/**
