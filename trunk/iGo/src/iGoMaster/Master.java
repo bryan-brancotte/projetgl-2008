@@ -169,4 +169,13 @@ public interface Master {
 	 */
 	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths();
 
+	/**
+	 * Cette methode permet de savoir si un itinéraire est marqué comme etant un itinéraire favori
+	 * 
+	 * @param pig
+	 *            Itinéraire a mettre en favoris
+	 * @return true s'il est favoris
+	 */
+	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path);
+
 }

@@ -654,4 +654,12 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public void removeFromFavorites(PathInGraph pig) {this.pathInGraphsToRemember.removeFromFavorites(pig);}
 
+
+	//TODO Begin by Bryan
+	@Override
+	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path) {
+		return this.pathInGraphsToRemember.isFavorite(path.getPathInGraph());
+	}
+	//TODO End by Bryan
+
 }

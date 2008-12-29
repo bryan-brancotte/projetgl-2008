@@ -384,8 +384,10 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (loadTravelPanel == null) {
 			LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 			Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
+			PathInGraphCollectionBuilder pigCol;
 			while (itP.hasNext()) {
-				lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraph(), false) {
+				lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraph(), master
+						.isFavoritesPaths(pigCol)) {
 
 					@Override
 					public void delete() {
