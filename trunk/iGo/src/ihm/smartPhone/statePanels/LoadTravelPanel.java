@@ -132,7 +132,10 @@ public class LoadTravelPanel extends PanelState {
 					if (t.isInMe) {
 						if (t != toStart)
 							return;
-						toStart.pathBuilder.start();
+						if (!t.cmdDel.getArea().contains(e.getX(), e.getY())
+								&& !t.cmdEdit.getArea().contains(e.getX(), e.getY())
+								&& !t.cmdFav.getArea().contains(e.getX(), e.getY()))
+							toStart.pathBuilder.start();
 					}
 				}
 			}
@@ -222,8 +225,8 @@ public class LoadTravelPanel extends PanelState {
 			/***************************************************************************************************************
 			 * calcul du from to
 			 */
-			tmp1 = father.lg("From") + " : ";
-			tmp2 = father.lg("To") + " : ";
+			tmp1 = father.lg("FromAndTwoDot");
+			tmp2 = father.lg("ToAndTwoDot");
 			buffer.setFont(father.getSizeAdapteur().getSmallFont());
 			nextX = PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer) + x;
 			i = PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer) + x;
@@ -362,5 +365,6 @@ public class LoadTravelPanel extends PanelState {
 			}
 		});
 		lowerBar.repaint();
+		this.requestFocus();
 	}
 }

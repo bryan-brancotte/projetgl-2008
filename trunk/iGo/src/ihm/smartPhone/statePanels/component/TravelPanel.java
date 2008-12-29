@@ -220,14 +220,14 @@ public class TravelPanel extends PanelDoubleBufferingSoftwear {
 				+ (father.getSizeAdapteur().getSizeSmallFont() >> 1));
 
 		buffer.setFont(fontSmall);
-		buffer.drawString(father.lg("From") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
+		buffer.drawString(father.lg("FromAndTwoDot")  , x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ father.getSizeAdapteur().getSizeSmallFont() * 2);
-		i = PanelDoubleBufferingSoftwear.getWidthString(father.lg("From") + " : ", g, fontSmall) + x;
+		i = PanelDoubleBufferingSoftwear.getWidthString(father.lg("FromAndTwoDot")  , g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
-		buffer.drawString(father.lg("To") + " :", x, father.getSizeAdapteur().getSizeIntermediateFont()
+		buffer.drawString(father.lg("ToAndTwoDot") , x, father.getSizeAdapteur().getSizeIntermediateFont()
 				+ (father.getSizeAdapteur().getSizeSmallFont() * 7 >> 1));
-		i = PanelDoubleBufferingSoftwear.getWidthString(father.lg("To") + " : ", g, fontSmall) + x;
+		i = PanelDoubleBufferingSoftwear.getWidthString(father.lg("ToAndTwoDot") , g, fontSmall) + x;
 		if (nextX < i)
 			nextX = i;
 
