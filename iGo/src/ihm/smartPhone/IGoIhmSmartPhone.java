@@ -383,12 +383,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
 		PathInGraphCollectionBuilder pigCol;
 		while (itP.hasNext()) {
-			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraph(), master
-					.isFavoritesPaths(pigCol)) {
+			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraphConstraintBuilder(),
+					master.isFavoritesPaths(pigCol)) {
 
 				@Override
 				public void delete() {
-					master.delete(path);
+					master.delete(path.getCurrentPathInGraph());
 				}
 
 				@Override
@@ -398,16 +398,15 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void start() {
-					master.delete(path);
-					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path);
+					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path.getCurrentPathInGraph());
 				}
 
 				@Override
 				public void setFavorite(boolean isFav) {
 					if (isFav) {
-						master.markAsFavorite(path);
+						master.markAsFavorite(path.getCurrentPathInGraph());
 					} else {
-						master.removeFromFavorites(path);
+						master.removeFromFavorites(path.getCurrentPathInGraph());
 					}
 					this.isFav = isFav;
 				}
@@ -421,16 +420,16 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 		Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
 		while (itP.hasNext()) {
-			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraph(), true) {
+			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraphConstraintBuilder(), true) {
 
 				@Override
 				public void delete() {
-					master.delete(path);
+					master.delete(path.getCurrentPathInGraph());
 				}
 
 				@Override
 				public void edit() {
-					setCurrentState(IhmReceivingStates.NEW_TRAVEL, path);
+					setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path);
 				}
 
 				@Override
@@ -441,9 +440,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				@Override
 				public void setFavorite(boolean isFav) {
 					if (isFav) {
-						master.markAsFavorite(path);
+						master.markAsFavorite(path.getCurrentPathInGraph());
 					} else {
-						master.removeFromFavorites(path);
+						master.removeFromFavorites(path.getCurrentPathInGraph());
 					}
 					this.isFav = isFav;
 				}
@@ -574,7 +573,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			 */
 		} else if (actualState == IhmReceivingStates.NEW_TRAVEL || actualState == IhmReceivingStates.EDIT_TRAVEL
 				|| actualState == IhmReceivingStates.LOST_IN_TRAVEL) {
-			if (actualState != IhmReceivingStates.NEW_TRAVEL && path == null)
+			if (actualState == IhmReceivingStates.LOST_IN_TRAVEL && path == null)
 				return false;
 			this.actualState = actualState;
 			centerPanel.removeAll();
@@ -586,18 +585,17 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				checkNewTravelPanel();
 			}
 			try {
-				pathBuilder = master.getPathInGraphConstraintBuilder();
 				switch (actualState) {
 				case NEW_TRAVEL:
+					pathBuilder = master.getPathInGraphConstraintBuilder();
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.NEW_TRAVEL);
 					break;
 				case LOST_IN_TRAVEL:
-					String xml = path.exportPath();
-					pathBuilder.importPath(xml);
+					pathBuilder = master.getPathInGraphConstraintBuilder();
+					pathBuilder.importPath(path.exportPath());
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
 				case EDIT_TRAVEL:
-					pathBuilder.importPath(path);
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
 					break;
 				}
@@ -951,7 +949,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) {
-		// TODO infoPathAsked
-		return false;
+		System.out.println("ToDo:infoPathAsked(" + algoKindOfException + "," + service + ")");
+		return true;
 	}
 }
