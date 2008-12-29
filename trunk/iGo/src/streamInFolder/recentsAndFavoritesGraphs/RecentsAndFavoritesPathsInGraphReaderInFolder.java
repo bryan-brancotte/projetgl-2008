@@ -48,6 +48,8 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	public void readFiles() {
 		if (folder.isDirectory()) {
 			try {
+				favorites.clear();
+				recents.clear();
 				for (File fr : folder.listFiles()) {
 					if (fr.getName().contains("PIG") && fr.getName().contains(".xml")) {
 						if(fr.getName().split("\\.")[0].split("_")[1] != null) {
