@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
-	protected boolean affichageDroite = true;
+	protected boolean affichageDroite = false;
 
 	protected GraphicsViewPort buffer;
 
@@ -215,13 +215,23 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
-		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
-		father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
+		if (!affichageDroite) {
+			affichageDroite = true;
+			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
+			repaint();
+		} else {
+			father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
+			father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
+		}
 	}
 
 	@Override
 	protected String getMessageChangeState() {
-		return father.lg("GoToArrayMode");
+		if (!affichageDroite) {
+			return father.lg("GoToGraphicModeSecondDisplay");
+		} else {
+			return father.lg("GoToArrayMode");
+		}
 	}
 
 	@Override
