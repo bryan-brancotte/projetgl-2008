@@ -369,6 +369,7 @@ public class IGoMaster implements Master, Observer
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) 
 	{
@@ -378,28 +379,39 @@ public class IGoMaster implements Master, Observer
 		{	
 			if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
 			{
+				if (test())System.out.println("elo --> L'ihm étudie un builder normal");
 				this.launchAlgo();
 				return true;
 			}
 			else
 			{
-				while (pathInGraphsToRemember.getRecentsPaths().hasNext())
+				Iterator itRecent = pathInGraphsToRemember.getRecentsPaths();
+
+				while (itRecent.hasNext())
 				{
-					this.collectionBuilder = pathInGraphsToRemember.getRecentsPaths().next();
+					if (test())System.out.println("elo --> L'ihm étudie un recent");
+					
+					this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
 					
 					if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 					{
+						if (test())System.out.println("elo --> recent trouvé");
 						this.launchAlgo();
 						return true;
 					}	
 				}
 				
-				while (pathInGraphsToRemember.getFavoritesPaths().hasNext())
+				Iterator itFav = pathInGraphsToRemember.getFavoritesPaths();
+
+				while (itFav.hasNext())
 				{
-					this.collectionBuilder = pathInGraphsToRemember.getFavoritesPaths().next();
+					if (test())System.out.println("elo --> L'ihm étudie un favori");
+					
+					this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
 					
 					if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 					{
+						if (test())System.out.println("elo --> favori trouvé");
 						this.launchAlgo();
 						return true;
 					}	
