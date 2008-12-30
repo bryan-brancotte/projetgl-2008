@@ -115,7 +115,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.setLayout(sizeAdapteur);
 		this.master = master;
 		this.skin = iGoSmartPhoneSkin.White;
-		setIconImage(ImageLoader.getImageIcone(getClass().getResource("/images/logo.128.png"), 32, 32).getImage()); 
+		setIconImage(ImageLoader.getImageIcone(getClass().getResource("/images/logo.png"), 32, 32).getImage()); 
 		if (skin == null) {
 			Iterator<iGoSmartPhoneSkin> itS = this.getSkins();
 			String s = this.master.getConfig(SettingsKey.SKIN.toString());
