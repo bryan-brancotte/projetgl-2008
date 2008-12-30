@@ -1141,9 +1141,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			int delta = 0;
 			switch (PanelDoubleBufferingSoftwear.getQuality()) {
 			case TEXT_ANTI_ANTIALIASING:
-				delta += 12;
+				delta += 10;
 			case FULL_ANTI_ANTIALIASING:
-				delta += 12;
+				delta += 10;
 			case HIGHER_QUALITY:
 				delta += 5;
 				break;
@@ -1156,7 +1156,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			for (int i = 0; i < deroulement; i += delta) {
 				try {
-					Thread.sleep(delta);
+					Thread.sleep(delta<<1);
 				} catch (InterruptedException e) {
 				}
 				buffer.move(0, delta);
@@ -1164,7 +1164,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			}
 			for (int i = deroulement; i < 0; i += delta) {
 				try {
-					Thread.sleep(delta);
+					Thread.sleep(delta<<1);
 				} catch (InterruptedException e) {
 				}
 				buffer.move(0, -delta);
