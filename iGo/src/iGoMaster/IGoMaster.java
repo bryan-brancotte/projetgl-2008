@@ -395,6 +395,8 @@ public class IGoMaster implements Master, Observer
 				if (test())System.out.println("elo --> L'ihm étudie un recent");
 				
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
+				if (test())System.out.println(this.collectionBuilder.getPathInGraphConstraintBuilder().toString());
+				if (test())System.out.println(pathInGraphBuidable.toString());
 				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
@@ -412,6 +414,9 @@ public class IGoMaster implements Master, Observer
 				if (test())System.out.println("elo --> L'ihm étudie un favori");
 				
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
+				
+				if (test())System.out.println(this.collectionBuilder.getPathInGraphConstraintBuilder().toString());
+				if (test())System.out.println(pathInGraphBuidable.toString());
 				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
