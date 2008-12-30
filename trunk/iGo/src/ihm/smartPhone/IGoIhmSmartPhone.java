@@ -5,6 +5,7 @@ import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
+import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
@@ -74,6 +75,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected IhmReceivingStates actualState = IhmReceivingStates.UNKNOWN;
 	protected NetworkColorManager networkColorManager;
 	protected TravelForDisplayPanel travel;
+	protected VoidPanel computingPanel;
 	// protected PathInGraphConstraintBuilder pathBuilderInAction;
 
 	/**
@@ -528,7 +530,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder,
 			PathInGraph path) {
-
+		computingPanel = null;
 		if (actualState == this.actualState)
 			return true;
 		if (actualState != IhmReceivingStates.SPLASH_SCREEN) {
@@ -600,6 +602,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
 				case EDIT_TRAVEL:
+					pathBuilder = master.getPathInGraphConstraintBuilder();
+					pathBuilder.importPath(path.exportPath());
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
 					break;
 				}
@@ -669,7 +673,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		} else if (actualState == IhmReceivingStates.COMPUT_TRAVEL) {
 			cleanPanelsStates(false);
 			this.actualState = IhmReceivingStates.COMPUT_TRAVEL;
-			addToCenterPanel(new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
+			addToCenterPanel(computingPanel = new VoidPanel(this, upperBar, lowerBar, master.lg("ComputingANewPath")));
 			if (pathBuilder != null && master.askForATravel(pathBuilder))
 				return true;
 			if (path != null)
@@ -953,7 +957,22 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) {
-		System.out.println("ToDo:infoPathAsked(" + algoKindOfException + "," + service + ")");
+		return false;
+	}
+
+	@Override
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route,
+			Station station, KindRoute kindRoute) {
+		if (computingPanel == null)
+			return false;
+		switch (algoKindOfException) {
+		case ServiceNotAccessibleException:
+			computingPanel.addMessage("Service non accessible, relaxation de ce service : " + service.getName());
+			break;
+		default:
+			computingPanel.addMessage("TODO: " + service + " " + route + " " + station + " " + kindRoute);
+			break;
+		}
 		return true;
 	}
 }

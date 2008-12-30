@@ -58,8 +58,8 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */
+		super.paint(buffer);
 		g.drawImage(image, 0, 0, null);
-		super.paint(g);
 	}
 
 	protected void draw() {
@@ -313,5 +313,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	@Override
 	protected String getMessageChangeState() {
 		return father.lg("GoToGraphicMode");
+	}
+
+	@Override
+	protected void nextStationDone() {
+		//TODO nextStationDone
 	}
 }

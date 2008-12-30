@@ -1,8 +1,10 @@
 package iGoMaster;
 
+import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.Route;
 import graphNetwork.Service;
-
+import graphNetwork.Station;
 
 /**
  * Interface décrivant les fonctionnalités de l'IHM. Une ihm ne peut être utilisée par le master que si elle répond à ce
@@ -101,15 +103,30 @@ public interface IHM {
 	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException);
 
 	/**
+	 * Ne pas utiliser cette méthode, elle ne comporte pas assez d'information, utiliser
+	 * infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route, Station station, KindRoute
+	 * kindRoute)
+	 */
+	@Deprecated
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service);
+
+	/**
 	 * Informe l'utilisateur des relaxation de contrainte
 	 * 
 	 * @param AlgoKindOfException
 	 *            Les relaxation sucessive
 	 * @param service
 	 *            le service ayant un rappport avec le algoKindOfInformation ou null
+	 * @param route
+	 *            la route ayant un rappport avec le algoKindOfInformation ou null
+	 * @param station
+	 *            la station ayant un rappport avec le algoKindOfInformation ou null
+	 * @param kindRoute
+	 *            le type de route ayant un rappport avec le algoKindOfInformation ou null
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service);
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route,
+			Station station, KindRoute kindRoute);
 
 	/**
 	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de nouveaux évènements.

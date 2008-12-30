@@ -236,8 +236,9 @@ public class LowerBar extends AbstractBar {
 		if ((leftCmdSize == fontSizeKind) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(leftCmd, g, font);
-			hs23 = (int) (hs * 0.667);
-			ws11 = (int) (getWidthString(leftCmd, g, font) * 1.1);
+			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
+			ws = getWidthString(rigthCmd, g, font);
+			ws11 = ws >> 3;
 			xs = new int[] { hs23 + 1, hs + ws11, hs + ws11, hs23 + 1, 1 };
 			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
 					(this.getHeight() >> 1) + hs23 + 1, (this.getHeight() >> 1) + hs23 + 1, this.getHeight() >> 1 };
@@ -254,9 +255,9 @@ public class LowerBar extends AbstractBar {
 		if ((rigthCmdSize == fontSizeKind) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(rigthCmd, g, font);
-			hs23 = (int) (hs * 0.667);
+			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
 			ws = getWidthString(rigthCmd, g, font);
-			ws11 = (int) (ws * 1.1);
+			ws11 = ws+(ws >> 3);
 			xs = new int[] { this.getWidth() - hs23 - 1, this.getWidth() - hs - ws11, this.getWidth() - hs - ws11,
 					this.getWidth() - hs23 - 1, this.getWidth() - 1 };
 			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,

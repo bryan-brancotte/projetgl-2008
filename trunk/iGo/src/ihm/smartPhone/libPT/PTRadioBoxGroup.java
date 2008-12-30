@@ -6,7 +6,6 @@ public class PTRadioBoxGroup {
 
 	public static final int DEFAULT_SIZE = 3;
 
-	// TODO vérifier le conteneur le plus léger
 	protected LinkedList<PTRadioBox> radioBoxs;
 
 	public PTRadioBoxGroup(int size) {

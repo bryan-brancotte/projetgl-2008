@@ -111,27 +111,31 @@ public abstract class TravelDisplayPanel extends PanelState {
 	 */
 	protected abstract void actionToDoWhenChangeStateIsClicked();
 
+	/**
+	 * Action qui sera effectuée lorsque l'utilisateur demand à passé au tronçon suivant
+	 */
+	protected abstract void nextStationDone();
+
 	@Override
 	public void paint(Graphics g) {
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			imageWarning = null;
 		}
-		if (imageWarning.getHeight(null) != sizeLargeFont)
+		if (imageWarning == null || imageWarning.getHeight(null) != sizeLargeFont)
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 		g.drawImage(imageWarning, 0, getHeight() - imageWarning.getHeight(null), null);
 		iconeWarningArea.setBounds(0, getHeight() - imageWarning.getHeight(null), imageWarning.getHeight(null),
 				imageWarning.getWidth(null));
 		g.setFont(father.getSizeAdapteur().getSmallFont());
-		int w = PanelDoubleBufferingSoftwear.getWidthString(getMessageChangeState(), g, g.getFont());
+		int w = PanelDoubleBufferingSoftwear.getWidthString(getMessageChangeState(), g, g.getFont()) + 3;
 		int h = PanelDoubleBufferingSoftwear.getHeightString(getMessageChangeState(), g, g.getFont());
 		g.setColor(father.getSkin().getColorSubAreaInside());
-		changeStateArea.setBounds(getWidth() - (int) (w * 1.25) - 2, getHeight() - (int) (h * 1.25) - 2,
-				(int) (w * 1.25), (int) (h * 1.25));
+		changeStateArea.setBounds(getWidth() - w - 2, getHeight() - h - (h >> 2) - 2, w, h + (h >> 2));
 		g.fillRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height);
 		g.setColor(father.getSkin().getColorLetter());
 		g.drawRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height);
-		g.drawString(getMessageChangeState(), changeStateArea.x + 2, getHeight() - (int) (h * 0.1667) - 2);
+		g.drawString(getMessageChangeState(), changeStateArea.x + 2, getHeight() - (h >> 2) - 2);
 		// popUpMessage.define("", null);
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);
@@ -166,7 +170,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setUpperTitle(father.lg("Destination"));
 			upperBar.setMainTitle(travel.getDestination());
 		} else {
-			upperBar.setLeftCmd(father.lg("Lost"), new ActionListener() {
+			upperBar.setLeftRecCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
@@ -183,6 +187,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						nextStationDone();
 						travel.next();
 						giveControle();
 					}

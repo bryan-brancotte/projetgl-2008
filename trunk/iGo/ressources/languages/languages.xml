@@ -123,7 +123,7 @@
 				<GEEK value="min"/>
 			</LetterForMinute>
 			<Edit>
-				<FRANCAIS value="Changer"/>
+				<FRANCAIS value="Modifier"/>
 				<ENGLISH value="Edit"/>
 				<GEEK value="Vi"/>
 			</Edit>
@@ -148,8 +148,8 @@
 				<GEEK value="Time Before Destruction"/>
 			</RemainingTime>
 			<Lost>
-				<FRANCAIS value="Perdu"/>
-				<ENGLISH value="Lost"/>
+				<FRANCAIS value="Perdu ?"/>
+				<ENGLISH value="Lost ?"/>
 				<GEEK value=" man this"/>
 			</Lost>
 			<Next>
