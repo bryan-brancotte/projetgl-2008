@@ -395,8 +395,6 @@ public class IGoMaster implements Master, Observer
 				if (test())System.out.println("elo --> L'ihm étudie un recent");
 				
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
-				if (test())System.out.println(this.collectionBuilder.getPathInGraphConstraintBuilder().toString());
-				if (test())System.out.println(pathInGraphBuidable.toString());
 				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
@@ -404,7 +402,6 @@ public class IGoMaster implements Master, Observer
 					this.launchAlgo();
 					return true;
 				}
-				if (this.collectionBuilder.getPathInGraphConstraintBuilder()==null) System.err.print("oups");
 			}
 			
 			Iterator itFav = pathInGraphsToRemember.getFavoritesPaths();
@@ -415,16 +412,12 @@ public class IGoMaster implements Master, Observer
 				
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
 				
-				if (test())System.out.println(this.collectionBuilder.getPathInGraphConstraintBuilder().toString());
-				if (test())System.out.println(pathInGraphBuidable.toString());
-				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
 					if (test())System.out.println("elo --> favori trouvé");
 					this.launchAlgo();
 					return true;
 				}
-				if (this.collectionBuilder.getPathInGraphConstraintBuilder()==null) System.err.print("oups");
 			}
 		 }
 		
@@ -690,7 +683,8 @@ public class IGoMaster implements Master, Observer
 
 
 	@Override
-	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {return this.pathInGraphsToRemember.getRecentsPaths();}
+	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
+		return this.pathInGraphsToRemember.getRecentsPaths();}
 
 
 	@Override
