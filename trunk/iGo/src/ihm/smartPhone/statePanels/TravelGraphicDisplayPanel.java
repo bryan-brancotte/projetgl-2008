@@ -1141,11 +1141,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			int delta = 0;
 			switch (PanelDoubleBufferingSoftwear.getQuality()) {
 			case TEXT_ANTI_ANTIALIASING:
-				delta += 20;
+				delta += 12;
 			case FULL_ANTI_ANTIALIASING:
-				delta += 20;
+				delta += 12;
 			case HIGHER_QUALITY:
-				delta += 10;
+				delta += 5;
 				break;
 			default:
 				delta = deroulement >> 2;
