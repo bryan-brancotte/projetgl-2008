@@ -390,7 +390,7 @@
 			<ERROR_StationNotOnRoadException>
 				<FRANCAIS value="Une station du réseau n'est sur aucune route, le fichier du réseaux doit être invalide"/>
 				<ENGLISH value="A station haven't any route, the network file probably contain a mistake"/>
-				<GEEK value="Invalid Path"/>
+				<GEEK value="like /.. your path is not valide"/>
 			</ERROR_StationNotOnRoadException>
 			<ERROR_UnknownException>
 				<FRANCAIS value="Un problème indeterminé est survenue"/>

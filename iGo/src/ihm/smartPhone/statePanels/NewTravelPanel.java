@@ -834,9 +834,9 @@ public class NewTravelPanel extends PanelState {
 			buffer = image.getGraphics();
 			graphicsTunning(buffer);
 			// buffer.setColor(father.getSkin().getColorLetter());
-			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeSmallFont()) {
-				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeSmallFont(),
-						father.getSizeAdapteur().getSizeSmallFont());
+			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeLargeFont()) {
+				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeLargeFont(),
+						father.getSizeAdapteur().getSizeLargeFont());
 				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
 						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
 			}
@@ -1123,8 +1123,9 @@ public class NewTravelPanel extends PanelState {
 					intermediatesStationsCollapsableArea, s, ordonne, decalage, decalage2);
 			if (!intermediatesStationsCollapsableArea.isCollapsed()) {
 				intermediatesStationsButton.prepareArea(buffer, intermediatesStationsTextBox.getArea().x
-						+ intermediatesStationsTextBox.getArea().width + decalage, intermediatesStationsTextBox
-						.getArea().y, imageOk);
+						+ intermediatesStationsTextBox.getArea().width + (decalage >> 1), intermediatesStationsTextBox
+						.getArea().y
+						+ (intermediatesStationsTextBox.getArea().height - imageOk.getIconHeight() >> 1), imageOk);
 				rec.setBounds(intermediatesStationsTextBox.getArea().x, intermediatesStationsArea.getArea().height
 						+ intermediatesStationsArea.getArea().y, intermediatesStationsTextBox.getArea().width, 0);
 				intermediatesStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
@@ -1179,7 +1180,8 @@ public class NewTravelPanel extends PanelState {
 					avoidsStationsCollapsableArea, s, ordonne, decalage, decalage2);
 			if (!avoidsStationsCollapsableArea.isCollapsed()) {
 				avoidsStationsButton.prepareArea(buffer, avoidsStationsTextBox.getArea().x
-						+ avoidsStationsTextBox.getArea().width + decalage, avoidsStationsTextBox.getArea().y, imageOk);
+						+ avoidsStationsTextBox.getArea().width + (decalage >> 1), avoidsStationsTextBox.getArea().y
+						+ (avoidsStationsTextBox.getArea().height - imageOk.getIconHeight() >> 1), imageOk);
 				rec.setBounds(avoidsStationsTextBox.getArea().x, avoidsStationsArea.getArea().height
 						+ avoidsStationsArea.getArea().y, avoidsStationsTextBox.getArea().width, 0);
 				avoidsStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getAvoidStationsCount()
