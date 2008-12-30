@@ -216,15 +216,21 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
-//		if (!affichageDroite) {
-//			affichageDroite = true;
-//			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
-//			father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState)); 
-//		} else {
+		if (!affichageDroite) {
+			affichageDroite = true;
+			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
+			father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
+			buffer.move(1, 0);
+			buffer.move(-1, 0);
+			repaint();
+		} else {
 			affichageDroite = false;
+			buffer.move(1, 0);
+			buffer.move(-1, 0);
 			father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
+			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "false");
 			father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
-//		}
+		}
 	}
 
 	@Override
