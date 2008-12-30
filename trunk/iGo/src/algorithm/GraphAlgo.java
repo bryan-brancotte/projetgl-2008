@@ -32,7 +32,6 @@ public class GraphAlgo {
 	 * @throws NodeNotFoundException
 	 * @throws NonValidOriginException 
 	 * @throws NonValidDestinationException 
-	 * @throws NonValidPathException 
 	 */
 	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
 		avoidStations = p.getAvoidStationsArray();

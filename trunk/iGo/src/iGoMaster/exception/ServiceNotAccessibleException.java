@@ -2,6 +2,13 @@ package iGoMaster.exception;
 
 import graphNetwork.Service;
 
+/**
+ * Exception signifiant que le service s, n'est pas accessible.
+ * Ceci en partant du point origine défini dans le pathInGraph en parcourant toutes les stations accessibles du graph.
+ * 
+ * @author tony
+ *
+ */
 public class ServiceNotAccessibleException extends Exception {
 
 	private Service s;
