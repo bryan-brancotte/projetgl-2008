@@ -108,7 +108,7 @@ public class ImageLoader extends Thread {
 		}
 	}
 
-	public static boolean fastLoadingOfImages=false;
+	public static boolean fastLoadingOfImages = false;
 
 	public static ImageIcon getImageIcone(URL path, int width, int height) {
 		if ((width == 0) || (height == 0))
@@ -128,12 +128,16 @@ public class ImageLoader extends Thread {
 		return getImageIcone(ico, Math.min(width / (float) ico.getIconWidth(), height / (float) ico.getIconHeight()));
 	}
 
-	public static ImageIcon getRessourcesImageIcone(String name, int width, int height) {
-		//System.out.println("nv Icone : " + name);
-		if (fastLoadingOfImages)
+	public static ImageIcon getRessourcesImageIcone(String name, int width, int height, boolean lowQuality) {
+		if (lowQuality)
 			return getImageIcone(name.getClass().getResource("/images/" + name + ".png"), width, height);
 		else
 			return getImageIcone(name.getClass().getResource("/images/" + name + ".128.png"), width, height);
+	}
+
+	public static ImageIcon getRessourcesImageIcone(String name, int width, int height) {
+		return getRessourcesImageIcone(name, width, height, fastLoadingOfImages);
+		// System.out.println("nv Icone : " + name);
 	}
 
 	protected static ImageIcon getImageIcone(URL path, int ratio) {
