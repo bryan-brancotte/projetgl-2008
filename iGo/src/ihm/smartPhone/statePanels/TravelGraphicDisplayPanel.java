@@ -1,6 +1,7 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.Service;
+import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -22,6 +23,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
+
+import sun.java2d.loops.DrawLine;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
@@ -371,14 +374,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
 
-				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
-					putStationUp = false;
-					if (heightImageDrawn < 0
-							|| heightImageDrawn > (buffer.getHeigthViewPort() - (buffer.getHeigthViewPort() >> 2))) {
-						buffer.move(0, -heightImageDrawn - (heightImageDrawn >> 2));
-						shouldDoubleRepaint = true;
-					}
-				}
 				if (affichageDroite) {
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
 					buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y - sizeDemiLine,
@@ -470,6 +465,23 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 						break;
 					}
 				}
+				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
+					putStationUp = false;
+					int val;
+					if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > ((buffer.getHeigthViewPort() >> 1) + (buffer
+							.getHeigthViewPort() >> 2))) {
+						new SlowMove(-val);
+						// else {
+						// buffer.move(0, -val);
+						// shouldDoubleRepaint=true;
+						// // drawDelayedOval(null, 0, 0, 0, 0);
+						// repaint();
+						// }
+						// TODO
+					}
+				}
+
+				// buffer.drawLine(0, , 1000, polygon.ypoints[idToModify + 1]-sizeLarge);
 				// on vérifie que l'on veut dessiner dans la zone. on a modifier les limites car le dessin se fait par
 				// groupemement assez séparé.
 				if (polygon.ypoints[0] > buffer.getHeigthViewPort() + sizeLarge
@@ -511,6 +523,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 				}
 				buffer.setColor(father.getSkin().getColorLetter());
+
 				if (heightImageDrawn > (center.y - sizeDemiLarge)) {
 					buffer.drawLine(center.x + ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0),
 							center.y, center.x + ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0)
@@ -1112,5 +1125,52 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	protected void nextStationDone() {
 		putStationUp = true;
 		buffer.hasBeenChanged();
+	}
+
+	protected class SlowMove extends Thread {
+
+		public SlowMove(int deroulement) {
+			super();
+			this.deroulement = deroulement;
+			this.start();
+		}
+
+		int deroulement;
+
+		@Override
+		public void run() {
+			int delta = 0;
+			switch (PanelDoubleBufferingSoftwear.getQuality()) {
+			case TEXT_ANTI_ANTIALIASING:
+				delta += 20;
+			case FULL_ANTI_ANTIALIASING:
+				delta += 20;
+			case HIGHER_QUALITY:
+				delta += 10;
+				break;
+			default:
+				delta = deroulement >> 2;
+				if (deroulement < 0)
+					delta = -delta;
+				break;
+			}
+
+			for (int i = 0; i < deroulement; i += delta) {
+				try {
+					Thread.sleep(delta);
+				} catch (InterruptedException e) {
+				}
+				buffer.move(0, delta);
+				repaint();
+			}
+			for (int i = deroulement; i < 0; i += delta) {
+				try {
+					Thread.sleep(delta);
+				} catch (InterruptedException e) {
+				}
+				buffer.move(0, -delta);
+				repaint();
+			}
+		}
 	}
 }
