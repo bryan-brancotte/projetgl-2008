@@ -374,18 +374,38 @@ public class IGoMaster implements Master, Observer
 	{
 		if (test())System.out.println("elo --> L'ihm demande un chemin");
 		
-		try
-		{
-			if (threads.isEmpty() && pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
+		if (threads.isEmpty() && pathInGraphBuidable!=null)
+		{	
+			if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
 			{
 				this.launchAlgo();
 				return true;
 			}
-		}
-		catch (NullPointerException e)
-		{
-			System.err.println("elo --> Un builder de contrainte null est inutilisable");
-		}
+			else
+			{
+				while (pathInGraphsToRemember.getRecentsPaths().hasNext())
+				{
+					this.collectionBuilder = pathInGraphsToRemember.getRecentsPaths().next();
+					
+					if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
+					{
+						this.launchAlgo();
+						return true;
+					}	
+				}
+				
+				while (pathInGraphsToRemember.getFavoritesPaths().hasNext())
+				{
+					this.collectionBuilder = pathInGraphsToRemember.getFavoritesPaths().next();
+					
+					if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
+					{
+						this.launchAlgo();
+						return true;
+					}	
+				}
+			 }
+		 }
 		
 		return false;
 	}
