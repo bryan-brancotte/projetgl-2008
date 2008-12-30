@@ -93,6 +93,8 @@ public class IGoMaster implements Master, Observer
 				this.graphBuilder, 
 				new RecentsAndFavoritesPathsInGraphReaderInFolder());
 		
+		this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
+		
         this.process();
 	}
 	
@@ -377,46 +379,48 @@ public class IGoMaster implements Master, Observer
 		
 		if (threads.isEmpty() && pathInGraphBuidable!=null)
 		{	
-			if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
-			{
-				if (test())System.out.println("elo --> L'ihm étudie un builder normal");
-				this.launchAlgo();
-				return true;
+			if (collectionBuilder.getPathInGraphConstraintBuilder()!=null)
+			{	
+				if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
+				{
+					if (test())System.out.println("elo --> L'ihm étudie un builder normal");
+					this.launchAlgo();
+					return true;
+				}
 			}
-			else
+			Iterator itRecent = pathInGraphsToRemember.getRecentsPaths();
+
+			while (itRecent.hasNext())
 			{
-				Iterator itRecent = pathInGraphsToRemember.getRecentsPaths();
-
-				while (itRecent.hasNext())
-				{
-					if (test())System.out.println("elo --> L'ihm étudie un recent");
-					
-					this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
-					
-					if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
-					{
-						if (test())System.out.println("elo --> recent trouvé");
-						this.launchAlgo();
-						return true;
-					}	
-				}
+				if (test())System.out.println("elo --> L'ihm étudie un recent");
 				
-				Iterator itFav = pathInGraphsToRemember.getFavoritesPaths();
-
-				while (itFav.hasNext())
+				this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
+				
+				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
-					if (test())System.out.println("elo --> L'ihm étudie un favori");
-					
-					this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
-					
-					if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
-					{
-						if (test())System.out.println("elo --> favori trouvé");
-						this.launchAlgo();
-						return true;
-					}	
+					if (test())System.out.println("elo --> recent trouvé");
+					this.launchAlgo();
+					return true;
 				}
-			 }
+				if (this.collectionBuilder.getPathInGraphConstraintBuilder()==null) System.err.print("oups");
+			}
+			
+			Iterator itFav = pathInGraphsToRemember.getFavoritesPaths();
+
+			while (itFav.hasNext())
+			{
+				if (test())System.out.println("elo --> L'ihm étudie un favori");
+				
+				this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
+				
+				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
+				{
+					if (test())System.out.println("elo --> favori trouvé");
+					this.launchAlgo();
+					return true;
+				}
+				if (this.collectionBuilder.getPathInGraphConstraintBuilder()==null) System.err.print("oups");
+			}
 		 }
 		
 		return false;
