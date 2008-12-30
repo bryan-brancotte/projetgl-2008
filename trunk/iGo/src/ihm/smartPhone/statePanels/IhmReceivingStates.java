@@ -51,8 +51,8 @@ public enum IhmReceivingStates {
 	 */
 	GRAPHIC_MODE(1),
 	/**
-			 * 
-			 */
+	 * 
+	 */
 	ARRAY_MODE(2),
 	/**
 	 * 

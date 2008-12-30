@@ -192,6 +192,11 @@
 				<ENGLISH value="Graphic mode →"/>
 				<GEEK value="Stupid mode"/>
 			</GoToGraphicMode>
+			<GoToGraphicModeSecondDisplay>
+				<FRANCAIS value="Mode graphique droit →"/>
+				<ENGLISH value="Strait graphic mode →"/>
+				<GEEK value="Stupid mode"/>
+			</GoToGraphicModeSecondDisplay>
 			<ComputingANewPath>
 				<FRANCAIS value="Calcul du trajet..."/>
 				<ENGLISH value="Computing the path..."/>
