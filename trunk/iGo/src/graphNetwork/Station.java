@@ -80,7 +80,6 @@ public class Station {
 	 * @return true si l'ajout à été fait
 	 */
 	protected boolean addService(Service service) {
-		System.out.println(service.getName()+" --> "+this.getName());
 		if (this.services.contains(service))
 			return false;
 		return this.services.add(service);
