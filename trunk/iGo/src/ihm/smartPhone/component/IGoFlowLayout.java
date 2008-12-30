@@ -114,7 +114,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		this.sizeIntermediateFont = (int) (val * corectionOfFontSize * 0.0195);// 195);
 		if (sizeIntermediateFont < sizeSmallFont + 1)
 			sizeIntermediateFont = sizeSmallFont + 1;
-		this.sizeLargeFont = (int) (val * corectionOfFontSize * 0.032);
+		this.sizeLargeFont = (int) (val * corectionOfFontSize * 0.028);//0.032);
 		if (sizeLargeFont < sizeIntermediateFont + 2)
 			sizeLargeFont = sizeIntermediateFont + 2;
 		this.sizeUpperBar = (int) (val * 0.13);

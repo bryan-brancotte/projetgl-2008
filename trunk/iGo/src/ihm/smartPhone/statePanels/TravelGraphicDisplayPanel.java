@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
-	protected boolean affichageDroite = false;
+	protected boolean affichageDroite = true;
 
 	protected GraphicsViewPort buffer;
 
@@ -303,19 +303,21 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
 			drawDelayedOval(buffer, center.x - sizeDemiLarge - 1, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
+			buffer.drawLine(center.x + (affichageDroite ? sizeQuadLarge : 0), center.y, center.x
+					+ (affichageDroite ? sizeQuadLarge : 0) + (sizeLarge << 1) + sizeLarge, heightImageDrawn
 					+ sizeDemiLine + sizeQuartLarge);
 			heightImageDrawn = sizeDemiLine
-					+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
-							+ sizeDemiLine, travel.getOrigineStation().getServices(), travel.getOrigine(), travel
-							.getEntryCost(), 0);
+					+ drawInformationsStation(buffer, center.x + (affichageDroite ? sizeQuadLarge : 0)
+							+ (sizeLarge << 1) + sizeLarge, heightImageDrawn + sizeDemiLine, travel.getOrigineStation()
+							.getServices(), travel.getOrigine(), travel.getEntryCost(), 0);
 		}
 		// in parcout les étapes du trajet
 		iterTravel = travel.getTravelDone();
 		do {
 			while (iterTravel.hasNext()) {
 				section = iterTravel.next();
-				if (section.getTimeSection() < 16 && father.getSizeAdapteur().getSizeSmallFont() < 12)
+				if (section.getTimeSection() < 16
+						&& (father.getSizeAdapteur().getSizeSmallFont() < 12 || affichageDroite))
 					length = (sizeQuartLarge << 4);
 				else if (section.getTimeSection() < 8)
 					length = (sizeQuartLarge << 3);
@@ -339,8 +341,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
 
-				if (affichageDroite)
+				if (affichageDroite) {
+					buffer.setColor(father.getSkin().getColorSubAreaInside());
+					buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y - sizeDemiLine,
+							sizeQuadLarge, sizeDemiLine << 1);
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
+				}
 
 				if (firstPasseDone)
 					buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
@@ -460,23 +466,28 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 						buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
 					else
 						buffer.setColor(father.getSkin().getColorSubAreaInside());
+
 					drawInformationsRoute(buffer, (polygon.xpoints[0] + polygon.xpoints[2]) >> 1,
 							(polygon.ypoints[0] + polygon.ypoints[2]) >> 1, section);
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 				}
 				buffer.setColor(father.getSkin().getColorLetter());
 				if (heightImageDrawn > (center.y - sizeDemiLarge)) {
-					buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, heightImageDrawn
-							+ sizeQuartLarge);
+					buffer.drawLine(center.x + ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0),
+							center.y, center.x + ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0)
+									+ (sizeLarge << 1) + sizeLarge, heightImageDrawn + sizeQuartLarge);
 					heightImageDrawn = sizeDemiLine
-							+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge,
-									heightImageDrawn, section);
+							+ drawInformationsStation(buffer, center.x
+									+ ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0)
+									+ (sizeLarge << 1) + sizeLarge, heightImageDrawn, section);
 				} else {
-					buffer.drawLine(center.x, center.y, center.x + (sizeLarge << 1) + sizeLarge, center.y
-							- sizeQuartLarge);
+					buffer.drawLine(center.x + ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0),
+							center.y, center.x + ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0)
+									+ (sizeLarge << 1) + sizeLarge, center.y - sizeQuartLarge);
 					heightImageDrawn = sizeDemiLine
-							+ drawInformationsStation(buffer, center.x + (sizeLarge << 1) + sizeLarge, center.y
-									- sizeDemiLarge, section);
+							+ drawInformationsStation(buffer, center.x
+									+ ((affichageDroite && orientation % 2 == 1) ? sizeQuadLarge : 0)
+									+ (sizeLarge << 1) + sizeLarge, center.y - sizeDemiLarge, section);
 				}
 				// System.out.println(section.getNameChangement());
 				orientation = (++orientation % 6);
@@ -486,6 +497,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			firstPasseDone = true;
 			iterTravel = travel.getTravelToDo();
 		} while (true);
+		if (affichageDroite && orientation % 2 == 0) {
+			buffer.setColor(father.getSkin().getColorSubAreaInside());
+			buffer.fillRect(center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeDemiLine << 1);
+			drawDelayedOval(buffer, center.x + sizeQuadLarge - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge,
+					sizeLarge);
+		}
 		drawDelayedOval(null, 0, 0, 0, 0);
 	}
 
@@ -892,8 +909,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 *            le coefficient par lequel le coefficient actuelle va être divisé
 		 */
 		public void decreasScallImg(float coef) {
-			if (((widthViewPort - widthImage) > -(widthViewPort >> 5))
-					&& ((heightViewPort - heightImage) > (heightViewPort >> 5)))
+			if (((widthViewPort - widthImage) > 0) && ((heightViewPort - heightImage) > 0))
 				return;
 			scallImg /= coef;
 			neededRepaint = true;
@@ -955,17 +971,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			graphicsTunning(this.buffer);
 		}
 
-		@Deprecated
 		public void setSizeImage(int width, int height) {
 			if (width < 10)
 				width = 10;
 			if (height < 10)
 				height = 10;
 			neededRepaint = true;
-			this.heightImage = 0;
-			this.widthImage = 0;
-			// this.heightImage = height;
-			// this.widthImage = width;
+			this.heightImage = height;
+			this.widthImage = width;
 		}
 
 		public int getHeigthViewPort() {
