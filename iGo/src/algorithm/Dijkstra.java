@@ -100,7 +100,6 @@ public class Dijkstra extends Algo {
 	 * @throws NodeNotFoundException
 	 * @throws NonValidDestinationException 
 	 * @throws NonValidOriginException 
-	 * @throws NonValidPathException 
 	 */
 	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException{
 		p = prb.getCurrentPathInGraph();

@@ -4,6 +4,12 @@ import graphNetwork.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Exception générique pour toutes les intérruptions dus à un service.
+ * 
+ * @author tony
+ *
+ */
 public class NonValidServicesException extends NonValidPathException{
 
 	/**

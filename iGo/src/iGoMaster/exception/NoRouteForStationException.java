@@ -2,6 +2,13 @@ package iGoMaster.exception;
 
 import graphNetwork.Station;
 
+
+/**
+ * Erreur indiquant que la station s ne se trouve sur aucune route et n'est donc pas liée au réseau physiquement.
+ * 
+ * @author tony
+ *
+ */
 public class NoRouteForStationException extends Exception {
 	
 	Station s;

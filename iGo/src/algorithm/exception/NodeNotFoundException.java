@@ -3,6 +3,12 @@ package algorithm.exception;
 import graphNetwork.Route;
 import graphNetwork.Station;
 
+/**
+ * Le couple (station,route) n'existe pas dans le graph de l'algo.
+ * 
+ * @author tony
+ *
+ */
 public class NodeNotFoundException extends Exception {
 
 	private Station s;
