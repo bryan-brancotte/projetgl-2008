@@ -63,7 +63,15 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	/**
 	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
 	 */
-	protected boolean shouldDoubleRepaint = true;
+	protected boolean shouldDoubleRepaint = false;
+	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean firstRepaint = true;
+	/**
+	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
+	 */
+	protected boolean putStationUp = false;
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -245,15 +253,19 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	@Override
 	public void paint(Graphics g) {
 		buildImage();
-		if (shouldDoubleRepaint) {
+		if (firstRepaint) {
 			if (buffer.getHeigthImage() < buffer.getHeigthViewPort()) {
 				buffer.increasScallImg(buffer.getWidthViewPort() / buffer.getWidthImage());
 				buildImage();
 			}
 			buffer.move(0, -(buffer.getHeigthViewPort() - buffer.getHeigthImage() >> 1));
 			buffer.move(-(buffer.getWidthViewPort() - buffer.getWidthImage() >> 1), 0);
-			shouldDoubleRepaint = false;
+			firstRepaint = false;
 			buildImage();
+		}
+		if (shouldDoubleRepaint) {
+			buildImage();
+			shouldDoubleRepaint = false;
 		}
 		super.paint(buffer.getBuffer());
 		g.drawImage(buffer.getImage(), 0, 0, null);
@@ -359,6 +371,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				center.setLocation(polygon.xpoints[idToKeep + 1] + polygon.xpoints[idToKeep] >> 1,
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
 
+				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
+					putStationUp = false;
+					if (heightImageDrawn < 0
+							|| heightImageDrawn > (buffer.getHeigthViewPort() - (buffer.getHeigthViewPort() >> 2))) {
+						buffer.move(0, -heightImageDrawn - (heightImageDrawn >> 2));
+						shouldDoubleRepaint = true;
+					}
+				}
 				if (affichageDroite) {
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
 					buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y - sizeDemiLine,
@@ -455,9 +475,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				if (polygon.ypoints[0] > buffer.getHeigthViewPort() + sizeLarge
 						&& polygon.ypoints[2] > buffer.getHeigthViewPort() + sizeLarge) {
 					// au dela de la zone
-					while (iterTravel.hasNext()) {
-						iterTravel.next();
-					}
+					if (!putStationUp)
+						while (iterTravel.hasNext()) {
+							iterTravel.next();
+						}
 				} else if (polygon.ypoints[0] < -sizeLarge && polygon.ypoints[2] < -sizeLarge) {
 					// buffer.setColor(iterColor.next());
 				} else {
@@ -1081,5 +1102,15 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		public void hasBeenDrawn() {
 			this.neededRepaint = false;
 		}
+
+		public void hasBeenChanged() {
+			this.neededRepaint = true;
+		}
+	}
+
+	@Override
+	protected void nextStationDone() {
+		putStationUp = true;
+		buffer.hasBeenChanged();
 	}
 }

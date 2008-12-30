@@ -36,6 +36,11 @@ public class UpperBar extends AbstractBar {
 	protected Rectangle leftCmdArea = null;
 	protected ActionListener leftCmdActionListener = null;
 
+	protected String leftRecCmd;
+	protected FontSizeKind leftRecCmdSize;
+	protected Rectangle leftRecCmdArea = null;
+	protected ActionListener leftRecCmdActionListener = null;
+
 	protected String rigthCmd;
 	protected FontSizeKind rigthCmdSize;
 	protected Rectangle rigthCmdArea = null;
@@ -53,6 +58,7 @@ public class UpperBar extends AbstractBar {
 	public UpperBar(IGoIhmSmartPhone ihm, boolean demo) {
 		super(ihm);
 		leftCmdArea = new Rectangle();
+		leftRecCmdArea = new Rectangle();
 		rigthCmdArea = new Rectangle();
 		if (demo) {
 			setCenterIcone("iGo");
@@ -70,6 +76,12 @@ public class UpperBar extends AbstractBar {
 			@Override
 			public void execute() {
 				leftCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
+			}
+		});
+		l.addInteractiveArea(leftRecCmdArea, new CodeExecutor() {
+			@Override
+			public void execute() {
+				leftRecCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
 			}
 		});
 		l.addInteractiveArea(rigthCmdArea, new CodeExecutor() {
@@ -171,8 +183,9 @@ public class UpperBar extends AbstractBar {
 		if ((leftCmdSize == fontKindSize) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(leftCmd, g, font);
-			hs23 = (int) (hs * 0.667);
-			ws11 = (int) (getWidthString(leftCmd, g, font) * 1.1);
+			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
+			ws = getWidthString(leftCmd, g, font);
+			ws11 = ws + (ws >> 3);
 			xs = new int[] { hs23 + 1, hs + ws11, hs + ws11, hs23 + 1, 1 };
 			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
 					(this.getHeight() >> 1) + hs23 + 1, (this.getHeight() >> 1) + hs23 + 1, this.getHeight() >> 1 };
@@ -186,12 +199,26 @@ public class UpperBar extends AbstractBar {
 			g.drawString(leftCmd, hs + 1, this.getHeight() + hs >> 1);
 		}
 
+		if ((leftRecCmdSize == fontKindSize) && (leftRecCmd != "")) {
+			g.setColor(ihm.getSkin().getColorInside());
+			hs = getHeightString(leftRecCmd, g, font);
+			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
+			ws = getWidthString(leftRecCmd, g, font);
+			ws11 = ws + ((ws >> 4) << 1);
+			leftRecCmdArea.setBounds(3, (this.getHeight() >> 1) - hs23, ws11, hs23 << 1);
+			g.fillRect(leftRecCmdArea.x, leftRecCmdArea.y, leftRecCmdArea.width, leftRecCmdArea.height);
+			g.setColor(ihm.getSkin().getColorLine());
+			g.drawRect(leftRecCmdArea.x, leftRecCmdArea.y, leftRecCmdArea.width, leftRecCmdArea.height);
+			g.setColor(colorFont);
+			g.drawString(leftRecCmd, (ws >> 4) + 3, this.getHeight() + hs >> 1);
+		}
+
 		if ((rigthCmdSize == fontKindSize) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(rigthCmd, g, font);
-			hs23 = (int) (hs * 0.667);
+			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
 			ws = getWidthString(rigthCmd, g, font);
-			ws11 = (int) (ws * 1.1);
+			ws11 = ws + (ws >> 3);
 			xs = new int[] { this.getWidth() - hs23 - 1, this.getWidth() - hs - ws11, this.getWidth() - hs - ws11,
 					this.getWidth() - hs23 - 1, this.getWidth() - 1 };
 			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
@@ -329,6 +356,31 @@ public class UpperBar extends AbstractBar {
 	}
 
 	/**
+	 * Définit la chaine de la commande de gauche avec la taille spécifiée
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 * @param fontKindSize
+	 *            la type de taille
+	 */
+	public void setLeftRecCmd(String leftRecCmd, ActionListener l, FontSizeKind fontKindSize) {
+		leftRecCmdActionListener = l;
+		this.leftRecCmd = leftRecCmd;
+		this.leftRecCmdSize = fontKindSize;
+		this.leftRecCmdArea.setBounds(0, 0, 0, 0);
+	}
+
+	/**
+	 * Définit la chaine de la commande de gauche avec la taille par défaut
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 */
+	public void setLeftRecCmd(String leftRecCmd, ActionListener l) {
+		setLeftRecCmd(leftRecCmd, l, FontSizeKind.INTERMEDIATE);
+	}
+
+	/**
 	 * Définit la chaine de la commande de droite avec la taille spécifiée
 	 * 
 	 * @param mainTitle
@@ -380,6 +432,7 @@ public class UpperBar extends AbstractBar {
 		this.setLeftSubTitle("");
 		this.setRightSubTitle("");
 		this.setLeftCmd("", null);
+		this.setLeftRecCmd("", null);
 		this.setRightCmd("", null);
 		this.setCenterIcone("");
 	}
