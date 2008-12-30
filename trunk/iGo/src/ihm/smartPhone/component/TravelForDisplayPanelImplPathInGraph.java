@@ -145,6 +145,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	public void next() {
 		remainingTime -= (travel.getFirst().getTimeSection() + travel.getFirst().getEnddingChangementTime());
 		travelDone.addLast(travel.removeFirst());
+//		path.
 	}
 
 	@Override

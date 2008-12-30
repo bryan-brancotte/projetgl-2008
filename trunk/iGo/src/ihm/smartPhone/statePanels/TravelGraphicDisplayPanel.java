@@ -1,7 +1,6 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.Service;
-import iGoMaster.IHMGraphicQuality;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -23,8 +22,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.Iterator;
-
-import sun.java2d.loops.DrawLine;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
@@ -468,8 +465,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
 					putStationUp = false;
 					int val;
-					if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > ((buffer.getHeigthViewPort() >> 1) + (buffer
-							.getHeigthViewPort() >> 2))) {
+					// if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > ((buffer.getHeigthViewPort() >> 1) +
+					// (buffer
+					// .getHeigthViewPort() >> 2))) {
+					if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > 10) {
 						new SlowMove(-val);
 						// else {
 						// buffer.move(0, -val);
