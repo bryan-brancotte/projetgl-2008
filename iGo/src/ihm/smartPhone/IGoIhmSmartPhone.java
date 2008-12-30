@@ -43,6 +43,7 @@ import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
 import ihm.smartPhone.statePanels.NewTravelPanel.NewTravelPanelState;
+import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.SizeAdapteur;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
@@ -114,6 +115,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.setLayout(sizeAdapteur);
 		this.master = master;
 		this.skin = iGoSmartPhoneSkin.White;
+		setIconImage(ImageLoader.getImageIcone(getClass().getResource("/images/logo.128.png"), 32, 32).getImage()); 
 		if (skin == null) {
 			Iterator<iGoSmartPhoneSkin> itS = this.getSkins();
 			String s = this.master.getConfig(SettingsKey.SKIN.toString());
@@ -398,8 +400,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void start() {
-					master.delete(path.getCurrentPathInGraph());
-					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path.getCurrentPathInGraph());
+//					master.delete(path.getCurrentPathInGraph());
+					setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, path );
 				}
 
 				@Override
