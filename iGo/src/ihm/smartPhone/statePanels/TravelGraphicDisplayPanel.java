@@ -44,6 +44,15 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * La dernière ordonnée du pointeur
 	 */
 	protected int yLastPointeur;
+
+	/**
+	 * La dernière vitesse d'abscisse du pointeur
+	 */
+	protected int dxLastPointeur;
+	/**
+	 * La dernière vitesse d'ordonnée du pointeur
+	 */
+	protected int dyLastPointeur;
 	/**
 	 * La plus petite des quatre valeurs étalons du réseau : elle définit la largueur de certains traits.
 	 */
@@ -111,14 +120,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				int dx, dy;
-				dx = e.getX() - xLastPointeur;
-				dy = e.getY() - yLastPointeur;
+				dxLastPointeur = e.getX() - xLastPointeur;
+				dyLastPointeur = e.getY() - yLastPointeur;
 				if (buffer.getWidthImage() - buffer.getWidthViewPort() < 0)
-					dx = -dx;
+					dxLastPointeur = -dxLastPointeur;
 				if (buffer.getHeigthImage() - buffer.getHeigthViewPort() < 0)
-					dy = -dy;
-				buffer.move(dx, dy);
+					dyLastPointeur = -dyLastPointeur;
+				buffer.move(dxLastPointeur, dyLastPointeur);
 				xLastPointeur = e.getX();
 				yLastPointeur = e.getY();
 				me.repaint();
@@ -135,12 +143,16 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				dxLastPointeur=0;
+				dyLastPointeur=0;
 				xLastPointeur = e.getX();
 				yLastPointeur = e.getY();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				new SlowScroll(0,dyLastPointeur>>2);
+				new SlowScroll(dxLastPointeur>>2,0);
 			}
 
 			@Override
@@ -1156,7 +1168,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			for (int i = 0; i < deroulement; i += delta) {
 				try {
-					Thread.sleep(delta<<1);
+					Thread.sleep(delta << 1);
 				} catch (InterruptedException e) {
 				}
 				buffer.move(0, delta);
@@ -1164,11 +1176,77 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			}
 			for (int i = deroulement; i < 0; i += delta) {
 				try {
-					Thread.sleep(delta<<1);
+					Thread.sleep(delta << 1);
 				} catch (InterruptedException e) {
 				}
 				buffer.move(0, -delta);
 				repaint();
+			}
+		}
+	}
+
+	protected class SlowScroll extends Thread {
+
+		public SlowScroll(int dx, int dy) {
+			super();
+			this.dx = dx;
+			this.dy = dy;
+			this.start();
+		}
+
+		int dx;
+		int dy;
+
+		byte step = 2;
+
+		public void killMe() {
+			dx = 0;
+			dy = 0;
+		}
+
+		@Override
+		public void run() {
+			int delta = 1;
+
+			for (int i = 0; i < dx; dx -= delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					buffer.move(dx, 0);
+					repaint();
+				}
+			}
+			for (int i = 0; i > dx; dx += delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					buffer.move(dx, 0);
+					repaint();
+				}
+			}
+			for (int i = 0; i < dy; dy -= delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					buffer.move(0, dy);
+					repaint();
+				}
+			}
+			for (int i = 0; i > dy; dy += delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					buffer.move(0, dy);
+					repaint();
+				}
 			}
 		}
 	}

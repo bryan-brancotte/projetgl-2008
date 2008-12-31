@@ -13,6 +13,9 @@ import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
@@ -22,6 +25,15 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * La valeur du scroll de la barre de défilement
 	 */
 	protected int deroullement;
+	/**
+	 * Y d'origine pour le drag
+	 */
+	protected int yDrag;
+	/**
+	 * Y d'origine pour le drag
+	 */
+	protected int dyDrag;
+	protected SlowScroll slowScroll;
 	/**
 	 * Barre de défilement
 	 */
@@ -44,6 +56,48 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
 		scrollBar = makeScrollBar();
 		areaDrawn = makeArea();
+		this.addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				scrollBar.setDeroullement(scrollBar.getDeroullement() + (dyDrag = yDrag - e.getY()));
+				yDrag = e.getY();
+				deroullement = scrollBar.getDeroullement();
+				repaint();
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
+		});
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (slowScroll != null)
+					slowScroll.killMe();
+				yDrag = e.getY();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (slowScroll != null)
+					slowScroll.killMe();
+				slowScroll = new SlowScroll(dyDrag >> 2);
+			}
+		});
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -317,6 +371,49 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void nextStationDone() {
-		//TODO nextStationDone
+		// TODO nextStationDone
+	}
+
+	protected class SlowScroll extends Thread {
+
+		public SlowScroll(int deroulement) {
+			super();
+			this.deroulement = deroulement >> 1;
+			this.start();
+		}
+
+		int deroulement;
+
+		byte step = 2;
+
+		public void killMe() {
+			deroulement = 0;
+		}
+
+		@Override
+		public void run() {
+			int delta = 1;
+
+			for (int i = 0; i < deroulement; deroulement -= delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
+					repaint();
+				}
+			}
+			for (int i = 0; i > deroulement; deroulement += delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
+					repaint();
+				}
+			}
+		}
 	}
 }

@@ -1117,7 +1117,7 @@ public class NewTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Station intermediaire
 		 */
-		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
+		if (true||this.mode != NewTravelPanelState.LOST_TRAVEL) {
 			s = father.lg("IntermediatesStations");
 			taille = prepareAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
 					intermediatesStationsCollapsableArea, s, ordonne, decalage, decalage2);

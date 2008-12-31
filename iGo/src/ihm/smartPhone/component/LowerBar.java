@@ -79,6 +79,12 @@ public class LowerBar extends AbstractBar {
 			clearMessage();
 		}
 		MouseListenerClickAndMoveInArea l = new MouseListenerClickAndMoveInArea(this);
+		l.addInteractiveArea(iconeCmdArea, new CodeExecutor() {
+			@Override
+			public void execute() {
+				iconeCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
+			}
+		});
 		l.addInteractiveArea(leftCmdArea, new CodeExecutor() {
 			@Override
 			public void execute() {
@@ -95,12 +101,6 @@ public class LowerBar extends AbstractBar {
 			@Override
 			public void execute() {
 				rigthCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
-			}
-		});
-		l.addInteractiveArea(iconeCmdArea, new CodeExecutor() {
-			@Override
-			public void execute() {
-				iconeCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
 			}
 		});
 		this.addMouseListener(l);
