@@ -42,6 +42,18 @@ public enum iGoSmartPhoneSkin {
 	/**
 	 * 
 	 */
+	Christmas(
+
+	Color.white,
+
+	new Color(0, 128, 0),
+
+	new Color(188, 0, 0),
+
+	Color.white),
+	/**
+	 * 
+	 */
 	Orange(
 
 	new Color(196, 119, 30),

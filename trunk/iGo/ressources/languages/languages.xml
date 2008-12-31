@@ -487,6 +487,11 @@
 				<ENGLISH value="Black"/>
 				<GEEK value="B.I.B"/>
 			</Black>
+			<Christmas>
+				<FRANCAIS value="Noël"/>
+				<ENGLISH value="Christmas"/>
+				<GEEK value="In-Hell"/>
+			</Christmas>
 			<CatchUpYourPath>
 				<FRANCAIS value="Rattraper votre chemin"/>
 				<ENGLISH value="Catch up your path"/>

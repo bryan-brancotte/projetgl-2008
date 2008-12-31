@@ -909,6 +909,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			skins.add(iGoSmartPhoneSkin.Cherry);
 			skins.add(iGoSmartPhoneSkin.Green);
 			skins.add(iGoSmartPhoneSkin.Orange);
+			skins.add(iGoSmartPhoneSkin.Christmas);
 			skins.add(iGoSmartPhoneSkin.Pink);
 			skins.add(iGoSmartPhoneSkin.PinkPurple);
 			skins.add(iGoSmartPhoneSkin.Purple);
