@@ -142,6 +142,7 @@ public class NewTravelPanel extends PanelState {
 	protected PTArea departureStationArea;
 	protected PTAutoCompletionTextBox departureStationTextBox;
 	protected PTCollapsableArea departureStationCollapsableArea;
+	protected PTButton departureStationFind;
 
 	/**
 	 * Variables pour la zone de texte de la station de arrivé
