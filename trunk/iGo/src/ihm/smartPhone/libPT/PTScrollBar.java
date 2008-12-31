@@ -26,6 +26,12 @@ public class PTScrollBar extends PTComponent {
 		return deroullement;
 	}
 
+	public void setDeroullement(int deroullement) {
+		if (range == 0)
+			return;
+		this.deroullement = (deroullement > range) ? range : deroullement < 0 ? 0 : deroullement;
+	}
+
 	protected PTScrollBar(PanelTooled nvFather, Rectangle nvArea) {
 		super(nvFather, nvArea);
 		areaCurseur = new Rectangle();
@@ -66,14 +72,14 @@ public class PTScrollBar extends PTComponent {
 				if (e.getWheelRotation() > 0) {
 					if (deroullement >= range)
 						return;
-					deroullement += 5;
+					deroullement += 15;
 					if (deroullement > range)
 						deroullement = range;
 					father.repaint();
 				} else if (e.getWheelRotation() < 0) {
 					if (deroullement <= 0)
 						return;
-					deroullement -= 5;
+					deroullement -= 15;
 					if (deroullement < 0)
 						deroullement = 0;
 					father.repaint();
