@@ -497,6 +497,16 @@
 				<ENGLISH value="Catch up your path"/>
 				<GEEK value="R.T.F.M."/>
 			</CatchUpYourPath>
+			<ListingStations>
+				<FRANCAIS value="Les stations"/>
+				<ENGLISH value="Stations"/>
+				<GEEK value="ls -la"/>
+			</ListingStations>
+			<Back>
+				<FRANCAIS value="Retour"/>
+				<ENGLISH value="Back"/>
+				<GEEK value="cd .."/>
+			</Back>
 		</fields>
 	</root>
 

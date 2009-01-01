@@ -75,7 +75,11 @@ public enum IhmReceivingStates {
 	/**
 	* 
 	*/
-	ERROR_STATE(70);
+	ERROR_STATE(70),
+	/**
+	 * ;
+	 */
+	LISTING_STATION_PANEL(80);
 
 	protected int val;
 
