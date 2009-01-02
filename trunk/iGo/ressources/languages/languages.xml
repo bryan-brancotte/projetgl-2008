@@ -507,6 +507,16 @@
 				<ENGLISH value="Back"/>
 				<GEEK value="cd .."/>
 			</Back>
+			<FindAStation>
+				<FRANCAIS value="Trouver un station"/>
+				<ENGLISH value="Find a station"/>
+				<GEEK value="man station"/>
+			</FindAStation>
+			<ClickOnTheStation>
+				<FRANCAIS value="Cliquez sur la station de votre choix"/>
+				<ENGLISH value="Click on the station of your choice"/>
+				<GEEK value="use the ungeek device called 'mouse'"/>
+			</ClickOnTheStation>
 		</fields>
 	</root>
 

@@ -128,6 +128,7 @@ public class NewTravelPanel extends PanelState {
 	protected PTCollapsableArea intermediatesStationsCollapsableArea;
 	protected PTButton intermediatesStationsButton;
 	protected Hashtable<Integer, PTButton> intermediatesStationsDel;
+	protected PTButton intermediatesStationsFind;
 
 	/**
 	 * Variables pour les stations à éviter
@@ -139,6 +140,7 @@ public class NewTravelPanel extends PanelState {
 	protected PTCollapsableArea avoidsStationsCollapsableArea;
 	protected PTButton avoidsStationsButton;
 	protected Hashtable<Integer, PTButton> avoidsStationsDel;
+	protected PTButton avoidsStationsFind;
 
 	/**
 	 * Variables pour la zone de texte de la station de départ
@@ -156,6 +158,7 @@ public class NewTravelPanel extends PanelState {
 	protected PTArea arrivalStationNew;
 	protected PTAutoCompletionTextBox arrivalStationTextBox;
 	protected PTCollapsableArea arrivalStationCollapsableArea;
+	protected PTButton arrivalStationFind;
 
 	/**
 	 * Barre de défilement
@@ -353,39 +356,6 @@ public class NewTravelPanel extends PanelState {
 		}
 
 		/***************************************************************************************************************
-		 * Quality
-		 */
-		// qualityCollapsableArea = makeCollapsableArea();
-		// qualityCollapsableArea.changeCollapseState();
-		// grp = new PTRadioBoxGroup(4);
-		// ex = new CodeExecutor1P<PanelTooled>(this) {
-		// @Override
-		// public void execute() {
-		// recordChangedSetting(quality, "GRAPHICAL_QUALITY");
-		// // this.origine.;
-		// }
-		// };
-		// qualityRadioBoxs = new PTRadioBox[4];
-		// qualityRadioBoxs[0] = makeRadioButton(grp, ex);// AS_FAST_AS_WE_CAN
-		// qualityRadioBoxs[1] = makeRadioButton(grp, ex);// TEXT_ANTI_ANTIALIASING
-		// qualityRadioBoxs[2] = makeRadioButton(grp, ex);// FULL_ANTI_ANTIALIASING
-		// qualityRadioBoxs[3] = makeRadioButton(grp, ex);// HIGHER_QUALITY
-		// int i = IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue();
-		// try {
-		// i = Integer.parseInt(father.getConfig("GRAPHICAL_QUALITY"));
-		// } catch (NumberFormatException e) {
-		// father.setConfig("GRAPHICAL_QUALITY", i + "");
-		// this.setQuality(IHMGraphicQuality.FULL_ANTI_ANTIALIASING);
-		// }
-		// qualityRadioBoxs[0].setClicked(IHMGraphicQuality.AS_FAST_AS_WE_CAN.getValue() == i);
-		// qualityRadioBoxs[1].setClicked(IHMGraphicQuality.TEXT_ANTI_ANTIALIASING.getValue() == i);
-		// qualityRadioBoxs[2].setClicked(IHMGraphicQuality.FULL_ANTI_ANTIALIASING.getValue() == i);
-		// qualityRadioBoxs[3].setClicked(IHMGraphicQuality.HIGHER_QUALITY.getValue() == i);
-		// qualityCollapsableArea.addComponent(qualityRadioBoxs[0]);
-		// qualityCollapsableArea.addComponent(qualityRadioBoxs[1]);
-		// qualityCollapsableArea.addComponent(qualityRadioBoxs[2]);
-		// qualityCollapsableArea.addComponent(qualityRadioBoxs[3]);
-		/***************************************************************************************************************
 		 * ScrollBar
 		 */
 		scrollBar = makeScrollBar();
@@ -421,7 +391,7 @@ public class NewTravelPanel extends PanelState {
 				Container c = this.origine.getParent();
 				c.removeAll();
 				ListingPanel l;
-				c.add(l=new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
+				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
 						this.origine) {
 					public void execute() {
 						departureStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
@@ -459,6 +429,34 @@ public class NewTravelPanel extends PanelState {
 		 */
 		arrivalStationCollapsableArea = makeCollapsableArea();
 		arrivalStationNew = makeArea();
+		arrivalStationFind = makeButton(new CodeExecutor1P<NewTravelPanel>(this) {
+			@Override
+			public void execute() {
+				Container c = this.origine.getParent();
+				c.removeAll();
+				ListingPanel l;
+				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
+						this.origine) {
+					public void execute() {
+						arrivalStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
+								.getStationSelected());
+						this.origineA.removeAll();
+						this.origineA.add(this.origineB);
+						this.origineA.validate();
+						this.origineB.giveControle();
+					};
+				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+					public void execute() {
+						this.origineA.removeAll();
+						this.origineA.add(this.origineB);
+						this.origineA.validate();
+						this.origineB.giveControle();
+					};
+				}));
+				l.giveControle();
+				c.validate();
+			}
+		});
 		arrivalStationTextBox = makeAutoCompletionTextBox(stations, new CodeExecutor() {
 
 			@Override
@@ -468,6 +466,7 @@ public class NewTravelPanel extends PanelState {
 		});
 		arrivalStationCollapsableArea.addComponent(arrivalStationTextBox);
 		arrivalStationCollapsableArea.addComponent(arrivalStationNew);
+		arrivalStationCollapsableArea.addComponent(arrivalStationFind);
 
 		/***************************************************************************************************************
 		 * Station inter
@@ -475,6 +474,34 @@ public class NewTravelPanel extends PanelState {
 		intermediatesStationsCollapsableArea = makeCollapsableArea();
 		intermediatesStationsCollapsableArea.changeCollapseState();
 		intermediatesStationsArea = makeArea();
+		intermediatesStationsFind = makeButton(new CodeExecutor1P<NewTravelPanel>(this) {
+			@Override
+			public void execute() {
+				Container c = this.origine.getParent();
+				c.removeAll();
+				ListingPanel l;
+				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
+						this.origine) {
+					public void execute() {
+						intermediatesStationsTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
+								.getStationSelected());
+						this.origineA.removeAll();
+						this.origineA.add(this.origineB);
+						this.origineA.validate();
+						this.origineB.giveControle();
+					};
+				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+					public void execute() {
+						this.origineA.removeAll();
+						this.origineA.add(this.origineB);
+						this.origineA.validate();
+						this.origineB.giveControle();
+					};
+				}));
+				l.giveControle();
+				c.validate();
+			}
+		});
 		intermediatesStationsButton = makeButton(ex = new CodeExecutor1P<PanelTooled>(this) {
 			@Override
 			public void execute() {
@@ -485,6 +512,7 @@ public class NewTravelPanel extends PanelState {
 		intermediatesStationsTextBox = makeAutoCompletionTextBox(stations, null, ex);
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsArea);
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsTextBox);
+		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsFind);
 		intermediatesStationsDel = new Hashtable<Integer, PTButton>();
 
 		// TODO z_make
@@ -494,6 +522,34 @@ public class NewTravelPanel extends PanelState {
 		avoidsStationsCollapsableArea = makeCollapsableArea();
 		avoidsStationsCollapsableArea.changeCollapseState();
 		avoidsStationsArea = makeArea();
+		arrivalStationFind = makeButton(new CodeExecutor1P<NewTravelPanel>(this) {
+			@Override
+			public void execute() {
+				Container c = this.origine.getParent();
+				c.removeAll();
+				ListingPanel l;
+				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
+						this.origine) {
+					public void execute() {
+						avoidsStationsTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
+								.getStationSelected());
+						this.origineA.removeAll();
+						this.origineA.add(this.origineB);
+						this.origineA.validate();
+						this.origineB.giveControle();
+					};
+				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+					public void execute() {
+						this.origineA.removeAll();
+						this.origineA.add(this.origineB);
+						this.origineA.validate();
+						this.origineB.giveControle();
+					};
+				}));
+				l.giveControle();
+				c.validate();
+			}
+		});
 		avoidsStationsButton = makeButton(ex = new CodeExecutor1P<PanelTooled>(this) {
 			@Override
 			public void execute() {
@@ -504,6 +560,7 @@ public class NewTravelPanel extends PanelState {
 		avoidsStationsTextBox = makeAutoCompletionTextBox(stations, null, ex);
 		avoidsStationsCollapsableArea.addComponent(avoidsStationsArea);
 		avoidsStationsCollapsableArea.addComponent(avoidsStationsTextBox);
+		avoidsStationsCollapsableArea.addComponent(arrivalStationFind);
 		avoidsStationsDel = new Hashtable<Integer, PTButton>();
 	}
 
@@ -851,11 +908,11 @@ public class NewTravelPanel extends PanelState {
 			// buffer.setColor(father.getSkin().getColorLetter());
 			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeLargeFont()) {
 				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeLargeFont(),
-						father.getSizeAdapteur().getSizeLargeFont());
+						father.getSizeAdapteur().getSizeLargeFont(),true);
 				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
-						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
-				imageFind = ImageLoader.getRessourcesImageIcone("logo", father.getSizeAdapteur()
-						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
+						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont(),true);
+				imageFind = ImageLoader.getRessourcesImageIcone("loupe", father.getSizeAdapteur()
+						.getSizeLargeFont(), father.getSizeAdapteur().getSizeLargeFont(),true);
 			}
 		} else {
 			buffer.setColor(father.getSkin().getColorInside());
@@ -865,9 +922,8 @@ public class NewTravelPanel extends PanelState {
 		/*****
 		 * Swap des liste de zone de service
 		 */
-		LinkedList<ServiceToolTipText> serviceSwap = servicePooled;
-		servicePooled = serviceDisplayed;
-		serviceDisplayed = serviceSwap;
+		servicePooled.addAll(serviceDisplayed);
+		serviceDisplayed.clear();
 
 		/***************************************************************************************************************
 		 * Departure
@@ -893,12 +949,12 @@ public class NewTravelPanel extends PanelState {
 		if (this.mode != NewTravelPanelState.LOST_TRAVEL) {
 			s = father.lg("Arrival");
 			taille = prepareAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
-					arrivalStationCollapsableArea, null, s, ordonne, decalage, decalage2);
+					arrivalStationCollapsableArea, arrivalStationFind, s, ordonne, decalage, decalage2);
 			arrivalStationCollapsableArea
 					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
 							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 			station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
-					arrivalStationCollapsableArea, null, ordonne, decalage, decalage2, taille, true);
+					arrivalStationCollapsableArea, arrivalStationFind, ordonne, decalage, decalage2, taille, true);
 			if (arrivalStationChanged)
 				pathBuilder.setDestination(station);
 			ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height
@@ -1158,6 +1214,9 @@ public class NewTravelPanel extends PanelState {
 						|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
 						|| pathBuilder.getCurrentPathInGraph().getDestination() == station
 						|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
+					intermediatesStationsFind.update(buffer, intermediatesStationsButton.getArea().x,
+							intermediatesStationsButton.getArea().y
+									+ (imageOk.getIconHeight() - imageFind.getIconHeight() >> 1), imageFind);
 					intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
 				} else
 					intermediatesStationsButton.draw(buffer, imageOk);
@@ -1215,6 +1274,9 @@ public class NewTravelPanel extends PanelState {
 						|| pathBuilder.getCurrentPathInGraph().containsSteps(station)
 						|| pathBuilder.getCurrentPathInGraph().getDestination() == station
 						|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
+					avoidsStationsFind.update(buffer, avoidsStationsButton.getArea().x,
+							avoidsStationsButton.getArea().y
+							+ (imageOk.getIconHeight() - imageFind.getIconHeight() >> 1), imageFind);
 					avoidsStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
 				} else
 					avoidsStationsButton.draw(buffer, imageOk);
