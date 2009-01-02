@@ -278,9 +278,8 @@ public class ListingPanel extends PanelState {
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
 		deroullement = scrollBar.getDeroullement();
-		// System.out.println("serviceDisplayed:" + serviceDisplayed.size() + " servicePooled" + servicePooled.size());
-//		System.out.println(serviceDisplayed.size() + " " + servicePooled.size() + " : "
-//				+ (serviceDisplayed.size() + servicePooled.size()));
+		// System.out.println(serviceDisplayed.size() + " " + servicePooled.size() + " : "
+		// + (serviceDisplayed.size() + servicePooled.size()));
 
 	}
 }
