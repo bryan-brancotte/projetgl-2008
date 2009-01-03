@@ -146,6 +146,7 @@ public class PathInGraphConstraintBuilder {
 		if (dispSysout)
 			System.out.println("removeAvoidStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
+		currentPathInGraph.avoidStations.remove(station);
 	}
 
 	/**
