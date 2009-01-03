@@ -30,7 +30,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected int yDrag;
 	/**
-	 * Y d'origine pour le drag
+	 * variation d'Y pour le drag
 	 */
 	protected int dyDrag;
 	protected SlowScroll slowScroll;

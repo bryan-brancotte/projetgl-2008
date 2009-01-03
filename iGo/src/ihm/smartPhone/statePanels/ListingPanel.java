@@ -18,6 +18,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Collections;
 import java.util.Comparator;
@@ -57,6 +58,18 @@ public class ListingPanel extends PanelState {
 	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
 	 */
 	protected boolean shouldDoubleRepaint = true;
+	/**
+	 * Y d'origine pour le drag
+	 */
+	protected int yDrag;
+	/**
+	 * Utilitaire de défilement doux
+	 */
+	protected SlowScroll slowScroll;
+	/**
+	 * variation d'Y pour le drag
+	 */
+	protected int dyDrag;
 
 	public ListingPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar nvLowerBar,
 			CodeExecutor nvOkEndingAction, CodeExecutor nvCancelEndingAction) {
@@ -103,6 +116,10 @@ public class ListingPanel extends PanelState {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				scrollBar.setDeroullement(scrollBar.getDeroullement() + (dyDrag = yDrag - e.getY()));
+				yDrag = e.getY();
+				deroullement = scrollBar.getDeroullement();
+				repaint();
 			}
 
 			@Override
@@ -121,6 +138,34 @@ public class ListingPanel extends PanelState {
 				lowerBar.setLeftValue("");
 				lowerBar.repaint();
 				overed = null;
+			}
+		});
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (slowScroll != null)
+					slowScroll.killMe();
+				yDrag = e.getY();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (slowScroll != null)
+					slowScroll.killMe();
+				slowScroll = new SlowScroll(dyDrag >> 2);
 			}
 		});
 		serviceDisplayed = new LinkedList<ServiceToolTipText>();
@@ -281,5 +326,52 @@ public class ListingPanel extends PanelState {
 		// System.out.println(serviceDisplayed.size() + " " + servicePooled.size() + " : "
 		// + (serviceDisplayed.size() + servicePooled.size()));
 
+	}
+
+	protected class SlowScroll extends Thread {
+
+		public SlowScroll(int deroulement) {
+			super();
+			this.deroulement = deroulement;
+			this.start();
+		}
+
+		int deroulement;
+
+		byte step = 2;
+
+		public void killMe() {
+			deroulement = 0;
+		}
+
+		@Override
+		public void run() {
+			int delta = 2;
+
+			for (int i = 0; i < deroulement; deroulement -= delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					if(deroulement==0)
+						return;
+					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
+					repaint();
+				}
+			}
+			for (int i = 0; i > deroulement; deroulement += delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					if(deroulement==0)
+						return;
+					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
+					repaint();
+				}
+			}
+		}
 	}
 }

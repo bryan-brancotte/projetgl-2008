@@ -79,7 +79,7 @@ public class Service {
 	}
 
 	public String toString() {
-		if (shortDescription == null)
+		if (shortDescription == null || shortDescription == "")
 			return name + "(" + id + ")";
 		return name + "(" + id + "):" + shortDescription;
 	}

@@ -92,6 +92,10 @@ public class NewTravelPanel extends PanelState {
 	 */
 	NewTravelPanelState mode = NewTravelPanelState.BUILDING;
 	/**
+	 * Boolean permetant de savoir si l'utilisateur à déja essayé de lancer le calcul sans dep ou arr
+	 */
+	protected boolean redNeeded = false;
+	/**
 	 * Conteneurs pour les zone d'aide des services
 	 */
 	protected LinkedList<ServiceToolTipText> serviceDisplayed;
@@ -396,6 +400,7 @@ public class NewTravelPanel extends PanelState {
 					public void execute() {
 						departureStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
 								.getStationSelected());
+						departureStationChanged = true;
 						this.origineA.removeAll();
 						this.origineA.add(this.origineB);
 						this.origineA.validate();
@@ -440,6 +445,7 @@ public class NewTravelPanel extends PanelState {
 					public void execute() {
 						arrivalStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
 								.getStationSelected());
+						arrivalStationChanged = true;
 						this.origineA.removeAll();
 						this.origineA.add(this.origineB);
 						this.origineA.validate();
@@ -522,7 +528,7 @@ public class NewTravelPanel extends PanelState {
 		avoidsStationsCollapsableArea = makeCollapsableArea();
 		avoidsStationsCollapsableArea.changeCollapseState();
 		avoidsStationsArea = makeArea();
-		arrivalStationFind = makeButton(new CodeExecutor1P<NewTravelPanel>(this) {
+		avoidsStationsFind = makeButton(new CodeExecutor1P<NewTravelPanel>(this) {
 			@Override
 			public void execute() {
 				Container c = this.origine.getParent();
@@ -560,7 +566,7 @@ public class NewTravelPanel extends PanelState {
 		avoidsStationsTextBox = makeAutoCompletionTextBox(stations, null, ex);
 		avoidsStationsCollapsableArea.addComponent(avoidsStationsArea);
 		avoidsStationsCollapsableArea.addComponent(avoidsStationsTextBox);
-		avoidsStationsCollapsableArea.addComponent(arrivalStationFind);
+		avoidsStationsCollapsableArea.addComponent(avoidsStationsFind);
 		avoidsStationsDel = new Hashtable<Integer, PTButton>();
 	}
 
@@ -793,6 +799,8 @@ public class NewTravelPanel extends PanelState {
 		if (!shouldFillTheField)
 			return null;
 		if (stationTextBox.getText().compareTo("") == 0) {
+			if(redNeeded)
+				buffer.setColor(Color.red);
 			buffer.drawString(father.lg("FillThisField"), stationTextBox.getArea().x, stationTextBox.getArea().y
 					+ stationTextBox.getArea().height + (decalage >> 1)
 					+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));
@@ -802,6 +810,7 @@ public class NewTravelPanel extends PanelState {
 		buffer.drawString(father.lg("InvalideStation"), stationTextBox.getArea().x, stationTextBox.getArea().y
 				+ stationTextBox.getArea().height + (decalage >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));
+		redNeeded=false;
 		return null;
 	}
 
@@ -908,11 +917,11 @@ public class NewTravelPanel extends PanelState {
 			// buffer.setColor(father.getSkin().getColorLetter());
 			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeLargeFont()) {
 				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeLargeFont(),
-						father.getSizeAdapteur().getSizeLargeFont(),true);
+						father.getSizeAdapteur().getSizeLargeFont(), true);
 				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
-						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont(),true);
-				imageFind = ImageLoader.getRessourcesImageIcone("loupe", father.getSizeAdapteur()
-						.getSizeLargeFont(), father.getSizeAdapteur().getSizeLargeFont(),true);
+						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont(), true);
+				imageFind = ImageLoader.getRessourcesImageIcone("loupe", father.getSizeAdapteur().getSizeLargeFont(),
+						father.getSizeAdapteur().getSizeLargeFont(), true);
 			}
 		} else {
 			buffer.setColor(father.getSkin().getColorInside());
@@ -1218,8 +1227,10 @@ public class NewTravelPanel extends PanelState {
 							intermediatesStationsButton.getArea().y
 									+ (imageOk.getIconHeight() - imageFind.getIconHeight() >> 1), imageFind);
 					intermediatesStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
-				} else
+				} else {
 					intermediatesStationsButton.draw(buffer, imageOk);
+					intermediatesStationsFind.prepareArea(buffer, getWidth(), getHeight(), imageOk);
+				}
 				itS = pathBuilder.getCurrentPathInGraph().getStepsIter();
 				// x = intermediatesStationsTextBox.getArea().x;
 				// y = intermediatesStationsTextBox.getArea().y + intermediatesStationsTextBox.getArea().height
@@ -1276,10 +1287,12 @@ public class NewTravelPanel extends PanelState {
 						|| pathBuilder.getCurrentPathInGraph().getOrigin() == station) {
 					avoidsStationsFind.update(buffer, avoidsStationsButton.getArea().x,
 							avoidsStationsButton.getArea().y
-							+ (imageOk.getIconHeight() - imageFind.getIconHeight() >> 1), imageFind);
+									+ (imageOk.getIconHeight() - imageFind.getIconHeight() >> 1), imageFind);
 					avoidsStationsButton.prepareArea(buffer, getWidth(), getHeight(), imageOk);
-				} else
+				} else {
 					avoidsStationsButton.draw(buffer, imageOk);
+					avoidsStationsFind.prepareArea(buffer, getWidth(), getHeight(), imageOk);
+				}
 				itS = pathBuilder.getCurrentPathInGraph().getAvoidStationsIter();
 				// x = avoidsStationsTextBox.getArea().x;
 				// y = avoidsStationsTextBox.getArea().y + avoidsStationsTextBox.getArea().height
@@ -1354,9 +1367,11 @@ public class NewTravelPanel extends PanelState {
 					.lg("CatchUpYourPath"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// System.out.println(pathBuilder.getCurrentPathInGraph());
 					if (pathBuilder.isValideForSolving()) {
 						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, pathBuilder);
+					}else{
+						redNeeded=true;
+						repaint();
 					}
 				}
 			});
