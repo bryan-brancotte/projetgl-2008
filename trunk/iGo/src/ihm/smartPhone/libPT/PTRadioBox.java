@@ -31,21 +31,21 @@ public class PTRadioBox extends PTComponent {
 	}
 
 	@Override
-	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
+	public void draw(Graphics g, Color colorInside, Color colorLetter) {
 		if (!enable)
 			return;
-		g.setFont(font);
+		g.setFont(lastFont);
 		g.setColor(colorLetter);
-		g.drawOval(area.x, area.y, font.getSize(), font.getSize());
-		int delta = font.getSize() >> 2;
+		g.drawOval(area.x, area.y, lastFont.getSize(), lastFont.getSize());
+		int delta = lastFont.getSize() >> 2;
 		if (clicked) {
 			g.setColor(colorRound);
-			g.fillOval(area.x + delta, area.y + delta, font.getSize() - (delta << 1) + 1, font.getSize() - (delta << 1)
+			g.fillOval(area.x + delta, area.y + delta, lastFont.getSize() - (delta << 1) + 1, lastFont.getSize() - (delta << 1)
 					+ 1);
 			g.setColor(colorLetter);
-			g.drawOval(area.x + delta, area.y + delta, font.getSize() - (delta << 1), font.getSize() - (delta << 1));
+			g.drawOval(area.x + delta, area.y + delta, lastFont.getSize() - (delta << 1), lastFont.getSize() - (delta << 1));
 		}
-		g.drawString(text, area.x + (font.getSize() >> 1) + font.getSize(), area.y
+		g.drawString(text, area.x + (lastFont.getSize() >> 1) + lastFont.getSize(), area.y
 				+ PanelDoubleBufferingSoftwear.getHeightString(text, g));
 
 	}
@@ -56,6 +56,7 @@ public class PTRadioBox extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
+		this.lastFont=font;
 		if (text.compareTo("") == 0)
 			area.setBounds(x, y, font.getSize(), font.getSize());
 		else

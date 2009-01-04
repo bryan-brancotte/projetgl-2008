@@ -17,6 +17,8 @@ public abstract class PTComponent {
 
 	protected String text = "Nothing";
 
+	protected Font lastFont;
+
 	protected PanelTooled father;
 
 	protected boolean enable = true;
@@ -142,7 +144,7 @@ public abstract class PTComponent {
 	 * @param colorLetter
 	 *            la couleur du texte
 	 */
-	public abstract void draw(Graphics g, Font font, Color colorInside, Color colorLetter);
+	public abstract void draw(Graphics g, Color colorInside, Color colorLetter);
 
 	/**
 	 * Execute succesivement prepareArea et draw.
@@ -167,7 +169,7 @@ public abstract class PTComponent {
 		if (!enable)
 			return null;
 		prepareArea(g, x, y, text, font);
-		draw(g, font, colorInside, colorLetter);
+		draw(g, colorInside, colorLetter);
 		return area;
 	}
 }

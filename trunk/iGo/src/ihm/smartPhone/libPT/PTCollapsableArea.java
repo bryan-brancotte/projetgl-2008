@@ -80,10 +80,10 @@ public class PTCollapsableArea extends PTComponent {
 	}
 
 	@Override
-	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
+	public void draw(Graphics g, Color colorInside, Color colorLetter) {
 		if (!this.isEnable())
 			return;
-		g.setFont(font);
+		g.setFont(lastFont);
 		int heigthStr = PanelDoubleBufferingSoftwear.getHeightString(text, g);
 		g.setColor(colorInside);
 		g.fillRect(area.x, area.y, area.width, area.height);
@@ -92,17 +92,17 @@ public class PTCollapsableArea extends PTComponent {
 		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr + (area.x >> 1) - (area.x >> 2));
 		ImageIcon imageButton;
 		if (collapsed) {
-			if (imageButtonAdd == null || imageButtonAdd.getIconHeight() != font.getSize()) {
-				imageButtonAdd = ImageLoader.getRessourcesImageIcone("button_add", font.getSize(), font.getSize());
+			if (imageButtonAdd == null || imageButtonAdd.getIconHeight() != lastFont.getSize()) {
+				imageButtonAdd = ImageLoader.getRessourcesImageIcone("button_add", lastFont.getSize(), lastFont.getSize());
 			}
 			imageButton = imageButtonAdd;
 		} else {
-			if (imageButtonLess == null || imageButtonLess.getIconHeight() != font.getSize()) {
-				imageButtonLess = ImageLoader.getRessourcesImageIcone("button_less", font.getSize(), font.getSize());
+			if (imageButtonLess == null || imageButtonLess.getIconHeight() != lastFont.getSize()) {
+				imageButtonLess = ImageLoader.getRessourcesImageIcone("button_less", lastFont.getSize(), lastFont.getSize());
 			}
 			imageButton = imageButtonLess;
 		}
-		buttonAddLess.update(g, area.width + area.x - (area.x >> 1) - font.getSize(), area.y + (heigthStr >> 2)
+		buttonAddLess.update(g, area.width + area.x - (area.x >> 1) - lastFont.getSize(), area.y + (heigthStr >> 2)
 				- (heigthStr >> 3), imageButton);
 	}
 
@@ -112,6 +112,7 @@ public class PTCollapsableArea extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
+		this.lastFont=font;
 		int heigth = PanelDoubleBufferingSoftwear.getHeightString(text, g, font);
 		int max = y + heigth;
 		Rectangle areaComponent;

@@ -26,9 +26,10 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected static final int maxHeightForScalling = 640;
 
 	// public static final int DEFAULT_HEIGTH = 220;public static final int DEFAULT_WIDTH = 140;
-	//public static final int DEFAULT_HEIGTH = 320; public static final int DEFAULT_WIDTH = 200;
+	// public static final int DEFAULT_HEIGTH = 320; public static final int DEFAULT_WIDTH = 200;
 	// public static final int DEFAULT_HEIGTH = 320; public static final int DEFAULT_WIDTH = 240;
-	public static final int DEFAULT_HEIGTH = 558; public static final int DEFAULT_WIDTH = 406;
+	public static final int DEFAULT_HEIGTH = 558;
+	public static final int DEFAULT_WIDTH = 406;
 	// public static final int DEFAULT_HEIGTH = 1200; public static final int DEFAULT_WIDTH = 1600;
 
 	public static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -46,7 +47,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected int sizeUpperBar;
 	protected int sizeLowerBar;
 	protected int sizeLine;
-	protected boolean fullScreen = false;
+	protected boolean fullScreen = true;
 	protected static float corectionOfFontSize = (float) 1.6;
 
 	protected Semaphore lookForALook = new Semaphore(1);
@@ -114,7 +115,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 		this.sizeIntermediateFont = (int) (val * corectionOfFontSize * 0.0195);// 195);
 		if (sizeIntermediateFont < sizeSmallFont + 1)
 			sizeIntermediateFont = sizeSmallFont + 1;
-		this.sizeLargeFont = (int) (val * corectionOfFontSize * 0.028);//0.032);
+		this.sizeLargeFont = (int) (val * corectionOfFontSize * 0.028);// 0.032);
 		if (sizeLargeFont < sizeIntermediateFont + 2)
 			sizeLargeFont = sizeIntermediateFont + 2;
 		this.sizeUpperBar = (int) (val * 0.13);
@@ -265,6 +266,17 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	}
 
 	/**
+	 * Getteur de la grande de police de caractère.
+	 * 
+	 * @return la grandes police.
+	 */
+	public Font getLargeFont(boolean bold) {
+		if (!bold)
+			return largeFont;
+		return new Font("Large_Bold", Font.BOLD, sizeLargeFont);
+	}
+
+	/**
 	 * Getteur de la taille intermédiaire de police de caractère.
 	 * 
 	 * @return la taille de la grandes police.
@@ -283,6 +295,17 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	}
 
 	/**
+	 * Getteur de la police intermédiaire de caractère.
+	 * 
+	 * @return la grandes police.
+	 */
+	public Font getIntermediateFont(boolean bold) {
+		if (!bold)
+			return intermediateFont;
+		return new Font("Intermediat_Bold", Font.BOLD , sizeIntermediateFont);
+	}
+
+	/**
 	 * Getteur de la petite taille de police de caractère.
 	 * 
 	 * @return la taille de la petite police.
@@ -298,6 +321,17 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	 */
 	public Font getSmallFont() {
 		return smallFont;
+	}
+
+	/**
+	 * Getteur de la petite police de caractère.
+	 * 
+	 * @return la petite police.
+	 */
+	public Font getSmallFont(boolean bold) {
+		if (!bold)
+			return smallFont;
+		return new Font("Small_Bold", Font.BOLD, sizeSmallFont);
 	}
 
 	/**

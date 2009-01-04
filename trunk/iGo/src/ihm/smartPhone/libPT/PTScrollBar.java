@@ -93,7 +93,7 @@ public class PTScrollBar extends PTComponent {
 	 */
 	@Override
 	@Deprecated
-	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
+	public void draw(Graphics g, Color colorInside, Color colorLetter) {
 
 	}
 

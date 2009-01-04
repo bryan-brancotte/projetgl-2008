@@ -324,22 +324,22 @@ public class PTAutoCompletionTextBox extends PTComponent {
 	}
 
 	@Override
-	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
+	public void draw(Graphics g, Color colorInside, Color colorLetter) {
 		g.setColor(colorInside);
 		g.fillRect(area.x, area.y, area.width, area.height);
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, area.width, area.height);
 		g.setFont(lastFont);
-		g.drawString(currentStringLeft + currentStringSelected + currentStringRight, area.x + (font.getSize() >> 1),
-				area.y + area.height - (font.getSize() >> 2));
+		g.drawString(currentStringLeft + currentStringSelected + currentStringRight, area.x + (lastFont.getSize() >> 1),
+				area.y + area.height - (lastFont.getSize() >> 2));
 		if (currentStringSelected.length() > 0) {
-			int x = area.x + PanelTooled.getWidthString(currentStringLeft, g) + (font.getSize() >> 1);
+			int x = area.x + PanelTooled.getWidthString(currentStringLeft, g) + (lastFont.getSize() >> 1);
 			g.fillRect(x, area.y, PanelTooled.getWidthString(currentStringSelected, g), area.height);
 			g.setColor(colorInside);
-			g.drawString(currentStringSelected, x, area.y + area.height - (font.getSize() >> 2));
+			g.drawString(currentStringSelected, x, area.y + area.height - (lastFont.getSize() >> 2));
 		}
 		if (isInMe) {
-			int x = area.x + (font.getSize() >> 1) + PanelTooled.getWidthString(currentStringLeft, g);
+			int x = area.x + (lastFont.getSize() >> 1) + PanelTooled.getWidthString(currentStringLeft, g);
 			g.setColor(colorLetter);
 			g.drawLine(x, area.y + 1, x, area.y + area.height - 2);
 		}
@@ -398,7 +398,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 		if (!enable)
 			return null;
 		prepareArea(g, x, y, width, font);
-		draw(g, font, colorInside, colorLetter);
+		draw(g, colorInside, colorLetter);
 		return area;
 	}
 

@@ -35,6 +35,12 @@ public interface SizeAdapteur {
 
 	public Font getSmallFont();
 
+	public Font getLargeFont(boolean bold);
+
+	public Font getIntermediateFont(boolean bold);
+
+	public Font getSmallFont(boolean bold);
+
 	public int getSizeUpperBar();
 
 	public int getSizeLowerBar();

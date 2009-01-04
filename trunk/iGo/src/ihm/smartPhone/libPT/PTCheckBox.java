@@ -29,25 +29,25 @@ public class PTCheckBox extends PTComponent {
 	}
 
 	@Override
-	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
+	public void draw(Graphics g, Color colorInside, Color colorLetter) {
 		if (!enable)
 			return;
-		g.setFont(font);
+		g.setFont(lastFont);
 		g.setColor(colorLetter);
-		g.drawRect(area.x, area.y, font.getSize(), font.getSize());
+		g.drawRect(area.x, area.y, lastFont.getSize(), lastFont.getSize());
 		if (clicked) {
 			// g.drawImage(ImageLoader.getRessourcesImageIcone("button_ok", (int)(font.getSize() * 1.2),
 			// (int)(font.getSize() * 1.2))
 			// .getImage(), area.x - (int)(font.getSize() * 0.1), area.y - (int)(font.getSize() * 0.1), null);
 
 			g.setColor(colorRound);
-			g.fillRect(area.x + (font.getSize() >> 2), area.y + (font.getSize() >> 2), font.getSize() - 2
-					* (font.getSize() >> 2) + 1, font.getSize() - 2 * (font.getSize() >> 2) + 1);
+			g.fillRect(area.x + (lastFont.getSize() >> 2), area.y + (lastFont.getSize() >> 2), lastFont.getSize() - 2
+					* (lastFont.getSize() >> 2) + 1, lastFont.getSize() - 2 * (lastFont.getSize() >> 2) + 1);
 			g.setColor(colorLetter);
-			g.drawRect(area.x + (font.getSize() >> 2), area.y + (font.getSize() >> 2), font.getSize() - 2
-					* (font.getSize() >> 2), font.getSize() - 2 * (font.getSize() >> 2));
+			g.drawRect(area.x + (lastFont.getSize() >> 2), area.y + (lastFont.getSize() >> 2), lastFont.getSize() - 2
+					* (lastFont.getSize() >> 2), lastFont.getSize() - 2 * (lastFont.getSize() >> 2));
 		}
-		g.drawString(text, area.x + (font.getSize() >> 1) + font.getSize(), area.y + PanelDoubleBufferingSoftwear.getHeightString(text, g));
+		g.drawString(text, area.x + (lastFont.getSize() >> 1) + lastFont.getSize(), area.y + PanelDoubleBufferingSoftwear.getHeightString(text, g));
 
 	}
 
@@ -57,6 +57,7 @@ public class PTCheckBox extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
+		lastFont=font;
 		if (text.compareTo("") == 0)
 			area.setBounds(x, y, font.getSize(), font.getSize());
 		else
