@@ -26,7 +26,11 @@ public enum SettingsKey {
 	 */
 	LANGUAGE(),
 	/**
-	 * clef à laquelle sera associé le thème choisi pas l'utilisateur
+	 * Clef à laquelle sera associé le thème choisi pas l'utilisateur
 	 */
-	SKIN();
+	SKIN(),
+	/**
+	 * Clef à laquelle sera associé l'activation/desactivation de l'autoscroll
+	 */
+	AUTO_SCROLL();
 }

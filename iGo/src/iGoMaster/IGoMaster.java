@@ -339,7 +339,7 @@ public class IGoMaster implements Master, Observer
 				while(addAsRecent&&itB.hasNext()){
 					addAsRecent&=itB.next()!=collectionBuilder;
 				}
-				System.out.println("addAsRecent?"+addAsRecent);
+				if(test())System.out.println("addAsRecent?"+addAsRecent);
 				if(addAsRecent)
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
 				//TODO modifier par bryan End
@@ -707,11 +707,9 @@ public class IGoMaster implements Master, Observer
 	public void removeFromFavorites(PathInGraph pig) {this.pathInGraphsToRemember.removeFromFavorites(pig);}
 
 
-	//TODO Begin by Bryan
 	@Override
 	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path) {
 		return this.pathInGraphsToRemember.isFavorite(path.getPathInGraph());
 	}
-	//TODO End by Bryan
 
 }

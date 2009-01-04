@@ -1,6 +1,8 @@
 package ihm.smartPhone.statePanels;
 
 import graphNetwork.Service;
+import iGoMaster.SettingsKey;
+import iGoMaster.SettingsValue;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -143,16 +145,16 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				dxLastPointeur=0;
-				dyLastPointeur=0;
+				dxLastPointeur = 0;
+				dyLastPointeur = 0;
 				xLastPointeur = e.getX();
 				yLastPointeur = e.getY();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				new SlowScroll(0,dyLastPointeur>>2);
-				new SlowScroll(dxLastPointeur>>2,0);
+				new SlowScroll(0, dyLastPointeur >> 2);
+				new SlowScroll(dxLastPointeur >> 2, 0);
 			}
 
 			@Override
@@ -488,7 +490,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 						// // drawDelayedOval(null, 0, 0, 0, 0);
 						// repaint();
 						// }
-						// TODO
+						// TODO keep SlowMove
 					}
 				}
 
@@ -1143,7 +1145,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		public SlowMove(int deroulement) {
 			super();
 			this.deroulement = deroulement;
-			this.start();
+			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
+				this.start();
 		}
 
 		int deroulement;
@@ -1191,7 +1194,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			super();
 			this.dx = dx;
 			this.dy = dy;
-			this.start();
+			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
+				this.start();
 		}
 
 		int dx;

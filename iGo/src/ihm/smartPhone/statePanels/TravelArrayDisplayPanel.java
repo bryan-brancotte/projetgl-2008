@@ -3,6 +3,8 @@ package ihm.smartPhone.statePanels;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import iGoMaster.SettingsKey;
+import iGoMaster.SettingsValue;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
@@ -50,6 +52,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * L'image des changements
 	 */
 	protected ImageIcon imageChange;
+	/**
+	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
+	 */
+	protected boolean putStationUp = false;
 
 	public TravelArrayDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -130,6 +136,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		String s;
 		String letterForHour = father.lg("LetterForHour");
 		String letterForMinute = father.lg("LetterForMinute");
+		String miniLetterForMinute = father.lg("MiniLetterForMinute");
 		/***
 		 * Gestion du buffer mémoire
 		 */
@@ -155,7 +162,6 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		/**
 		 * préparation des constantes
 		 */
-		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 
 		decalage = father.getSizeAdapteur().getSizeSmallFont();
 		ordonnee = decalage - deroullement;
@@ -170,11 +176,16 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		if (inRight < i)
 			inRight = i;
 
+		inRight = 0;
 		j = getWidthString("888" + father.lg("Money"), buffer);
-		i = getWidthString(decomposeMinutesIntoHourMinutes(711, letterForHour, letterForMinute), buffer);
+		i = getWidthString(decomposeMinutesIntoHourMinutes(711, letterForHour, letterForMinute, miniLetterForMinute),
+				buffer);
 		if (j < i)
 			j = i;
-		inRight = getWidth() - (decalage << 1) - inRight - j;
+		i = getWidthString(father.lg("Free"), buffer);
+		if (j < i)
+			j = i;
+		inRight = getWidth() - (decalage << 1) - decalage - inRight - j;
 
 		/**
 		 * Station d'origine
@@ -204,6 +215,12 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 							+ (inLeft - decalage - imageChange.getIconWidth() >> 1), ordonnee
 							+ (height - imageChange.getIconHeight() >> 1), null);
 				ordonnee += decalage + height;
+				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
+					putStationUp = false;
+					int val;
+					if ((val = -ordonnee + decalage) < 0)
+						new SlowScroll(val);
+				}
 			}
 			if (firstPasseDone)
 				break;
@@ -229,7 +246,6 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			boolean hasBeenTraveled, int left, int inLeft, int inRigth, int rigth) {
 		int taille;
 		int height;
-		int i;
 		Service service;
 		String s;
 		int xService;
@@ -247,6 +263,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		taille = (int) (buffer.getFont().getSize() * 1.3F);
 		xService = inLeft + (decalage >> 1);
 		yService = ordonnee + (decalage >> 1) + buffer.getFont().getSize();
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 
 		/**
 		 * Cadre
@@ -290,17 +307,18 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		 */
 		xService = inRigth + (decalage >> 1);
 		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL) {
-			s = father.lg("Cost") + " : ";
-			buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
-					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-			taille = getWidthString(s, buffer);
-			s = father.lg("Time") + " : ";
-			buffer.drawString(s, xService, ordonnee + (height >> 2)
-					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-			i = getWidthString(s, buffer);
-			if (taille < i)
-				taille = i;
-			xService += taille;// inRigth + (decalage >> 1);
+			// TODO z_retait temps
+			// s = father.lg("Cost") + " : ";
+			// buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
+			// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			// taille = getWidthString(s, buffer);
+			// s = father.lg("Time") + " : ";
+			// buffer.drawString(s, xService, ordonnee + (height >> 2)
+			// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
+			// i = getWidthString(s, buffer);
+			// if (taille < i)
+			// taille = i;
+			// xService += taille;// inRigth + (decalage >> 1);
 
 			/**
 			 * Temps
@@ -312,12 +330,13 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
 					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
 			buffer.drawString(decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father
-					.lg("LetterForMinute")), xService, ordonnee + (height >> 2)
+					.lg("LetterForMinute"), father.lg("MiniLetterForMinute")), xService, ordonnee + (height >> 2)
 					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
 		} else {
-			buffer.drawString(s = father.lg("Time") + " : "
-					+ decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute")),
-					xService, ordonnee + (height + getHeightString(s, buffer) >> 1));
+			// TODO z_retrait temps
+			buffer.drawString(s = /* father.lg("Time") + " : " + */
+			decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute"), father
+					.lg("MiniLetterForMinute")), xService, ordonnee + (height + getHeightString(s, buffer) >> 1));
 		}
 		return height;
 	}
@@ -351,9 +370,11 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		buffer.drawString(father.lg("DirectionInArrayMode") + direction.getName(), inLeft + (decalage >> 1), ordonnee
 				+ (height + getHeightString(route.getId(), buffer) >> 1));
 
-		buffer.drawString(s = father.lg("Time") + " : "
-				+ decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute")),
-				inRigth + (decalage >> 1), ordonnee + (height + getHeightString(s, buffer) >> 1));
+		// TODO z_retrait temps
+		buffer.drawString(s = /* father.lg("Time") + " : " + */
+		decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute"), father
+				.lg("MiniLetterForMinute")), inRigth + (decalage >> 1), ordonnee
+				+ (height + getHeightString(s, buffer) >> 1));
 
 		return height;
 	}
@@ -371,7 +392,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void nextStationDone() {
-		// TODO nextStationDone
+		putStationUp = true;
 	}
 
 	protected class SlowScroll extends Thread {
@@ -379,7 +400,8 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		public SlowScroll(int deroulement) {
 			super();
 			this.deroulement = deroulement >> 1;
-			this.start();
+			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
+				this.start();
 		}
 
 		int deroulement;
@@ -392,25 +414,36 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 		@Override
 		public void run() {
-			int delta = 1;
-
-			for (int i = 0; i < deroulement; deroulement -= delta) {
-				for (int j = 0; j < step; j++) {
-					try {
-						Thread.sleep(40);
-					} catch (InterruptedException e) {
-					}
-					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
-					repaint();
-				}
+			int delta = 0;
+			switch (PanelDoubleBufferingSoftwear.getQuality()) {
+			case TEXT_ANTI_ANTIALIASING:
+				delta += 10;
+			case FULL_ANTI_ANTIALIASING:
+				delta += 10;
+			case HIGHER_QUALITY:
+				delta += 10;
+				break;
+			default:
+				delta = deroulement >> 2;
+				if (deroulement < 0)
+					delta = -delta;
+				if(delta<35)
+					delta=35;
+				break;
 			}
 			for (int i = 0; i > deroulement; deroulement += delta) {
 				for (int j = 0; j < step; j++) {
 					try {
-						Thread.sleep(40);
+						Thread.sleep(delta << 1);
 					} catch (InterruptedException e) {
 					}
-					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
+					if (deroulement > -delta) {
+						delta=-deroulement ;
+					}
+					if (!scrollBar.setDeroullement(scrollBar.getDeroullement() + delta)) {
+						repaint();
+						return;
+					}
 					repaint();
 				}
 			}

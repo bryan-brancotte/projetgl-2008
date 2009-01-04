@@ -289,7 +289,7 @@ public class LoadTravelPanel extends PanelState {
 		 */
 		tmp1 = travelPanelPT.pathBuilder.getTotalCost() + " " + father.lg("Money");
 		tmp2 = decomposeMinutesIntoHourMinutes(travelPanelPT.pathBuilder.getTotalTime(), father.lg("LetterForHour"),
-				father.lg("LetterForMinute"));
+				father.lg("LetterForMinute"),father.lg("MiniLetterForMinute"));
 		nextX = travelPanelPT.area.width + travelPanelPT.area.x
 				- PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
 		i = travelPanelPT.area.width + travelPanelPT.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
