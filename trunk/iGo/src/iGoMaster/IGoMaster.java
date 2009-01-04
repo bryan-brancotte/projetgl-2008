@@ -330,9 +330,19 @@ public class IGoMaster implements Master, Observer
 						AlgoKindOfException.EverythingFine
 						);
 
-				//TODO modifier par bryan
+				//TODO modifier par bryan Begin
 				//avant : pathInGraphsToRemember.addAsRecent(collectionBuilder.getPathInGraph());
-				pathInGraphsToRemember.addAsRecent(collectionBuilder);
+				//ajout du if
+				boolean addAsRecent = true;
+				Iterator<PathInGraphCollectionBuilder> itB ;
+				itB= pathInGraphsToRemember.getRecentsPaths(); 
+				while(addAsRecent&&itB.hasNext()){
+					addAsRecent&=itB.next()!=collectionBuilder;
+				}
+				System.out.println("addAsRecent?"+addAsRecent);
+				if(addAsRecent)
+					pathInGraphsToRemember.addAsRecent(collectionBuilder);
+				//TODO modifier par bryan End
 				
 				threads.clear();
 			}
