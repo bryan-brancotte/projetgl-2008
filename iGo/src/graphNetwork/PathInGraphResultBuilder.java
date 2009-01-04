@@ -54,7 +54,7 @@ public class PathInGraphResultBuilder {
 	 * 
 	 * @return void
 	 */
-	protected void flush() {
+	public void flush() {
 		currentPathInGraph.junctions.clear();
 	}
 
