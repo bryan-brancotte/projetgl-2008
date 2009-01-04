@@ -24,12 +24,19 @@ public interface RecentsAndFavoritesPathsInGraph {
 	public static final int MAX_RECENTS_PATHS = 50;
 
 	/**
-	 * Cette methode permet d'ajouter un itinéraire dans les derniers itinéraires utilises
+	 * Use addAsRecent(PathInGraphCollectionBuilder pigcb)
 	 * 
 	 * @param pig
 	 *            Itinéraire a ajouter
 	 */
+	@Deprecated
 	public void addAsRecent(PathInGraph pig);
+
+	/**
+	 * Permet de sauvegarder un nouvel itineraire
+	 * @param pigcb itineraire a sauvegarder
+	 */
+	public void addAsRecent(PathInGraphCollectionBuilder pigcb);
 
 	/**
 	 * Cette methode permet de marquer un itinéraire comme etant un itinéraire favori
