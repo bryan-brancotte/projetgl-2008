@@ -16,14 +16,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import pathsAndFavorites.RecentsAndFavoritesPathsInGraphReader;
 
 
 public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAndFavoritesPathsInGraphReader {
 
-	private ArrayList<PathInGraphCollectionBuilder> recents;
-	private ArrayList<PathInGraphCollectionBuilder> favorites;
+	private LinkedList<PathInGraphCollectionBuilder> recents;
+	private LinkedList<PathInGraphCollectionBuilder> favorites;
 	private HashMap<PathInGraph, File> filesMap;
 	private HashMap<PathInGraph, PathInGraphCollectionBuilder> pigMap;
 //	private HashMap<PathInGraph, File> recentsMap;
@@ -42,8 +43,8 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	public RecentsAndFavoritesPathsInGraphReaderInFolder() {
 		super();
-		recents = new ArrayList<PathInGraphCollectionBuilder>();
-		favorites = new ArrayList<PathInGraphCollectionBuilder>();
+		recents = new LinkedList<PathInGraphCollectionBuilder>();
+		favorites = new LinkedList<PathInGraphCollectionBuilder>();
 		filesMap = new HashMap<PathInGraph, File>();
 		pigMap = new HashMap<PathInGraph, PathInGraphCollectionBuilder>();
 //		favoritesMap = new HashMap<PathInGraph, File>();
@@ -108,7 +109,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 							BufferedReader br = new BufferedReader(frr);
 							String curLigne = br.readLine();
 							String allLignes = curLigne;
-							 System.out.println("File " + fr);
+//							 System.out.println("File " + fr);
 							while (curLigne != null) {
 								curLigne = br.readLine();
 								allLignes += curLigne;
@@ -118,7 +119,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 //							 System.out.println("Pierrick --> ---------------------------------");
 							if (fr.getName().contains("fav")) {
 								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
-								favorites.add(pigcb);
+								favorites.addFirst(pigcb);
 								filesMap.put(pigcb.getPathInGraph(), fr);
 								pigMap.put(pigcb.getPathInGraph(), pigcb);
 								
@@ -131,7 +132,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 							}
 							else {
 								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
-								recents.add(pigcb);
+								recents.addFirst(pigcb);
 								filesMap.put(pigcb.getPathInGraph(), fr);
 								pigMap.put(pigcb.getPathInGraph(), pigcb);
 //								recentsMap.put(pigcb.getPathInGraph(), fr);
@@ -149,7 +150,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths() {
-		System.out.println("get fav");
+//		System.out.println("get fav");
 		readFiles();
 		if (favorites != null) {
 			return favorites.iterator();
@@ -160,7 +161,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
-		System.out.println("get recents");
+//		System.out.println("get recents");
 		readFiles();
 		if (recents != null) {
 			return recents.iterator();
@@ -209,7 +210,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			fileName = path + "PIG_" + numFile + ".xml";
 		}
 
-		 System.out.println("Pierrick --> filename " + fileName);
+//		 System.out.println("Pierrick --> filename " + fileName);
 		
 		ArrayList<String> cof = new ArrayList<String>();
 		for (File f : folder.listFiles()) {
@@ -229,7 +230,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			fw.write(pigcb.getPathInGraph().exportPath());
 			fw.close();
 
-			recents.add(pigcb);
+			recents.addFirst(pigcb);
 			filesMap.put(pigcb.getPathInGraph(), newFile);
 			pigMap.put(pigcb.getPathInGraph(), pigcb);
 			nbFiles++;
@@ -250,18 +251,18 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	public void markAsFavorite(PathInGraph pig) {
 		if (pigMap.containsKey(pig) && !favorites.contains(pigMap.get(pig))) {
 			try {
-				System.out.println("Mark as favorite");
+//				System.out.println("Mark as favorite");
 //				System.out.println(recentsMap.get(pig));
 				File source = filesMap.get(pig);
 //				System.out.println("NEW NAME " + source.getAbsolutePath());
 				String name = source.getAbsolutePath().split("\\.xml")[0] + "_fav.xml";
-				System.out.println("NEW NAME " + name);
+//				System.out.println("NEW NAME " + name);
 				
 				
 				File destination = new File(name);
 				source.renameTo(destination);
 				filesMap.put(pig, destination);
-				favorites.add(pigMap.get(pig));
+				favorites.addFirst(pigMap.get(pig));
 			} catch(Exception e) {
 				System.err.println(e);
 			}
@@ -270,8 +271,8 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 	@Override
 	public void removeFromFavorites(PathInGraph pig) {
-		if (pigMap.containsKey(pig) && favorites.contains(pigMap.get(pig))) {
-			System.out.println("Remove from favorites");
+		if (isFavorite(pig)) {
+//			System.out.println("Remove from favorites");
 //			File toDelete = filesMap.get(pig);
 //			toDelete.delete();
 //			favorites.remove(pigMap.get(pig));
@@ -281,7 +282,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			File source = filesMap.get(pig);
 //			System.out.println("NEW NAME " + source.getAbsolutePath());
 			String name = source.getAbsolutePath().split("_fav\\.xml")[0] + ".xml";
-			System.out.println("NEW NAME " + name);
+//			System.out.println("NEW NAME " + name);
 			
 			
 			File destination = new File(name);
@@ -299,7 +300,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	@Override
 	public void removeFromRecents(PathInGraph pig) {
 		if (pigMap.containsKey(pig) && recents.contains(pigMap.get(pig))) {
-			System.out.println("Remove from recents");
+//			System.out.println("Remove from recents");
 			File toDelete = filesMap.get(pig);
 			toDelete.delete();
 			recents.remove(pigMap.get(pig));
