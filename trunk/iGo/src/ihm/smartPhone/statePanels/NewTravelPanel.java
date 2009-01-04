@@ -683,6 +683,7 @@ public class NewTravelPanel extends PanelState {
 				}));
 				if (mode != NewTravelPanelState.BUILDING)
 					pathBuilder.addStepStations(station);
+				shouldDoubleRepaint = true;
 				intermediatesStationsTextBox.setText("");
 			}
 			break;
@@ -708,6 +709,7 @@ public class NewTravelPanel extends PanelState {
 				}));
 				if (mode != NewTravelPanelState.BUILDING)
 					pathBuilder.addAvoidStations(station);
+				shouldDoubleRepaint = true;
 				avoidsStationsTextBox.setText("");
 			}
 			break;
@@ -799,7 +801,7 @@ public class NewTravelPanel extends PanelState {
 		if (!shouldFillTheField)
 			return null;
 		if (stationTextBox.getText().compareTo("") == 0) {
-			if(redNeeded)
+			if (redNeeded)
 				buffer.setColor(Color.red);
 			buffer.drawString(father.lg("FillThisField"), stationTextBox.getArea().x, stationTextBox.getArea().y
 					+ stationTextBox.getArea().height + (decalage >> 1)
@@ -810,7 +812,7 @@ public class NewTravelPanel extends PanelState {
 		buffer.drawString(father.lg("InvalideStation"), stationTextBox.getArea().x, stationTextBox.getArea().y
 				+ stationTextBox.getArea().height + (decalage >> 1)
 				+ PanelDoubleBufferingSoftwear.getHeightString(father.lg("InvalideStation"), buffer));
-		redNeeded=false;
+		redNeeded = false;
 		return null;
 	}
 
@@ -863,6 +865,7 @@ public class NewTravelPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
+		// System.out.println("NewTravelPanel.paint("+shouldDoubleRepaint+")");
 		if (pathBuilder == null) {
 			father.setErrorState(father.lg("ERROR_Impossible"), father.lg("ERROR_ReturnNullConstraintBuilder"));
 			return;
@@ -872,10 +875,13 @@ public class NewTravelPanel extends PanelState {
 		if (shouldDoubleRepaint) {
 			shouldDoubleRepaint = false;
 			draw();
+			// repaint();
+			// return;
 		}
 		/***************************************************************************************************************
 		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
 		 */
+		// System.out.println("NewTravelPanel.paintING");
 		g.drawImage(image, 0, 0, null);
 	}
 
@@ -1200,6 +1206,7 @@ public class NewTravelPanel extends PanelState {
 		 * Station intermediaire
 		 */
 		if (true || this.mode != NewTravelPanelState.LOST_TRAVEL) {
+
 			s = father.lg("IntermediatesStations");
 			taille = prepareAutoCompletionStationTextBox(intermediatesStationsArea, intermediatesStationsTextBox,
 					intermediatesStationsCollapsableArea, null, s, ordonne, decalage, decalage2);
@@ -1213,6 +1220,7 @@ public class NewTravelPanel extends PanelState {
 				intermediatesStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
 						* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 			}
+			// TODO z_paint
 			intermediatesStationsCollapsableArea
 					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
 							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
@@ -1256,6 +1264,7 @@ public class NewTravelPanel extends PanelState {
 			// dessins des station déja rentré
 			ordonne = intermediatesStationsCollapsableArea.getArea().y
 					+ intermediatesStationsCollapsableArea.getArea().height + decalage;
+			System.out.println(intermediatesStationsCollapsableArea.getArea().height);
 		}
 
 		/***************************************************************************************************************
@@ -1274,7 +1283,6 @@ public class NewTravelPanel extends PanelState {
 				avoidsStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getAvoidStationsCount()
 						* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 			}
-			// TODO z_paint
 			avoidsStationsCollapsableArea
 					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
 							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
@@ -1326,7 +1334,7 @@ public class NewTravelPanel extends PanelState {
 		scrollBar.update(buffer, getWidth() - 1 - father.getSizeAdapteur().getSizeIntermediateFont(), father
 				.getSizeAdapteur().getSizeIntermediateFont(), ordonne + deroullement - getHeight(), deroullement,
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
+		shouldDoubleRepaint |= (deroullement != scrollBar.getDeroullement());
 		deroullement = scrollBar.getDeroullement();
 
 		/***************************************************************************************************************
@@ -1369,8 +1377,8 @@ public class NewTravelPanel extends PanelState {
 				public void actionPerformed(ActionEvent e) {
 					if (pathBuilder.isValideForSolving()) {
 						father.setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, pathBuilder);
-					}else{
-						redNeeded=true;
+					} else {
+						redNeeded = true;
 						repaint();
 					}
 				}
