@@ -46,7 +46,7 @@ public class PTButton extends PTComponent {
 	}
 
 	@Override
-	public void draw(Graphics g, Font font, Color colorInside, Color colorLetter) {
+	public void draw(Graphics g, Color colorInside, Color colorLetter) {
 		if (!enable)
 			return;
 		g.setColor(colorLetter);
