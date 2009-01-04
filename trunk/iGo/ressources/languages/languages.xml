@@ -18,7 +18,7 @@
 			</ProgName>
 			<KeyUnknown>
 				<FRANCAIS value="CléInconnue"/>
-				<ENGLISH value="KeyUnknown"/>
+				<ENGLISH value="UnknownKey"/>
 				<GEEK value="What's this ASCII ?"/>
 			</KeyUnknown>
 			<!--HomeDocName will be a directory name, be careful of how you name it-->
@@ -33,9 +33,9 @@
 				<GEEK value="SEPTA presents"/>
 			</SplashScreenUpperTitle>
 			<iGoVersion>
-				<FRANCAIS value="iGo beta"/>
-				<ENGLISH value="iGo beta"/>
-				<GEEK value="iGo beta"/>
+				<FRANCAIS value="iGo v1.0b"/>
+				<ENGLISH value="iGo v1.0b"/>
+				<GEEK value="iGo v1.0b"/>
 			</iGoVersion>
 			<DoYouWantToQuit>
 				<FRANCAIS value="Voulez vous quitter l'application ?"/>
@@ -48,8 +48,8 @@
 				<GEEK value="MkTravel"/>
 			</New>
 			<MainLoad>
-				<FRANCAIS value="Trajet récent"/>
-				<ENGLISH value="Recent travel"/>
+				<FRANCAIS value="Trajets récents"/>
+				<ENGLISH value="Recent travels"/>
 				<GEEK value="cd .."/>
 			</MainLoad>
 			<Settings>
@@ -194,7 +194,7 @@
 			</GoToGraphicMode>
 			<GoToGraphicModeSecondDisplay>
 				<FRANCAIS value="Mode graphique droit →"/>
-				<ENGLISH value="Strait graphic mode →"/>
+				<ENGLISH value="Straight graphic mode →"/>
 				<GEEK value="Stupid mode"/>
 			</GoToGraphicModeSecondDisplay>
 			<ComputingANewPath>
@@ -208,7 +208,7 @@
 				<GEEK value="solve"/>
 			</FindAPath>
 			<TravelCriteria>
-				<FRANCAIS value="Critère de calcul"/>
+				<FRANCAIS value="Critère(s) de calcul"/>
 				<ENGLISH value="Travel criteria"/>
 				<GEEK value="chmod"/>
 			</TravelCriteria>
@@ -233,7 +233,7 @@
 				<GEEK value="Flash"/>
 			</Faster>
 			<FewerChanges>
-				<FRANCAIS value="Changement"/>
+				<FRANCAIS value="Changements"/>
 				<ENGLISH value="Fewer Changes"/>
 				<GEEK value="Associal"/>
 			</FewerChanges>
@@ -288,7 +288,7 @@
 				<GEEK value="2"/>
 			</Low>
 			<Medium>
-				<FRANCAIS value="Intermediaire"/>
+				<FRANCAIS value="Intermédiaire"/>
 				<ENGLISH value="Medium"/>
 				<GEEK value="512"/>
 			</Medium>
@@ -358,12 +358,12 @@
 				<GEEK value="You can go coding at home!"/>
 			</EndOfTravel>
 			<ERROR_ReturnNullTravelDetails>
-				<FRANCAIS value="Le calcul à retourné une valeur inattendu : un chemin vide"/>
+				<FRANCAIS value="Le calcul à retourné une valeur inattendue : un chemin vide"/>
 				<ENGLISH value="The computing has returned an unexpected value : a null path"/>
 				<GEEK value="Failure at 0x232534, Void List"/>
 			</ERROR_ReturnNullTravelDetails>
 			<ERROR_BuildingTravelFromResult>
-				<FRANCAIS value="La construction du chemin à partir du résultat a échoué."/>
+				<FRANCAIS value="La construction du chemin à partir du résultat a échouée."/>
 				<ENGLISH value="The construction of the path from the result has failed"/>
 				<GEEK value="Failure at 0x111111, Flushing RAM"/>
 			</ERROR_BuildingTravelFromResult>
@@ -383,7 +383,7 @@
 				<GEEK value=""/>
 			</ERROR_VoidPathException>
 			<ERROR_ServiceNotAccessibleException>
-				<FRANCAIS value="Un service n'est pas accessible, veuillez réduir vos exigences."/>
+				<FRANCAIS value="Un service n'est pas accessible, veuillez réduire vos exigences."/>
 				<ENGLISH value="Unreachable service, please reduce your requirements."/>
 				<GEEK value="Don't be so exigent"/>
 			</ERROR_ServiceNotAccessibleException>
@@ -398,7 +398,7 @@
 				<GEEK value="like /.. your path is not valide"/>
 			</ERROR_StationNotOnRoadException>
 			<ERROR_UnknownException>
-				<FRANCAIS value="Un problème indeterminé est survenue"/>
+				<FRANCAIS value="Un problème indeterminé est survenu"/>
 				<ENGLISH value="An unspecified problem occurred"/>
 				<GEEK value="A system Bug"/>
 			</ERROR_UnknownException>
@@ -413,7 +413,7 @@
 				<GEEK value=""/>
 			</ERROR_ReturnNoNetworkException>
 			<ERROR_NetworkReception>
-				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être charger"/>
+				<FRANCAIS value="Impossible de construire un nouveau trajet : Le réseau n'a pu être chargé"/>
 				<ENGLISH value="Unable to build a new path : The network couldn't be loaded"/>
 				<GEEK value=""/>
 			</ERROR_NetworkReception>
@@ -508,7 +508,7 @@
 				<GEEK value="cd .."/>
 			</Back>
 			<FindAStation>
-				<FRANCAIS value="Trouver un station"/>
+				<FRANCAIS value="Trouver une station"/>
 				<ENGLISH value="Find a station"/>
 				<GEEK value="man station"/>
 			</FindAStation>
