@@ -47,7 +47,7 @@ public class IGoFlowLayout extends FlowLayout implements SizeAdapteur {
 	protected int sizeUpperBar;
 	protected int sizeLowerBar;
 	protected int sizeLine;
-	protected boolean fullScreen = true;
+	protected boolean fullScreen = false;
 	protected static float corectionOfFontSize = (float) 1.6;
 
 	protected Semaphore lookForALook = new Semaphore(1);
