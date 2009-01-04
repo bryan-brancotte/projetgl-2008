@@ -1264,7 +1264,7 @@ public class NewTravelPanel extends PanelState {
 			// dessins des station déja rentré
 			ordonne = intermediatesStationsCollapsableArea.getArea().y
 					+ intermediatesStationsCollapsableArea.getArea().height + decalage;
-			System.out.println(intermediatesStationsCollapsableArea.getArea().height);
+//			System.out.println(intermediatesStationsCollapsableArea.getArea().height);
 		}
 
 		/***************************************************************************************************************
