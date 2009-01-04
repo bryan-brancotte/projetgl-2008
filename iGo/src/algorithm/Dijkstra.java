@@ -42,6 +42,7 @@ public class Dijkstra extends Algo {
 
 	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidOriginException, NonValidDestinationException {
 
+		prb.flush();
 		isAborted=false;
 		betterPath=null;
 		currentPosition=null;
