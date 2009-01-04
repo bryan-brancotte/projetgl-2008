@@ -36,7 +36,7 @@ public interface RecentsAndFavoritesPathsInGraph {
 	 * Permet de sauvegarder un nouvel itineraire
 	 * @param pigcb itineraire a sauvegarder
 	 */
-	public void addAsRecent(PathInGraphCollectionBuilder pigcb);
+	public void addAsRecent(PathInGraphCollectionBuilder pigcolb);
 
 	/**
 	 * Cette methode permet de marquer un itinéraire comme etant un itinéraire favori
