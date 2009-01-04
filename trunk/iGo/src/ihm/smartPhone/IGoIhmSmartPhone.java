@@ -602,8 +602,10 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
 				case EDIT_TRAVEL:
-					pathBuilder = master.getPathInGraphConstraintBuilder();
-					pathBuilder.importPath(path.exportPath());
+					if (pathBuilder == null) {
+						pathBuilder = master.getPathInGraphConstraintBuilder();
+						pathBuilder.importPath(path.exportPath());
+					}
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
 					break;
 				}

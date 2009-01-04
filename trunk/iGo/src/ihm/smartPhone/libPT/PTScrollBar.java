@@ -26,10 +26,18 @@ public class PTScrollBar extends PTComponent {
 		return deroullement;
 	}
 
-	public void setDeroullement(int deroullement) {
+	/**
+	 * Setteur de la position de la barre
+	 * 
+	 * @param deroullement
+	 *            la nouvelle position
+	 * @return vrai si on a modifier qqc
+	 */
+	public boolean setDeroullement(int deroullement) {
 		if (range == 0)
-			return;
+			return false;
 		this.deroullement = (deroullement > range) ? range : deroullement < 0 ? 0 : deroullement;
+		return (this.deroullement == deroullement);
 	}
 
 	protected PTScrollBar(PanelTooled nvFather, Rectangle nvArea) {

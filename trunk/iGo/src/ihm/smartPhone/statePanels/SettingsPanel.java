@@ -75,6 +75,10 @@ public class SettingsPanel extends PanelState {
 	protected LinkedList<PairPTRadioBox> languagesRadioBoxs;
 	protected PTCollapsableArea languagesCollapsableArea;
 
+	protected final int autoScroll = 8;
+	protected PTRadioBox[] autoScrollRadioBoxs;
+	protected PTCollapsableArea autoScrollCollapsableArea;
+
 	public SettingsPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar) {
 		super(ihm, upperBar, lowerBar);
 		deroullement = 0;
@@ -133,6 +137,28 @@ public class SettingsPanel extends PanelState {
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[3]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[4]);
 		travelCriteriaCollapsableArea.addComponent(travelCriteriaRadioBoxs[5]);
+
+		/***************************************************************************************************************
+		 * Auto Scroll
+		 */
+		autoScrollCollapsableArea = makeCollapsableArea();
+		autoScrollCollapsableArea.changeCollapseState();
+		autoScrollRadioBoxs = new PTRadioBox[2];
+		grp = new PTRadioBoxGroup(2);
+		ex = new CodeExecutor() {
+			@Override
+			public void execute() {
+				recordChangedSetting(autoScroll, SettingsKey.AUTO_SCROLL.toString());
+			}
+		};
+		autoScrollRadioBoxs[0] = makeRadioButton(grp, ex);// YES
+		autoScrollRadioBoxs[1] = makeRadioButton(grp, ex);// NO
+		if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) == 0)
+			autoScrollRadioBoxs[1].setClicked(true);
+		else
+			autoScrollRadioBoxs[0].setClicked(true);
+		autoScrollCollapsableArea.addComponent(autoScrollRadioBoxs[0]);
+		autoScrollCollapsableArea.addComponent(autoScrollRadioBoxs[1]);
 
 		/***************************************************************************************************************
 		 * Travel Mode
@@ -296,6 +322,12 @@ public class SettingsPanel extends PanelState {
 						father.setConfig(SettingsKey.TRAVEL_MODE_ + s, SettingsValue.DISABLE.toString());
 					return;
 				}
+			break;
+		case autoScroll:
+			if (autoScrollRadioBoxs[0].isClicked())
+				father.setConfig(SettingsKey.AUTO_SCROLL.toString(), SettingsValue.ENABLE.toString());
+			else
+				father.setConfig(SettingsKey.AUTO_SCROLL.toString(), SettingsValue.DISABLE.toString());
 			break;
 		case mainTravelCriteria:
 		case minorTravelCriteria:
@@ -643,6 +675,27 @@ public class SettingsPanel extends PanelState {
 		ordonne = servicesCollapsableArea.getArea().y + servicesCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
+		 * Languages
+		 */
+		s = father.lg("Language");
+		rb = null;
+		if (!languagesCollapsableArea.isCollapsed()) {
+			for (PairPTRadioBox p : languagesRadioBoxs) {
+				p.rb.prepareArea(buffer, decalage + (decalage >> 1), (rb == null) ? languagesCollapsableArea
+						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+								.getIntermediateFont()) : rb.getArea().y + rb.getArea().height + (decalage >> 1),
+						p.name, father.getSizeAdapteur().getSmallFont());
+				rb = p.rb;
+			}
+		}
+		languagesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
+				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		if (!languagesCollapsableArea.isCollapsed())
+			for (PairPTRadioBox p : languagesRadioBoxs)
+				p.rb.draw(buffer, father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		ordonne = languagesCollapsableArea.getArea().y + languagesCollapsableArea.getArea().height + decalage;
+
+		/***************************************************************************************************************
 		 * Quality
 		 */
 		s = father.lg("GraphicalQuality");
@@ -695,25 +748,30 @@ public class SettingsPanel extends PanelState {
 		ordonne = qualityCollapsableArea.getArea().y + qualityCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
-		 * Languages
+		 * AutoScroll
 		 */
-		s = father.lg("Language");
+		s = father.lg("AutoScroll");
 		rb = null;
-		if (!languagesCollapsableArea.isCollapsed()) {
-			for (PairPTRadioBox p : languagesRadioBoxs) {
-				p.rb.prepareArea(buffer, decalage + (decalage >> 1), (rb == null) ? languagesCollapsableArea
-						.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
-								.getIntermediateFont()) : rb.getArea().y + rb.getArea().height + (decalage >> 1),
-						p.name, father.getSizeAdapteur().getSmallFont());
-				rb = p.rb;
-			}
+		if (!autoScrollCollapsableArea.isCollapsed()) {
+			/***********************************************************************************************************
+			 * enable
+			 */
+			autoScrollRadioBoxs[0].prepareArea(buffer, decalage << 1, autoScrollCollapsableArea
+					.getFirstOrdonneForComponents(buffer, decalage, ordonne, s, father.getSizeAdapteur()
+							.getIntermediateFont()), father.lg("Enable"), father.getSizeAdapteur().getSmallFont());
+			/***********************************************************************************************************
+			 * disable
+			 */
+			autoScrollRadioBoxs[1].prepareArea(buffer, autoScrollRadioBoxs[0].getArea().x
+					+ autoScrollRadioBoxs[0].getArea().width + (decalage >> 1), autoScrollRadioBoxs[0].getArea().y,
+					father.lg("Disable"), father.getSizeAdapteur().getSmallFont());
 		}
-		languagesCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
+		autoScrollCollapsableArea.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(),
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		if (!languagesCollapsableArea.isCollapsed())
-			for (PairPTRadioBox p : languagesRadioBoxs)
-				p.rb.draw(buffer, father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
-		ordonne = languagesCollapsableArea.getArea().y + languagesCollapsableArea.getArea().height + decalage;
+		if (!autoScrollCollapsableArea.isCollapsed())
+			for (PTRadioBox p : autoScrollRadioBoxs)
+				p.draw(buffer, father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
+		ordonne = autoScrollCollapsableArea.getArea().y + autoScrollCollapsableArea.getArea().height + decalage;
 
 		/***************************************************************************************************************
 		 * Skin

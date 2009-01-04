@@ -122,6 +122,11 @@
 				<ENGLISH value="min"/>
 				<GEEK value="min"/>
 			</LetterForMinute>
+			<MiniLetterForMinute>
+				<FRANCAIS value="'"/>
+				<ENGLISH value="'"/>
+				<GEEK value="'"/>
+			</MiniLetterForMinute>
 			<Edit>
 				<FRANCAIS value="Modifier"/>
 				<ENGLISH value="Edit"/>
@@ -517,6 +522,21 @@
 				<ENGLISH value="Click on the station of your choice"/>
 				<GEEK value="use the ungeek device called 'mouse'"/>
 			</ClickOnTheStation>
+			<AutoScroll>
+				<FRANCAIS value="Défilement automatique du trajet"/>
+				<ENGLISH value="Automatic path scrolling"/>
+				<GEEK value="Autoscroll"/>
+			</AutoScroll>
+			<Enable>
+				<FRANCAIS value="Activé"/>
+				<ENGLISH value="Enable"/>
+				<GEEK value="true"/>
+			</Enable>
+			<Disable>
+				<FRANCAIS value="Désactivé"/>
+				<ENGLISH value="Disable"/>
+				<GEEK value="false"/>
+			</Disable>
 		</fields>
 	</root>
 
