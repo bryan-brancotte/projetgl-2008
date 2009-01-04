@@ -21,7 +21,7 @@ public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavori
 	}
 
 	@Override
-	public void addAsRecent(PathInGraph pig) {
+	public void addAsRecent(PathInGraphCollectionBuilder pig) {
 		rafpigr.addAsRecent(pig);
 	}
 
@@ -54,7 +54,12 @@ public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavori
 	public boolean isFavorite(PathInGraph pig) {
 		return rafpigr.isFavorite(pig);
 	}
-	
+
+	@Override
+	public void addAsRecent(PathInGraph pig) {
+		// TODO Auto-generated method stub
+		
+	}
 	public static void main(String[] args) {
 
 		RecentsAndFavoritesPathsInGraphReceiver gnrf = new RecentsAndFavoritesPathsInGraphReceiver(new GraphNetworkBuilder(), new RecentsAndFavoritesPathsInGraphReaderInFolder());
@@ -62,6 +67,7 @@ public class RecentsAndFavoritesPathsInGraphReceiver implements RecentsAndFavori
 		
 		
 	}
+
 
 
 }

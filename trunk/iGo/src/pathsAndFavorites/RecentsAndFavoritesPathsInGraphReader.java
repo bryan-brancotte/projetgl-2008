@@ -34,7 +34,7 @@ public interface RecentsAndFavoritesPathsInGraphReader {
 	 * @param pig
 	 *            Itinéraire a ajouter
 	 */
-	public void addAsRecent(PathInGraph pig);
+	public void addAsRecent(PathInGraphCollectionBuilder pig);
 
 	/**
 	 * Cette methode permet de marquer un itinéraire comme etant un itinéraire favori
