@@ -187,16 +187,14 @@ public abstract class TravelDisplayPanel extends PanelState {
 				public void actionPerformed(ActionEvent e) {
 					nextStationDone();
 					travel.previous();
-					me.requestFocus();
-					me.repaint();
+					giveControle();
 				}
 			}, new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					nextStationDone();
 					travel.next();
-					me.requestFocus();
-					me.repaint();
+					giveControle();
 				}
 			});
 			// upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
@@ -206,19 +204,19 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// giveControle();
 			// }
 			// });
-//			if (travel.hasNext()) {
-//				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						nextStationDone();
-//						travel.next();
-//						giveControle();
-//					}
-//				});
-//				upperBar.setUpperTitle(father.lg("NextStop"));
-//				upperBar.setMainTitle(travel.getNextStop());
-//			} else
-//				upperBar.setMainTitle(father.lg("EndOfTravel"));
+			if (travel.hasNext()) {
+				// upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
+				// @Override
+				// public void actionPerformed(ActionEvent e) {
+				// nextStationDone();
+				// travel.next();
+				// giveControle();
+				// }
+				// });
+				upperBar.setUpperTitle(father.lg("NextStop"));
+				upperBar.setMainTitle(travel.getNextStop());
+			} else
+				upperBar.setMainTitle(father.lg("EndOfTravel"));
 		}
 		upperBar.repaint();
 
