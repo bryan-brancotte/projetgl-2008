@@ -397,7 +397,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void edit() {
-					setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path);
+					setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path.getCurrentPathInGraph());
 				}
 
 				@Override
@@ -433,7 +433,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 				@Override
 				public void edit() {
-					setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path);
+					setCurrentState(IhmReceivingStates.EDIT_TRAVEL, path.getCurrentPathInGraph());
 				}
 
 				@Override
