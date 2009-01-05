@@ -208,7 +208,7 @@
 				<GEEK value="Searching in progress ..."/>
 			</ComputingANewPath>
 			<FindAPath>
-				<FRANCAIS value="Calculer un trajet"/>
+				<FRANCAIS value="Calculer"/>
 				<ENGLISH value="Find a path"/>
 				<GEEK value="solve"/>
 			</FindAPath>

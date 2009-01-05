@@ -25,13 +25,15 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
 		colorList.add(new Color(114, 159, 220));// Bleu clair
 		colorList.add(new Color(208, 38, 242));// rose clair
-		colorList.add(new Color(12, 52, 139));// Bleu marrine
+//		colorList.add(new Color(12, 52, 139).brighter().brighter());// Bleu marrine
+//		System.out.println(new Color(12, 52, 139).brighter().brighter());
+		colorList.add(new Color(24, 105, 255));
 		colorList.add(Color.cyan);
 		colorList.add(new Color(139, 69, 12));// marront
 		colorList.add(new Color(12, 128, 139));// Bleu turquoise
 		colorList.add(new Color(254, 170, 52));// Orange pastel
 		colorList.add(new Color(189, 107, 247));// violet pastel
-		colorList.add(new Color(139, 12, 65));// bordeau
+		colorList.add(new Color(198, 17, 92));// bordeau
 		colorList.add(new Color(242, 239, 38));// Jaune
 //		colorList.add(new Color(242, 130, 38));// Orange
 		colorList.add(new Color(141, 207, 80));// Vert clair
