@@ -326,7 +326,7 @@ public class IGoMaster implements Master, Observer
 				if (test())System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 				
 				ihm.returnPathAsked(
-						collectionBuilder.getPathInGraph(),
+						collectionBuilder.getPathInGraphConstraintBuilder(),
 						AlgoKindOfException.EverythingFine
 						);
 
