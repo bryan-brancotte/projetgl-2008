@@ -21,21 +21,21 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorRoutes = new HashMap<Route, Color>();
 		colorServices = new HashMap<Service, Color>();
 		colorList = new LinkedList<Color>();
-//		colorList.add(new Color(73, 12, 139));// pourpre foncé
+		// colorList.add(new Color(73, 12, 139));// pourpre foncé
 		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
 		colorList.add(new Color(114, 159, 220));// Bleu clair
 		colorList.add(new Color(208, 38, 242));// rose clair
-//		colorList.add(new Color(12, 52, 139).brighter().brighter());// Bleu marrine
-//		System.out.println(new Color(12, 52, 139).brighter().brighter());
+		// colorList.add(new Color(12, 52, 139).brighter().brighter());// Bleu marrine
+		// System.out.println(new Color(12, 52, 139).brighter().brighter());
 		colorList.add(new Color(24, 105, 255));
 		colorList.add(Color.cyan);
-		colorList.add(new Color(139, 69, 12));// marront
+		colorList.add(new Color(198, 98, 17));// marront clair
 		colorList.add(new Color(12, 128, 139));// Bleu turquoise
 		colorList.add(new Color(254, 170, 52));// Orange pastel
 		colorList.add(new Color(189, 107, 247));// violet pastel
 		colorList.add(new Color(198, 17, 92));// bordeau
 		colorList.add(new Color(242, 239, 38));// Jaune
-//		colorList.add(new Color(242, 130, 38));// Orange
+		// colorList.add(new Color(242, 130, 38));// Orange
 		colorList.add(new Color(141, 207, 80));// Vert clair
 		colorList.add(new Color(137, 12, 139));// violet foncé
 		colorList.add(new Color(52, 52, 254));// Bleu foncé
@@ -71,7 +71,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 				}
 			}
 		} catch (Exception e) {
-			//System.err.println("Dans le cadre de la gestion des couleurs le master ne peut fournir les services et route, nous retenterons plus tard");
+			// System.err.println("Dans le cadre de la gestion des couleurs le master ne peut fournir les services et route, nous retenterons plus tard");
 		}
 	}
 

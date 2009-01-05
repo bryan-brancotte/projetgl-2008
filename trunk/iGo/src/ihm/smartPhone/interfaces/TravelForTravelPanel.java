@@ -1,5 +1,8 @@
 package ihm.smartPhone.interfaces;
 
+import java.awt.Color;
+import java.util.Iterator;
+
 /**
  * Interface fournissant des informations au sujet d'un trajet.
  * 
@@ -79,5 +82,17 @@ public interface TravelForTravelPanel {
 	 * Demande l'édition du chemin représenté par cette objet
 	 */
 	public void edit();
+
+	public Iterator<ServiceForTravelPanel> getServiceOnce();
+
+	public Iterator<ServiceForTravelPanel> getServiceAlways();
+
+	public interface ServiceForTravelPanel {
+		
+		public String getLetter();
+		
+		public Color getColor();
+
+	}
 
 }
