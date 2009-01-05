@@ -227,13 +227,24 @@ public abstract class PanelTooled extends PanelDoubleBufferingSoftwear {
 	}
 
 	/**
-	 * Crée un scrollBar vertical
+	 * Crée un scrollBar vertical avec un défilement vertical par la souris de 15 pxl
 	 * 
 	 * @return
 	 */
 	public PTScrollBar makeScrollBar() {
 		Rectangle area = new Rectangle();
 		PTScrollBar sb = new PTScrollBar(this, area);
+		return sb;
+	}
+
+	/**
+	 * Crée un scrollBar vertical
+	 * 
+	 * @return
+	 */
+	public PTScrollBar makeScrollBar(int mouseWhelling) {
+		Rectangle area = new Rectangle();
+		PTScrollBar sb = new PTScrollBar(this, area, mouseWhelling);
 		return sb;
 	}
 

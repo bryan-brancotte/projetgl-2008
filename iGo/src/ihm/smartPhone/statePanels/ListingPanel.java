@@ -176,7 +176,7 @@ public class ListingPanel extends PanelState {
 		/***************************************************************************************************************
 		 * ScrollBar
 		 */
-		scrollBar = makeScrollBar();
+		scrollBar = makeScrollBar(60);
 	}
 
 	/**
@@ -251,9 +251,13 @@ public class ListingPanel extends PanelState {
 			buffer.fillRect(0, 0, getWidth(), getHeight());
 		}
 
-		int h, w;
+		int h, w, xActu, yActu, taille;
 		ServiceToolTipText sttt;
 		PTArea ptArea;
+		Iterator<Service> itService;
+		Service service;
+		Iterator<Route> itRoute;
+		Route otherRoute;
 		for (Route route : routes) {
 			// if (ordonne > getHeight())
 			// break;
@@ -273,19 +277,29 @@ public class ListingPanel extends PanelState {
 			ordonne = ptArea.getArea().y + ptArea.getArea().height + decalageDemi;
 
 			// et ses stations
-			Iterator<Service> itService;
-			Service service;
 			String s;
-			int xActu, yActu, taille = h + (h >> 2) + (h >> 3);
+			taille = h + (h >> 2) + (h >> 3);
 			for (PairPTArea p : hashRouteStation.get(route)) {
-				h = getHeightString(p.name, buffer);
 
 				p.area.prepareArea(buffer, decalage, ordonne, taille, getWidth() - decalage2 - decalageDemi);
 
 				if (p.area.getArea().y + p.area.getArea().height > 0 && ordonne < getHeight()) {
-					itService = p.station.getServices();
 					xActu = getWidthString(p.name, buffer) + decalage2;
 					yActu = ordonne;
+					itRoute = p.station.getRoutes();
+					while (itRoute.hasNext()) {
+						if ((otherRoute = itRoute.next()) != route) {
+							buffer.setColor(father.getNetworkColorManager().getColor(otherRoute));
+							w = PanelDoubleBufferingSoftwear.getWidthString(otherRoute.getId(), buffer);
+							h = PanelDoubleBufferingSoftwear.getHeightString(otherRoute.getId(), buffer);
+							buffer.fillRect(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2);
+							buffer.setColor(father.getSkin().getColorLetter());
+							buffer.drawRect(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2);
+							buffer.drawString(otherRoute.getId(), xActu + (taille - w >> 1), yActu + (taille + h >> 1));
+							xActu += taille + (decalage >> 1);
+						}
+					}
+					itService = p.station.getServices();
 					while (itService.hasNext()) {
 						service = itService.next();
 						s = service.getName().substring(0, 1);
@@ -307,6 +321,7 @@ public class ListingPanel extends PanelState {
 					}
 					p.area.getArea().width = xActu - p.area.getArea().x;
 					// buffer.setColor(father.getSkin().getColorLetter());
+					h = getHeightString(p.name, buffer);
 					buffer.drawString(p.name, decalage + decalageDemi, ordonne + h + (h >> 3) + (h >> 4));
 				} else {
 					// System.out.println("notDrawn:" + p.name + " of " + route.getId());
@@ -354,7 +369,7 @@ public class ListingPanel extends PanelState {
 						Thread.sleep(40);
 					} catch (InterruptedException e) {
 					}
-					if(deroulement==0)
+					if (deroulement == 0)
 						return;
 					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
 					repaint();
@@ -366,7 +381,7 @@ public class ListingPanel extends PanelState {
 						Thread.sleep(40);
 					} catch (InterruptedException e) {
 					}
-					if(deroulement==0)
+					if (deroulement == 0)
 						return;
 					scrollBar.setDeroullement(scrollBar.getDeroullement() + deroulement);
 					repaint();
