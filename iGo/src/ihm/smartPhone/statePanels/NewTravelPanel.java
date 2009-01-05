@@ -840,14 +840,25 @@ public class NewTravelPanel extends PanelState {
 		Iterator<Service> itService = station.getServices();
 		Service service;
 		String s = "";
+		int w,h;
 		while (itRoute.hasNext()) {
-			route = itRoute.next();
-			s += route.getId();
-			if (itRoute.hasNext())
-				s += ", ";
+				buffer.setColor(father.getNetworkColorManager().getColor(route=itRoute.next()));
+				w = PanelDoubleBufferingSoftwear.getWidthString(route.getId(), buffer);
+				h = PanelDoubleBufferingSoftwear.getHeightString(route.getId(), buffer);
+				buffer.fillRect(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2);
+				buffer.setColor(father.getSkin().getColorLetter());
+				buffer.drawRect(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2);
+				buffer.drawString(route.getId(), xActu + (taille - w >> 1), yActu + (taille + h >> 1));
+				xActu += taille + (decalage >> 1);
 		}
-		buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
-		xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
+//		while (itRoute.hasNext()) {
+//			route = itRoute.next();
+//			s += route.getId();
+//			if (itRoute.hasNext())
+//				s += ", ";
+//		}
+//		buffer.drawString(s, xActu, yActu + PanelDoubleBufferingSoftwear.getHeightString(s, buffer));
+//		xActu += PanelDoubleBufferingSoftwear.getWidthString(s, buffer) + (decalage >> 1);
 
 		while (itService.hasNext()) {
 			service = itService.next();
