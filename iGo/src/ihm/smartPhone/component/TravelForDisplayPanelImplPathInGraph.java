@@ -138,6 +138,8 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	@Override
 	public String getNextStop() {
+		if (travel.size() == 0)
+			return "";
 		return travel.getFirst().getNameChangement();
 	}
 
@@ -145,7 +147,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	public void next() {
 		remainingTime -= (travel.getFirst().getTimeSection() + travel.getFirst().getEnddingChangementTime());
 		travelDone.addLast(travel.removeFirst());
-//		path.
+		// path.
 	}
 
 	@Override

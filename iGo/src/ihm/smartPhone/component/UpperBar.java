@@ -188,11 +188,12 @@ public class UpperBar extends AbstractBar {
 		g.setFont(font);
 
 		if ((mainTitleSize == fontKindSize) && (mainTitle != "")) {
-			int heigthTmp;
+			hs = getHeightString("e", g, font);
+			int heigthTmp = (hs >> 1) + (hs >> 2) + (hs >> 3) + (this.getWidth() >> 3) + (this.getWidth() >> 4);
 			// if (leftCmd != "" || rigthCmd != "")
-			heigthTmp = -getWidthString(leftCmd + rigthCmd, g);
-			heigthTmp += heigthTmp >> 3;
-			heigthTmp += getWidth() - (getWidth() >> 3);
+			// heigthTmp = -getWidthString(leftCmd + rigthCmd, g);
+			// heigthTmp += heigthTmp >> 3;
+			// heigthTmp += getWidth() - (getWidth() >> 3);
 			String[] cut = decoupeChaine(mainTitle, g, heigthTmp);
 			heigthTmp = getHeightString(mainTitle, g);
 			int heigth = this.getHeight() - heigthTmp * cut.length - (heigthTmp * (cut.length - 1) >> 2) >> 1;
