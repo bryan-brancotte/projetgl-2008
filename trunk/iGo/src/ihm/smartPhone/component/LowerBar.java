@@ -168,7 +168,7 @@ public class LowerBar extends AbstractBar {
 		Font font = null;
 		int[] xs;
 		int[] ys;
-		int hs, ws, hs23, hs11, ws11;
+		int hs, ws, hs23, ws11;
 		Color colorFont = g.getColor();
 		if (fontSizeKind == FontSizeKind.LARGE)
 			font = ihm.getSizeAdapteur().getLargeFont();
@@ -203,10 +203,11 @@ public class LowerBar extends AbstractBar {
 
 		if ((leftCenteredCmdSize == fontSizeKind) && (leftCenteredCmd != "")) {
 			ws11 = (ws = getWidthString(leftCenteredCmd, g, font)) << 1;
-			hs11 = (int) (1.2 * (hs = getHeightString(leftCenteredCmd, g, font)));
+			hs = getHeightString(leftCenteredCmd, g, font);
+			// hs23 = hs + (hs >> 2);
 			g.setColor(ihm.getSkin().getColorInside());
-			leftCenteredCmdArea.setBounds((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11,
-					hs11);
+			leftCenteredCmdArea.setBounds((this.getWidth() >> 2) - (ws11 >> 1), (this.getHeight() - hs) >> 1, ws11, hs
+					+ (hs >> 2));
 			g.fillRoundRect(leftCenteredCmdArea.x, leftCenteredCmdArea.y, leftCenteredCmdArea.width,
 					leftCenteredCmdArea.height, ihm.getSizeAdapteur().getSizeSmallFont() >> 1, ihm.getSizeAdapteur()
 							.getSizeSmallFont() >> 1);
@@ -254,14 +255,15 @@ public class LowerBar extends AbstractBar {
 
 		if ((rigthCmdSize == fontSizeKind) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
-			hs = getHeightString(rigthCmd, g, font);
-			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
-			ws = getWidthString(rigthCmd, g, font);
-			ws11 = ws+(ws >> 3);
-			xs = new int[] { this.getWidth() - hs23 - 1, this.getWidth() - hs - ws11, this.getWidth() - hs - ws11,
-					this.getWidth() - hs23 - 1, this.getWidth() - 1 };
+			hs = getHeightString(rigthCmd, g);
+			hs23 = (hs >> 1) + (hs >> 2);// (hs >> 1) + (hs >> 2) /*- (hs >> 3) + (hs >> 4)*/;
+			ws = getWidthString(rigthCmd, g);
+			ws11 = ws + (ws >> 3);
+			xs = new int[] { this.getWidth() - hs, this.getWidth() - (hs << 1) - ws, this.getWidth() - (hs << 1) - ws,
+					this.getWidth() - hs, this.getWidth() -1};
 			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
-					(this.getHeight() >> 1) + hs23 + 1, (this.getHeight() >> 1) + hs23 + 1, this.getHeight() >> 1 };
+					(this.getHeight() >> 1) + hs23 + (hs >> 2), (this.getHeight() >> 1) + hs23 + (hs >> 2),
+					(this.getHeight() >> 1) + (hs >> 3) };
 			rigthCmdArea.setBounds(xs[2], ys[0], xs[0] - xs[2], ys[2] - ys[0]);
 			g.fillPolygon(xs, ys, xs.length);
 			g.setColor(ihm.getSkin().getColorLine());
@@ -269,7 +271,7 @@ public class LowerBar extends AbstractBar {
 			ys[3]--;
 			g.drawPolygon(xs, ys, xs.length);
 			g.setColor(colorFont);
-			g.drawString(rigthCmd, this.getWidth() - hs - 1 - ws, this.getHeight() + hs >> 1);
+			g.drawString(rigthCmd, this.getWidth() - (hs23 << 1) - 1 - ws, (this.getHeight() + hs) >> 1);
 		}
 
 	}

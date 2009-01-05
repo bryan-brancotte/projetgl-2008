@@ -32,6 +32,7 @@ import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -203,6 +204,7 @@ public class NewTravelPanel extends PanelState {
 							s.maybeOvered(e.getX(), e.getY());
 							overed = s;
 						}
+						me.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 						return;
 					}
 				if (overed == null)
@@ -211,6 +213,7 @@ public class NewTravelPanel extends PanelState {
 				lowerBar.setLeftValue("");
 				lowerBar.repaint();
 				overed = null;
+				me.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 		});
 		this.addMouseListener(new MouseListener() {
