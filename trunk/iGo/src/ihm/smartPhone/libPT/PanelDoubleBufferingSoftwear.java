@@ -195,7 +195,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 			String sMiniMinutes) {
 		int i = (int) (minutes * 0.01667);
 		if (i > 0)
-			return i + sHour + (minutes - i * 60) + " " + sMiniMinutes;
+			return i + sHour + (minutes - i * 60) + sMiniMinutes;
 		return minutes + " " + sMinutes;
 	}
 
