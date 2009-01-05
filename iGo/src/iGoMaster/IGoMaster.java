@@ -326,10 +326,7 @@ public class IGoMaster implements Master, Observer
 				if (test())System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 
 				threads.clear();
-				ihm.returnPathAsked(
-						collectionBuilder.getPathInGraphConstraintBuilder(),
-						AlgoKindOfException.EverythingFine
-						);
+				
 
 				//TODO modifier par bryan Begin
 				//avant : pathInGraphsToRemember.addAsRecent(collectionBuilder.getPathInGraph());
@@ -344,6 +341,11 @@ public class IGoMaster implements Master, Observer
 				if(addAsRecent)
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
 				//TODO modifier par bryan End
+				
+				ihm.returnPathAsked(
+						collectionBuilder.getPathInGraphConstraintBuilder(),
+						AlgoKindOfException.EverythingFine
+						);
 				
 			}
 			else 
