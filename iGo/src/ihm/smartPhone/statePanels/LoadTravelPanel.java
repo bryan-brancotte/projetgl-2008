@@ -3,6 +3,7 @@ package ihm.smartPhone.statePanels;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
+import ihm.smartPhone.interfaces.TravelForTravelPanel.ServiceForTravelPanel;
 import ihm.smartPhone.libPT.PTScrollBar;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.listener.MouseMotionListenerSimplificated;
@@ -17,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
@@ -255,13 +257,51 @@ public class LoadTravelPanel extends PanelState {
 		travelPanelPT.cmdEdit.update(buffer, i - decalageDemi - imageEdit.getIconWidth(), y, imageEdit);
 		buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
 
-		x += decalageDemi >> 2;
-		y += getHeightString("e", buffer);
-		// buffer.drawString(travelPanelPT.pathBuilder.getName(), x, y);
+		x += (decalageDemi >> 1) + imageFav.getIconWidth();
+		tmp1 = "";
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
+		Iterator<ServiceForTravelPanel> itS;
+		ServiceForTravelPanel serviceForTravelPanel;
+		i = PanelDoubleBufferingSoftwear.getHeightString("H", buffer);
+		y += imageFav.getIconHeight() - i >> 1;
+		i += (i >> 2) + (i >> 3);
+
+		itS = travelPanelPT.pathBuilder.getServiceAlways();
+		if (!itS.hasNext())
+			x -= decalage;
+		while (itS.hasNext()) {
+			serviceForTravelPanel = itS.next();
+			buffer.setColor(serviceForTravelPanel.getColor());
+			buffer.fillOval(x - 1, y - 1, i + 2, i + 2);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawOval(x - 1, y - 1, i + 2, i + 2);
+			buffer.drawString(serviceForTravelPanel.getLetter(), x + (i >> 1)
+					- (PanelDoubleBufferingSoftwear.getWidthString(serviceForTravelPanel.getLetter(), buffer) >> 1), y
+					+ (i >> 1)
+					+ (PanelDoubleBufferingSoftwear.getHeightString(serviceForTravelPanel.getLetter(), buffer) >> 1));
+			x += i + decalageDemi;
+			;
+		}
+		x += decalage;
+		itS = travelPanelPT.pathBuilder.getServiceOnce();
+		while (itS.hasNext()) {
+			serviceForTravelPanel = itS.next();
+			buffer.setColor(serviceForTravelPanel.getColor());
+			buffer.fillOval(x - 1, y - 1, i + 2, i + 2);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawOval(x - 1, y - 1, i + 2, i + 2);
+			buffer.drawString(serviceForTravelPanel.getLetter(), x + (i >> 1)
+					- (PanelDoubleBufferingSoftwear.getWidthString(serviceForTravelPanel.getLetter(), buffer) >> 1), y
+					+ (i >> 1)
+					+ (PanelDoubleBufferingSoftwear.getHeightString(serviceForTravelPanel.getLetter(), buffer) >> 1));
+			x += i + (decalage >> 1);
+		}
+		y = travelPanelPT.area.y + decalageDemi + getHeightString("e", buffer);
 
 		/***************************************************************************************************************
 		 * calcul du from to
 		 */
+		x = travelPanelPT.area.x + decalageDemi + (decalageDemi >> 2);
 		tmp1 = father.lg("FromAndTwoDot") + " ";
 		tmp2 = father.lg("ToAndTwoDot") + " ";
 		buffer.setFont(father.getSizeAdapteur().getSmallFont());

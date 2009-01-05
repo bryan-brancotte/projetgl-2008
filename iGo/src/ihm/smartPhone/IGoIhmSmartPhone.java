@@ -387,7 +387,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
 		PathInGraphCollectionBuilder pigCol;
 		while (itP.hasNext()) {
-			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraphConstraintBuilder(),
+			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraphConstraintBuilder(),networkColorManager,
 					master.isFavoritesPaths(pigCol)) {
 
 				@Override
@@ -424,7 +424,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 		Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
 		while (itP.hasNext()) {
-			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraphConstraintBuilder(), true) {
+			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraphConstraintBuilder(),networkColorManager, true) {
 
 				@Override
 				public void delete() {
