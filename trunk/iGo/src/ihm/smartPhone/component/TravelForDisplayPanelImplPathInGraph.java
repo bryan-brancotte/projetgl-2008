@@ -2,6 +2,7 @@ package ihm.smartPhone.component;
 
 import graphNetwork.Junction;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 
 public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPanel {
 
-	protected PathInGraph path;
+	protected PathInGraphConstraintBuilder path;
 
 	protected Station origin;
 
@@ -32,16 +33,16 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	LinkedList<SectionOfTravel> travelDone;
 
-	public TravelForDisplayPanelImplPathInGraph(PathInGraph path) {
+	public TravelForDisplayPanelImplPathInGraph(PathInGraphConstraintBuilder path) {
 		super();
 		this.path = path;
-		origin = path.getOrigin();
-		destination = path.getDestination();
+		origin = path.getCurrentPathInGraph().getOrigin();
+		destination = path.getCurrentPathInGraph().getDestination();
 		travel = new LinkedList<SectionOfTravel>();
 		travelDone = new LinkedList<SectionOfTravel>();
 
 		LinkedList<Service> serviceToFind = new LinkedList<Service>();
-		Iterator<Service> itS = path.getServicesOnceIter();
+		Iterator<Service> itS = path.getCurrentPathInGraph().getServicesOnceIter();
 		while (itS.hasNext())
 			serviceToFind.add(itS.next());
 
@@ -49,17 +50,17 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		while (itS.hasNext())
 			serviceToFind.remove(itS.next());
 
-		Iterator<Junction> itJ = path.getJunctions();
+		Iterator<Junction> itJ = path.getCurrentPathInGraph().getJunctions();
 		Junction junction = itJ.next();
 		Junction nextJunction = null;
 		Station station = origin;
-		totalCost = path.getCost();
-		totalTime = path.getTime();
-		entryCost = path.getEntryCost();
+		totalCost = path.getCurrentPathInGraph().getCost();
+		totalTime = path.getCurrentPathInGraph().getTime();
+		entryCost = path.getCurrentPathInGraph().getEntryCost();
 		Route route = junction.getOtherRoute(junction.getOtherRoute(station));
 		SectionOfTravelImplPathInGraph section = new SectionOfTravelImplPathInGraph(route, origin);
 
-		itJ = path.getJunctions();
+		itJ = path.getCurrentPathInGraph().getJunctions();
 		while (itJ.hasNext()) {
 			if (nextJunction != null) {
 				junction = nextJunction;
@@ -79,7 +80,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 							section.enddingChangementCost = 0;
 						}
 			}
-			if (path.containsSteps(station)) {
+			if (path.getCurrentPathInGraph().containsSteps(station)) {
 				section.enddingChangementTime = 0;
 				section.enddingChangementCost = 0;
 			}
@@ -182,7 +183,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	}
 
 	@Override
-	public PathInGraph getPath() {
+	public PathInGraphConstraintBuilder getPath() {
 		return path;
 	}
 }
