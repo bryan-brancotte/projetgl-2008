@@ -1,7 +1,6 @@
 package ihm.smartPhone.component;
 
 import graphNetwork.Junction;
-import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
 import graphNetwork.Service;
@@ -147,6 +146,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	@Override
 	public void next() {
 		remainingTime -= (travel.getFirst().getTimeSection() + travel.getFirst().getEnddingChangementTime());
+		path.removeStepStations(travel.getFirst().getChangement());
 		travelDone.addLast(travel.removeFirst());
 		// path.
 	}

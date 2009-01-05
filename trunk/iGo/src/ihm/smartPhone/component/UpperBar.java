@@ -189,11 +189,11 @@ public class UpperBar extends AbstractBar {
 
 		if ((mainTitleSize == fontKindSize) && (mainTitle != "")) {
 			hs = getHeightString("e", g, font);
-			int heigthTmp = (hs >> 1) + (hs >> 2) + (hs >> 3) + (this.getWidth() >> 3) + (this.getWidth() >> 4);
-			// if (leftCmd != "" || rigthCmd != "")
-			// heigthTmp = -getWidthString(leftCmd + rigthCmd, g);
-			// heigthTmp += heigthTmp >> 3;
-			// heigthTmp += getWidth() - (getWidth() >> 3);
+			int heigthTmp = 0;
+			if (upCmdActionListener != null)
+				heigthTmp = (hs >> 1) + (hs >> 2) + (hs >> 3) + (this.getWidth() >> 3) + (this.getWidth() >> 4);
+			heigthTmp <<= 1;
+			heigthTmp = getWidth() - heigthTmp;
 			String[] cut = decoupeChaine(mainTitle, g, heigthTmp);
 			heigthTmp = getHeightString(mainTitle, g);
 			int heigth = this.getHeight() - heigthTmp * cut.length - (heigthTmp * (cut.length - 1) >> 2) >> 1;
@@ -203,8 +203,6 @@ public class UpperBar extends AbstractBar {
 				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
 				heigth += (heigthTmp >> 2) + heigthTmp;
 			}
-			// g.drawString(mainTitle, this.getWidth() - getWidthString(mainTitle, g, font) >> 1, this.getHeight()
-			// + getHeightString(mainTitle, g, font) >> 1);
 		}
 
 		if ((upperTitleSize == fontKindSize) && (upperTitle != ""))
@@ -285,14 +283,12 @@ public class UpperBar extends AbstractBar {
 			g.setColor(ihm.getSkin().getColorLine());
 			g.drawRoundRect(upCmdArea.x, upCmdArea.y, upCmdArea.width, upCmdArea.height, ws11, ws11);
 			g.drawLine(upCmdArea.x + (ws >> 1), upCmdArea.y, upCmdArea.x + (ws >> 1), upCmdArea.y + hs);
-			g.setColor(colorFont);
-			System.out.println(upCmdArea.width);
 			upCmdArea.width >>= 1;
-			System.out.println(upCmdArea.width);
 			downCmdArea.x = upCmdArea.x + upCmdArea.width;
 			downCmdArea.width = upCmdArea.width;
 			downCmdArea.y = upCmdArea.y;
 			downCmdArea.height = upCmdArea.height;
+			g.setColor(colorFont); 
 			xs = new int[3];
 			xs[0] = upCmdArea.x + (ws >> 2);
 			xs[1] = xs[0] + ws11;
@@ -301,7 +297,7 @@ public class UpperBar extends AbstractBar {
 			ys[0] = upCmdArea.y + (hs >> 1);
 			ys[1] = ys[0] + ws11;
 			ys[2] = ys[0] + ws11;
-			ys[0] -= ws11;
+			ys[0] -= ws11; 
 			g.fillPolygon(xs, ys, 3);
 			xs[0] += ws >> 1;
 			xs[1] += ws >> 1;
