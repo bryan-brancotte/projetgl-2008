@@ -19,6 +19,7 @@ public class PTScrollBar extends PTComponent {
 	protected boolean insideMe;
 	protected int deroullement;
 	protected int range;
+	protected int mouseWheeling;
 
 	public int getDeroullement() {
 		if (range == 0)
@@ -39,10 +40,15 @@ public class PTScrollBar extends PTComponent {
 		this.deroullement = (deroullement > range) ? range : deroullement < 0 ? 0 : deroullement;
 		return (this.deroullement == deroullement);
 	}
-
+	
 	protected PTScrollBar(PanelTooled nvFather, Rectangle nvArea) {
+		this(nvFather,nvArea,15);
+	}
+
+	protected PTScrollBar(PanelTooled nvFather, Rectangle nvArea,int nvMouseWheeling) {
 		super(nvFather, nvArea);
 		areaCurseur = new Rectangle();
+		this.mouseWheeling=nvMouseWheeling;
 		father.addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
@@ -80,14 +86,14 @@ public class PTScrollBar extends PTComponent {
 				if (e.getWheelRotation() > 0) {
 					if (deroullement >= range)
 						return;
-					deroullement += 15;
+					deroullement += mouseWheeling;
 					if (deroullement > range)
 						deroullement = range;
 					father.repaint();
 				} else if (e.getWheelRotation() < 0) {
 					if (deroullement <= 0)
 						return;
-					deroullement -= 15;
+					deroullement -= mouseWheeling;
 					if (deroullement < 0)
 						deroullement = 0;
 					father.repaint();
