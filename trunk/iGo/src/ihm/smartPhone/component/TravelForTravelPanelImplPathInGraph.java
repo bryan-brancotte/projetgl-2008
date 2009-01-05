@@ -1,9 +1,14 @@
 package ihm.smartPhone.component;
 
 import graphNetwork.PathInGraphConstraintBuilder;
+import graphNetwork.Station;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 
+import java.util.Iterator;
+
 public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTravelPanel {
+
+	protected String intermediateStation = null;
 
 	public TravelForTravelPanelImplPathInGraph(PathInGraphConstraintBuilder path, boolean isFav) {
 		super();
@@ -24,12 +29,6 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 	@Override
 	public String getDestination() {
 		return path.getCurrentPathInGraph().getDestination().getName();
-	}
-
-	@Override
-	public String getName() {
-		// TODO getName
-		return "";
 	}
 
 	@Override
@@ -56,9 +55,23 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 	public abstract void setFavorite(boolean isFav);
 
 	@Override
-	public void setName(String name) {
-		// TODO setName
-
+	public String getIntermediateStation() {
+		if (intermediateStation == null) {
+			intermediateStation = "";
+			if (path.getCurrentPathInGraph().getStepsCount() == 0)
+				return intermediateStation;
+			else {
+				Iterator<Station> itS = path.getCurrentPathInGraph().getStepsIter();
+				while (itS.hasNext()) {
+					intermediateStation += (itS.next()).getName();
+					if (itS.hasNext())
+						intermediateStation += ", ";
+					else
+						intermediateStation += ".";
+				}
+			}
+		}
+		return intermediateStation;
 	}
 
 	@Override
@@ -66,7 +79,7 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public boolean update() {
-		// TODO update
+		// TODO TFT.update
 		return false;
 	}
 

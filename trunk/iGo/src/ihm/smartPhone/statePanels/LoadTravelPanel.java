@@ -219,9 +219,19 @@ public class LoadTravelPanel extends PanelState {
 		int i;
 		int endRight;
 		String tmp1, tmp2;
-		travelPanelPT.area.setBounds(decalage, ordonnee, getWidth() - decalage2 - decalage, (decalage << 1)
+		String[] stationInter = null;
+		if (travelPanelPT.pathBuilder.getIntermediateStation().length() == 0)
+			stationInter = new String[0];
+		else
+			stationInter = decoupeChaine(father.lg("IntermediatesStationsLittle") + " : "
+					+ travelPanelPT.pathBuilder.getIntermediateStation(), buffer, getWidth() - decalage2 - decalageDemi);
+		travelPanelPT.area.setBounds(decalage, ordonnee, getWidth() - decalage2 - decalage, decalage2
 				+ father.getSizeAdapteur().getSizeIntermediateFont()
 				+ (father.getSizeAdapteur().getSizeSmallFont() << 1));
+		if (stationInter.length > 0) {
+			travelPanelPT.area.height += (father.getSizeAdapteur().getSizeSmallFont() + decalageDemi)
+					* stationInter.length;
+		}
 		buffer.setColor(father.getSkin().getColorSubAreaInside());
 		buffer
 				.fillRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
@@ -246,8 +256,8 @@ public class LoadTravelPanel extends PanelState {
 		buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
 
 		x += decalageDemi >> 2;
-		y += getHeightString(travelPanelPT.pathBuilder.getName(), buffer);
-		buffer.drawString(travelPanelPT.pathBuilder.getName(), x, y);
+		y += getHeightString("e", buffer);
+		// buffer.drawString(travelPanelPT.pathBuilder.getName(), x, y);
 
 		/***************************************************************************************************************
 		 * calcul du from to
@@ -289,7 +299,7 @@ public class LoadTravelPanel extends PanelState {
 		 */
 		tmp1 = travelPanelPT.pathBuilder.getTotalCost() + " " + father.lg("Money");
 		tmp2 = decomposeMinutesIntoHourMinutes(travelPanelPT.pathBuilder.getTotalTime(), father.lg("LetterForHour"),
-				father.lg("LetterForMinute"),father.lg("MiniLetterForMinute"));
+				father.lg("LetterForMinute"), father.lg("MiniLetterForMinute"));
 		nextX = travelPanelPT.area.width + travelPanelPT.area.x
 				- PanelDoubleBufferingSoftwear.getWidthString(tmp1, buffer);
 		i = travelPanelPT.area.width + travelPanelPT.area.x - PanelDoubleBufferingSoftwear.getWidthString(tmp2, buffer);
@@ -299,7 +309,7 @@ public class LoadTravelPanel extends PanelState {
 		/***************************************************************************************************************
 		 * Dessin des valeurs
 		 */
-		x = nextX;
+		x = nextX - decalageDemi;
 		buffer.drawString(tmp1, x, y);
 		buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
 
@@ -317,6 +327,14 @@ public class LoadTravelPanel extends PanelState {
 			buffer.drawString(tmp1, x, y);
 			buffer.drawString(tmp2, x, y + decalageDemi + getHeightString(tmp2, buffer));
 		}
+
+		/***************************************************************************************************************
+		 * Dessin des stations intermédiaires
+		 */
+		x = travelPanelPT.area.x + decalageDemi + (decalageDemi >> 2);
+		y += decalageDemi + getHeightString(tmp2, buffer);
+		for (String tmp : stationInter)
+			buffer.drawString(tmp, x, y += getHeightString(tmp, buffer) + decalageDemi);
 	}
 
 	/**

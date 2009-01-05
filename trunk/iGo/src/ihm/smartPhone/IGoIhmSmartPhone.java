@@ -937,7 +937,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean updateNetwork() {
-		// TODO updateNetwork
+		// TODO iGo.updateNetwork
 		return true;
 	}
 

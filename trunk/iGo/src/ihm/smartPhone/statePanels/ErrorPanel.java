@@ -59,27 +59,35 @@ public class ErrorPanel extends PanelState {
 				null);
 		if (message == null || message.compareTo("") == 0)
 			return;
-		String tmp;
-		String[] cut = message.split(" ");
+		String[] cut = decoupeChaine(message, g, (int) (getWidth() * 0.8));
 		int heigth = (this.getHeight() >> 2) + img.getHeight(null);
-		int heigthTmp;
-		int mw = (int) (getWidth() * 0.8);
-		int i = 0;
-		g.setFont(father.getSizeAdapteur().getIntermediateFont());
-
-		while (i < cut.length) {
-			tmp = "";
-			while (i < cut.length && getWidthString(tmp + " " + cut[i], g) < mw) {
-				tmp += " " + cut[i++];
-			}
-			if (tmp.compareTo("") == 0) {
-				tmp = cut[i].substring(0, cut[i].length() >> 1);
-				cut[i] = cut[i].substring(cut[i].length() >> 1);
-			}
-			g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth
-					+ (heigthTmp = getHeightString(message, g)));
+		int heigthTmp = getHeightString(message, g);
+		for (String tmp : cut) {
+			g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
 			heigth += heigthTmp << 1;
 		}
+
+		// String tmp;
+		// String[] cut = message.split(" ");
+		// int heigth = (this.getHeight() >> 2) + img.getHeight(null);
+		// int heigthTmp;
+		// int mw = (int) (getWidth() * 0.8);
+		// int i = 0;
+		// g.setFont(father.getSizeAdapteur().getIntermediateFont());
+		//
+		// while (i < cut.length) {
+		// tmp = "";
+		// while (i < cut.length && getWidthString(tmp + " " + cut[i], g) < mw) {
+		// tmp += " " + cut[i++];
+		// }
+		// if (tmp.compareTo("") == 0) {
+		// tmp = cut[i].substring(0, cut[i].length() >> 1);
+		// cut[i] = cut[i].substring(cut[i].length() >> 1);
+		// }
+		// g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth
+		// + (heigthTmp = getHeightString(message, g)));
+		// heigth += heigthTmp << 1;
+		// }
 	}
 
 	public void setMessage(String message) {

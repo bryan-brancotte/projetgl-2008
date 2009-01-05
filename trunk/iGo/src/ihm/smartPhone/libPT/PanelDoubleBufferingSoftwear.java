@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.RenderingHints;
+import java.util.Vector;
 
 public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
@@ -91,8 +92,9 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * @return la hauteur dessiné de la chaine
 	 */
 	protected static int getHeightString(String s, Graphics g, Font f) {
-//		System.out.println(g.getFontMetrics(f).getStringBounds(s, g).getHeight() + " VS " + f.getSize() * 0.85 + " VS "
-//				+ f.getSize() * 0.95 + " VS " + f.getSize());
+		// System.out.println(g.getFontMetrics(f).getStringBounds(s, g).getHeight() + " VS " + f.getSize() * 0.85 +
+		// " VS "
+		// + f.getSize() * 0.95 + " VS " + f.getSize());
 		// return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
 		return (int) (f.getSize() * 0.95);/**/
 	}
@@ -143,6 +145,31 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
 	}
 
+	protected String[] decoupeChaine(String s, Graphics g, int widthMax) {
+		if (getWidthString(s, g) <= widthMax)
+			return new String[] { s };
+		if (s.length() == 0)
+			return new String[0];
+
+		String[] cut = s.split(" ");
+		String tmp;
+		Vector<String> retV = new Vector<String>();
+		int i = 0;
+
+		while (i < cut.length) {
+			tmp = "";
+			while (i < cut.length && getWidthString(tmp + " " + cut[i], g) < widthMax) {
+				tmp += " " + cut[i++];
+			}
+			if (tmp.compareTo("") == 0) {
+				tmp = cut[i].substring(0, cut[i].length() >> 1);
+				cut[i] = cut[i].substring(cut[i].length() >> 1);
+			}
+			retV.add(tmp);
+		}
+		return retV.toArray(new String[0]);
+	}
+
 	/**
 	 * 
 	 * @param minutes
@@ -164,7 +191,8 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	 * @param sMinutes
 	 * @return
 	 */
-	protected static String decomposeMinutesIntoHourMinutes(int minutes, String sHour, String sMinutes, String sMiniMinutes) {
+	protected static String decomposeMinutesIntoHourMinutes(int minutes, String sHour, String sMinutes,
+			String sMiniMinutes) {
 		int i = (int) (minutes * 0.01667);
 		if (i > 0)
 			return i + sHour + (minutes - i * 60) + " " + sMiniMinutes;
