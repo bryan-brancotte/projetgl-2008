@@ -803,7 +803,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException) {
+	public boolean returnPathAsked(PathInGraphConstraintBuilder path, AlgoKindOfException algoKindOfException) {
 		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 			return false;
 		if (algoKindOfException == AlgoKindOfException.EverythingFine) {
