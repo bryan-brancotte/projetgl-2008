@@ -94,6 +94,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 	public void setCurrentState(IhmReceivingStates actualState) {
 		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
 			this.currentState = actualState;
+			startStationDone();
 			giveControle();
 		}
 	}
@@ -115,6 +116,11 @@ public abstract class TravelDisplayPanel extends PanelState {
 	 * Action qui sera effectuée lorsque l'utilisateur demand à passé au tronçon suivant
 	 */
 	protected abstract void nextStationDone();
+
+	/**
+	 * Action qui sera effectuée lorsque l'utilisateur demarre le parcourt
+	 */
+	protected abstract void startStationDone();
 
 	@Override
 	public void paint(Graphics g) {
@@ -176,6 +182,23 @@ public abstract class TravelDisplayPanel extends PanelState {
 					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
 				}
 			});
+			upperBar.setUpAndDownAtRightCmd(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					nextStationDone();
+					travel.previous();
+					me.requestFocus();
+					me.repaint();
+				}
+			}, new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					nextStationDone();
+					travel.next();
+					me.requestFocus();
+					me.repaint();
+				}
+			});
 			// upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
 			// @Override
 			// public void actionPerformed(ActionEvent e) {
@@ -183,19 +206,19 @@ public abstract class TravelDisplayPanel extends PanelState {
 			// giveControle();
 			// }
 			// });
-			if (travel.hasNext()) {
-				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						nextStationDone();
-						travel.next();
-						giveControle();
-					}
-				});
-				upperBar.setUpperTitle(father.lg("NextStop"));
-				upperBar.setMainTitle(travel.getNextStop());
-			} else
-				upperBar.setMainTitle(father.lg("EndOfTravel"));
+//			if (travel.hasNext()) {
+//				upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						nextStationDone();
+//						travel.next();
+//						giveControle();
+//					}
+//				});
+//				upperBar.setUpperTitle(father.lg("NextStop"));
+//				upperBar.setMainTitle(travel.getNextStop());
+//			} else
+//				upperBar.setMainTitle(father.lg("EndOfTravel"));
 		}
 		upperBar.repaint();
 

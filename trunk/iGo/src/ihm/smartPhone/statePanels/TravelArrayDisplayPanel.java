@@ -427,8 +427,8 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				delta = deroulement >> 2;
 				if (deroulement < 0)
 					delta = -delta;
-				if(delta<35)
-					delta=35;
+				if (delta < 35)
+					delta = 35;
 				break;
 			}
 			for (int i = 0; i > deroulement; deroulement += delta) {
@@ -438,7 +438,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 					} catch (InterruptedException e) {
 					}
 					if (deroulement > -delta) {
-						delta=-deroulement ;
+						delta = -deroulement;
 					}
 					if (!scrollBar.setDeroullement(scrollBar.getDeroullement() + delta)) {
 						repaint();
@@ -448,5 +448,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void startStationDone() {
+		new SlowScroll(-deroullement);
 	}
 }

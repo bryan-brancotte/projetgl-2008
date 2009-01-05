@@ -478,9 +478,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				}
 				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
 					putStationUp = false;
-					int val;
-					if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > 10)
-						new SlowMove(-val);
+					new SlowMove(sizeLarge - polygon.ypoints[idToModify + 1]);
 				}
 
 				// buffer.drawLine(0, , 1000, polygon.ypoints[idToModify + 1]-sizeLarge);
@@ -551,6 +549,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			firstPasseDone = true;
 			iterTravel = travel.getTravelToDo();
 		} while (true);
+		if (putStationUp) {
+			putStationUp = false;
+			new SlowMove(-buffer.getY());
+		}
 		if (affichageDroite && orientation % 2 == 0) {
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
 			buffer.fillRect(center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeDemiLine << 1);
@@ -1242,5 +1244,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void startStationDone() {
+		new SlowMove(-buffer.getY());
 	}
 }

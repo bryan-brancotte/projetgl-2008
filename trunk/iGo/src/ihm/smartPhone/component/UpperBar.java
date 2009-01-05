@@ -46,6 +46,12 @@ public class UpperBar extends AbstractBar {
 	protected Rectangle rigthCmdArea = null;
 	protected ActionListener rigthCmdActionListener = null;
 
+	protected Rectangle upCmdArea = null;
+	protected FontSizeKind upAndDownCmdSize;
+	protected ActionListener upCmdActionListener = null;
+	protected Rectangle downCmdArea = null;
+	protected ActionListener downCmdActionListener = null;
+
 	/**
 	 * Constructeur basique de l'objet. L'option demo permet d'initialisé chaque champs à son nom.
 	 * 
@@ -60,6 +66,9 @@ public class UpperBar extends AbstractBar {
 		leftCmdArea = new Rectangle();
 		leftRecCmdArea = new Rectangle();
 		rigthCmdArea = new Rectangle();
+		upCmdArea = new Rectangle();
+		downCmdArea = new Rectangle();
+		upAndDownCmdSize = FontSizeKind.INTERMEDIATE;
 		if (demo) {
 			setCenterIcone("iGo");
 			setMainTitle("mainTitle");
@@ -88,6 +97,18 @@ public class UpperBar extends AbstractBar {
 			@Override
 			public void execute() {
 				rigthCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
+			}
+		});
+		l.addInteractiveArea(upCmdArea, new CodeExecutor() {
+			@Override
+			public void execute() {
+				upCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
+			}
+		});
+		l.addInteractiveArea(downCmdArea, new CodeExecutor() {
+			@Override
+			public void execute() {
+				downCmdActionListener.actionPerformed(new ActionEvent(me, 0, ""));
 			}
 		});
 		this.addMouseListener(l);
@@ -250,6 +271,45 @@ public class UpperBar extends AbstractBar {
 			g.setColor(colorFont);
 			g.drawString(rigthCmd, this.getWidth() - (hs23 << 1) - 1 - ws, (this.getHeight() + hs) >> 1);
 		}
+
+		if ((upAndDownCmdSize == fontKindSize) && (upCmdActionListener != null) && (downCmdActionListener != null)) {
+			g.setColor(ihm.getSkin().getColorInside());
+			hs = getHeightString("e", g, font);
+			hs += (hs >> 1) + (hs >> 2);
+			ws = this.getWidth() >> 3;
+			ws += this.getWidth() >> 4;
+			upCmdArea.setBounds(this.getWidth() - (hs >> 1) - ws, (this.getHeight() - hs >> 1), ws, hs);
+			ws11 = this.getWidth() >> 6;
+			g.fillRoundRect(upCmdArea.x + 1, upCmdArea.y + 1, upCmdArea.width - 1, upCmdArea.height - 1, ws11, ws11);
+			g.setColor(ihm.getSkin().getColorLine());
+			g.drawRoundRect(upCmdArea.x, upCmdArea.y, upCmdArea.width, upCmdArea.height, ws11, ws11);
+			g.drawLine(upCmdArea.x + (ws >> 1), upCmdArea.y, upCmdArea.x + (ws >> 1), upCmdArea.y + hs);
+			g.setColor(colorFont);
+			System.out.println(upCmdArea.width);
+			upCmdArea.width >>= 1;
+			System.out.println(upCmdArea.width);
+			downCmdArea.x = upCmdArea.x + upCmdArea.width;
+			downCmdArea.width = upCmdArea.width;
+			downCmdArea.y = upCmdArea.y;
+			downCmdArea.height = upCmdArea.height;
+			xs = new int[3];
+			xs[0] = upCmdArea.x + (ws >> 2);
+			xs[1] = xs[0] + ws11;
+			xs[2] = xs[0] - ws11;
+			ys = new int[3];
+			ys[0] = upCmdArea.y + (hs >> 1);
+			ys[1] = ys[0] + ws11;
+			ys[2] = ys[0] + ws11;
+			ys[0] -= ws11;
+			g.fillPolygon(xs, ys, 3);
+			xs[0] += ws >> 1;
+			xs[1] += ws >> 1;
+			xs[2] += ws >> 1;
+			ys[0] += ws11 << 1;
+			ys[1] -= ws11 << 1;
+			ys[2] -= ws11 << 1;
+			g.fillPolygon(xs, ys, 3);
+		}
 	}
 
 	/*******************************************************************************************************************
@@ -407,10 +467,38 @@ public class UpperBar extends AbstractBar {
 	 *            la type de taille
 	 */
 	public void setRightCmd(String rigthCmd, ActionListener l, FontSizeKind fontKindSize) {
-		rigthCmdActionListener = l;
+		this.rigthCmdActionListener = l;
 		this.rigthCmd = rigthCmd;
 		this.rigthCmdSize = fontKindSize;
 		this.rigthCmdArea.setBounds(0, 0, 0, 0);
+	}
+
+	/**
+	 * Définit la commande de droite en mode up and down avec la taille spécifiée
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 * @param fontKindSize
+	 *            la type de taille
+	 */
+	public void setUpAndDownAtRightCmd(ActionListener up, ActionListener down, FontSizeKind fontKindSize) {
+		this.upCmdActionListener = up;
+		this.downCmdActionListener = down;
+		this.upAndDownCmdSize = fontKindSize;
+		this.upCmdArea.setBounds(0, 0, 0, 0);
+		this.downCmdArea.setBounds(0, 0, 0, 0);
+	}
+
+	/**
+	 * Définit la commande de droite en mode up and down avec la taille spécifiée
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 * @param fontKindSize
+	 *            la type de taille
+	 */
+	public void setUpAndDownAtRightCmd(ActionListener up, ActionListener down) {
+		this.setUpAndDownAtRightCmd(up, down, FontSizeKind.INTERMEDIATE);
 	}
 
 	/**
@@ -453,5 +541,6 @@ public class UpperBar extends AbstractBar {
 		this.setLeftRecCmd("", null);
 		this.setRightCmd("", null);
 		this.setCenterIcone("");
+		this.setUpAndDownAtRightCmd(null, null);
 	}
 }
