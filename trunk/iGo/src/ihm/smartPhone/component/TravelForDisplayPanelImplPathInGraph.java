@@ -14,6 +14,8 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	protected PathInGraphConstraintBuilder path;
 
+	protected PathInGraphConstraintBuilder pathClone;
+
 	protected Station origin;
 
 	protected Station destination;
@@ -32,9 +34,11 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 
 	LinkedList<SectionOfTravel> travelDone;
 
-	public TravelForDisplayPanelImplPathInGraph(PathInGraphConstraintBuilder path) {
+	public TravelForDisplayPanelImplPathInGraph(PathInGraphConstraintBuilder path,
+			PathInGraphConstraintBuilder pathClone) {
 		super();
 		this.path = path;
+		this.pathClone = pathClone;
 		origin = path.getCurrentPathInGraph().getOrigin();
 		destination = path.getCurrentPathInGraph().getDestination();
 		travel = new LinkedList<SectionOfTravel>();
@@ -146,9 +150,13 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	@Override
 	public void next() {
 		remainingTime -= (travel.getFirst().getTimeSection() + travel.getFirst().getEnddingChangementTime());
-		path.removeStepStations(travel.getFirst().getChangement());
+		pathClone.removeStepStations(travel.getFirst().getChangement());
+		if (pathClone.getCurrentPathInGraph().getServicesOnceCount() > 0) {
+			Iterator<Service> itService = travel.getFirst().getChangement().getServices();
+			while (itService.hasNext())
+				pathClone.removeSeviceOnce(itService.next());
+		}
 		travelDone.addLast(travel.removeFirst());
-		// path.
 	}
 
 	@Override
@@ -185,5 +193,10 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	@Override
 	public PathInGraphConstraintBuilder getPath() {
 		return path;
+	}
+
+	@Override
+	public PathInGraphConstraintBuilder getPathClone() {
+		return pathClone;
 	}
 }
