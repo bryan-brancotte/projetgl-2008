@@ -2,6 +2,7 @@ package iGoMaster;
 
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
+import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
@@ -92,15 +93,15 @@ public interface IHM {
 	public void stop();
 
 	/**
-	 * Fournit à l'IHM un trajet selon les critères qu'elle a choisi.
+	 * Fournit à l'IHM le builder de contraintes contenant le trajet demandé.
 	 * 
-	 * @param path
-	 *            le trajet calculé
+	 * @param pathInGraphConstraintBuilder
+	 *            le builder de contraintes
 	 * @param algoKindOfException
 	 *            Si l'algo a rencontré une erreur, énum qui précise le type d'erreur. Sinon null.
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean returnPathAsked(PathInGraph path, AlgoKindOfException algoKindOfException);
+	public boolean returnPathAsked(PathInGraphConstraintBuilder pathInGraphConstraintBuilder, AlgoKindOfException algoKindOfException);
 
 	/**
 	 * Ne pas utiliser cette méthode, elle ne comporte pas assez d'information, utiliser
