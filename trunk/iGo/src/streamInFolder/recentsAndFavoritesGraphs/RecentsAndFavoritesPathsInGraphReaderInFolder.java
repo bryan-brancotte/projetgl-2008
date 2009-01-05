@@ -99,7 +99,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 						   });				
 				for (File fr : cof) {
 					if (fr.getName().contains("PIG") && fr.getName().contains(".xml") && !filesMap.containsValue(fr)) {
-						if (fr.getName().split("\\.")[0].split("_")[1] != null) {
+						if (fr.getName().split("\\.")[0].split("_")[1] != null  && fr.length() !=0 ) {
 							int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
 							if (num > numFile) {
 								numFile = num;
@@ -117,6 +117,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 							allLignes = allLignes.split("null")[0];
 //							 System.out.println("Pierrick --> " + allLignes);
 //							 System.out.println("Pierrick --> ---------------------------------");
+							
 							if (fr.getName().contains("fav")) {
 								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
 								favorites.addFirst(pigcb);
@@ -125,7 +126,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 								
 //								favoritesMap.put(pigcb.getPathInGraph(), fr);
 //								favoritesMapPIGC.put(pigcb.getPathInGraph(), pigcb);
-								recents.add(pigcb);
+								recents.addFirst(pigcb);
 //								recentsMap.put(pigcb.getPathInGraph(), fr);
 //								recentsMapPIGC.put(pigcb.getPathInGraph(), pigcb);
 								
