@@ -73,7 +73,7 @@ public interface RecentsAndFavoritesPathsInGraph {
 	public void removeFromFavorites(PathInGraph pig);
 
 	/**
-	 * Donne tous les itinéraires recents
+	 * Donne tous les itinéraires stocké en mémoire (récent + favoris)
 	 * 
 	 * @return Iterator sur un PathInGraph
 	 */
