@@ -23,6 +23,13 @@ public interface TravelForTravelPanel {
 	public String getDestination();
 
 	/**
+	 * Retourne une concatenation des stations intermédiaire séparé pas ", " et terminé par "."
+	 * 
+	 * @return
+	 */
+	public String getIntermediateStation();
+
+	/**
 	 * Retourne le nombre de mintues necessaire à l'accomplissement du trajet.
 	 * 
 	 * @return
@@ -35,21 +42,6 @@ public interface TravelForTravelPanel {
 	 * @return
 	 */
 	public float getTotalCost();
-
-	/**
-	 * Retourne le nom du trajet
-	 * 
-	 * @return
-	 */
-	public String getName();
-
-	/**
-	 * Redéfinit le nom du trajet
-	 * 
-	 * @param name
-	 *            le nouveau nom
-	 */
-	public void setName(String name);
 
 	/**
 	 * Permet de savoir si le trajet est un trajet favorit.

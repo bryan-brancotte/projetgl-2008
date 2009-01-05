@@ -271,6 +271,7 @@ public class SettingsPanel extends PanelState {
 					father.setConfig(SettingsKey.LANGUAGE.toString(), this.origine);
 					makeSkinArea();
 					upperBar.setMainTitle(father.lg("Settings"));
+					upperBar.repaint();
 				}
 			});
 			rb.setClicked(father.getConfig(SettingsKey.LANGUAGE.toString()).compareTo(s) == 0);
@@ -820,5 +821,4 @@ public class SettingsPanel extends PanelState {
 		lowerBar.repaint();
 		this.requestFocus();
 	}
-
 }

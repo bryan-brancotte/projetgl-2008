@@ -307,7 +307,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		 */
 		xService = inRigth + (decalage >> 1);
 		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL) {
-			// TODO z_retait temps
+			// TODO z_retrait temps
 			// s = father.lg("Cost") + " : ";
 			// buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
 			// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));

@@ -166,9 +166,24 @@ public class UpperBar extends AbstractBar {
 			return;
 		g.setFont(font);
 
-		if ((mainTitleSize == fontKindSize) && (mainTitle != ""))
-			g.drawString(mainTitle, this.getWidth() - getWidthString(mainTitle, g, font) >> 1, this.getHeight()
-					+ getHeightString(mainTitle, g, font) >> 1);
+		if ((mainTitleSize == fontKindSize) && (mainTitle != "")) {
+			int heigthTmp;
+			// if (leftCmd != "" || rigthCmd != "")
+			heigthTmp = -getWidthString(leftCmd + rigthCmd, g);
+			heigthTmp += heigthTmp >> 3;
+			heigthTmp += getWidth() - (getWidth() >> 3);
+			String[] cut = decoupeChaine(mainTitle, g, heigthTmp);
+			heigthTmp = getHeightString(mainTitle, g);
+			int heigth = this.getHeight() - heigthTmp * cut.length - (heigthTmp * (cut.length - 1) >> 2) >> 1;
+			if (cut.length > 1 && upperTitle != "")
+				heigth += (heigthTmp >> 2);
+			for (String tmp : cut) {
+				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
+				heigth += (heigthTmp >> 2) + heigthTmp;
+			}
+			// g.drawString(mainTitle, this.getWidth() - getWidthString(mainTitle, g, font) >> 1, this.getHeight()
+			// + getHeightString(mainTitle, g, font) >> 1);
+		}
 
 		if ((upperTitleSize == fontKindSize) && (upperTitle != ""))
 			g.drawString(upperTitle, this.getWidth() - getWidthString(upperTitle, g, font) >> 1, getHeightString(

@@ -479,19 +479,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
 					putStationUp = false;
 					int val;
-					// if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > ((buffer.getHeigthViewPort() >> 1) +
-					// (buffer
-					// .getHeigthViewPort() >> 2))) {
-					if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > 10) {
+					if ((val = polygon.ypoints[idToModify + 1] - sizeLarge) > 10)
 						new SlowMove(-val);
-						// else {
-						// buffer.move(0, -val);
-						// shouldDoubleRepaint=true;
-						// // drawDelayedOval(null, 0, 0, 0, 0);
-						// repaint();
-						// }
-						// TODO keep SlowMove
-					}
 				}
 
 				// buffer.drawLine(0, , 1000, polygon.ypoints[idToModify + 1]-sizeLarge);

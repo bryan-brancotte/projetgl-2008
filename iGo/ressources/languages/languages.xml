@@ -312,6 +312,11 @@
 				<ENGLISH value="Intermediates stations"/>
 				<GEEK value="Goto"/>
 			</IntermediatesStations>
+			<IntermediatesStationsLittle>
+				<FRANCAIS value="Etapes"/>
+				<ENGLISH value="Steps"/>
+				<GEEK value="Goto"/>
+			</IntermediatesStationsLittle>
 			<AvoidsStations>
 				<FRANCAIS value="Stations à éviter"/>
 				<ENGLISH value="Stations to avoid"/>
