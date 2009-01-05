@@ -617,10 +617,11 @@ public class PathInGraph {
 	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
 	 * 
 	 * @param pathInString
+	 * @return true si l'import s'est bien passé
 	 */
-	protected void importPath(String pathInString) {
+	protected boolean importPath(String pathInString) {
 		if (pathInString == null || pathInString.compareTo("") == 0)
-			return;
+			return false;
 		Document doc;
 		int i;
 		NodeList nodesPathInGraph = null;
@@ -725,13 +726,17 @@ public class PathInGraph {
 		} catch (SAXException e) {
 			e.printStackTrace();
 			this.reset();
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
 			this.reset();
+			return false;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 			this.reset();
+			return false;
 		}
+		return true;
 	}
 
 	/**
@@ -739,9 +744,9 @@ public class PathInGraph {
 	 * 
 	 * @param pathInString
 	 */
-	protected void importPath(PathInGraph org) {
+	protected boolean importPath(PathInGraph org) {
 		if (org == null)
-			return;
+			return false;
 		origin = org.getOrigin();
 		destination = org.getDestination();
 		cost = org.getCost();
@@ -776,6 +781,7 @@ public class PathInGraph {
 		// steps.add(s);
 		//		
 		//		
+		return true;
 	}
 
 	/**

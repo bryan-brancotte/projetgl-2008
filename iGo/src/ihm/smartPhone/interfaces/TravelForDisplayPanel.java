@@ -192,6 +192,14 @@ public interface TravelForDisplayPanel {
 	public PathInGraphConstraintBuilder getPath();
 
 	/**
+	 * retourne la copie du path a partir duquel le {@link TravelForDisplayPanel} à été construit, cette copie est à
+	 * jours par rapport au déplacement
+	 * 
+	 * @return
+	 */
+	public PathInGraphConstraintBuilder getPathClone();
+
+	/**
 	 * Demande un mise à jours du contenue.
 	 * 
 	 * @return true si un changement à été effectué
