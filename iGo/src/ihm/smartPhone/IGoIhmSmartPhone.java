@@ -813,6 +813,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				return false;
 			}
 			try {
+				PathInGraphConstraintBuilder pathClone = master.getPathInGraphConstraintBuilder();
+				pathClone.importPath(path.getCurrentPathInGraph());
 				travel = new TravelForDisplayPanelImplPathInGraph(path);
 			} catch (Exception e) {
 				setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_BuildingTravelFromResult"));

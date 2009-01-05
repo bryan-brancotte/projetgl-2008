@@ -324,7 +324,8 @@ public class IGoMaster implements Master, Observer
 			if (!threads.isEmpty() && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
 				if (test())System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
-				
+
+				threads.clear();
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraphConstraintBuilder(),
 						AlgoKindOfException.EverythingFine
@@ -344,7 +345,6 @@ public class IGoMaster implements Master, Observer
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
 				//TODO modifier par bryan End
 				
-				threads.clear();
 			}
 			else 
 			{

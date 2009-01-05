@@ -179,7 +179,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setLeftRecCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath());
+					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPath().getCurrentPathInGraph());
 				}
 			});
 			upperBar.setUpAndDownAtRightCmd(new ActionListener() {
@@ -193,7 +193,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					nextStationDone();
-					travel.next();
+					if (travel.hasNext())
+						travel.next();
 					giveControle();
 				}
 			});
