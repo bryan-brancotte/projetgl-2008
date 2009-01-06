@@ -22,7 +22,6 @@ import ihm.smartPhone.statePanels.component.PairPTRadioBox;
 import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
-import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -30,8 +29,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.swing.ImageIcon;
 
 public class SettingsPanel extends PanelState {
 
@@ -44,9 +41,6 @@ public class SettingsPanel extends PanelState {
 
 	protected String[] stations;
 	protected int deroullement;
-
-	protected ImageIcon imageOk;
-	protected ImageIcon imageDel;
 
 	protected final int travelMode = 1;
 	protected LinkedList<PairPTCheckBox> travelModeCheckBoxs;
@@ -445,20 +439,11 @@ public class SettingsPanel extends PanelState {
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			buffer = null;
-			imageOk = null;
-			imageDel = null;
 		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			graphicsTunning(buffer);
-			// buffer.setColor(father.getSkin().getColorLetter());
-			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeSmallFont()) {
-				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeSmallFont(),
-						father.getSizeAdapteur().getSizeSmallFont());
-				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
-						.getSizeSmallFont(), father.getSizeAdapteur().getSizeSmallFont());
-			}
 		} else {
 			buffer.setColor(father.getSkin().getColorInside());
 			buffer.fillRect(0, 0, getWidth(), getHeight());

@@ -237,15 +237,6 @@ public class ListingPanel extends PanelState {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
 			graphicsTunning(buffer);
-			// buffer.setColor(father.getSkin().getColorLetter());
-			// if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeLargeFont()) {
-			// imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeLargeFont(),
-			// father.getSizeAdapteur().getSizeLargeFont());
-			// imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
-			// .getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
-			// imageFind = ImageLoader.getRessourcesImageIcone("logo", father.getSizeAdapteur()
-			// .getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont());
-			// }
 		} else {
 			buffer.setColor(father.getSkin().getColorInside());
 			buffer.fillRect(0, 0, getWidth(), getHeight());

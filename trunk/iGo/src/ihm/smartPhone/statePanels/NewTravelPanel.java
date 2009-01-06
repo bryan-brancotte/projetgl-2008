@@ -939,7 +939,7 @@ public class NewTravelPanel extends PanelState {
 			graphicsTunning(buffer);
 			// buffer.setColor(father.getSkin().getColorLetter());
 			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeLargeFont()) {
-				imageOk = ImageLoader.getRessourcesImageIcone("button_ok", father.getSizeAdapteur().getSizeLargeFont(),
+				imageOk = ImageLoader.getRessourcesImageIcone("button_enter", father.getSizeAdapteur().getSizeLargeFont(),
 						father.getSizeAdapteur().getSizeLargeFont());
 				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
 						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont(), true);
