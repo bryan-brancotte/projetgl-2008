@@ -226,7 +226,7 @@ public class LoadTravelPanel extends PanelState {
 			stationInter = new String[0];
 		else
 			stationInter = decoupeChaine(father.lg("IntermediatesStationsLittle") + " : "
-					+ travelPanelPT.pathBuilder.getIntermediateStation(), buffer, getWidth() - decalage2 - decalageDemi);
+					+ travelPanelPT.pathBuilder.getIntermediateStation(), buffer, getWidth() - (decalage2 << 1));
 		travelPanelPT.area.setBounds(decalage, ordonnee, getWidth() - decalage2 - decalage, decalage2
 				+ father.getSizeAdapteur().getSizeIntermediateFont()
 				+ (father.getSizeAdapteur().getSizeSmallFont() << 1));
