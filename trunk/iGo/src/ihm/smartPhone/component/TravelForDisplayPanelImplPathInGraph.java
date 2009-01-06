@@ -135,12 +135,6 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	}
 
 	@Override
-	public boolean update() {
-		// TODO TFD.update
-		return false;
-	}
-
-	@Override
 	public String getNextStop() {
 		if (travel.size() == 0)
 			return "";
@@ -173,6 +167,24 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 			if (!((SectionOfTravelImplPathInGraph) t).isValide())
 				return false;
 		return true;
+	}
+
+	@Override
+	public boolean prepareToSolveAsBestAsICan() {
+		if (travel.isEmpty()) {
+			this.pathClone.setOrigin(this.pathClone.getCurrentPathInGraph().getDestination());
+			return true;
+		}
+		if (!((SectionOfTravelImplPathInGraph) travel.getFirst()).isValide()) {
+			this.pathClone.setOrigin(travel.getFirst().getChangement());
+			return true;
+		}
+		if (!((SectionOfTravelImplPathInGraph) travelDone.getLast()).isValide()) {
+			this.pathClone.setOrigin(travelDone.getLast().getChangement());
+			return true;
+		}
+		this.pathClone.setOrigin(null);
+		return false;
 	}
 
 	@Override

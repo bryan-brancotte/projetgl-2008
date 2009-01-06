@@ -62,13 +62,6 @@ public interface TravelForTravelPanel {
 	public void setFavorite(boolean isFav);
 
 	/**
-	 * Demande un mise à jours du contenue.
-	 * 
-	 * @return true si un changement à été effectué
-	 */
-	public boolean update();
-
-	/**
 	 * Demande le parcourt du chemin existant
 	 */
 	public void start();

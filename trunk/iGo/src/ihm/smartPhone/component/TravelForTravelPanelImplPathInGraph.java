@@ -99,12 +99,6 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 	@Override
 	public abstract void start();
 
-	@Override
-	public boolean update() {
-		// TODO TFT.update
-		return false;
-	}
-
 	public Iterator<ServiceForTravelPanel> getServiceOnce() {
 		return serviceOnce.iterator();
 	}

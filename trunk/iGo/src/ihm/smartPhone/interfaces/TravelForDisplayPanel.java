@@ -175,6 +175,14 @@ public interface TravelForDisplayPanel {
 	public boolean isValideFromWhereIAm();
 
 	/**
+	 * Prépare le clone du trajet pour que son origine soit le prochain changement, si c'est pas possible le précédent,
+	 * et si ce n'est pas possible met l'origine à null
+	 * 
+	 * @return true si on a réussi à trouver une station pour le départ
+	 */
+	public boolean prepareToSolveAsBestAsICan();
+
+	/**
 	 * Passe à la prochaine section
 	 */
 	public void next();
@@ -198,12 +206,5 @@ public interface TravelForDisplayPanel {
 	 * @return
 	 */
 	public PathInGraphConstraintBuilder getPathClone();
-
-	/**
-	 * Demande un mise à jours du contenue.
-	 * 
-	 * @return true si un changement à été effectué
-	 */
-	public boolean update();
 
 }
