@@ -330,8 +330,8 @@ public class PTAutoCompletionTextBox extends PTComponent {
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, area.width, area.height);
 		g.setFont(lastFont);
-		g.drawString(currentStringLeft + currentStringSelected + currentStringRight, area.x + (lastFont.getSize() >> 1),
-				area.y + area.height - (lastFont.getSize() >> 2));
+		g.drawString(currentStringLeft + currentStringSelected + currentStringRight,
+				area.x + (lastFont.getSize() >> 1), area.y + area.height - (lastFont.getSize() >> 2));
 		if (currentStringSelected.length() > 0) {
 			int x = area.x + PanelTooled.getWidthString(currentStringLeft, g) + (lastFont.getSize() >> 1);
 			g.fillRect(x, area.y, PanelTooled.getWidthString(currentStringSelected, g), area.height);
@@ -342,6 +342,7 @@ public class PTAutoCompletionTextBox extends PTComponent {
 			int x = area.x + (lastFont.getSize() >> 1) + PanelTooled.getWidthString(currentStringLeft, g);
 			g.setColor(colorLetter);
 			g.drawLine(x, area.y + 1, x, area.y + area.height - 2);
+			g.drawRect(area.x - 1, area.y - 1, area.width + 2, area.height + 2);
 		}
 		// System.out.println(currentStringLeft + "[" + currentStringSelected + "]" + currentStringRight);
 	}
