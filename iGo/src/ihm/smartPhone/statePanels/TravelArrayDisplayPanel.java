@@ -208,15 +208,6 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 							+ (inLeft - decalage - imageChange.getIconWidth() >> 1), ordonnee
 							+ (height - imageChange.getIconHeight() >> 1), null);
 				ordonnee += decalage + height;
-				// if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
-				// putStationUp = false;
-				// // int val;
-				// // if ((val = -ordonnee + decalage) < 0)
-				// // new SlowScroll(val);
-				// System.out.println("ordonnee" + ordonnee);
-				// System.out.println("decalage" + decalage);
-				// slowScroll = new SlowScroll(decalage - ordonnee);
-				// }
 			}
 			if (firstPasseDone)
 				break;
@@ -261,16 +252,12 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		buffer.drawOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
 		buffer.drawString(route.getId(), left + inLeft - getWidthString(route.getId(), buffer) >> 1, ordonnee
 				+ (height + getHeightString(route.getId(), buffer) - (decalage >> 2) >> 1));
-		// buffer.drawString(route.getId(), decalage + (inLeft - decalage - getWidthString(route.getId(), buffer) >> 1),
-		// ordonnee + (height + getHeightString(route.getId(), buffer) >> 1));
 
 		buffer.drawString(father.lg("DirectionInArrayMode") + direction.getName(), inLeft + (decalage >> 1), ordonnee
 				+ (height + getHeightString(route.getId(), buffer) >> 1));
 
-		// TODO z_retrait temps
-		buffer.drawString(s = /* father.lg("Time") + " : " + */
-		decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute"), father
-				.lg("MiniLetterForMinute")), inRigth + (decalage >> 1), ordonnee
+		buffer.drawString(s = decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father
+				.lg("LetterForMinute"), father.lg("MiniLetterForMinute")), inRigth + (decalage >> 1), ordonnee
 				+ (height + getHeightString(s, buffer) >> 1));
 
 		return height;
@@ -348,18 +335,6 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		 */
 		xService = inRigth + (decalage >> 1);
 		if (this.currentState == IhmReceivingStates.PREVISU_TRAVEL) {
-			// TODO z_retrait temps
-			// s = father.lg("Cost") + " : ";
-			// buffer.drawString(s, xService, ordonnee + (int) (height * 0.75)
-			// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-			// taille = getWidthString(s, buffer);
-			// s = father.lg("Time") + " : ";
-			// buffer.drawString(s, xService, ordonnee + (height >> 2)
-			// + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
-			// i = getWidthString(s, buffer);
-			// if (taille < i)
-			// taille = i;
-			// xService += taille;// inRigth + (decalage >> 1);
 
 			/**
 			 * Temps
@@ -374,10 +349,9 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 					.lg("LetterForMinute"), father.lg("MiniLetterForMinute")), xService, ordonnee + (height >> 2)
 					+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
 		} else {
-			// TODO z_retrait temps
-			buffer.drawString(s = /* father.lg("Time") + " : " + */
-			decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute"), father
-					.lg("MiniLetterForMinute")), xService, ordonnee + (height + getHeightString(s, buffer) >> 1));
+			buffer.drawString(s = decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father
+					.lg("LetterForMinute"), father.lg("MiniLetterForMinute")), xService, ordonnee
+					+ (height + getHeightString(s, buffer) >> 1));
 		}
 		return height;
 	}
