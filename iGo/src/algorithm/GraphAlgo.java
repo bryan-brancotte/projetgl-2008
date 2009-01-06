@@ -15,10 +15,10 @@ import java.util.Vector;
 import algorithm.exception.NodeNotFoundException;
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
-import algorithm.exception.NonValidPathException;
 
 public class GraphAlgo {
 
+	private PathInGraph p;
 	private ArrayList<Node> graph;
 	private Station[] avoidStations;
 	private Service[] always;
@@ -33,15 +33,24 @@ public class GraphAlgo {
 	 * @throws NonValidOriginException 
 	 * @throws NonValidDestinationException 
 	 */
-	protected void refreshGraph(PathInGraph p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
+	protected void refreshGraph(PathInGraph _p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
+		p = _p;
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
 		Node n;
-		if (s.getRoutes() != null && s.getRoutes().hasNext())
-			n = new Node(s, s.getRoutes().next());
+		Iterator<Route> itRoute = s.getRoutes(); 
+		Route r = itRoute.next();
+		boolean nonValidRoute = isRefusedRoute(r); 
+		while (nonValidRoute && itRoute.hasNext()) {
+			r=itRoute.next();
+			nonValidRoute = isRefusedRoute(r);
+		}
+		if (isRefusedRoute(r)) r=null; 
+		if (r!=null)
+			n = new Node(s, r);
 		else
 			throw new NoRouteForStationException(s);
 		if (allServicesIn(p.getOrigin()) && allServicesIn(p.getDestination())) {
@@ -174,6 +183,7 @@ public class GraphAlgo {
 		Station station = node.getStation();
 		Station otherStation = junction.getOtherStation(station);
 		if (
+				isRefusedRoute(junction.getOtherRoute(node.getRoute())) ||
 				isStationIn(otherStation, avoidStations) || 
 				!otherStation.isEnable() || 
 				(!junction.isRouteLink() && (!allServicesIn(station)))
@@ -181,6 +191,15 @@ public class GraphAlgo {
 			return false;
 		else
 			return true;
+	}
+	
+	private boolean isRefusedRoute (Route r) {
+		if (r==null) return false;
+		for (int i=0;i<p.getRefusedKindRouteArray().length;i++) {
+			if (r.getKindRoute()==p.getRefusedKindRouteArray()[i]) return true;
+		}
+		return false;
+		
 	}
 
 	/**
