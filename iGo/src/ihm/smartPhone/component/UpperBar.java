@@ -26,6 +26,8 @@ public class UpperBar extends AbstractBar {
 	protected FontSizeKind mainTitleSize;
 	protected String upperTitle;
 	protected FontSizeKind upperTitleSize;
+	protected String lowerTitle;
+	protected FontSizeKind lowerTitleSize;
 	protected String leftSubTitle;
 	protected FontSizeKind leftSubTitleSize;
 	protected String rigthSubTitle;
@@ -158,7 +160,7 @@ public class UpperBar extends AbstractBar {
 		}
 
 		buffer.setColor(ihm.getSkin().getColorLetter());
-		int roundRect = this.getWidth() >> 6;
+		int roundRect = this.getWidth() / 64;
 		drawStrings(buffer, FontSizeKind.LARGE, roundRect);
 		drawStrings(buffer, FontSizeKind.INTERMEDIATE, roundRect);
 		drawStrings(buffer, FontSizeKind.SMALL, roundRect);
@@ -209,6 +211,9 @@ public class UpperBar extends AbstractBar {
 		if ((upperTitleSize == fontSizeKind) && (upperTitle != ""))
 			g.drawString(upperTitle, this.getWidth() - getWidthString(upperTitle, g, font) >> 1, getHeightString(
 					upperTitle, g, font));
+
+		if ((lowerTitleSize == fontSizeKind) && (lowerTitle != ""))
+			g.drawString(lowerTitle, this.getWidth() - getWidthString(lowerTitle, g, font) >> 1, this.getHeight()-2);
 
 		if ((leftSubTitleSize == fontSizeKind) && (leftSubTitle != ""))
 			g.drawString(leftSubTitle, 0, this.getHeight() - 1);
@@ -350,7 +355,7 @@ public class UpperBar extends AbstractBar {
 			hs += (hs >> 1) + (hs >> 2);
 			ws = this.getWidth() >> 3;
 			ws += this.getWidth() >> 4;
-			upCmdArea.setBounds(this.getWidth() - (hs >> 1) - ws, (this.getHeight() - hs >> 1), ws, hs);
+			upCmdArea.setBounds(this.getWidth() - roundRect - ws, (this.getHeight() - hs >> 1), ws, hs);
 			g.fillRoundRect(upCmdArea.x + 1, upCmdArea.y + 1, upCmdArea.width - 1, upCmdArea.height - 1, roundRect,
 					roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
@@ -430,6 +435,29 @@ public class UpperBar extends AbstractBar {
 	 */
 	public void setUpperTitle(String upperTitle) {
 		setUpperTitle(upperTitle, FontSizeKind.INTERMEDIATE);
+	}
+
+	/**
+	 * Définit le titre supérieur avec la taille spécifiée
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 * @param fontKindSize
+	 *            la type de taille
+	 */
+	public void setLowerTitle(String lowerTitle, FontSizeKind fontKindSize) {
+		this.lowerTitle = lowerTitle;
+		this.lowerTitleSize = fontKindSize;
+	}
+
+	/**
+	 * Définit le titre supérieur avec la taille par défaut
+	 * 
+	 * @param mainTitle
+	 *            le titre
+	 */
+	public void setLowerTitle(String lowerTitle) {
+		setLowerTitle(lowerTitle, FontSizeKind.INTERMEDIATE);
 	}
 
 	/**

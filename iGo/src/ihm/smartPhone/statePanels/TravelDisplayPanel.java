@@ -8,6 +8,7 @@ import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.AbsolutLayout;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -183,8 +184,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 					me.setCurrentState(IhmReceivingStates.EXPERIMENT_TRAVEL);
 				}
 			});
-			upperBar.setUpperTitle(father.lg("Destination"));
-			upperBar.setMainTitle(travel.getDestination());
+			upperBar.setUpperTitle(travel.getOrigine(), FontSizeKind.LARGE);
+			upperBar.setMainTitle(father.lg("To"), FontSizeKind.INTERMEDIATE);
+			upperBar.setLowerTitle(travel.getDestination(), FontSizeKind.LARGE);
 		} else {
 			upperBar.setLeftRecCmd(father.lg("Lost"), new ActionListener() {
 				@Override
@@ -209,6 +211,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 					giveControle();
 				}
 			});
+			upperBar.setLowerTitle("");
 			// upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
 			// @Override
 			// public void actionPerformed(ActionEvent e) {

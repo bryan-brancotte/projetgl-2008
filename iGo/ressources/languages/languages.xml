@@ -112,6 +112,11 @@
 				<ENGLISH value="Time"/>
 				<GEEK value="Time"/>
 			</Time>
+			<To>
+				<FRANCAIS value="vers"/>
+				<ENGLISH value="To"/>
+				<GEEK value=">-->"/>
+			</To>
 			<LetterForHour>
 				<FRANCAIS value="h"/>
 				<ENGLISH value="h"/>
