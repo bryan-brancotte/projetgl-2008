@@ -99,7 +99,7 @@ public class GraphNetwork {
 	/**
 	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin à
 	 * construire et pour le contruire. Chacun de ces builders a comme variable interne un pathInGraph lui aussi
-	 * nouvellement créé. On ne capture aucune exception en cas de problème
+	 * nouvellement créé. On ne capture aucune exception en cas de problème.
 	 * 
 	 * @param pathInString
 	 *            passe un PathInGraph sous forme XML

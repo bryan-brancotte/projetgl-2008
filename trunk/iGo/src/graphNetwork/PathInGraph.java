@@ -745,8 +745,6 @@ public class PathInGraph {
 								}
 						}
 					}
-					// langues.put(nodesPathInGraph.item(i).getAttributes().getNamedItem("value").getNodeValue(),
-					// nodesPathInGraph.item(i).getAttributes().getNamedItem("balise").getNodeValue());
 				}
 			}
 		return true;
