@@ -1,8 +1,13 @@
 package graphNetwork;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 /**
  * 
@@ -61,8 +66,8 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin
-	 * à construire et pour le contruire. Chacun de ces builders possède une variable interne pathInGraph lui aussi
+	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin à
+	 * construire et pour le contruire. Chacun de ces builders possède une variable interne pathInGraph lui aussi
 	 * nouvellement créé
 	 * 
 	 * @return l'instance de PathInGraphCollectionBuilder
@@ -75,8 +80,8 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin
-	 * à construire et pour le contruire. Chacun de ces builders a comme variable interne un pathInGraph lui aussi
+	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin à
+	 * construire et pour le contruire. Chacun de ces builders a comme variable interne un pathInGraph lui aussi
 	 * nouvellement créé
 	 * 
 	 * @param pathInString
@@ -88,6 +93,27 @@ public class GraphNetwork {
 		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
 		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
 		pathInGraph.importPath(pathInString);
+		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
+	}
+
+	/**
+	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin à
+	 * construire et pour le contruire. Chacun de ces builders a comme variable interne un pathInGraph lui aussi
+	 * nouvellement créé. On ne capture aucune exception en cas de problème
+	 * 
+	 * @param pathInString
+	 *            passe un PathInGraph sous forme XML
+	 * @return l'instance de PathInGraphCollectionBuilder
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	public PathInGraphCollectionBuilder getInstancePathInGraphCollectionBuilderWithoutCatch(String pathInString)
+			throws SAXException, IOException, ParserConfigurationException {
+		PathInGraph pathInGraph = new PathInGraph(this);
+		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
+		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
+		pathInGraph.importPathWithoutCatch(pathInString);
 		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
 	}
 
