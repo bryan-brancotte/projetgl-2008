@@ -6,9 +6,8 @@ import graphNetwork.PathInGraphCollectionBuilder;
 import java.util.Iterator;
 
 /**
- * Interface permetant de concerver en mémoire différents trajets. On différencie 2 type : les trajets récents et
- * favoris. Les favoris sont conservés en mémoire indéfiniement, alors qu'on ne conserve que les MAX_RECENTS_PATHS
- * chemins récents.</br>
+ * Interface permetant de concerver en mémoire différents trajets. On différencie 2 type : les trajets récents et favoris. Les favoris sont conservés en mémoire indéfiniement,
+ * alors qu'on ne conserve que les MAX_RECENTS_PATHS chemins récents.</br>
  * 
  * Les chemins récents regroupent les 50 derniers chemins en plus de tous les favoris</br>
  * 
@@ -26,10 +25,11 @@ public interface RecentsAndFavoritesPathsInGraph {
 	 */
 	public static final int MAX_RECENTS_PATHS = 50;
 
-
 	/**
 	 * Permet de sauvegarder un nouvel itineraire
-	 * @param pigcb itineraire a sauvegarder
+	 * 
+	 * @param pigcb
+	 *            itineraire a sauvegarder
 	 */
 	public void addAsRecent(PathInGraphCollectionBuilder pigcolb);
 
@@ -59,7 +59,7 @@ public interface RecentsAndFavoritesPathsInGraph {
 	public void removeFromRecents(PathInGraph pig);
 
 	/**
-	 * Cette methode permet d'enlever un itinéraire des itinéraires favoris. Il est alors ajouté en haut de la pile des itinéraires récents 
+	 * Cette methode permet d'enlever un itinéraire des itinéraires favoris. Il est alors ajouté en haut de la pile des itinéraires récents
 	 * 
 	 * @param pig
 	 *            Itinéraire a enlever des favoris
