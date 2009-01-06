@@ -243,8 +243,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 					father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
-			lowerBar.setLeftTitle(father.lg("TotalCost"));
-			lowerBar.setRightTitle(father.lg("TotalTime"));
+//			lowerBar.setLeftTitle(father.lg("TotalCost"));
+//			lowerBar.setRightTitle(father.lg("TotalTime"));
 			lowerBar.setLeftValue(travel.getTotalCost() + father.lg("Money"));
 			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getTotalTime(), father.lg("LetterForHour"),
 					father.lg("LetterForMinute")));
