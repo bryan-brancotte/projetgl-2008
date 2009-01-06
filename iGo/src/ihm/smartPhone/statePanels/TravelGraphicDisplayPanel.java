@@ -29,7 +29,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected boolean affichageDroite = false;
+	protected boolean affichageDroite = true;
 	protected GraphicsViewPort buffer;
 
 	/**
@@ -91,7 +91,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
-		affichageDroite = (father.getConfig(IhmReceivingStates.GRAPHIC_MODE.toString()).compareTo("true") == 0);
+//		affichageDroite = (father.getConfig(IhmReceivingStates.GRAPHIC_MODE.toString()).compareTo("true") == 0);
 		// colorList = new LinkedList<Color>();
 		// colorList.add(new Color(242, 130, 38));// Orange
 		// colorList.add(new Color(73, 12, 139));// pourpre foncé
@@ -243,21 +243,21 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
-		if (!affichageDroite) {
-			affichageDroite = true;
-			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
-			father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
-			buffer.move(1, 0);
-			buffer.move(-1, 0);
-			repaint();
-		} else {
-			affichageDroite = false;
+//		if (!affichageDroite) {
+//			affichageDroite = true;
+//			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
+//			father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
+//			buffer.move(1, 0);
+//			buffer.move(-1, 0);
+//			repaint();
+//		} else {
+//			affichageDroite = false;
 			buffer.move(1, 0);
 			buffer.move(-1, 0);
 			father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
-			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "false");
+//			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "false");
 			father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
-		}
+//		}
 	}
 
 	public void buildImage() {
