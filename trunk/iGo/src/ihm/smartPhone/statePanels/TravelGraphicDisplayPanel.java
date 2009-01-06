@@ -823,8 +823,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	}
 
 	@Override
-	public void giveControle() {
-		// TODO giveControleG
+	public void giveControle() { 
 		putStationUp = true;
 		super.giveControle();
 	}

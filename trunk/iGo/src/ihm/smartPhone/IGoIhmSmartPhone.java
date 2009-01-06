@@ -972,10 +972,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 								.lg("UpdateNetworkMessage"), codeEx);
 					return true;
 				}
-
-			// if (travel != null)
-			// return travel.update();
-			// TODO iGo.updateNetwork
 			return false;
 		}
 	}
@@ -1006,8 +1002,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route,
 			Station station, KindRoute kindRoute) {
 
-//		ihm.infoPathAsked(AlgoKindOfException.ServiceNotAccessibleException, graphBuilder
-//				.getCurrentGraphNetwork().getServices().next(), null, null, null);
+		// ihm.infoPathAsked(AlgoKindOfException.ServiceNotAccessibleException, graphBuilder
+		// .getCurrentGraphNetwork().getServices().next(), null, null, null);
 		if (computingPanel == null)
 			return false;
 		switch (algoKindOfException) {

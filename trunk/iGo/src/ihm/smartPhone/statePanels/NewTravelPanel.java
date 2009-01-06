@@ -526,7 +526,6 @@ public class NewTravelPanel extends PanelState {
 		intermediatesStationsCollapsableArea.addComponent(intermediatesStationsFind);
 		intermediatesStationsDel = new Hashtable<Integer, PTButton>();
 
-		// TODO z_make
 		/***************************************************************************************************************
 		 * Station avoid
 		 */
@@ -584,7 +583,6 @@ public class NewTravelPanel extends PanelState {
 	 * @param familly
 	 * @param s
 	 */
-	// TODO z_recordChangedSetting
 	protected void recordChangedSetting(int familly, String s) {
 		Station station;
 		switch (familly) {
@@ -939,8 +937,8 @@ public class NewTravelPanel extends PanelState {
 			graphicsTunning(buffer);
 			// buffer.setColor(father.getSkin().getColorLetter());
 			if (imageOk == null || imageOk.getIconHeight() != father.getSizeAdapteur().getSizeLargeFont()) {
-				imageOk = ImageLoader.getRessourcesImageIcone("button_enter", father.getSizeAdapteur().getSizeLargeFont(),
-						father.getSizeAdapteur().getSizeLargeFont());
+				imageOk = ImageLoader.getRessourcesImageIcone("button_enter", father.getSizeAdapteur()
+						.getSizeLargeFont(), father.getSizeAdapteur().getSizeLargeFont());
 				imageDel = ImageLoader.getRessourcesImageIcone("button_cancel", father.getSizeAdapteur()
 						.getSizeIntermediateFont(), father.getSizeAdapteur().getSizeIntermediateFont(), true);
 				imageFind = ImageLoader.getRessourcesImageIcone("loupe", father.getSizeAdapteur().getSizeLargeFont(),
@@ -970,7 +968,7 @@ public class NewTravelPanel extends PanelState {
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(departureStationArea, departureStationTextBox,
 				departureStationCollapsableArea, departureStationFind, ordonne, decalage, decalage2, taille, true);
-		if (departureStationChanged)
+		if (departureStationChanged && station != pathBuilder.getCurrentPathInGraph().getDestination())
 			pathBuilder.setOrigin(station);
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
 				+ decalage;
@@ -987,7 +985,7 @@ public class NewTravelPanel extends PanelState {
 							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 			station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
 					arrivalStationCollapsableArea, arrivalStationFind, ordonne, decalage, decalage2, taille, true);
-			if (arrivalStationChanged)
+			if (arrivalStationChanged && station != pathBuilder.getCurrentPathInGraph().getOrigin())
 				pathBuilder.setDestination(station);
 			ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height
 					+ decalage;
@@ -1233,7 +1231,6 @@ public class NewTravelPanel extends PanelState {
 				intermediatesStationsArea.getArea().height += pathBuilder.getCurrentPathInGraph().getStepsCount()
 						* (decalageDemi + father.getSizeAdapteur().getSizeIntermediateFont() + taille + decalage);
 			}
-			// TODO z_paint
 			intermediatesStationsCollapsableArea
 					.update(buffer, decalage, ordonne, s, father.getSizeAdapteur().getIntermediateFont(), father
 							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
