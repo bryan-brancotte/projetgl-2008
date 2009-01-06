@@ -160,7 +160,7 @@ public class UpperBar extends AbstractBar {
 		}
 
 		buffer.setColor(ihm.getSkin().getColorLetter());
-		int roundRect = this.getWidth() / 64;
+		int roundRect = (this.getWidth() >> 6) + 1;
 		drawStrings(buffer, FontSizeKind.LARGE, roundRect);
 		drawStrings(buffer, FontSizeKind.INTERMEDIATE, roundRect);
 		drawStrings(buffer, FontSizeKind.SMALL, roundRect);
@@ -213,7 +213,7 @@ public class UpperBar extends AbstractBar {
 					upperTitle, g, font));
 
 		if ((lowerTitleSize == fontSizeKind) && (lowerTitle != ""))
-			g.drawString(lowerTitle, this.getWidth() - getWidthString(lowerTitle, g, font) >> 1, this.getHeight()-2);
+			g.drawString(lowerTitle, this.getWidth() - getWidthString(lowerTitle, g, font) >> 1, this.getHeight() - 2);
 
 		if ((leftSubTitleSize == fontSizeKind) && (leftSubTitle != ""))
 			g.drawString(leftSubTitle, 0, this.getHeight() - 1);
@@ -368,18 +368,18 @@ public class UpperBar extends AbstractBar {
 			downCmdArea.height = upCmdArea.height;
 			g.setColor(colorFont);
 			xs = new int[3];
-			xs[0] = upCmdArea.x + (ws >> 2);
+			xs[0] = 1+upCmdArea.x + (ws >> 2);
 			xs[1] = xs[0] + roundRect;
 			xs[2] = xs[0] - roundRect;
 			ys = new int[3];
-			ys[0] = upCmdArea.y + (hs >> 1);
+			ys[0] = upCmdArea.y + (hs >> 1) + 1;
 			ys[1] = ys[0] + roundRect;
 			ys[2] = ys[0] + roundRect;
 			ys[0] -= roundRect;
 			g.fillPolygon(xs, ys, 3);
-			xs[0] += ws >> 1;
-			xs[1] += ws >> 1;
-			xs[2] += ws >> 1;
+			xs[0] += (ws >> 1);
+			xs[1] += (ws >> 1);
+			xs[2] += (ws >> 1);
 			ys[0] += roundRect << 1;
 			ys[1] -= roundRect << 1;
 			ys[2] -= roundRect << 1;
