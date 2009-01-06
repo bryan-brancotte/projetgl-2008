@@ -254,12 +254,9 @@ public class UpperBar extends AbstractBar {
 			xs[1] = xs[0] + (roundRect << 1);
 			xs[2] = xs[0] + (roundRect << 1);
 			ys = new int[3];
-			ys[0] = leftCmdArea.y + (leftCmdArea.height >> 1)+1;
+			ys[0] = leftCmdArea.y + (leftCmdArea.height >> 1) + 1;
 			ys[1] = ys[0] - roundRect;
 			ys[2] = ys[0] + roundRect;
-			System.out.println(leftCmdArea.y);
-			System.out.println(ys[0]);
-			System.out.println(leftCmdArea.y + leftCmdArea.height);
 			g.fillPolygon(xs, ys, 3);
 			g.drawString(leftCmd, leftCmdArea.x + (roundRect << 2), leftCmdArea.y + (leftCmdArea.height + hs >> 1));
 		}
@@ -300,25 +297,24 @@ public class UpperBar extends AbstractBar {
 		// g.drawString(leftRecCmd, (hs >> 1) + (hs >> 2) + (hs >> 3), this.getHeight() + hs >> 1);
 		// }
 
-//		if ((rigthCmdSize == fontKindSize) && (rigthCmd != "")) {
-//			g.setColor(ihm.getSkin().getColorInside());
-//			hs = getHeightString(rigthCmd, g);
-//			hs23 = (hs >> 1) + (hs >> 2);
-//			ws = getWidthString(rigthCmd, g);
-//			ws11 = ws + (ws >> 3);
-//			xs = new int[] { this.getWidth() - hs, this.getWidth() - (hs << 1) - ws, this.getWidth() - (hs << 1) - ws,
-//					this.getWidth() - hs, this.getWidth() - 1 };
-//			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
-//					(this.getHeight() >> 1) + hs23 + (hs >> 2), (this.getHeight() >> 1) + hs23 + (hs >> 2),
-//					(this.getHeight() >> 1) + (hs >> 3) };
-//			rigthCmdArea.setBounds(xs[2], ys[0], xs[0] - xs[2], ys[2] - ys[0]);
-//			g.fillPolygon(xs, ys, xs.length);
-//			g.setColor(ihm.getSkin().getColorLine());
-//			g.drawPolygon(xs, ys, xs.length);
-//			g.setColor(colorFont);
-//			g.drawString(rigthCmd, this.getWidth() - (hs23 << 1) - 1 - ws, (this.getHeight() + hs) >> 1);
-//		}
-
+		// if ((rigthCmdSize == fontKindSize) && (rigthCmd != "")) {
+		// g.setColor(ihm.getSkin().getColorInside());
+		// hs = getHeightString(rigthCmd, g);
+		// hs23 = (hs >> 1) + (hs >> 2);
+		// ws = getWidthString(rigthCmd, g);
+		// ws11 = ws + (ws >> 3);
+		// xs = new int[] { this.getWidth() - hs, this.getWidth() - (hs << 1) - ws, this.getWidth() - (hs << 1) - ws,
+		// this.getWidth() - hs, this.getWidth() - 1 };
+		// ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
+		// (this.getHeight() >> 1) + hs23 + (hs >> 2), (this.getHeight() >> 1) + hs23 + (hs >> 2),
+		// (this.getHeight() >> 1) + (hs >> 3) };
+		// rigthCmdArea.setBounds(xs[2], ys[0], xs[0] - xs[2], ys[2] - ys[0]);
+		// g.fillPolygon(xs, ys, xs.length);
+		// g.setColor(ihm.getSkin().getColorLine());
+		// g.drawPolygon(xs, ys, xs.length);
+		// g.setColor(colorFont);
+		// g.drawString(rigthCmd, this.getWidth() - (hs23 << 1) - 1 - ws, (this.getHeight() + hs) >> 1);
+		// }
 
 		if ((rigthCmdSize == fontSizeKind) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
@@ -326,25 +322,26 @@ public class UpperBar extends AbstractBar {
 			hs23 = hs + (hs >> 1) + (hs >> 2);
 			ws = getWidthString(rigthCmd, g, font);
 			ws11 = ws + (roundRect << 2) + roundRect;
-			rigthCmdArea.setBounds(this.getWidth() - roundRect-ws11, (this.getHeight() - hs23 >> 1), ws11, hs23);
+			rigthCmdArea.setBounds(this.getWidth() - roundRect - ws11, (this.getHeight() - hs23 >> 1), ws11, hs23);
 			g.fillRoundRect(rigthCmdArea.x + 1, rigthCmdArea.y + 1, rigthCmdArea.width - 1, rigthCmdArea.height - 1,
 					roundRect, roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
-			g.drawRoundRect(rigthCmdArea.x, rigthCmdArea.y, rigthCmdArea.width, rigthCmdArea.height, roundRect, roundRect);
+			g.drawRoundRect(rigthCmdArea.x, rigthCmdArea.y, rigthCmdArea.width, rigthCmdArea.height, roundRect,
+					roundRect);
 			g.setColor(colorFont);
 			xs = new int[3];
-			xs[0] = rigthCmdArea.x +rigthCmdArea.width- roundRect;
+			xs[0] = rigthCmdArea.x + rigthCmdArea.width - roundRect;
 			xs[1] = xs[0] - (roundRect << 1);
 			xs[2] = xs[0] - (roundRect << 1);
 			ys = new int[3];
-			ys[0] = rigthCmdArea.y + (rigthCmdArea.height >> 1)+1;
+			ys[0] = rigthCmdArea.y + (rigthCmdArea.height >> 1) + 1;
 			ys[1] = ys[0] - roundRect;
 			ys[2] = ys[0] + roundRect;
 			System.out.println(rigthCmdArea.y);
 			System.out.println(ys[0]);
 			System.out.println(rigthCmdArea.y + rigthCmdArea.height);
 			g.fillPolygon(xs, ys, 3);
-			g.drawString(rigthCmd, rigthCmdArea.x +  roundRect  , rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
+			g.drawString(rigthCmd, rigthCmdArea.x + roundRect, rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
 		}
 
 		if ((upAndDownCmdSize == fontSizeKind) && (upCmdActionListener != null) && (downCmdActionListener != null)) {
