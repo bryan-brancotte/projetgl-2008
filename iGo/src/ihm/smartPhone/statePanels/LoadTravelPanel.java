@@ -258,45 +258,58 @@ public class LoadTravelPanel extends PanelState {
 		buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
 
 		x += (decalageDemi >> 1) + imageFav.getIconWidth();
-		tmp1 = "";
+		tmp1 = null;
 		buffer.setFont(father.getSizeAdapteur().getSmallFont());
-		Iterator<ServiceForTravelPanel> itS;
+		Iterator<ServiceForTravelPanel> itServiceOnce;
+		Iterator<ServiceForTravelPanel> itServiceAlways;
 		ServiceForTravelPanel serviceForTravelPanel;
 		i = PanelDoubleBufferingSoftwear.getHeightString("H", buffer);
-		y += imageFav.getIconHeight() - i >> 1;
-		i += (i >> 2) + (i >> 3);
+		
+		if ((itServiceAlways = travelPanelPT.pathBuilder.getServiceAlways()).hasNext()
+				|| (itServiceOnce = travelPanelPT.pathBuilder.getServiceOnce()).hasNext()) {
+			y += imageFav.getIconHeight() - i >> 1;
+			i += (i >> 2) + (i >> 3);
 
-		itS = travelPanelPT.pathBuilder.getServiceAlways();
-		if (!itS.hasNext())
-			x -= decalage;
-		while (itS.hasNext()) {
-			serviceForTravelPanel = itS.next();
-			buffer.setColor(serviceForTravelPanel.getColor());
-			buffer.fillOval(x - 1, y - 1, i + 2, i + 2);
-			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawOval(x - 1, y - 1, i + 2, i + 2);
-			buffer.drawString(serviceForTravelPanel.getLetter(), x + (i >> 1)
-					- (PanelDoubleBufferingSoftwear.getWidthString(serviceForTravelPanel.getLetter(), buffer) >> 1), y
-					+ (i >> 1)
-					+ (PanelDoubleBufferingSoftwear.getHeightString(serviceForTravelPanel.getLetter(), buffer) >> 1));
-			x += i + decalageDemi;
-			;
+			itServiceAlways = travelPanelPT.pathBuilder.getServiceAlways();
+			if (!itServiceAlways.hasNext())
+				x -= decalage;
+			while (itServiceAlways.hasNext()) {
+				serviceForTravelPanel = itServiceAlways.next();
+				buffer.setColor(serviceForTravelPanel.getColor());
+				buffer.fillOval(x - 1, y - 1, i + 2, i + 2);
+				buffer.setColor(father.getSkin().getColorLetter());
+				buffer.drawOval(x - 1, y - 1, i + 2, i + 2);
+				buffer.drawString(serviceForTravelPanel.getLetter(),
+						x
+								+ (i >> 1)
+								- (PanelDoubleBufferingSoftwear.getWidthString(serviceForTravelPanel.getLetter(),
+										buffer) >> 1), y
+								+ (i >> 1)
+								+ (PanelDoubleBufferingSoftwear.getHeightString(serviceForTravelPanel.getLetter(),
+										buffer) >> 1));
+				x += i + decalageDemi;
+				;
+			}
+			x += decalage;
+			itServiceOnce = travelPanelPT.pathBuilder.getServiceOnce();
+			while (itServiceOnce.hasNext()) {
+				serviceForTravelPanel = itServiceOnce.next();
+				buffer.setColor(serviceForTravelPanel.getColor());
+				buffer.fillOval(x - 1, y - 1, i + 2, i + 2);
+				buffer.setColor(father.getSkin().getColorLetter());
+				buffer.drawOval(x - 1, y - 1, i + 2, i + 2);
+				buffer.drawString(serviceForTravelPanel.getLetter(),
+						x
+								+ (i >> 1)
+								- (PanelDoubleBufferingSoftwear.getWidthString(serviceForTravelPanel.getLetter(),
+										buffer) >> 1), y
+								+ (i >> 1)
+								+ (PanelDoubleBufferingSoftwear.getHeightString(serviceForTravelPanel.getLetter(),
+										buffer) >> 1));
+				x += i + (decalage >> 1);
+			}
 		}
-		x += decalage;
-		itS = travelPanelPT.pathBuilder.getServiceOnce();
-		while (itS.hasNext()) {
-			serviceForTravelPanel = itS.next();
-			buffer.setColor(serviceForTravelPanel.getColor());
-			buffer.fillOval(x - 1, y - 1, i + 2, i + 2);
-			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawOval(x - 1, y - 1, i + 2, i + 2);
-			buffer.drawString(serviceForTravelPanel.getLetter(), x + (i >> 1)
-					- (PanelDoubleBufferingSoftwear.getWidthString(serviceForTravelPanel.getLetter(), buffer) >> 1), y
-					+ (i >> 1)
-					+ (PanelDoubleBufferingSoftwear.getHeightString(serviceForTravelPanel.getLetter(), buffer) >> 1));
-			x += i + (decalage >> 1);
-		}
-		y = travelPanelPT.area.y + decalageDemi + getHeightString("e", buffer);
+		y = travelPanelPT.area.y + decalageDemi + i;
 
 		/***************************************************************************************************************
 		 * calcul du from to
