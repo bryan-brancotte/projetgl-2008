@@ -134,15 +134,24 @@ public abstract class TravelDisplayPanel extends PanelState {
 		iconeWarningArea.setBounds(0, getHeight() - imageWarning.getHeight(null), imageWarning.getHeight(null),
 				imageWarning.getWidth(null));
 		g.setFont(father.getSizeAdapteur().getSmallFont());
-		int w = PanelDoubleBufferingSoftwear.getWidthString(getMessageChangeState(), g, g.getFont()) + 3;
-		int h = PanelDoubleBufferingSoftwear.getHeightString(getMessageChangeState(), g, g.getFont());
-		g.setColor(father.getSkin().getColorSubAreaInside());
-		changeStateArea.setBounds(getWidth() - w - 2, getHeight() - h - (h >> 2) - 2, w, h + (h >> 2));
-		g.fillRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height);
+		int ws, hs, hs23, ws11;
+		int roundRect;
+
+		g.setColor(father.getSkin().getColorInside());
+		roundRect = getWidth() >> 6;
+		hs = getHeightString(getMessageChangeState(), g);
+		hs23 = hs + (hs >> 1) + (hs >> 2);
+		ws = getWidthString(getMessageChangeState(), g);
+		ws11 = ws + roundRect + roundRect;
+		changeStateArea.setBounds(this.getWidth() - roundRect - ws11, this.getHeight() - roundRect - hs23, ws11, hs23);
+		g.fillRoundRect(changeStateArea.x + 1, changeStateArea.y + 1, changeStateArea.width - 1,
+				changeStateArea.height - 1, roundRect, roundRect);
+		g.setColor(father.getSkin().getColorLine());
+		g.drawRoundRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height, roundRect,
+				roundRect);
 		g.setColor(father.getSkin().getColorLetter());
-		g.drawRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height);
-		g.drawString(getMessageChangeState(), changeStateArea.x + 2, getHeight() - (h >> 2) - 2);
-		// popUpMessage.define("", null);
+		g.drawString(getMessageChangeState(), changeStateArea.x + roundRect, changeStateArea.y
+				+ (changeStateArea.height + hs >> 1));
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);
 		}
@@ -179,7 +188,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setLeftRecCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPathClone().getCurrentPathInGraph());
+					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPathClone()
+							.getCurrentPathInGraph());
 				}
 			});
 			upperBar.setUpAndDownAtRightCmd(new ActionListener() {

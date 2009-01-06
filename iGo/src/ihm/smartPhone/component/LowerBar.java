@@ -141,9 +141,10 @@ public class LowerBar extends AbstractBar {
 		}
 
 		buffer.setColor(ihm.getSkin().getColorLetter());
-		drawStrings(buffer, FontSizeKind.LARGE);
-		drawStrings(buffer, FontSizeKind.INTERMEDIATE);
-		drawStrings(buffer, FontSizeKind.SMALL);
+		int roundRect = this.getWidth() >> 6;
+		drawStrings(buffer, FontSizeKind.LARGE, roundRect);
+		drawStrings(buffer, FontSizeKind.INTERMEDIATE, roundRect);
+		drawStrings(buffer, FontSizeKind.SMALL, roundRect);
 		if (icone.length() != 0) {
 			if ((imageIcone == null) || (oldHeigth != this.getHeight())) {
 				imageIcone = ImageLoader.getRessourcesImageIcone(icone, this.getWidth(), this.getHeight() - 2)
@@ -164,7 +165,7 @@ public class LowerBar extends AbstractBar {
 	 * @param fontSizeKind
 	 *            le type de le police pour cette affichage
 	 */
-	protected void drawStrings(Graphics g, FontSizeKind fontSizeKind) {
+	protected void drawStrings(Graphics g, final FontSizeKind fontSizeKind, final int roundRect) {
 		Font font = null;
 		int[] xs;
 		int[] ys;
@@ -237,41 +238,56 @@ public class LowerBar extends AbstractBar {
 		if ((leftCmdSize == fontSizeKind) && (leftCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString(leftCmd, g, font);
-			hs23 = (hs >> 1) + (hs >> 2) - (hs >> 3) + (hs >> 4);
-			ws = getWidthString(rigthCmd, g, font);
-			ws11 = ws >> 3;
-			xs = new int[] { hs23 + 1, hs + ws11, hs + ws11, hs23 + 1, 1 };
-			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
-					(this.getHeight() >> 1) + hs23 + 1, (this.getHeight() >> 1) + hs23 + 1, this.getHeight() >> 1 };
-			leftCmdArea.setBounds(xs[0], ys[0], xs[2] - xs[0], ys[2] - ys[0]);
-			g.fillPolygon(xs, ys, xs.length);
+			hs23 = hs + (hs >> 1) + (hs >> 2);
+			ws = getWidthString(leftCmd, g, font);
+			ws11 = ws + (roundRect << 2) + roundRect;
+			leftCmdArea.setBounds(roundRect, (this.getHeight() - hs23 >> 1), ws11, hs23);
+			g.fillRoundRect(leftCmdArea.x + 1, leftCmdArea.y + 1, leftCmdArea.width - 1, leftCmdArea.height - 1,
+					roundRect, roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
-			ys[2]--;
-			ys[3]--;
-			g.drawPolygon(xs, ys, xs.length);
+			g.drawRoundRect(leftCmdArea.x, leftCmdArea.y, leftCmdArea.width, leftCmdArea.height, roundRect, roundRect);
 			g.setColor(colorFont);
-			g.drawString(leftCmd, hs + 1, this.getHeight() + hs >> 1);
+			xs = new int[3];
+			xs[0] = leftCmdArea.x + roundRect;
+			xs[1] = xs[0] + (roundRect << 1);
+			xs[2] = xs[0] + (roundRect << 1);
+			ys = new int[3];
+			ys[0] = leftCmdArea.y + (leftCmdArea.height >> 1) + 1;
+			ys[1] = ys[0] - roundRect;
+			ys[2] = ys[0] + roundRect;
+			System.out.println(leftCmdArea.y);
+			System.out.println(ys[0]);
+			System.out.println(leftCmdArea.y + leftCmdArea.height);
+			g.fillPolygon(xs, ys, 3);
+			g.drawString(leftCmd, leftCmdArea.x + (roundRect << 2), leftCmdArea.y + (leftCmdArea.height + hs >> 1));
 		}
+
 
 		if ((rigthCmdSize == fontSizeKind) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
-			hs = getHeightString(rigthCmd, g);
-			hs23 = (hs >> 1) + (hs >> 2);// (hs >> 1) + (hs >> 2) /*- (hs >> 3) + (hs >> 4)*/;
-			ws = getWidthString(rigthCmd, g);
-			ws11 = ws + (ws >> 3);
-			xs = new int[] { this.getWidth() - hs, this.getWidth() - (hs << 1) - ws, this.getWidth() - (hs << 1) - ws,
-					this.getWidth() - hs, this.getWidth() -1};
-			ys = new int[] { (this.getHeight() >> 1) - hs23, (this.getHeight() >> 1) - hs23,
-					(this.getHeight() >> 1) + hs23 + (hs >> 2), (this.getHeight() >> 1) + hs23 + (hs >> 2),
-					(this.getHeight() >> 1) + (hs >> 3) };
-			rigthCmdArea.setBounds(xs[2], ys[0], xs[0] - xs[2], ys[2] - ys[0]);
-			g.fillPolygon(xs, ys, xs.length);
+			hs = getHeightString(rigthCmd, g, font);
+			hs23 = hs + (hs >> 1) + (hs >> 2);
+			ws = getWidthString(rigthCmd, g, font);
+			ws11 = ws + (roundRect << 2) + roundRect;
+			rigthCmdArea.setBounds(this.getWidth() - roundRect-ws11, (this.getHeight() - hs23 >> 1), ws11, hs23);
+			g.fillRoundRect(rigthCmdArea.x + 1, rigthCmdArea.y + 1, rigthCmdArea.width - 1, rigthCmdArea.height - 1,
+					roundRect, roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
-			ys[2]--;
-			ys[3]--;
-			g.drawPolygon(xs, ys, xs.length);
+			g.drawRoundRect(rigthCmdArea.x, rigthCmdArea.y, rigthCmdArea.width, rigthCmdArea.height, roundRect, roundRect);
 			g.setColor(colorFont);
-			g.drawString(rigthCmd, this.getWidth() - (hs23 << 1) - 1 - ws, (this.getHeight() + hs) >> 1);
+			xs = new int[3];
+			xs[0] = rigthCmdArea.x +rigthCmdArea.width- roundRect;
+			xs[1] = xs[0] - (roundRect << 1);
+			xs[2] = xs[0] - (roundRect << 1);
+			ys = new int[3];
+			ys[0] = rigthCmdArea.y + (rigthCmdArea.height >> 1)+1;
+			ys[1] = ys[0] - roundRect;
+			ys[2] = ys[0] + roundRect;
+			System.out.println(rigthCmdArea.y);
+			System.out.println(ys[0]);
+			System.out.println(rigthCmdArea.y + rigthCmdArea.height);
+			g.fillPolygon(xs, ys, 3);
+			g.drawString(rigthCmd, rigthCmdArea.x +  roundRect  , rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
 		}
 
 	}

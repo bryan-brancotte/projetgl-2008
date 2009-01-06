@@ -96,7 +96,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 		// " VS "
 		// + f.getSize() * 0.95 + " VS " + f.getSize());
 		// return (int) g.getFontMetrics(f).getStringBounds(s, g).getHeight(); /*size of string
-		return (int) (f.getSize() * 0.95);/**/
+		return (int) (f.getSize() * 0.9);/**/
 	}
 
 	/**
