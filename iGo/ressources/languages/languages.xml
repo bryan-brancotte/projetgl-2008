@@ -542,6 +542,16 @@
 				<ENGLISH value="Disable"/>
 				<GEEK value="false"/>
 			</Disable>
+			<UpdateNetworkMessage>
+				<FRANCAIS value="Le réseau à subit une mise à jours, votre trajet va être modifié pour que vous puissiez toujours arrivé à destination."/>
+				<ENGLISH value="The network was updated, your travel will be updated too to allow you to reach your destination"/>
+				<GEEK value="network updated, update needed"/>
+			</UpdateNetworkMessage>
+			<UpdateNetworkTitle>
+				<FRANCAIS value="Network update"/>
+				<ENGLISH value="Mise à jours du réseau"/>
+				<GEEK value="Refresh"/>
+			</UpdateNetworkTitle>
 		</fields>
 	</root>
 

@@ -44,6 +44,7 @@ import ihm.smartPhone.statePanels.TravelDisplayPanel;
 import ihm.smartPhone.statePanels.TravelGraphicDisplayPanel;
 import ihm.smartPhone.statePanels.VoidPanel;
 import ihm.smartPhone.statePanels.NewTravelPanel.NewTravelPanelState;
+import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.SizeAdapteur;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
@@ -57,6 +58,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JOptionPane;
 
@@ -76,6 +79,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected NetworkColorManager networkColorManager;
 	protected TravelForDisplayPanel travel;
 	protected VoidPanel computingPanel;
+	protected final Lock verrou = new ReentrantLock();
 	// protected PathInGraphConstraintBuilder pathBuilderInAction;
 
 	/**
@@ -387,8 +391,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
 		PathInGraphCollectionBuilder pigCol;
 		while (itP.hasNext()) {
-			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraphConstraintBuilder(),networkColorManager,
-					master.isFavoritesPaths(pigCol)) {
+			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraphConstraintBuilder(),
+					networkColorManager, master.isFavoritesPaths(pigCol)) {
 
 				@Override
 				public void delete() {
@@ -424,7 +428,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 		Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
 		while (itP.hasNext()) {
-			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraphConstraintBuilder(),networkColorManager, true) {
+			lst.add(new TravelForTravelPanelImplPathInGraph(itP.next().getPathInGraphConstraintBuilder(),
+					networkColorManager, true) {
 
 				@Override
 				public void delete() {
@@ -511,23 +516,30 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean setCurrentState(IhmReceivingStates actualState) {
-		return setCurrentState(actualState, null, null);
+	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates) {
+		return setCurrentState(ihmReceivingStates, null, null);
 	}
 
 	@Override
-	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraph path) {
-		return setCurrentState(actualState, null, path);
+	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates, PathInGraph path) {
+		return setCurrentState(ihmReceivingStates, null, path);
 	}
 
 	@Override
-	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder) {
-		return setCurrentState(actualState, pathBuilder, null);
+	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates, PathInGraphConstraintBuilder pathBuilder) {
+		return setCurrentState(ihmReceivingStates, pathBuilder, null);
 	}
 
 	@Override
-	public boolean setCurrentState(IhmReceivingStates actualState, PathInGraphConstraintBuilder pathBuilder,
+	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates, PathInGraphConstraintBuilder pathBuilder,
 			PathInGraph path) {
+		synchronized (verrou) {
+			return setCurrentStateUnSynchronized(ihmReceivingStates, pathBuilder, path);
+		}
+	};
+
+	public boolean setCurrentStateUnSynchronized(IhmReceivingStates actualState,
+			PathInGraphConstraintBuilder pathBuilder, PathInGraph path) {
 		computingPanel = null;
 		if (actualState == this.actualState)
 			return true;
@@ -786,6 +798,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		mainPanel = null;
 		travelGraphicPanel = null;
 		travelArrayPanel = null;
+		travel = null;
 	}
 
 	/**
@@ -815,7 +828,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			try {
 				PathInGraphConstraintBuilder pathClone = master.getPathInGraphConstraintBuilder();
 				pathClone.importPath(path.getCurrentPathInGraph());
-				travel = new TravelForDisplayPanelImplPathInGraph(path,pathClone);
+				travel = new TravelForDisplayPanelImplPathInGraph(path, pathClone);
 			} catch (Exception e) {
 				setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_BuildingTravelFromResult"));
 				e.printStackTrace();
@@ -939,8 +952,32 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean updateNetwork() {
-		// TODO iGo.updateNetwork
-		return true;
+		synchronized (verrou) {
+			if (travel != null)
+				if (!travel.isValideFromWhereIAm()) {
+					CodeExecutor codeEx = new CodeExecutor() {
+						public void execute() {
+							if (travel.prepareToSolveAsBestAsICan())
+								setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, travel.getPathClone());
+							else {
+								setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPathClone());
+							}
+						};
+					};
+					if (travelArrayPanel != null)
+						travelArrayPanel.displayPopUpMessage(master.lg("UpdateNetworkTitle"), master
+								.lg("UpdateNetworkMessage"), codeEx);
+					if (travelGraphicPanel != null)
+						travelGraphicPanel.displayPopUpMessage(master.lg("UpdateNetworkTitle"), master
+								.lg("UpdateNetworkMessage"), codeEx);
+					return true;
+				}
+
+			// if (travel != null)
+			// return travel.update();
+			// TODO iGo.updateNetwork
+			return false;
+		}
 	}
 
 	@Override

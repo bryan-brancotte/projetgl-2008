@@ -22,15 +22,17 @@ public class VoidPanel extends PanelState {
 
 	public VoidPanel(IhmReceivingPanelState father) {
 		super(father, null, null);
+		this.messages = new LinkedList<String[]>();
 	}
 
 	public VoidPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar lowerBar, String title) {
 		super(father, upperBar, lowerBar);
 		this.title = title;
 		this.messages = new LinkedList<String[]>();
-//		messages.add(new String[] { "*", "le", "message", "du", "haut", "le", "message", "du", "haut", "le", "message",
-//				"du", "haut", "le", "message", "du", "haut", "le", "message", "du", "haut" });
-//		messages.add(new String[] { "*", "l'autre", "qui", "est", "en", "dessous" });
+		// messages.add(new String[] { "*", "le", "message", "du", "haut", "le", "message", "du", "haut", "le",
+		// "message",
+		// "du", "haut", "le", "message", "du", "haut", "le", "message", "du", "haut" });
+		// messages.add(new String[] { "*", "l'autre", "qui", "est", "en", "dessous" });
 	}
 
 	private static final long serialVersionUID = 1L;
