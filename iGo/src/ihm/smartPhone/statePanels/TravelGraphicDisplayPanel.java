@@ -83,6 +83,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
 	 */
 	protected boolean putStationUp = false;
+	/**
+	 * Le thread d'autoScrolling
+	 */
+	protected SlowScroll slowScroll = null;
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -153,8 +157,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				new SlowScroll(0, dyLastPointeur >> 2);
-				new SlowScroll(dxLastPointeur >> 2, 0);
+				if (slowScroll != null)
+					slowScroll.killMe();
+				slowScroll = new SlowScroll(dxLastPointeur >> 2,dyLastPointeur >> 2);
 			}
 
 			@Override
@@ -1181,10 +1186,19 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	protected class SlowScroll extends Thread {
 
+		protected SlowScroll other = null;
+
 		public SlowScroll(int dx, int dy) {
 			super();
-			this.dx = dx;
-			this.dy = dy;
+			if (dx != 0) {
+				this.dx = dx;
+				this.dy = 0;
+				if (dy != 0)
+					other = new SlowScroll(0, dy);
+			} else {
+				this.dx = 0;
+				this.dy = dy;
+			}
 			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
 				this.start();
 		}
@@ -1197,6 +1211,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		public void killMe() {
 			dx = 0;
 			dy = 0;
+			if (other != null)
+				other.killMe();
 		}
 
 		@Override
