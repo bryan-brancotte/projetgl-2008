@@ -23,31 +23,19 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 
 public class TravelArrayDisplayPanel extends TravelDisplayPanel {
-	/**
-	 * La valeur du scroll de la barre de défilement
-	 */
-	protected int deroullement;
-	/**
-	 * Y d'origine pour le drag
-	 */
-	protected int yDrag;
-	/**
-	 * variation d'Y pour le drag
-	 */
-	protected int dyDrag;
-	protected SlowScroll slowScroll;
-	/**
-	 * Barre de défilement
-	 */
-	protected PTScrollBar scrollBar;
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Barre de défilement
 	 */
 	protected PTArea areaDrawn;
 	/**
-	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 * La valeur du scroll de la barre de défilement
 	 */
-	protected boolean shouldDoubleRepaint = true;
+	protected int deroullement;
+	/**
+	 * variation d'Y pour le drag
+	 */
+	protected int dyDrag;
 	/**
 	 * L'image des changements
 	 */
@@ -56,6 +44,21 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
 	 */
 	protected boolean putStationUp = false;
+	/**
+	 * Barre de défilement
+	 */
+	protected PTScrollBar scrollBar;
+	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean shouldDoubleRepaint = true;
+
+	protected SlowScroll slowScroll;
+
+	/**
+	 * Y d'origine pour le drag
+	 */
+	protected int yDrag;
 
 	public TravelArrayDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -106,20 +109,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		});
 	}
 
-	private static final long serialVersionUID = 1L;
-
 	@Override
-	public void paint(Graphics g) {
-		draw();
-		if (shouldDoubleRepaint) {
-			shouldDoubleRepaint = false;
-			draw();
-		}
-		/***************************************************************************************************************
-		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
-		 */
-		super.paint(buffer);
-		g.drawImage(image, 0, 0, null);
+	protected void actionToDoWhenChangeStateIsClicked() {
+		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.GRAPHIC_MODE.toString());
+		father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
 	}
 
 	protected void draw() {
@@ -215,15 +208,25 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 							+ (inLeft - decalage - imageChange.getIconWidth() >> 1), ordonnee
 							+ (height - imageChange.getIconHeight() >> 1), null);
 				ordonnee += decalage + height;
-				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
-					putStationUp = false;
-					int val;
-					if ((val = -ordonnee + decalage) < 0)
-						new SlowScroll(val);
-				}
+				// if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
+				// putStationUp = false;
+				// // int val;
+				// // if ((val = -ordonnee + decalage) < 0)
+				// // new SlowScroll(val);
+				// System.out.println("ordonnee" + ordonnee);
+				// System.out.println("decalage" + decalage);
+				// slowScroll = new SlowScroll(decalage - ordonnee);
+				// }
 			}
 			if (firstPasseDone)
 				break;
+			else if (putStationUp) {
+				putStationUp = false;
+				System.out.println("ordonnee" + ordonnee);
+				System.out.println("decalage" + decalage);
+				slowScroll = new SlowScroll(decalage - ordonnee);
+
+			}
 			firstPasseDone = true;
 			iterTravel = travel.getTravelToDo();
 		} while (true);
@@ -233,6 +236,44 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		shouldDoubleRepaint = (deroullement != scrollBar.getDeroullement());
 		deroullement = scrollBar.getDeroullement();
+	}
+
+	protected int drawRoute(Route route, int time, Station direction, int decalage, int ordonnee,
+			boolean hasBeenTraveled, int left, int inLeft, int inRigth, int rigth) {
+		int taille;
+		String s;
+		int height = (taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F)) + decalage;
+
+		if (hasBeenTraveled)
+			buffer.setColor(father.getSkin().getColorSubAreaInside());
+		else
+			buffer.setColor(father.getSkin().getColorInside());
+		buffer.fillRect(left, ordonnee, rigth - left, height);
+		buffer.setColor(father.getSkin().getColorLine());
+		buffer.drawLine(inLeft, ordonnee, inLeft, ordonnee + height);
+		buffer.drawLine(inRigth, ordonnee, inRigth, ordonnee + height);
+		buffer.setColor(father.getSkin().getColorLetter());
+		buffer.drawRect(left, ordonnee, rigth - left, height);
+
+		buffer.setColor(father.getNetworkColorManager().getColor(route));
+		buffer.fillOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
+		buffer.setColor(father.getSkin().getColorLetter());
+		buffer.drawOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
+		buffer.drawString(route.getId(), left + inLeft - getWidthString(route.getId(), buffer) >> 1, ordonnee
+				+ (height + getHeightString(route.getId(), buffer) - (decalage >> 2) >> 1));
+		// buffer.drawString(route.getId(), decalage + (inLeft - decalage - getWidthString(route.getId(), buffer) >> 1),
+		// ordonnee + (height + getHeightString(route.getId(), buffer) >> 1));
+
+		buffer.drawString(father.lg("DirectionInArrayMode") + direction.getName(), inLeft + (decalage >> 1), ordonnee
+				+ (height + getHeightString(route.getId(), buffer) >> 1));
+
+		// TODO z_retrait temps
+		buffer.drawString(s = /* father.lg("Time") + " : " + */
+		decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute"), father
+				.lg("MiniLetterForMinute")), inRigth + (decalage >> 1), ordonnee
+				+ (height + getHeightString(s, buffer) >> 1));
+
+		return height;
 	}
 
 	/**
@@ -341,53 +382,16 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		return height;
 	}
 
-	protected int drawRoute(Route route, int time, Station direction, int decalage, int ordonnee,
-			boolean hasBeenTraveled, int left, int inLeft, int inRigth, int rigth) {
-		int taille;
-		String s;
-		int height = (taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F)) + decalage;
-
-		if (hasBeenTraveled)
-			buffer.setColor(father.getSkin().getColorSubAreaInside());
-		else
-			buffer.setColor(father.getSkin().getColorInside());
-		buffer.fillRect(left, ordonnee, rigth - left, height);
-		buffer.setColor(father.getSkin().getColorLine());
-		buffer.drawLine(inLeft, ordonnee, inLeft, ordonnee + height);
-		buffer.drawLine(inRigth, ordonnee, inRigth, ordonnee + height);
-		buffer.setColor(father.getSkin().getColorLetter());
-		buffer.drawRect(left, ordonnee, rigth - left, height);
-
-		buffer.setColor(father.getNetworkColorManager().getColor(route));
-		buffer.fillOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
-		buffer.setColor(father.getSkin().getColorLetter());
-		buffer.drawOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
-		buffer.drawString(route.getId(), left + inLeft - getWidthString(route.getId(), buffer) >> 1, ordonnee
-				+ (height + getHeightString(route.getId(), buffer) - (decalage >> 2) >> 1));
-		// buffer.drawString(route.getId(), decalage + (inLeft - decalage - getWidthString(route.getId(), buffer) >> 1),
-		// ordonnee + (height + getHeightString(route.getId(), buffer) >> 1));
-
-		buffer.drawString(father.lg("DirectionInArrayMode") + direction.getName(), inLeft + (decalage >> 1), ordonnee
-				+ (height + getHeightString(route.getId(), buffer) >> 1));
-
-		// TODO z_retrait temps
-		buffer.drawString(s = /* father.lg("Time") + " : " + */
-		decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father.lg("LetterForMinute"), father
-				.lg("MiniLetterForMinute")), inRigth + (decalage >> 1), ordonnee
-				+ (height + getHeightString(s, buffer) >> 1));
-
-		return height;
-	}
-
-	@Override
-	protected void actionToDoWhenChangeStateIsClicked() {
-		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.GRAPHIC_MODE.toString());
-		father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
-	}
-
 	@Override
 	protected String getMessageChangeState() {
 		return father.lg("GoToGraphicMode");
+	}
+
+	@Override
+	public void giveControle() {
+		if (currentState == IhmReceivingStates.EXPERIMENT_TRAVEL)
+			putStationUp = true;
+		super.giveControle();
 	}
 
 	@Override
@@ -395,7 +399,30 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		putStationUp = true;
 	}
 
+	@Override
+	public void paint(Graphics g) {
+		draw();
+		if (shouldDoubleRepaint) {
+			shouldDoubleRepaint = false;
+			draw();
+		}
+		/***************************************************************************************************************
+		 * fin du dessin en mémoire, on dessine le résultat sur l'écran
+		 */
+		super.paint(buffer);
+		g.drawImage(image, 0, 0, null);
+	}
+
+	@Override
+	protected void startStationDone() {
+		new SlowScroll(-deroullement);
+	}
+
 	protected class SlowScroll extends Thread {
+
+		int deroulement;
+
+		byte step = 2;
 
 		public SlowScroll(int deroulement) {
 			super();
@@ -403,10 +430,6 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
 				this.start();
 		}
-
-		int deroulement;
-
-		byte step = 2;
 
 		public void killMe() {
 			deroulement = 0;
@@ -447,11 +470,22 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 					repaint();
 				}
 			}
+			for (int i = 0; i < deroulement; deroulement -= delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(delta << 1);
+					} catch (InterruptedException e) {
+					}
+					if (deroulement < +delta) {
+						delta = deroulement;
+					}
+					if (!scrollBar.setDeroullement(scrollBar.getDeroullement() - delta)) {
+						repaint();
+						return;
+					}
+					repaint();
+				}
+			}
 		}
-	}
-
-	@Override
-	protected void startStationDone() {
-		new SlowScroll(-deroullement);
 	}
 }

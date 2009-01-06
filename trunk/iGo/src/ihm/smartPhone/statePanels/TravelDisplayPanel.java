@@ -92,7 +92,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 	}
 
 	public void setCurrentState(IhmReceivingStates actualState) {
-		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL) || (actualState == IhmReceivingStates.PREVISU_TRAVEL)) {
+		if ((actualState == IhmReceivingStates.EXPERIMENT_TRAVEL)
+				&& (this.currentState == IhmReceivingStates.PREVISU_TRAVEL)) {
 			this.currentState = actualState;
 			startStationDone();
 			giveControle();

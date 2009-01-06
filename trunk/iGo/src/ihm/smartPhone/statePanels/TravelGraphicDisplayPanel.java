@@ -27,25 +27,10 @@ import java.util.Iterator;
 
 public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
-	protected boolean affichageDroite = false;
-
-	protected GraphicsViewPort buffer;
-
-	protected int image;
-
 	private static final long serialVersionUID = 1L;
 
-	protected Polygon polygon = new Polygon();
-	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
-
-	/**
-	 * La dernière abscisse du pointeur
-	 */
-	protected int xLastPointeur;
-	/**
-	 * La dernière ordonnée du pointeur
-	 */
-	protected int yLastPointeur;
+	protected boolean affichageDroite = false;
+	protected GraphicsViewPort buffer;
 
 	/**
 	 * La dernière vitesse d'abscisse du pointeur
@@ -55,38 +40,53 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * La dernière vitesse d'ordonnée du pointeur
 	 */
 	protected int dyLastPointeur;
-	/**
-	 * La plus petite des quatre valeurs étalons du réseau : elle définit la largueur de certains traits.
-	 */
-	protected int sizeLine;
-	/**
-	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la valeur d'une demi largueur de ligne
-	 */
-	protected int sizeDemiLine;
-	/**
-	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est le quadruple de la grande largueur.
-	 */
-	protected int sizeQuadLarge;
-	/**
-	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la grande largueur.
-	 */
-	protected int sizeLarge;
-	/**
-	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
-	 */
-	protected boolean shouldDoubleRepaint = false;
+
 	/**
 	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
 	 */
 	protected boolean firstRepaint = true;
+	protected int image;
+	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
+	protected Polygon polygon = new Polygon();
 	/**
 	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
 	 */
 	protected boolean putStationUp = false;
 	/**
+	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
+	 */
+	protected boolean shouldDoubleRepaint = false;
+	/**
+	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la valeur d'une demi largueur de ligne
+	 */
+	protected int sizeDemiLine;
+	/**
+	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est la grande largueur.
+	 */
+	protected int sizeLarge;
+	/**
+	 * La plus petite des quatre valeurs étalons du réseau : elle définit la largueur de certains traits.
+	 */
+	protected int sizeLine;
+	/**
+	 * L'une des trois valeurs de base utilisées pour dessiner le réseau. C'est le quadruple de la grande largueur.
+	 */
+	protected int sizeQuadLarge;
+
+	/**
 	 * Le thread d'autoScrolling
 	 */
 	protected SlowScroll slowScroll = null;
+
+	/**
+	 * La dernière abscisse du pointeur
+	 */
+	protected int xLastPointeur;
+
+	/**
+	 * La dernière ordonnée du pointeur
+	 */
+	protected int yLastPointeur;
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -121,10 +121,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 */
 		this.addMouseMotionListener(new MouseMotionListener() {
 			@Override
-			public void mouseMoved(MouseEvent e) {
-			}
-
-			@Override
 			public void mouseDragged(MouseEvent e) {
 				dxLastPointeur = e.getX() - xLastPointeur;
 				dyLastPointeur = e.getY() - yLastPointeur;
@@ -137,6 +133,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				yLastPointeur = e.getY();
 				me.repaint();
 			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
 		});
 		/***************************************************************************************************************
 		 * Listener de clic de la souris
@@ -145,6 +145,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
 			}
 
 			@Override
@@ -159,15 +167,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			public void mouseReleased(MouseEvent e) {
 				if (slowScroll != null)
 					slowScroll.killMe();
-				slowScroll = new SlowScroll(dxLastPointeur >> 2,dyLastPointeur >> 2);
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
+				slowScroll = new SlowScroll(dxLastPointeur >> 2, dyLastPointeur >> 2);
 			}
 		});
 		/***************************************************************************************************************
@@ -258,37 +258,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "false");
 			father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
 		}
-	}
-
-	@Override
-	protected String getMessageChangeState() {
-		if (!affichageDroite) {
-			return father.lg("GoToGraphicModeSecondDisplay");
-		} else {
-			return father.lg("GoToArrayMode");
-		}
-	}
-
-	@Override
-	public void paint(Graphics g) {
-		buildImage();
-		if (firstRepaint) {
-			if (buffer.getHeigthImage() < buffer.getHeigthViewPort()) {
-				buffer.increasScallImg(buffer.getWidthViewPort() / buffer.getWidthImage());
-				buildImage();
-			}
-			buffer.move(0, -(buffer.getHeigthViewPort() - buffer.getHeigthImage() >> 1));
-			buffer.move(-(buffer.getWidthViewPort() - buffer.getWidthImage() >> 1), 0);
-			firstRepaint = false;
-			buildImage();
-		}
-		if (shouldDoubleRepaint) {
-			buildImage();
-			shouldDoubleRepaint = false;
-		}
-		super.paint(buffer.getBuffer());
-		g.drawImage(buffer.getImage(), 0, 0, null);
-		buffer.hasBeenDrawn();
 	}
 
 	public void buildImage() {
@@ -568,6 +537,48 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	}
 
 	/**
+	 * Procédure permettant de dessiner un oval, avec un appelle de retard : lorsqu'on appelle la fonction, l'oval
+	 * effectivement dessiné est celui du prédédent appelle.
+	 * 
+	 * @param g
+	 *            le Graphics où l'on va dessiner l'oval, s'il est null, on dessine tout de même le précédent oval
+	 * @param x
+	 *            l'abscisse de l'oval
+	 * @param y
+	 *            l'ordonnée de l'oval
+	 * @param width
+	 *            la largueur de l'oval
+	 * @param height
+	 *            la hauteur de l'oval
+	 */
+	protected void drawDelayedOval(GraphicsViewPort g, int x, int y, int width, int height) {
+		if (ovalToDrawDelayed.g != null) {
+			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
+			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
+			// ovalToDrawDelayed.height);
+			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
+			// ovalToDrawDelayed.g.drawOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
+			// ovalToDrawDelayed.height);
+			ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
+			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
+					ovalToDrawDelayed.height);
+			ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
+			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + father.getSizeAdapteur().getSizeLine(),
+			// ovalToDrawDelayed.y + father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.width - 2
+			// * father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.height - 2
+			// * father.getSizeAdapteur().getSizeLine());
+			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + sizeLine, ovalToDrawDelayed.y + sizeLine,
+					ovalToDrawDelayed.width - (sizeLine << 1), ovalToDrawDelayed.height - (sizeLine << 1));
+			// System.out.println(buffer.getScallImg()*5);
+		}
+		ovalToDrawDelayed.g = g;
+		ovalToDrawDelayed.x = x;
+		ovalToDrawDelayed.y = y;
+		ovalToDrawDelayed.width = width;
+		ovalToDrawDelayed.height = height;
+	}
+
+	/**
 	 * Fonction permettant de dessiner le cadre décrivant le station du changement. Il retourne ensuite l'abscisse
 	 * jusqu'a laquelle on a dessiné.
 	 * 
@@ -633,25 +644,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// g.drawRect(xRec, yRec, xEnder - xRec, ys[1] + sizeDemiLine - yRec);
 		for (i = 0; i < 2; i++)
 			g.drawString(words[i], xs[i], ys[i]);
-	}
-
-	/**
-	 * Fonction permettant de dessiner le cadre décrivant le station du changement. Il retourne ensuite l'abscisse
-	 * jusqu'a laquelle on a dessiné.
-	 * 
-	 * @param g
-	 *            le Graphics où l'on va dessiner le rectangle.
-	 * @param x
-	 *            l'abscisse.
-	 * @param y
-	 *            l'ordonné.
-	 * @param section
-	 *            la section que l'on achève.
-	 * @return l'abscisse où l'on a finit de dessiner.
-	 */
-	protected int drawInformationsStation(GraphicsViewPort g, int xRec, int yRec, SectionOfTravel section) {
-		return drawInformationsStation(g, xRec, yRec, section.getEnddingChangementServices(), section
-				.getNameChangement(), section.getEnddingChangementCost(), section.getEnddingChangementTime());
 	}
 
 	/**
@@ -803,69 +795,71 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	}
 
 	/**
-	 * Procédure permettant de dessiner un oval, avec un appelle de retard : lorsqu'on appelle la fonction, l'oval
-	 * effectivement dessiné est celui du prédédent appelle.
+	 * Fonction permettant de dessiner le cadre décrivant le station du changement. Il retourne ensuite l'abscisse
+	 * jusqu'a laquelle on a dessiné.
 	 * 
 	 * @param g
-	 *            le Graphics où l'on va dessiner l'oval, s'il est null, on dessine tout de même le précédent oval
+	 *            le Graphics où l'on va dessiner le rectangle.
 	 * @param x
-	 *            l'abscisse de l'oval
+	 *            l'abscisse.
 	 * @param y
-	 *            l'ordonnée de l'oval
-	 * @param width
-	 *            la largueur de l'oval
-	 * @param height
-	 *            la hauteur de l'oval
+	 *            l'ordonné.
+	 * @param section
+	 *            la section que l'on achève.
+	 * @return l'abscisse où l'on a finit de dessiner.
 	 */
-	protected void drawDelayedOval(GraphicsViewPort g, int x, int y, int width, int height) {
-		if (ovalToDrawDelayed.g != null) {
-			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
-			// ovalToDrawDelayed.height);
-			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
-			// ovalToDrawDelayed.g.drawOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
-			// ovalToDrawDelayed.height);
-			ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
-			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
-					ovalToDrawDelayed.height);
-			ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + father.getSizeAdapteur().getSizeLine(),
-			// ovalToDrawDelayed.y + father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.width - 2
-			// * father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.height - 2
-			// * father.getSizeAdapteur().getSizeLine());
-			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + sizeLine, ovalToDrawDelayed.y + sizeLine,
-					ovalToDrawDelayed.width - (sizeLine << 1), ovalToDrawDelayed.height - (sizeLine << 1));
-			// System.out.println(buffer.getScallImg()*5);
-		}
-		ovalToDrawDelayed.g = g;
-		ovalToDrawDelayed.x = x;
-		ovalToDrawDelayed.y = y;
-		ovalToDrawDelayed.width = width;
-		ovalToDrawDelayed.height = height;
+	protected int drawInformationsStation(GraphicsViewPort g, int xRec, int yRec, SectionOfTravel section) {
+		return drawInformationsStation(g, xRec, yRec, section.getEnddingChangementServices(), section
+				.getNameChangement(), section.getEnddingChangementCost(), section.getEnddingChangementTime());
 	}
 
-	/**
-	 * Classe équivalent à un structure en C/C++, on permet de stocker de façon regroupé plusieurs variable relative au
-	 * dessin d'un futur oval
-	 * 
-	 * @author iGo
-	 * 
-	 */
-	protected class OvalToDraw {
-		public GraphicsViewPort g;
-		public int x;
-		public int y;
-		public int width;
-		public int height;
-
-		public OvalToDraw(GraphicsViewPort g, int x, int y, int width, int height) {
-			super();
-			this.g = g;
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
+	@Override
+	protected String getMessageChangeState() {
+		if (!affichageDroite) {
+			return father.lg("GoToGraphicModeSecondDisplay");
+		} else {
+			return father.lg("GoToArrayMode");
 		}
+	}
+
+	@Override
+	public void giveControle() {
+		// TODO giveControleG
+		putStationUp = true;
+		super.giveControle();
+	}
+
+	@Override
+	protected void nextStationDone() {
+		putStationUp = true;
+		buffer.hasBeenChanged();
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		buildImage();
+		if (firstRepaint) {
+			if (buffer.getHeigthImage() < buffer.getHeigthViewPort()) {
+				buffer.increasScallImg(buffer.getWidthViewPort() / buffer.getWidthImage());
+				buildImage();
+			}
+			buffer.move(0, -(buffer.getHeigthViewPort() - buffer.getHeigthImage() >> 1));
+			buffer.move(-(buffer.getWidthViewPort() - buffer.getWidthImage() >> 1), 0);
+			firstRepaint = false;
+			buildImage();
+		}
+		if (shouldDoubleRepaint) {
+			buildImage();
+			shouldDoubleRepaint = false;
+		}
+		super.paint(buffer.getBuffer());
+		g.drawImage(buffer.getImage(), 0, 0, null);
+		buffer.hasBeenDrawn();
+	}
+
+	@Override
+	protected void startStationDone() {
+		new SlowMove(-buffer.getY());
 	}
 
 	/**
@@ -881,19 +875,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		protected Graphics2D buffer = null;
 
 		/**
-		 * L'image en elle même
+		 * La hauteur du dessin
 		 */
-		protected Image image = null;
-
-		/**
-		 * l'abscisse
-		 */
-		protected int x;
-
-		/**
-		 * L'ordonnée
-		 */
-		protected int y;
+		protected int heightImage;
 
 		/**
 		 * La hauteur
@@ -901,14 +885,19 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		protected int heightViewPort;
 
 		/**
-		 * La largueur
+		 * L'image en elle même
 		 */
-		protected int widthViewPort;
+		protected Image image = null;
 
 		/**
-		 * La hauteur du dessin
+		 * Si un nouvel affchage de l'image est nécessaire
 		 */
-		protected int heightImage;
+		protected boolean neededRepaint;
+
+		/**
+		 * L'échelle de l'image
+		 */
+		protected float scallImg = 0.2F;
 
 		/**
 		 * La largueur du dessin
@@ -916,50 +905,26 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		protected int widthImage;
 
 		/**
-		 * Si un nouvel affchage de l'image est nécessaire
+		 * La largueur
 		 */
-		protected boolean neededRepaint;
+		protected int widthViewPort;
+
 		/**
-		 * L'échelle de l'image
+		 * l'abscisse
 		 */
-		protected float scallImg = 0.2F;
-
-		public int getHeigthImage() {
-			return heightImage;
-		}
-
-		public int getWidthImage() {
-			return widthImage;
-		}
-
-		public float getScallImg() {
-			return scallImg;
-		}
+		protected int x;
+		/**
+		 * L'ordonnée
+		 */
+		protected int y;
 
 		public GraphicsViewPort() {
 			super();
 			this.neededRepaint = true;
 		}
 
-		/**
-		 * retourne un boolean indiquant si un réaffochage est nécessaire.
-		 * 
-		 * @return true si on doit de nouveau déssiner l'image.
-		 */
-		public boolean isNeededRepaint() {
-			return neededRepaint;
-		}
-
-		/**
-		 * Modifie le coefficient de zoom de la valeur indiquée : si le coef est de 2 et que vous appellez
-		 * increaseScallImg(3) le coefficient sera ensuite à 6;
-		 * 
-		 * @param coef
-		 *            le coefficient par lequel le coefficient actuelle va être multiplié
-		 */
-		public void increasScallImg(float coef) {
-			scallImg *= coef;
-			neededRepaint = true;
+		public void clearRect(int x, int y, int width, int height) {
+			buffer.clearRect(x, y, width, height);
 		}
 
 		/**
@@ -976,12 +941,120 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			neededRepaint = true;
 		}
 
+		public void drawLine(int x1, int y1, int x2, int y2) {
+			buffer.drawLine(x1, y1, x2, y2);
+		}
+
+		public void drawOval(int x, int y, int width, int height) {
+			buffer.drawOval(x, y, width, height);
+		}
+
+		public void drawPolygon(Polygon polygon) {
+			buffer.drawPolygon(polygon);
+		}
+
+		public void drawRect(int x, int y, int width, int height) {
+			buffer.drawRect(x, y, width, height);
+		}
+
+		public void drawString(String str, int x, int y) {
+			buffer.drawString(str, x, y);
+		}
+
+		public void extendsHeight(int height) {
+			if (heightImage < height)
+				heightImage = height;
+
+		}
+
+		public void extendsWidth(int width) {
+			if (widthImage < width)
+				widthImage = width;
+		}
+
+		public void fillOval(int x, int y, int width, int height) {
+			buffer.fillOval(x, y, width, height);
+		}
+
+		public void fillPolygon(Polygon polygon) {
+			buffer.fillPolygon(polygon);
+		}
+
+		public void fillRect(int x, int y, int width, int height) {
+			buffer.fillRect(x, y, width, height);
+		}
+
 		public Graphics getBuffer() {
 			return buffer;
 		}
 
+		public Color getColor() {
+			return buffer.getColor();
+		}
+
+		public Font getFont() {
+			return buffer.getFont();
+		}
+
+		public int getHeigthImage() {
+			return heightImage;
+		}
+
+		public int getHeigthViewPort() {
+			return heightViewPort;
+		}
+
 		public Image getImage() {
 			return image;
+		}
+
+		public float getScallImg() {
+			return scallImg;
+		}
+
+		public int getWidthImage() {
+			return widthImage;
+		}
+
+		public int getWidthViewPort() {
+			return widthViewPort;
+		}
+
+		public int getX() {
+			return x;
+		}
+
+		public int getY() {
+			return y;
+		}
+
+		public void hasBeenChanged() {
+			this.neededRepaint = true;
+		}
+
+		public void hasBeenDrawn() {
+			this.neededRepaint = false;
+		}
+
+		/**
+		 * Modifie le coefficient de zoom de la valeur indiquée : si le coef est de 2 et que vous appellez
+		 * increaseScallImg(3) le coefficient sera ensuite à 6;
+		 * 
+		 * @param coef
+		 *            le coefficient par lequel le coefficient actuelle va être multiplié
+		 */
+		public void increasScallImg(float coef) {
+			scallImg *= coef;
+			neededRepaint = true;
+		}
+
+		/**
+		 * retourne un boolean indiquant si un réaffochage est nécessaire.
+		 * 
+		 * @return true si on doit de nouveau déssiner l'image.
+		 */
+		public boolean isNeededRepaint() {
+			return neededRepaint;
 		}
 
 		public void move(int dx, int dy) {
@@ -1018,6 +1091,24 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			neededRepaint |= ((xOrg != x) || (yOrg != y));
 		}
 
+		public void setColor(Color color) {
+			buffer.setColor(color);
+		}
+
+		public void setFont(Font font) {
+			buffer.setFont(font);
+		}
+
+		public void setSizeImage(int width, int height) {
+			if (width < 10)
+				width = 10;
+			if (height < 10)
+				height = 10;
+			neededRepaint = true;
+			this.heightImage = height;
+			this.widthImage = width;
+		}
+
 		public void setSizeViewPort(int width, int height) {
 			neededRepaint = true;
 			if (width < 10)
@@ -1031,112 +1122,35 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			this.buffer.setBackground(father.getSkin().getColorInside());
 			graphicsTunning(this.buffer);
 		}
-
-		public void setSizeImage(int width, int height) {
-			if (width < 10)
-				width = 10;
-			if (height < 10)
-				height = 10;
-			neededRepaint = true;
-			this.heightImage = height;
-			this.widthImage = width;
-		}
-
-		public int getHeigthViewPort() {
-			return heightViewPort;
-		}
-
-		public int getWidthViewPort() {
-			return widthViewPort;
-		}
-
-		public void fillPolygon(Polygon polygon) {
-			buffer.fillPolygon(polygon);
-		}
-
-		public void setColor(Color color) {
-			buffer.setColor(color);
-		}
-
-		public Color getColor() {
-			return buffer.getColor();
-		}
-
-		public void drawPolygon(Polygon polygon) {
-			buffer.drawPolygon(polygon);
-		}
-
-		public void setFont(Font font) {
-			buffer.setFont(font);
-		}
-
-		public Font getFont() {
-			return buffer.getFont();
-		}
-
-		public void drawLine(int x1, int y1, int x2, int y2) {
-			buffer.drawLine(x1, y1, x2, y2);
-		}
-
-		public void fillRect(int x, int y, int width, int height) {
-			buffer.fillRect(x, y, width, height);
-		}
-
-		public int getX() {
-			return x;
-		}
-
-		public int getY() {
-			return y;
-		}
-
-		public void drawRect(int x, int y, int width, int height) {
-			buffer.drawRect(x, y, width, height);
-		}
-
-		public void drawString(String str, int x, int y) {
-			buffer.drawString(str, x, y);
-		}
-
-		public void fillOval(int x, int y, int width, int height) {
-			buffer.fillOval(x, y, width, height);
-		}
-
-		public void drawOval(int x, int y, int width, int height) {
-			buffer.drawOval(x, y, width, height);
-		}
-
-		public void clearRect(int x, int y, int width, int height) {
-			buffer.clearRect(x, y, width, height);
-		}
-
-		public void extendsWidth(int width) {
-			if (widthImage < width)
-				widthImage = width;
-		}
-
-		public void extendsHeight(int height) {
-			if (heightImage < height)
-				heightImage = height;
-
-		}
-
-		public void hasBeenDrawn() {
-			this.neededRepaint = false;
-		}
-
-		public void hasBeenChanged() {
-			this.neededRepaint = true;
-		}
 	}
 
-	@Override
-	protected void nextStationDone() {
-		putStationUp = true;
-		buffer.hasBeenChanged();
+	/**
+	 * Classe équivalent à un structure en C/C++, on permet de stocker de façon regroupé plusieurs variable relative au
+	 * dessin d'un futur oval
+	 * 
+	 * @author iGo
+	 * 
+	 */
+	protected class OvalToDraw {
+		public GraphicsViewPort g;
+		public int height;
+		public int width;
+		public int x;
+		public int y;
+
+		public OvalToDraw(GraphicsViewPort g, int x, int y, int width, int height) {
+			super();
+			this.g = g;
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+		}
 	}
 
 	protected class SlowMove extends Thread {
+
+		int deroulement;
 
 		public SlowMove(int deroulement) {
 			super();
@@ -1144,8 +1158,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
 				this.start();
 		}
-
-		int deroulement;
 
 		@Override
 		public void run() {
@@ -1186,7 +1198,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	protected class SlowScroll extends Thread {
 
+		int dx;
+
+		int dy;
+
 		protected SlowScroll other = null;
+		byte step = 2;
 
 		public SlowScroll(int dx, int dy) {
 			super();
@@ -1202,11 +1219,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
 				this.start();
 		}
-
-		int dx;
-		int dy;
-
-		byte step = 2;
 
 		public void killMe() {
 			dx = 0;
@@ -1260,10 +1272,5 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				}
 			}
 		}
-	}
-
-	@Override
-	protected void startStationDone() {
-		new SlowMove(-buffer.getY());
 	}
 }
