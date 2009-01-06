@@ -36,10 +36,6 @@ public class PTCheckBox extends PTComponent {
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, lastFont.getSize(), lastFont.getSize());
 		if (clicked) {
-			// g.drawImage(ImageLoader.getRessourcesImageIcone("button_ok", (int)(font.getSize() * 1.2),
-			// (int)(font.getSize() * 1.2))
-			// .getImage(), area.x - (int)(font.getSize() * 0.1), area.y - (int)(font.getSize() * 0.1), null);
-
 			g.setColor(colorRound);
 			g.fillRect(area.x + (lastFont.getSize() >> 2), area.y + (lastFont.getSize() >> 2), lastFont.getSize() - 2
 					* (lastFont.getSize() >> 2) + 1, lastFont.getSize() - 2 * (lastFont.getSize() >> 2) + 1);

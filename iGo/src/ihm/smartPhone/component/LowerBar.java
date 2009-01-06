@@ -67,7 +67,7 @@ public class LowerBar extends AbstractBar {
 		leftCenteredCmdArea = new Rectangle();
 		rigthCmdArea = new Rectangle();
 		if (demo) {
-			setCenterIcone("button_save", null);
+			setCenterIcone("home", null);
 			setMainTitle("mainTitle");
 			setLeftTitle("leftTitle");
 			setLeftValue("leftValue");
