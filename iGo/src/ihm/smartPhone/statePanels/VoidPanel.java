@@ -70,7 +70,7 @@ public class VoidPanel extends PanelState {
 				yToDraw += h;
 				// }
 			}
-			yToDraw += h;
+			yToDraw += (h>>2);
 		}
 
 	}

@@ -45,24 +45,43 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 		travelDone = new LinkedList<SectionOfTravel>();
 
 		LinkedList<Service> serviceToFind = new LinkedList<Service>();
-		Iterator<Service> itS = path.getCurrentPathInGraph().getServicesOnceIter();
-		while (itS.hasNext())
-			serviceToFind.add(itS.next());
-
-		itS = origin.getServices();
-		while (itS.hasNext())
-			serviceToFind.remove(itS.next());
-
+		Iterator<Service> itS;
 		Iterator<Junction> itJ = path.getCurrentPathInGraph().getJunctions();
 		Junction junction = itJ.next();
 		Junction nextJunction = null;
-		Station station = origin;
+		Station station;
 		totalCost = path.getCurrentPathInGraph().getCost();
 		totalTime = path.getCurrentPathInGraph().getTime();
 		entryCost = path.getCurrentPathInGraph().getEntryCost();
-		Route route = junction.getOtherRoute(junction.getOtherRoute(station));
+		Route route = junction.getOtherRoute(junction.getOtherRoute(origin));
 		SectionOfTravelImplPathInGraph section = new SectionOfTravelImplPathInGraph(route, origin);
 
+		// pré traitement, on retire les services l'on trouvera dans les changement
+		itS = path.getCurrentPathInGraph().getServicesOnceIter();
+		while (itS.hasNext())
+			serviceToFind.add(itS.next());
+		// retrait des services ou départ
+		itS = origin.getServices();
+		while (itS.hasNext())
+			serviceToFind.remove(itS.next());
+		// retrait des service à l'arrivé
+		itS = destination.getServices();
+		while (itS.hasNext())
+			serviceToFind.remove(itS.next());
+		// retrait des services sur les changement
+		station = origin;
+		itJ = path.getCurrentPathInGraph().getJunctions();
+		while (itJ.hasNext() && !serviceToFind.isEmpty()) {
+			station = (junction = itJ.next()).getOtherStation(station);
+			if (!junction.isRouteLink()) {
+				itS = station.getServices();
+				while (itS.hasNext())
+					serviceToFind.remove(itS.next());
+			}
+		}
+
+		// création du parcourt
+		station = origin;
 		itJ = path.getCurrentPathInGraph().getJunctions();
 		while (itJ.hasNext()) {
 			if (nextJunction != null) {
@@ -73,6 +92,7 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 			}
 			section.addJunction(junction);
 			station = junction.getOtherStation(station);
+			//coupure si on trouve un service qui n'est pas sur les changements
 			if (serviceToFind.size() > 0 && itJ.hasNext()) {
 				nextJunction = itJ.next();
 				itS = station.getServices();
@@ -83,10 +103,12 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 							section.enddingChangementCost = 0;
 						}
 			}
+			//coupure si on est sur une étape
 			if (path.getCurrentPathInGraph().containsSteps(station)) {
 				section.enddingChangementTime = 0;
 				section.enddingChangementCost = 0;
 			}
+			//coupure si on change de ligne
 			if (section.getEnddingChangementTime() != -1) {
 				travel.add(section);
 				route = junction.getOtherRoute(route);

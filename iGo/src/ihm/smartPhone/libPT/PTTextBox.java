@@ -241,6 +241,7 @@ public class PTTextBox extends PTComponent {
 			int x = area.x + (lastFont.getSize() >> 1) + PanelTooled.getWidthString(currentStringLeft, g);
 			g.setColor(colorLetter);
 			g.drawLine(x, area.y + 1, x, area.y + area.height - 2);
+			g.drawRect(area.x - 1, area.y - 1, area.width + 2, area.height + 2);
 		}
 		System.out.println(currentStringLeft + "[" + currentStringSelected + "]" + currentStringRight);
 	}
