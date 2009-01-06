@@ -91,7 +91,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-			}
+			} 
 
 			@Override
 			public void mousePressed(MouseEvent e) {
