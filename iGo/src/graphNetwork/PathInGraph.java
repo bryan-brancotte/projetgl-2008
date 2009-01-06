@@ -620,109 +620,8 @@ public class PathInGraph {
 	 * @return true si l'import s'est bien passé
 	 */
 	protected boolean importPath(String pathInString) {
-		if (pathInString == null || pathInString.compareTo("") == 0)
-			return false;
-		Document doc;
-		int i;
-		NodeList nodesPathInGraph = null;
-		NodeList nodesOption = null;
-		Node node = null;
-		String s;
-		Station station;
-		Service service;
-
 		try {
-			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
-					new ByteArrayInputStream(pathInString.getBytes()));
-
-			i = 0;
-			while ((nodesPathInGraph == null) && (i < doc.getFirstChild().getChildNodes().getLength())) {
-				if (doc.getChildNodes().item(i).getNodeName().compareTo("PathInGraph") == 0) {
-					nodesPathInGraph = doc.getChildNodes().item(i).getChildNodes();
-				}
-				i++;
-			}
-			if (nodesPathInGraph != null)
-				for (i = 0; i < nodesPathInGraph.getLength(); i++) {
-					if ((node = nodesPathInGraph.item(i)).getNodeName().compareTo("#text") != 0) {
-						if (!node.getNodeName().startsWith("#")) {
-							if (node.getNodeName().compareTo("Origin") == 0) {
-								origin = univers.getStation(Integer.parseInt(node.getAttributes().getNamedItem("id")
-										.getNodeValue()));
-
-							} else if (node.getNodeName().compareTo("Destination") == 0) {
-								destination = univers.getStation(Integer.parseInt(node.getAttributes().getNamedItem(
-										"id").getNodeValue()));
-
-							} else if (node.getNodeName().compareTo("Cost") == 0) {
-								cost = Float.parseFloat(node.getAttributes().getNamedItem("value").getNodeValue());
-							} else if (node.getNodeName().compareTo("Time") == 0) {
-								time = Integer.parseInt(node.getAttributes().getNamedItem("value").getNodeValue());
-
-							} else if (node.getNodeName().compareTo("MainCriterious") == 0) {
-								if ((s = node.getAttributes().getNamedItem("value").getNodeValue())
-										.compareTo(CriteriousForLowerPath.CHANGE.toString()) == 0)
-									mainCriterious = CriteriousForLowerPath.CHANGE;
-								else if (s.compareTo(CriteriousForLowerPath.COST.toString()) == 0)
-									mainCriterious = CriteriousForLowerPath.COST;
-								else if (s.compareTo(CriteriousForLowerPath.TIME.toString()) == 0)
-									mainCriterious = CriteriousForLowerPath.TIME;
-
-							} else if (node.getNodeName().compareTo("MinorCriterious") == 0) {
-								if ((s = node.getAttributes().getNamedItem("value").getNodeValue())
-										.compareTo(CriteriousForLowerPath.CHANGE.toString()) == 0)
-									minorCriterious = CriteriousForLowerPath.CHANGE;
-								else if (s.compareTo(CriteriousForLowerPath.COST.toString()) == 0)
-									minorCriterious = CriteriousForLowerPath.COST;
-								else if (s.compareTo(CriteriousForLowerPath.TIME.toString()) == 0)
-									minorCriterious = CriteriousForLowerPath.TIME;
-
-							} else if (node.getNodeName().compareTo("SevicesAlways") == 0) {
-								nodesOption = node.getChildNodes();
-								for (int j = 0; j < nodesOption.getLength(); j++)
-									if (nodesOption.item(j).getNodeName().compareTo("Service") == 0) {
-										service = univers.getService(Integer.parseInt(nodesOption.item(j)
-												.getAttributes().getNamedItem("id").getNodeValue()));
-										if (service != null)
-											servicesAlways.add(service);
-									}
-
-							} else if (node.getNodeName().compareTo("SevicesOnce") == 0) {
-								nodesOption = node.getChildNodes();
-								for (int j = 0; j < nodesOption.getLength(); j++)
-									if (nodesOption.item(j).getNodeName().compareTo("Service") == 0) {
-										service = univers.getService(Integer.parseInt(nodesOption.item(j)
-												.getAttributes().getNamedItem("id").getNodeValue()));
-										if (service != null)
-											this.servicesOnce.add(service);
-									}
-
-							} else if (node.getNodeName().compareTo("Steps") == 0) {
-								nodesOption = node.getChildNodes();
-								for (int j = 0; j < nodesOption.getLength(); j++)
-									if (nodesOption.item(j).getNodeName().compareTo("Station") == 0) {
-										station = univers.getStation(Integer.parseInt(nodesOption.item(j)
-												.getAttributes().getNamedItem("id").getNodeValue()));
-										if (station != null)
-											steps.add(station);
-									}
-
-							} else if (node.getNodeName().compareTo("AvoidStations") == 0) {
-								nodesOption = node.getChildNodes();
-								for (int j = 0; j < nodesOption.getLength(); j++)
-									if (nodesOption.item(j).getNodeName().compareTo("Station") == 0) {
-										station = univers.getStation(Integer.parseInt(nodesOption.item(j)
-												.getAttributes().getNamedItem("id").getNodeValue()));
-										if (station != null)
-											avoidStations.add(station);
-									}
-							}
-						}
-						// langues.put(nodesPathInGraph.item(i).getAttributes().getNamedItem("value").getNodeValue(),
-						// nodesPathInGraph.item(i).getAttributes().getNamedItem("balise").getNodeValue());
-					}
-				}
-
+			return importPathWithoutCatch(pathInString);
 		} catch (SAXException e) {
 			e.printStackTrace();
 			this.reset();
@@ -736,6 +635,120 @@ public class PathInGraph {
 			this.reset();
 			return false;
 		}
+	}
+
+	/**
+	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
+	 * 
+	 * @param pathInString
+	 * @return true si l'import s'est bien passé
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	protected boolean importPathWithoutCatch(String pathInString) throws SAXException, IOException,
+			ParserConfigurationException {
+		if (pathInString == null || pathInString.compareTo("") == 0)
+			return false;
+		Document doc;
+		int i;
+		NodeList nodesPathInGraph = null;
+		NodeList nodesOption = null;
+		Node node = null;
+		String s;
+		Station station;
+		Service service;
+
+		doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+				new ByteArrayInputStream(pathInString.getBytes()));
+
+		i = 0;
+		while ((nodesPathInGraph == null) && (i < doc.getFirstChild().getChildNodes().getLength())) {
+			if (doc.getChildNodes().item(i).getNodeName().compareTo("PathInGraph") == 0) {
+				nodesPathInGraph = doc.getChildNodes().item(i).getChildNodes();
+			}
+			i++;
+		}
+		if (nodesPathInGraph != null)
+			for (i = 0; i < nodesPathInGraph.getLength(); i++) {
+				if ((node = nodesPathInGraph.item(i)).getNodeName().compareTo("#text") != 0) {
+					if (!node.getNodeName().startsWith("#")) {
+						if (node.getNodeName().compareTo("Origin") == 0) {
+							origin = univers.getStation(Integer.parseInt(node.getAttributes().getNamedItem("id")
+									.getNodeValue()));
+
+						} else if (node.getNodeName().compareTo("Destination") == 0) {
+							destination = univers.getStation(Integer.parseInt(node.getAttributes().getNamedItem("id")
+									.getNodeValue()));
+
+						} else if (node.getNodeName().compareTo("Cost") == 0) {
+							cost = Float.parseFloat(node.getAttributes().getNamedItem("value").getNodeValue());
+						} else if (node.getNodeName().compareTo("Time") == 0) {
+							time = Integer.parseInt(node.getAttributes().getNamedItem("value").getNodeValue());
+
+						} else if (node.getNodeName().compareTo("MainCriterious") == 0) {
+							if ((s = node.getAttributes().getNamedItem("value").getNodeValue())
+									.compareTo(CriteriousForLowerPath.CHANGE.toString()) == 0)
+								mainCriterious = CriteriousForLowerPath.CHANGE;
+							else if (s.compareTo(CriteriousForLowerPath.COST.toString()) == 0)
+								mainCriterious = CriteriousForLowerPath.COST;
+							else if (s.compareTo(CriteriousForLowerPath.TIME.toString()) == 0)
+								mainCriterious = CriteriousForLowerPath.TIME;
+
+						} else if (node.getNodeName().compareTo("MinorCriterious") == 0) {
+							if ((s = node.getAttributes().getNamedItem("value").getNodeValue())
+									.compareTo(CriteriousForLowerPath.CHANGE.toString()) == 0)
+								minorCriterious = CriteriousForLowerPath.CHANGE;
+							else if (s.compareTo(CriteriousForLowerPath.COST.toString()) == 0)
+								minorCriterious = CriteriousForLowerPath.COST;
+							else if (s.compareTo(CriteriousForLowerPath.TIME.toString()) == 0)
+								minorCriterious = CriteriousForLowerPath.TIME;
+
+						} else if (node.getNodeName().compareTo("SevicesAlways") == 0) {
+							nodesOption = node.getChildNodes();
+							for (int j = 0; j < nodesOption.getLength(); j++)
+								if (nodesOption.item(j).getNodeName().compareTo("Service") == 0) {
+									service = univers.getService(Integer.parseInt(nodesOption.item(j).getAttributes()
+											.getNamedItem("id").getNodeValue()));
+									if (service != null)
+										servicesAlways.add(service);
+								}
+
+						} else if (node.getNodeName().compareTo("SevicesOnce") == 0) {
+							nodesOption = node.getChildNodes();
+							for (int j = 0; j < nodesOption.getLength(); j++)
+								if (nodesOption.item(j).getNodeName().compareTo("Service") == 0) {
+									service = univers.getService(Integer.parseInt(nodesOption.item(j).getAttributes()
+											.getNamedItem("id").getNodeValue()));
+									if (service != null)
+										this.servicesOnce.add(service);
+								}
+
+						} else if (node.getNodeName().compareTo("Steps") == 0) {
+							nodesOption = node.getChildNodes();
+							for (int j = 0; j < nodesOption.getLength(); j++)
+								if (nodesOption.item(j).getNodeName().compareTo("Station") == 0) {
+									station = univers.getStation(Integer.parseInt(nodesOption.item(j).getAttributes()
+											.getNamedItem("id").getNodeValue()));
+									if (station != null)
+										steps.add(station);
+								}
+
+						} else if (node.getNodeName().compareTo("AvoidStations") == 0) {
+							nodesOption = node.getChildNodes();
+							for (int j = 0; j < nodesOption.getLength(); j++)
+								if (nodesOption.item(j).getNodeName().compareTo("Station") == 0) {
+									station = univers.getStation(Integer.parseInt(nodesOption.item(j).getAttributes()
+											.getNamedItem("id").getNodeValue()));
+									if (station != null)
+										avoidStations.add(station);
+								}
+						}
+					}
+					// langues.put(nodesPathInGraph.item(i).getAttributes().getNamedItem("value").getNodeValue(),
+					// nodesPathInGraph.item(i).getAttributes().getNamedItem("balise").getNodeValue());
+				}
+			}
 		return true;
 	}
 
