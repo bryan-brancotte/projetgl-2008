@@ -441,8 +441,6 @@ public class AlgoTest {
 			gnb.linkStationBidirectional(m4, g.getStation(16), m11, g.getStation(16), 0, 1, false);
 			gnb.linkStationBidirectional(m7, g.getStation(16), m11, g.getStation(16), 0, 1, false);
 
-			// TODO A FINIR J'AI MAL AUX YEUX ^^
-
 			gnb.addStationToRoute(m12, gnb.addStation(301, "Porte de la Chapelle"), 1);
 			gnb.addStationToRoute(m12, gnb.addStation(302, "Marx Dormoy"), 1);
 			gnb.addStationToRoute(m12, g.getStation(79), 1);
