@@ -29,12 +29,6 @@ public class Tools {
 			junctions.add(n.getFrom().getJunction());
 			n = n.getFrom().getNode();
 		}
-		
-		// TODO Suppressions vraiment utiles ?
-		/*while (junctions.size()>1 && !junctions.get(0).isRouteLink())
-			junctions.remove(0);
-		while (junctions.size()>1 && !junctions.get(0).isRouteLink())
-			junctions.remove(0);*/
 		Collections.reverse(junctions);
 		
 		return junctions;
