@@ -25,7 +25,7 @@ import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 
 public class AvailableNetworkInFolderTest {
 
-	AvailableNetworkInFolder aNetwork;
+	protected AvailableNetworkInFolder aNetwork;
 	@After
 	public void epilogueDateTest() {
 	}
