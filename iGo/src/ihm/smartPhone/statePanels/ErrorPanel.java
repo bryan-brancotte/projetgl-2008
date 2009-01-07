@@ -53,7 +53,8 @@ public class ErrorPanel extends PanelState {
 
 	@Override
 	public void paint(Graphics g) {
-		graphicsTunning(buffer);
+		graphicsTunning(g);
+		g.setFont(father.getSizeAdapteur().getIntermediateFont());
 		Image img = ImageLoader.getRessourcesImageIcone("button_cancel", getWidth() >> 3, getWidth() >> 3).getImage();
 		g.drawImage(img, this.getWidth() - img.getWidth(null) >> 1, (this.getHeight() >> 1) - img.getHeight(null) >> 1,
 				null);

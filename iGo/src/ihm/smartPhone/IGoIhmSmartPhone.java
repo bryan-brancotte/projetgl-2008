@@ -61,8 +61,6 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javax.swing.JOptionPane;
-
 public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelState {
 
 	private static final long serialVersionUID = 1L;
@@ -80,15 +78,14 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected TravelForDisplayPanel travel;
 	protected VoidPanel computingPanel;
 	protected final Lock verrou = new ReentrantLock();
-	// protected PathInGraphConstraintBuilder pathBuilderInAction;
 
 	/**
 	 * Les 3 zones de l'IHM
 	 */
 	protected UpperBar upperBar;
-	protected int oldSizeLine = -1;
 	protected Panel centerPanel;
 	protected LowerBar lowerBar;
+	protected int oldSizeLine = -1;
 	/**
 	 * etat préféré pour la prévisualisation et l'expérimentation d'un trajet : IhmReceivingStates.GRAPHIC_MODE ou
 	 * IhmReceivingStates.ARRAY_MODE
@@ -101,7 +98,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	protected TravelDisplayPanel travelGraphicPanel = null;
 	protected TravelDisplayPanel travelArrayPanel = null;
 	protected ErrorPanel errorPanel = null;
-	protected boolean quitMessage = false;
+
+	// protected boolean quitMessage = false;
 
 	/**
 	 * Constructeur de l'interface. Le master est requit car il sert imédiatement.
@@ -122,6 +120,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.master = master;
 		this.skin = iGoSmartPhoneSkin.White;
 		setIconImage(ImageLoader.getRessourcesImageIcone("logo", 32, 32, true).getImage());
+		// récupération des preférence système pour la skin
 		if (skin == null) {
 			Iterator<iGoSmartPhoneSkin> itS = this.getSkins();
 			String s = this.master.getConfig(SettingsKey.SKIN.toString());
@@ -135,7 +134,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				this.master.setConfig(SettingsKey.SKIN.toString(), this.skin.toString());
 			}
 		}
+		// on définit le background par le couleur des lignes, en effet les lignes sont en faite des espace laissé sans
+		// objet
 		this.setBackground(this.skin.getColorLine());
+		// on vérifie que la config est cohérente : si le main ou minor criteria ne sont pas définit, on les définit
+		// nous même. S'ils sont les mêmes on définit le second différament du premier
 		if (this.master.getConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString()).compareTo("") == 0)
 			this.master.setConfig(SettingsKey.MAIN_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
 					.toString());
@@ -148,6 +151,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				this.master.setConfig(SettingsKey.MINOR_TRAVEL_CRITERIA.toString(), Algo.CriteriousForLowerPath.COST
 						.toString());
 
+		// lecture de la qualité graphique
 		int i = 0;
 		try {
 			i = Integer.parseInt(this.master.getConfig(SettingsKey.GRAPHICAL_QUALITY.toString()));
@@ -320,10 +324,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.setVisible(true);
 	}
 
+	@Override
 	public void start(boolean bySplashScreen) {
 		start(bySplashScreen, -1);
 	}
 
+	@Override
 	public String lg(String key) {
 		return master.lg(key);
 	}
@@ -371,6 +377,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			splashScreenPanel.setStepInSplashScreen(step);
 	}
 
+	/**
+	 * Vérifie le SplashScreenPanel, et si ce dernier est null, on le crée.
+	 * 
+	 * @return true si on a bien pu créé le SplashScreenPanel
+	 */
 	protected boolean checkSplashScreenPanel() {
 		if (splashScreenPanel != null)
 			return true;
@@ -381,11 +392,18 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		return false;
 	}
 
+	/**
+	 * Vérifie si le panel de l'écran principal est bien créé, et si ce dernier est null, on le crée.
+	 */
 	protected void checkMainPanel() {
 		if (mainPanel == null)
 			mainPanel = new MainPanel(this, upperBar, lowerBar);
 	}
 
+	/**
+	 * Vérifie si le panel de l'écran de chargement des trajets récents est bien créé, et si ce dernier est null, on le
+	 * crée.
+	 */
 	protected LoadTravelPanel checkLoadTravelPanel() {
 		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 		Iterator<PathInGraphCollectionBuilder> itP = master.getRecentsPaths();
@@ -421,9 +439,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			});
 		}
 		return new LoadTravelPanel(this, upperBar, lowerBar, IhmReceivingStates.LOAD_TRAVEL, lst);
-
 	}
 
+	/**
+	 * Vérifie si le panel de l'écran de chargement des trajets favoris est bien créé, et si ce dernier est null, on le
+	 * crée.
+	 */
 	protected LoadTravelPanel checkFavoritesPanel() {
 		LinkedList<TravelForTravelPanel> lst = new LinkedList<TravelForTravelPanel>();
 		Iterator<PathInGraphCollectionBuilder> itP = master.getFavoritesPaths();
@@ -461,26 +482,42 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	}
 
+	/**
+	 * Vérifie si le panel de l'écran des paramètres est bien créé, et si ce dernier est null, on le crée.
+	 */
 	protected void checkSettingsPanel() {
 		if (settingsPanel == null)
 			settingsPanel = new SettingsPanel(this, upperBar, lowerBar);
 	}
 
+	/**
+	 * Vérifie si le panel de visualisation graphique d'un trajet est bien créé, et si ce dernier est null, on le crée.
+	 */
 	protected void checkTravelGraphicDisplayPanel() {
 		if (travelGraphicPanel == null)
 			travelGraphicPanel = new TravelGraphicDisplayPanel(this, upperBar, lowerBar, travel);
 	}
 
+	/**
+	 * Vérifie si le panel de visualisation sous forme de tableau d'un trajet est bien créé, et si ce dernier est null,
+	 * on le crée.
+	 */
 	protected void checkTravelArrayDisplayPanel() {
 		if (travelArrayPanel == null)
 			travelArrayPanel = new TravelArrayDisplayPanel(this, upperBar, lowerBar, travel);
 	}
 
+	/**
+	 * Vérifie si le panel de préparation d'un nouveau trajet est bien créé, et si ce dernier est null, on le crée.
+	 */
 	protected void checkNewTravelPanel() {
 		if (newTravelPanel == null)
 			newTravelPanel = new NewTravelPanel(this, upperBar, lowerBar);
 	}
 
+	/**
+	 * Vérifie si le panel d'affichage d'erreur est bien créé, et si ce dernier est null, on le crée.
+	 */
 	protected void checkErrorPanel() {
 		if (errorPanel == null)
 			errorPanel = new ErrorPanel(this, upperBar, lowerBar);
@@ -491,9 +528,12 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		this.endInterface();
 	}
 
+	/**
+	 * Fonction de fermeture de l'ihm,
+	 * 
+	 * @return
+	 */
 	protected boolean endInterface() {
-		if (quitMessage && (JOptionPane.showConfirmDialog(this, master.lg("DoYouWantToQuit")) == JOptionPane.NO_OPTION))
-			return false;
 		this.setVisible(false);
 		this.dispose();
 		this.master.stop();
@@ -538,6 +578,17 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		}
 	};
 
+	/**
+	 * Définit l'état courant de l'ihm de façon non multi-thread safe.
+	 * 
+	 * @param actualState
+	 *            le nouvel état
+	 * @param pathBuilder
+	 *            un builder relatif à ce nouvelle état
+	 * @param path
+	 *            un path relatif à ce nouvelle état
+	 * @return true si cela à bien marché
+	 */
 	public boolean setCurrentStateUnSynchronized(IhmReceivingStates actualState,
 			PathInGraphConstraintBuilder pathBuilder, PathInGraph path) {
 		computingPanel = null;
@@ -610,13 +661,15 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					break;
 				case LOST_IN_TRAVEL:
 					pathBuilder = master.getPathInGraphConstraintBuilder();
-					pathBuilder.importPath(path.exportPath());
+					pathBuilder.importPath(path);
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
 				case EDIT_TRAVEL:
+					// Si on demande l'édition d'un trajet en lecture seul, on le recopie dans un nouveau builder, et on
+					// l'édit
 					if (pathBuilder == null) {
 						pathBuilder = master.getPathInGraphConstraintBuilder();
-						pathBuilder.importPath(path.exportPath());
+						pathBuilder.importPath(path);
 					}
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.EDIT_TRAVEL);
 					break;
@@ -774,6 +827,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		return false;
 	}
 
+	/**
+	 * Procédure d'ajout d'un panel (=un état) au panel centrale qui est le receptacle des panel-états
+	 * 
+	 * @param statePanel
+	 */
 	protected void addToCenterPanel(PanelState statePanel) {
 		centerPanel.removeAll();
 		centerPanel.add(statePanel);
