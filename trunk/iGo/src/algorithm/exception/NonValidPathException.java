@@ -3,7 +3,7 @@ package algorithm.exception;
 /**
  * Exception générique pour toutes les exceptions propres à des interruptions de résolution du chemin
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class NonValidPathException extends Exception {

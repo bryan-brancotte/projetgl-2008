@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * L'origine ne possede pas le service s qui est un critere obligatoire à tous les changements dans la recherche.
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class NonValidOriginException extends NonValidServicesException {

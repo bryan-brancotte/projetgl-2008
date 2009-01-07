@@ -6,7 +6,7 @@ import graphNetwork.Station;
 /**
  * Le couple (station,route) n'existe pas dans le graph de l'algo.
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class NodeNotFoundException extends Exception {

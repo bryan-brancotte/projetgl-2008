@@ -6,7 +6,7 @@ import graphNetwork.Station;
  * Exception signifiant que la station s ne fait pas partie des stations atteignables du graph.
  * Ceci en partant du point origine défini dans le pathInGraph.
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class StationNotAccessibleException extends Exception {
