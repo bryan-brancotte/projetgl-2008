@@ -21,7 +21,6 @@ import algorithm.GraphAlgo.Node;
 import algorithm.exception.NodeNotFoundException;
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
-import algorithm.exception.NonValidPathException;
 
 public class Dijkstra extends Algo {
 
