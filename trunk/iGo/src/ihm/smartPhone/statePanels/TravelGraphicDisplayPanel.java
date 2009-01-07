@@ -91,7 +91,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
-//		affichageDroite = (father.getConfig(IhmReceivingStates.GRAPHIC_MODE.toString()).compareTo("true") == 0);
+		// affichageDroite = (father.getConfig(IhmReceivingStates.GRAPHIC_MODE.toString()).compareTo("true") == 0);
 		// colorList = new LinkedList<Color>();
 		// colorList.add(new Color(242, 130, 38));// Orange
 		// colorList.add(new Color(73, 12, 139));// pourpre foncé
@@ -243,21 +243,21 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
-//		if (!affichageDroite) {
-//			affichageDroite = true;
-//			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
-//			father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
-//			buffer.move(1, 0);
-//			buffer.move(-1, 0);
-//			repaint();
-//		} else {
-//			affichageDroite = false;
-			buffer.move(1, 0);
-			buffer.move(-1, 0);
-			father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
-//			father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "false");
-			father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
-//		}
+		// if (!affichageDroite) {
+		// affichageDroite = true;
+		// father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "true");
+		// father.setCurrentState(IhmReceivingStates.GRAPHIC_MODE.mergeState(currentState));
+		// buffer.move(1, 0);
+		// buffer.move(-1, 0);
+		// repaint();
+		// } else {
+		// affichageDroite = false;
+		buffer.move(1, 0);
+		buffer.move(-1, 0);
+		father.setConfig("GRAPHIC_OR_ARRAY_MODE", IhmReceivingStates.ARRAY_MODE.toString());
+		// father.setConfig(IhmReceivingStates.GRAPHIC_MODE.toString(), "false");
+		father.setCurrentState(IhmReceivingStates.ARRAY_MODE.mergeState(currentState));
+		// }
 	}
 
 	public void buildImage() {
@@ -452,7 +452,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				}
 				if (!firstPasseDone && !iterTravel.hasNext() && putStationUp) {
 					putStationUp = false;
-					new SlowMove(sizeLarge - polygon.ypoints[idToModify + 1]);
+					if (buffer.getHeigthImage() - buffer.getHeigthViewPort() > 0)
+						new SlowMove(sizeLarge - polygon.ypoints[idToModify + 1]);
 				}
 
 				// buffer.drawLine(0, , 1000, polygon.ypoints[idToModify + 1]-sizeLarge);
@@ -525,7 +526,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		} while (true);
 		if (putStationUp) {
 			putStationUp = false;
-			new SlowMove(-buffer.getY());
+			if (buffer.getHeigthImage() - buffer.getHeigthViewPort() > 0)
+				new SlowMove(-buffer.getY());
 		}
 		if (affichageDroite && orientation % 2 == 0) {
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
@@ -823,7 +825,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	}
 
 	@Override
-	public void giveControle() { 
+	public void giveControle() {
 		putStationUp = true;
 		super.giveControle();
 	}
@@ -858,7 +860,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void startStationDone() {
-		new SlowMove(-buffer.getY());
+		if (buffer.getHeigthImage() - buffer.getHeigthViewPort() > 0)
+			new SlowMove(-buffer.getY());
 	}
 
 	/**
