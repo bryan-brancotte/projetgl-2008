@@ -264,7 +264,7 @@ public class LoadTravelPanel extends PanelState {
 		Iterator<ServiceForTravelPanel> itServiceAlways;
 		ServiceForTravelPanel serviceForTravelPanel;
 		i = PanelDoubleBufferingSoftwear.getHeightString("H", buffer);
-		
+
 		if ((itServiceAlways = travelPanelPT.pathBuilder.getServiceAlways()).hasNext()
 				|| (itServiceOnce = travelPanelPT.pathBuilder.getServiceOnce()).hasNext()) {
 			y += imageFav.getIconHeight() - i >> 1;

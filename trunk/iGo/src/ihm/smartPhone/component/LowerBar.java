@@ -30,6 +30,7 @@ public class LowerBar extends AbstractBar {
 	protected FontSizeKind leftTitleSize;
 	protected String leftValue;
 	protected FontSizeKind leftValueSize;
+	protected boolean leftValueCentered;
 	protected String rigthTitle;
 	protected FontSizeKind rigthTitleSize;
 	protected String rigthValue;
@@ -135,7 +136,7 @@ public class LowerBar extends AbstractBar {
 			gradientPaint = new GradientPaint(0, getHeight(), ihm.getSkin().getColorOutside(), 0, 0, ihm.getSkin()
 					.getColorInside());
 
-		//dessin du dégradé
+		// dessin du dégradé
 		((Graphics2D) buffer).setPaint(gradientPaint);
 		buffer.fillRect(0, 0, getWidth(), getHeight());
 
@@ -187,10 +188,31 @@ public class LowerBar extends AbstractBar {
 		if ((leftTitleSize == fontSizeKind) && (leftTitle != ""))
 			g.drawString(leftTitle, 0, getHeightString(leftTitle, g, font));
 
-		if ((leftValueSize == fontSizeKind) && (leftValue != ""))
-			g.drawString(leftValue, (this.getWidth() >> 2) - (getWidthString(leftValue, g, font) >> 1), this
-					.getHeight()
-					+ getHeightString(leftValue, g, font) >> 1);
+		if ((leftValueSize == fontSizeKind) && (leftValue != "")) {
+			if (icone != "" && (ws = (getWidth() >> 1) - getHeight()) - getWidthString(leftValue, g, font) < 0) {
+				hs = getHeightString("e", g, font);
+				int heigthTmp;
+				String[] cut = decoupeChaine(leftValue, g, ws);
+				heigthTmp = getHeightString(leftValue, g);
+				int heigth = this.getHeight() - heigthTmp * cut.length - (heigthTmp * (cut.length - 1) >> 2) >> 1;
+				for (String tmp : cut) {
+					if (leftValueCentered)
+						g.drawString(tmp, (this.getWidth() >> 2) - (getWidthString(tmp, g, font) >> 1),
+								heigth += heigthTmp);
+					else
+						g.drawString(tmp, 1, heigth += heigthTmp);
+					// g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
+					heigth += (heigthTmp >> 2);
+				}
+			} else {
+				if (leftValueCentered)
+					g.drawString(leftValue, (this.getWidth() >> 2) - (getWidthString(leftValue, g, font) >> 1), this
+							.getHeight()
+							+ getHeightString(leftValue, g, font) >> 1);
+				else
+					g.drawString(leftValue, 1, this.getHeight() + getHeightString(leftValue, g, font) >> 1);
+			}
+		}
 
 		if ((rigthTitleSize == fontSizeKind) && (rigthTitle != ""))
 			g.drawString(rigthTitle, this.getWidth() - getWidthString(rigthTitle, g, font), getHeightString(rigthTitle,
@@ -254,13 +276,9 @@ public class LowerBar extends AbstractBar {
 			ys[0] = leftCmdArea.y + (leftCmdArea.height >> 1) + 1;
 			ys[1] = ys[0] - roundRect;
 			ys[2] = ys[0] + roundRect;
-			System.out.println(leftCmdArea.y);
-			System.out.println(ys[0]);
-			System.out.println(leftCmdArea.y + leftCmdArea.height);
 			g.fillPolygon(xs, ys, 3);
 			g.drawString(leftCmd, leftCmdArea.x + (roundRect << 2), leftCmdArea.y + (leftCmdArea.height + hs >> 1));
 		}
-
 
 		if ((rigthCmdSize == fontSizeKind) && (rigthCmd != "")) {
 			g.setColor(ihm.getSkin().getColorInside());
@@ -268,25 +286,23 @@ public class LowerBar extends AbstractBar {
 			hs23 = hs + (hs >> 1) + (hs >> 2);
 			ws = getWidthString(rigthCmd, g, font);
 			ws11 = ws + (roundRect << 2) + roundRect;
-			rigthCmdArea.setBounds(this.getWidth() - roundRect-ws11, (this.getHeight() - hs23 >> 1), ws11, hs23);
+			rigthCmdArea.setBounds(this.getWidth() - roundRect - ws11, (this.getHeight() - hs23 >> 1), ws11, hs23);
 			g.fillRoundRect(rigthCmdArea.x + 1, rigthCmdArea.y + 1, rigthCmdArea.width - 1, rigthCmdArea.height - 1,
 					roundRect, roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
-			g.drawRoundRect(rigthCmdArea.x, rigthCmdArea.y, rigthCmdArea.width, rigthCmdArea.height, roundRect, roundRect);
+			g.drawRoundRect(rigthCmdArea.x, rigthCmdArea.y, rigthCmdArea.width, rigthCmdArea.height, roundRect,
+					roundRect);
 			g.setColor(colorFont);
 			xs = new int[3];
-			xs[0] = rigthCmdArea.x +rigthCmdArea.width- roundRect;
+			xs[0] = rigthCmdArea.x + rigthCmdArea.width - roundRect;
 			xs[1] = xs[0] - (roundRect << 1);
 			xs[2] = xs[0] - (roundRect << 1);
 			ys = new int[3];
-			ys[0] = rigthCmdArea.y + (rigthCmdArea.height >> 1)+1;
+			ys[0] = rigthCmdArea.y + (rigthCmdArea.height >> 1) + 1;
 			ys[1] = ys[0] - roundRect;
 			ys[2] = ys[0] + roundRect;
-			System.out.println(rigthCmdArea.y);
-			System.out.println(ys[0]);
-			System.out.println(rigthCmdArea.y + rigthCmdArea.height);
 			g.fillPolygon(xs, ys, 3);
-			g.drawString(rigthCmd, rigthCmdArea.x +  roundRect  , rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
+			g.drawString(rigthCmd, rigthCmdArea.x + roundRect, rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
 		}
 
 	}
@@ -342,6 +358,16 @@ public class LowerBar extends AbstractBar {
 	}
 
 	/**
+	 * Définit la valeur de gauche avec la taille et l'alignement par défaut
+	 * 
+	 * @param leftValue
+	 *            la valeur
+	 */
+	public void setLeftValue(String leftValue) {
+		setLeftValue(leftValue, FontSizeKind.LARGE);
+	}
+
+	/**
 	 * Définit la valeur de gauche avec la taille spécifiée
 	 * 
 	 * @param leftValue
@@ -350,18 +376,23 @@ public class LowerBar extends AbstractBar {
 	 *            le type de taille
 	 */
 	public void setLeftValue(String leftValue, FontSizeKind fontSizeKind) {
-		this.leftValue = leftValue;
-		this.leftValueSize = fontSizeKind;
+		setLeftValue(leftValue, fontSizeKind, true);
 	}
 
 	/**
-	 * Définit la valeur de gauche avec la taille par défaut
+	 * Définit la valeur de gauche avec la taille spécifiée
 	 * 
 	 * @param leftValue
 	 *            la valeur
+	 * @param fontSizeKind
+	 *            le type de taille
+	 * @param centered
+	 *            centré ou au bord
 	 */
-	public void setLeftValue(String leftValue) {
-		setLeftValue(leftValue, FontSizeKind.LARGE);
+	public void setLeftValue(String leftValue, FontSizeKind fontSizeKind, boolean centered) {
+		this.leftValue = leftValue;
+		this.leftValueSize = fontSizeKind;
+		this.leftValueCentered = centered;
 	}
 
 	/**

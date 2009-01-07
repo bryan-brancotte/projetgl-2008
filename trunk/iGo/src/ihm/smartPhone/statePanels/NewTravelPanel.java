@@ -24,7 +24,7 @@ import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.libPT.PanelTooled;
 import ihm.smartPhone.statePanels.component.PairPTCheckBox;
 import ihm.smartPhone.statePanels.component.PairPTRadioBoxs;
-import ihm.smartPhone.statePanels.component.ServiceToolTipText;
+import ihm.smartPhone.statePanels.component.ServiceOrRouteToolTipText;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 import ihm.smartPhone.tools.CodeExecutor2P;
@@ -99,8 +99,8 @@ public class NewTravelPanel extends PanelState {
 	/**
 	 * Conteneurs pour les zone d'aide des services
 	 */
-	protected LinkedList<ServiceToolTipText> serviceDisplayed;
-	protected LinkedList<ServiceToolTipText> servicePooled;
+	protected LinkedList<ServiceOrRouteToolTipText> serviceOrRouteDisplayed;
+	protected LinkedList<ServiceOrRouteToolTipText> serviceOrRoutePooled;
 	/**
 	 * Variables pour les type de transport autorisé
 	 */
@@ -186,11 +186,11 @@ public class NewTravelPanel extends PanelState {
 		deroullement = 0;
 		departureStationChanged = true;
 		arrivalStationChanged = true;
-		serviceDisplayed = new LinkedList<ServiceToolTipText>();
-		servicePooled = new LinkedList<ServiceToolTipText>();
+		serviceOrRouteDisplayed = new LinkedList<ServiceOrRouteToolTipText>();
+		serviceOrRoutePooled = new LinkedList<ServiceOrRouteToolTipText>();
 		this.addMouseMotionListener(new MouseMotionListener() {
 
-			protected ServiceToolTipText overed = null;
+			protected ServiceOrRouteToolTipText overed = null;
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
@@ -198,7 +198,7 @@ public class NewTravelPanel extends PanelState {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				for (ServiceToolTipText s : serviceDisplayed)
+				for (ServiceOrRouteToolTipText s : serviceOrRouteDisplayed)
 					if (s.contains(e.getX(), e.getY())) {
 						if (overed != s) {
 							s.maybeOvered(e.getX(), e.getY());
@@ -239,7 +239,7 @@ public class NewTravelPanel extends PanelState {
 				if (!servicesCollapsableArea.isCollapsed())
 					return;
 				boolean changed = false;
-				for (ServiceToolTipText s : serviceDisplayed)
+				for (ServiceOrRouteToolTipText s : serviceOrRouteDisplayed)
 					changed = s.contains(e.getX(), e.getY()) || changed;
 				if (!changed)
 					return;
@@ -833,7 +833,7 @@ public class NewTravelPanel extends PanelState {
 		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		buffer.setColor(father.getSkin().getColorLetter());
 		Iterator<Route> itRoute = station.getRoutes();
-		ServiceToolTipText sttt;
+		ServiceOrRouteToolTipText sttt;
 		Route route;
 		Iterator<Service> itService = station.getServices();
 		Service service;
@@ -841,11 +841,18 @@ public class NewTravelPanel extends PanelState {
 		int w, h;
 		while (itRoute.hasNext()) {
 			buffer.setColor(father.getNetworkColorManager().getColor(route = itRoute.next()));
+			if (serviceOrRoutePooled.isEmpty())
+				sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
+			else
+				sttt = serviceOrRoutePooled.remove();
+			serviceOrRouteDisplayed.add(sttt);
+			sttt.init(route);
 			w = PanelDoubleBufferingSoftwear.getWidthString(route.getId(), buffer);
 			h = PanelDoubleBufferingSoftwear.getHeightString(route.getId(), buffer);
-			buffer.fillRect(xActu + (taille - w >> 1) - 1, yActu + (taille - h >> 1), w + 2, h + 2);
+			sttt.setBounds(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2); 
+			buffer.fillRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawRect(xActu + (taille - w >> 1) - 1, yActu + (taille - h >> 1), w + 2, h + 2);
+			buffer.drawRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 			buffer.drawString(route.getId(), xActu + (taille - w >> 1), yActu + (taille + h >> 1));
 			xActu += taille + (decalage >> 1);
 		}
@@ -861,17 +868,17 @@ public class NewTravelPanel extends PanelState {
 		while (itService.hasNext()) {
 			service = itService.next();
 			s = service.getName().substring(0, 1);
-			if (servicePooled.isEmpty())
-				sttt = new ServiceToolTipText(new Rectangle(), lowerBar);
+			if (serviceOrRoutePooled.isEmpty())
+				sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
 			else
-				sttt = servicePooled.remove();
-			serviceDisplayed.add(sttt);
+				sttt = serviceOrRoutePooled.remove();
+			serviceOrRouteDisplayed.add(sttt);
 			sttt.init(service);
 			buffer.setColor(father.getNetworkColorManager().getColor(service));
 			sttt.setBounds(xActu - 1, yActu - 1, taille + 2, taille + 2);
-			buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+			buffer.fillOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+			buffer.drawOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 			buffer.drawString(s, xActu + (taille >> 1) - (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1),
 					yActu + (taille >> 1) + (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
 			xActu += taille + (decalage >> 1);
@@ -952,8 +959,8 @@ public class NewTravelPanel extends PanelState {
 		/*****
 		 * Swap des liste de zone de service
 		 */
-		servicePooled.addAll(serviceDisplayed);
-		serviceDisplayed.clear();
+		serviceOrRoutePooled.addAll(serviceOrRouteDisplayed);
+		serviceOrRouteDisplayed.clear();
 
 		/***************************************************************************************************************
 		 * Departure

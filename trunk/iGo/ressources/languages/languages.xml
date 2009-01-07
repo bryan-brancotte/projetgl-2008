@@ -567,6 +567,11 @@
 				<ENGLISH value="Mise à jours du réseau"/>
 				<GEEK value="Refresh"/>
 			</UpdateNetworkTitle>
+			<Route>
+				<FRANCAIS value="Ligne"/>
+				<ENGLISH value="Route"/>
+				<GEEK value="Root"/>
+			</Route>
 		</fields>
 	</root>
 
