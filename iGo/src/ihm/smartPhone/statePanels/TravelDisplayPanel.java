@@ -195,22 +195,21 @@ public abstract class TravelDisplayPanel extends PanelState {
 							.getCurrentPathInGraph());
 				}
 			});
-			upperBar.setUpAndDownAtRightCmd(new ActionListener() {
+			upperBar.setUpAndDownAtRightCmd((travel.hasPrevious()) ? new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					nextStationDone();
 					travel.previous();
 					giveControle();
 				}
-			}, new ActionListener() {
+			} : null, (travel.hasNext()) ? new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					nextStationDone();
-					if (travel.hasNext())
-						travel.next();
+					travel.next();
 					giveControle();
 				}
-			});
+			} : null);
 			upperBar.setLowerTitle("");
 			// upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
 			// @Override
@@ -243,8 +242,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 					father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
-//			lowerBar.setLeftTitle(father.lg("TotalCost"));
-//			lowerBar.setRightTitle(father.lg("TotalTime"));
+			// lowerBar.setLeftTitle(father.lg("TotalCost"));
+			// lowerBar.setRightTitle(father.lg("TotalTime"));
 			lowerBar.setLeftValue(travel.getTotalCost() + father.lg("Money"));
 			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getTotalTime(), father.lg("LetterForHour"),
 					father.lg("LetterForMinute")));

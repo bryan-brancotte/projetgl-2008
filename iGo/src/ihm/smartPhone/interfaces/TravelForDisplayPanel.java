@@ -168,6 +168,11 @@ public interface TravelForDisplayPanel {
 	public boolean hasNext();
 
 	/**
+	 * Permet de savoir s'il y a des station parcourut
+	 */
+	public boolean hasPrevious();
+
+	/**
 	 * Permet de savoir si le chemin est encore praticable à partir d'où on est actuellement
 	 * 
 	 * @return

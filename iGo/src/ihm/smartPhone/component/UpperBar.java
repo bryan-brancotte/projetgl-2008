@@ -9,7 +9,9 @@ import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ public class UpperBar extends AbstractBar {
 
 	private static final long serialVersionUID = 1L;
 	protected int oldHeigth = -1;
+
+	protected GradientPaint gradientPaint = null;
 
 	protected String icone;
 	protected Image imageIcone;
@@ -119,7 +123,6 @@ public class UpperBar extends AbstractBar {
 
 	@Override
 	public void draw() {
-
 		/***
 		 * Gestion du buffer mémoire
 		 */
@@ -131,25 +134,21 @@ public class UpperBar extends AbstractBar {
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
 			buffer = image.getGraphics();
+			gradientPaint = null;
 			graphicsTunning(buffer);
 		} else {
 			buffer.setColor(ihm.getSkin().getColorInside());
 			buffer.fillRect(0, 0, getWidth(), getHeight());
 		}
 
-		int outsideR = ihm.getSkin().getColorOutside().getRed();
-		int outsideG = ihm.getSkin().getColorOutside().getGreen();
-		int outsideB = ihm.getSkin().getColorOutside().getBlue();
-		int deltaR = ihm.getSkin().getColorInside().getRed() - outsideR;
-		int deltaG = ihm.getSkin().getColorInside().getGreen() - outsideG;
-		int deltaB = ihm.getSkin().getColorInside().getBlue() - outsideB;
-		float prog;
-		for (int i = 0; i < this.getHeight(); i++) {
-			prog = (float) i / this.getHeight();
-			buffer.setColor(new Color(outsideR + (int) (deltaR * prog), outsideG + (int) (deltaG * prog), outsideB
-					+ (int) (deltaB * prog)));
-			buffer.drawLine(0, i, this.getWidth(), i);
-		}
+		if (gradientPaint == null || gradientPaint.getColor1() != ihm.getSkin().getColorOutside()
+				|| gradientPaint.getColor2() != ihm.getSkin().getColorInside())
+			gradientPaint = new GradientPaint(0, 0, ihm.getSkin().getColorOutside(), 0, getHeight(), ihm.getSkin()
+					.getColorInside());
+
+		// dessin du dégradé
+		((Graphics2D) buffer).setPaint(gradientPaint);
+		buffer.fillRect(0, 0, getWidth(), getHeight());
 
 		if (icone != "") {
 			if (oldHeigth != getHeight())
@@ -349,7 +348,7 @@ public class UpperBar extends AbstractBar {
 			g.drawString(rigthCmd, rigthCmdArea.x + roundRect, rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
 		}
 
-		if ((upAndDownCmdSize == fontSizeKind) && (upCmdActionListener != null) && (downCmdActionListener != null)) {
+		if ((upAndDownCmdSize == fontSizeKind) && (upCmdActionListener != null || downCmdActionListener != null)) {
 			g.setColor(ihm.getSkin().getColorInside());
 			hs = getHeightString("e", g, font);
 			hs += (hs >> 1) + (hs >> 2);
@@ -368,7 +367,7 @@ public class UpperBar extends AbstractBar {
 			downCmdArea.height = upCmdArea.height;
 			g.setColor(colorFont);
 			xs = new int[3];
-			xs[0] = 1+upCmdArea.x + (ws >> 2);
+			xs[0] = 1 + upCmdArea.x + (ws >> 2);
 			xs[1] = xs[0] + roundRect;
 			xs[2] = xs[0] - roundRect;
 			ys = new int[3];
@@ -376,14 +375,26 @@ public class UpperBar extends AbstractBar {
 			ys[1] = ys[0] + roundRect;
 			ys[2] = ys[0] + roundRect;
 			ys[0] -= roundRect;
-			g.fillPolygon(xs, ys, 3);
+			if (upCmdActionListener == null) {
+				((Graphics2D) buffer).setPaint(gradientPaint);
+				g.fillPolygon(xs, ys, 3);
+				g.setColor(colorFont);
+				upCmdArea.setBounds(0, 0, 0, 0);
+			} else
+				g.fillPolygon(xs, ys, 3);
 			xs[0] += (ws >> 1);
 			xs[1] += (ws >> 1);
 			xs[2] += (ws >> 1);
 			ys[0] += roundRect << 1;
 			ys[1] -= roundRect << 1;
 			ys[2] -= roundRect << 1;
-			g.fillPolygon(xs, ys, 3);
+			if (downCmdActionListener == null) {
+				((Graphics2D) buffer).setPaint(gradientPaint);
+				g.fillPolygon(xs, ys, 3);
+				g.setColor(colorFont);
+				downCmdArea.setBounds(0, 0, 0, 0);
+			} else
+				g.fillPolygon(xs, ys, 3);
 		}
 	}
 
