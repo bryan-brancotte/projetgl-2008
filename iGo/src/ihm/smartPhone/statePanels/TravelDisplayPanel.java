@@ -49,7 +49,8 @@ public abstract class TravelDisplayPanel extends PanelState {
 		this.travel = travelForDisplayPanel;
 		// if (travel == null)
 		// travel = new TravelForTravelPanelExemple();
-		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont();
+		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont()
+				+ (father.getSizeAdapteur().getSizeLargeFont() >> 1);
 		if (imageWarning == null)
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 		iconeWarningArea = new Rectangle(0, 0, 0, 0);
@@ -130,7 +131,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			imageWarning = null;
 		}
-		if (imageWarning == null || imageWarning.getHeight(null) != sizeLargeFont)
+		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont()
+				+ (father.getSizeAdapteur().getSizeLargeFont() >> 1);
+		if (imageWarning == null || imageWarning.getHeight(null) != (sizeLargeFont))
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 		g.drawImage(imageWarning, 0, getHeight() - imageWarning.getHeight(null), null);
 		iconeWarningArea.setBounds(0, getHeight() - imageWarning.getHeight(null), imageWarning.getHeight(null),
