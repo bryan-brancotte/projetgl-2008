@@ -192,18 +192,22 @@ public class UpperBar extends AbstractBar {
 		if ((mainTitleSize == fontSizeKind) && (mainTitle != "")) {
 			hs = getHeightString("e", g, font);
 			int heigthTmp = 0;
-			if (upCmdActionListener != null)
+			if (upCmdActionListener != null || downCmdActionListener != null)
 				heigthTmp = (hs >> 1) + (hs >> 2) + (hs >> 3) + (this.getWidth() >> 3) + (this.getWidth() >> 4);
 			heigthTmp <<= 1;
-			heigthTmp = getWidth() - heigthTmp;
-			String[] cut = decoupeChaine(mainTitle, g, heigthTmp);
-			heigthTmp = getHeightString(mainTitle, g);
-			int heigth = this.getHeight() - heigthTmp * cut.length - (heigthTmp * (cut.length - 1) >> 2) >> 1;
-			if (cut.length > 1 && upperTitle != "")
-				heigth += (heigthTmp >> 2);
-			for (String tmp : cut) {
-				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
-				heigth += (heigthTmp >> 2) + heigthTmp;
+			if (heigthTmp > (ws = getWidthString(mainTitle, g))) {
+				g.drawString(mainTitle, getWidth() - ws >> 1, this.getHeight() + hs >> 1);
+			} else {
+				heigthTmp = getWidth() - heigthTmp;
+				String[] cut = decoupeChaine(mainTitle, g, heigthTmp);
+				heigthTmp = getHeightString(mainTitle, g);
+				int heigth = this.getHeight() - heigthTmp * cut.length - (heigthTmp * (cut.length - 1) >> 2) >> 1;
+				if (cut.length > 1 && upperTitle != "")
+					heigth += (heigthTmp >> 2);
+				for (String tmp : cut) {
+					g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth += heigthTmp);
+					heigth += (heigthTmp >> 2);
+				}
 			}
 		}
 
@@ -341,9 +345,6 @@ public class UpperBar extends AbstractBar {
 			ys[0] = rigthCmdArea.y + (rigthCmdArea.height >> 1) + 1;
 			ys[1] = ys[0] - roundRect;
 			ys[2] = ys[0] + roundRect;
-			System.out.println(rigthCmdArea.y);
-			System.out.println(ys[0]);
-			System.out.println(rigthCmdArea.y + rigthCmdArea.height);
 			g.fillPolygon(xs, ys, 3);
 			g.drawString(rigthCmd, rigthCmdArea.x + roundRect, rigthCmdArea.y + (rigthCmdArea.height + hs >> 1));
 		}
@@ -644,6 +645,7 @@ public class UpperBar extends AbstractBar {
 	public void clearMessage() {
 		this.setMainTitle("");
 		this.setUpperTitle("");
+		this.setLowerTitle("");
 		this.setLeftSubTitle("");
 		this.setRightSubTitle("");
 		this.setLeftCmd("", null);

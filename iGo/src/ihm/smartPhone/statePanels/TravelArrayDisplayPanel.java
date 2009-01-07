@@ -213,8 +213,6 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				break;
 			else if (putStationUp) {
 				putStationUp = false;
-				System.out.println("ordonnee" + ordonnee);
-				System.out.println("decalage" + decalage);
 				slowScroll = new SlowScroll(decalage - ordonnee);
 
 			}

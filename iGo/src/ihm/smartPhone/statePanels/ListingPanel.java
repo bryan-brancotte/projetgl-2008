@@ -9,7 +9,7 @@ import ihm.smartPhone.libPT.PTArea;
 import ihm.smartPhone.libPT.PTScrollBar;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.statePanels.component.PairPTArea;
-import ihm.smartPhone.statePanels.component.ServiceToolTipText;
+import ihm.smartPhone.statePanels.component.ServiceOrRouteToolTipText;
 import ihm.smartPhone.tools.CodeExecutor;
 import ihm.smartPhone.tools.CodeExecutor1P;
 
@@ -43,8 +43,8 @@ public class ListingPanel extends PanelState {
 	/**
 	 * Conteneurs pour les zone d'aide des services
 	 */
-	protected LinkedList<ServiceToolTipText> serviceDisplayed;
-	protected LinkedList<ServiceToolTipText> servicePooled;
+	protected LinkedList<ServiceOrRouteToolTipText> serviceOrRouteDisplayed;
+	protected LinkedList<ServiceOrRouteToolTipText> serviceOrRoutePooled;
 
 	/**
 	 * Barre de défilement
@@ -112,7 +112,7 @@ public class ListingPanel extends PanelState {
 		}
 		this.addMouseMotionListener(new MouseMotionListener() {
 
-			protected ServiceToolTipText overed = null;
+			protected ServiceOrRouteToolTipText overed = null;
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
@@ -124,7 +124,7 @@ public class ListingPanel extends PanelState {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				for (ServiceToolTipText s : serviceDisplayed)
+				for (ServiceOrRouteToolTipText s : serviceOrRouteDisplayed)
 					if (s.contains(e.getX(), e.getY())) {
 						if (overed != s) {
 							s.maybeOvered(e.getX(), e.getY());
@@ -168,8 +168,8 @@ public class ListingPanel extends PanelState {
 				slowScroll = new SlowScroll(dyDrag >> 2);
 			}
 		});
-		serviceDisplayed = new LinkedList<ServiceToolTipText>();
-		servicePooled = new LinkedList<ServiceToolTipText>();
+		serviceOrRouteDisplayed = new LinkedList<ServiceOrRouteToolTipText>();
+		serviceOrRoutePooled = new LinkedList<ServiceOrRouteToolTipText>();
 		this.cancelEndingAction = nvCancelEndingAction;
 		this.okEndingAction = nvOkEndingAction;
 
@@ -229,8 +229,8 @@ public class ListingPanel extends PanelState {
 		 * Swap des liste de zone de service
 		 */
 		// LinkedList<ServiceToolTipText> serviceSwap = servicePooled;
-		servicePooled.addAll(serviceDisplayed);
-		serviceDisplayed.clear();
+		serviceOrRoutePooled.addAll(serviceOrRouteDisplayed);
+		serviceOrRouteDisplayed.clear();
 		// serviceDisplayed = serviceSwap;
 
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
@@ -243,7 +243,7 @@ public class ListingPanel extends PanelState {
 		}
 
 		int h, w, xActu, yActu, taille;
-		ServiceToolTipText sttt;
+		ServiceOrRouteToolTipText sttt;
 		PTArea ptArea;
 		Iterator<Service> itService;
 		Service service;
@@ -261,7 +261,7 @@ public class ListingPanel extends PanelState {
 
 			ptArea.draw(buffer, father.getNetworkColorManager().getColor(route), father.getSkin().getColorLetter());
 			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawString(route.getId(), decalage, ordonne + h + (h >> 2));
+			buffer.drawString(father.lg("Route")+ " " + route.getId(), decalage, ordonne + h + (h >> 2));
 			w = getWidthString(route.getKindRoute().getKindOf(), buffer);
 			buffer.drawString(route.getKindRoute().getKindOf(), getWidth() - decalage2 - w, ordonne + h + (h >> 2));
 
@@ -277,34 +277,43 @@ public class ListingPanel extends PanelState {
 				if (p.area.getArea().y + p.area.getArea().height > 0 && ordonne < getHeight()) {
 					xActu = getWidthString(p.name, buffer) + decalage2;
 					yActu = ordonne;
+					//dessin des lignes
 					itRoute = p.station.getRoutes();
 					while (itRoute.hasNext()) {
 						if ((otherRoute = itRoute.next()) != route) {
+							if (serviceOrRoutePooled.isEmpty())
+								sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
+							else
+								sttt = serviceOrRoutePooled.remove();
+							serviceOrRouteDisplayed.add(sttt);
+							sttt.init(otherRoute);
 							buffer.setColor(father.getNetworkColorManager().getColor(otherRoute));
 							w = PanelDoubleBufferingSoftwear.getWidthString(otherRoute.getId(), buffer);
 							h = PanelDoubleBufferingSoftwear.getHeightString(otherRoute.getId(), buffer);
-							buffer.fillRect(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2);
+							sttt.setBounds(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2); 
+							buffer.fillRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 							buffer.setColor(father.getSkin().getColorLetter());
-							buffer.drawRect(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2);
+							buffer.drawRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 							buffer.drawString(otherRoute.getId(), xActu + (taille - w >> 1), yActu + (taille + h >> 1));
 							xActu += taille + (decalage >> 1);
 						}
 					}
+					//dessin des services
 					itService = p.station.getServices();
 					while (itService.hasNext()) {
 						service = itService.next();
 						s = service.getName().substring(0, 1);
-						if (servicePooled.isEmpty())
-							sttt = new ServiceToolTipText(new Rectangle(), lowerBar);
+						if (serviceOrRoutePooled.isEmpty())
+							sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
 						else
-							sttt = servicePooled.remove();
-						serviceDisplayed.add(sttt);
+							sttt = serviceOrRoutePooled.remove();
+						serviceOrRouteDisplayed.add(sttt);
 						sttt.init(service);
 						buffer.setColor(father.getNetworkColorManager().getColor(service));
 						sttt.setBounds(xActu - 1, yActu - 1, taille + 2, taille + 2);
-						buffer.fillOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+						buffer.fillOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 						buffer.setColor(father.getSkin().getColorLetter());
-						buffer.drawOval(xActu - 1, yActu - 1, taille + 2, taille + 2);
+						buffer.drawOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 						buffer.drawString(s, xActu + (taille >> 1)
 								- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
 								+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
