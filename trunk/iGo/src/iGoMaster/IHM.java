@@ -1,7 +1,6 @@
 package iGoMaster;
 
 import graphNetwork.KindRoute;
-import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
 import graphNetwork.Service;
@@ -106,7 +105,7 @@ public interface IHM {
 	/**
 	 * Ne pas utiliser cette méthode, elle ne comporte pas assez d'information, utiliser
 	 * infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route, Station station, KindRoute
-	 * kindRoute)
+	 * kindRoute). </br><bold>Cette fonction à été vidé de sa substance, son appel est donc sans effet</bold>
 	 */
 	@Deprecated
 	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service);

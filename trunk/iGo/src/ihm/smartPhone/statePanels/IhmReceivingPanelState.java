@@ -90,7 +90,7 @@ public interface IhmReceivingPanelState {
 	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
 	 * 
 	 * @param actualState
-	 *            l'état
+	 *            le nouvelle état;
 	 * @param pathBuilder
 	 *            un {@link PathInGraphConstraintBuilder} associé au passage à cette état
 	 * @return
@@ -102,6 +102,7 @@ public interface IhmReceivingPanelState {
 	 * classe implémentante. Si la classe implémentante refuse, elle retourne false, sinon vrai.
 	 * 
 	 * @param actualState
+	 *            le nouvelle état;
 	 * @param pathBuilder
 	 *            un {@link PathInGraphConstraintBuilder} associé au passage à cette état
 	 * @param path

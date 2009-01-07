@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
@@ -25,20 +26,33 @@ public class PTCollapsableArea extends PTComponent {
 
 	protected PTButton buttonAddLess;
 
+	protected boolean isOvered = false;
+
 	public boolean isCollapsed() {
 		return collapsed;
 	}
 
-	protected PTCollapsableArea(PanelTooled father, Rectangle area) {
-		super(father, area);
+	protected PTCollapsableArea(PanelTooled nvFather, Rectangle nvArea) {
+		super(nvFather, nvArea);
 		collapsed = false;
 		this.components = new LinkedList<PTComponent>();
-		buttonAddLess = father.makeButton(new CodeExecutor1P<PTCollapsableArea>(this) {
+		buttonAddLess = nvFather.makeButton(new CodeExecutor1P<PTCollapsableArea>(this) {
 			@Override
 			public void execute() {
 				this.origine.changeCollapseState();
 				this.origine.father.repaint();
 			}
+		});
+		nvFather.addMouseMotionListener(new MouseMotionListener() {
+			public void mouseDragged(java.awt.event.MouseEvent e) {
+			};
+
+			public void mouseMoved(java.awt.event.MouseEvent e) {
+				if (isOvered ^ area.contains(e.getX(), e.getY())) {
+					isOvered = !isOvered;
+					father.repaint();
+				}
+			};
 		});
 		this.areaCodEx = buttonAddLess.areaCodEx;
 	}
@@ -89,16 +103,20 @@ public class PTCollapsableArea extends PTComponent {
 		g.fillRect(area.x, area.y, area.width, area.height);
 		g.setColor(colorLetter);
 		g.drawRect(area.x, area.y, area.width, area.height);
+		if (isOvered)
+			g.drawRect(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
 		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr + (area.x >> 1) - (area.x >> 2));
 		ImageIcon imageButton;
 		if (collapsed) {
 			if (imageButtonAdd == null || imageButtonAdd.getIconHeight() != lastFont.getSize()) {
-				imageButtonAdd = ImageLoader.getRessourcesImageIcone("button_add", lastFont.getSize(), lastFont.getSize());
+				imageButtonAdd = ImageLoader.getRessourcesImageIcone("button_add", lastFont.getSize(), lastFont
+						.getSize());
 			}
 			imageButton = imageButtonAdd;
 		} else {
 			if (imageButtonLess == null || imageButtonLess.getIconHeight() != lastFont.getSize()) {
-				imageButtonLess = ImageLoader.getRessourcesImageIcone("button_less", lastFont.getSize(), lastFont.getSize());
+				imageButtonLess = ImageLoader.getRessourcesImageIcone("button_less", lastFont.getSize(), lastFont
+						.getSize());
 			}
 			imageButton = imageButtonLess;
 		}
@@ -112,7 +130,7 @@ public class PTCollapsableArea extends PTComponent {
 			return null;
 		if (text != null)
 			this.text = text;
-		this.lastFont=font;
+		this.lastFont = font;
 		int heigth = PanelDoubleBufferingSoftwear.getHeightString(text, g, font);
 		int max = y + heigth;
 		Rectangle areaComponent;
