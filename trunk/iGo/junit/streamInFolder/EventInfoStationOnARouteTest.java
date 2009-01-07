@@ -25,4 +25,15 @@ import streamInFolder.event.EventInfoStationOnARoute;;
 
 public class EventInfoStationOnARouteTest {
 
+	EventInfoStationOnARoute event;
+	KindEventInfoNetwork kind;
+	@After
+	public void epilogueDateTest() {
+	}
+
+	@Before
+	public void prologueDateTest(){
+		event = new EventInfoStationOnARoute(1,"id_route","message",2,kind);
+		
+	}
 }
