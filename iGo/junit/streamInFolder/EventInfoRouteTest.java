@@ -35,7 +35,7 @@ public class EventInfoRouteTest {
 
 	@Before
 	public void prologueDateTest(){
-		KindEventInfoNetwork kind = null;
+		KindEventInfoNetwork kind = KindEventInfoNetwork.OTHER;
 		info = new EventInfoRoute("my_id","message1",1,kind);
 		info.setId(2);
 //		bob = new GraphNetworkBuilder();
@@ -102,7 +102,7 @@ public class EventInfoRouteTest {
 	 */
 	@Test
 	public void kindGetter() {
-		assertTrue(info.getKindEventInfoNetwork()==null);
+		assertTrue(info.getKindEventInfoNetwork()!=null);
 		//TODO voir comment initialiser le kindEventInfoNetwork
 	}
 	
