@@ -233,4 +233,9 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	public PathInGraphConstraintBuilder getPathClone() {
 		return pathClone;
 	}
+
+	@Override
+	public boolean hasPrevious() {
+		return !travelDone.isEmpty();
+	}
 }

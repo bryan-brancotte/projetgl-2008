@@ -9,7 +9,9 @@ import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ public class LowerBar extends AbstractBar {
 
 	private static final long serialVersionUID = 1L;
 	protected int oldHeigth = -1;
+
+	protected GradientPaint gradientPaint = null;
 
 	protected String mainTitle;
 	protected FontSizeKind mainTitleSize;
@@ -126,19 +130,14 @@ public class LowerBar extends AbstractBar {
 			buffer.fillRect(0, 0, getWidth(), getHeight());
 		}
 
-		int insideR = ihm.getSkin().getColorInside().getRed();
-		int insideG = ihm.getSkin().getColorInside().getGreen();
-		int insideB = ihm.getSkin().getColorInside().getBlue();
-		int deltaR = ihm.getSkin().getColorOutside().getRed() - insideR;
-		int deltaG = ihm.getSkin().getColorOutside().getGreen() - insideG;
-		int deltaB = ihm.getSkin().getColorOutside().getBlue() - insideB;
-		float prog;
-		for (int i = 0; i < this.getHeight(); i++) {
-			prog = (float) i / this.getHeight();
-			buffer.setColor(new Color(insideR + (int) (deltaR * prog), insideG + (int) (deltaG * prog), insideB
-					+ (int) (deltaB * prog)));
-			buffer.drawLine(0, i, this.getWidth(), i);
-		}
+		if (gradientPaint == null || gradientPaint.getColor1() != ihm.getSkin().getColorOutside()
+				|| gradientPaint.getColor2() != ihm.getSkin().getColorInside())
+			gradientPaint = new GradientPaint(0, getHeight(), ihm.getSkin().getColorOutside(), 0, 0, ihm.getSkin()
+					.getColorInside());
+
+		//dessin du dégradé
+		((Graphics2D) buffer).setPaint(gradientPaint);
+		buffer.fillRect(0, 0, getWidth(), getHeight());
 
 		buffer.setColor(ihm.getSkin().getColorLetter());
 		int roundRect = this.getWidth() >> 6;
