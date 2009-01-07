@@ -695,7 +695,7 @@ public class NewTravelPanel extends PanelState {
 		case intermediatesStationsRemove:
 			station = stationsHash.get(s);
 			if (station != null && pathBuilder.getCurrentPathInGraph().containsSteps(station)) {
-				intermediatesStationsDel.remove(station.getId());
+				intermediatesStationsDel.remove(station.getId()).terminate();
 				pathBuilder.removeStepStations(station);
 			}
 			break;
@@ -721,7 +721,7 @@ public class NewTravelPanel extends PanelState {
 		case avoidsStationsRemove:
 			station = stationsHash.get(s);
 			if (station != null && pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)) {
-				avoidsStationsDel.remove(station.getId());
+				avoidsStationsDel.remove(station.getId()).terminate();
 				pathBuilder.removeAvoidStations(station);
 			}
 			break;
