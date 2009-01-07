@@ -6,7 +6,7 @@ import graphNetwork.Service;
  * Exception signifiant que le service s, n'est pas accessible.
  * Ceci en partant du point origine défini dans le pathInGraph en parcourant toutes les stations accessibles du graph.
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class ServiceNotAccessibleException extends Exception {

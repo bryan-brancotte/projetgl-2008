@@ -3,7 +3,7 @@ package iGoMaster.exception;
 /**
  * Le chemin renvoyé par l'algo est vide, il n'y a donc aucune solution à l'algorithme
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class VoidPathException extends Exception {

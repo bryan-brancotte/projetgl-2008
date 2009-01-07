@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Exception générique pour toutes les intérruptions dus à un service.
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class NonValidServicesException extends NonValidPathException{

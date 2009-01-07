@@ -6,7 +6,7 @@ import graphNetwork.Station;
 /**
  * Erreur indiquant que la station s ne se trouve sur aucune route et n'est donc pas liée au réseau physiquement.
  * 
- * @author tony
+ * @author iGo
  *
  */
 public class NoRouteForStationException extends Exception {
