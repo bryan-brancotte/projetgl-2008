@@ -25,4 +25,45 @@ import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 
 public class AvailableNetworkInFolderTest {
 
+	AvailableNetworkInFolder aNetwork;
+	@After
+	public void epilogueDateTest() {
+	}
+
+	@Before
+	public void prologueDateTest(){
+		aNetwork = new AvailableNetworkInFolder("my_name","my_path");
+		aNetwork.setDescription("DESCRIPTION");
+		
+	}
+	
+	/**
+	 * Test du getter du name
+	 */
+	@Test
+	public void nameGetter() {
+		assertTrue(aNetwork.getName().compareTo("my_name")==0);
+		aNetwork.setName("my_name2");
+		assertTrue(aNetwork.getName().compareTo("my_name2")==0);
+	}
+	
+	/**
+	 * Test du getter de la description
+	 */
+	@Test
+	public void descriptionGetter() {
+		assertTrue(aNetwork.getDescription().compareTo("DESCRIPTION")==0);
+	}
+	
+	/**
+	 * Test du getter du path
+	 */
+	@Test
+	public void pathGetter() {
+		assertTrue(aNetwork.getPath().compareTo("my_path")==0);
+		aNetwork.setPath("my_path2");
+		assertTrue(aNetwork.getPath().compareTo("my_path2")==0);
+	}
+	
+	//TODO tester fichier
 }
