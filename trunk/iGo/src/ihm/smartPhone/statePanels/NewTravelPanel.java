@@ -690,6 +690,19 @@ public class NewTravelPanel extends PanelState {
 					pathBuilder.addStepStations(station);
 				// shouldDoubleRepaint = true;
 				intermediatesStationsTextBox.setText("");
+				int h;
+				if (intermediatesStationsTextBox.getArea() != null)
+					if ((h = intermediatesStationsCollapsableArea.getArea().y + intermediatesStationsCollapsableArea.getArea().height
+							+ (intermediatesStationsTextBox.getArea().height << 2) - getHeight()) > 0) {
+						draw();
+						if ((h = intermediatesStationsCollapsableArea.getArea().y
+								+ intermediatesStationsCollapsableArea.getArea().height - getHeight()
+								+ father.getSizeAdapteur().getSizeSmallFont()) > 0) {
+							if (intermediatesStationsCollapsableArea.getArea().y - h < 0)
+								h = intermediatesStationsCollapsableArea.getArea().y;
+							scrollBar.setDeroullement(deroullement + h);
+						}
+					}
 			}
 			break;
 		case intermediatesStationsRemove:
@@ -716,6 +729,19 @@ public class NewTravelPanel extends PanelState {
 					pathBuilder.addAvoidStations(station);
 				// shouldDoubleRepaint = true;
 				avoidsStationsTextBox.setText("");
+				int h;
+				if (avoidsStationsTextBox.getArea() != null)
+					if ((h = avoidsStationsCollapsableArea.getArea().y + avoidsStationsCollapsableArea.getArea().height
+							+ (avoidsStationsTextBox.getArea().height << 2) - getHeight()) > 0) {
+						draw();
+						if ((h = avoidsStationsCollapsableArea.getArea().y
+								+ avoidsStationsCollapsableArea.getArea().height - getHeight()
+								+ father.getSizeAdapteur().getSizeSmallFont()) > 0) {
+							if (avoidsStationsCollapsableArea.getArea().y - h < 0)
+								h = avoidsStationsCollapsableArea.getArea().y;
+							scrollBar.setDeroullement(deroullement + h);
+						}
+					}
 			}
 			break;
 		case avoidsStationsRemove:
@@ -842,14 +868,14 @@ public class NewTravelPanel extends PanelState {
 		while (itRoute.hasNext()) {
 			buffer.setColor(father.getNetworkColorManager().getColor(route = itRoute.next()));
 			if (serviceOrRoutePooled.isEmpty())
-				sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
+				sttt = new ServiceOrRouteToolTipText(father, new Rectangle(), lowerBar);
 			else
 				sttt = serviceOrRoutePooled.remove();
 			serviceOrRouteDisplayed.add(sttt);
 			sttt.init(route);
 			w = PanelDoubleBufferingSoftwear.getWidthString(route.getId(), buffer);
 			h = PanelDoubleBufferingSoftwear.getHeightString(route.getId(), buffer);
-			sttt.setBounds(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2); 
+			sttt.setBounds(xActu + (taille - w >> 1) - 1, yActu + (taille - h >> 1), w + 2, h + 2);
 			buffer.fillRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
 			buffer.setColor(father.getSkin().getColorLetter());
 			buffer.drawRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
@@ -869,7 +895,7 @@ public class NewTravelPanel extends PanelState {
 			service = itService.next();
 			s = service.getName().substring(0, 1);
 			if (serviceOrRoutePooled.isEmpty())
-				sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
+				sttt = new ServiceOrRouteToolTipText(father, new Rectangle(), lowerBar);
 			else
 				sttt = serviceOrRoutePooled.remove();
 			serviceOrRouteDisplayed.add(sttt);
