@@ -20,13 +20,12 @@ import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.tools.ExecMultiThread;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
 import pathsAndFavorites.RecentsAndFavoritesPathsInGraphReceiver;
-import streamInFolder.event.EventInfoNetworkWatcherInFolderJDOM;
+import streamInFolder.event.EventInfoNetworkWatcherInFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
@@ -88,7 +87,7 @@ public class IGoMaster implements Master, Observer
 		this.ihm = new IGoIhmSmartPhone(this);
 		this.graphBuilder = new GraphNetworkBuilder();
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
-		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolderJDOM(event);
+		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolder(event);
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
 		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver(
 				this.graphBuilder, 
