@@ -19,12 +19,12 @@ import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.NoNetworkException;
 import ihm.smartPhone.component.IGoFlowLayout;
 import ihm.smartPhone.component.LowerBar;
-import ihm.smartPhone.component.NetworkColorManager;
 import ihm.smartPhone.component.NetworkColorManagerPseudoRandom;
 import ihm.smartPhone.component.TravelForDisplayPanelImplPathInGraph;
 import ihm.smartPhone.component.TravelForTravelPanelImplPathInGraph;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
+import ihm.smartPhone.interfaces.NetworkColorManager;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
@@ -573,9 +573,16 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public boolean setCurrentState(IhmReceivingStates ihmReceivingStates, PathInGraphConstraintBuilder pathBuilder,
 			PathInGraph path) {
-		synchronized (verrou) {
-			return setCurrentStateUnSynchronized(ihmReceivingStates, pathBuilder, path);
+		// on verrouille l'utilisation de la fonction, car celle ci le fait que certain variable sont ou ne sont pas à
+		// null, en cas d'appelle multithread, on pourrais ce retrouver dans des état non-désirés.
+		verrou.lock();
+		boolean b = false;
+		try {
+			b = setCurrentStateUnSynchronized(ihmReceivingStates, pathBuilder, path);
+		} finally {
+			verrou.unlock();
 		}
+		return b;
 	};
 
 	/**
@@ -875,30 +882,40 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean returnPathAsked(PathInGraphConstraintBuilder path, AlgoKindOfException algoKindOfException) {
-		if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
+		verrou.lock();
+		try {
+			if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
+				return false;
+			if (algoKindOfException == AlgoKindOfException.EverythingFine) {
+				// ba c'est bon quoi.
+				if (path == null) {
+					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_ReturnNullTravelDetails"));
+					return false;
+				}
+				try {
+					// on tente la construction
+					PathInGraphConstraintBuilder pathClone = master.getPathInGraphConstraintBuilder();
+					pathClone.importPath(path.getCurrentPathInGraph());
+					travel = new TravelForDisplayPanelImplPathInGraph(path, pathClone);
+					// ca à marché on dirait
+				} catch (Exception e) {
+					// Crash, on affiche l'erreur
+					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_BuildingTravelFromResult"));
+					e.printStackTrace();
+					return false;
+				}
+				// On passe en visu.
+				this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
+				return true;
+			} else {
+				// ba c'est pas bon =:-(
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_" + algoKindOfException.toString()));
+			}
 			return false;
-		if (algoKindOfException == AlgoKindOfException.EverythingFine) {
-			// ba c'est bon quoi.
-			if (path == null) {
-				setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_ReturnNullTravelDetails"));
-				return false;
-			}
-			try {
-				PathInGraphConstraintBuilder pathClone = master.getPathInGraphConstraintBuilder();
-				pathClone.importPath(path.getCurrentPathInGraph());
-				travel = new TravelForDisplayPanelImplPathInGraph(path, pathClone);
-			} catch (Exception e) {
-				setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_BuildingTravelFromResult"));
-				e.printStackTrace();
-				return false;
-			}
-			this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
-			return true;
-		} else {
-			// ba c'est pas bon =:-(
-			setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_" + algoKindOfException.toString()));
+		} finally {
+			// Quoiqu'il arrive on execute ce code en fin de fonction
+			verrou.unlock();
 		}
-		return false;
 	}
 
 	@Override
@@ -925,18 +942,27 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean setConfig(String key, String value) {
-		if (actualState == IhmReceivingStates.SETTINGS)
-			newTravelPanel = null;
-
-		if (key.compareTo(SettingsKey.LANGUAGE.toString()) == 0)
+		if (!master.setConfig(key, value))
+			return false;
+		if (key.compareTo(SettingsKey.LANGUAGE.toString()) == 0) {
 			sortSkin();
-
+			this.setTitle(master.lg("ProgName"));
+		}
 		if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
 			if (value.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0)
 				this.preferedState = IhmReceivingStates.ARRAY_MODE;
 			else
 				this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
-		return master.setConfig(key, value);
+		return true;
+//		if (key.compareTo(SettingsKey.LANGUAGE.toString()) == 0)
+//			sortSkin();
+//
+//		if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
+//			if (value.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0)
+//				this.preferedState = IhmReceivingStates.ARRAY_MODE;
+//			else
+//				this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
+//		return master.setConfig(key, value); 
 	}
 
 	@Override

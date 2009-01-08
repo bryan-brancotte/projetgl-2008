@@ -3,6 +3,7 @@ package ihm.smartPhone.component;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import ihm.smartPhone.interfaces.NetworkColorManager;
 import ihm.smartPhone.interfaces.TravelForTravelPanel;
 
 import java.awt.Color;

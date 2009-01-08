@@ -5,6 +5,7 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 
 import iGoMaster.Master;
+import ihm.smartPhone.interfaces.NetworkColorManager;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -21,12 +22,9 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorRoutes = new HashMap<Route, Color>();
 		colorServices = new HashMap<Service, Color>();
 		colorList = new LinkedList<Color>();
-		// colorList.add(new Color(73, 12, 139));// pourpre foncé
 		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
 		colorList.add(new Color(114, 159, 220));// Bleu clair
 		colorList.add(new Color(208, 38, 242));// rose clair
-		// colorList.add(new Color(12, 52, 139).brighter().brighter());// Bleu marrine
-		// System.out.println(new Color(12, 52, 139).brighter().brighter());
 		colorList.add(new Color(24, 105, 255));
 		colorList.add(Color.cyan);
 		colorList.add(new Color(198, 98, 17));// marront clair
@@ -39,6 +37,7 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorList.add(new Color(141, 207, 80));// Vert clair
 		colorList.add(new Color(137, 12, 139));// violet foncé
 		colorList.add(new Color(52, 52, 254));// Bleu foncé
+		colorList.add(new Color(73, 12, 139));// pourpre foncé
 		colorList.add(new Color(80, 139, 12));// Vert foncé
 		colorList.add(new Color(38, 116, 224));// Bleu
 		colorList.add(new Color(137, 38, 242));// pourpre

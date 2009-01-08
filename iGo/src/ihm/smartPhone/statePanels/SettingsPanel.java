@@ -282,8 +282,11 @@ public class SettingsPanel extends PanelState {
 		PTRadioBox rb;
 		iGoSmartPhoneSkin sk;
 		boolean collapsed = true;
-		if (skinsCollapsableArea != null)
+		if (skinsCollapsableArea != null) {
+			// on termine l'ancienne objet
 			collapsed = skinsCollapsableArea.isCollapsed();
+			skinsCollapsableArea.terminate();
+		}
 
 		grp = new PTRadioBoxGroup();
 		skinsCollapsableArea = makeCollapsableArea();

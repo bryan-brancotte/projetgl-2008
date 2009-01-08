@@ -5,8 +5,8 @@ import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
-import ihm.smartPhone.component.NetworkColorManager;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
+import ihm.smartPhone.interfaces.NetworkColorManager;
 import ihm.smartPhone.tools.SizeAdapteur;
 
 import java.util.Iterator;

@@ -91,7 +91,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-			} 
+			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -232,28 +232,29 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		int taille;
 		String s;
 		int height = (taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F)) + decalage;
-
+		// choix de la couleur : couleur vivant si à faire, couleur d'arrière plan si déja franchit.
 		if (hasBeenTraveled)
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
 		else
 			buffer.setColor(father.getSkin().getColorInside());
+		// dessin du cartouche pour une route
 		buffer.fillRect(left, ordonnee, rigth - left, height);
 		buffer.setColor(father.getSkin().getColorLine());
 		buffer.drawLine(inLeft, ordonnee, inLeft, ordonnee + height);
 		buffer.drawLine(inRigth, ordonnee, inRigth, ordonnee + height);
 		buffer.setColor(father.getSkin().getColorLetter());
 		buffer.drawRect(left, ordonnee, rigth - left, height);
-
+		// dessine le logo de la ligne
 		buffer.setColor(father.getNetworkColorManager().getColor(route));
 		buffer.fillOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
 		buffer.setColor(father.getSkin().getColorLetter());
 		buffer.drawOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
 		buffer.drawString(route.getId(), left + inLeft - getWidthString(route.getId(), buffer) >> 1, ordonnee
 				+ (height + getHeightString(route.getId(), buffer) - (decalage >> 2) >> 1));
-
+		// la direction
 		buffer.drawString(father.lg("DirectionInArrayMode") + direction.getName(), inLeft + (decalage >> 1), ordonnee
 				+ (height + getHeightString(route.getId(), buffer) >> 1));
-
+		// le temps
 		buffer.drawString(s = decomposeMinutesIntoHourMinutes(time, father.lg("LetterForHour"), father
 				.lg("LetterForMinute"), father.lg("MiniLetterForMinute")), inRigth + (decalage >> 1), ordonnee
 				+ (height + getHeightString(s, buffer) >> 1));
@@ -390,6 +391,12 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		new SlowScroll(-deroullement);
 	}
 
+	/**
+	 * Classe permettant un défilement doux du tableau
+	 * 
+	 * @author "iGo"
+	 * 
+	 */
 	protected class SlowScroll extends Thread {
 
 		int deroulement;

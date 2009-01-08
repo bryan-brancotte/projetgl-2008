@@ -1,4 +1,4 @@
-package ihm.smartPhone.component;
+package ihm.smartPhone.interfaces;
 
 import graphNetwork.Route;
 import graphNetwork.Service;
