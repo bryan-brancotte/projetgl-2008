@@ -6,8 +6,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
-
-import javax.swing.JOptionPane;
+ 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -70,10 +69,10 @@ public class ConfigurationXML implements Configuration {
 				makeConfigDefaut();
 			} catch (Exception e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Cannot create a new configuration file\n"
-						+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
-						JOptionPane.ERROR_MESSAGE);
-				System.exit(1);
+//				JOptionPane.showMessageDialog(null, "Cannot create a new configuration file\n"
+//						+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
+//						JOptionPane.ERROR_MESSAGE);
+//				System.exit(1);
 			}
 		} else {
 			try {
@@ -86,10 +85,10 @@ public class ConfigurationXML implements Configuration {
 					makeConfigDefaut();
 				} catch (Exception ex) {
 					e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Cannot create a new configuration file\n"
-							+ System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
-							JOptionPane.ERROR_MESSAGE);
-					System.exit(1);
+					// JOptionPane.showMessageDialog(null, "Cannot create a new configuration file\n"
+					// + System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + CONFIG_FILE, "Killing error",
+					// JOptionPane.ERROR_MESSAGE);
+					// System.exit(1);
 				}
 			}
 		}
