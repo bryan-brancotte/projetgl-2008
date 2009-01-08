@@ -26,7 +26,7 @@ import org.jdom.input.SAXBuilder;
  * Cette classe permet la surveillance d'un dossier qui contiendra les evenements
  * 
  */
-public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher {
+public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 	protected EventInfoNetWorkWatcherStatus status = EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
 	protected File fichier;
@@ -187,7 +187,8 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 						}
 						if (eventInfosNotApplied.size() > 0) {
 							status = EventInfoNetWorkWatcherStatus.NEW_UPDATE;
-							notifyObservers(null);
+							setChanged();
+							notifyObservers(eventInfosNotApplied);
 						}
 
 						// System.out.println("----------------------------");
@@ -212,7 +213,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	 * @param path
 	 *            Chemin du dossier a surveiller
 	 */
-	public EventInfoNetworkWatcherInFolderJDOM(String path) {
+	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
 		eventInfosNotApplied = new LinkedList<EventInfo>();
 		fichier = new File(path.replace("\\", "/"));
@@ -283,7 +284,7 @@ public class EventInfoNetworkWatcherInFolderJDOM extends EventInfoNetworkWatcher
 	}
 
 	public static void main(String[] args) {
-		EventInfoNetworkWatcherInFolderJDOM test = new EventInfoNetworkWatcherInFolderJDOM(System.getProperty("user.dir")
+		EventInfoNetworkWatcherInFolder test = new EventInfoNetworkWatcherInFolder(System.getProperty("user.dir")
 				+ "\\ressources\\xml\\TravelAltertGL2008.xml");
 		try {
 			test.startWatching();
