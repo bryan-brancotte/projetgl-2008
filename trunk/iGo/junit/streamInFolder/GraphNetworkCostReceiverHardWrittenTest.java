@@ -21,8 +21,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import streamInFolder.event.EventInfoStation;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 public class GraphNetworkCostReceiverHardWrittenTest {
 
+
+	@After
+	public void epilogueDateTest() {
+	}
+
+	@Before
+	public void prologueDateTest(){
+	
+	}
 }

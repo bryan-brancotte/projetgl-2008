@@ -25,4 +25,14 @@ import streamInFolder.recentsAndFavoritesGraphs.RecentsAndFavoritesPathsInGraphR
 
 public class RecentAndFavoritesPathInGraphsReaderInFolderTest {
 
+	RecentsAndFavoritesPathsInGraphReaderInFolder path;
+	@After
+	public void epilogueDateTest() {
+	}
+
+	@Before
+	public void prologueDateTest(){
+		path = new RecentsAndFavoritesPathsInGraphReaderInFolder();
+	}
+	
 }
