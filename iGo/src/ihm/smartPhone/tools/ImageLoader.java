@@ -129,7 +129,7 @@ public class ImageLoader extends Thread {
 	}
 
 	public static ImageIcon getRessourcesImageIcone(String name, int width, int height, boolean lowQuality) {
-		if (lowQuality)
+		if (lowQuality || height <= 32 && width <= 32)
 			return getImageIcone(name.getClass().getResource("/images/" + name + ".png"), width, height);
 		else
 			return getImageIcone(name.getClass().getResource("/images/" + name + ".128.png"), width, height);
