@@ -1,6 +1,5 @@
 package streamInFolder.event;
 
-import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
 import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
@@ -31,14 +30,14 @@ public class EventInfoStationOnARoute implements EventInfo {
 	private boolean applied = false;
 
 	/**
-	 * message de l'evenement
+	 * Message de l'evenement
 	 */
 	private String message = "";
 
 	/**
 	 * Id de l'evenement (deux evenement qui se corrigent ont le meme ID)
 	 */
-	private int messageId;
+	private int id;
 
 	/**
 	 * Constructeur d'Evenement qui intervient sur une station sur une ligne precise
@@ -52,10 +51,13 @@ public class EventInfoStationOnARoute implements EventInfo {
 		ids = _ids;
 		idr = _idr;
 		message = _message;
-		messageId = _msgId;
+		id = _msgId;
 		kindEventInfoNetwork = kein;
 	}
-
+	
+	/**
+	 * @see EventInfo#applyInfo(GraphNetworkBuilder)
+	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		
@@ -72,19 +74,18 @@ public class EventInfoStationOnARoute implements EventInfo {
 
 	}
 
+
+
 	/**
-	 * Getter of the property <tt>id</tt>
-	 * 
-	 * @return Returns the id.
+	 * @see EventInfo#getId()
 	 */
-	public int getIds() {
-		return ids;
+	@Override
+	public int getId() {
+		return id;
 	}
 
 	/**
-	 * Getter of the property <tt>kindEventInfoNetwork</tt>
-	 * 
-	 * @return Returns the kindEventInfoNetwork.
+	 * @see EventInfo#getKindEventInfoNetwork()
 	 */
 	@Override
 	public KindEventInfoNetwork getKindEventInfoNetwork() {
@@ -92,55 +93,36 @@ public class EventInfoStationOnARoute implements EventInfo {
 	}
 
 	/**
-	 * Getter of the property <tt>message</tt>
-	 * 
-	 * @return Returns the message.
+	 * @see EventInfo#getMessage()
 	 */
 	@Override
 	public String getMessage() {
 		return message;
 	}
 
-	/**
-	 * Setter of the property <tt>id</tt>
-	 * 
-	 * @param id
-	 *            The id to set.
-	 */
-	public void setIds(int id) {
-		this.ids = id;
-	}
 
 	/**
-	 * Setter of the property <tt>kindEventInfoNetwork</tt>
-	 * 
-	 * @param kindEventInfoNetwork
-	 *            The kindEventInfoNetwork to set.
+	 * @see EventInfo#getIdRoute()
 	 */
-	public void setKindEventInfoNetwork(KindEventInfoNetwork kindEventInfoNetwork) {
-		this.kindEventInfoNetwork = kindEventInfoNetwork;
-	}
-
-	/**
-	 * Setter of the property <tt>message</tt>
-	 * 
-	 * @param message
-	 *            The message to set.
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	@Override
-	public int getId() {
-		return this.ids;
+	public String getIdRoute() {
+		return idr;
 	}
 
+	/**
+	 * @see EventInfo#getIdStation()
+	 */
+	@Override
+	public int getIdStation() {
+		return ids;
+	}
+
+	/**
+	 * @see EventInfo#isApplied()
+	 */
+	@Override
 	public boolean isApplied() {
 		return applied;
 	}
 
-	public void setApplied(boolean applied) {
-		this.applied = applied;
-	}
 }

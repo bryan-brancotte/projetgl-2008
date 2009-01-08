@@ -7,35 +7,52 @@ import iGoMaster.KindEventInfoNetwork;
 /**
  * Evenement relatif a une ligne
  * 
+ * @author iGo
  */
 public class EventInfoRoute implements EventInfo {
+
 	/**
-	 * @uml.property name="id"
+	 * Id de l'evenement (deux evenement qui se corrigent ont le meme ID)
 	 */
 	private int id;
-
-	private boolean applied = false;
-
+	
 	/**
-	 * @uml.property name="kindEventInfoNetwork"
+	 * Message appliqué ou non
+	 */
+	private boolean applied = false;
+	
+	/**
+	 * Type de l'evenement (Probleme, solution)
 	 */
 	private KindEventInfoNetwork kindEventInfoNetwork;
-
+	
 	/**
-	 * @uml.property name="message"
+	 * Contenu du message
 	 */
 	private String message = "";
-
+	
+	/**
+	 * Id de la route relative au message
+	 */
 	private String idr;
-	private int messageId;
 
+	/**
+	 * Constructeur d'evenement survenant sur une route
+	 * @param _idr Id de la route
+	 * @param _message Message en question
+	 * @param _msgId ID du message
+	 * @param kein Type de l'evenement
+	 */
 	public EventInfoRoute(String _idr, String _message, int _msgId, KindEventInfoNetwork kein) {
 		idr = _idr;
 		message = _message;
-		messageId = _msgId;
+		id = _msgId;
 		kindEventInfoNetwork = kein;
 	}
 
+	/**
+	 * @see EventInfo#applyInfo(GraphNetworkBuilder)
+	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		if (!isApplied()) {
@@ -52,10 +69,7 @@ public class EventInfoRoute implements EventInfo {
 	}
 
 	/**
-	 * Getter of the property <tt>id</tt>
-	 * 
-	 * @return Returns the id.
-	 * @uml.property name="id"
+	 * @see EventInfo#getId()
 	 */
 	@Override
 	public int getId() {
@@ -63,10 +77,7 @@ public class EventInfoRoute implements EventInfo {
 	}
 
 	/**
-	 * Getter of the property <tt>kindEventInfoNetwork</tt>
-	 * 
-	 * @return Returns the kindEventInfoNetwork.
-	 * @uml.property name="kindEventInfoNetwork"
+	 * @see EventInfo#getKindEventInfoNetwork()
 	 */
 	@Override
 	public KindEventInfoNetwork getKindEventInfoNetwork() {
@@ -74,10 +85,7 @@ public class EventInfoRoute implements EventInfo {
 	}
 
 	/**
-	 * Getter of the property <tt>message</tt>
-	 * 
-	 * @return Returns the message.
-	 * @uml.property name="message"
+	 * @see EventInfo#getMessage()
 	 */
 	@Override
 	public String getMessage() {
@@ -85,44 +93,30 @@ public class EventInfoRoute implements EventInfo {
 	}
 
 	/**
-	 * Setter of the property <tt>id</tt>
-	 * 
-	 * @param id
-	 *            The id to set.
-	 * @uml.property name="id"
+	 * @see EventInfo#getIdRoute()
 	 */
-	public void setId(int id) {
-		this.id = id;
+	@Override
+	public String getIdRoute() {
+		return idr;
 	}
 
 	/**
-	 * Setter of the property <tt>kindEventInfoNetwork</tt>
-	 * 
-	 * @param kindEventInfoNetwork
-	 *            The kindEventInfoNetwork to set.
-	 * @uml.property name="kindEventInfoNetwork"
+	 * @see EventInfo#getIdStation()
 	 */
-	public void setKindEventInfoNetwork(KindEventInfoNetwork kindEventInfoNetwork) {
-		this.kindEventInfoNetwork = kindEventInfoNetwork;
+	@Override
+	public int getIdStation() {
+		return -1;
 	}
-
+	
+	
 	/**
-	 * Setter of the property <tt>message</tt>
-	 * 
-	 * @param message
-	 *            The message to set.
-	 * @uml.property name="message"
+	 * @see EventInfo#isApplied()
 	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
+	@Override
 	public boolean isApplied() {
 		return applied;
 	}
 
-	public void setApplied(boolean applied) {
-		this.applied = applied;
-	}
+
 
 }

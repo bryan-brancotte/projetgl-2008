@@ -5,45 +5,63 @@ import iGoMaster.EventInfo;
 import iGoMaster.KindEventInfoNetwork;
 
 /**
- * Evénement relatif a� une station
+ * Evénement relatif a une station
  * 
  */
 public class EventInfoStation implements EventInfo {
 
 	/**
-	 * @uml.property name="id"
+	 * Id de l'evenement (deux evenement qui se corrigent ont le meme ID)
 	 */
 	private int id;
-
+	
 	/**
-	 * @uml.property name="kindEventInfoNetwork"
+	 * Message appliqué ou non
+	 */
+	private boolean applied = false;
+	
+	/**
+	 * Type de l'evenement (Probleme, solution)
 	 */
 	private KindEventInfoNetwork kindEventInfoNetwork;
-	private boolean applied = false;
-
+	
 	/**
-	 * @uml.property name="message"
+	 * Contenu du message
 	 */
 	private String message = "";
 
-	private int messageId;
+	/**
+	 * Id de la station ou survient l'evenement
+	 */
+	private int ids;
 
+	/**
+	 * Constructeur d'evenement survenant sur une station
+	 * @param _id Id de la station
+	 * @param _message Message en question
+	 * @param _msgId ID du message
+	 * @param kein Type de l'evenement
+	 */
 	public EventInfoStation(int _id, String _message, int _msgId, KindEventInfoNetwork kein) {
-		id = _id;
+		ids = _id;
 		message = _message;
-		messageId = _msgId;
+		id = _msgId;
 		kindEventInfoNetwork = kein;
 	}
-
+	
+	
+	/**
+	 * @see EventInfo#applyInfo(GraphNetworkBuilder)
+	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 
 		if (!isApplied()) {
 			System.out.println("entering into event info station");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
-				graph.setEnable(id, false);
+				graph.setEnable(ids, false);
 			} else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
-				graph.setEnable(id, true);
+				graph.setEnable(ids, true);
 			}
 			this.applied = true;
 		}
@@ -51,11 +69,10 @@ public class EventInfoStation implements EventInfo {
 
 	}
 
+
+
 	/**
-	 * Getter of the property <tt>id</tt>
-	 * 
-	 * @return Returns the id.
-	 * @uml.property name="id"
+	 * @see EventInfo#getId()
 	 */
 	@Override
 	public int getId() {
@@ -63,10 +80,7 @@ public class EventInfoStation implements EventInfo {
 	}
 
 	/**
-	 * Getter of the property <tt>kindEventInfoNetwork</tt>
-	 * 
-	 * @return Returns the kindEventInfoNetwork.
-	 * @uml.property name="kindEventInfoNetwork"
+	 * @see EventInfo#getKindEventInfoNetwork()
 	 */
 	@Override
 	public KindEventInfoNetwork getKindEventInfoNetwork() {
@@ -74,54 +88,36 @@ public class EventInfoStation implements EventInfo {
 	}
 
 	/**
-	 * Getter of the property <tt>message</tt>
-	 * 
-	 * @return Returns the message.
-	 * @uml.property name="message"
+	 * @see EventInfo#getMessage()
 	 */
 	@Override
 	public String getMessage() {
 		return message;
 	}
 
+
 	/**
-	 * Setter of the property <tt>id</tt>
-	 * 
-	 * @param id
-	 *            The id to set.
-	 * @uml.property name="id"
+	 * @see EventInfo#getIdRoute()
 	 */
-	public void setId(int id) {
-		this.id = id;
+	@Override
+	public String getIdRoute() {
+		return null;
 	}
 
 	/**
-	 * Setter of the property <tt>kindEventInfoNetwork</tt>
-	 * 
-	 * @param kindEventInfoNetwork
-	 *            The kindEventInfoNetwork to set.
-	 * @uml.property name="kindEventInfoNetwork"
+	 * @see EventInfo#getIdStation()
 	 */
-	public void setKindEventInfoNetwork(KindEventInfoNetwork kindEventInfoNetwork) {
-		this.kindEventInfoNetwork = kindEventInfoNetwork;
+	@Override
+	public int getIdStation() {
+		return ids;
 	}
-
+	
+	
 	/**
-	 * Setter of the property <tt>message</tt>
-	 * 
-	 * @param message
-	 *            The message to set.
-	 * @uml.property name="message"
+	 * @see EventInfo#isApplied()
 	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
+	@Override
 	public boolean isApplied() {
 		return applied;
-	}
-
-	public void setApplied(boolean applied) {
-		this.applied = applied;
 	}
 }
