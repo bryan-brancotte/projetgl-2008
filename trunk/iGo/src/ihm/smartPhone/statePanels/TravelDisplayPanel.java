@@ -35,13 +35,21 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	protected static Image imageWarning;
 	protected Rectangle iconeWarningArea = null;
-	protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
+	// protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
 
 	protected Rectangle changeStateArea = null;
 
 	protected PopUpMessage popUpMessage;
 
 	protected int sizeLargeFont = 1;
+	/**
+	 * Les composants d'un trajet favorit
+	 */
+	protected static Image imageFav = null;
+	protected static Image imageNoFav = null;
+	protected Rectangle iconeFavArea = null;
+
+	// protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
 
 	public TravelDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -54,6 +62,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		if (imageWarning == null)
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 		iconeWarningArea = new Rectangle(0, 0, 0, 0);
+		iconeFavArea = new Rectangle(0, 0, 0, 0);
 		changeStateArea = new Rectangle(0, 0, 0, 0);
 
 		MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray = new MouseListenerClickAndMoveInArea(this);
@@ -80,6 +89,13 @@ public abstract class TravelDisplayPanel extends PanelState {
 						+ "de la banqueroute, mais cela reste une bien triste nouvelle en ce vendredi après-midi.",
 						null);
 				me.repaint();
+			}
+		});
+		clickAndMoveWarningAndArray.addInteractiveArea(iconeFavArea, new CodeExecutor() {
+			@Override
+			public void execute() {
+				travel.setFavorite(!travel.isFavorite());
+				repaint();
 			}
 		});
 		clickAndMoveWarningAndArray.addInteractiveArea(changeStateArea, new CodeExecutor() {
@@ -130,14 +146,23 @@ public abstract class TravelDisplayPanel extends PanelState {
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			imageWarning = null;
+			imageFav = null;
+			imageNoFav = null;
 		}
 		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont()
-				+ (father.getSizeAdapteur().getSizeLargeFont() >> 1);
-		if (imageWarning == null || imageWarning.getHeight(null) != (sizeLargeFont))
+				+ (father.getSizeAdapteur().getSizeLargeFont() >> 2);
+		if (imageWarning == null || imageNoFav==null||imageWarning.getHeight(null) != (sizeLargeFont)) {
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
-		g.drawImage(imageWarning, 0, getHeight() - imageWarning.getHeight(null), null);
-		iconeWarningArea.setBounds(0, getHeight() - imageWarning.getHeight(null), imageWarning.getHeight(null),
-				imageWarning.getWidth(null));
+			imageFav = ImageLoader.getRessourcesImageIcone("fav", sizeLargeFont, sizeLargeFont).getImage();
+			imageNoFav = ImageLoader.getRessourcesImageIcone("fav-no", sizeLargeFont, sizeLargeFont).getImage();
+		}
+		if (travel.isFavorite())
+			g.drawImage(imageFav, 0, getHeight() - sizeLargeFont, null);
+		else
+			g.drawImage(imageNoFav, 0, getHeight() - sizeLargeFont, null);
+		iconeFavArea.setBounds(0, getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
+		g.drawImage(imageWarning, sizeLargeFont+(sizeLargeFont>>2), getHeight() - sizeLargeFont, null);
+		iconeWarningArea.setBounds(sizeLargeFont+(sizeLargeFont>>2), getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
 		g.setFont(father.getSizeAdapteur().getSmallFont());
 		int ws, hs, hs23, ws11;
 		int roundRect;
@@ -214,22 +239,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 				}
 			} : null);
 			upperBar.setLowerTitle("");
-			// upperBar.setLeftCmd(father.lg("Previous"), new ActionListener() {
-			// @Override
-			// public void actionPerformed(ActionEvent e) {
-			// travel.previous();
-			// giveControle();
-			// }
-			// });
 			if (travel.hasNext()) {
-				// upperBar.setRightCmd(father.lg("Next"), new ActionListener() {
-				// @Override
-				// public void actionPerformed(ActionEvent e) {
-				// nextStationDone();
-				// travel.next();
-				// giveControle();
-				// }
-				// });
 				upperBar.setUpperTitle(father.lg("NextStop"));
 				upperBar.setMainTitle(travel.getNextStop());
 			} else
