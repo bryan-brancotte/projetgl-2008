@@ -64,8 +64,6 @@ public abstract class EventInfoNetworkWatcher extends Observable {
 
 	/**
 	 */
-	public void setChanged() {
-	}
 
 
 }
