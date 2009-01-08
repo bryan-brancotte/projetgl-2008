@@ -33,6 +33,7 @@ public class Dijkstra extends Algo {
 	private ArrayList<Service> once;
 	private long timeComb;
 	private boolean isAborted;
+	private int TimeMaxPerConstraintsInMs = 1000;
 
 	/***************************************************************/
 
@@ -79,10 +80,14 @@ public class Dijkstra extends Algo {
 			time+=j.getTimeBetweenStations();
 			prb.addLast(j);
 		}
+		// Mise à jour du temps de parcours du trajet
 		prb.setTime(time);
+		// Mise à jour du cout de trajet
 		prb.setCost(cost);
+		// Information que le trajet est résolu
 		prb.setPathInGraphResolved();
 
+		// Notification d'iGoMaster que le calcul est terminé
 		this.setChanged();
 		this.notifyObservers(p);
 		steps=null;
@@ -130,6 +135,7 @@ public class Dijkstra extends Algo {
 			else
 				throw new ServiceNotAccessibleException(s);
 		}
+		// Suppression des services étant remplis par l'origine ou la destination
 		Tools.removeServicesFromStation(origin, once);
 		Tools.removeServicesFromStation(destination, once);
 	}
@@ -158,6 +164,8 @@ public class Dijkstra extends Algo {
 	}
 
 	/**
+	 * Fonction récursive permettant de trouver un chemin entre l'origine et la destination en testant l'ensemble des chemins possibles dans un temps défini par la variable
+	 * TimeMaxPerConstraintsInMs fixée à 1 seconde par défaut (prévision d'un choix de l'utilisateur ultérieur pour une configuration avancée)
 	 * 
 	 * @param v
 	 * @param vTot
@@ -168,7 +176,7 @@ public class Dijkstra extends Algo {
 	private void algoComb(ArrayList<ArrayList<Station>> v, ArrayList<ArrayList<Station>> vTot, int prof) throws NodeNotFoundException, NoRouteForStationException {
 		if (prof == 0)
 			timeComb = System.currentTimeMillis();
-		if ((prof > 0 && System.currentTimeMillis() - timeComb > 1000 && betterPath != null && betterPath.size() != 0) || isAborted)
+		if ((prof > 0 && System.currentTimeMillis() - timeComb > TimeMaxPerConstraintsInMs && betterPath != null && betterPath.size() != 0) || isAborted)
 			return;
 		if (v == null || vTot == null || vTot.size() == 0)
 			return;
@@ -198,6 +206,7 @@ public class Dijkstra extends Algo {
 	}
 
 	/**
+	 * Retourne le chemin le plus court entre un couple station,route et une liste de station
 	 * 
 	 * @param origin
 	 * @param listStation
@@ -322,6 +331,7 @@ public class Dijkstra extends Algo {
 	}
 
 	/**
+	 * Algorithme de calcul pour le trajet
 	 * 
 	 * @param depart
 	 * @param arrivee
