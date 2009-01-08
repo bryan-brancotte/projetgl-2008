@@ -18,10 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
-
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+ 
 
 public abstract class TravelDisplayPanel extends PanelState {
 
@@ -78,15 +75,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 						+ "dans le milieu du jeu PC. En l'occurrence, ni le manque d'originalité, "
 						+ "ni le prix de vente (de seulement 20 dollars), ni la présence d'un "
 						+ "quelconque système de protection rédhibitoire ne peuvent être invoqués "
-						+ "pour justifier de se procurer le jeu par des voies détournées. "
-						+ "Vivrions-nous donc dans une société de profiteurs, même pas fichus de "
-						+ "respecter le travail débordant de créativité d'un petit studio indépendant ? "
-						+ "C'est la question qu'on est en droit de se poser, sans compter que les "
-						+ "partisans des DRM trouveront là matière à justifier des systèmes de "
-						+ "protection de plus en plus lourds et de plus en plus contraignants. Il "
-						+ "faudrait vraiment savoir ce que veut le joueur PC. 2D Boy précise que les "
-						+ "ventes effectuées sur Wiiware et sur Steam sauveront heureusement le studio "
-						+ "de la banqueroute, mais cela reste une bien triste nouvelle en ce vendredi après-midi.",
+						+ "pour justifier de se procurer le jeu par des voies détournées...",
 						null);
 				me.repaint();
 			}
@@ -151,7 +140,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		}
 		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont()
 				+ (father.getSizeAdapteur().getSizeLargeFont() >> 2);
-		if (imageWarning == null || imageNoFav==null||imageWarning.getHeight(null) != (sizeLargeFont)) {
+		if (imageWarning == null || imageNoFav == null || imageWarning.getHeight(null) != (sizeLargeFont)) {
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", sizeLargeFont, sizeLargeFont).getImage();
 			imageNoFav = ImageLoader.getRessourcesImageIcone("fav-no", sizeLargeFont, sizeLargeFont).getImage();
@@ -161,8 +150,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 		else
 			g.drawImage(imageNoFav, 0, getHeight() - sizeLargeFont, null);
 		iconeFavArea.setBounds(0, getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
-		g.drawImage(imageWarning, sizeLargeFont+(sizeLargeFont>>2), getHeight() - sizeLargeFont, null);
-		iconeWarningArea.setBounds(sizeLargeFont+(sizeLargeFont>>2), getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
+		g.drawImage(imageWarning, sizeLargeFont + (sizeLargeFont >> 2), getHeight() - sizeLargeFont, null);
+		iconeWarningArea.setBounds(sizeLargeFont + (sizeLargeFont >> 2), getHeight() - sizeLargeFont, sizeLargeFont,
+				sizeLargeFont);
 		g.setFont(father.getSizeAdapteur().getSmallFont());
 		int ws, hs, hs23, ws11;
 		int roundRect;
@@ -270,8 +260,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 			lowerBar.setCenterIcone("home", new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (true || JOptionPane.showConfirmDialog(me, father.lg("DoYouWantToQuitYourActualTravel"), father
-							.lg("ProgName"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+					// if (true || JOptionPane.showConfirmDialog(me, father.lg("DoYouWantToQuitYourActualTravel"),
+					// father
+					// .lg("ProgName"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 						father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
@@ -295,8 +286,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected MouseMotionListener[] mml;
 		protected MouseWheelListener[] mwl;
 		protected Image imageButtonOk = null;
-		protected JTextArea textMessageArea;
-		protected JScrollPane scrollPane;
+
+		// protected JTextArea textMessageArea;
+		// protected JScrollPane scrollPane;
 
 		/**
 		 * Constructeur d'un PopUpMessage, on précise le panel qui l'accueil afin de controler les zones clicables dans
@@ -326,27 +318,29 @@ public abstract class TravelDisplayPanel extends PanelState {
 						actionAfterOkButton.execute();
 					me.requestFocus();
 					activeMessage = false;
-					scrollPane.setVisible(false);
+					// scrollPane.setVisible(false);
 					me.repaint();
 				}
 			});
 			panelParent.setLayout(new AbsolutLayout());
-			textMessageArea = new JTextArea();
-			textMessageArea.setEditable(false);
-			// textMessageArea.setWrapStyleWord(true);
-			textMessageArea.setLineWrap(true);
-			textMessageArea.setAutoscrolls(false);
-			// textMessageArea.setAutoscrolls(true);
-			// textMessageArea.setEnabled(false);
-			// textMessageArea.setBackground(panelParent.getBackground());
-			// textMessageArea.setVisible(false);
-			// scrollPane.setLayout(new BorderLayout());
-			scrollPane = new JScrollPane(textMessageArea);
-			// Panel inside = new Panel(new BorderLayout(0, 0));
-			// inside.add(textMessageArea);
-			// scrollPane.add(inside);
-			scrollPane.setVisible(false);
-			panelParent.add(scrollPane);
+			// /*
+			// textMessageArea = new JTextArea();
+			// textMessageArea.setEditable(false);
+			// // textMessageArea.setWrapStyleWord(true);
+			// textMessageArea.setLineWrap(true);
+			// textMessageArea.setAutoscrolls(false);
+			// // textMessageArea.setAutoscrolls(true);
+			// // textMessageArea.setEnabled(false);
+			// // textMessageArea.setBackground(panelParent.getBackground());
+			// // textMessageArea.setVisible(false);
+			// // scrollPane.setLayout(new BorderLayout());
+			// scrollPane = new JScrollPane(textMessageArea);
+			// // Panel inside = new Panel(new BorderLayout(0, 0));
+			// // inside.add(textMessageArea);
+			// // scrollPane.add(inside);
+			// scrollPane.setVisible(false);
+			// panelParent.add(scrollPane);
+			// */
 		}
 
 		/**
@@ -389,14 +383,15 @@ public abstract class TravelDisplayPanel extends PanelState {
 				me.removeMouseWheelListener(m);
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
-			scrollPane.setVisible(true);
+
+			// scrollPane.setVisible(true);
 			// scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
 			// (int) (getHeight() * 0.35));
 
 			// textMessageArea.setColumns(10);//
 			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
 			// textMessageArea.setRows(20);
-			textMessageArea.setText(message);
+			// textMessageArea.setText(message);
 			// scrollPane.setBounds(0,0,10,10);
 			// scrollPane.repaint();
 			// textMessageArea.validate();
@@ -418,28 +413,39 @@ public abstract class TravelDisplayPanel extends PanelState {
 		 *            le Graphics sur lequel il doit dessiner
 		 */
 		public void paint(Graphics g) {
+			int heigth;// cette variable représentera d'abort la l'ordonnne, puis la hauteur
+			int left;
 			sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont();
 			if (imageButtonOk.getHeight(null) != sizeLargeFont)
 				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
 						.getImage();
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			g.fillRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875),
-					(int) (getHeight() * 0.6));
+			heigth = (getHeight() >> 3);
+			left = getWidth() >> 4;
+			g.fillRect(left, heigth, getWidth() - (left << 1), getHeight() - (heigth << 1));
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRect(getWidth() >> 4, (int) (getHeight() * 0.2), (int) (getWidth() * 0.875),
-					(int) (getHeight() * 0.6));
-			scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
-					(int) (getHeight() * 0.35));
+			g.drawRect(left, heigth, getWidth() - (left << 1), getHeight() - (heigth << 1));
+			g.setFont(father.getSizeAdapteur().getLargeFont());
+			heigth += sizeLargeFont;
+			g.drawString(title, getWidth() - getWidthString(title, g) >> 1, heigth);
+
+			g.setFont(father.getSizeAdapteur().getSmallFont());
+			String[] cut = decoupeChaine(message, g, (getWidth() >> 1) + (getWidth() >> 2));
+			heigth += sizeLargeFont >> 1;
+			int heigthTmp = getHeightString(message, g);
+			for (String tmp : cut) {
+				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
+				heigth += heigthTmp + 1;
+			}
+			// scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
+			// (int) (getHeight() * 0.35));
 			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
-			textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
-			imageButtonOkArea.setBounds((getWidth() * 15 >> 4) - sizeLargeFont - 10, (int) (getHeight() * 0.8
-					- sizeLargeFont - 10), sizeLargeFont, sizeLargeFont);
+			// textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
+			imageButtonOkArea.setBounds(getWidth() - left - sizeLargeFont - heigthTmp, getHeight() - (getHeight() >> 3)
+					- sizeLargeFont - heigthTmp, sizeLargeFont, sizeLargeFont);
 			// imageButtonOkArea.setBounds(getWidth() * 0.875, getHeight() * 0.8, sizeLargeFont, sizeLargeFont);
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
-			g.setFont(father.getSizeAdapteur().getLargeFont());
-			g.drawString(title, getWidth() - getWidthString(title, g) >> 1,
-					(int) (getHeight() * 0.275 + (getHeightString(title, g) >> 1)));
-			scrollPane.repaint();
+			// scrollPane.repaint();
 		}
 
 		public MouseListenerClickAndMoveInArea getClickAndMoveListener() {

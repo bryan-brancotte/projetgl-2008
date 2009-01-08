@@ -141,7 +141,7 @@ public class LowerBar extends AbstractBar {
 		buffer.fillRect(0, 0, getWidth(), getHeight());
 
 		buffer.setColor(ihm.getSkin().getColorLetter());
-		int roundRect = this.getWidth() >> 6;
+		int roundRect = ihm.getSizeAdapteur().getSizeSmallFont() >> 1;
 		drawStrings(buffer, FontSizeKind.LARGE, roundRect);
 		drawStrings(buffer, FontSizeKind.INTERMEDIATE, roundRect);
 		drawStrings(buffer, FontSizeKind.SMALL, roundRect);

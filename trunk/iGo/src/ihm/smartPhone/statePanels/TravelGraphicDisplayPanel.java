@@ -264,12 +264,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			buffer.setSizeViewPort(getWidth(), getHeight());
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 		}
-		if ((buffer.getWidthImage() != sizeQuadLarge * 5)
-				|| (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge)) {
-			buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeQuartLarge);
-		} else if (!buffer.isNeededRepaint()) {
-			return;
-		}
+		// if ((buffer.getWidthImage() != sizeQuadLarge * 5)
+		// || (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge)) {
+		// buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeQuartLarge);
+		// } else if (!buffer.isNeededRepaint()) {
+		// return;
+		// }
+		buffer.setSizeImage(0, 0);
 
 		SectionOfTravel section = null;
 		Iterator<SectionOfTravel> iterTravel;

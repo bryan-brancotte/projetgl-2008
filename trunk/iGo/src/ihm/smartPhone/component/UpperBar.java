@@ -159,7 +159,7 @@ public class UpperBar extends AbstractBar {
 		}
 
 		buffer.setColor(ihm.getSkin().getColorLetter());
-		int roundRect = (this.getWidth() >> 6) + 1;
+		int roundRect = ihm.getSizeAdapteur().getSizeSmallFont() >> 1;
 		drawStrings(buffer, FontSizeKind.LARGE, roundRect);
 		drawStrings(buffer, FontSizeKind.INTERMEDIATE, roundRect);
 		drawStrings(buffer, FontSizeKind.SMALL, roundRect);
@@ -252,8 +252,7 @@ public class UpperBar extends AbstractBar {
 			ws = getWidthString(leftCmd, g, font);
 			ws11 = ws + (roundRect << 2) + roundRect;
 			leftCmdArea.setBounds(roundRect, (this.getHeight() - hs23 >> 1), ws11, hs23);
-			g.fillRoundRect(leftCmdArea.x, leftCmdArea.y, leftCmdArea.width, leftCmdArea.height,
-					roundRect, roundRect);
+			g.fillRoundRect(leftCmdArea.x, leftCmdArea.y, leftCmdArea.width, leftCmdArea.height, roundRect, roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
 			g.drawRoundRect(leftCmdArea.x, leftCmdArea.y, leftCmdArea.width, leftCmdArea.height, roundRect, roundRect);
 			g.setColor(colorFont);
@@ -276,8 +275,8 @@ public class UpperBar extends AbstractBar {
 			ws = getWidthString(leftRecCmd, g, font);
 			ws11 = ws + (roundRect << 1);
 			leftRecCmdArea.setBounds(roundRect, (this.getHeight() - hs23 >> 1), ws11, hs23);
-			g.fillRoundRect(leftRecCmdArea.x, leftRecCmdArea.y, leftRecCmdArea.width,
-					leftRecCmdArea.height, roundRect, roundRect);
+			g.fillRoundRect(leftRecCmdArea.x, leftRecCmdArea.y, leftRecCmdArea.width, leftRecCmdArea.height, roundRect,
+					roundRect);
 			g.setColor(ihm.getSkin().getColorLine());
 			g.drawRoundRect(leftRecCmdArea.x, leftRecCmdArea.y, leftRecCmdArea.width, leftRecCmdArea.height, roundRect,
 					roundRect);
