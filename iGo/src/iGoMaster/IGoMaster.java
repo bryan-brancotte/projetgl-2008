@@ -20,6 +20,7 @@ import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.tools.ExecMultiThread;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -112,14 +113,12 @@ public class IGoMaster implements Master, Observer
 		try 
 		{
 			eventInfoNetwork.startWatching();
+			return true;
 		} 
-		catch (ImpossibleStartingException e) 
-		{
-			System.err.print("La surveillance des évènements n'a pas pu être activée");
-			return false;
-		}
+		catch (ImpossibleStartingException e) {e.printStackTrace();}
+		catch (Exception e){e.printStackTrace();}
 		
-		return true;
+		return false;
 	}
 	
 	/**  
@@ -206,6 +205,7 @@ public class IGoMaster implements Master, Observer
 	private void process()
 	{
 		this.initObservers();
+		System.out.println("kljklj");
 		
 		if (test())System.out.println("elo --> Start Visu");
 		ihm.start(true,4);
@@ -260,8 +260,9 @@ public class IGoMaster implements Master, Observer
 	 */
 	private void initObservers() 
 	{
+		eventInfoNetwork.addObserver(this);	
 	    algo.addObserver(this);
-	    eventInfoNetwork.addObserver(this);	
+	    
 	}
 	
 	/**  
@@ -317,7 +318,7 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if (test())System.out.println("elo --> update");
+		if (test())System.out.println("elo --> UPPDATEEEEEEE");
 		
 		if (o.equals(algo) && o!=null)
 		{
@@ -337,7 +338,6 @@ public class IGoMaster implements Master, Observer
 				while(addAsRecent&&itB.hasNext()){
 					addAsRecent&=itB.next()!=collectionBuilder;
 				}
-				if(test())System.out.println("addAsRecent?"+addAsRecent);
 				if(addAsRecent)
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
 				//TODO modifier par bryan End
@@ -353,7 +353,7 @@ public class IGoMaster implements Master, Observer
 				ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
 			}
 		}
-		else if (o.equals(eventInfoNetwork) && o!=null && arg==null)
+		else if (o.equals(eventInfoNetwork) && o!=null)
 		{
 			
 			if (!threads.isEmpty())
@@ -363,15 +363,22 @@ public class IGoMaster implements Master, Observer
 				catch (InterruptedException e) {e.printStackTrace();}
 				threads.clear();
 			}
+			/** TODO BUGGGGGGGGGGGGGGGGGGGGGGG :'(
+			if (test())System.out.println("elo --> ici");
+			Collection <EventInfo> collectEventForIhm = eventInfoNetwork.getNewEventInfo();
+			if (collectEventForIhm!=null)
+			{
+			for (EventInfo ev : eventInfoNetwork.getNewEventInfo())
+			{
+				if (test())System.out.println("elo --> la");
+				System.out.println(ev.getMessage());
+			}
 			
 			eventInfoNetwork.applyInfo(graphBuilder);
 			
-			for (EventInfo event : eventInfoNetwork.getNewEventInfo()) 
-			{
-				/**TODO*/
-			}
-			
-			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");	
+			if (!ihm.updateNetwork(collectEventForIhm)) 
+				System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
+			}*/
 		}
 	}
 	
