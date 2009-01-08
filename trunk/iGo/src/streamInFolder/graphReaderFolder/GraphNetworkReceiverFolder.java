@@ -29,13 +29,37 @@ import org.jdom.input.SAXBuilder;
 
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
+/**
+ * Interface permettant de modeliser un constructeur de reseau a partir d'un fichier
+ * 
+ * @author iGo
+ */
 public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
+	/**
+	 * Tableau associatif contenant les differents reseaux disponibles
+	 */
 	private HashMap<String, AvailableNetwork> networks;
+	
+	/**
+	 * Dossier ou se trouvent les reseaux
+	 */
 	private File folder;
-	protected org.jdom.Document doc;
-	protected final Lock verrou = new ReentrantLock();
+	
+	/**
+	 * Contenu XML d'un reseau
+	 */
+	private org.jdom.Document doc;
+	
+	/**
+	 * Verrou pour empecher la lecture d'un reseau en cours de construction
+	 */
+	private final Lock verrou = new ReentrantLock();
 
+	/**
+	 * Constructeur de GraphNetworkReceiverFolder
+	 * @param f Nom du dossier ou se trouvent les reseaux
+	 */
 	public GraphNetworkReceiverFolder(String f) {
 		super();
 		networks = new HashMap<String, AvailableNetwork>();
@@ -53,12 +77,6 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 			}
 		}
 	}
-
-	/**
-	 */
-//	public boolean updateGraph() {
-//		return false;
-//	}
 
 	/**
 	 * @see GraphNetworkReceiver#getAvaibleNetwork()
@@ -84,10 +102,6 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 			throw new GraphReceptionException();
 		else {
 			try {
-				// System.out.println(networks.get(networkChosen));
-				// System.out.println(networks.get(networkChosen).getFichier());
-				// System.out.println(networks.get(networkChosen).getFichier().toURI());
-
 				SAXBuilder sxb = new SAXBuilder();
 
 				GraphNetworkCostReceiverHardWritten giveCost;
@@ -98,11 +112,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 					try {
 						doc = sxb.build(networks.get(networkChosen).getFichier().toURI().toString());
 					} catch (JDOMException e) {
-						System.err.println("Ce Fichier XML n\'est pas un fichier XML valide");
-						e.printStackTrace();
+						throw new GraphConstructionException();
 					} catch (IOException e) {
-						System.err.println("Erreur de lecture");
-						e.printStackTrace();
+						throw new GraphConstructionException();
 					}
 
 					Element racine;
@@ -123,7 +135,6 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							}
 						}
 						gnb.addService(id, description, "");
-//						 System.out.println("Adding Service : " + id + " : " + description);
 					}
 
 					List<Element> stations = racine.getChild("StationsList").getChildren("Station");
@@ -154,9 +165,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						}
 						if (id != 0 && !name.equals("")) {
 							Station s = gnb.addStation(id, name);
-//							 System.out.println("Adding Station : " + name);
 							for (int l = 0; l < idServicesStation.size(); l++) {
-//								 System.out.println("\t Adding service : " + gnb.getCurrentGraphNetwork().getService(idServicesStation.get(l)).getName());
 								gnb.addServiceToStation(s, gnb.getCurrentGraphNetwork().getService(idServicesStation.get(l)));
 							}
 						}
@@ -173,18 +182,15 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : nodeChilds) {
 							if (child.getName().compareTo("ID") == 0) {
 								id = child.getTextTrim();
-//								 System.out.println("id route " + id);
 							}
 							else if (child.getName().compareTo("Kind") == 0) {
 								kindR = child.getTextTrim();
-//								 System.out.println("kind route " + kindR);
 							}
 							else if (child.getName().compareTo("RouteSectionsList") == 0) {
 								List<Element> sectionsList = child.getChildren();
 
 								for (Element section : sectionsList) {
 									timeBetweenStations.add(Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
-//									 System.out.println("Time between stations " + Integer.parseInt(section.getAttributeValue("TimeBetweenStations")));
 
 									List<Element> sectionStationsList = section.getChild("SectionStationsList").getChildren();
 
@@ -192,7 +198,6 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 									for (Element station : sectionStationsList) {
 										if (station.getName().compareTo("ID") == 0) {
-//											 System.out.println("ID "+ Integer.parseInt(station.getTextTrim()));
 											idStations.add(Integer.parseInt(station.getTextTrim()));
 										}
 
@@ -202,39 +207,18 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							}
 
 							if (idSectionsStations.size() > 0 && timeBetweenStations.size() > 0 && !id.equals("") && !kindR.equals("")) {
-//								 System.out.println("nous avons " + idSectionsStations.size() + " sections");
 								Route r = gnb.addRoute(id, kindR);
-//								 System.out.println("Adding Route : " + id);
-								// System.out.println();
-								// System.out.println();
 								gnb.defineEntryCost(KindRoute.getKindFromString(kindR), giveCost.getCost(KindRoute.getKindFromString(kindR)));
 
 								for (int j = 0; j < idSectionsStations.size(); j++) {
-//									System.out.println("J : " + j);
 									for (int k = 0; k < idSectionsStations.get(j).size(); k++) {
-//										System.out.println("k : " + k);
 										gnb.addStationToRoute(r, gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)),
 												timeBetweenStations.get(j));
-//										System.out.println("Adding station to route " + r.getId() + " " + gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)) + " " + timeBetweenStations.get(j));
-//										
-//										Iterator iTr = gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)).getRoutes();
-//										System.out.println("Verification station " + gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)));
-//										while (iTr.hasNext()) {
-//											Route rte = (Route) iTr.next();
-//											System.out.println("\t route " + rte);
-//										}
-										
-//										System.out.println("Adding station to route " + r.getId());
-//										gnb.getCurrentGraphNetwork().getStation(1).
 									}
 								}
-//								System.out.println();
-//								System.out.println();
 							}
 						}
 					}
-//					System.out.println();
-//					System.out.println();
 
 					List<Element> interchanges = racine.getChild("InterchangesList").getChildren("Interchange");
 					for (Element interchange : interchanges) {
@@ -245,11 +229,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : startChilds) {
 							if (child.getName().compareTo("Station") == 0) {
 								idStationStart = Integer.parseInt(child.getTextTrim());
-//								 System.out.println("ID Station start : " + idStationStart);
 							}
 							else if (child.getName().compareTo("Route") == 0) {
 								idRouteStart = child.getTextTrim();
-//								 System.out.println("ID Route start : " + idRouteStart);
 							}
 						}
 
@@ -263,31 +245,20 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							boolean pedestrianEnd = true;
 							int timeEnd = 0;
 							for (Element child : endChilds) {
-//								idStationEnd = 0;
-//								idRouteEnd = "";
-//								freeEnd = true;
-//								pedestrianEnd = true;
-//								timeEnd = 0;
-
 
 								if (child.getName().compareTo("Station") == 0) {
-//									 System.out.println("\t ID Station end : " + child.getTextTrim());
 									idStationEnd = Integer.parseInt(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Route") == 0) {
-//									 System.out.println("\t ID Route end : " + child.getTextTrim());
 									idRouteEnd = child.getTextTrim();
 								}
 								else if (child.getName().compareTo("Free") == 0) {
-//									 System.out.println("\t ID free end : " + child.getTextTrim());
 									freeEnd = Boolean.parseBoolean(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Pedestrian") == 0) {
-//									 System.out.println("\t ID pedestrian end : " + child.getTextTrim());
 									pedestrianEnd = Boolean.parseBoolean(child.getTextTrim());
 								}
 								else if (child.getName().compareTo("Time") == 0) {
-//									 System.out.println("\t ID time end : " + child.getTextTrim());
 									timeEnd = Integer.parseInt(child.getTextTrim());
 								}
 							}
@@ -295,22 +266,17 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							if (idStationStart != 0 && !idRouteStart.equals("") && idStationEnd != 0 && !idRouteEnd.equals("")) {
 
 								if (freeEnd == true) {
-//									System.out.println("Free");
-//									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
-									gnb.linkStationBidirectional(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
-											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
-											.getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
+									gnb.linkStationBidirectional(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork()
+											.getStation(idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb
+											.getCurrentGraphNetwork().getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
 								}
 								else {
-//									System.out.println("NOT Free " + giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart).getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()));
-//									System.out.println("\t " + gnb.getCurrentGraphNetwork().getRoute(idRouteStart) + " " + gnb.getCurrentGraphNetwork().getStation(idStationStart) + " " + gnb.getCurrentGraphNetwork().getRoute(idRouteEnd) + " " + gnb.getCurrentGraphNetwork().getStation(idStationEnd) + " " + timeEnd + " " + pedestrianEnd);
 									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
 											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
 											.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
 											.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
 											pedestrianEnd);
-									
-//									gnb.linkStation(routeOrigin, stationOrigin, routeDestination, stationDestination, cost, timeBetweenStations, pedestrian)
+
 									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork().getStation(
 											idStationEnd), gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork()
 											.getStation(idStationStart), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd)
@@ -318,26 +284,19 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 											pedestrianEnd);
 								}
 							}
-//							System.out.println("-");
 						}
-//						System.out.println();
-//						System.out.println();
 
 					}
 				}
 
 			} catch (ViolationOfUnicityInIdentificationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new GraphReceptionException();
 			} catch (ImpossibleValueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new GraphReceptionException();
 			} catch (MissingResourceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new GraphReceptionException();
 			} catch (StationNotOnRoadException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new GraphReceptionException();
 			}
 
 		}
@@ -346,7 +305,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 	public static void main(String[] args) {
 
-		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder(System.getProperty("user.dir")+"\\ressources\\xml");
+		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder(System.getProperty("user.dir") + "\\ressources\\xml");
 
 		try {
 

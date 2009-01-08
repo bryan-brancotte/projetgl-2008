@@ -26,4 +26,10 @@ public interface AvailableNetwork {
 	 */
 	public abstract File getFichier();
 
+	/**
+	 * Accesseur qui permet de connaitre le path du fichier contenant le reseau
+	 * @return le path du fichier qui contient le réseau
+	 */
+	public abstract String getPath();
+
 }
