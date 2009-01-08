@@ -58,6 +58,7 @@ public class GraphAlgo {
 			addLink(n);
 		}
 		else {
+			// Verification que l'origine et la destination répondent bien aux contraintes "toujours"
 			if (!allServicesIn(p.getOrigin())) {
 				ArrayList<Service> list = new ArrayList<Service>();
 				for(Service service : always) {
@@ -286,6 +287,7 @@ public class GraphAlgo {
 		private Station station;
 		private Route route;
 		private Vector<Link> to;
+		// Argument pour une éventuelle évolution de methode de calcul avec heuristique
 		private int relevance;
 		private int time;
 		private int changes;

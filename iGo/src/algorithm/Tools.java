@@ -190,8 +190,14 @@ public class Tools {
 	
 	/**
 	 * 
+	 * Verification que la jonction 1 est plus rapide que la jonction 2 en fonction des criteres en parametre
+	 * 
 	 * @param j1
 	 * @param j2
+	 * @param c1
+	 * 			Critere principal
+	 * @param c2
+	 * 			Critere secondaire
 	 * @return
 	 */
 	protected static boolean betterPath(ArrayList<Junction> j1, ArrayList<Junction> j2, CriteriousForLowerPath c1, CriteriousForLowerPath c2) {
