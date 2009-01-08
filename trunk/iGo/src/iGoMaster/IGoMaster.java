@@ -713,5 +713,10 @@ public class IGoMaster implements Master, Observer
 	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path) {
 		return this.pathInGraphsToRemember.isFavorite(path.getPathInGraph());
 	}
+	
+	@Override
+	public boolean isFavoritesPaths(PathInGraph path) {
+		return this.pathInGraphsToRemember.isFavorite(path);
+	}
 
 }
