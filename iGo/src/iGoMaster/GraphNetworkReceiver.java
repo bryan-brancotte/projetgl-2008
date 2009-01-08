@@ -7,7 +7,7 @@ import iGoMaster.exception.GraphReceptionException;
 import java.util.Iterator;
 
 /**
- * 
+ * Interface permettant de modeliser un constructeur de reseau
  * @author iGo
  */
 public interface GraphNetworkReceiver {

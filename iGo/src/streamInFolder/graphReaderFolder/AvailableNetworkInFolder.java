@@ -4,93 +4,75 @@ import iGoMaster.AvailableNetwork;
 
 import java.io.File;
 
+
+/**
+ * Objet permettant de stocker un réseau disponible
+ * 
+ * @author iGo
+ */
 public class AvailableNetworkInFolder implements AvailableNetwork {
 
+	/**
+	 * Fichier contenant le reseau
+	 */
 	private File fichier;
-	
-	public AvailableNetworkInFolder(String n, String p) {
-		name = n;
-		path = p;
-		fichier = new File(path);
-	}
 	
 	/**
 	 * Nom du reseau
 	 */
 	private String name = "";
+	
+	/**
+	 * Path du fichier contenant le reseau
+	 */
+	private String path = "";
+	
+	/**
+	 * Description du Reseau
+	 * Non utile tant qu'il n'y a pas de description dans le fichier XML
+	 */
+	private String description = "";
+	
+	/**
+	 * Constructeur de AvailableNetworkInFolder
+	 * @param n Nom du fichier
+	 * @param p Path du fichier
+	 */
+	public AvailableNetworkInFolder(String n, String p) {
+		name = n;
+		path = p;
+		fichier = new File(path);
+	}
 
 	/**
-	 * Getter of the property <tt>name</tt>
-	 * 
-	 * @return Returns the name.
-	 */
+	 * @see AvailableNetwork#getName()
+	 */ 
 	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Setter of the property <tt>name</tt>
-	 * 
-	 * @param name The name to set.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Description du Reseau
-	 * Non utile tant qu'il n'y a pas de description dans le fichier XML
-	 */
-	private String description = "";
-
-	/**
-	 * Getter of the property <tt>description</tt>
-	 * 
-	 * @return Returns the description.
-	 */
+	 * @see AvailableNetwork#getDescription()
+	 */ 
 	@Override
 	public String getDescription() {
 		return description;
 	}
 
 	/**
-	 * Setter of the property <tt>description</tt>
-	 * 
-	 * @param description The description to set.
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * Path du fichier contenant le reseau
-	 */
-	private String path = "";
-
-	/**
-	 * Getter of the property <tt>path</tt>
-	 * 
-	 * @return Returns the path.
-	 */
+	 * @see AvailableNetwork#getPath()
+	 */ 
+	@Override
 	public String getPath() {
 		return path;
 	}
 
 	/**
-	 * Setter of the property <tt>path</tt>
-	 * 
-	 * @param path The path to set.
-	 */
-	public void setPath(String path) {
-		this.path = path;
-	}
-
+	 * @see AvailableNetwork#getFichier()
+	 */ 
+	@Override
 	public File getFichier() {
 		return fichier;
-	}
-
-	public void setFichier(File fichier) {
-		this.fichier = fichier;
 	}
 }
