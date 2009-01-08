@@ -97,6 +97,10 @@ public class NewTravelPanel extends PanelState {
 	 */
 	protected boolean redNeeded = false;
 	/**
+	 * Panel où l'on met la liste des stations
+	 */
+	protected ListingPanel listingPanel;
+	/**
 	 * Conteneurs pour les zone d'aide des services
 	 */
 	protected LinkedList<ServiceOrRouteToolTipText> serviceOrRouteDisplayed;
@@ -397,9 +401,17 @@ public class NewTravelPanel extends PanelState {
 			public void execute() {
 				Container c = this.origine.getParent();
 				c.removeAll();
-				ListingPanel l;
-				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
-						this.origine) {
+				if (listingPanel == null)
+					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+								public void execute() {
+									this.origineA.removeAll();
+									this.origineA.add(this.origineB);
+									this.origineA.validate();
+									this.origineB.giveControle();
+								};
+							});
+				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
 						departureStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
 								.getStationSelected());
@@ -409,15 +421,9 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.validate();
 						this.origineB.giveControle();
 					};
-				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
-					public void execute() {
-						this.origineA.removeAll();
-						this.origineA.add(this.origineB);
-						this.origineA.validate();
-						this.origineB.giveControle();
-					};
-				}));
-				l.giveControle();
+				});
+				c.add(listingPanel);
+				listingPanel.giveControle();
 				c.validate();
 			}
 		});
@@ -442,9 +448,17 @@ public class NewTravelPanel extends PanelState {
 			public void execute() {
 				Container c = this.origine.getParent();
 				c.removeAll();
-				ListingPanel l;
-				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
-						this.origine) {
+				if (listingPanel == null)
+					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+								public void execute() {
+									this.origineA.removeAll();
+									this.origineA.add(this.origineB);
+									this.origineA.validate();
+									this.origineB.giveControle();
+								};
+							});
+				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
 						arrivalStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
 								.getStationSelected());
@@ -454,15 +468,9 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.validate();
 						this.origineB.giveControle();
 					};
-				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
-					public void execute() {
-						this.origineA.removeAll();
-						this.origineA.add(this.origineB);
-						this.origineA.validate();
-						this.origineB.giveControle();
-					};
-				}));
-				l.giveControle();
+				});
+				c.add(listingPanel);
+				listingPanel.giveControle();
 				c.validate();
 			}
 		});
@@ -488,12 +496,18 @@ public class NewTravelPanel extends PanelState {
 			public void execute() {
 				Container c = this.origine.getParent();
 				c.removeAll();
-				ListingPanel l;
-				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
-						this.origine) {
+				if (listingPanel == null)
+					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+								public void execute() {
+									this.origineA.removeAll();
+									this.origineA.add(this.origineB);
+									this.origineA.validate();
+									this.origineB.giveControle();
+								};
+							});
+				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						// intermediatesStationsTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
-						// .getStationSelected());
 						recordChangedSetting(intermediatesStationsAdd, ((ListingPanel) this.origineA.getComponent(0))
 								.getStationSelected());
 						this.origineA.removeAll();
@@ -501,15 +515,9 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.validate();
 						this.origineB.giveControle();
 					};
-				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
-					public void execute() {
-						this.origineA.removeAll();
-						this.origineA.add(this.origineB);
-						this.origineA.validate();
-						this.origineB.giveControle();
-					};
-				}));
-				l.giveControle();
+				});
+				c.add(listingPanel);
+				listingPanel.giveControle();
 				c.validate();
 			}
 		});
@@ -537,12 +545,18 @@ public class NewTravelPanel extends PanelState {
 			public void execute() {
 				Container c = this.origine.getParent();
 				c.removeAll();
-				ListingPanel l;
-				c.add(l = new ListingPanel(father, upperBar, lowerBar, new CodeExecutor2P<Container, NewTravelPanel>(c,
-						this.origine) {
+				if (listingPanel == null)
+					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
+								public void execute() {
+									this.origineA.removeAll();
+									this.origineA.add(this.origineB);
+									this.origineA.validate();
+									this.origineB.giveControle();
+								};
+							});
+				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						// avoidsStationsTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
-						// .getStationSelected());
 						recordChangedSetting(avoidsStationsAdd, ((ListingPanel) this.origineA.getComponent(0))
 								.getStationSelected());
 						this.origineA.removeAll();
@@ -550,15 +564,9 @@ public class NewTravelPanel extends PanelState {
 						this.origineA.validate();
 						this.origineB.giveControle();
 					};
-				}, new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
-					public void execute() {
-						this.origineA.removeAll();
-						this.origineA.add(this.origineB);
-						this.origineA.validate();
-						this.origineB.giveControle();
-					};
-				}));
-				l.giveControle();
+				});
+				c.add(listingPanel);
+				listingPanel.giveControle();
 				c.validate();
 			}
 		});
@@ -676,6 +684,9 @@ public class NewTravelPanel extends PanelState {
 			station = stationsHash.get(s);
 			// System.out.println("intermediatesStationsAdd" + s + ":" + station);
 			if (station != null
+					&& pathBuilder.getCurrentPathInGraph().getOrigin() != station
+					&& pathBuilder.getCurrentPathInGraph().getDestination() != station
+					&& !pathBuilder.getCurrentPathInGraph().containsAvoidStation(station)
 					&& (mode == NewTravelPanelState.BUILDING || !pathBuilder.getCurrentPathInGraph().containsSteps(
 							station))) {
 				intermediatesStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this,
@@ -692,7 +703,8 @@ public class NewTravelPanel extends PanelState {
 				intermediatesStationsTextBox.setText("");
 				int h;
 				if (intermediatesStationsTextBox.getArea() != null)
-					if ((h = intermediatesStationsCollapsableArea.getArea().y + intermediatesStationsCollapsableArea.getArea().height
+					if ((h = intermediatesStationsCollapsableArea.getArea().y
+							+ intermediatesStationsCollapsableArea.getArea().height
 							+ (intermediatesStationsTextBox.getArea().height << 2) - getHeight()) > 0) {
 						draw();
 						if ((h = intermediatesStationsCollapsableArea.getArea().y
@@ -716,6 +728,9 @@ public class NewTravelPanel extends PanelState {
 			station = stationsHash.get(s);
 			// System.out.println("avoidsStationsAdd" + s + ":" + station);
 			if (station != null
+					&& pathBuilder.getCurrentPathInGraph().getOrigin() != station
+					&& pathBuilder.getCurrentPathInGraph().getDestination() != station
+					&& !pathBuilder.getCurrentPathInGraph().containsSteps(station)
 					&& (mode == NewTravelPanelState.BUILDING || !pathBuilder.getCurrentPathInGraph()
 							.containsAvoidStation(station))) {
 				avoidsStationsDel.put(station.getId(), makeButton(new CodeExecutor2P<PanelTooled, String>(this, s) {
@@ -1001,8 +1016,12 @@ public class NewTravelPanel extends PanelState {
 				.getIntermediateFont(), father.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 		station = drawAutoCompletionStationTextBox(departureStationArea, departureStationTextBox,
 				departureStationCollapsableArea, departureStationFind, ordonne, decalage, decalage2, taille, true);
-		if (departureStationChanged && station != pathBuilder.getCurrentPathInGraph().getDestination())
-			pathBuilder.setOrigin(station);
+		if (departureStationChanged) {
+			if (station != pathBuilder.getCurrentPathInGraph().getDestination())
+				pathBuilder.setOrigin(station);
+			else
+				departureStationTextBox.setText("");
+		}
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
 				+ decalage;
 
@@ -1018,8 +1037,12 @@ public class NewTravelPanel extends PanelState {
 							.getSkin().getColorSubAreaInside(), father.getSkin().getColorLetter());
 			station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
 					arrivalStationCollapsableArea, arrivalStationFind, ordonne, decalage, decalage2, taille, true);
-			if (arrivalStationChanged && station != pathBuilder.getCurrentPathInGraph().getOrigin())
-				pathBuilder.setDestination(station);
+			if (arrivalStationChanged) {
+				if (station != pathBuilder.getCurrentPathInGraph().getOrigin())
+					pathBuilder.setDestination(station);
+				else
+					arrivalStationTextBox.setText("");
+			}
 			ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height
 					+ decalage;
 		}

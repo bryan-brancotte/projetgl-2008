@@ -38,6 +38,7 @@ public abstract class PTComponent {
 
 	/**
 	 * Demande à l'objet de se terminer. Il devient alors inactif et invisible.
+	 * Cette méthode dans son implémentation actuel demande la fin de areaCodEx puis se désactive.
 	 */
 	public void terminate() {
 		if (areaCodEx != null)

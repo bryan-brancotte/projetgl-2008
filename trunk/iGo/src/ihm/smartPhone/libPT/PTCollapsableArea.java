@@ -14,6 +14,17 @@ import javax.swing.ImageIcon;
 
 public class PTCollapsableArea extends PTComponent {
 
+	/**
+	 * En plus de terminer l'objet on demande la fin de ces composants
+	 */
+	@Override
+	public void terminate() {
+		for (PTComponent p : this.components)
+			p.terminate();
+		buttonAddLess.terminate();
+		super.terminate();
+	}
+
 	protected LinkedList<PTComponent> components;
 
 	protected boolean collapsed;

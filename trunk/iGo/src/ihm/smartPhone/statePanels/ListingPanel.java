@@ -171,7 +171,7 @@ public class ListingPanel extends PanelState {
 		serviceOrRouteDisplayed = new LinkedList<ServiceOrRouteToolTipText>();
 		serviceOrRoutePooled = new LinkedList<ServiceOrRouteToolTipText>();
 		this.cancelEndingAction = nvCancelEndingAction;
-		this.okEndingAction = nvOkEndingAction;
+		this.define(nvOkEndingAction);
 
 		/***************************************************************************************************************
 		 * ScrollBar
@@ -180,7 +180,18 @@ public class ListingPanel extends PanelState {
 	}
 
 	/**
+	 * Définit l'action à effectué en cas de clic sur une station
 	 * 
+	 * @param nvOkEndingAction
+	 *            l'action à effectué
+	 */
+	public void define(CodeExecutor nvOkEndingAction) {
+		stationSelected = null;
+		this.okEndingAction = nvOkEndingAction;
+	}
+
+	/**
+	 * ...
 	 */
 	private static final long serialVersionUID = 3801758712891550847L;
 
@@ -261,7 +272,7 @@ public class ListingPanel extends PanelState {
 
 			ptArea.draw(buffer, father.getNetworkColorManager().getColor(route), father.getSkin().getColorLetter());
 			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawString(father.lg("Route")+ " " + route.getId(), decalage, ordonne + h + (h >> 2));
+			buffer.drawString(father.lg("Route") + " " + route.getId(), decalage, ordonne + h + (h >> 2));
 			w = getWidthString(route.getKindRoute().getKindOf(), buffer);
 			buffer.drawString(route.getKindRoute().getKindOf(), getWidth() - decalage2 - w, ordonne + h + (h >> 2));
 
@@ -277,12 +288,12 @@ public class ListingPanel extends PanelState {
 				if (p.area.getArea().y + p.area.getArea().height > 0 && ordonne < getHeight()) {
 					xActu = getWidthString(p.name, buffer) + decalage2;
 					yActu = ordonne;
-					//dessin des lignes
+					// dessin des lignes
 					itRoute = p.station.getRoutes();
 					while (itRoute.hasNext()) {
 						if ((otherRoute = itRoute.next()) != route) {
 							if (serviceOrRoutePooled.isEmpty())
-								sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
+								sttt = new ServiceOrRouteToolTipText(father, new Rectangle(), lowerBar);
 							else
 								sttt = serviceOrRoutePooled.remove();
 							serviceOrRouteDisplayed.add(sttt);
@@ -290,30 +301,36 @@ public class ListingPanel extends PanelState {
 							buffer.setColor(father.getNetworkColorManager().getColor(otherRoute));
 							w = PanelDoubleBufferingSoftwear.getWidthString(otherRoute.getId(), buffer);
 							h = PanelDoubleBufferingSoftwear.getHeightString(otherRoute.getId(), buffer);
-							sttt.setBounds(xActu + (taille - w >> 1)-1, yActu + (taille - h >> 1), w+2, h+2); 
-							buffer.fillRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
+							sttt.setBounds(xActu + (taille - w >> 1) - 1, yActu + (taille - h >> 1), w + 2, h + 2);
+							buffer.fillRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width,
+									sttt.getArea().height);
 							buffer.setColor(father.getSkin().getColorLetter());
-							buffer.drawRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
+							buffer.drawRect(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width,
+									sttt.getArea().height);
 							buffer.drawString(otherRoute.getId(), xActu + (taille - w >> 1), yActu + (taille + h >> 1));
 							xActu += taille + (decalage >> 1);
 						}
 					}
-					//dessin des services
+					// dessin des services
 					itService = p.station.getServices();
 					while (itService.hasNext()) {
 						service = itService.next();
 						s = service.getName().substring(0, 1);
 						if (serviceOrRoutePooled.isEmpty())
-							sttt = new ServiceOrRouteToolTipText(father,new Rectangle(), lowerBar);
+							sttt = new ServiceOrRouteToolTipText(father, new Rectangle(), lowerBar);
 						else
 							sttt = serviceOrRoutePooled.remove();
 						serviceOrRouteDisplayed.add(sttt);
 						sttt.init(service);
 						buffer.setColor(father.getNetworkColorManager().getColor(service));
 						sttt.setBounds(xActu - 1, yActu - 1, taille + 2, taille + 2);
-						buffer.fillOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
+						buffer
+								.fillOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width,
+										sttt.getArea().height);
 						buffer.setColor(father.getSkin().getColorLetter());
-						buffer.drawOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width, sttt.getArea().height);
+						buffer
+								.drawOval(sttt.getArea().x, sttt.getArea().y, sttt.getArea().width,
+										sttt.getArea().height);
 						buffer.drawString(s, xActu + (taille >> 1)
 								- (PanelDoubleBufferingSoftwear.getWidthString(s, buffer) >> 1), yActu + (taille >> 1)
 								+ (PanelDoubleBufferingSoftwear.getHeightString(s, buffer) >> 1));
@@ -343,6 +360,12 @@ public class ListingPanel extends PanelState {
 
 	}
 
+	/**
+	 * Classe permettant un défillement doux des composants dans le panel
+	 * 
+	 * @author iGo
+	 * 
+	 */
 	protected class SlowScroll extends Thread {
 
 		public SlowScroll(int deroulement) {
