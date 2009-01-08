@@ -212,4 +212,19 @@ public interface TravelForDisplayPanel {
 	 */
 	public PathInGraphConstraintBuilder getPathClone();
 
+	/**
+	 * Permet de savoir si le trajet est un trajet favorit.
+	 * 
+	 * @return true si le trajet est un favorit
+	 */
+	public boolean isFavorite();
+
+	/**
+	 * Définit si le trajet est un trajet favorit.
+	 * 
+	 * @param isFav
+	 *            true si le trajet est un favorit.
+	 */
+	public void setFavorite(boolean isFav);
+
 }

@@ -410,7 +410,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		PathInGraphCollectionBuilder pigCol;
 		while (itP.hasNext()) {
 			lst.add(new TravelForTravelPanelImplPathInGraph((pigCol = itP.next()).getPathInGraphConstraintBuilder(),
-					networkColorManager, master.isFavoritesPaths(pigCol)) {
+					networkColorManager, master.isFavoritesPaths(pigCol.getPathInGraph())) {
 
 				@Override
 				public void delete() {
@@ -896,7 +896,18 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					// on tente la construction
 					PathInGraphConstraintBuilder pathClone = master.getPathInGraphConstraintBuilder();
 					pathClone.importPath(path.getCurrentPathInGraph());
-					travel = new TravelForDisplayPanelImplPathInGraph(path, pathClone);
+					travel = new TravelForDisplayPanelImplPathInGraph(path, pathClone, master.isFavoritesPaths(path
+							.getCurrentPathInGraph())) {
+						@Override
+						public void setFavorite(boolean isFav) {
+							if (isFav) {
+								master.markAsFavorite(path.getCurrentPathInGraph());
+							} else {
+								master.removeFromFavorites(path.getCurrentPathInGraph());
+							}
+							this.isFav = isFav;
+						};
+					};
 					// ca à marché on dirait
 				} catch (Exception e) {
 					// Crash, on affiche l'erreur
@@ -954,15 +965,15 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			else
 				this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
 		return true;
-//		if (key.compareTo(SettingsKey.LANGUAGE.toString()) == 0)
-//			sortSkin();
-//
-//		if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
-//			if (value.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0)
-//				this.preferedState = IhmReceivingStates.ARRAY_MODE;
-//			else
-//				this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
-//		return master.setConfig(key, value); 
+		// if (key.compareTo(SettingsKey.LANGUAGE.toString()) == 0)
+		// sortSkin();
+		//
+		// if (key.compareTo("GRAPHIC_OR_ARRAY_MODE") == 0)
+		// if (value.compareTo(IhmReceivingStates.ARRAY_MODE.toString()) == 0)
+		// this.preferedState = IhmReceivingStates.ARRAY_MODE;
+		// else
+		// this.preferedState = IhmReceivingStates.GRAPHIC_MODE;
+		// return master.setConfig(key, value);
 	}
 
 	@Override

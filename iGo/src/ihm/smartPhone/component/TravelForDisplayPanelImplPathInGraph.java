@@ -10,7 +10,7 @@ import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPanel {
+public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPanel {
 
 	protected PathInGraphConstraintBuilder path;
 
@@ -29,16 +29,19 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	protected float entryCost;
 
 	protected int totalTime;
+	
+	protected boolean isFav;
 
 	LinkedList<SectionOfTravel> travel;
 
 	LinkedList<SectionOfTravel> travelDone;
 
 	public TravelForDisplayPanelImplPathInGraph(PathInGraphConstraintBuilder path,
-			PathInGraphConstraintBuilder pathClone) {
+			PathInGraphConstraintBuilder pathClone,boolean isFav) {
 		super();
 		this.path = path;
 		this.pathClone = pathClone;
+		this.isFav=isFav;
 		origin = path.getCurrentPathInGraph().getOrigin();
 		destination = path.getCurrentPathInGraph().getDestination();
 		travel = new LinkedList<SectionOfTravel>();
@@ -237,5 +240,10 @@ public class TravelForDisplayPanelImplPathInGraph implements TravelForDisplayPan
 	@Override
 	public boolean hasPrevious() {
 		return !travelDone.isEmpty();
+	}
+
+	@Override
+	public boolean isFavorite() {
+		return isFav;
 	}
 }
