@@ -145,7 +145,7 @@ public class IGoMaster implements Master, Observer
 			{
 				System.out.println("elo --> Le master a relaché une contrainte");
 				
-				ihm.infoPathAsked(kindOfException, service);
+				ihm.infoPathAsked(kindOfException, service, null , null, null);
 				
 				if (kindOfException==AlgoKindOfException.ServiceNotAccessibleException)
 					collectionBuilder.getPathInGraphConstraintBuilder().removeSeviceOnce(service);
