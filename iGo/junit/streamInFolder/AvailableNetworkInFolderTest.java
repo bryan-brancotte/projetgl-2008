@@ -21,6 +21,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+
 import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 
 public class AvailableNetworkInFolderTest {
@@ -53,6 +55,8 @@ public class AvailableNetworkInFolderTest {
 	@Test
 	public void descriptionGetter() {
 		assertTrue(aNetwork.getDescription().compareTo("DESCRIPTION")==0);
+		aNetwork.setDescription("DESCRITPION2");
+		assertTrue(aNetwork.getDescription().compareTo("DESCRITPION2")==0);
 	}
 	
 	/**
@@ -65,5 +69,14 @@ public class AvailableNetworkInFolderTest {
 		assertTrue(aNetwork.getPath().compareTo("my_path2")==0);
 	}
 	
-	//TODO tester fichier
+	/**
+	 * Test du getter du fichier
+	 */
+	@Test
+	public void fileGetter() {
+		assertTrue(aNetwork.getFichier().getPath().compareTo("my_path")==0);
+		File fichier = new File("encoeUnAUtrePath");
+		aNetwork.setFichier(fichier);
+		assertTrue(aNetwork.getFichier().compareTo(fichier)==0);
+	}
 }
