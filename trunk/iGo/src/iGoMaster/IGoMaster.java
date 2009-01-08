@@ -365,6 +365,12 @@ public class IGoMaster implements Master, Observer
 			}
 			
 			eventInfoNetwork.applyInfo(graphBuilder);
+			
+			for (EventInfo event : eventInfoNetwork.getNewEventInfo()) 
+			{
+				/**TODO*/
+			}
+			
 			if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");	
 		}
 	}
