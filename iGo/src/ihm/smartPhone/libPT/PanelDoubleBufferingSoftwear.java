@@ -146,7 +146,8 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 	}
 
 	protected String[] decoupeChaine(String s, Graphics g, int widthMax) {
-		if (getWidthString(s, g) <= widthMax)
+		boolean containtNewLine = s.contains("\n");
+		if (!containtNewLine && getWidthString(s, g) <= widthMax)
 			return new String[] { s };
 		if (s.length() == 0)
 			return new String[0];
@@ -159,13 +160,17 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 		while (i < cut.length) {
 			tmp = "";
 			while (i < cut.length && getWidthString(tmp + " " + cut[i], g) < widthMax) {
-				tmp += " " + cut[i++];
+				tmp += cut[i++] + " ";
 			}
 			if (tmp.compareTo("") == 0) {
 				tmp = cut[i].substring(0, cut[i].length() >> 1);
 				cut[i] = cut[i].substring(cut[i].length() >> 1);
 			}
-			retV.add(tmp);
+			if (containtNewLine && tmp.contains("\n")) {
+				for (String tTmp : tmp.split("\n"))
+					retV.add(tTmp);
+			} else
+				retV.add(tmp);
 		}
 		return retV.toArray(new String[0]);
 	}

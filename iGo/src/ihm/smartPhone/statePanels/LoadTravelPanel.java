@@ -222,6 +222,7 @@ public class LoadTravelPanel extends PanelState {
 		int endRight;
 		String tmp1, tmp2;
 		String[] stationInter = null;
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		if (travelPanelPT.pathBuilder.getIntermediateStation().length() == 0)
 			stationInter = new String[0];
 		else

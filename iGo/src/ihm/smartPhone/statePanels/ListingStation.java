@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class ListingPanel extends PanelState {
+public class ListingStation extends PanelState {
 
 	public String getStationSelected() {
 		return stationSelected.getName();
@@ -71,7 +71,7 @@ public class ListingPanel extends PanelState {
 	 */
 	protected int dyDrag;
 
-	public ListingPanel(IhmReceivingPanelState father, UpperBar upperBar, LowerBar nvLowerBar,
+	public ListingStation(IhmReceivingPanelState father, UpperBar upperBar, LowerBar nvLowerBar,
 			CodeExecutor nvOkEndingAction, CodeExecutor nvCancelEndingAction) {
 		super(father, upperBar, nvLowerBar);
 		routes = new LinkedList<Route>();
@@ -158,6 +158,7 @@ public class ListingPanel extends PanelState {
 			public void mousePressed(MouseEvent e) {
 				if (slowScroll != null)
 					slowScroll.killMe();
+				dyDrag = 0;
 				yDrag = e.getY();
 			}
 

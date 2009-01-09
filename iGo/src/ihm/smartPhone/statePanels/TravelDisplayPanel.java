@@ -7,9 +7,12 @@ import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.AbsolutLayout;
 import ihm.smartPhone.tools.CodeExecutor;
+import ihm.smartPhone.tools.CodeExecutor1P;
+import ihm.smartPhone.tools.CodeExecutor2P;
 import ihm.smartPhone.tools.ImageLoader;
 import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -18,7 +21,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
- 
 
 public abstract class TravelDisplayPanel extends PanelState {
 
@@ -48,9 +50,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 
 	// protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
 
-	public TravelDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
+	public TravelDisplayPanel(IhmReceivingPanelState ihm, UpperBar nvUpperBar, LowerBar nvLowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
-		super(ihm, upperBar, lowerBar);
+		super(ihm, nvUpperBar, nvLowerBar);
 		this.travel = travelForDisplayPanel;
 		// if (travel == null)
 		// travel = new TravelForTravelPanelExemple();
@@ -63,21 +65,37 @@ public abstract class TravelDisplayPanel extends PanelState {
 		changeStateArea = new Rectangle(0, 0, 0, 0);
 
 		MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray = new MouseListenerClickAndMoveInArea(this);
-		clickAndMoveWarningAndArray.addInteractiveArea(iconeWarningArea, new CodeExecutor() {
+		clickAndMoveWarningAndArray.addInteractiveArea(iconeWarningArea, new CodeExecutor1P<PanelState>(this) {
 			@Override
 			public void execute() {
 				// System.out.println("warning");
-				popUpMessage.define("World of dégout", "C'est la question que l'on peut se poser après que 2D Boy, "
-						+ "développeur du génialissime World of Goo, ait déclaré que 90 % "
-						+ "des personnes qui y ont joué l'ont fait sur une version pirate. "
-						+ "On ne sait trop comment le studio est parvenu à ce chiffre, mais "
-						+ "ce qui est certain, c'est qu'il témoigne d'un véritable malaise "
-						+ "dans le milieu du jeu PC. En l'occurrence, ni le manque d'originalité, "
-						+ "ni le prix de vente (de seulement 20 dollars), ni la présence d'un "
-						+ "quelconque système de protection rédhibitoire ne peuvent être invoqués "
-						+ "pour justifier de se procurer le jeu par des voies détournées...",
-						null);
-				me.repaint();
+				Container c = this.origine.getParent();
+				c.removeAll();
+				ListingEvent listingPanel = new ListingEvent(father, upperBar, lowerBar,
+						new CodeExecutor2P<Container, PanelState>(c, this.origine) {
+							public void execute() {
+								this.origineA.removeAll();
+								this.origineA.add(this.origineB);
+								this.origineA.validate();
+								this.origineB.giveControle();
+							};
+						});
+
+				c.add(listingPanel);
+				listingPanel.giveControle();
+				c.validate();
+				// popUpMessage.define("World of dégout", "C'est la question que l'on peut se poser après que 2D Boy, "
+				// + "développeur du génialissime World of Goo, ait déclaré que 90 % "
+				// + "des personnes qui y ont joué l'ont fait sur une version pirate. "
+				// + "On ne sait trop comment le studio est parvenu à ce chiffre, mais "
+				// + "ce qui est certain, c'est qu'il témoigne d'un véritable malaise "
+				// + "dans le milieu du jeu PC. En l'occurrence, ni le manque d'originalité, "
+				// + "ni le prix de vente (de seulement 20 dollars), ni la présence d'un "
+				// + "quelconque système de protection rédhibitoire ne peuvent être invoqués "
+				// + "pour justifier de se procurer le jeu par des voies détournées..."
+				//
+				// , null);
+				// me.repaint();
 			}
 		});
 		clickAndMoveWarningAndArray.addInteractiveArea(iconeFavArea, new CodeExecutor() {
@@ -263,7 +281,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 					// if (true || JOptionPane.showConfirmDialog(me, father.lg("DoYouWantToQuitYourActualTravel"),
 					// father
 					// .lg("ProgName"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-						father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
+					father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
 			lowerBar.setRightTitle(father.lg("RemainingTime"));
@@ -287,13 +305,9 @@ public abstract class TravelDisplayPanel extends PanelState {
 		protected MouseWheelListener[] mwl;
 		protected Image imageButtonOk = null;
 
-		// protected JTextArea textMessageArea;
-		// protected JScrollPane scrollPane;
-
 		/**
 		 * Constructeur d'un PopUpMessage, on précise le panel qui l'accueil afin de controler les zones clicables dans
-		 * ce panel, mais aussi pour ajouter un composant dans ce panel. Ce panel doit être vide, et le changement du
-		 * layout ne doit pas bous géner. par défaut le message n'est pas dans l'état "à afficher".
+		 * ce panel. Par défaut le message n'est pas dans l'état "à afficher".
 		 * 
 		 * @param panelParent
 		 *            le panel qui accueil le message
@@ -323,24 +337,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 				}
 			});
 			panelParent.setLayout(new AbsolutLayout());
-			// /*
-			// textMessageArea = new JTextArea();
-			// textMessageArea.setEditable(false);
-			// // textMessageArea.setWrapStyleWord(true);
-			// textMessageArea.setLineWrap(true);
-			// textMessageArea.setAutoscrolls(false);
-			// // textMessageArea.setAutoscrolls(true);
-			// // textMessageArea.setEnabled(false);
-			// // textMessageArea.setBackground(panelParent.getBackground());
-			// // textMessageArea.setVisible(false);
-			// // scrollPane.setLayout(new BorderLayout());
-			// scrollPane = new JScrollPane(textMessageArea);
-			// // Panel inside = new Panel(new BorderLayout(0, 0));
-			// // inside.add(textMessageArea);
-			// // scrollPane.add(inside);
-			// scrollPane.setVisible(false);
-			// panelParent.add(scrollPane);
-			// */
 		}
 
 		/**
@@ -383,27 +379,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 				me.removeMouseWheelListener(m);
 			me.addMouseListener(l);
 			me.addMouseMotionListener(l);
-
-			// scrollPane.setVisible(true);
-			// scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
-			// (int) (getHeight() * 0.35));
-
-			// textMessageArea.setColumns(10);//
-			// textMessageArea.getWidth()/father.getSizeAdapteur().getSizeIntermediateFont());
-			// textMessageArea.setRows(20);
-			// textMessageArea.setText(message);
-			// scrollPane.setBounds(0,0,10,10);
-			// scrollPane.repaint();
-			// textMessageArea.validate();
-			// textMessageArea.getParent().validate();
-			// scrollPane.validate();
-			// scrollPane.repaint();
-			// textMessageArea.getParent().repaint();
-			// textMessageArea.repaint();
-			// scrollPane.doLayout();
-			// textMessageArea.getParent().doLayout();
-			// scrollPane.setScrollPosition(0,0);
-			// scrollPane.repaint();
 		}
 
 		/**
@@ -413,39 +388,38 @@ public abstract class TravelDisplayPanel extends PanelState {
 		 *            le Graphics sur lequel il doit dessiner
 		 */
 		public void paint(Graphics g) {
-			int heigth;// cette variable représentera d'abort la l'ordonnne, puis la hauteur
+			int heigth;
 			int left;
+			int top;
 			sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont();
 			if (imageButtonOk.getHeight(null) != sizeLargeFont)
 				imageButtonOk = ImageLoader.getRessourcesImageIcone("button_ok", sizeLargeFont, sizeLargeFont)
 						.getImage();
 			g.setColor(father.getSkin().getColorSubAreaInside());
-			heigth = (getHeight() >> 3);
+			top = (getHeight() >> 3);
 			left = getWidth() >> 4;
-			g.fillRect(left, heigth, getWidth() - (left << 1), getHeight() - (heigth << 1));
+			heigth = getHeight() - (top << 1);
+			g.fillRect(left, top, getWidth() - (left << 1), heigth);
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRect(left, heigth, getWidth() - (left << 1), getHeight() - (heigth << 1));
+			g.drawRect(left, top, getWidth() - (left << 1), heigth);
 			g.setFont(father.getSizeAdapteur().getLargeFont());
-			heigth += sizeLargeFont;
-			g.drawString(title, getWidth() - getWidthString(title, g) >> 1, heigth);
+			top += sizeLargeFont + (sizeLargeFont >> 1);
+			g.drawString(title, getWidth() - getWidthString(title, g) >> 1, top);
 
 			g.setFont(father.getSizeAdapteur().getSmallFont());
 			String[] cut = decoupeChaine(message, g, (getWidth() >> 1) + (getWidth() >> 2));
-			heigth += sizeLargeFont >> 1;
+			top += sizeLargeFont >> 1;
+			g.drawLine(0, top, 1000, top);
 			int heigthTmp = getHeightString(message, g);
+			// on décale le texte pour qu'il soit centré dans la fenetre.
+			top += getHeight() - (top << 1) - heigthTmp * (cut.length + 1) >> 1;
 			for (String tmp : cut) {
-				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, heigth + heigthTmp);
-				heigth += heigthTmp + 1;
+				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, top + heigthTmp);
+				top += heigthTmp + 1;
 			}
-			// scrollPane.setBounds((getWidth() >> 4) + 10, (int) (getHeight() * 0.35), (int) (getWidth() * 0.875 - 20),
-			// (int) (getHeight() * 0.35));
-			// textMessageArea.setFont(father.getSizeAdapteur().getSmallFont());/*
-			// textMessageArea.setFont(father.getSizeAdapteur().getIntermediateFont());/**/
 			imageButtonOkArea.setBounds(getWidth() - left - sizeLargeFont - heigthTmp, getHeight() - (getHeight() >> 3)
 					- sizeLargeFont - heigthTmp, sizeLargeFont, sizeLargeFont);
-			// imageButtonOkArea.setBounds(getWidth() * 0.875, getHeight() * 0.8, sizeLargeFont, sizeLargeFont);
 			g.drawImage(imageButtonOk, imageButtonOkArea.x, imageButtonOkArea.y, null);
-			// scrollPane.repaint();
 		}
 
 		public MouseListenerClickAndMoveInArea getClickAndMoveListener() {

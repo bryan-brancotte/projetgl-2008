@@ -5,7 +5,7 @@ import iGoMaster.Algo.CriteriousForLowerPath;
 public class PathInGraphConstraintBuilder {
 
 	// protected boolean dispSysout = true;
-	protected boolean dispSysout = (System.getProperty("user.name").compareTo("Icarius") == 0);
+	// protected boolean dispSysout = (System.getProperty("user.name").compareTo("Icarius") == 0);
 
 	/**
 	 * Le trajet actuellement traité
@@ -33,8 +33,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param station
 	 */
 	public void addAvoidStations(Station station) {
-		if (dispSysout)
-			System.out.println("addAvoidStations(" + station + ")");
+		// if (dispSysout)
+		// System.out.println("addAvoidStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
 		// if (!currentPathInGraph.avoidStations.contains(station))
 		currentPathInGraph.avoidStations.add(station);
@@ -47,8 +47,8 @@ public class PathInGraphConstraintBuilder {
 	 *            le type en question
 	 */
 	public void addRefusedKindRoute(KindRoute kind) {
-		if (dispSysout)
-			System.out.println("addRefusedKindRoute(" + kind + ")");
+		// if (dispSysout)
+		// System.out.println("addRefusedKindRoute(" + kind + ")");
 		// if (!currentPathInGraph.refusedKindRoute.contains(kind))
 		this.currentPathInGraph.refusedKindRoute.add(kind);
 	}
@@ -59,8 +59,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param service
 	 */
 	public void addSeviceAlways(Service service) {
-		if (dispSysout)
-			System.out.println("addSeviceAlways(" + service + ")");
+		// if (dispSysout)
+		// System.out.println("addSeviceAlways(" + service + ")");
 		this.currentPathInGraph.resolved = false;
 		// if (!currentPathInGraph.servicesAlways.contains(service))
 		currentPathInGraph.servicesAlways.add(service);
@@ -72,8 +72,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param service
 	 */
 	public void addSeviceOnce(Service service) {
-		if (dispSysout)
-			System.out.println("addSeviceOnce(" + service + ")");
+		// if (dispSysout)
+		System.out.println("addSeviceOnce(" + service + ")");
 		this.currentPathInGraph.resolved = false;
 		// if (!currentPathInGraph.servicesOnce.contains(service))
 		currentPathInGraph.servicesOnce.add(service);
@@ -85,8 +85,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param station
 	 */
 	public void addStepStations(Station station) {
-		if (dispSysout)
-			System.out.println("addStepStations(" + station + ")");
+		// if (dispSysout)
+		// System.out.println("addStepStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
 		// if (!currentPathInGraph.steps.contains(station))
 		currentPathInGraph.steps.add(station);
@@ -143,8 +143,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param station
 	 */
 	public void removeAvoidStations(Station station) {
-		if (dispSysout)
-			System.out.println("removeAvoidStations(" + station + ")");
+		// if (dispSysout)
+		// System.out.println("removeAvoidStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.avoidStations.remove(station);
 	}
@@ -156,8 +156,8 @@ public class PathInGraphConstraintBuilder {
 	 *            le type en question
 	 */
 	public void removeRefusedKindRoute(KindRoute kind) {
-		if (dispSysout)
-			System.out.println("removeRefusedKindRoute(" + kind + ")");
+		// if (dispSysout)
+		// System.out.println("removeRefusedKindRoute(" + kind + ")");
 		this.currentPathInGraph.refusedKindRoute.remove(kind);
 	}
 
@@ -167,8 +167,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param service
 	 */
 	public void removeSeviceAlways(Service service) {
-		if (dispSysout)
-			System.out.println("removeSeviceAlways(" + service + ")");
+		// if (dispSysout)
+		// System.out.println("removeSeviceAlways(" + service + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.servicesAlways.remove(service);
 	}
@@ -179,8 +179,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param service
 	 */
 	public void removeSeviceOnce(Service service) {
-		if (dispSysout)
-			System.out.println("removeSeviceOnce(" + service + ")");
+		// if (dispSysout)
+		// System.out.println("removeSeviceOnce(" + service + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.servicesOnce.remove(service);
 	}
@@ -191,8 +191,8 @@ public class PathInGraphConstraintBuilder {
 	 * @param station
 	 */
 	public void removeStepStations(Station station) {
-		if (dispSysout)
-			System.out.println("removeStepStations(" + station + ")");
+		// if (dispSysout)
+		// System.out.println("removeStepStations(" + station + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.steps.remove(station);
 	}
@@ -204,8 +204,8 @@ public class PathInGraphConstraintBuilder {
 	 *            la station en question
 	 */
 	public void setDestination(Station destination) {
-		if (dispSysout)
-			System.out.println("setDestination(" + destination + ")");
+		// if (dispSysout)
+		// System.out.println("setDestination(" + destination + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.destination = destination;
 	}
@@ -216,8 +216,8 @@ public class PathInGraphConstraintBuilder {
 	 * @return
 	 */
 	public void setMainCriterious(CriteriousForLowerPath c) {
-		if (dispSysout)
-			System.out.println("setMainCriterious(" + c + ")");
+		// if (dispSysout)
+		// System.out.println("setMainCriterious(" + c + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.mainCriterious = c;
 	}
@@ -228,8 +228,8 @@ public class PathInGraphConstraintBuilder {
 	 * @return
 	 */
 	public void setMinorCriterious(CriteriousForLowerPath c) {
-		if (dispSysout)
-			System.out.println("setMinorCriterious(" + c + ")");
+		// if (dispSysout)
+		// System.out.println("setMinorCriterious(" + c + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.minorCriterious = c;
 	}
@@ -241,8 +241,8 @@ public class PathInGraphConstraintBuilder {
 	 *            la station en question
 	 */
 	public void setOrigin(Station origin) {
-		if (dispSysout)
-			System.out.println("setOrigin(" + origin + ")");
+		// if (dispSysout)
+		// System.out.println("setOrigin(" + origin + ")");
 		this.currentPathInGraph.resolved = false;
 		currentPathInGraph.origin = origin;
 	}
