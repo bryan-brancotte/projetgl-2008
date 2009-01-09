@@ -141,15 +141,14 @@ public class Route {
 	protected void setStationEnable(Station station, boolean stationEnable) {
 		// activation
 		if (stationEnable) {
-			stationsDisabled.remove();
+			stationsDisabled.remove(station);
 			return;
 		}
 		// desactivation
 		if (!isStationEnable(station))
 			return;
-		Station s;
-		if ((s = station) != null)
-			stationsDisabled.add(s);
+		if (station != null)
+			stationsDisabled.add(station);
 	}
 
 	/**
