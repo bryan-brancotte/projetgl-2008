@@ -259,12 +259,15 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
-
 		for (EventInfo ev : getNewEventInfo()) {
 			ev.applyInfo(graph);
 			// System.out.println("Event : " + ev.getMessage());
 		}
-		eventInfosNotApplied.clear();
+		for (EventInfo ev : getNewEventInfo()) {
+			if (ev.isApplied()) {
+				eventInfosNotApplied.remove(ev);
+			}
+		}
 	}
 
 	/**
