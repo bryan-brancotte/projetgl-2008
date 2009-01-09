@@ -91,6 +91,27 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
+		// affichageDroite = (father.getConfig(IhmReceivingStates.GRAPHIC_MODE.toString()).compareTo("true") == 0);
+		// colorList = new LinkedList<Color>();
+		// colorList.add(new Color(242, 130, 38));// Orange
+		// colorList.add(new Color(73, 12, 139));// pourpre foncé
+		// colorList.add(new Color(133, 242, 38));// Vert jeune pousse
+		// colorList.add(new Color(114, 159, 220));// Bleu clair
+		// colorList.add(new Color(208, 38, 242));// rose clair
+		// colorList.add(new Color(12, 52, 139));// Bleu marrine
+		// colorList.add(Color.cyan);
+		// colorList.add(new Color(139, 69, 12));// marront
+		// colorList.add(new Color(12, 128, 139));// Bleu turquoise
+		// colorList.add(new Color(254, 170, 52));// Orange pastel
+		// colorList.add(new Color(189, 107, 247));// violet pastel
+		// colorList.add(new Color(139, 12, 65));// bordeau
+		// colorList.add(new Color(242, 239, 38));// Jaune
+		// colorList.add(new Color(141, 207, 80));// Vert clair
+		// colorList.add(new Color(137, 12, 139));// violet foncé
+		// colorList.add(new Color(52, 52, 254));// Bleu foncé
+		// colorList.add(new Color(80, 139, 12));// Vert foncé
+		// colorList.add(new Color(38, 116, 224));// Bleu
+		// colorList.add(new Color(137, 38, 242));// pourpre
 		/***************************************************************************************************************
 		 * Création de l'image
 		 */
@@ -99,7 +120,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 * Listener de déplacement de la sourirs
 		 */
 		this.addMouseMotionListener(new MouseMotionListener() {
-			@Override
+
 			public void mouseDragged(MouseEvent e) {
 				dxLastPointeur = e.getX() - xLastPointeur;
 				dyLastPointeur = e.getY() - yLastPointeur;
@@ -113,7 +134,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				me.repaint();
 			}
 
-			@Override
 			public void mouseMoved(MouseEvent e) {
 			}
 		});
@@ -122,29 +142,22 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 */
 		this.addMouseListener(new MouseListener() {
 
-			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 
-			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
 
-			@Override
 			public void mouseExited(MouseEvent e) {
 			}
 
-			@Override
 			public void mousePressed(MouseEvent e) {
-				if (slowScroll != null)
-					slowScroll.killMe();
 				dxLastPointeur = 0;
 				dyLastPointeur = 0;
 				xLastPointeur = e.getX();
 				yLastPointeur = e.getY();
 			}
 
-			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (slowScroll != null)
 					slowScroll.killMe();
@@ -156,7 +169,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 */
 		this.addMouseWheelListener(new MouseWheelListener() {
 
-			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				if (e.getWheelRotation() < 0)
 					buffer.increasScallImg(1.05F);
@@ -173,7 +185,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		 */
 		this.addKeyListener(new KeyListener() {
 
-			@Override
 			public void keyPressed(KeyEvent e) {
 				// int tmp;
 				int keyCode = e.getKeyCode();
@@ -212,17 +223,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				repaint();
 			}
 
-			@Override
 			public void keyReleased(KeyEvent e) {
 			}
 
-			@Override
 			public void keyTyped(KeyEvent e) {
 			}
 		});
 	}
 
-	@Override
 	protected void actionToDoWhenChangeStateIsClicked() {
 		// if (!affichageDroite) {
 		// affichageDroite = true;
@@ -266,13 +274,13 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			buffer.setSizeViewPort(getWidth(), getHeight());
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 		}
-		// if ((buffer.getWidthImage() != sizeQuadLarge * 5)
-		// || (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge)) {
-		// buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeQuartLarge);
-		// } else if (!buffer.isNeededRepaint()) {
-		// return;
-		// }
-		buffer.setSizeImage(0, 0);
+		if ((buffer.getWidthImage() != sizeQuadLarge * 5)
+				|| (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge)) {
+			buffer.setSizeImage(sizeQuadLarge * 5, travel.getTotalTime() * sizeQuartLarge);
+		} 
+//		else if (!buffer.isNeededRepaint()) {
+//			return;
+//		}
 
 		SectionOfTravel section = null;
 		Iterator<SectionOfTravel> iterTravel;
@@ -321,8 +329,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 					length = (sizeQuartLarge << 4);
 				else if (section.getTimeSection() < 8)
 					length = (sizeQuartLarge << 3);
-				else if (section.getTimeSection() > 64)
-					length = (sizeQuartLarge << 6);
+				else if (section.getTimeSection() > 96)
+					length = (sizeQuartLarge << 6) + (sizeQuartLarge << 4);
 				else
 					length = section.getTimeSection() * sizeQuartLarge;
 				if (orientation % 2 == 0) {
@@ -797,7 +805,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				.getNameChangement(), section.getEnddingChangementCost(), section.getEnddingChangementTime());
 	}
 
-	@Override
 	protected String getMessageChangeState() {
 		if (!affichageDroite) {
 			return father.lg("GoToGraphicModeSecondDisplay");
@@ -806,19 +813,16 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		}
 	}
 
-	@Override
 	public void giveControle() {
 		putStationUp = true;
 		super.giveControle();
 	}
 
-	@Override
 	protected void nextStationDone() {
 		putStationUp = true;
 		buffer.hasBeenChanged();
 	}
 
-	@Override
 	public void paint(Graphics g) {
 		buildImage();
 		if (firstRepaint) {
@@ -840,7 +844,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		buffer.hasBeenDrawn();
 	}
 
-	@Override
 	protected void startStationDone() {
 		if (buffer.getHeigthImage() - buffer.getHeigthViewPort() > 0)
 			new SlowMove(-buffer.getY());
@@ -1143,7 +1146,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				this.start();
 		}
 
-		@Override
 		public void run() {
 			int delta = 0;
 			switch (PanelDoubleBufferingSoftwear.getQuality()) {
@@ -1211,7 +1213,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				other.killMe();
 		}
 
-		@Override
 		public void run() {
 			int delta = 1;
 

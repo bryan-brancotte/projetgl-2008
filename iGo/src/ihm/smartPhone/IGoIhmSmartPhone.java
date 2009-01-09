@@ -1119,7 +1119,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public Iterator<EventInfo> getEvent() {
 		LinkedList<EventInfo> ret = new LinkedList<EventInfo>();
-		// TODO carton
+		// TODO ici c'est du carton
 		ret.add(new EventInfo() {
 
 			@Override
