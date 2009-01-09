@@ -1068,9 +1068,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					if (travelGraphicPanel != null)
 						travelGraphicPanel.displayPopUpMessage(master.lg("UpdateNetworkTitle"), master
 								.lg("UpdateNetworkMessage"), codeEx);
-					return true;
 				}
-			return false;
+			return true;
 		}
 	}
 
