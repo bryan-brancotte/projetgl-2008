@@ -518,7 +518,8 @@ public class GraphNetworkBuilder {
 	 * @return void
 	 */
 	public void setEnable(Station station, boolean enable) {
-		station.setToEnable(enable);
+		if (station != null)
+			station.setToEnable(enable);
 	}
 
 	/**
@@ -545,7 +546,8 @@ public class GraphNetworkBuilder {
 	 *            etat à definir
 	 */
 	public void setEnable(Route route, Station station, boolean enable) {
-		route.setStationEnable(station, enable);
+		if (route != null)
+			route.setStationEnable(station, enable);
 	}
 
 	/**
@@ -572,7 +574,8 @@ public class GraphNetworkBuilder {
 	 * @return void
 	 */
 	public void setEnable(Junction junction, boolean enable) {
-		junction.setToEnable(enable);
+		if (junction != null)
+			junction.setToEnable(enable);
 	}
 
 	/**
@@ -585,7 +588,8 @@ public class GraphNetworkBuilder {
 	 * @return void
 	 */
 	public void setEnable(Route route, boolean enable) {
-		route.setToEnable(enable);
+		if (route != null)
+			route.setToEnable(enable);
 	}
 
 	/**
