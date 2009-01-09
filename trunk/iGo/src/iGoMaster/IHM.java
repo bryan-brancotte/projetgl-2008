@@ -131,7 +131,7 @@ public interface IHM {
 	/**
 	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de nouveaux évènements.
 	 * 
-	 * @return vrai si la mise à jour s'est déroulée correctement.
+	 * @return vrai il y a bien un trajet en cours de visualisation, et si la mise à jour s'est déroulée correctement.
 	 */
 	public boolean updateNetwork();
 }
