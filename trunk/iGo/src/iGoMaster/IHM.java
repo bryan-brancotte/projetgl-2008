@@ -1,5 +1,7 @@
 package iGoMaster;
 
+import java.util.Iterator;
+
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
@@ -134,4 +136,14 @@ public interface IHM {
 	 * @return vrai il y a bien un trajet en cours de visualisation, et si la mise à jour s'est déroulée correctement.
 	 */
 	public boolean updateNetwork();
+	
+	/**
+	 * Indique à l'IHM qu'elle doit mettre à jour son graphe suite à l'arrivée de nouveaux évènements.
+	 * 
+	 * @param un iterateur sur les évènements qui viennent de mettre à jour le graphe
+	 * @return vrai si la mise à jour s'est déroulée correctement.
+	 */
+	public boolean updateNetwork(Iterator<EventInfo> iterator);
+
+	
 }
