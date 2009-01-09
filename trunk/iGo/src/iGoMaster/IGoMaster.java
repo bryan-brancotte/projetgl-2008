@@ -20,6 +20,7 @@ import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.tools.ExecMultiThread;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -362,22 +363,12 @@ public class IGoMaster implements Master, Observer
 				catch (InterruptedException e) {e.printStackTrace();}
 				threads.clear();
 			}
-			/** TODO BUGGGGGGGGGGGGGGGGGGGGGGG :'(
-			if (test())System.out.println("elo --> ici");
-			Collection <EventInfo> collectEventForIhm = eventInfoNetwork.getNewEventInfo();
-			if (collectEventForIhm!=null)
+			
+			if (eventInfoNetwork.getNewEventInfo()!=null)
 			{
-			for (EventInfo ev : eventInfoNetwork.getNewEventInfo())
-			{
-				if (test())System.out.println("elo --> la");
-				System.out.println(ev.getMessage());
+				//eventInfoNetwork.applyInfo(graphBuilder);
+				//if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
 			}
-			
-			eventInfoNetwork.applyInfo(graphBuilder);
-			
-			if (!ihm.updateNetwork(collectEventForIhm)) 
-				System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
-			}*/
 		}
 	}
 	
