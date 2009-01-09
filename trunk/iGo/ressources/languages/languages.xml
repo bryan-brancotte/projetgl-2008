@@ -572,6 +572,36 @@
 				<ENGLISH value="Route"/>
 				<GEEK value="Root"/>
 			</Route>
+			<Station>
+				<FRANCAIS value="Station"/>
+				<ENGLISH value="Station"/>
+				<GEEK value="Station"/>
+			</Station>
+			<RecentsEvents>
+				<FRANCAIS value="Evenements récents"/>
+				<ENGLISH value="Recents Events"/>
+				<GEEK value="cat /var/log*"/>
+			</RecentsEvents>
+			<UnknownEvent>
+				<FRANCAIS value="Evenement inconnu"/>
+				<ENGLISH value="Unknown event"/>
+				<GEEK value="cat /log"/>
+			</UnknownEvent>
+			<EventRouteAndStation>
+				<FRANCAIS value="Evenement concerant la ligne et la station suivante"/>
+				<ENGLISH value="Event about the following route and station"/>
+				<GEEK value="R and S"/>
+			</EventRouteAndStation>
+			<EventRoute>
+				<FRANCAIS value="Evenement concerant la ligne suivante"/>
+				<ENGLISH value="Event about the following route"/>
+				<GEEK value="R"/>
+			</EventRoute>
+			<EventStation>
+				<FRANCAIS value="Evenement concerant la station suivante"/>
+				<ENGLISH value="Event about the following station"/>
+				<GEEK value="S"/>
+			</EventStation>			
 		</fields>
 	</root>
 

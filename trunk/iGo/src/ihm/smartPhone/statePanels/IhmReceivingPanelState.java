@@ -5,6 +5,7 @@ import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
+import iGoMaster.EventInfo;
 import ihm.smartPhone.component.iGoSmartPhoneSkin;
 import ihm.smartPhone.interfaces.NetworkColorManager;
 import ihm.smartPhone.tools.SizeAdapteur;
@@ -184,4 +185,12 @@ public interface IhmReceivingPanelState {
 	 * @return l'iterateur sur les skins.
 	 */
 	public Iterator<iGoSmartPhoneSkin> getSkins();
+
+	/**
+	 * Retourne un iterateur contenant l'ensemble des evenements qui se sont passé sur une période de temps dépendante
+	 * du master
+	 * 
+	 * @return un iterateur, jamais null
+	 */
+	public Iterator<EventInfo> getEvent();
 }

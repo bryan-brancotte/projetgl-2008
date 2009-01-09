@@ -97,6 +97,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			public void mousePressed(MouseEvent e) {
 				if (slowScroll != null)
 					slowScroll.killMe();
+				dyDrag = 0;
 				yDrag = e.getY();
 			}
 

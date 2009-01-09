@@ -136,6 +136,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				if (slowScroll != null)
+					slowScroll.killMe();
 				dxLastPointeur = 0;
 				dyLastPointeur = 0;
 				xLastPointeur = e.getX();

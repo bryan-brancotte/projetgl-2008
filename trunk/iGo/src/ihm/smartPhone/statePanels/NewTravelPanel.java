@@ -99,7 +99,7 @@ public class NewTravelPanel extends PanelState {
 	/**
 	 * Panel où l'on met la liste des stations
 	 */
-	protected ListingPanel listingPanel;
+	protected ListingStation listingPanel;
 	/**
 	 * Conteneurs pour les zone d'aide des services
 	 */
@@ -402,7 +402,7 @@ public class NewTravelPanel extends PanelState {
 				Container c = this.origine.getParent();
 				c.removeAll();
 				if (listingPanel == null)
-					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+					listingPanel = new ListingStation(father, upperBar, lowerBar, null,
 							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 								public void execute() {
 									this.origineA.removeAll();
@@ -413,7 +413,7 @@ public class NewTravelPanel extends PanelState {
 							});
 				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						departureStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
+						departureStationTextBox.setText(((ListingStation) this.origineA.getComponent(0))
 								.getStationSelected());
 						departureStationChanged = true;
 						this.origineA.removeAll();
@@ -449,7 +449,7 @@ public class NewTravelPanel extends PanelState {
 				Container c = this.origine.getParent();
 				c.removeAll();
 				if (listingPanel == null)
-					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+					listingPanel = new ListingStation(father, upperBar, lowerBar, null,
 							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 								public void execute() {
 									this.origineA.removeAll();
@@ -460,7 +460,7 @@ public class NewTravelPanel extends PanelState {
 							});
 				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						arrivalStationTextBox.setText(((ListingPanel) this.origineA.getComponent(0))
+						arrivalStationTextBox.setText(((ListingStation) this.origineA.getComponent(0))
 								.getStationSelected());
 						arrivalStationChanged = true;
 						this.origineA.removeAll();
@@ -497,7 +497,7 @@ public class NewTravelPanel extends PanelState {
 				Container c = this.origine.getParent();
 				c.removeAll();
 				if (listingPanel == null)
-					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+					listingPanel = new ListingStation(father, upperBar, lowerBar, null,
 							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 								public void execute() {
 									this.origineA.removeAll();
@@ -508,7 +508,7 @@ public class NewTravelPanel extends PanelState {
 							});
 				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						recordChangedSetting(intermediatesStationsAdd, ((ListingPanel) this.origineA.getComponent(0))
+						recordChangedSetting(intermediatesStationsAdd, ((ListingStation) this.origineA.getComponent(0))
 								.getStationSelected());
 						this.origineA.removeAll();
 						this.origineA.add(this.origineB);
@@ -546,7 +546,7 @@ public class NewTravelPanel extends PanelState {
 				Container c = this.origine.getParent();
 				c.removeAll();
 				if (listingPanel == null)
-					listingPanel = new ListingPanel(father, upperBar, lowerBar, null,
+					listingPanel = new ListingStation(father, upperBar, lowerBar, null,
 							new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 								public void execute() {
 									this.origineA.removeAll();
@@ -557,7 +557,7 @@ public class NewTravelPanel extends PanelState {
 							});
 				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						recordChangedSetting(avoidsStationsAdd, ((ListingPanel) this.origineA.getComponent(0))
+						recordChangedSetting(avoidsStationsAdd, ((ListingStation) this.origineA.getComponent(0))
 								.getStationSelected());
 						this.origineA.removeAll();
 						this.origineA.add(this.origineB);
