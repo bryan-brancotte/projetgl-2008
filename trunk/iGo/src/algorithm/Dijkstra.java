@@ -147,11 +147,9 @@ public class Dijkstra extends Algo {
 	 */
 	private ArrayList<ArrayList<Station>> createAllSteps() {
 		ArrayList<ArrayList<Station>> allSteps = new ArrayList<ArrayList<Station>>();
-		System.out.println(steps.length);
 		for (int i = 0; i < steps.length; i++) {
 			ArrayList<Station> v = new ArrayList<Station>();
 			v.add(steps[i]);
-			System.out.println(v.size());
 			allSteps.add(v);
 			Tools.removeServicesFromStation(steps[i], once);
 		}
@@ -288,14 +286,8 @@ public class Dijkstra extends Algo {
 		ArrayList<Junction> returnPath = null;
 		while (itDepart.hasNext()) {
 			Route rDepart = itDepart.next();
-			// System.out.println(rDepart);
 			while (itArrivee.hasNext()) {
 				Route rArrivee = itArrivee.next();
-				// System.out.println(rArrivee);
-				// System.out.println(depart+" - "+rDepart+" -> "+graph.getNode(depart,
-				// rDepart));
-				// System.out.println(arrivee+" - "+rArrivee+" -> "+graph.getNode(arrivee,
-				// rArrivee)+" | "+graph.getFirstNode(arrivee).getRoute());
 				ArrayList<Junction> currentPath = new ArrayList<Junction>(algo(graph.getNode(depart, rDepart), graph.getNode(arrivee, rArrivee), true));
 				if (Tools.betterPath(currentPath, returnPath, p.getMainCriterious(), p.getMinorCriterious())) {
 					returnPath = currentPath;
