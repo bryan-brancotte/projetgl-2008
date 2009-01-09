@@ -602,7 +602,11 @@ public class GraphNetworkBuilder {
 	 * @return void
 	 */
 	public void setEnable(String idRoute, boolean enable) {
-		this.setEnable(this.currentGraphNetwork.getRoute(idRoute), enable);
+		//TODO comment it
+		if (this.currentGraphNetwork.getRoute(idRoute) == null)
+			System.out.println("Route unkown : " + idRoute);
+		else
+			this.setEnable(this.currentGraphNetwork.getRoute(idRoute), enable);
 	}
 
 	/**
