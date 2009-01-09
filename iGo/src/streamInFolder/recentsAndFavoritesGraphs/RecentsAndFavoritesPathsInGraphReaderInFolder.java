@@ -163,15 +163,15 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 
 							if (fr.getName().contains("fav")) {
 								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
-								favorites.addFirst(pigcb);
+								favorites.addLast(pigcb);
 								filesMap.put(pigcb.getPathInGraph(), fr);
 								pigMap.put(pigcb.getPathInGraph(), pigcb);
-								recents.addFirst(pigcb);
+								recents.addLast(pigcb);
 
 							}
 							else {
 								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
-								recents.addFirst(pigcb);
+								recents.addLast(pigcb);
 								filesMap.put(pigcb.getPathInGraph(), fr);
 								pigMap.put(pigcb.getPathInGraph(), pigcb);
 								nbFiles++;
@@ -205,7 +205,12 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
 		readFiles();
 		if (recents != null) {
-			return recents.iterator();
+			if (recents.size() > MAX_RECENTS_PATHS) {
+				return recents.subList(0, MAX_RECENTS_PATHS).iterator();
+			}
+			else {
+				return recents.iterator();
+			}
 		}
 		else
 			return null;
@@ -236,7 +241,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 						}
 					}
 				} catch (Exception e) {
-					// e.printStackTrace();
+					 e.printStackTrace();
 				}
 				max = true;
 			}
@@ -257,7 +262,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			cof.add(f.getAbsolutePath().replace("\\", "/").split("\\.xml")[0] + "_fav.xml");
 			cof.add(f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml")[0] + ".xml");
 		}
-		if (cof.contains(fileName)) {
+		if (cof.contains(fileName) && !max) {
 			addAsRecent(pigcb);
 			return;
 		}
