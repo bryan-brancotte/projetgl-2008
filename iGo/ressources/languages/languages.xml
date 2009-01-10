@@ -588,8 +588,8 @@
 				<GEEK value="cat /log"/>
 			</UnknownEvent>
 			<EventRouteAndStation>
-				<FRANCAIS value="Evenement concerant la ligne et la station suivante"/>
-				<ENGLISH value="Event about the following route and station"/>
+				<FRANCAIS value="Evenement concerant la station et la ligne suivante"/>
+				<ENGLISH value="Event about the following station and route"/>
 				<GEEK value="R and S"/>
 			</EventRouteAndStation>
 			<EventRoute>

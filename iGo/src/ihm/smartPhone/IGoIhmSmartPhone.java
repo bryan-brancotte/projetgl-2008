@@ -983,6 +983,17 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
+	public Station getStation(int idStation) {
+		Iterator<Station> itS = master.getStations();
+		while (itS.hasNext()) {
+			Station station = (Station) itS.next();
+			if (station.getId() == idStation)
+				return station;
+		}
+		return null;
+	}
+
+	@Override
 	public NetworkColorManager getNetworkColorManager() {
 		return networkColorManager;
 	}
@@ -1117,116 +1128,5 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public Iterator<EventInfo> getEvent() {
 		return master.getNewEventInfos();
-		// LinkedList<EventInfo> ret = new LinkedList<EventInfo>();
-		// // TODO ici c'est du carton
-		// ret.add(new EventInfo() {
-		//
-		// @Override
-		// public void applyInfo(GraphNetworkBuilder graph) {
-		// }
-		//
-		// @Override
-		// public int getId() {
-		// return 0;
-		// }
-		//
-		// @Override
-		// public String getIdRoute() {
-		// return "Ree";
-		// }
-		//
-		// @Override
-		// public int getIdStation() {
-		// return 1;
-		// }
-		//
-		// @Override
-		// public KindEventInfoNetwork getKindEventInfoNetwork() {
-		// return KindEventInfoNetwork.PROBLEM;
-		// }
-		//
-		// @Override
-		// public String getMessage() {
-		// return "msghéhé";
-		// }
-		//
-		// @Override
-		// public boolean isApplied() {
-		// return false;
-		// }
-		// });
-		// ret.add(new EventInfo() {
-		//
-		// @Override
-		// public void applyInfo(GraphNetworkBuilder graph) {
-		// }
-		//
-		// @Override
-		// public int getId() {
-		// return 1;
-		// }
-		//
-		// @Override
-		// public String getIdRoute() {
-		// return "Rii";
-		// }
-		//
-		// @Override
-		// public int getIdStation() {
-		// return 4;
-		// }
-		//
-		// @Override
-		// public KindEventInfoNetwork getKindEventInfoNetwork() {
-		// return KindEventInfoNetwork.SOLUTION;
-		// }
-		//
-		// @Override
-		// public String getMessage() {
-		// return "Emsghihi";
-		// }
-		//
-		// @Override
-		// public boolean isApplied() {
-		// return false;
-		// }
-		// });
-		// ret.add(new EventInfo() {
-		//
-		// @Override
-		// public void applyInfo(GraphNetworkBuilder graph) {
-		// }
-		//
-		// @Override
-		// public int getId() {
-		// return 4;
-		// }
-		//
-		// @Override
-		// public String getIdRoute() {
-		// return "Roo";
-		// }
-		//
-		// @Override
-		// public int getIdStation() {
-		// return 6;
-		// }
-		//
-		// @Override
-		// public KindEventInfoNetwork getKindEventInfoNetwork() {
-		// return KindEventInfoNetwork.OTHER;
-		// }
-		//
-		// @Override
-		// public String getMessage() {
-		// return "msghoho";
-		// }
-		//
-		// @Override
-		// public boolean isApplied() {
-		// return false;
-		// }
-		// });
-		// return ret.iterator();
 	}
 }

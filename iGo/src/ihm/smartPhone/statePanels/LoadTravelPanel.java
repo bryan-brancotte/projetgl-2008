@@ -241,8 +241,8 @@ public class LoadTravelPanel extends PanelState {
 						travelPanelPT.area.height);
 		buffer.setColor(father.getSkin().getColorLetter());
 		buffer
-				.drawRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
-						travelPanelPT.area.height);
+				.drawRoundRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
+						travelPanelPT.area.height,4,4);
 		if (travelPanelPT.isInMe)
 			buffer.drawRect(travelPanelPT.area.x + 1, travelPanelPT.area.y + 1, travelPanelPT.area.width - 2,
 					travelPanelPT.area.height - 2);

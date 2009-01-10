@@ -111,9 +111,9 @@ public class PTCollapsableArea extends PTComponent {
 		g.setFont(lastFont);
 		int heigthStr = PanelDoubleBufferingSoftwear.getHeightString(text, g);
 		g.setColor(colorInside);
-		g.fillRect(area.x, area.y, area.width, area.height);
+		g.fillRoundRect(area.x, area.y, area.width, area.height,4,4);
 		g.setColor(colorLetter);
-		g.drawRect(area.x, area.y, area.width, area.height);
+		g.drawRoundRect(area.x, area.y, area.width, area.height,4,4);
 		if (isOvered)
 			g.drawRect(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
 		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr + (area.x >> 1) - (area.x >> 2));

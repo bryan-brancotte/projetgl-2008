@@ -166,6 +166,13 @@ public interface IhmReceivingPanelState {
 	public Iterator<Station> getStations();
 
 	/**
+	 * Retourne la station ayant l'id passé en paramètre.
+	 * 
+	 * @return Retourne la station, ou null.
+	 */
+	public Station getStation(int idStation);
+
+	/**
 	 * Retourne un iterateur décrivant l'ensemble des types de route présents sur le réseau
 	 * 
 	 * @return l'iterateur sur les routes. Ce dernier pourra être vide, mais ne sera jamais à null.
