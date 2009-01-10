@@ -190,7 +190,12 @@ public interface Master {
 	public boolean isFavoritesPaths(PathInGraph pathInGraph);
 	
 	
-	
-	
+	/**
+	 * Suite à une mise à jour du réseau, permet de récupérer les nouveaux EventInfo responsables
+	 * de ces changements 
+	 * 
+	 * @return un iterator sur les informations relatives aux nouveaux évènements
+	 */
+	public Iterator<EventInfo> getNewEventInfos();
 
 }
