@@ -56,7 +56,7 @@ public class EventInfoRoute implements EventInfo {
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		if (!isApplied()) {
-			System.out.println("entering into event info route");
+//			System.out.println("entering into event info route");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
 				graph.setEnable(idr, false);
 			} 
