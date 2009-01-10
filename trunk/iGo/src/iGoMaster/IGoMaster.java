@@ -70,6 +70,7 @@ public class IGoMaster implements Master, Observer
 	private StateNetwork stateNetwork;
 	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
+	private ArrayList <EventInfo> recentEventInfo = new ArrayList<EventInfo>();
 	
 	private boolean test(){return System.getProperty("user.name").compareTo("elodie") == 0;}
 	
@@ -367,17 +368,18 @@ public class IGoMaster implements Master, Observer
 			if (eventInfoNetwork.getNewEventInfo()!=null)
 			{
 				Iterator <EventInfo> itEvent = eventInfoNetwork.getNewEventInfo().iterator();
-				ArrayList <EventInfo> copie = new ArrayList<EventInfo>();
+				recentEventInfo = new ArrayList<EventInfo>();
 
-				while (itEvent.hasNext())copie.add((EventInfo)itEvent.next());
+				while (itEvent.hasNext())recentEventInfo.add((EventInfo)itEvent.next());
 				
 				eventInfoNetwork.applyInfo(graphBuilder);
-				if (!ihm.updateNetwork(copie.iterator())) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
+				
+				if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
 			}
 		}
 	}
 	
-	
+	public Iterator<EventInfo> getNewEventInfos(){return recentEventInfo.iterator();}
 	
 	@Override
 	public void stop() 
