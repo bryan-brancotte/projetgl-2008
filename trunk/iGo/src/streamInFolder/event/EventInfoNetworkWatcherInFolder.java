@@ -69,7 +69,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	/**
 	 * Chemin d'accès au dossier de travail
 	 */
-	private String path;
+	String path;
 
 	class WatcherInFolder extends TimerTask {
 		@SuppressWarnings("unchecked")
@@ -384,5 +384,9 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String getPath() {
+		return path;
 	}
 }

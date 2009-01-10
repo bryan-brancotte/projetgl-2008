@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.channels.FileChannel;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -67,7 +66,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	/**
 	 * Chemin d'accès au dossier de travail
 	 */
-	private String path;
+	String path;
 
 	/**
 	 * Constructeur de GraphNetworkReceiverFolder
