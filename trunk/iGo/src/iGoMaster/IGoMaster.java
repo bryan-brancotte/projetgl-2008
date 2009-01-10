@@ -80,9 +80,7 @@ public class IGoMaster implements Master, Observer
 	 * Identification du thread actif utilisé pour le calcul d'un chemin
 	 */
 	private Thread currentAlgo = null;
-	
-	private ArrayList<Thread> threads = new ArrayList<Thread>();
-	
+		
 	/**
 	 * Liste des evenements à l'origine de la dernière mise à jour du réseau
 	 */
@@ -154,7 +152,8 @@ public class IGoMaster implements Master, Observer
 				if(test())System.out.println(kindOfException.toString());
 				
 				ihm.returnPathAsked(null, kindOfException);
-				threads.clear();
+				currentAlgo=null;
+				
 				exception = false;
 			}
 			
@@ -181,8 +180,7 @@ public class IGoMaster implements Master, Observer
 			
 			public void run() 
 			{
-		
-				threads.add(currentThread());
+				currentAlgo=currentThread();
 				
 				if (test())System.out.println("elo --> Algo lancé");
 				
@@ -352,11 +350,11 @@ public class IGoMaster implements Master, Observer
 		
 		if (o.equals(algo) && o!=null)
 		{
-			if (!threads.isEmpty() && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
+			if (currentAlgo!=null && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
 				if (test())System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 
-				threads.clear();
+				currentAlgo=null;
 
 				boolean addAsRecent = true;
 				Iterator<PathInGraphCollectionBuilder> itRecents = pathInGraphsToRemember.getRecentsPaths(); 
@@ -373,12 +371,12 @@ public class IGoMaster implements Master, Observer
 		}
 		else if (o.equals(eventInfoNetwork) && o!=null)
 		{
-			if (!threads.isEmpty())
+			if (currentAlgo!=null)
 			{
 				algo.abort();
-				try {threads.get(0).join();} 
+				try {currentAlgo.join();} 
 				catch (InterruptedException e) {e.printStackTrace();}
-				threads.clear();
+				currentAlgo=null;
 			}
 			
 			if (eventInfoNetwork.getNewEventInfo()!=null)
@@ -417,7 +415,7 @@ public class IGoMaster implements Master, Observer
 	{
 		if (test())System.out.println("elo --> L'ihm demande un chemin");
 		
-		if (threads.isEmpty() && pathInGraphBuidable!=null)
+		if (currentAlgo==null && pathInGraphBuidable!=null)
 		{	
 			if (collectionBuilder.getPathInGraphConstraintBuilder()!=null)
 			{	
@@ -486,12 +484,12 @@ public class IGoMaster implements Master, Observer
 	{
 		if (test())System.out.println("elo --> L'ihm demande un builder de contraintes");
 		
-		if (!threads.isEmpty())
+		if (currentAlgo!=null)
 		{
 			algo.abort();
-			try {threads.get(0).join();} 
+			try {currentAlgo.join();} 
 			catch (InterruptedException e) {e.printStackTrace();}
-			threads.clear();
+			currentAlgo=null;
 		}
 		
 		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
