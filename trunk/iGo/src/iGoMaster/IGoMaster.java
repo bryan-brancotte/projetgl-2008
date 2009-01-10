@@ -8,6 +8,7 @@ import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
+
 import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 import iGoMaster.exception.ImpossibleStartingException;
@@ -16,6 +17,7 @@ import iGoMaster.exception.NoRouteForStationException;
 import iGoMaster.exception.ServiceNotAccessibleException;
 import iGoMaster.exception.StationNotAccessibleException;
 import iGoMaster.exception.VoidPathException;
+
 import ihm.smartPhone.IGoIhmSmartPhone;
 import ihm.smartPhone.tools.ExecMultiThread;
 
@@ -25,13 +27,16 @@ import java.util.Observable;
 import java.util.Observer;
 
 import pathsAndFavorites.RecentsAndFavoritesPathsInGraphReceiver;
+
 import streamInFolder.event.EventInfoNetworkWatcherInFolder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 import streamInFolder.graphReaderFolder.AvailableNetworkInFolder;
 import streamInFolder.graphReaderFolder.GraphNetworkReceiverFolder;
 import streamInFolder.recentsAndFavoritesGraphs.RecentsAndFavoritesPathsInGraphReaderInFolder;
+
 import xmlFeature.ConfigurationXML;
 import xmlFeature.LanguageXML;
+
 import algorithm.Dijkstra;
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
@@ -64,15 +69,25 @@ public class IGoMaster implements Master, Observer
 	private EventInfoNetworkWatcher eventInfoNetwork;
 	private PathInGraphCollectionBuilder collectionBuilder;	
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
-	
 	private RecentsAndFavoritesPathsInGraph pathInGraphsToRemember;
 	
+	/**
+	 * Etat du réseau
+	 */
 	private StateNetwork stateNetwork;
 	
+	/**
+	 * Identification du thread actif utilisé pour le calcul d'un chemin
+	 */
+	private Thread currentAlgo = null;
+	
 	private ArrayList<Thread> threads = new ArrayList<Thread>();
+	
+	/**
+	 * Liste des evenements à l'origine de la dernière mise à jour du réseau
+	 */
 	private ArrayList <EventInfo> recentEventInfo = new ArrayList<EventInfo>();
 	
-	private boolean test(){return System.getProperty("user.name").compareTo("elodie") == 0;}
 	
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
@@ -90,6 +105,7 @@ public class IGoMaster implements Master, Observer
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolder(event);
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
+		
 		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver(
 				this.graphBuilder, 
 				new RecentsAndFavoritesPathsInGraphReaderInFolder());
@@ -133,24 +149,33 @@ public class IGoMaster implements Master, Observer
 			
 			public void dealWithExceptions(AlgoKindOfException kindOfException)
 			{
-				System.out.println("elo --> Le master a rencontré une exception venant d'algo");
-				System.out.println(kindOfException.toString());
+				if(test())System.out.println("elo --> Le master a rencontré une exception venant d'algo");
+				if(test())System.out.println(kindOfException.toString());
 				
 				ihm.returnPathAsked(null, kindOfException);
 				threads.clear();
 				exception = false;
 			}
 			
-			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service)
+			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service, Station station)
 			{
-				System.out.println("elo --> Le master a relaché une contrainte");
+				if(test())System.out.println("elo --> Le master a relaché une contrainte");
 				
-				ihm.infoPathAsked(kindOfException, service, null , null, null);
+				if (service!=null)
+				{	
+					ihm.infoPathAsked(kindOfException, service, null , null, null);
 				
-				if (kindOfException==AlgoKindOfException.ServiceNotAccessibleException)
-					collectionBuilder.getPathInGraphConstraintBuilder().removeSeviceOnce(service);
+					if (kindOfException==AlgoKindOfException.ServiceNotAccessible)
+						collectionBuilder.getPathInGraphConstraintBuilder().removeSeviceOnce(service);
+					
+					exception = true;
+				}
+				else if (station!=null)
+				{
+					ihm.infoPathAsked(kindOfException, null, null , station, null);
+					exception = false;
+				}
 				
-				exception = true;
 			}
 			
 			
@@ -170,14 +195,14 @@ public class IGoMaster implements Master, Observer
 						if (test())System.out.println("elo --> Aucune exception n'a été lancée par algo");
 						
 					}
-					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 
-					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.VoidPathException);} 	 
-					catch (StationNotOnRoadException e) {dealWithExceptions(AlgoKindOfException.StationNotOnRoadException);} 
-					catch (NonValidOriginException e) {dealWithExceptions(AlgoKindOfException.NonValidOriginException);} 
-					catch (NonValidDestinationException e) {dealWithExceptions(AlgoKindOfException.NonValidDestinationException);} 
-					catch (ServiceNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.ServiceNotAccessibleException, e.getService());} 
-					catch (StationNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.StationNotAccessibleException);}
-					catch (Exception e){dealWithExceptions(AlgoKindOfException.UnknownException);} 
+					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.NoSolution);} 
+					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.RoutesNotAccessible, null, e.getStation());} 	 
+					catch (StationNotOnRoadException e) {dealWithExceptions(AlgoKindOfException.StationNotOnGraphNetworkRoad);} 
+					catch (NonValidOriginException e) {dealWithExceptions(AlgoKindOfException.NonValidOrigin);} 
+					catch (NonValidDestinationException e) {dealWithExceptions(AlgoKindOfException.NonValidDestination);} 
+					catch (ServiceNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.ServiceNotAccessible, e.getService(),null);} 
+					catch (StationNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.StationNotAccessible,null,e.getStation());}
+					catch (Exception e){dealWithExceptions(AlgoKindOfException.UndefinedError);} 
 				}
 			}
 		}.start();
@@ -351,7 +376,7 @@ public class IGoMaster implements Master, Observer
 			}
 			else 
 			{
-				ihm.returnPathAsked(null, AlgoKindOfException.UnknownException);
+				ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError);
 			}
 		}
 		else if (o.equals(eventInfoNetwork) && o!=null)
@@ -728,5 +753,7 @@ public class IGoMaster implements Master, Observer
 	public boolean isFavoritesPaths(PathInGraph path) {
 		return this.pathInGraphsToRemember.isFavorite(path);
 	}
+	
+	private boolean test(){return System.getProperty("user.name").compareTo("elodie") == 0;}
 
 }

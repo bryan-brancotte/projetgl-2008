@@ -11,35 +11,52 @@ package iGoMaster;
 public enum AlgoKindOfException {
 
 	/**
-	 * //TODO commentaires
+	 * 
+	 * La service s, que l'ihm pourra récupérer dans infoPathAsked, n'est pas accessible avec les préférences utilisateurs courantes
 	 */
-	ServiceNotAccessibleException(),
+	ServiceNotAccessible(),
+	
 	/**
-	 * //TODO commentaires
+	 * La station s, que l'ihm pourra récupérer dans infoPathAsked, n'est pas accessible avec les préférences utilisateurs courantes
 	 */
-	StationNotAccessibleException(),
+	StationNotAccessible(),
+	
 	/**
-	 * //TODO commentaires
+	 * La station s, que l'ihm pourra récupérer dans infoPathAsked, ne se trouve sur aucune route capable de satisfaire les préférences de l'utilisateur.
 	 */
-	NoRouteForStationException(),
+	RoutesNotAccessible(),
+	
 	/**
-	 * //TODO commentaires
+	 * L'entité graphNetwork indique qu'une station n'est pas sur la route spécifiée
 	 */
-	StationNotOnRoadException(),
+	StationNotOnGraphNetworkRoad(),
+	
 	/**
-	 * //TODO commentaires
+	 * Il n'y a aucune solution à l'algorithme mais on ne sait pas pourquoi
 	 */
-	VoidPathException(),
+	NoSolution(),
+	
 	/**
-	 * //TODO commentaires
+	 * 
+	 * L'utilisateur a demandé un service à toutes les stations mais ce dernier
+	 * n'est pas présent dans la station de départ
+	 * 
 	 */
-	NonValidOriginException(), NonValidDestinationException(),
+	NonValidOrigin(), 
+	
 	/**
-	 * //TODO commentaires
+	 * L'utilisateur a demandé un service à toutes les stations mais ce dernier
+	 * n'est pas présent dans la station d'arrivée
 	 */
-	UnknownException(),
+	NonValidDestination(),
+	
 	/**
-	 * //TODO commentaires
+	 * L'algorithme a renvoyé une erreur non repertoriée
+	 */
+	UndefinedError(),
+	
+	/**
+	 * L'algorithme de résolution du chemin n'a rencontré aucune erreur
 	 */
 	EverythingFine();
 
