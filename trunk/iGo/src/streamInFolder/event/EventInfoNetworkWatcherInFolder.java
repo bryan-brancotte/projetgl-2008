@@ -64,7 +64,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	/**
 	 * Dossier "iGo"
 	 */
-	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
+	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/events/";
 
 	/**
 	 * Chemin d'accès au dossier de travail
@@ -253,6 +253,10 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		super();
 		eventInfosNotApplied = new LinkedList<EventInfo>();
 		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + "TravelAltertGL2008.xml").replace("\\", "/");
+		File folder = new File((System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/"));
+		if (!folder.isDirectory()) {
+			folder.mkdir();
+		}
 		fichier = new File(path);
 		if (fichier.length() == 0) {
 			try {

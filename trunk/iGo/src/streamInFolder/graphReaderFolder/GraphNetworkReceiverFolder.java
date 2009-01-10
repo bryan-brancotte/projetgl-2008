@@ -62,7 +62,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	/**
 	 * Dossier "iGo"
 	 */
-	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
+	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/networks/";
 
 	/**
 	 * Chemin d'accès au dossier de travail
@@ -80,6 +80,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 		networks = new HashMap<String, AvailableNetwork>();
 		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/");
 		folder = new File(path);
+		if (!folder.isDirectory()) {
+			folder.mkdir();
+		}
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
