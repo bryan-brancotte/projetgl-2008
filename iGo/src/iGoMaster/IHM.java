@@ -1,7 +1,5 @@
 package iGoMaster;
 
-import java.util.Iterator;
-
 import graphNetwork.KindRoute;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
