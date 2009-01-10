@@ -368,7 +368,7 @@ public class IGoMaster implements Master, Observer
 			if (eventInfoNetwork.getNewEventInfo()!=null)
 			{
 				Iterator <EventInfo> itEvent = eventInfoNetwork.getNewEventInfo().iterator();
-				recentEventInfo = new ArrayList<EventInfo>();
+				recentEventInfo.clear();
 
 				while (itEvent.hasNext())recentEventInfo.add((EventInfo)itEvent.next());
 				
