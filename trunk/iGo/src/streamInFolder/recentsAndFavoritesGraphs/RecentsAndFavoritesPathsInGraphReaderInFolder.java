@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import pathsAndFavorites.RecentsAndFavoritesPathsInGraphReader;
 
 /**
@@ -123,9 +127,10 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	@SuppressWarnings("unchecked")
 	public void readFiles() {
 		if (folder.isDirectory()) {
-			try {
+//			try {
 				nbFiles = 0;
 				ArrayList<File> cof = new ArrayList<File>();
+				ArrayList<File> toDelete = new ArrayList<File>();
 				for (File f : folder.listFiles()) {
 					cof.add(f);
 				}
@@ -145,42 +150,61 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 					}
 				});
 				for (File fr : cof) {
-					if (fr.getName().contains("PIG") && fr.getName().contains(".xml") && !filesMap.containsValue(fr)) {
+					if (fr.getName().contains("PIG_") && fr.getName().contains(".xml") && !filesMap.containsValue(fr)) {
 						if (fr.getName().split("\\.")[0].split("_")[1] != null && fr.length() != 0) {
 							int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
 							if (num > numFile) {
 								numFile = num;
 							}
-							FileReader frr = new FileReader(fr);
-							BufferedReader br = new BufferedReader(frr);
-							String curLigne = br.readLine();
-							String allLignes = curLigne;
-							while (curLigne != null) {
-								curLigne = br.readLine();
-								allLignes += curLigne;
-							}
-							allLignes = allLignes.split("null")[0];
+							try {
+								FileReader frr = new FileReader(fr);
+								BufferedReader br = new BufferedReader(frr);
+								String curLigne = br.readLine();
+								String allLignes = curLigne;
+								while (curLigne != null) {
+									curLigne = br.readLine();
+									allLignes += curLigne;
+								}
+								allLignes = allLignes.split("null")[0];
 
-							if (fr.getName().contains("fav")) {
-								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
-								favorites.addLast(pigcb);
-								filesMap.put(pigcb.getPathInGraph(), fr);
-								pigMap.put(pigcb.getPathInGraph(), pigcb);
-								recents.addLast(pigcb);
+								if (fr.getName().contains("fav")) {
+									PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilderWithoutCatch(allLignes);
+									favorites.addLast(pigcb);
+									filesMap.put(pigcb.getPathInGraph(), fr);
+									pigMap.put(pigcb.getPathInGraph(), pigcb);
+									recents.addLast(pigcb);
 
+								}
+								else {
+									PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilderWithoutCatch(allLignes);
+									recents.addLast(pigcb);
+									filesMap.put(pigcb.getPathInGraph(), fr);
+									pigMap.put(pigcb.getPathInGraph(), pigcb);
+									nbFiles++;
+								}
 							}
-							else {
-								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder(allLignes);
-								recents.addLast(pigcb);
-								filesMap.put(pigcb.getPathInGraph(), fr);
-								pigMap.put(pigcb.getPathInGraph(), pigcb);
-								nbFiles++;
+							catch (SAXException e) {
+								toDelete.add(fr);
+							}
+							catch (IOException e) {
+							}
+							catch (ParserConfigurationException e){
 							}
 						}
+						else {
+							toDelete.add(fr);
+						}
+					}
+					else if (!fr.getName().contains("PIG_") || !fr.getName().contains(".xml")) {
+						toDelete.add(fr);
 					}
 				}
-			} catch (Exception e) {
-				// e.printStackTrace();
+//			} catch (Exception e) {
+//				System.out.println("que faisje la ?");
+////				 e.printStackTrace();
+//			}
+			for (File fr : toDelete) {
+				fr.delete();
 			}
 		}
 	}
