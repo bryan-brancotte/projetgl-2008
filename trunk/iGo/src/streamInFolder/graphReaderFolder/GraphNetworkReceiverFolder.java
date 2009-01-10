@@ -14,7 +14,10 @@ import iGoMaster.exception.GraphConstructionException;
 import iGoMaster.exception.GraphReceptionException;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.FileChannel;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,30 +43,43 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	 * Tableau associatif contenant les differents reseaux disponibles
 	 */
 	private HashMap<String, AvailableNetwork> networks;
-	
+
 	/**
 	 * Dossier ou se trouvent les reseaux
 	 */
 	private File folder;
-	
+
 	/**
 	 * Contenu XML d'un reseau
 	 */
 	private org.jdom.Document doc;
-	
+
 	/**
 	 * Verrou pour empecher la lecture d'un reseau en cours de construction
 	 */
 	private final Lock verrou = new ReentrantLock();
 
 	/**
+	 * Dossier "iGo"
+	 */
+	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
+
+	/**
+	 * Chemin d'accès au dossier de travail
+	 */
+	private String path;
+
+	/**
 	 * Constructeur de GraphNetworkReceiverFolder
-	 * @param f Nom du dossier ou se trouvent les reseaux
+	 * 
+	 * @param f
+	 *            Nom du dossier ou se trouvent les reseaux
 	 */
 	public GraphNetworkReceiverFolder(String f) {
 		super();
 		networks = new HashMap<String, AvailableNetwork>();
-		folder = new File(f.replace("\\", "/"));
+		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/");
+		folder = new File(path);
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
@@ -71,6 +87,37 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						AvailableNetworkInFolder nt = new AvailableNetworkInFolder(fr.getName(), fr.getAbsolutePath());
 						networks.put(fr.getName(), nt);
 					}
+				}
+
+				if (networks.isEmpty()) {
+					try {
+						InputStream source = this.getClass().getClassLoader().getResourceAsStream("xml/NetworkGL2008.xml");
+						try {
+							FileOutputStream out = new FileOutputStream(path + "NetworkGL2008.xml");
+							try {
+								// Init
+
+								// Lecture par segment de 0.5Mo
+								byte buffer[] = new byte[512 * 1024];
+								int nbLecture;
+
+								while ((nbLecture = source.read(buffer)) != -1) {
+									out.write(buffer, 0, nbLecture);
+								}
+							} finally {
+								out.close();
+							}
+						} finally {
+							source.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+					File destination = new File(path + "NetworkGL2008.xml");
+
+					AvailableNetworkInFolder nt = new AvailableNetworkInFolder(destination.getName(), destination.getAbsolutePath());
+					networks.put(destination.getName(), nt);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

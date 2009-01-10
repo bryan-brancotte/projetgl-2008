@@ -8,7 +8,9 @@ import iGoMaster.KindEventInfoNetwork;
 import iGoMaster.exception.ImpossibleStartingException;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,15 +27,49 @@ import org.jdom.input.SAXBuilder;
 /**
  * Cette classe permet la surveillance d'un dossier qui contiendra les evenements
  * 
+ * @author iGo
  */
 public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
+	/**
+	 * Status de la surveillance des evenements
+	 */
 	protected EventInfoNetWorkWatcherStatus status = EventInfoNetWorkWatcherStatus.UNKNOWN_STATUS;
+
+	/**
+	 * Fichier contenant les evenements
+	 */
 	protected File fichier;
+
+	/**
+	 * Version de ce fichier
+	 */
 	protected int version;
+
+	/**
+	 * Contenu de ce fichier
+	 */
 	protected org.jdom.Document doc;
+
+	/**
+	 * Permet de relancer la surveillance periodiquement
+	 */
 	protected Timer watcher;
+
+	/**
+	 * Verrou pour empecher la prise en compte d'evenements en cours de construction
+	 */
 	protected final Lock verrou = new ReentrantLock();
+
+	/**
+	 * Dossier "iGo"
+	 */
+	String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
+
+	/**
+	 * Chemin d'accès au dossier de travail
+	 */
+	private String path;
 
 	class WatcherInFolder extends TimerTask {
 		@SuppressWarnings("unchecked")
@@ -216,8 +252,33 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
 		eventInfosNotApplied = new LinkedList<EventInfo>();
-		fichier = new File(path.replace("\\", "/"));
-		// parser = new DOMParser();
+		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + "TravelAltertGL2008.xml").replace("\\", "/");
+		fichier = new File(path);
+		if (fichier.length() == 0) {
+			try {
+				InputStream source = this.getClass().getClassLoader().getResourceAsStream("xml/TravelAltertGL2008.xml");
+				try {
+					FileOutputStream out = new FileOutputStream(path);
+					try {
+						// Init
+
+						// Lecture par segment de 0.5Mo
+						byte buffer[] = new byte[512 * 1024];
+						int nbLecture;
+
+						while ((nbLecture = source.read(buffer)) != -1) {
+							out.write(buffer, 0, nbLecture);
+						}
+					} finally {
+						out.close();
+					}
+				} finally {
+					source.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		version = 0;
 	}
 
