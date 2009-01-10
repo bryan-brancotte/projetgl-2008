@@ -231,15 +231,7 @@ public class GraphNetwork {
 	 *            l'identifiant de la sation
 	 * @return
 	 */
-	public Station getStation(int id) {// 
-		// Iterator<Station> it = stations.iterator();
-		// while (it.hasNext()) {
-		// Station temp = it.next();
-		// if (temp.getId() == id) {
-		// return temp;
-		// }
-		// }
-		// return null;
+	public Station getStation(int id) {
 		for (int i = 0; i < stations.size(); i++)
 			if (stations.get(i).getId() == id)
 				return stations.get(i);

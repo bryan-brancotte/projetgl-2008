@@ -1,5 +1,6 @@
 package ihm.smartPhone.statePanels;
 
+import graphNetwork.Station;
 import iGoMaster.EventInfo;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
@@ -205,17 +206,18 @@ public class ListingEvent extends PanelState {
 		int width;
 		String[] title;
 		String[] msg;
+		Station station = father.getStation(ev.getIdStation());
 		left = decalage + imageOther.getWidth(null) + decalageDemi;
 		width = getWidth() - left - decalage2 - decalage;
 		buffer.setFont(father.getSizeAdapteur().getIntermediateFont());
-		if (ev.getIdRoute() != null && ev.getIdStation() != 0) {
-			title = decoupeChaine(father.lg("EventRouteAndStation") + " :\n" + father.lg("Route") + " "
-					+ ev.getIdRoute() + " , " + father.lg("Station") + " " + ev.getIdStation(), buffer, width);
+		if (ev.getIdRoute() != null && station != null) {
+			title = decoupeChaine(father.lg("EventRouteAndStation") + " :\n" + father.lg("Station") + " "
+					+ station.getName() + " , " + father.lg("Route") + " " + ev.getIdRoute(), buffer, width);
 		} else if (ev.getIdRoute() != null) {
 			title = decoupeChaine(father.lg("EventRoute") + " :\n" + father.lg("Route") + " " + ev.getIdRoute(),
 					buffer, width);
-		} else if (ev.getIdStation() != 0) {
-			title = decoupeChaine(father.lg("EventStation") + " :\n" + father.lg("Station") + " " + ev.getIdStation(),
+		} else if (station != null) {
+			title = decoupeChaine(father.lg("EventStation") + " :\n" + father.lg("Station") + " " + station.getName(),
 					buffer, width);
 		} else {
 			title = decoupeChaine(father.lg("UnknownEvent"), buffer, getWidth() - decalage - decalage2 - left);
@@ -230,29 +232,29 @@ public class ListingEvent extends PanelState {
 		// buffer.drawImage(imageCadre, decalage, ordonnee, null);
 		switch (ev.getKindEventInfoNetwork()) {
 		case PROBLEM:
-			buffer.drawImage(imagePb, decalage, ordonnee + (height - father.getSizeAdapteur().getSizeLargeFont() >> 1),
-					null);
+			buffer.drawImage(imagePb, decalage + (decalageDemi >> 1), ordonnee
+					+ (height - father.getSizeAdapteur().getSizeLargeFont() >> 1), null);
 			break;
 		case SOLUTION:
-			buffer.drawImage(imageSol, decalage,
-					ordonnee + (height - father.getSizeAdapteur().getSizeLargeFont() >> 1), null);
+			buffer.drawImage(imageSol, decalage + (decalageDemi >> 1), ordonnee
+					+ (height - father.getSizeAdapteur().getSizeLargeFont() >> 1), null);
 			break;
 		case OTHER:
 		default:
-			buffer.drawImage(imageOther, decalage, ordonnee
+			buffer.drawImage(imageOther, decalage + (decalageDemi >> 1), ordonnee
 					+ (height - father.getSizeAdapteur().getSizeLargeFont() >> 1), null);
 			break;
 		}
 		ordonnee += decalageDemi >> 1;
 		ordonnee += getHeightString(ev.getMessage(), buffer);
 		for (String tmp : title) {
-			buffer.drawString(tmp, 40, ordonnee);
+			buffer.drawString(tmp, left, ordonnee);
 			ordonnee += getHeightString(tmp, buffer) + 3;
 		}
 		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		ordonnee += decalageDemi >> 1;
 		for (String tmp : msg) {
-			buffer.drawString(tmp, 40, ordonnee);
+			buffer.drawString(tmp, left, ordonnee);
 			ordonnee += getHeightString(tmp, buffer) + 3;
 		}
 		return ordonnee;
