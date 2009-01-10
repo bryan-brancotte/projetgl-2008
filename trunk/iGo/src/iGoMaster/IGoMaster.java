@@ -122,7 +122,8 @@ public class IGoMaster implements Master, Observer
 	
 	
 	/**  
-	 * Thread implicite qui surveillera les mises à jours du réseau tout au long de l'application
+	 * Lancement du thread implicite qui surveillera les mises à jours du réseau tout au long de l'application
+	 * Retourne faux si échec concernant l'initialisation de l'objet qui observe les mises à jour.
 	 */
 	private boolean watchEvent()
 	{
@@ -139,7 +140,7 @@ public class IGoMaster implements Master, Observer
 	}
 	
 	/**  
-	 * Thread qui va permettre à l'algorithme de calculer un trajet
+	 * Thread qui va lancer le calcul d'un trajet
 	 */
 	private void launchAlgo()
 	{
@@ -177,7 +178,6 @@ public class IGoMaster implements Master, Observer
 				}
 				
 			}
-			
 			
 			public void run() 
 			{
@@ -231,7 +231,6 @@ public class IGoMaster implements Master, Observer
 	private void process()
 	{
 		this.initObservers();
-		System.out.println("kljklj");
 		
 		if (test())System.out.println("elo --> Start Visu");
 		ihm.start(true,4);
@@ -288,11 +287,12 @@ public class IGoMaster implements Master, Observer
 	{
 		eventInfoNetwork.addObserver(this);	
 	    algo.addObserver(this);
-	    
 	}
 	
 	/**  
 	 * Le master récupère le réseau spécifié par le fichier XML.
+	 * Retourne vrai si le réseau au format XML a bien été transformé en un objet JAVA 
+	 * utilisable pour le calcul des trajets.
 	 */
 	private boolean getNetwork()
 	{
@@ -332,6 +332,10 @@ public class IGoMaster implements Master, Observer
 			setStateNetwork(StateNetwork.ConstructionFailed);
 			System.err.print("Graphe mal formé");
 		}
+		catch (Exception e)
+		{
+			System.err.print("Attention une erreur inconnue est survenue suite à la récupération du réseau");
+		}
 		
 		return false;
 	}
@@ -353,35 +357,22 @@ public class IGoMaster implements Master, Observer
 				if (test())System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
 
 				threads.clear();
-				
 
-				//TODO modifier par bryan Begin
-				//avant : pathInGraphsToRemember.addAsRecent(collectionBuilder.getPathInGraph());
-				//ajout du if
 				boolean addAsRecent = true;
-				Iterator<PathInGraphCollectionBuilder> itB ;
-				itB= pathInGraphsToRemember.getRecentsPaths(); 
-				while(addAsRecent&&itB.hasNext()){
-					addAsRecent&=itB.next()!=collectionBuilder;
-				}
-				if(addAsRecent)
-					pathInGraphsToRemember.addAsRecent(collectionBuilder);
-				//TODO modifier par bryan End
+				Iterator<PathInGraphCollectionBuilder> itRecents = pathInGraphsToRemember.getRecentsPaths(); 
+				
+				while(addAsRecent&&itRecents.hasNext())addAsRecent&=itRecents.next()!=collectionBuilder;
+				if(addAsRecent)pathInGraphsToRemember.addAsRecent(collectionBuilder);
 				
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraphConstraintBuilder(),
 						AlgoKindOfException.EverythingFine
-						);
-				
+						);	
 			}
-			else 
-			{
-				ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError);
-			}
+			else ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError);		
 		}
 		else if (o.equals(eventInfoNetwork) && o!=null)
 		{
-			
 			if (!threads.isEmpty())
 			{
 				algo.abort();
@@ -399,13 +390,14 @@ public class IGoMaster implements Master, Observer
 				
 				eventInfoNetwork.applyInfo(graphBuilder);
 				
-				if (!ihm.updateNetwork()) System.err.print("Elo --> L'ihm n'a pas pris en compte les mises à jour");
+				if (!ihm.updateNetwork()) System.err.print("Elo --> Mise à jour du réseau mais l'ihm n'a pas de trajet en cours de visualisation");
 			}
 		}
 	}
 	
-	public Iterator<EventInfo> getNewEventInfos(){return recentEventInfo.iterator();}
-	
+	/**TODO
+	 * Tout reverifier à partir d'ici
+	 */
 	@Override
 	public void stop() 
 	{
@@ -417,7 +409,6 @@ public class IGoMaster implements Master, Observer
 	
 		try{config.save();}
 		catch(Exception e){e.printStackTrace();} 	
-		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -530,7 +521,22 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public Iterator<String> getLanguages() {return lg.getLanguages().iterator();}
 
+	@Override
+	public void markAsFavorite(PathInGraph pig) {this.pathInGraphsToRemember.markAsFavorite(pig);}
 
+	@Override
+	public void removeFromFavorites(PathInGraph pig) {this.pathInGraphsToRemember.removeFromFavorites(pig);}
+
+
+	@Override
+	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path) {
+		return this.pathInGraphsToRemember.isFavorite(path.getPathInGraph());
+	}
+	
+	@Override
+	public boolean isFavoritesPaths(PathInGraph path) {
+		return this.pathInGraphsToRemember.isFavorite(path);
+	}
 	
 	/******************************************************************************/
 	/************************SETTERS ET GETTERS ***********************************/
@@ -579,8 +585,6 @@ public class IGoMaster implements Master, Observer
 		this.graphReceiver = graphReceiver;
 	}
 	
-	
-
 	/**
 	 * Getter of the property <tt>config</tt>
 	 * 
@@ -601,8 +605,6 @@ public class IGoMaster implements Master, Observer
 	public void setConfig(Configuration config) {
 		this.config = config;
 	}
-
-
 
 	/**
 	 * Getter of the property <tt>lang</tt>
@@ -670,12 +672,6 @@ public class IGoMaster implements Master, Observer
 	}
 
 	/**
-	 * @uml.property   name="eventInfoNetwork"
-	 * @uml.associationEnd   inverse="iGoMaster:iGoMaster.EventInfoNetworkWatcher"
-	 */
-	
-
-	/**
 	 * Getter of the property <tt>eventInfoNetwork</tt>
 	 * 
 	 * @return Returns the eventInfoNetwork.
@@ -695,8 +691,6 @@ public class IGoMaster implements Master, Observer
 	public void setEventInfoNetwork(EventInfoNetworkWatcher eventInfoNetwork) {
 		this.eventInfoNetwork = eventInfoNetwork;
 	}
-
-
 
 	/**
 	 * Getter of the property <tt>graphNetworkCostReceiver</tt>
@@ -719,13 +713,11 @@ public class IGoMaster implements Master, Observer
 		this.graphNetworkCostReceiver = graphNetworkCostReceiver;
 	}
 
-
 	@Override
 	public void delete(PathInGraph pig) {
 		this.pathInGraphsToRemember.removeFromFavorites(pig);
 		this.pathInGraphsToRemember.removeFromRecents(pig);	
 	}
-
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths(){return this.pathInGraphsToRemember.getFavoritesPaths();}
@@ -733,25 +725,11 @@ public class IGoMaster implements Master, Observer
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
-		return this.pathInGraphsToRemember.getRecentsPaths();}
-
-
-	@Override
-	public void markAsFavorite(PathInGraph pig) {this.pathInGraphsToRemember.markAsFavorite(pig);}
-
-
-	@Override
-	public void removeFromFavorites(PathInGraph pig) {this.pathInGraphsToRemember.removeFromFavorites(pig);}
-
-
-	@Override
-	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path) {
-		return this.pathInGraphsToRemember.isFavorite(path.getPathInGraph());
-	}
+		return this.pathInGraphsToRemember.getRecentsPaths();
+		}
 	
-	@Override
-	public boolean isFavoritesPaths(PathInGraph path) {
-		return this.pathInGraphsToRemember.isFavorite(path);
+	public Iterator<EventInfo> getNewEventInfos(){
+		return recentEventInfo.iterator();
 	}
 	
 	private boolean test(){return System.getProperty("user.name").compareTo("elodie") == 0;}
