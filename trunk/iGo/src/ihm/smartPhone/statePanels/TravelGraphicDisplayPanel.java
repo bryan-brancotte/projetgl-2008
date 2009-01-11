@@ -46,7 +46,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected boolean firstRepaint = true;
 	protected int image;
-	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
+	protected ShapeToDraw ovalToDrawDelayed = new ShapeToDraw(null, 0, 0, 0, 0);
+	protected ShapeToDraw rectToDrawDelayed = new ShapeToDraw(null, 0, 0, 0, 0);
 	protected Polygon polygon = new Polygon();
 	/**
 	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
@@ -256,7 +257,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// sizeDemiLine = (int) (12 * scallImg);
 		sizeLarge = (int) (father.getSizeAdapteur().getSizeLargeFont() * 4 * buffer.getScallImg());
 		sizeQuadLarge = sizeLarge << 2;
-		int sizeDemiLarge = sizeLarge >> 1;
+		int sizeDemiLarge = sizeLarge >> 1; 
 		int sizeQuartLarge = sizeLarge >> 2;
 		// sizeQuadLarge = sizeLarge *4;
 		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * 3 * buffer.getScallImg()) >> 1;
@@ -350,8 +351,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 				if (affichageDroite) {
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
-					buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y - sizeDemiLine,
-							sizeQuadLarge, sizeDemiLine << 1);
+					// buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y -
+					// sizeDemiLine,
+					// sizeQuadLarge, sizeDemiLine << 1);
+					drawDelayedRect(buffer, center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y
+							- sizeDemiLarge, sizeQuadLarge, sizeLarge);
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 				}
 
@@ -520,11 +524,44 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		}
 		if (affichageDroite && orientation % 2 == 0) {
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
-			buffer.fillRect(center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeDemiLine << 1);
+			// drawDelayedRect(buffer, center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeLine );
+			drawDelayedRect(buffer, center.x, center.y - sizeDemiLarge, sizeQuadLarge, sizeLarge);
 			drawDelayedOval(buffer, center.x + sizeQuadLarge - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge,
 					sizeLarge);
 		}
 		drawDelayedOval(null, 0, 0, 0, 0);
+		drawDelayedRect(null, 0, 0, 0, 0);
+	}
+
+	/**
+	 * Procédure permettant de dessiner un oval, avec un appelle de retard : lorsqu'on appelle la fonction, l'oval
+	 * effectivement dessiné est celui du prédédent appelle.
+	 * 
+	 * @param g
+	 *            le Graphics où l'on va dessiner l'oval, s'il est null, on dessine tout de même le précédent oval
+	 * @param x
+	 *            l'abscisse de l'oval
+	 * @param y
+	 *            l'ordonnée de l'oval
+	 * @param width
+	 *            la largueur de l'oval
+	 * @param height
+	 *            la hauteur de l'oval
+	 */
+	protected void drawDelayedRect(GraphicsViewPort g, int x, int y, int width, int height) {
+		if (rectToDrawDelayed.g != null) {
+			rectToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
+			rectToDrawDelayed.g.fillRect(rectToDrawDelayed.x, rectToDrawDelayed.y, rectToDrawDelayed.width,
+					rectToDrawDelayed.height);
+			rectToDrawDelayed.g.setColor(father.getSkin().getColorInside());
+			rectToDrawDelayed.g.fillRect(rectToDrawDelayed.x, rectToDrawDelayed.y + sizeLine, rectToDrawDelayed.width,
+					rectToDrawDelayed.height - (sizeLine << 1));
+		}
+		rectToDrawDelayed.g = g;
+		rectToDrawDelayed.x = x;
+		rectToDrawDelayed.y = y;
+		rectToDrawDelayed.width = width;
+		rectToDrawDelayed.height = height;
 	}
 
 	/**
@@ -544,23 +581,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected void drawDelayedOval(GraphicsViewPort g, int x, int y, int width, int height) {
 		if (ovalToDrawDelayed.g != null) {
-			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
-			// ovalToDrawDelayed.height);
-			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
-			// ovalToDrawDelayed.g.drawOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
-			// ovalToDrawDelayed.height);
 			ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
 			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
 					ovalToDrawDelayed.height);
 			ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + father.getSizeAdapteur().getSizeLine(),
-			// ovalToDrawDelayed.y + father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.width - 2
-			// * father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.height - 2
-			// * father.getSizeAdapteur().getSizeLine());
 			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + sizeLine, ovalToDrawDelayed.y + sizeLine,
 					ovalToDrawDelayed.width - (sizeLine << 1), ovalToDrawDelayed.height - (sizeLine << 1));
-			// System.out.println(buffer.getScallImg()*5);
 		}
 		ovalToDrawDelayed.g = g;
 		ovalToDrawDelayed.x = x;
@@ -1117,14 +1143,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * @author iGo
 	 * 
 	 */
-	protected class OvalToDraw {
+	protected class ShapeToDraw {
 		public GraphicsViewPort g;
 		public int height;
 		public int width;
 		public int x;
 		public int y;
 
-		public OvalToDraw(GraphicsViewPort g, int x, int y, int width, int height) {
+		public ShapeToDraw(GraphicsViewPort g, int x, int y, int width, int height) {
 			super();
 			this.g = g;
 			this.x = x;
