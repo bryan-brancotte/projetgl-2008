@@ -26,10 +26,12 @@ import org.xml.sax.SAXException;
 import pathsAndFavorites.RecentsAndFavoritesPathsInGraphReader;
 
 /**
- * Classe interagissant avec les chemins récents/favoris, stockés dans un système de fichier
+ * Classe interagissant avec les chemins récents/favoris, stockés dans un
+ * système de fichier
  * 
- * Cette classe implémente l'interface RecentsAndFavoritesPathsInGraphReader, ce qui garantit que toute classe de ce type (qui se charge en 'dur' d'interagir avec les chemins
- * récents/favoris), sera compatible avec le reste du programme
+ * Cette classe implémente l'interface RecentsAndFavoritesPathsInGraphReader, ce
+ * qui garantit que toute classe de ce type (qui se charge en 'dur' d'interagir
+ * avec les chemins récents/favoris), sera compatible avec le reste du programme
  * 
  * @author iGo
  */
@@ -46,13 +48,17 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	private LinkedList<PathInGraphCollectionBuilder> favorites;
 
 	/**
-	 * Tableau associatif PathInGraph->File, ce qui permet de retrouver le fichier d'un chemin, par exemple lorsqu'il est ajouté dans les favoris
+	 * Tableau associatif PathInGraph->File, ce qui permet de retrouver le
+	 * fichier d'un chemin, par exemple lorsqu'il est ajouté dans les favoris
 	 */
 	private HashMap<PathInGraph, File> filesMap;
 
 	/**
-	 * Tableau associatif PathInGraph->PathInGraphCollectionBuilder, qui permet de faire l'association entre un chemin et son "constructeur", car lorsqu'on marque un chemin en tant
-	 * que favori, on utilise un PathInGraph, or pour donner la liste de tous les chemins on doit renvoyer un PathInGraphCollectionBuilder
+	 * Tableau associatif PathInGraph->PathInGraphCollectionBuilder, qui permet
+	 * de faire l'association entre un chemin et son "constructeur", car
+	 * lorsqu'on marque un chemin en tant que favori, on utilise un PathInGraph,
+	 * or pour donner la liste de tous les chemins on doit renvoyer un
+	 * PathInGraphCollectionBuilder
 	 */
 	private HashMap<PathInGraph, PathInGraphCollectionBuilder> pigMap;
 
@@ -122,87 +128,73 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	}
 
 	/**
-	 * Méthode lisant les fichiers du répertoire, appellée à chaque fois que le master demande les chemins récents/favoris
+	 * Méthode lisant les fichiers du répertoire, appellée à chaque fois que le
+	 * master demande les chemins récents/favoris
 	 */
 	@SuppressWarnings("unchecked")
 	public void readFiles() {
 		if (folder.isDirectory()) {
-//			try {
-				nbFiles = 0;
-				ArrayList<File> cof = new ArrayList<File>();
-				ArrayList<File> toDelete = new ArrayList<File>();
-				for (File f : folder.listFiles()) {
-					cof.add(f);
+			nbFiles = 0;
+			ArrayList<File> cof = new ArrayList<File>();
+			ArrayList<File> toDelete = new ArrayList<File>();
+			for (File f : folder.listFiles())
+				cof.add(f);
+			Collections.sort(cof, new Comparator() {
+				public int compare(Object o1, Object o2) {
+					File f1 = (File) o1;
+					File f2 = (File) o2;
+					if (f1.lastModified() > f2.lastModified()) {
+						return -1;
+					} else if (f1.lastModified() == f2.lastModified()) {
+						return 0;
+					} else {
+						return 1;
+					}
 				}
-				Collections.sort(cof, new Comparator() {
-					public int compare(Object o1, Object o2) {
-						File f1 = (File) o1;
-						File f2 = (File) o2;
-						if (f1.lastModified() > f2.lastModified()) {
-							return -1;
-						}
-						else if (f1.lastModified() == f2.lastModified()) {
-							return 0;
-						}
-						else {
-							return 1;
-						}
-					}
-				});
-				for (File fr : cof) {
-					if (fr.getName().contains("PIG_") && fr.getName().contains(".xml") && !filesMap.containsValue(fr)) {
-						if (fr.getName().split("\\.")[0].split("_")[1] != null && fr.length() != 0) {
-							int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
-							if (num > numFile) {
-								numFile = num;
+			});
+			for (File fr : cof) {
+				if (fr.getName().contains("PIG_") && fr.getName().contains(".xml") && !filesMap.containsValue(fr)) {
+					if (fr.getName().split("\\.")[0].split("_")[1] != null && fr.length() != 0) {
+						int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
+						if (num > numFile)
+							numFile = num;
+						try {
+							FileReader frr = new FileReader(fr);
+							BufferedReader br = new BufferedReader(frr);
+							String curLigne = br.readLine();
+							String allLignes = curLigne;
+							while (curLigne != null) {
+								curLigne = br.readLine();
+								allLignes += curLigne;
 							}
-							try {
-								FileReader frr = new FileReader(fr);
-								BufferedReader br = new BufferedReader(frr);
-								String curLigne = br.readLine();
-								String allLignes = curLigne;
-								while (curLigne != null) {
-									curLigne = br.readLine();
-									allLignes += curLigne;
-								}
-								allLignes = allLignes.split("null")[0];
+							allLignes = allLignes.split("null")[0];
 
-								if (fr.getName().contains("fav")) {
-									PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilderWithoutCatch(allLignes);
-									favorites.addLast(pigcb);
-									filesMap.put(pigcb.getPathInGraph(), fr);
-									pigMap.put(pigcb.getPathInGraph(), pigcb);
-									recents.addLast(pigcb);
+							if (fr.getName().contains("fav")) {
+								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilderWithoutCatch(allLignes);
+								favorites.addLast(pigcb);
+								filesMap.put(pigcb.getPathInGraph(), fr);
+								pigMap.put(pigcb.getPathInGraph(), pigcb);
+								recents.addLast(pigcb);
 
-								}
-								else {
-									PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilderWithoutCatch(allLignes);
-									recents.addLast(pigcb);
-									filesMap.put(pigcb.getPathInGraph(), fr);
-									pigMap.put(pigcb.getPathInGraph(), pigcb);
-									nbFiles++;
-								}
+							} else {
+								PathInGraphCollectionBuilder pigcb = gnb.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilderWithoutCatch(allLignes);
+								recents.addLast(pigcb);
+								filesMap.put(pigcb.getPathInGraph(), fr);
+								pigMap.put(pigcb.getPathInGraph(), pigcb);
+								nbFiles++;
 							}
-							catch (SAXException e) {
-								toDelete.add(fr);
-							}
-							catch (IOException e) {
-							}
-							catch (ParserConfigurationException e){
-							}
-						}
-						else {
+						} catch (SAXException e) {
 							toDelete.add(fr);
+						} catch (IOException e) {
+						} catch (ParserConfigurationException e) {
 						}
-					}
-					else if (!fr.getName().contains("PIG_") || !fr.getName().contains(".xml")) {
+					} else {
 						toDelete.add(fr);
 					}
+				} else if (!fr.getName().contains("PIG_") || !fr.getName().contains(".xml")) {
+					toDelete.add(fr);
 				}
-//			} catch (Exception e) {
-//				System.out.println("que faisje la ?");
-////				 e.printStackTrace();
-//			}
+			}
 			for (File fr : toDelete) {
 				fr.delete();
 			}
@@ -217,8 +209,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		readFiles();
 		if (favorites != null) {
 			return favorites.iterator();
-		}
-		else
+		} else
 			return null;
 	}
 
@@ -231,12 +222,10 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		if (recents != null) {
 			if (recents.size() > MAX_RECENTS_PATHS) {
 				return recents.subList(0, MAX_RECENTS_PATHS).iterator();
-			}
-			else {
+			} else {
 				return recents.iterator();
 			}
-		}
-		else
+		} else
 			return null;
 	}
 
@@ -265,7 +254,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 						}
 					}
 				} catch (Exception e) {
-					 e.printStackTrace();
+					e.printStackTrace();
 				}
 				max = true;
 			}
@@ -275,8 +264,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		String fileName;
 		if (max) {
 			fileName = path + "PIG_" + min + ".xml";
-		}
-		else {
+		} else {
 			fileName = path + "PIG_" + numFile + ".xml";
 		}
 

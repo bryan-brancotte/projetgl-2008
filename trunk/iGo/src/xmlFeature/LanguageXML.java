@@ -110,23 +110,18 @@ public class LanguageXML implements Language {
 		int i;
 		Document doc;
 		try {
-			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
-					getClass().getResourceAsStream(PATH_LANGUAGE));
-			/***********************************************************************************************************
-			 * Chargement des langues
-			 */
+			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getClass().getResourceAsStream(PATH_LANGUAGE));
+			// Chargement des langues
 			i = 0;
 			while ((nodesLangue == null) && (i < doc.getFirstChild().getChildNodes().getLength())) {
-				if (doc.getFirstChild().getChildNodes().item(i).getNodeName().compareTo("languages") == 0) {
+				if (doc.getFirstChild().getChildNodes().item(i).getNodeName().compareTo("languages") == 0)
 					nodesLangue = doc.getFirstChild().getChildNodes().item(i).getChildNodes();
-				}
 				i++;
 			}
 			for (i = 0; i < nodesLangue.getLength(); i++) {
 				if (nodesLangue.item(i).getNodeName().compareTo("#text") != 0) {
 					if (!nodesLangue.item(i).getNodeName().startsWith("#"))
-						langues.put(nodesLangue.item(i).getAttributes().getNamedItem("value").getNodeValue(),
-								nodesLangue.item(i).getAttributes().getNamedItem("balise").getNodeValue());
+						langues.put(nodesLangue.item(i).getAttributes().getNamedItem("value").getNodeValue(), nodesLangue.item(i).getAttributes().getNamedItem("balise").getNodeValue());
 				}
 			}
 		} catch (SAXException e) {
@@ -150,8 +145,7 @@ public class LanguageXML implements Language {
 		int i;
 		Document doc;
 		try {
-			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
-					getClass().getResourceAsStream(PATH_LANGUAGE));
+			doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getClass().getResourceAsStream(PATH_LANGUAGE));
 			i = 0;
 			while ((nodesLangue == null) && (i < doc.getFirstChild().getChildNodes().getLength())) {
 				if (doc.getFirstChild().getChildNodes().item(i).getNodeName().compareTo("fields") == 0) {
@@ -165,8 +159,7 @@ public class LanguageXML implements Language {
 					ok = false;
 					for (int j = 0; j < node.getChildNodes().getLength(); j++) {
 						if (node.getChildNodes().item(j).getNodeName().compareTo(langues.get(langue)) == 0) {
-							correspondanceKeyWord.put(node.getNodeName(), node.getChildNodes().item(j).getAttributes()
-									.getNamedItem("value").getNodeValue());
+							correspondanceKeyWord.put(node.getNodeName(), node.getChildNodes().item(j).getAttributes().getNamedItem("value").getNodeValue());
 							ok = true;
 						}
 					}

@@ -25,7 +25,8 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 /**
- * Cette classe permet la surveillance d'un dossier qui contiendra les evenements
+ * Cette classe permet la surveillance d'un dossier qui contiendra les
+ * evenements
  * 
  * @author iGo
  */
@@ -57,7 +58,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	protected Timer watcher;
 
 	/**
-	 * Verrou pour empecher la prise en compte d'evenements en cours de construction
+	 * Verrou pour empecher la prise en compte d'evenements en cours de
+	 * construction
 	 */
 	protected final Lock verrou = new ReentrantLock();
 
@@ -95,9 +97,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 				List<Element> numVersion = racine.getChildren("VersionNumber");
 				if (numVersion.size() == 1) {
-					// if (Integer.parseInt(numVersion.get(0).getTextTrim()) > 0) {
 					if (Integer.parseInt(numVersion.get(0).getTextTrim()) != version) {
-						// System.out.println("new update");
 						synchronized (verrou) {
 
 							version = Integer.parseInt(numVersion.get(0).getTextTrim());
@@ -116,27 +116,21 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 								for (Element child : nodeChilds) {
 									if (child.getName().compareTo("MSID") == 0) {
 										eisMsgId = Integer.parseInt(child.getTextTrim());
-									}
-									else if (child.getName().compareTo("ID") == 0) {
+									} else if (child.getName().compareTo("ID") == 0) {
 										eisId = Integer.parseInt(child.getTextTrim());
-									}
-									else if (child.getName().compareTo("Kind") == 0) {
+									} else if (child.getName().compareTo("Kind") == 0) {
 										eisKeinString = child.getTextTrim();
 										if (eisKeinString.compareTo("Problem") == 0) {
 											eisKein = KindEventInfoNetwork.PROBLEM;
-										}
-										else if (eisKeinString.compareTo("Solution") == 0) {
+										} else if (eisKeinString.compareTo("Solution") == 0) {
 											eisKein = KindEventInfoNetwork.SOLUTION;
-										}
-										else {
+										} else {
 											eisKein = KindEventInfoNetwork.OTHER;
 										}
-									}
-									else if (child.getName().compareTo("WarningMsg") == 0) {
+									} else if (child.getName().compareTo("WarningMsg") == 0) {
 										eisMsg = child.getTextTrim();
 									}
 								}
-								// System.out.println(eisId + " : " + eisMsg + " : " + eisMsgId + " : " + eisKein);
 								eventInfosNotApplied.add(new EventInfoStation(eisId, eisMsg, eisMsgId, eisKein));
 							}
 
@@ -155,30 +149,23 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 								for (Element child : nodeChilds) {
 									if (child.getName().compareTo("MSID") == 0) {
 										eisMsgId = Integer.parseInt(child.getTextTrim());
-									}
-									else if (child.getName().compareTo("IDS") == 0) {
+									} else if (child.getName().compareTo("IDS") == 0) {
 										eisIds = Integer.parseInt(child.getTextTrim());
-									}
-									else if (child.getName().compareTo("IDR") == 0) {
+									} else if (child.getName().compareTo("IDR") == 0) {
 										eisIdr = child.getTextTrim();
-									}
-									else if (child.getName().compareTo("Kind") == 0) {
+									} else if (child.getName().compareTo("Kind") == 0) {
 										eisKeinString = child.getTextTrim();
 										if (eisKeinString.compareTo("Problem") == 0) {
 											eisKein = KindEventInfoNetwork.PROBLEM;
-										}
-										else if (eisKeinString.compareTo("Solution") == 0) {
+										} else if (eisKeinString.compareTo("Solution") == 0) {
 											eisKein = KindEventInfoNetwork.SOLUTION;
-										}
-										else {
+										} else {
 											eisKein = KindEventInfoNetwork.OTHER;
 										}
-									}
-									else if (child.getName().compareTo("WarningMsg") == 0) {
+									} else if (child.getName().compareTo("WarningMsg") == 0) {
 										eisMsg = child.getTextTrim();
 									}
 								}
-								// System.out.println(eisIds + " : " + eisIdr + " : " + eisMsg + " : " + eisMsgId + " : " + eisKein);
 								eventInfosNotApplied.add(new EventInfoStationOnARoute(eisIds, eisIdr, eisMsg, eisMsgId, eisKein));
 							}
 
@@ -196,27 +183,21 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 								for (Element child : nodeChilds) {
 									if (child.getName().compareTo("MSID") == 0) {
 										eisMsgId = Integer.parseInt(child.getTextTrim());
-									}
-									else if (child.getName().compareTo("IDR") == 0) {
+									} else if (child.getName().compareTo("IDR") == 0) {
 										eisIdr = child.getTextTrim();
-									}
-									else if (child.getName().compareTo("Kind") == 0) {
+									} else if (child.getName().compareTo("Kind") == 0) {
 										eisKeinString = child.getTextTrim();
 										if (eisKeinString.compareTo("Problem") == 0) {
 											eisKein = KindEventInfoNetwork.PROBLEM;
-										}
-										else if (eisKeinString.compareTo("Solution") == 0) {
+										} else if (eisKeinString.compareTo("Solution") == 0) {
 											eisKein = KindEventInfoNetwork.SOLUTION;
-										}
-										else {
+										} else {
 											eisKein = KindEventInfoNetwork.OTHER;
 										}
-									}
-									else if (child.getName().compareTo("WarningMsg") == 0) {
+									} else if (child.getName().compareTo("WarningMsg") == 0) {
 										eisMsg = child.getTextTrim();
 									}
 								}
-								// System.out.println(eisIdr + " : " + eisMsg + " : " + eisMsgId + " : " + eisKein);
 								eventInfosNotApplied.add(new EventInfoRoute(eisIdr, eisMsg, eisMsgId, eisKein));
 							}
 
@@ -226,17 +207,10 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 							setChanged();
 							notifyObservers(eventInfosNotApplied);
 						}
-
-						// System.out.println("----------------------------");
-						// Date newTime = new Date();
-						// System.out.println("Time end " + newTime.getTime());
-						// System.out.println("Time : " + (newTime.getTime() - oldTime));
 					}
-					// System.out.println("no new update");
 				}
 
-			}
-			else {
+			} else {
 				System.err.println(fichier + " : Erreur de lecture.");
 			}
 
@@ -254,9 +228,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		eventInfosNotApplied = new LinkedList<EventInfo>();
 		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + "TravelAltertGL2008.xml").replace("\\", "/");
 		File folder = new File((System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/"));
-		if (!folder.isDirectory()) {
+		if (!folder.isDirectory())
 			folder.mkdir();
-		}
 		fichier = new File(path);
 		if (fichier.length() == 0) {
 			try {
@@ -265,7 +238,6 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 					FileOutputStream out = new FileOutputStream(path);
 					try {
 						// Init
-
 						// Lecture par segment de 0.5Mo
 						byte buffer[] = new byte[512 * 1024];
 						int nbLecture;
@@ -294,7 +266,6 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		synchronized (verrou) {
 			status = EventInfoNetWorkWatcherStatus.STARTED;
 			watcher = new Timer(true);
-			// watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10 * 1000);
 			watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10 * 1000);
 		}
 	}
@@ -308,7 +279,6 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		status = EventInfoNetWorkWatcherStatus.STOPPED;
 		if (eventInfosNotApplied.size() > 0)
 			status = EventInfoNetWorkWatcherStatus.NEW_UPDATE_STOPPED;
-		// System.out.println("watcher stopped");
 	}
 
 	/**
@@ -324,15 +294,11 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
-		for (EventInfo ev : getNewEventInfo()) {
+		for (EventInfo ev : getNewEventInfo())
 			ev.applyInfo(graph);
-			// System.out.println("Event : " + ev.getMessage());
-		}
-		for (EventInfo ev : getNewEventInfo()) {
-			if (ev.isApplied()) {
+		for (EventInfo ev : getNewEventInfo())
+			if (ev.isApplied())
 				eventInfosNotApplied.remove(ev);
-			}
-		}
 	}
 
 	/**
@@ -348,41 +314,6 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 			synchronized (verrou) {
 				return new Vector<EventInfo>(eventInfosNotApplied);
 			}
-		}
-	}
-
-	public static void main(String[] args) {
-		EventInfoNetworkWatcherInFolder test = new EventInfoNetworkWatcherInFolder(System.getProperty("user.dir")
-				+ "\\ressources\\xml\\TravelAltertGL2008.xml");
-		try {
-			test.startWatching();
-			System.out.println("--------------");
-			// System.out.println(test.getNewEventInfo().size());
-			try {
-				System.in.read();
-
-				if (test.getStatus().equals(EventInfoNetWorkWatcherStatus.NEW_UPDATE)) {
-					System.out.println("NB events : " + test.getNewEventInfo().size());
-					System.out.println("New UPDATE MAIN");
-					for (EventInfo ev : test.getNewEventInfo()) {
-						System.out.println("Event : " + ev.getMessage());
-					}
-					GraphNetworkBuilder gnb = new GraphNetworkBuilder();
-					test.applyInfo(gnb);
-				}
-
-				test.stopWatching();
-				System.in.read();
-				// test.startWatching();
-				// System.out.println(test.getNewEventInfo().size());
-				System.in.read();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (ImpossibleStartingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

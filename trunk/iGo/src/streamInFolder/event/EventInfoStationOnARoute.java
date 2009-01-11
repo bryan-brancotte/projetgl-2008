@@ -61,9 +61,7 @@ public class EventInfoStationOnARoute implements EventInfo {
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
-		
 		if (!isApplied()) {
-//			System.out.println("entering into event info station on a route");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
 				graph.setEnable(idr, ids, false);
 			} else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {

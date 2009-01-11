@@ -15,22 +15,22 @@ public class EventInfoRoute implements EventInfo {
 	 * Id de l'evenement (deux evenement qui se corrigent ont le meme ID)
 	 */
 	private int id;
-	
+
 	/**
 	 * Message appliqué ou non
 	 */
 	private boolean applied = false;
-	
+
 	/**
 	 * Type de l'evenement (Probleme, solution)
 	 */
 	private KindEventInfoNetwork kindEventInfoNetwork;
-	
+
 	/**
 	 * Contenu du message
 	 */
 	private String message = "";
-	
+
 	/**
 	 * Id de la route relative au message
 	 */
@@ -38,10 +38,15 @@ public class EventInfoRoute implements EventInfo {
 
 	/**
 	 * Constructeur d'evenement survenant sur une route
-	 * @param _idr Id de la route
-	 * @param _message Message en question
-	 * @param _msgId ID du message
-	 * @param kein Type de l'evenement
+	 * 
+	 * @param _idr
+	 *            Id de la route
+	 * @param _message
+	 *            Message en question
+	 * @param _msgId
+	 *            ID du message
+	 * @param kein
+	 *            Type de l'evenement
 	 */
 	public EventInfoRoute(String _idr, String _message, int _msgId, KindEventInfoNetwork kein) {
 		idr = _idr;
@@ -56,16 +61,14 @@ public class EventInfoRoute implements EventInfo {
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
 		if (!isApplied()) {
-//			System.out.println("entering into event info route");
-			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
+			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM))
 				graph.setEnable(idr, false);
-			} 
-			else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
+			else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION))
 				graph.setEnable(idr, true);
-			}
 			this.applied = true;
 		}
-		// avec des enables true/false --> Penser a approfondir la coherences avec les MSID, pour pb/solution
+		// avec des enables true/false --> Penser a approfondir la coherences
+		// avec les MSID, pour pb/solution
 	}
 
 	/**
@@ -107,8 +110,7 @@ public class EventInfoRoute implements EventInfo {
 	public int getIdStation() {
 		return -1;
 	}
-	
-	
+
 	/**
 	 * @see EventInfo#isApplied()
 	 */
@@ -116,7 +118,5 @@ public class EventInfoRoute implements EventInfo {
 	public boolean isApplied() {
 		return applied;
 	}
-
-
 
 }
