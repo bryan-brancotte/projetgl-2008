@@ -129,25 +129,6 @@ public class GraphNetworkBuilder {
 		if (serviceToAdd == null)
 			return false;
 		return station.addService(serviceToAdd);
-		// if (station == null || serviceToAdd == null || !currentGraphNetwork.stations.contains(station))
-		// return false;
-		//
-		// Iterator<Station> it = currentGraphNetwork.stations.iterator();
-		// while (it.hasNext()) {
-		// Station temp = it.next();
-		// if (temp.equals(station)) { // pour la station en question
-		// Iterator<Service> itS = temp.getServices();
-		// while (itS.hasNext()) {
-		// if (itS.next().equals(serviceToAdd)) // recherche si le
-		// // service existe
-		// // deja
-		// return true;
-		// }
-		// temp.addService(serviceToAdd); // ajout si il n'existe pas
-		// return true;
-		// }
-		// }
-		// return false;
 	}
 
 	/**
@@ -220,43 +201,6 @@ public class GraphNetworkBuilder {
 			stationToAdd.addJunction(j);
 		}
 		return true;
-
-		// Iterator<Route> it = currentGraphNetwork.routes.iterator();
-		// while (it.hasNext()) {
-		// Route temp = it.next();
-		// if (temp.equals(route)) { // pour la route en question
-		// Iterator<Station> itS = temp.getStations();
-		// while (itS.hasNext()) {
-		// Station temp3 = itS.next();
-		// if (temp3.equals(stationToAdd)) { // recherche si la station
-		// // existe deja
-		// temp3.addRoute(route);
-		// return true;
-		// }
-		// }
-		// stationToAdd.addRoute(route);
-		// temp.addStation(stationToAdd); // ajout si elle n'existe pas
-
-		/*
-		 * bloc ajouté pour creer route dans la station. Si pas necessaire, il faudra creer une nouvelle methode
-		 * addRouteToStation
-		 */
-		// Iterator<Station> itt =
-		// currentGraphNetwork.stations.iterator();
-		// while(itt.hasNext()){
-		// Station temp2=itt.next();
-		// if(temp2.equals(stationToAdd)){
-		// Iterator<Station> itR=temp2.g();
-		// while(itR.hasNext())
-		// temp2.addRoute(route);
-		// }
-		// }
-		/* fin bloc */
-		// return true;
-		// }
-		// }
-		//
-		// return false;
 	}
 
 	/**
@@ -278,31 +222,12 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * @deprecated Use getCurrentGraphNetwork()
-	 */
-	@Deprecated
-	public GraphNetwork getActualGraphNetwork() {
-		return currentGraphNetwork;
-	}
-
-	/**
 	 * retourne le GraphNetwork courant.
 	 * 
 	 * @return le GraphNetwork courant ou null s'il n'y en a pas.
 	 */
 	public GraphNetwork getCurrentGraphNetwork() {
 		return currentGraphNetwork;
-	}
-
-	/**
-	 * Fonction abandonnée a cause d'un nom pas assez explicite. Retourne un nouvelle instance de GraphNetwork sans
-	 * jamais pouvoir le modifier
-	 * 
-	 * @return un nouveau GraphNetwork que vous ne pourrez jamais modifier
-	 */
-	@Deprecated
-	public GraphNetwork getInstance() {
-		return new GraphNetwork();
 	}
 
 	/**
@@ -388,7 +313,7 @@ public class GraphNetworkBuilder {
 	 * spécifie sur quelles routes sont les stations. On spécifie le cout monétaire et en temps pour emprunter le
 	 * changement. On spécifie de plus si le lien est "long" c'est à dire qu'il fait resortir de la première station
 	 * pour rejoindre la seconde, sans pour autant impliquer une surtaxe. <br/>
-	 * <B>Les jonctions sont monodirectionelles, * mais on en crée 2!</B><br/>
+	 * <B>Les jonctions sont monodirectionelles, mais on en crée 2!</B><br/>
 	 * Si dans un sens comme dans l'autre on trouve une jonction correspondant au critère, on la met à jour plutôt que
 	 * d'en créer une nouvelle.
 	 * 
@@ -489,13 +414,6 @@ public class GraphNetworkBuilder {
 		currentGraphNetwork.stations.clear();
 		currentGraphNetwork.services.clear();
 		KindRoute.reset();
-	}
-
-	/**
-	 * @deprecated Use setCurrentGraphNetwork()
-	 */
-	protected void setActualGraphNetwork(GraphNetwork currentGraphNetwork) {
-		this.currentGraphNetwork = currentGraphNetwork;
 	}
 
 	/**

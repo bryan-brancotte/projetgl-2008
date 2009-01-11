@@ -48,10 +48,6 @@ public class KindRoute {
 	protected static KindRoute addKind(String kindOf) {
 		if (kinds == null)
 			kinds = new LinkedList<KindRoute>();
-		// if (kindOf == null)
-		// return null;
-		// if (kindOf.compareTo("") == 0)
-		// return null;
 		KindRoute k = getKindFromString(kindOf);
 		if (k != null)
 			return k;

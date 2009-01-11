@@ -367,23 +367,6 @@ public class PathInGraph {
 	 * @return l'intersection, ou null si la destination n'est pa satteignable
 	 */
 	public Junction getFirstJunctionInTheLastAvaiblePart() {
-		// Rémi : trop long et trop couteux : O(2n) et création d'un vector (beurk)
-		// Iterator<Junction> j1 = junctions.iterator();
-		// Vector<Junction> jonctionInv = new Vector<Junction>();
-		// Junction jonctionTrouve = null;
-		// int nbJonction = junctions.size();
-		//
-		// while (j1.hasNext()) {
-		// jonctionInv.add(--nbJonction, j1.next());
-		// }
-		// for (int i = 0; i < junctions.size(); i++) {
-		// if (jonctionInv.elementAt(i).isEnable())
-		// jonctionTrouve = jonctionInv.elementAt(i);
-		// else
-		// return jonctionTrouve;
-		// }
-		// return jonctionTrouve;
-		// Voila un meilleurs solution (sans vector et avec un complexite en O(n)
 		Iterator<Junction> itJ = junctions.iterator();
 		Junction last = null;
 		Junction current;
@@ -543,38 +526,6 @@ public class PathInGraph {
 	 */
 	public int getServicesOnceCount() {
 		return servicesOnce.size();
-	}
-
-	/**
-	 * use getServicesAlwaysArray()
-	 */
-	@Deprecated
-	public Service[] getSevicesAlwaysArray() {
-		return servicesAlways.toArray(new Service[0]);
-	}
-
-	/**
-	 * use getServicesAlwaysIter()
-	 */
-	@Deprecated
-	public Iterator<Service> getSevicesAlwaysIter() {
-		return servicesAlways.iterator();
-	}
-
-	/**
-	 * use getServicesOnceArray()
-	 */
-	@Deprecated
-	public Service[] getSevicesOnceArray() {
-		return servicesOnce.toArray(new Service[0]);
-	}
-
-	/**
-	 * use getServicesOnceIter()
-	 */
-	@Deprecated
-	public Iterator<Service> getSevicesOnceIter() {
-		return servicesOnce.iterator();
 	}
 
 	/**
@@ -774,24 +725,6 @@ public class PathInGraph {
 		refusedKindRoute.addAll(org.refusedKindRoute);
 		steps.clear();
 		steps.addAll(org.steps);
-
-		// servicesAlways.clear();
-		// for (Service s : org.servicesAlways)
-		// servicesAlways.add(s);
-		// servicesOnce.clear();
-		// for (Service s : org.servicesOnce)
-		// servicesOnce.add(s);
-		// avoidStations.clear();
-		// for (Station s : org.avoidStations)
-		// avoidStations.add(s);
-		// refusedKindRoute.clear();
-		// for (KindRoute s : org.refusedKindRoute)
-		// refusedKindRoute.add(s);
-		// steps.clear();
-		// for (Station s : org.steps)
-		// steps.add(s);
-		//		
-		//		
 		return true;
 	}
 

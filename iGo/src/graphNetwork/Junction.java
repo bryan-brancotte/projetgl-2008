@@ -148,42 +148,6 @@ public class Junction {
 		return null;
 	}
 
-	// /**
-	// * Retourne la route supposé de destination
-	// *
-	// * @return
-	// */
-	// public Route getRouteDestination() {
-	// return routeDestination;
-	// }
-	//
-	// /**
-	// * Retourne la route supposé d'origine
-	// *
-	// * @return
-	// */
-	// public Route getRouteOrigin() {
-	// return routeOrigin;
-	// }
-	//
-	// /**
-	// * Retourne la station supposé de destination
-	// *
-	// * @return
-	// */
-	// public Station getStationDestination() {
-	// return stationDestination;
-	// }
-	//
-	// /**
-	// * Retourne la station supposé d'origine
-	// *
-	// * @return
-	// */
-	// public Station getStationOrigin() {
-	// return stationOrigin;
-	// }
-
 	/**
 	 * Informe du temps qu'il faut pour parcourir la jonction
 	 * 
@@ -245,13 +209,6 @@ public class Junction {
 
 	protected void setCost(float cost) {
 		this.cost = cost;
-	}
-
-	/**
-	 * Utiliser le {@link GraphNetworkBuilder}
-	 */
-	@Deprecated
-	public void setEnable(boolean enable) {
 	}
 
 	protected void setPedestrian(boolean pedestrian) {
