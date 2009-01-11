@@ -261,22 +261,25 @@ public class ListingStation extends PanelState {
 		Service service;
 		Iterator<Route> itRoute;
 		Route otherRoute;
+		Route oldRoute = null;
+		boolean overImpressionRouteDone = false;
+		buffer.setFont(father.getSizeAdapteur().getSmallFont());
 		for (Route route : routes) {
 			// if (ordonne > getHeight())
 			// break;
 			// La routes
 			// route = e.getKey();
-			ptArea = hashRouteArea.get(route);
-			buffer.setFont(father.getSizeAdapteur().getSmallFont());
 			h = getHeightString(route.getId(), buffer);
-			ptArea.prepareArea(buffer, decalageDemi, ordonne, h + (h >> 1), getWidth() - decalage2);
-
-			ptArea.draw(buffer, father.getNetworkColorManager().getColor(route), father.getSkin().getColorLetter());
-			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawString(father.lg("Route") + " " + route.getId(), decalage, ordonne + h + (h >> 2));
-			w = getWidthString(route.getKindRoute().getKindOf(), buffer);
-			buffer.drawString(route.getKindRoute().getKindOf(), getWidth() - decalage2 - w, ordonne + h + (h >> 2));
-
+			// if (!overImpressionRouteDone && oldRoute != null && ordonne > decalage) {
+			// // if (ordonne > (decalage * 3))
+			// // drawRouteTitle(oldRoute, decalageDemi, decalage, decalage2, decalage, h, false);
+			// overImpressionRouteDone = true;
+			// }
+			oldRoute = route;
+			// if (ordonne < decalage)
+			ptArea = drawRouteTitle(route, decalageDemi, decalage, decalage2, ordonne, h, true);
+			// else
+			// ptArea = hashRouteArea.get(route);
 			ordonne = ptArea.getArea().y + ptArea.getArea().height + decalageDemi;
 
 			// et ses stations
@@ -346,6 +349,12 @@ public class ListingStation extends PanelState {
 				}
 				ordonne = p.area.getArea().y + p.area.getArea().height + (decalageDemi >> 1);
 			}
+			h = getHeightString(route.getId(), buffer);
+			if (!overImpressionRouteDone && oldRoute != null && ordonne > decalage) {
+				// if (ptArea.getArea().y > ptArea.getArea().height)
+				drawRouteTitle(oldRoute, decalageDemi, decalage, decalage2, decalage, h, false);
+				overImpressionRouteDone = true;
+			}
 		}
 
 		/***************************************************************************************************************
@@ -359,6 +368,33 @@ public class ListingStation extends PanelState {
 		// System.out.println(serviceDisplayed.size() + " " + servicePooled.size() + " : "
 		// + (serviceDisplayed.size() + servicePooled.size()));
 
+	}
+
+	/**
+	 * dessins le titre d'un route.
+	 */
+	protected PTArea drawRouteTitle(Route route, final int decalageDemi, final int decalage, final int decalage2,
+			final int ordonne, final int h, boolean drawBackground) {
+		PTArea ptArea = hashRouteArea.get(route);
+		ptArea.prepareArea(buffer, decalageDemi, ordonne, h + (h >> 1), getWidth() - decalage2 - decalageDemi);
+		if (drawBackground) {
+			buffer.setColor(father.getNetworkColorManager().getColor(route).brighter());
+			// buffer.fillRect(decalage, ptArea.getArea().y + ptArea.getArea().height, ptArea.getArea().width -
+			// decalage,
+			// getHeight() - ptArea.getArea().y - ptArea.getArea().height);
+			buffer.fillRect(decalageDemi, ptArea.getArea().y + ptArea.getArea().height, decalage - 1, getHeight()
+					- ptArea.getArea().y - ptArea.getArea().height);
+		}
+		if (ordonne >= decalage)
+			ptArea.draw(buffer, father.getNetworkColorManager().getColor(route), father.getSkin().getColorLetter());
+		buffer.setColor(father.getSkin().getColorLetter());
+		if (ordonne >= decalage)
+			buffer.drawString(father.lg("Route") + " " + route.getId(), decalage, ordonne + h + (h >> 2));
+		if (ordonne >= decalage) {
+			buffer.drawString(route.getKindRoute().getKindOf(), getWidth() - decalage2
+					- getWidthString(route.getKindRoute().getKindOf(), buffer) - decalageDemi, ordonne + h + (h >> 2));
+		}
+		return ptArea;
 	}
 
 	/**
