@@ -85,11 +85,10 @@ public class DijkstraTest {
 			constraintBuilder.setOrigin(s0);
 			constraintBuilder.setDestination(s0);
 			algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
+			fail ("Les stations de départ et d'arrivée ne doivent pas être les mêmes :" +
+			"une exception aurait du etre levée");
 		}
 		catch (Exception e){}
-		
-		fail ("Les stations de départ et d'arrivée ne doivent pas être les mêmes :" +
-				"une exception aurait du etre levée");
 	}
 	
 	
