@@ -3,7 +3,7 @@
 		<languages>
 			<lang balise="ENGLISH" value="English"/>
 			<lang balise="FRANCAIS" value="Français"/>
-			<lang balise="GEEK" value="Geek"/>
+			<lang balise="GEEK" value="G33K"/>
 			<!-- <lang balise="CHINESE" value="Chinese 中国"/>-->
 			<!-- When &#10; appears in the file, it mean an end of line. Keep it in the translation for a better good looking ;)-->
 		</languages>
