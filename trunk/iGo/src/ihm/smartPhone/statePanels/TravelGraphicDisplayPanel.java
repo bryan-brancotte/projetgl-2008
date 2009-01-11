@@ -257,8 +257,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// sizeDemiLine = (int) (12 * scallImg);
 		sizeLarge = (int) (father.getSizeAdapteur().getSizeLargeFont() * 4 * buffer.getScallImg());
 		sizeQuadLarge = sizeLarge << 2;
-		int sizeDemiLarge = sizeLarge >> 1; 
+		int sizeDemiLarge = sizeLarge >> 1;
 		int sizeQuartLarge = sizeLarge >> 2;
+		int heigthLinkStation = sizeLarge - sizeQuartLarge >> 1;
+		int widthDecalageLinkStation = (int) ((sizeLarge - sizeLine) * 0.491);
 		// sizeQuadLarge = sizeLarge *4;
 		sizeDemiLine = (int) (father.getSizeAdapteur().getSizeSmallFont() * 3 * buffer.getScallImg()) >> 1;
 		sizeDemiLine = (sizeDemiLine > 0) ? sizeDemiLine : 1;
@@ -351,11 +353,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 				if (affichageDroite) {
 					buffer.setColor(father.getSkin().getColorSubAreaInside());
-					// buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y -
-					// sizeDemiLine,
-					// sizeQuadLarge, sizeDemiLine << 1);
-					drawDelayedRect(buffer, center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y
-							- sizeDemiLarge, sizeQuadLarge, sizeLarge);
+					// if (ovalToDrawDelayed.g != null)
+					drawDelayedRect(buffer, center.x
+							+ ((orientation % 2 == 0) ? -sizeQuadLarge + widthDecalageLinkStation
+									: widthDecalageLinkStation), center.y - (heigthLinkStation >> 1), sizeQuadLarge
+							- (widthDecalageLinkStation << 1), heigthLinkStation);
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 				}
 
@@ -525,7 +527,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		if (affichageDroite && orientation % 2 == 0) {
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
 			// drawDelayedRect(buffer, center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeLine );
-			drawDelayedRect(buffer, center.x, center.y - sizeDemiLarge, sizeQuadLarge, sizeLarge);
+			drawDelayedRect(buffer, center.x + widthDecalageLinkStation, center.y - (heigthLinkStation >> 1),
+					sizeQuadLarge - (widthDecalageLinkStation << 1), heigthLinkStation);
 			drawDelayedOval(buffer, center.x + sizeQuadLarge - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge,
 					sizeLarge);
 		}
@@ -554,8 +557,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			rectToDrawDelayed.g.fillRect(rectToDrawDelayed.x, rectToDrawDelayed.y, rectToDrawDelayed.width,
 					rectToDrawDelayed.height);
 			rectToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			rectToDrawDelayed.g.fillRect(rectToDrawDelayed.x, rectToDrawDelayed.y + sizeLine, rectToDrawDelayed.width,
-					rectToDrawDelayed.height - (sizeLine << 1));
+			rectToDrawDelayed.g.fillRect(rectToDrawDelayed.x - sizeLine, rectToDrawDelayed.y + sizeLine,
+					rectToDrawDelayed.width + (sizeLine << 1), rectToDrawDelayed.height - (sizeLine << 1));
 		}
 		rectToDrawDelayed.g = g;
 		rectToDrawDelayed.x = x;
@@ -634,9 +637,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			i = j;
 		i = (int) (i * 1.3F);
 		g.setColor(father.getSkin().getColorLetter());
-		g.fillOval(xRec - i - sizeLine, yRec - i - sizeLine, (i << 1) + (sizeLine << 1), (i << 1) + (sizeLine << 1));
+		g.fillRect(xRec - i - sizeLine, yRec - i - sizeLine, (i << 1) + (sizeLine << 1), (i << 1) + (sizeLine << 1));
 		g.setColor(colorActu);
-		g.fillOval(xRec - i, yRec - i, i << 1, i << 1);
+		g.fillRect(xRec - i, yRec - i, i << 1, i << 1);
 		g.setColor(father.getSkin().getColorLetter());
 		// xRec += sizeDemiLine * 4;
 		// yRec -= sizeDemiLine * 3;
