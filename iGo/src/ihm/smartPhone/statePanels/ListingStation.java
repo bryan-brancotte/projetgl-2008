@@ -28,7 +28,11 @@ import java.util.LinkedList;
 
 public class ListingStation extends PanelState {
 
-	public String getStationSelected() {
+	public Station getStationSelected() {
+		return stationSelected;
+	}
+
+	public String getStationSelectedName() {
 		return stationSelected.getName();
 	}
 
