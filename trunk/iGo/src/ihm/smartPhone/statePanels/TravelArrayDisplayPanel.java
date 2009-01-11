@@ -247,9 +247,9 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		buffer.drawRect(left, ordonnee, rigth - left, height);
 		// dessine le logo de la ligne
 		buffer.setColor(father.getNetworkColorManager().getColor(route));
-		buffer.fillOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
+		buffer.fillRect(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
 		buffer.setColor(father.getSkin().getColorLetter());
-		buffer.drawOval(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
+		buffer.drawRect(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
 		buffer.drawString(route.getId(), left + inLeft - getWidthString(route.getId(), buffer) >> 1, ordonnee
 				+ (height + getHeightString(route.getId(), buffer) - (decalage >> 2) >> 1));
 		// la direction

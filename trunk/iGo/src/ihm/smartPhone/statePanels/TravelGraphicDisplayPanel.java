@@ -46,8 +46,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected boolean firstRepaint = true;
 	protected int image;
-	protected ShapeToDraw ovalToDrawDelayed = new ShapeToDraw(null, 0, 0, 0, 0);
-	protected ShapeToDraw recToDrawDelayed = new ShapeToDraw(null, 0, 0, 0, 0);
+	protected OvalToDraw ovalToDrawDelayed = new OvalToDraw(null, 0, 0, 0, 0);
 	protected Polygon polygon = new Polygon();
 	/**
 	 * boolean permetant de savoir qu'on a appuyé sur suivant, et qu'on doit mettre en haut la station atteinte
@@ -310,6 +309,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		buffer.fillRect(0, 0, getWidth(), getHeight());
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
 			drawDelayedOval(buffer, center.x - sizeDemiLarge - 1, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawLine(center.x + (affichageDroite ? sizeQuadLarge : 0), center.y, center.x
+					+ (affichageDroite ? sizeQuadLarge : 0) + (sizeLarge << 1) + sizeLarge, heightImageDrawn
+					+ sizeDemiLine + sizeQuartLarge);
+			heightImageDrawn = sizeDemiLine
+					+ drawInformationsStation(buffer, center.x + (affichageDroite ? sizeQuadLarge : 0)
+							+ (sizeLarge << 1) + sizeLarge, heightImageDrawn + sizeDemiLine, travel.getOrigineStation()
+							.getServices(), travel.getOrigine(), travel.getEntryCost(), 0);
 		}
 		// in parcout les étapes du trajet
 		iterTravel = travel.getTravelDone();
@@ -342,18 +349,9 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 						polygon.ypoints[idToKeep + 1] + polygon.ypoints[idToKeep] >> 1);
 
 				if (affichageDroite) {
-					drawDelayedRect(buffer, center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y
-							- sizeDemiLarge, sizeQuadLarge, sizeLarge);
-					// buffer.setColor(father.getSkin().getColorInside());
-					// buffer.setColor(father.getSkin().getColorSubAreaInside());
-					// // TODO rectangle blanc
-					// buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y -
-					// sizeDemiLarge,
-					// sizeQuadLarge, sizeLarge);
-					// buffer.setColor(father.getSkin().getColorInside());
-					// buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y -
-					// sizeDemiLarge
-					// + sizeLine, sizeQuadLarge, sizeLarge - (sizeLine << 1));
+					buffer.setColor(father.getSkin().getColorSubAreaInside());
+					buffer.fillRect(center.x + ((orientation % 2 == 0) ? -sizeQuadLarge : 0), center.y - sizeDemiLine,
+							sizeQuadLarge, sizeDemiLine << 1);
 					drawDelayedOval(buffer, center.x - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 				}
 
@@ -522,30 +520,11 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		}
 		if (affichageDroite && orientation % 2 == 0) {
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
-//			buffer.fillRect(center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeDemiLine << 1);
-			drawDelayedRect(buffer, center.x + ((orientation % 2 == 0) ?  0 : sizeQuadLarge), center.y
-					- sizeDemiLarge, sizeQuadLarge, sizeLarge);
+			buffer.fillRect(center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeDemiLine << 1);
 			drawDelayedOval(buffer, center.x + sizeQuadLarge - sizeDemiLarge, center.y - sizeDemiLarge, sizeLarge,
 					sizeLarge);
 		}
 		drawDelayedOval(null, 0, 0, 0, 0);
-		drawDelayedRect(null, 0, 0, 0, 0);
-	}
-
-	protected void drawDelayedRect(GraphicsViewPort g, int x, int y, int width, int height) {
-		if (recToDrawDelayed.g != null) {
-			recToDrawDelayed.g.setColor(father.getSkin().getColorLetter()); 
-			recToDrawDelayed.g.fillRect(recToDrawDelayed.x, recToDrawDelayed.y, recToDrawDelayed.width,
-					recToDrawDelayed.height);
-			 recToDrawDelayed.g.setColor(father.getSkin().getColorInside());
-			 recToDrawDelayed.g.fillRect(recToDrawDelayed.x  , recToDrawDelayed.y + sizeLine,
-			 recToDrawDelayed.width , recToDrawDelayed.height - (sizeLine << 1));
-		}
-		recToDrawDelayed.g = g;
-		recToDrawDelayed.x = x;
-		recToDrawDelayed.y = y;
-		recToDrawDelayed.width = width;
-		recToDrawDelayed.height = height;
 	}
 
 	/**
@@ -565,12 +544,23 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected void drawDelayedOval(GraphicsViewPort g, int x, int y, int width, int height) {
 		if (ovalToDrawDelayed.g != null) {
+			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
+			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
+			// ovalToDrawDelayed.height);
+			// ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
+			// ovalToDrawDelayed.g.drawOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
+			// ovalToDrawDelayed.height);
 			ovalToDrawDelayed.g.setColor(father.getSkin().getColorLetter());
 			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x, ovalToDrawDelayed.y, ovalToDrawDelayed.width,
 					ovalToDrawDelayed.height);
 			ovalToDrawDelayed.g.setColor(father.getSkin().getColorInside());
+			// ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + father.getSizeAdapteur().getSizeLine(),
+			// ovalToDrawDelayed.y + father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.width - 2
+			// * father.getSizeAdapteur().getSizeLine(), ovalToDrawDelayed.height - 2
+			// * father.getSizeAdapteur().getSizeLine());
 			ovalToDrawDelayed.g.fillOval(ovalToDrawDelayed.x + sizeLine, ovalToDrawDelayed.y + sizeLine,
 					ovalToDrawDelayed.width - (sizeLine << 1), ovalToDrawDelayed.height - (sizeLine << 1));
+			// System.out.println(buffer.getScallImg()*5);
 		}
 		ovalToDrawDelayed.g = g;
 		ovalToDrawDelayed.x = x;
@@ -1127,14 +1117,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * @author iGo
 	 * 
 	 */
-	protected class ShapeToDraw {
+	protected class OvalToDraw {
 		public GraphicsViewPort g;
 		public int height;
 		public int width;
 		public int x;
 		public int y;
 
-		public ShapeToDraw(GraphicsViewPort g, int x, int y, int width, int height) {
+		public OvalToDraw(GraphicsViewPort g, int x, int y, int width, int height) {
 			super();
 			this.g = g;
 			this.x = x;
