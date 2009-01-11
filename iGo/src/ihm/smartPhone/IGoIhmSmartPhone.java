@@ -1101,7 +1101,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) {
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) { 
 		return false;
 	}
 
@@ -1119,7 +1119,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			computingPanel.addMessage(service.getName());
 			break;
 		default:
-			computingPanel.addMessage("TODO: " + service + " " + route + " " + station + " " + kindRoute);
+			//TODO infoPathAsked
+			computingPanel.addMessage("TODO infoPathAsked : " + service + " " + route + " " + station + " " + kindRoute);
 			break;
 		}
 		return true;
