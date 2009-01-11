@@ -58,7 +58,6 @@ public class EventInfoStation implements EventInfo {
 	public void applyInfo(GraphNetworkBuilder graph) {
 
 		if (!isApplied()) {
-//			System.out.println("entering into event info station");
 			if (kindEventInfoNetwork.equals(KindEventInfoNetwork.PROBLEM)) {
 				graph.setEnable(ids, false);
 			} else if (kindEventInfoNetwork.equals(KindEventInfoNetwork.SOLUTION)) {
@@ -66,8 +65,6 @@ public class EventInfoStation implements EventInfo {
 			}
 			this.applied = true;
 		}
-		// avec des enables true/false --> Penser a approfondir la coherences avec les MSID, pour pb/solution
-
 	}
 
 

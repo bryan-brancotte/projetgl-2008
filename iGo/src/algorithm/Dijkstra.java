@@ -43,9 +43,9 @@ public class Dijkstra extends Algo {
 	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidOriginException, NonValidDestinationException {
 
 		prb.flush();
-		isAborted=false;
-		betterPath=null;
-		currentPosition=null;
+		isAborted = false;
+		betterPath = null;
+		currentPosition = null;
 		try {
 			// Initialisation des contraintes
 			initConstraints(prb);
@@ -56,7 +56,6 @@ public class Dijkstra extends Algo {
 			if (allSteps.size() == 0)
 				betterPath = new ArrayList<Junction>(algo(origin, destination));
 			else
-				// for (int i = 0; i < allSteps.size(); i++)
 				algoComb(new ArrayList<ArrayList<Station>>(), allSteps, 0);
 
 		} catch (NodeNotFoundException e) {
@@ -73,11 +72,11 @@ public class Dijkstra extends Algo {
 		prb.addLast(j);
 		prb.setEntryCost(p.getGraph().getEntryCost(r.getKindRoute()));
 		float cost = p.getGraph().getEntryCost(r.getKindRoute());
-		int time=j.getTimeBetweenStations();
+		int time = j.getTimeBetweenStations();
 		while (it.hasNext()) {
 			j = it.next();
-			cost+=j.getCost();
-			time+=j.getTimeBetweenStations();
+			cost += j.getCost();
+			time += j.getTimeBetweenStations();
 			prb.addLast(j);
 		}
 		// Mise à jour du temps de parcours du trajet
@@ -90,7 +89,7 @@ public class Dijkstra extends Algo {
 		// Notification d'iGoMaster que le calcul est terminé
 		this.setChanged();
 		this.notifyObservers(p);
-		steps=null;
+		steps = null;
 	}
 
 	/**
@@ -103,10 +102,10 @@ public class Dijkstra extends Algo {
 	 * @throws StationNotAccessibleException
 	 * @throws StationNotOnRoadException
 	 * @throws NodeNotFoundException
-	 * @throws NonValidDestinationException 
-	 * @throws NonValidOriginException 
+	 * @throws NonValidDestinationException
+	 * @throws NonValidOriginException
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException{
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 
@@ -135,7 +134,8 @@ public class Dijkstra extends Algo {
 			else
 				throw new ServiceNotAccessibleException(s);
 		}
-		// Suppression des services étant remplis par l'origine ou la destination
+		// Suppression des services étant remplis par l'origine ou la
+		// destination
 		Tools.removeServicesFromStation(origin, once);
 		Tools.removeServicesFromStation(destination, once);
 	}
@@ -162,8 +162,11 @@ public class Dijkstra extends Algo {
 	}
 
 	/**
-	 * Fonction récursive permettant de trouver un chemin entre l'origine et la destination en testant l'ensemble des chemins possibles dans un temps défini par la variable
-	 * TimeMaxPerConstraintsInMs fixée à 1 seconde par défaut (prévision d'un choix de l'utilisateur ultérieur pour une configuration avancée)
+	 * Fonction récursive permettant de trouver un chemin entre l'origine et la
+	 * destination en testant l'ensemble des chemins possibles dans un temps
+	 * défini par la variable TimeMaxPerConstraintsInMs fixée à 1 seconde par
+	 * défaut (prévision d'un choix de l'utilisateur ultérieur pour une
+	 * configuration avancée)
 	 * 
 	 * @param v
 	 * @param vTot
@@ -182,14 +185,12 @@ public class Dijkstra extends Algo {
 			ArrayList<Junction> currentPath = new ArrayList<Junction>();
 
 			currentPath.addAll(getMinimumDest(origin, v.get(0)));
-			for (int i = 1; i < v.size(); i++) {
+			for (int i = 1; i < v.size(); i++)
 				currentPath.addAll(getMinimumDest(currentPosition, v.get(i), false));
-			}
-			
+
 			currentPath.addAll(algo(currentPosition, destination));
-			if (Tools.betterPath(currentPath, betterPath, p.getMainCriterious(), p.getMinorCriterious())) {
+			if (Tools.betterPath(currentPath, betterPath, p.getMainCriterious(), p.getMinorCriterious()))
 				betterPath = currentPath;
-			}
 		} else {
 			for (int i = 0; i < vTot.size(); i++) {
 				if (!v.contains(vTot.get(i))) {
@@ -204,7 +205,8 @@ public class Dijkstra extends Algo {
 	}
 
 	/**
-	 * Retourne le chemin le plus court entre un couple station,route et une liste de station
+	 * Retourne le chemin le plus court entre un couple station,route et une
+	 * liste de station
 	 * 
 	 * @param origin
 	 * @param listStation
@@ -280,7 +282,8 @@ public class Dijkstra extends Algo {
 	 * @throws NodeNotFoundException
 	 */
 	private ArrayList<Junction> algo(Station depart, Station arrivee) throws NoRouteForStationException, NodeNotFoundException {
-		if (isAborted) return null;
+		if (isAborted)
+			return null;
 		Iterator<Route> itDepart = depart.getRoutes();
 		Iterator<Route> itArrivee = arrivee.getRoutes();
 		ArrayList<Junction> returnPath = null;
@@ -289,16 +292,15 @@ public class Dijkstra extends Algo {
 			while (itArrivee.hasNext()) {
 				Route rArrivee = itArrivee.next();
 				ArrayList<Junction> currentPath = new ArrayList<Junction>(algo(graph.getNode(depart, rDepart), graph.getNode(arrivee, rArrivee), true));
-				if (Tools.betterPath(currentPath, returnPath, p.getMainCriterious(), p.getMinorCriterious())) {
+				if (Tools.betterPath(currentPath, returnPath, p.getMainCriterious(), p.getMinorCriterious()))
 					returnPath = currentPath;
-				}
 			}
 		}
 		return returnPath;
 	}
-	
+
 	public void abort() {
-		isAborted=true;
+		isAborted = true;
 	}
 
 	/**

@@ -34,16 +34,16 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle route et on l'ajoute au GraphNetwork courant. Si
-	 * l'identifiant passé en paramètre existe déjà on jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on crée une nouvelle route et on l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé en paramètre existe déjà on renvoie une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant de la route, c'est aussi son nom. s'il est à null ou vide rien ne se passera.
 	 * @param kinfOf
 	 *            son type. s'il est à null ou vide rien ne se passera.
-	 * @return la nouvelle route créé
+	 * @return la nouvelle route créée
 	 * @throws ViolationOfUnicityInIdentificationException
-	 *             le type d'exception jeté si l'identifiant est déja utilisé.
+	 *             le type d'exception renvoyée si l'identifiant est déja utilisé.
 	 */
 	public Route addRoute(String id, String kindOf) throws ViolationOfUnicityInIdentificationException,
 			NullPointerException {
@@ -67,8 +67,8 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et on l'ajoute au GraphNetwork courant. Si
-	 * l'identifiant passé existe déjà on jete une exception.
+	 * En travaillant sur le GraphNetwork courant, on crée un nouveau service et on l'ajoute au GraphNetwork courant. Si
+	 * l'identifiant passé existe déjà on renvoie une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant du service
@@ -76,7 +76,7 @@ public class GraphNetworkBuilder {
 	 *            le nom du service
 	 * @return le nouveau service créé
 	 * @throws ViolationOfUnicityInIdentificationException
-	 *             le type d'exception jeté si l'identifiant est déja utilisé.
+	 *             le type d'exception renvoyée si l'identifiant est déja utilisé.
 	 */
 	public Service addService(int id, String name) throws ViolationOfUnicityInIdentificationException {
 		return addService(id, name, null);
@@ -84,7 +84,7 @@ public class GraphNetworkBuilder {
 
 	/**
 	 * En travaillant sur le GraphNetwork courant, on créé un nouveau service et on l'ajoute au GraphNetwork courant. Si
-	 * l'identifiant passé existe déjà on jete une exception.
+	 * l'identifiant passé existe déjà on renvoie une exception.
 	 * 
 	 * @param id
 	 *            l'identifiant du service
@@ -94,7 +94,7 @@ public class GraphNetworkBuilder {
 	 *            description rapide du service
 	 * @return le nouveau service créé
 	 * @throws ViolationOfUnicityInIdentificationException
-	 *             le type d'exception jeté si l'identifiant est déja utilisé.
+	 *             le type d'exception renvoyé si l'identifiant est déja utilisé.
 	 */
 	public Service addService(int id, String name, String description)
 			throws ViolationOfUnicityInIdentificationException {
@@ -132,7 +132,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * En travaillant sur le GraphNetwork courant, on créé une nouvelle station et l'ajoute au GraphNetwork courant. Si
+	 * En travaillant sur le GraphNetwork courant, on crée une nouvelle station et l'ajoute au GraphNetwork courant. Si
 	 * l'identifiant passé existe déjà on jete une exception.
 	 * 
 	 * @param id
@@ -180,8 +180,6 @@ public class GraphNetworkBuilder {
 			return false;
 		if (stationToAdd == null)
 			return false;
-
-		// System.out.println(route + " " + stationToAdd + " " + time);
 
 		Station lastStation = null;
 		if (!route.stations.isEmpty())

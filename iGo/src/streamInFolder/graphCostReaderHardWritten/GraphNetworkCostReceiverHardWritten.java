@@ -27,16 +27,13 @@ public class GraphNetworkCostReceiverHardWritten implements GraphNetworkCostRece
 
 	@Override
 	public float getCost(KindRoute from, KindRoute to) {
-		if (KindRoute.getKindFromString("Train") == from || KindRoute.getKindFromString("Regional Rail") == from
-				|| KindRoute.getKindFromString("High Speed Rail") == from) {
+		if (KindRoute.getKindFromString("Train") == from || KindRoute.getKindFromString("Regional Rail") == from || KindRoute.getKindFromString("High Speed Rail") == from)
 			return (getCost(from) + 1F);
-		}
 		else if (KindRoute.getKindFromString("Metro") == from || KindRoute.getKindFromString("Trolley") == from) {
-			if (KindRoute.getKindFromString("Train") == to || KindRoute.getKindFromString("Regional Rail") == to
-					|| KindRoute.getKindFromString("High Speed Rail") == to) {
+			if (KindRoute.getKindFromString("Train") == to || KindRoute.getKindFromString("Regional Rail") == to || KindRoute.getKindFromString("High Speed Rail") == to) {
 				return (getCost(from) + 5F);
-			}
-			else if (KindRoute.getKindFromString("Metro") == to || KindRoute.getKindFromString("Trolley") == to) { return (getCost(from) + 0.75F); }
+			} else if (KindRoute.getKindFromString("Metro") == to || KindRoute.getKindFromString("Trolley") == to)
+				return (getCost(from) + 0.75F);
 		}
 		return 0;
 	}

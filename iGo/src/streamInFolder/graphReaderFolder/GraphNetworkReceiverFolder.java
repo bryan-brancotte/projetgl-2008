@@ -32,7 +32,8 @@ import org.jdom.input.SAXBuilder;
 import streamInFolder.graphCostReaderHardWritten.GraphNetworkCostReceiverHardWritten;
 
 /**
- * Interface permettant de modeliser un constructeur de reseau a partir d'un fichier
+ * Interface permettant de modeliser un constructeur de reseau a partir d'un
+ * fichier
  * 
  * @author iGo
  */
@@ -79,9 +80,8 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 		networks = new HashMap<String, AvailableNetwork>();
 		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/");
 		folder = new File(path);
-		if (!folder.isDirectory()) {
+		if (!folder.isDirectory())
 			folder.mkdir();
-		}
 		if (folder.isDirectory()) {
 			try {
 				for (File fr : folder.listFiles()) {
@@ -98,7 +98,6 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							FileOutputStream out = new FileOutputStream(path + "NetworkGL2008.xml");
 							try {
 								// Init
-
 								// Lecture par segment de 0.5Mo
 								byte buffer[] = new byte[512 * 1024];
 								int nbLecture;
@@ -134,18 +133,17 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 	public Iterator<AvailableNetwork> getAvaibleNetwork() {
 		if (networks != null) {
 			return networks.values().iterator();
-		}
-		else
+		} else
 			return null;
 	}
 
 	/**
-	 * @see GraphNetworkReceiver#buildNewGraphNetwork(GraphNetworkBuilder, String, GraphNetworkCostReceiver)
+	 * @see GraphNetworkReceiver#buildNewGraphNetwork(GraphNetworkBuilder,
+	 *      String, GraphNetworkCostReceiver)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void buildNewGraphNetwork(GraphNetworkBuilder gnb, String networkChosen, GraphNetworkCostReceiver costReceiver)
-			throws GraphReceptionException, GraphConstructionException {
+	public void buildNewGraphNetwork(GraphNetworkBuilder gnb, String networkChosen, GraphNetworkCostReceiver costReceiver) throws GraphReceptionException, GraphConstructionException {
 
 		if (networks.get(networkChosen) == null)
 			throw new GraphReceptionException();
@@ -178,8 +176,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : nodeChilds) {
 							if (child.getName().compareTo("ID") == 0) {
 								id = Integer.parseInt(child.getTextTrim());
-							}
-							else if (child.getName().compareTo("ShortDescription") == 0) {
+							} else if (child.getName().compareTo("ShortDescription") == 0) {
 								description = child.getTextTrim();
 							}
 						}
@@ -196,11 +193,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : nodeChilds) {
 							if (child.getName().compareTo("ID") == 0) {
 								id = Integer.parseInt(child.getTextTrim());
-							}
-							else if (child.getName().compareTo("Name") == 0) {
+							} else if (child.getName().compareTo("Name") == 0) {
 								name = child.getTextTrim();
-							}
-							else if (child.getName().compareTo("StationServicesList") == 0) {
+							} else if (child.getName().compareTo("StationServicesList") == 0) {
 								List<Element> stationServicesList = child.getChildren();
 
 								for (Element stationService : stationServicesList) {
@@ -231,11 +226,9 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : nodeChilds) {
 							if (child.getName().compareTo("ID") == 0) {
 								id = child.getTextTrim();
-							}
-							else if (child.getName().compareTo("Kind") == 0) {
+							} else if (child.getName().compareTo("Kind") == 0) {
 								kindR = child.getTextTrim();
-							}
-							else if (child.getName().compareTo("RouteSectionsList") == 0) {
+							} else if (child.getName().compareTo("RouteSectionsList") == 0) {
 								List<Element> sectionsList = child.getChildren();
 
 								for (Element section : sectionsList) {
@@ -261,8 +254,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 								for (int j = 0; j < idSectionsStations.size(); j++) {
 									for (int k = 0; k < idSectionsStations.get(j).size(); k++) {
-										gnb.addStationToRoute(r, gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)),
-												timeBetweenStations.get(j));
+										gnb.addStationToRoute(r, gnb.getCurrentGraphNetwork().getStation(idSectionsStations.get(j).get(k)), timeBetweenStations.get(j));
 									}
 								}
 							}
@@ -278,8 +270,7 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 						for (Element child : startChilds) {
 							if (child.getName().compareTo("Station") == 0) {
 								idStationStart = Integer.parseInt(child.getTextTrim());
-							}
-							else if (child.getName().compareTo("Route") == 0) {
+							} else if (child.getName().compareTo("Route") == 0) {
 								idRouteStart = child.getTextTrim();
 							}
 						}
@@ -297,17 +288,13 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 
 								if (child.getName().compareTo("Station") == 0) {
 									idStationEnd = Integer.parseInt(child.getTextTrim());
-								}
-								else if (child.getName().compareTo("Route") == 0) {
+								} else if (child.getName().compareTo("Route") == 0) {
 									idRouteEnd = child.getTextTrim();
-								}
-								else if (child.getName().compareTo("Free") == 0) {
+								} else if (child.getName().compareTo("Free") == 0) {
 									freeEnd = Boolean.parseBoolean(child.getTextTrim());
-								}
-								else if (child.getName().compareTo("Pedestrian") == 0) {
+								} else if (child.getName().compareTo("Pedestrian") == 0) {
 									pedestrianEnd = Boolean.parseBoolean(child.getTextTrim());
-								}
-								else if (child.getName().compareTo("Time") == 0) {
+								} else if (child.getName().compareTo("Time") == 0) {
 									timeEnd = Integer.parseInt(child.getTextTrim());
 								}
 							}
@@ -315,22 +302,14 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 							if (idStationStart != 0 && !idRouteStart.equals("") && idStationEnd != 0 && !idRouteEnd.equals("")) {
 
 								if (freeEnd == true) {
-									gnb.linkStationBidirectional(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork()
-											.getStation(idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb
-											.getCurrentGraphNetwork().getStation(idStationEnd), 0, timeEnd, pedestrianEnd);
-								}
-								else {
-									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(
-											idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork()
-											.getStation(idStationEnd), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteStart)
-											.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd,
+									gnb.linkStationBidirectional(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork().getStation(idStationEnd), 0, timeEnd,
 											pedestrianEnd);
+								} else {
+									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(idStationStart), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork().getStation(idStationEnd), giveCost.getCost(gnb
+											.getCurrentGraphNetwork().getRoute(idRouteStart).getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute()), timeEnd, pedestrianEnd);
 
-									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork().getStation(
-											idStationEnd), gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork()
-											.getStation(idStationStart), giveCost.getCost(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd)
-											.getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteStart).getKindRoute()), timeEnd,
-											pedestrianEnd);
+									gnb.linkStation(gnb.getCurrentGraphNetwork().getRoute(idRouteEnd), gnb.getCurrentGraphNetwork().getStation(idStationEnd), gnb.getCurrentGraphNetwork().getRoute(idRouteStart), gnb.getCurrentGraphNetwork().getStation(idStationStart), giveCost.getCost(gnb
+											.getCurrentGraphNetwork().getRoute(idRouteEnd).getKindRoute(), gnb.getCurrentGraphNetwork().getRoute(idRouteStart).getKindRoute()), timeEnd, pedestrianEnd);
 								}
 							}
 						}
@@ -351,18 +330,4 @@ public class GraphNetworkReceiverFolder implements GraphNetworkReceiver {
 		}
 
 	}
-
-	public static void main(String[] args) {
-
-		GraphNetworkReceiverFolder gnrf = new GraphNetworkReceiverFolder(System.getProperty("user.dir") + "\\ressources\\xml");
-
-		try {
-
-			gnrf.buildNewGraphNetwork(new GraphNetworkBuilder(), "NetworkGL2008.xml", new GraphNetworkCostReceiverHardWritten());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }
