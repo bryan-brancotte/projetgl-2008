@@ -85,14 +85,6 @@ public class Route {
 	}
 
 	/**
-	 * Passer par le {@link GraphNetworkBuilder}
-	 */
-	@Deprecated
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-
-	/**
 	 * réactive toutes les stations qui était désativées dans la ligne
 	 */
 	public void resetDisabledStation() {
@@ -149,13 +141,6 @@ public class Route {
 			return;
 		if (station != null)
 			stationsDisabled.add(station);
-	}
-
-	/**
-	 * Utiliser le {@link GraphNetworkBuilder}
-	 */
-	@Deprecated
-	public void setStationEnable(int idStation, boolean stationEnable) {
 	}
 
 	/**

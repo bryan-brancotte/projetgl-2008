@@ -55,17 +55,6 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * use getInstancePathInGraphCollectionBuilder();
-	 */
-	@Deprecated
-	public PathInGraphCollectionBuilder getInstanceGraphCollectionBuilder() {
-		PathInGraph pathInGraph = new PathInGraph(this);
-		PathInGraphConstraintBuilder pathInGraphConstraintBuilder = new PathInGraphConstraintBuilder(pathInGraph);
-		PathInGraphResultBuilder pathInGraphResultBuilder = new PathInGraphResultBuilder(pathInGraph);
-		return new PathInGraphCollectionBuilder(pathInGraphConstraintBuilder, pathInGraphResultBuilder);
-	}
-
-	/**
 	 * Créé un nouvel objet PathInGraphCollectionBuilder. Ce dernier contient les deux builders pour définir un chemin à
 	 * construire et pour le contruire. Chacun de ces builders possède une variable interne pathInGraph lui aussi
 	 * nouvellement créé
@@ -127,7 +116,6 @@ public class GraphNetwork {
 	 * @return un iterateur sur les changements existants
 	 */
 	public Iterator<Junction> getJunctions(Station stationA, Station stationB) {
-		// Check by bryan
 		if (stationA == null || stationB == null)
 			return null;
 		Iterator<Junction> it1 = stationA.getJunctions();
@@ -135,7 +123,6 @@ public class GraphNetwork {
 		LinkedList<Junction> jonction = new LinkedList<Junction>();
 		while (it1.hasNext()) {
 			temp = it1.next();
-			// System.out.println(temp);
 			if (temp.getOtherStation(stationA).equals(stationB))
 				jonction.add(temp);
 		}
@@ -171,17 +158,9 @@ public class GraphNetwork {
 	 * @return
 	 */
 	public Route getRoute(String id) {
-		// Iterator<Route> it = routes.iterator();
-		// while (it.hasNext()) {
-		// Route temp = it.next();
-		// if (temp.getId().compareTo(id) == 0) {
-		// return temp;
-		// }
-		// }
-		// return null;
-		for (int i = 0; i < routes.size(); i++)
-			if (routes.get(i).getId().compareTo(id) == 0)
-				return routes.get(i);
+		for (Route route : routes)
+			if (route.getId().compareTo(id) == 0)
+				return route;
 		return null;
 	}
 
@@ -201,17 +180,9 @@ public class GraphNetwork {
 	 * @return
 	 */
 	public Service getService(int id) {
-		// Iterator<Service> it = services.iterator();
-		// while (it.hasNext()) {
-		// Service s1 = it.next();
-		// if (s1.getId() == id) {
-		// return s1;
-		// }
-		// }
-		// return null;
-		for (int i = 0; i < services.size(); i++)
-			if (services.get(i).getId() == id)
-				return services.get(i);
+		for (Service service : services)
+			if (service.getId() == id)
+				return service;
 		return null;
 	}
 
@@ -220,7 +191,7 @@ public class GraphNetwork {
 	 * 
 	 * @return un iterateur sur les services existants dans le reseau
 	 */
-	public Iterator<Service> getServices() {// 
+	public Iterator<Service> getServices() {
 		return services.iterator();
 	}
 
@@ -232,9 +203,9 @@ public class GraphNetwork {
 	 * @return
 	 */
 	public Station getStation(int id) {
-		for (int i = 0; i < stations.size(); i++)
-			if (stations.get(i).getId() == id)
-				return stations.get(i);
+		for (Station station : stations)
+			if (station.getId() == id)
+				return station;
 		return null;
 	}
 
@@ -243,14 +214,7 @@ public class GraphNetwork {
 	 * 
 	 * @return
 	 */
-	public Iterator<Station> getStations() {// 
+	public Iterator<Station> getStations() { 
 		return stations.iterator();
-	}
-
-	/**
-	 * Passer par le {@link GraphNetworkBuilder}
-	 */
-	@Deprecated
-	public void resetEnables() {
 	}
 }
