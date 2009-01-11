@@ -1,10 +1,8 @@
 package masterTest;
 
 import static org.junit.Assert.assertTrue;
-import iGoMaster.IGoMaster;
-import graphNetwork.GraphNetwork;
-import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
+import iGoMaster.IGoMaster;
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.After;
