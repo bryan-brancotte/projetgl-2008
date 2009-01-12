@@ -887,7 +887,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		try {
 			if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 				return false;
-			if (algoKindOfException == AlgoKindOfException.EverythingFine) {
+			switch (algoKindOfException) {
+			case EverythingFine:
 				// ba c'est bon quoi.
 				if (path == null) {
 					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_ReturnNullTravelDetails"));
@@ -919,9 +920,33 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				// On passe en visu.
 				this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
 				return true;
+			case NonValidDestination:// ba c'est pas bon =:-(
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ERROR_NonValidDestinationException"));
+				break;
+			case NoSolution:
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NoSolution"));
+				break;
+			case RoutesNotAccessible:
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_RoutesNotAccessible"));
+				break;
+			case ServiceNotAccessible:
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ServiceNotAccessibleException"));
+				break;
+			case StationNotAccessible:
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ERROR_StationNotAccessibleException"));
+				break;
+			case StationNotOnGraphNetworkRoad:
+				// TODO ca veut dire quoi????
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_StationNotOnGraphNetworkRoad"));
+				break;
+			case UndefinedError:
+				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_UnknownException"));
+				break;
+			default:
+				break;
+			}
+			if (algoKindOfException == AlgoKindOfException.EverythingFine) {
 			} else {
-				// ba c'est pas bon =:-(
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_" + algoKindOfException.toString()));
 			}
 			return false;
 		} finally {
@@ -1101,7 +1126,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) { 
+	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) {
 		return false;
 	}
 
@@ -1118,9 +1143,19 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			computingPanel.addMessage("Service non accessible, relaxation de ce service :");
 			computingPanel.addMessage(service.getName());
 			break;
+		case RoutesNotAccessible:
+			computingPanel.addMessage(master.lg("INFO_RoutesNotAccessible"));
+			if (station != null)
+				computingPanel.addMessage(master.lg("Station")+station.getName()); 
+			break;
+			//TODO WTF !!!!!
+		case EverythingFine:
+			computingPanel.addMessage(master.lg("INFO_EverythingFine"));
+			break;
 		default:
-			//TODO infoPathAsked
-			computingPanel.addMessage("TODO infoPathAsked : " + service + " " + route + " " + station + " " + kindRoute);
+			// TODO infoPathAsked
+			computingPanel.addMessage("TODO infoPathAsked." + algoKindOfException + " : " + service + " " + route + " "
+					+ station + " " + kindRoute);
 			break;
 		}
 		return true;

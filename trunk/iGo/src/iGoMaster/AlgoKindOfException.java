@@ -12,17 +12,17 @@ public enum AlgoKindOfException {
 
 	/**
 	 * 
-	 * La service s, que l'ihm pourra récupérer dans infoPathAsked, n'est pas accessible avec les préférences utilisateurs courantes
+	 * Le services, que l'ihm pourra récupérer dans infoPathAsked, n'est pas accessible avec les préférences utilisateurs courantes
 	 */
 	ServiceNotAccessible(),
 	
 	/**
-	 * La station s, que l'ihm pourra récupérer dans infoPathAsked, n'est pas accessible avec les préférences utilisateurs courantes
+	 * La stations, que l'ihm pourra récupérer dans infoPathAsked, n'est pas accessible avec les préférences utilisateurs courantes
 	 */
 	StationNotAccessible(),
 	
 	/**
-	 * La station s, que l'ihm pourra récupérer dans infoPathAsked, ne se trouve sur aucune route capable de satisfaire les préférences de l'utilisateur.
+	 * La stations, que l'ihm pourra récupérer dans infoPathAsked, ne se trouve sur aucune route capable de satisfaire les préférences de l'utilisateur.
 	 */
 	RoutesNotAccessible(),
 	

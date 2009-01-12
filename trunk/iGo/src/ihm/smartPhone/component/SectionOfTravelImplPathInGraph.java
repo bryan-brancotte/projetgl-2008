@@ -10,6 +10,7 @@ import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 
@@ -17,6 +18,10 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	protected int enddingChangementTime = -1;
 
 	protected LinkedList<Junction> junctions;
+
+	protected Vector<String> stationName;
+
+	protected String[] stationNameArray;
 
 	protected Route route;
 
@@ -33,6 +38,7 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 		this.route = route;
 		this.station = station;
 		this.junctions = new LinkedList<Junction>();
+		this.stationName = new Vector<String>();
 		this.direction = null;
 	}
 
@@ -45,8 +51,9 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 				this.direction = null;
 			}
 		junctions.add(j);
+		stationName.add(station.getName());
 		station = j.getOtherStation(station);
-//		System.out.println(j + "\t\t" + j.getOtherRoute(route) + " == " + route);
+		// System.out.println(j + "\t\t" + j.getOtherRoute(route) + " == " + route);
 		if (j.getOtherRoute(route) != route) {
 			enddingChangementTime = j.getTimeBetweenStations();
 			enddingChangementCost = j.getCost();
@@ -100,8 +107,15 @@ public class SectionOfTravelImplPathInGraph implements SectionOfTravel {
 	}
 
 	@Override
-	public int getStationInSection() {
-		return junctions.size();
+	public int getStationInSectionCount() {
+		return junctions.size() - 1;
+	}
+
+	@Override
+	public String[] getStationInSection() {
+		if (stationNameArray == null || stationNameArray.length != stationName.size())
+			stationNameArray = stationName.toArray(new String[0]);
+		return stationNameArray;
 	}
 
 	@Override

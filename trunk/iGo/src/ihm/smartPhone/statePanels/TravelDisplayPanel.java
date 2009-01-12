@@ -46,6 +46,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 	 */
 	protected static Image imageFav = null;
 	protected static Image imageNoFav = null;
+	protected static Image imageMode = null;
 	protected Rectangle iconeFavArea = null;
 
 	// protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
@@ -108,6 +109,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		clickAndMoveWarningAndArray.addInteractiveArea(changeStateArea, new CodeExecutor() {
 			@Override
 			public void execute() {
+				imageMode = null;
 				actionToDoWhenChangeStateIsClicked();
 			}
 		});
@@ -131,7 +133,16 @@ public abstract class TravelDisplayPanel extends PanelState {
 	 * 
 	 * @return le message à afficher.
 	 */
+	@Deprecated
 	protected abstract String getMessageChangeState();
+
+	/**
+	 * Les classes implémentante donneront ainsi le contenue qu'elle veullent mettre comme icone pour passé d'un mode à
+	 * l'autre
+	 * 
+	 * @return l'icone à afficher
+	 */
+	protected abstract String getIconeChangeState();
 
 	/**
 	 * Action qui sera effectuée lorsque l'on cliquera sur le bouton.
@@ -155,41 +166,49 @@ public abstract class TravelDisplayPanel extends PanelState {
 			imageWarning = null;
 			imageFav = null;
 			imageNoFav = null;
+			imageMode = null;
 		}
 		sizeLargeFont = father.getSizeAdapteur().getSizeLargeFont()
 				+ (father.getSizeAdapteur().getSizeLargeFont() >> 2);
+		if (imageMode == null || imageMode.getHeight(null) != (sizeLargeFont)) {
+			imageMode = ImageLoader.getRessourcesImageIcone(getIconeChangeState(), sizeLargeFont, sizeLargeFont)
+					.getImage();
+		}
 		if (imageWarning == null || imageNoFav == null || imageWarning.getHeight(null) != (sizeLargeFont)) {
 			imageWarning = ImageLoader.getRessourcesImageIcone("warning", sizeLargeFont, sizeLargeFont).getImage();
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", sizeLargeFont, sizeLargeFont).getImage();
 			imageNoFav = ImageLoader.getRessourcesImageIcone("fav-no", sizeLargeFont, sizeLargeFont).getImage();
 		}
+		iconeFavArea.setBounds(1, getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
 		if (travel.isFavorite())
-			g.drawImage(imageFav, 0, getHeight() - sizeLargeFont, null);
+			g.drawImage(imageFav, iconeFavArea.x, iconeFavArea.y, null);
 		else
-			g.drawImage(imageNoFav, 0, getHeight() - sizeLargeFont, null);
-		iconeFavArea.setBounds(0, getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
-		g.drawImage(imageWarning, sizeLargeFont + (sizeLargeFont >> 2), getHeight() - sizeLargeFont, null);
-		iconeWarningArea.setBounds(sizeLargeFont + (sizeLargeFont >> 2), getHeight() - sizeLargeFont, sizeLargeFont,
-				sizeLargeFont);
+			g.drawImage(imageNoFav, iconeFavArea.x, getHeight() - sizeLargeFont, null);
+		iconeWarningArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont - sizeLargeFont, sizeLargeFont, sizeLargeFont);
+		g.drawImage(imageWarning, iconeFavArea.x, iconeWarningArea.y, null);
+		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 3, sizeLargeFont, sizeLargeFont);
+		g.drawImage(imageMode, iconeFavArea.x, changeStateArea.y, null);
 		g.setFont(father.getSizeAdapteur().getSmallFont());
-		int ws, hs, hs23, ws11;
-		int roundRect;
-
-		g.setColor(father.getSkin().getColorInside());
-		roundRect = getWidth() >> 6;
-		hs = getHeightString(getMessageChangeState(), g);
-		hs23 = hs + (hs >> 1) + (hs >> 2);
-		ws = getWidthString(getMessageChangeState(), g);
-		ws11 = ws + roundRect + roundRect;
-		changeStateArea.setBounds(this.getWidth() - roundRect - ws11, this.getHeight() - roundRect - hs23, ws11, hs23);
-		g.fillRoundRect(changeStateArea.x + 1, changeStateArea.y + 1, changeStateArea.width - 1,
-				changeStateArea.height - 1, roundRect, roundRect);
-		g.setColor(father.getSkin().getColorLine());
-		g.drawRoundRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height, roundRect,
-				roundRect);
-		g.setColor(father.getSkin().getColorLetter());
-		g.drawString(getMessageChangeState(), changeStateArea.x + roundRect, changeStateArea.y
-				+ (changeStateArea.height + hs >> 1));
+		
+		// int ws, hs, hs23, ws11;
+		// int roundRect;
+		// g.setColor(father.getSkin().getColorInside());
+		// roundRect = getWidth() >> 6;
+		// hs = getHeightString(getMessageChangeState(), g);
+		// hs23 = hs + (hs >> 1) + (hs >> 2);
+		// ws = getWidthString(getMessageChangeState(), g);
+		// ws11 = ws + roundRect + roundRect;
+		// changeStateArea.setBounds(this.getWidth() - roundRect - ws11, this.getHeight() - roundRect - hs23, ws11,
+		// hs23);
+		// g.fillRoundRect(changeStateArea.x + 1, changeStateArea.y + 1, changeStateArea.width - 1,
+		// changeStateArea.height - 1, roundRect, roundRect);
+		// g.setColor(father.getSkin().getColorLine());
+		// g.drawRoundRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height,
+		// roundRect,
+		// roundRect);
+		// g.setColor(father.getSkin().getColorLetter());
+		// g.drawString(getMessageChangeState(), changeStateArea.x + roundRect, changeStateArea.y
+		// + (changeStateArea.height + hs >> 1));
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);
 		}

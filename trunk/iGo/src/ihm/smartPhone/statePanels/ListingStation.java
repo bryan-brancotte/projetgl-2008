@@ -382,10 +382,7 @@ public class ListingStation extends PanelState {
 		PTArea ptArea = hashRouteArea.get(route);
 		ptArea.prepareArea(buffer, decalageDemi, ordonne, h + (h >> 1), getWidth() - decalage2 - decalageDemi);
 		if (drawBackground) {
-			buffer.setColor(father.getNetworkColorManager().getColor(route).brighter());
-			// buffer.fillRect(decalage, ptArea.getArea().y + ptArea.getArea().height, ptArea.getArea().width -
-			// decalage,
-			// getHeight() - ptArea.getArea().y - ptArea.getArea().height);
+			buffer.setColor(father.getNetworkColorManager().getColor(route));
 			buffer.fillRect(decalageDemi, ptArea.getArea().y + ptArea.getArea().height, decalage - 1, getHeight()
 					- ptArea.getArea().y - ptArea.getArea().height);
 		}

@@ -79,7 +79,13 @@ public interface TravelForDisplayPanel {
 		 * 
 		 * @return
 		 */
-		public int getStationInSection();
+		public int getStationInSectionCount();
+		
+		/**
+		 * Retourne les noms des stations pour cette section
+		 * @return
+		 */
+		public String[] getStationInSection();
 
 		/**
 		 * Retourne le temps nécessaire pour franchir cette partie du trajet. On ne compte pas ici le temps ensuite

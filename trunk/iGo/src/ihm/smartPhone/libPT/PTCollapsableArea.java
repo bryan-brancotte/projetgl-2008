@@ -21,7 +21,6 @@ public class PTCollapsableArea extends PTComponent {
 	public void terminate() {
 		for (PTComponent p : this.components)
 			p.terminate();
-		buttonAddLess.terminate();
 		super.terminate();
 	}
 
@@ -35,7 +34,7 @@ public class PTCollapsableArea extends PTComponent {
 
 	protected static ImageIcon imageButtonLess;
 
-	protected PTButton buttonAddLess;
+	protected Rectangle buttonAddLess;
 
 	protected boolean isOvered = false;
 
@@ -45,15 +44,17 @@ public class PTCollapsableArea extends PTComponent {
 
 	protected PTCollapsableArea(PanelTooled nvFather, Rectangle nvArea) {
 		super(nvFather, nvArea);
-		collapsed = false;
+		this.collapsed = false;
 		this.components = new LinkedList<PTComponent>();
-		buttonAddLess = nvFather.makeButton(new CodeExecutor1P<PTCollapsableArea>(this) {
-			@Override
-			public void execute() {
-				this.origine.changeCollapseState();
-				this.origine.father.repaint();
-			}
-		});
+		this.buttonAddLess = new Rectangle();
+		this.areaCodEx = nvFather.clickAndMoveWarningAndArray.addInteractiveArea(buttonAddLess,
+				new CodeExecutor1P<PTCollapsableArea>(this) {
+					@Override
+					public void execute() {
+						this.origine.changeCollapseState();
+						this.origine.father.repaint();
+					}
+				});
 		nvFather.addMouseMotionListener(new MouseMotionListener() {
 			public void mouseDragged(java.awt.event.MouseEvent e) {
 			};
@@ -65,7 +66,6 @@ public class PTCollapsableArea extends PTComponent {
 				}
 			};
 		});
-		this.areaCodEx = buttonAddLess.areaCodEx;
 	}
 
 	/**
@@ -111,9 +111,9 @@ public class PTCollapsableArea extends PTComponent {
 		g.setFont(lastFont);
 		int heigthStr = PanelDoubleBufferingSoftwear.getHeightString(text, g);
 		g.setColor(colorInside);
-		g.fillRoundRect(area.x, area.y, area.width, area.height,4,4);
+		g.fillRoundRect(area.x, area.y, area.width, area.height, 4, 4);
 		g.setColor(colorLetter);
-		g.drawRoundRect(area.x, area.y, area.width, area.height,4,4);
+		g.drawRoundRect(area.x, area.y, area.width, area.height, 4, 4);
 		if (isOvered)
 			g.drawRect(area.x + 1, area.y + 1, area.width - 2, area.height - 2);
 		g.drawString(text, area.x + (area.x >> 1), area.y + heigthStr + (area.x >> 1) - (area.x >> 2));
@@ -131,8 +131,9 @@ public class PTCollapsableArea extends PTComponent {
 			}
 			imageButton = imageButtonLess;
 		}
-		buttonAddLess.update(g, area.width + area.x - (area.x >> 1) - lastFont.getSize(), area.y + (heigthStr >> 2)
-				- (heigthStr >> 3), imageButton);
+		g.drawImage(imageButton.getImage(), area.width + area.x - (area.x >> 1) - lastFont.getSize(), area.y
+				+ (heigthStr >> 2) - (heigthStr >> 3), null);
+		// buttonAddLess.update();
 	}
 
 	@Override
@@ -150,6 +151,7 @@ public class PTCollapsableArea extends PTComponent {
 				if (areaComponent.y + areaComponent.height > max)
 					max = areaComponent.y + areaComponent.height;
 		area.setBounds(x, y, father.getWidth() - 3 * x, max - y + (heigth >> 1));
+		buttonAddLess.setBounds(area.x, area.y, area.width, heigth << 1);
 		return area;
 	}
 

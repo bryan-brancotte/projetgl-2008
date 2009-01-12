@@ -78,12 +78,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * Le thread d'autoScrolling
 	 */
 	protected SlowScroll slowScroll = null;
-
 	/**
 	 * La dernière abscisse du pointeur
 	 */
 	protected int xLastPointeur;
-
 	/**
 	 * La dernière ordonnée du pointeur
 	 */
@@ -293,6 +291,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		int length;
 		int hypo;
 		boolean firstPasseDone = false;
+		boolean drawStationNameZoom = true;
+		Font thisFont;
 		Point center = new Point();
 		// Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
@@ -306,8 +306,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 
 		// System.out.println("\n\n\n\n\n\n\n\n");
 		// si le dessin bien au dessus du bas de l'image
-		buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN,
-				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg())));
+		thisFont = new Font("AdaptedSmallFont", Font.PLAIN,
+				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg()));
+		buffer.setFont(thisFont);
+		drawStationNameZoom = thisFont.getSize() > 15;
 		buffer.setColor(father.getSkin().getColorInside());
 		buffer.fillRect(0, 0, getWidth(), getHeight());
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
@@ -466,14 +468,18 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				} else {
 					// la zone
 					buffer.fillPolygon(polygon);
-					if ((length = section.getStationInSection()) > 0) {
+					if (drawStationNameZoom)
+						buffer.setFont(new Font("AdaptedSmallFont", Font.PLAIN, (int) (father.getSizeAdapteur()
+								.getSizeSmallFont() * 3 * buffer.getScallImg())));
+					if ((length = section.getStationInSectionCount()) > 0) {
 						float x = ((polygon.xpoints[idToModify] + polygon.xpoints[idToModify + 1]) >> 1)
 								- ((polygon.xpoints[idToKeep] + polygon.xpoints[idToKeep + 1]) >> 1);
 						float y = ((polygon.ypoints[idToModify] + polygon.ypoints[idToModify + 1]) >> 1)
 								- ((polygon.ypoints[idToKeep] + polygon.ypoints[idToKeep + 1]) >> 1);
-						x /= length;
-						y /= length;
-						for (int i = length - 1; i > 0; i--) {
+						x /= (length + 1);
+						y /= (length + 1);
+						length++;
+						for (int i = 1; i < length; i++) {
 							buffer.setColor(father.getSkin().getColorInside());
 							buffer.fillOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 									- (sizeQuartLarge >> 1), sizeQuartLarge + 1, sizeQuartLarge + 1);
@@ -481,8 +487,14 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 								buffer.setColor(father.getSkin().getColorLine());
 							buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
+							if (drawStationNameZoom)
+								buffer.drawString(section.getStationInSection()[i], center.x - (int) (x * i)
+										+ sizeDemiLarge, center.y - (int) (y * i)
+										+ (father.getSizeAdapteur().getSizeSmallFont() >> 1));
 						}
 					}
+					if (drawStationNameZoom)
+						buffer.setFont(thisFont);
 					if (firstPasseDone)
 						buffer.setColor(father.getNetworkColorManager().getColor(section.getRoute()));
 					else
@@ -1285,5 +1297,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected String getIconeChangeState() {
+		return "mode_array";
 	}
 }
