@@ -132,6 +132,16 @@
 				<ENGLISH value="Edit"/>
 				<GEEK value="Vi"/>
 			</Edit>
+			<Delete>
+				<FRANCAIS value="Supprimer"/>
+				<ENGLISH value="Delete"/>
+				<GEEK value="rm"/>
+			</Delete>
+			<FavoritOrNot>
+				<FRANCAIS value="Favoris?"/>
+				<ENGLISH value="Favorit?"/>
+				<GEEK value="Favorit?"/>
+			</FavoritOrNot>
 			<Start>
 				<FRANCAIS value="Lancer"/>
 				<ENGLISH value="Start"/>
