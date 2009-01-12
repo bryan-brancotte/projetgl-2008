@@ -784,6 +784,8 @@ public class PathInGraph {
 			return false;
 		if (minorCriterious == CriteriousForLowerPath.NOT_DEFINED)
 			return false;
+		if (destination == origin)
+			return false;
 		return true;
 	}
 
