@@ -189,26 +189,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 3, sizeLargeFont, sizeLargeFont);
 		g.drawImage(imageMode, iconeFavArea.x, changeStateArea.y, null);
 		g.setFont(father.getSizeAdapteur().getSmallFont());
-		
-		// int ws, hs, hs23, ws11;
-		// int roundRect;
-		// g.setColor(father.getSkin().getColorInside());
-		// roundRect = getWidth() >> 6;
-		// hs = getHeightString(getMessageChangeState(), g);
-		// hs23 = hs + (hs >> 1) + (hs >> 2);
-		// ws = getWidthString(getMessageChangeState(), g);
-		// ws11 = ws + roundRect + roundRect;
-		// changeStateArea.setBounds(this.getWidth() - roundRect - ws11, this.getHeight() - roundRect - hs23, ws11,
-		// hs23);
-		// g.fillRoundRect(changeStateArea.x + 1, changeStateArea.y + 1, changeStateArea.width - 1,
-		// changeStateArea.height - 1, roundRect, roundRect);
-		// g.setColor(father.getSkin().getColorLine());
-		// g.drawRoundRect(changeStateArea.x, changeStateArea.y, changeStateArea.width, changeStateArea.height,
-		// roundRect,
-		// roundRect);
-		// g.setColor(father.getSkin().getColorLetter());
-		// g.drawString(getMessageChangeState(), changeStateArea.x + roundRect, changeStateArea.y
-		// + (changeStateArea.height + hs >> 1));
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);
 		}
@@ -303,7 +283,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 					father.setCurrentState(IhmReceivingStates.MAIN_INTERFACE);
 				}
 			});
-			lowerBar.setRightTitle(father.lg("RemainingTime"));
+			// lowerBar.setRightTitle(father.lg("RemainingTime"));
 			lowerBar.setRightValue(decomposeMinutesIntoHourMinutes(travel.getRemainingTime(), father
 					.lg("LetterForHour"), father.lg("LetterForMinute")));
 		}
