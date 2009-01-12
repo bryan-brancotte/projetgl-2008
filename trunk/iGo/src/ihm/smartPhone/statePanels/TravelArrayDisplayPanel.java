@@ -110,7 +110,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			public void mouseReleased(MouseEvent e) {
 				if (slowScroll != null)
 					slowScroll.killMe();
-				slowScroll = new SlowScroll(dyDrag );
+				slowScroll = new SlowScroll(dyDrag);
 			}
 		});
 	}
@@ -233,11 +233,27 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		deroullement = scrollBar.getDeroullement();
 	}
 
+	/**
+	 * 
+	 * @param route
+	 * @param time
+	 * @param direction
+	 * @param decalage
+	 * @param ordonnee
+	 * @param hasBeenTraveled
+	 * @param left
+	 * @param inLeft
+	 * @param inRigth
+	 * @param rigth
+	 * @return la hauteur de ce qu'on a dessiné
+	 */
 	protected int drawRoute(Route route, int time, Station direction, int decalage, int ordonnee,
 			boolean hasBeenTraveled, int left, int inLeft, int inRigth, int rigth) {
-		int taille;
+		int taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F);
 		String s;
-		int height = (taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F)) + decalage;
+		int height = getHeightString(route.getId(), buffer);
+		height += height >> 2;
+		height += decalage;
 		// int
 		// choix de la couleur : couleur vivant si à faire, couleur d'arrière plan si déja franchit.
 		if (hasBeenTraveled)
@@ -253,9 +269,9 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		buffer.drawRect(left, ordonnee, rigth - left, height);
 		// dessine le logo de la ligne
 		buffer.setColor(father.getNetworkColorManager().getColor(route));
-		buffer.fillRect(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
+		buffer.fillRect(left + inLeft - taille >> 1, ordonnee + (decalage >> 1), taille, height-decalage);
 		buffer.setColor(father.getSkin().getColorLetter());
-		buffer.drawRect(left + inLeft - taille >> 1, ordonnee + (height - taille >> 1), taille, taille);
+		buffer.drawRect(left + inLeft - taille >> 1, ordonnee + (decalage >> 1), taille, height-decalage);
 		buffer.drawString(route.getId(), left + inLeft - getWidthString(route.getId(), buffer) >> 1, ordonnee
 				+ (height + getHeightString(route.getId(), buffer) - (decalage >> 2) >> 1));
 		// la direction

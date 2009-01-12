@@ -11,6 +11,7 @@ import ihm.smartPhone.statePanels.component.TravelPanelPT;
 import ihm.smartPhone.tools.CodeExecutor2P;
 import ihm.smartPhone.tools.CodeExecutor3P;
 import ihm.smartPhone.tools.ImageLoader;
+import ihm.smartPhone.tools.SizeAdapteur.FontSizeKind;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -70,15 +71,15 @@ public class LoadTravelPanel extends PanelState {
 	 * 
 	 * @param ihm
 	 * @param upperBar
-	 * @param lowerBar
+	 * @param nvLowerBar
 	 * @param actualState
 	 *            est soit IhmReceivingStates.FAVORITES soit IhmReceivingStates.LOAD_TRAVEL, leve une exception
 	 *            NoSuchFieldError si on spécfie un autre type.
 	 * @param paths
 	 */
-	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
+	public LoadTravelPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar nvLowerBar,
 			IhmReceivingStates actualState, LinkedList<TravelForTravelPanel> travels) {
-		super(ihm, upperBar, lowerBar);
+		super(ihm, upperBar, nvLowerBar);
 		travelPanels = new LinkedList<TravelPanelPT>();
 		if (actualState == IhmReceivingStates.FAVORITES)
 			this.actualState = IhmReceivingStates.FAVORITES;
@@ -86,15 +87,45 @@ public class LoadTravelPanel extends PanelState {
 			this.actualState = IhmReceivingStates.LOAD_TRAVEL;
 		buildInterface(travels);
 		this.addMouseMotionListener(new MouseMotionListenerSimplificated<PanelState>(this) {
+
+			protected Rectangle overedRec = null;
+
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				boolean repaint = false;
-				boolean b;
+				boolean needCleanUp = true;
 				for (TravelPanelPT t : travelPanels) {
-					if (t.isInMe ^ (b = t.area.contains(e.getX(), e.getY()))) {
-						t.isInMe = b;
+					if (t.cmdDel.getArea().contains(e.getX(), e.getY())) {
+						needCleanUp = false;
+						if (t.cmdDel.getArea() != overedRec) {
+							overedRec = t.cmdDel.getArea();
+							lowerBar.setLeftValue(father.lg("Delete"), FontSizeKind.INTERMEDIATE, false);
+							lowerBar.repaint();
+						}
+					} else if (t.cmdEdit.getArea().contains(e.getX(), e.getY())) {
+						needCleanUp = false;
+						if (t.cmdFav.getArea() != overedRec) {
+							overedRec = t.cmdEdit.getArea();
+							lowerBar.setLeftValue(father.lg("Edit"), FontSizeKind.INTERMEDIATE, false);
+							lowerBar.repaint();
+						}
+					} else if (t.cmdFav.getArea().contains(e.getX(), e.getY())) {
+						needCleanUp = false;
+						if (t.cmdFav.getArea() != overedRec) {
+							overedRec = t.cmdFav.getArea();
+							lowerBar.setLeftValue(father.lg("FavoritOrNot"), FontSizeKind.INTERMEDIATE, false);
+							lowerBar.repaint();
+						}
+					}
+					if (t.isInMe ^ (t.area.contains(e.getX(), e.getY()))) {
+						t.isInMe = !t.isInMe;
 						repaint = true;
 					}
+				}
+				if (needCleanUp) {
+					overedRec = null;
+					lowerBar.setLeftValue("");
+					lowerBar.repaint();
 				}
 				if (repaint)
 					this.origin.repaint();
@@ -240,9 +271,8 @@ public class LoadTravelPanel extends PanelState {
 				.fillRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
 						travelPanelPT.area.height);
 		buffer.setColor(father.getSkin().getColorLetter());
-		buffer
-				.drawRoundRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
-						travelPanelPT.area.height,4,4);
+		buffer.drawRoundRect(travelPanelPT.area.x, travelPanelPT.area.y, travelPanelPT.area.width,
+				travelPanelPT.area.height, 4, 4);
 		if (travelPanelPT.isInMe)
 			buffer.drawRect(travelPanelPT.area.x + 1, travelPanelPT.area.y + 1, travelPanelPT.area.width - 2,
 					travelPanelPT.area.height - 2);
