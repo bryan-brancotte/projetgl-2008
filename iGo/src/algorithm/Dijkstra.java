@@ -49,7 +49,18 @@ public class Dijkstra extends Algo {
 		try {
 			// Initialisation des contraintes
 			initConstraints(prb);
-
+/*
+			System.out.println("--------------");
+			for (int i=0;i<graph.getListClone().size();i++) {
+				Node nTmp = graph.getListClone().get(i);
+				System.out.print(nTmp.getStation()+" | ");
+				Iterator<Link> it = nTmp.getToIter();
+				while (it.hasNext()){
+					System.out.print(it.next().getJunction()+" || ");
+				}
+				System.out.println();
+			}
+*/			
 			// Création de l'ensemble des étapes obligatoires
 			ArrayList<ArrayList<Station>> allSteps = createAllSteps();
 
@@ -62,6 +73,7 @@ public class Dijkstra extends Algo {
 			System.err.println("Le noeud du couple " + e.getStation() + "-" + e.getRoute() + " n'existe pas");
 		}
 
+		
 		if (betterPath == null)
 			throw new VoidPathException();
 
@@ -285,16 +297,22 @@ public class Dijkstra extends Algo {
 		if (isAborted)
 			return null;
 		Iterator<Route> itDepart = depart.getRoutes();
-		Iterator<Route> itArrivee = arrivee.getRoutes();
 		ArrayList<Junction> returnPath = null;
 		while (itDepart.hasNext()) {
 			Route rDepart = itDepart.next();
+			Iterator<Route> itArrivee = arrivee.getRoutes();
 			while (itArrivee.hasNext()) {
 				Route rArrivee = itArrivee.next();
-				ArrayList<Junction> currentPath = new ArrayList<Junction>(algo(graph.getNode(depart, rDepart), graph.getNode(arrivee, rArrivee), true));
-				if (Tools.betterPath(currentPath, returnPath, p.getMainCriterious(), p.getMinorCriterious()))
-					returnPath = currentPath;
+				Node nd = graph.getNode(depart, rDepart);
+				Node na = graph.getNode(arrivee, rArrivee);
+				if (na!=null && nd!=null) {
+					ArrayList<Junction> currentPath = new ArrayList<Junction>(algo(nd, na, true));
+					if (Tools.betterPath(currentPath, returnPath, p.getMainCriterious(), p.getMinorCriterious())) {
+						returnPath = currentPath;
+					}
+				}
 			}
+			System.out.println("route suivante");
 		}
 		return returnPath;
 	}
