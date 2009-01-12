@@ -78,7 +78,7 @@ public class Route {
 	 * setter de l'etat enable d'une route
 	 * 
 	 * @param enable
-	 *            nouvel etat a appliquer a la route
+	 *            nouvel état a appliquer a la route
 	 */
 	public void setToEnable(boolean enable) {
 		this.enable = enable;
@@ -123,7 +123,7 @@ public class Route {
 	}
 
 	/**
-	 * modifie l'etat enable d'une station
+	 * Modifie l'etat enable d'une station
 	 * 
 	 * @param station
 	 *            la station a modifier
@@ -144,7 +144,7 @@ public class Route {
 	}
 
 	/**
-	 * modifie l'etat enable d'une station
+	 * Modifie l'etat enable d'une station
 	 * 
 	 * @param id
 	 *            id de la station a modifier
@@ -172,11 +172,11 @@ public class Route {
 	}
 
 	/**
-	 * retourne l'etat enable d'une station
+	 * Retourne l'etat enable d'une station
 	 * 
 	 * @param id
 	 *            la station recherchée
-	 * @return etat false si la station est desactivée, ou si elle est dans la route ET esactivée pour cette route.
+	 * @return etat false si la station est desactivée, ou si elle est dans la route désactivée pour cette route.
 	 */
 	public boolean isStationEnable(Station station) {
 		if (!station.isEnable())

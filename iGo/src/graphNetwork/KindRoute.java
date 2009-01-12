@@ -12,7 +12,7 @@ public class KindRoute {
 
 	protected static LinkedList<KindRoute> kinds;
 	/**
-	 * Le coût d'entrée sur le réseaux pour cette ligne
+	 * Le coût d'entrée sur le réseau pour cette ligne
 	 */
 	protected float cost;
 	/**
@@ -78,14 +78,14 @@ public class KindRoute {
 	}
 
 	/**
-	 * constructeur par defaut defini en private pour eviter des allocations non controllees de KindRoute
+	 * constructeur par defaut defini en private pour eviter des allocations non controllées de KindRoute
 	 * 
 	 */
 	private KindRoute() {
 	}
 
 	/**
-	 * cree un nouveau kindRoute et l'ajoute a la collection de kind
+	 * créé un nouveau kindRoute et l'ajoute a la collection de kind
 	 * 
 	 * @param _kindOf
 	 *            nouveau kind

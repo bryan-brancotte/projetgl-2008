@@ -118,7 +118,7 @@ public class Junction {
 	}
 
 	/**
-	 * Retourne la route sur laquelle est l'autre station. Attention si jamais le lien a la même station des deux coté,
+	 * Retourne la route sur laquelle est l'autre station. Attention si jamais le lien a la même station des deux cotés,
 	 * cette méthode retournera toujours la routeB.
 	 * 
 	 * @param me

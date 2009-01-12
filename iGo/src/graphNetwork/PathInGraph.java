@@ -114,7 +114,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Constructeur specifiant dans quel univers le trajet est cree.
+	 * Constructeur specifiant dans quel univers le trajet est créé.
 	 * 
 	 * @param graph
 	 * @throws NullPointerException
@@ -150,7 +150,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un boolean permetant de savoir si le type de route est en liste noir.
+	 * Retourne un boolean permetant de savoir si le type de route est en 'liste noir'.
 	 * 
 	 * @param s
 	 *            le type
@@ -183,7 +183,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un boolean permetant de savoir si la station est déja dans les étapes intermédiaire.
+	 * Retourne un boolean permetant de savoir si la station est déja dans les étapes intermédiaires.
 	 * 
 	 * @param s
 	 *            la station
@@ -194,7 +194,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Transcrit le trajet en une chaine qui pourra ensuite etre relue pour creer de nouveau trajet
+	 * Transcrit le trajet en une chaine qui pourra ensuite être relue pour créer de nouveaux trajets
 	 * 
 	 * @return
 	 */
@@ -353,7 +353,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne la station d'arrivé du trajet.
+	 * Retourne la station d'arrivée du trajet.
 	 * 
 	 * @return
 	 */
@@ -362,7 +362,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne la première jonction a partir de laquel on peut toujours atteindre la fin du trajet.
+	 * Retourne la première jonction a partir de laquelle on peut toujours atteindre la fin du trajet.
 	 * 
 	 * @return l'intersection, ou null si la destination n'est pa satteignable
 	 */
@@ -388,7 +388,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne le GraphNetwork dans lequel le trajet à une existance.
+	 * Retourne le GraphNetwork dans lequel le trajet a une existance.
 	 * 
 	 * @return
 	 */
@@ -403,7 +403,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un iterateur décrivant les jonction qui forme le chemin dans le sens départ->fin
+	 * Retourne un iterateur décrivant les jonction qui forment le chemin dans le sens départ->fin
 	 * 
 	 * @return retourne un iterateur. Celui ci peut être vide, mais jamais à null
 	 */
@@ -412,7 +412,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne le nombre de jonction dans le trajet
+	 * Retourne le nombre de jonctions dans le trajet
 	 * 
 	 * @return la valeur
 	 */
@@ -457,7 +457,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un iterateur sur les kindRoute que l'utilisateur refuse.
+	 * Retourne un iterateur sur les kindRoutes que l'utilisateur refuse.
 	 * 
 	 * @return
 	 */
@@ -466,7 +466,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne le nombre type de route refusé
+	 * Retourne le nombre type de route refusée
 	 * 
 	 * @return la valeur
 	 */
@@ -475,7 +475,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un tableau avec tout les services requis tout au long du trajet
+	 * Retourne un tableau avec tous les services requis tout au long du trajet
 	 * 
 	 * @return
 	 */
@@ -529,7 +529,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un tableau contenant toutes les stations intermédiaire requise.
+	 * Retourne un tableau contenant toutes les stations intermédiaires requises.
 	 * 
 	 * @return
 	 */
@@ -538,7 +538,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Retourne un iterateur sur les stations intermédiaire requise.
+	 * Retourne un iterateur sur les stations intermédiaires requises.
 	 * 
 	 * @return
 	 */
@@ -565,7 +565,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
+	 * Créé le trajet a partir d'un chaine décrivant le trajet. Si la chaine est null ou vide, on ne fait rien
 	 * 
 	 * @param pathInString
 	 * @return true si l'import s'est bien passé
@@ -589,7 +589,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
+	 * Créé le trajet a partir d'un chaine décrivant le trajet. Si la chaine est null ou vide, on ne fait rien
 	 * 
 	 * @param pathInString
 	 * @return true si l'import s'est bien passé
@@ -702,7 +702,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Créer le trajet a partir d'un chaine décrivant le trajet. SI la chaine est null ou vide, on ne fait rien
+	 * Créé le trajet a partir d'un chaine décrivant le trajet. Si la chaine est null ou vide, on ne fait rien
 	 * 
 	 * @param pathInString
 	 */
@@ -729,7 +729,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Accesseur permettant de savoir si le trajet à été résolut, et plus modifié ensuite
+	 * Accesseur permettant de savoir si le trajet à été résolu, et plus modifié ensuite
 	 * 
 	 * @return
 	 */
@@ -752,7 +752,7 @@ public class PathInGraph {
 	}
 
 	/**
-	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'a la fin
+	 * Permet de savoir si on peut toujours arpenter le trajet à partir de la jonction passé en paramètre jusqu'à la fin
 	 * 
 	 * @param junction
 	 * @return
