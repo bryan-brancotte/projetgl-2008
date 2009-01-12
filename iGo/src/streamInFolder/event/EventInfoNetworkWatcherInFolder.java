@@ -25,8 +25,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 /**
- * Cette classe permet la surveillance d'un dossier qui contiendra les
- * evenements
+ * Cette classe permet la surveillance d'un dossier qui contiendra les evenements
  * 
  * @author iGo
  */
@@ -58,8 +57,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	protected Timer watcher;
 
 	/**
-	 * Verrou pour empecher la prise en compte d'evenements en cours de
-	 * construction
+	 * Verrou pour empecher la prise en compte d'evenements en cours de construction
 	 */
 	protected final Lock verrou = new ReentrantLock();
 
@@ -102,103 +100,138 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 							version = Integer.parseInt(numVersion.get(0).getTextTrim());
 
-							List<Element> stations = racine.getChild("StationsList").getChildren("Station");
+							Element stationsS = racine.getChild("StationsList");
 
-							for (Element station : stations) {
-								List<Element> nodeChilds = station.getChildren();
+							if (stationsS != null) {
+								List<Element> stations = stationsS.getChildren("Station");
 
-								int eisId = 0;
-								String eisMsg = "";
-								String eisKeinString = "";
-								KindEventInfoNetwork eisKein = null;
-								int eisMsgId = 0;
+								if (stations != null && stations.size() != 0) {
+									for (Element station : stations) {
+										List<Element> nodeChilds = station.getChildren();
 
-								for (Element child : nodeChilds) {
-									if (child.getName().compareTo("MSID") == 0) {
-										eisMsgId = Integer.parseInt(child.getTextTrim());
-									} else if (child.getName().compareTo("ID") == 0) {
-										eisId = Integer.parseInt(child.getTextTrim());
-									} else if (child.getName().compareTo("Kind") == 0) {
-										eisKeinString = child.getTextTrim();
-										if (eisKeinString.compareTo("Problem") == 0) {
-											eisKein = KindEventInfoNetwork.PROBLEM;
-										} else if (eisKeinString.compareTo("Solution") == 0) {
-											eisKein = KindEventInfoNetwork.SOLUTION;
-										} else {
-											eisKein = KindEventInfoNetwork.OTHER;
+										int eisId = 0;
+										String eisMsg = "";
+										String eisKeinString = "";
+										KindEventInfoNetwork eisKein = null;
+										int eisMsgId = 0;
+
+										for (Element child : nodeChilds) {
+											if (child.getName().compareTo("MSID") == 0) {
+												eisMsgId = Integer.parseInt(child.getTextTrim());
+											}
+											else if (child.getName().compareTo("ID") == 0) {
+												eisId = Integer.parseInt(child.getTextTrim());
+											}
+											else if (child.getName().compareTo("Kind") == 0) {
+												eisKeinString = child.getTextTrim();
+												if (eisKeinString.compareTo("Problem") == 0) {
+													eisKein = KindEventInfoNetwork.PROBLEM;
+												}
+												else if (eisKeinString.compareTo("Solution") == 0) {
+													eisKein = KindEventInfoNetwork.SOLUTION;
+												}
+												else {
+													eisKein = KindEventInfoNetwork.OTHER;
+												}
+											}
+											else if (child.getName().compareTo("WarningMsg") == 0) {
+												eisMsg = child.getTextTrim();
+											}
 										}
-									} else if (child.getName().compareTo("WarningMsg") == 0) {
-										eisMsg = child.getTextTrim();
+										eventInfosNotApplied.add(new EventInfoStation(eisId, eisMsg, eisMsgId, eisKein));
 									}
 								}
-								eventInfosNotApplied.add(new EventInfoStation(eisId, eisMsg, eisMsgId, eisKein));
+
 							}
 
-							List<Element> stationsOnRoute = racine.getChild("StationRouteList").getChildren("StationRoute");
+							Element stationsOnRouteR = racine.getChild("StationRouteList");
 
-							for (Element stationOR : stationsOnRoute) {
-								List<Element> nodeChilds = stationOR.getChildren();
+							if (stationsOnRouteR != null) {
+								List<Element> stationsOnRoute = stationsOnRouteR.getChildren("StationRoute");
+								if (stationsOnRoute != null && stationsOnRoute.size() != 0) {
 
-								int eisIds = 0;
-								String eisIdr = "";
-								String eisMsg = "";
-								String eisKeinString = "";
-								KindEventInfoNetwork eisKein = null;
-								int eisMsgId = 0;
+									for (Element stationOR : stationsOnRoute) {
+										List<Element> nodeChilds = stationOR.getChildren();
 
-								for (Element child : nodeChilds) {
-									if (child.getName().compareTo("MSID") == 0) {
-										eisMsgId = Integer.parseInt(child.getTextTrim());
-									} else if (child.getName().compareTo("IDS") == 0) {
-										eisIds = Integer.parseInt(child.getTextTrim());
-									} else if (child.getName().compareTo("IDR") == 0) {
-										eisIdr = child.getTextTrim();
-									} else if (child.getName().compareTo("Kind") == 0) {
-										eisKeinString = child.getTextTrim();
-										if (eisKeinString.compareTo("Problem") == 0) {
-											eisKein = KindEventInfoNetwork.PROBLEM;
-										} else if (eisKeinString.compareTo("Solution") == 0) {
-											eisKein = KindEventInfoNetwork.SOLUTION;
-										} else {
-											eisKein = KindEventInfoNetwork.OTHER;
+										int eisIds = 0;
+										String eisIdr = "";
+										String eisMsg = "";
+										String eisKeinString = "";
+										KindEventInfoNetwork eisKein = null;
+										int eisMsgId = 0;
+
+										for (Element child : nodeChilds) {
+											if (child.getName().compareTo("MSID") == 0) {
+												eisMsgId = Integer.parseInt(child.getTextTrim());
+											}
+											else if (child.getName().compareTo("IDS") == 0) {
+												eisIds = Integer.parseInt(child.getTextTrim());
+											}
+											else if (child.getName().compareTo("IDR") == 0) {
+												eisIdr = child.getTextTrim();
+											}
+											else if (child.getName().compareTo("Kind") == 0) {
+												eisKeinString = child.getTextTrim();
+												if (eisKeinString.compareTo("Problem") == 0) {
+													eisKein = KindEventInfoNetwork.PROBLEM;
+												}
+												else if (eisKeinString.compareTo("Solution") == 0) {
+													eisKein = KindEventInfoNetwork.SOLUTION;
+												}
+												else {
+													eisKein = KindEventInfoNetwork.OTHER;
+												}
+											}
+											else if (child.getName().compareTo("WarningMsg") == 0) {
+												eisMsg = child.getTextTrim();
+											}
 										}
-									} else if (child.getName().compareTo("WarningMsg") == 0) {
-										eisMsg = child.getTextTrim();
+										eventInfosNotApplied.add(new EventInfoStationOnARoute(eisIds, eisIdr, eisMsg, eisMsgId, eisKein));
 									}
+
 								}
-								eventInfosNotApplied.add(new EventInfoStationOnARoute(eisIds, eisIdr, eisMsg, eisMsgId, eisKein));
 							}
 
-							List<Element> routeList = racine.getChild("RouteList").getChildren("Route");
+							Element routeListL = racine.getChild("RouteList");
+							if (routeListL != null) {
+								List<Element> routeList = routeListL.getChildren("Route");
+								if (routeList != null && routeList.size() != 0) {
 
-							for (Element route : routeList) {
-								List<Element> nodeChilds = route.getChildren();
+									for (Element route : routeList) {
+										List<Element> nodeChilds = route.getChildren();
 
-								String eisIdr = "";
-								String eisMsg = "";
-								String eisKeinString = "";
-								KindEventInfoNetwork eisKein = null;
-								int eisMsgId = 0;
+										String eisIdr = "";
+										String eisMsg = "";
+										String eisKeinString = "";
+										KindEventInfoNetwork eisKein = null;
+										int eisMsgId = 0;
 
-								for (Element child : nodeChilds) {
-									if (child.getName().compareTo("MSID") == 0) {
-										eisMsgId = Integer.parseInt(child.getTextTrim());
-									} else if (child.getName().compareTo("IDR") == 0) {
-										eisIdr = child.getTextTrim();
-									} else if (child.getName().compareTo("Kind") == 0) {
-										eisKeinString = child.getTextTrim();
-										if (eisKeinString.compareTo("Problem") == 0) {
-											eisKein = KindEventInfoNetwork.PROBLEM;
-										} else if (eisKeinString.compareTo("Solution") == 0) {
-											eisKein = KindEventInfoNetwork.SOLUTION;
-										} else {
-											eisKein = KindEventInfoNetwork.OTHER;
+										for (Element child : nodeChilds) {
+											if (child.getName().compareTo("MSID") == 0) {
+												eisMsgId = Integer.parseInt(child.getTextTrim());
+											}
+											else if (child.getName().compareTo("IDR") == 0) {
+												eisIdr = child.getTextTrim();
+											}
+											else if (child.getName().compareTo("Kind") == 0) {
+												eisKeinString = child.getTextTrim();
+												if (eisKeinString.compareTo("Problem") == 0) {
+													eisKein = KindEventInfoNetwork.PROBLEM;
+												}
+												else if (eisKeinString.compareTo("Solution") == 0) {
+													eisKein = KindEventInfoNetwork.SOLUTION;
+												}
+												else {
+													eisKein = KindEventInfoNetwork.OTHER;
+												}
+											}
+											else if (child.getName().compareTo("WarningMsg") == 0) {
+												eisMsg = child.getTextTrim();
+											}
 										}
-									} else if (child.getName().compareTo("WarningMsg") == 0) {
-										eisMsg = child.getTextTrim();
+										eventInfosNotApplied.add(new EventInfoRoute(eisIdr, eisMsg, eisMsgId, eisKein));
 									}
 								}
-								eventInfosNotApplied.add(new EventInfoRoute(eisIdr, eisMsg, eisMsgId, eisKein));
 							}
 
 						}
@@ -210,7 +243,8 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 					}
 				}
 
-			} else {
+			}
+			else {
 				System.err.println(fichier + " : Erreur de lecture.");
 			}
 
