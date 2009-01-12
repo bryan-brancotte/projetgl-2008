@@ -381,8 +381,8 @@ public class NewTravelPanel extends PanelState {
 		while (it.hasNext()) {
 			st = it.next();
 			s = st.getName();
-//			while (stationsHash.containsKey(s))
-//				s += " ";
+			// while (stationsHash.containsKey(s))
+			// s += " ";
 			stationsHash.put(s, st);
 			v.add(s);
 		}
@@ -561,8 +561,8 @@ public class NewTravelPanel extends PanelState {
 							});
 				listingPanel.define(new CodeExecutor2P<Container, NewTravelPanel>(c, this.origine) {
 					public void execute() {
-						// recordChangedSetting(avoidsStationsAdd, ((ListingStation) this.origineA.getComponent(0))
-						// .getStationSelected());
+						recordChangedSetting(avoidsStationsAdd, ((ListingStation) this.origineA.getComponent(0))
+								.getStationSelected());
 						this.origineA.removeAll();
 						this.origineA.add(this.origineB);
 						this.origineA.validate();
@@ -589,6 +589,7 @@ public class NewTravelPanel extends PanelState {
 	}
 
 	protected void recordChangedSetting(int familly, Station station) {
+		System.out.println("NewTravelPanel.recordChangedSetting(" + familly + "," + station + ")");
 		switch (familly) {
 		case intermediatesStationsAdd:
 			if (station != null
@@ -1036,8 +1037,7 @@ public class NewTravelPanel extends PanelState {
 				departureStationCollapsableArea, departureStationFind, ordonne, decalage, decalage2, taille, true,
 				(departureStationChanged) ? null : pathBuilder.getCurrentPathInGraph().getOrigin());
 		if (departureStationChanged) {
-			if (station != pathBuilder.getCurrentPathInGraph().getDestination())
-				pathBuilder.setOrigin(station);
+			pathBuilder.setOrigin(station);
 		}
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
 				+ decalage;
@@ -1056,8 +1056,8 @@ public class NewTravelPanel extends PanelState {
 					arrivalStationCollapsableArea, arrivalStationFind, ordonne, decalage, decalage2, taille, true,
 					(arrivalStationChanged) ? null : pathBuilder.getCurrentPathInGraph().getDestination());
 			if (arrivalStationChanged) {
-				if (station != pathBuilder.getCurrentPathInGraph().getOrigin())
-					pathBuilder.setDestination(station); 
+				System.out.println(station + "!=" + pathBuilder.getCurrentPathInGraph().getOrigin());
+				pathBuilder.setDestination(station);
 			}
 			ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height
 					+ decalage;

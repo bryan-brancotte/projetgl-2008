@@ -18,6 +18,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
@@ -32,11 +33,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 	protected TravelForDisplayPanel travel = null;
 	protected IhmReceivingStates currentState = IhmReceivingStates.PREVISU_TRAVEL;
 
-	protected static Image imageWarning;
-	protected Rectangle iconeWarningArea = null;
 	// protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
-
-	protected Rectangle changeStateArea = null;
 
 	protected PopUpMessage popUpMessage;
 
@@ -46,10 +43,13 @@ public abstract class TravelDisplayPanel extends PanelState {
 	 */
 	protected static Image imageFav = null;
 	protected static Image imageNoFav = null;
-	protected static Image imageMode = null;
 	protected Rectangle iconeFavArea = null;
-
-	// protected MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray;
+	protected static Image imageMode = null;
+	protected Rectangle changeStateArea = null;
+	protected static Image imageWarning;
+	protected Rectangle iconeWarningArea = null;
+	protected Rectangle iconeArea = null;
+	protected boolean drawBackMenu = true;
 
 	public TravelDisplayPanel(IhmReceivingPanelState ihm, UpperBar nvUpperBar, LowerBar nvLowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -64,6 +64,7 @@ public abstract class TravelDisplayPanel extends PanelState {
 		iconeWarningArea = new Rectangle(0, 0, 0, 0);
 		iconeFavArea = new Rectangle(0, 0, 0, 0);
 		changeStateArea = new Rectangle(0, 0, 0, 0);
+		iconeArea = new Rectangle(0, 0, 0, 0);
 
 		MouseListenerClickAndMoveInArea clickAndMoveWarningAndArray = new MouseListenerClickAndMoveInArea(this);
 		clickAndMoveWarningAndArray.addInteractiveArea(iconeWarningArea, new CodeExecutor1P<PanelState>(this) {
@@ -85,18 +86,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 				c.add(listingPanel);
 				listingPanel.giveControle();
 				c.validate();
-				// popUpMessage.define("World of dégout", "C'est la question que l'on peut se poser après que 2D Boy, "
-				// + "développeur du génialissime World of Goo, ait déclaré que 90 % "
-				// + "des personnes qui y ont joué l'ont fait sur une version pirate. "
-				// + "On ne sait trop comment le studio est parvenu à ce chiffre, mais "
-				// + "ce qui est certain, c'est qu'il témoigne d'un véritable malaise "
-				// + "dans le milieu du jeu PC. En l'occurrence, ni le manque d'originalité, "
-				// + "ni le prix de vente (de seulement 20 dollars), ni la présence d'un "
-				// + "quelconque système de protection rédhibitoire ne peuvent être invoqués "
-				// + "pour justifier de se procurer le jeu par des voies détournées..."
-				//
-				// , null);
-				// me.repaint();
 			}
 		});
 		clickAndMoveWarningAndArray.addInteractiveArea(iconeFavArea, new CodeExecutor() {
@@ -112,6 +101,18 @@ public abstract class TravelDisplayPanel extends PanelState {
 				imageMode = null;
 				actionToDoWhenChangeStateIsClicked();
 			}
+		});
+		this.addMouseMotionListener(new MouseMotionListener() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+			}
+
+			public void mouseMoved(MouseEvent e) {
+				if (drawBackMenu ^ iconeArea.contains(e.getX(), e.getY())) {
+					drawBackMenu = !drawBackMenu;
+					repaint();
+				}
+			};
 		});
 		this.addMouseListener(clickAndMoveWarningAndArray);
 		this.addMouseMotionListener(clickAndMoveWarningAndArray);
@@ -179,16 +180,24 @@ public abstract class TravelDisplayPanel extends PanelState {
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", sizeLargeFont, sizeLargeFont).getImage();
 			imageNoFav = ImageLoader.getRessourcesImageIcone("fav-no", sizeLargeFont, sizeLargeFont).getImage();
 		}
-		iconeFavArea.setBounds(1, getHeight() - sizeLargeFont, sizeLargeFont, sizeLargeFont);
+		iconeFavArea.setBounds(1, getHeight() - sizeLargeFont * 3, sizeLargeFont, sizeLargeFont);
+		iconeWarningArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 1, sizeLargeFont, sizeLargeFont);
+		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 2, sizeLargeFont, sizeLargeFont);
+		iconeArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 4, sizeLargeFont * 2, sizeLargeFont*4);
+		if (drawBackMenu) {
+			g.setColor(father.getSkin().getColorInside());
+			g.fillRoundRect(-10, 10 + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
+					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), 10, 10);
+			g.setColor(father.getSkin().getColorLetter());
+			g.drawRoundRect(-10, 10 + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
+					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), 10, 10);
+		}
 		if (travel.isFavorite())
 			g.drawImage(imageFav, iconeFavArea.x, iconeFavArea.y, null);
 		else
-			g.drawImage(imageNoFav, iconeFavArea.x, getHeight() - sizeLargeFont, null);
-		iconeWarningArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont - sizeLargeFont, sizeLargeFont, sizeLargeFont);
+			g.drawImage(imageNoFav, iconeFavArea.x, iconeFavArea.y, null);
 		g.drawImage(imageWarning, iconeFavArea.x, iconeWarningArea.y, null);
-		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 3, sizeLargeFont, sizeLargeFont);
 		g.drawImage(imageMode, iconeFavArea.x, changeStateArea.y, null);
-		g.setFont(father.getSizeAdapteur().getSmallFont());
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);
 		}
