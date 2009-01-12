@@ -22,13 +22,13 @@ public class NetworkColorManagerPseudoRandom implements NetworkColorManager {
 		colorRoutes = new HashMap<Route, Color>();
 		colorServices = new HashMap<Service, Color>();
 		colorList = new LinkedList<Color>();
-		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
+		colorList.add(new Color(12, 128, 139));// Bleu turquoise
 		colorList.add(new Color(114, 159, 220));// Bleu clair
 		colorList.add(new Color(208, 38, 242));// rose clair
 		colorList.add(new Color(24, 105, 255));
 		colorList.add(Color.cyan);
 		colorList.add(new Color(198, 98, 17));// marront clair
-		colorList.add(new Color(12, 128, 139));// Bleu turquoise
+		colorList.add(new Color(133, 242, 38));// Vert jeune pousse
 		colorList.add(new Color(254, 170, 52));// Orange pastel
 		colorList.add(new Color(189, 107, 247));// violet pastel
 		colorList.add(new Color(198, 17, 92));// bordeau
