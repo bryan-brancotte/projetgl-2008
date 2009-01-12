@@ -402,6 +402,16 @@
 				<ENGLISH value="Invalide arrival"/>
 				<GEEK value="..."/>
 			</ERROR_NonValidDestinationException>
+			<ERROR_RoutesNotAccessible>
+				<FRANCAIS value="Une des stations demandé n'est pas accessible avec les types de lignes que vous autorisé"/>
+				<ENGLISH value="A station can't be reach with the kind of route you allow."/>
+				<GEEK value="..."/>
+			</ERROR_RoutesNotAccessible>
+			<ERROR_NoSolution>
+				<FRANCAIS value="Nous n'avons pas pu trouver de solution à votre demande."/>
+				<ENGLISH value="We cannot satisfy your demande."/>
+				<GEEK value="..."/>
+			</ERROR_NoSolution>
 			<ERROR_ServiceNotAccessibleException>
 				<FRANCAIS value="Un service n'est pas accessible, veuillez réduire vos exigences."/>
 				<ENGLISH value="Unreachable service, please reduce your requirements."/>
@@ -422,6 +432,11 @@
 				<ENGLISH value="An unspecified problem occurred. You may have set to much parameters, or the network is incorrect."/>
 				<GEEK value="A system Bug"/>
 			</ERROR_UnknownException>
+			<ERROR_StationNotOnGraphNetworkRoad>
+				<FRANCAIS value="''La station n'est pas sur la ligne''..."/>
+				<ENGLISH value="''A station isn't a the specified route''..."/>
+				<GEEK value="A system Bug"/>
+			</ERROR_StationNotOnGraphNetworkRoad>
 			<ERROR_StationNotAccessibleException>
 				<FRANCAIS value="Une station n'est pas accessible. vous avez soit interdit de passé par un point de passage obligatoire pour atteindre cette dernière, soit interdit le/les type de lignes sur lesquels elle est."/>
 				<ENGLISH value="A station in unreachable. You may have forbidden a station which is the unique gatway to this station, or forbidden (all) the kind(s) of route of this station."/>
@@ -447,6 +462,16 @@
 				<ENGLISH value="Unable to build a new path : The network couldn't be interpreted"/>
 				<GEEK value=""/>
 			</ERROR_NetworkConstruction>
+			<INFO_EverythingFine>
+				<FRANCAIS value="On nous informe que tout vas bien"/>
+				<ENGLISH value="The resolution informe us that everything is fine"/>
+				<GEEK value=""/>
+			</INFO_EverythingFine>
+			<INFO_RoutesNotAccessible>
+				<FRANCAIS value="Aucune ligne ne rejoint la station précisé ci dessous, vous avez du interdir trop de type de route."/>
+				<ENGLISH value="There's no route for the station showed right down. You may have forbidden too much kind of route."/>
+				<GEEK value=""/>
+			</INFO_RoutesNotAccessible>
 			<White>
 				<FRANCAIS value="Classique"/>
 				<ENGLISH value="Classical"/>

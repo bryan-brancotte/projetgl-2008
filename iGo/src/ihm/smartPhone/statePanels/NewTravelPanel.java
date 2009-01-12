@@ -381,8 +381,8 @@ public class NewTravelPanel extends PanelState {
 		while (it.hasNext()) {
 			st = it.next();
 			s = st.getName();
-			while (stationsHash.containsKey(s))
-				s += " ";
+//			while (stationsHash.containsKey(s))
+//				s += " ";
 			stationsHash.put(s, st);
 			v.add(s);
 		}

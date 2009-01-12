@@ -52,9 +52,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * boolean permetant de savoir si à la fin du premier repaint, on doit en faire un second
 	 */
 	protected boolean shouldDoubleRepaint = true;
-
+	/**
+	 * Thread du scroll doux
+	 */
 	protected SlowScroll slowScroll;
-
 	/**
 	 * Y d'origine pour le drag
 	 */
@@ -137,7 +138,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			buffer = null;
-			imageChange = null;
+			imageChange = null; 
 		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
@@ -233,7 +234,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		int taille;
 		String s;
 		int height = (taille = (int) ((getWidthString(route.getId(), buffer)) * 1.3F)) + decalage;
-//		int
+		// int
 		// choix de la couleur : couleur vivant si à faire, couleur d'arrière plan si déja franchit.
 		if (hasBeenTraveled)
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
@@ -468,5 +469,10 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected String getIconeChangeState() {
+		return "mode_graphic";
 	}
 }

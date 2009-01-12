@@ -64,13 +64,13 @@ public class VoidPanel extends PanelState {
 					i++;
 				}
 				// if (i < message.length) {
-				if (i == 1)
+				if (i == 1 && message.length > 1)
 					tmp += " " + message[1];
 				g.drawString(tmp, getWidth() - getWidthString(tmp, g) >> 1, yToDraw);
 				yToDraw += h;
 				// }
 			}
-			yToDraw += (h>>2);
+			yToDraw += (h >> 2);
 		}
 
 	}
