@@ -53,7 +53,11 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 */
 	protected boolean shouldDoubleRepaint = true;
 	/**
-	 * Thread du scroll doux
+	 * Thread du scroll doux pour le placement
+	 */
+	protected SlowMove slowMove;
+	/**
+	 * Thread du scroll doux pour le touch
 	 */
 	protected SlowScroll slowScroll;
 	/**
@@ -106,7 +110,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 			public void mouseReleased(MouseEvent e) {
 				if (slowScroll != null)
 					slowScroll.killMe();
-				slowScroll = new SlowScroll(dyDrag >> 2);
+				slowScroll = new SlowScroll(dyDrag );
 			}
 		});
 	}
@@ -138,7 +142,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 		if (currentQuality != PanelDoubleBufferingSoftwear.getQuality()) {
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
 			buffer = null;
-			imageChange = null; 
+			imageChange = null;
 		}
 		if ((buffer == null) || (image.getWidth(null) != getWidth()) || (image.getHeight(null) != getHeight())) {
 			image = createImage(getWidth(), getHeight());
@@ -215,7 +219,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 				break;
 			else if (putStationUp) {
 				putStationUp = false;
-				slowScroll = new SlowScroll(decalage - ordonnee);
+				slowMove = new SlowMove(decalage - ordonnee);
 
 			}
 			firstPasseDone = true;
@@ -391,7 +395,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 	@Override
 	protected void startStationDone() {
-		new SlowScroll(-deroullement);
+		new SlowMove(-deroullement);
 	}
 
 	/**
@@ -400,14 +404,15 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 	 * @author "iGo"
 	 * 
 	 */
-	protected class SlowScroll extends Thread {
+	protected class SlowMove extends Thread {
 
 		int deroulement;
 
 		byte step = 2;
 
-		public SlowScroll(int deroulement) {
+		public SlowMove(int deroulement) {
 			super();
+			System.out.println(deroulement);
 			this.deroulement = deroulement >> 1;
 			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
 				this.start();
@@ -462,6 +467,56 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 						delta = deroulement;
 					}
 					if (!scrollBar.setDeroullement(scrollBar.getDeroullement() - delta)) {
+						repaint();
+						return;
+					}
+					repaint();
+				}
+			}
+		}
+	}
+
+	protected class SlowScroll extends Thread {
+
+		int dx;
+
+		protected SlowScroll other = null;
+		byte step = 2;
+
+		public SlowScroll(int dx) {
+			super();
+			this.dx = dx;
+			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
+				this.start();
+		}
+
+		public void killMe() {
+			dx = 0;
+		}
+
+		public void run() {
+			int delta = 8;
+
+			for (int i = 0; i < dx; dx -= delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					if (!scrollBar.setDeroullement(scrollBar.getDeroullement() + dx)) {
+						repaint();
+						return;
+					}
+					repaint();
+				}
+			}
+			for (int i = 0; i > dx; dx += delta) {
+				for (int j = 0; j < step; j++) {
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+					}
+					if (!scrollBar.setDeroullement(scrollBar.getDeroullement() + dx)) {
 						repaint();
 						return;
 					}
