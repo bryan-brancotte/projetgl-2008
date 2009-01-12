@@ -1036,9 +1036,8 @@ public class NewTravelPanel extends PanelState {
 		station = drawAutoCompletionStationTextBox(departureStationArea, departureStationTextBox,
 				departureStationCollapsableArea, departureStationFind, ordonne, decalage, decalage2, taille, true,
 				(departureStationChanged) ? null : pathBuilder.getCurrentPathInGraph().getOrigin());
-		if (departureStationChanged) {
+		if (departureStationChanged)
 			pathBuilder.setOrigin(station);
-		}
 		ordonne = departureStationCollapsableArea.getArea().y + departureStationCollapsableArea.getArea().height
 				+ decalage;
 
@@ -1055,10 +1054,8 @@ public class NewTravelPanel extends PanelState {
 			station = drawAutoCompletionStationTextBox(arrivalStationNew, arrivalStationTextBox,
 					arrivalStationCollapsableArea, arrivalStationFind, ordonne, decalage, decalage2, taille, true,
 					(arrivalStationChanged) ? null : pathBuilder.getCurrentPathInGraph().getDestination());
-			if (arrivalStationChanged) {
-				System.out.println(station + "!=" + pathBuilder.getCurrentPathInGraph().getOrigin());
+			if (arrivalStationChanged)
 				pathBuilder.setDestination(station);
-			}
 			ordonne = arrivalStationCollapsableArea.getArea().y + arrivalStationCollapsableArea.getArea().height
 					+ decalage;
 		}
@@ -1492,11 +1489,8 @@ public class NewTravelPanel extends PanelState {
 		// initPathInGraphConstraintBuilder();
 		switch (newTravelPanelState) {
 		case EDIT_TRAVEL:
-			readPathInGraphConstraintBuilder();
-			break;
 		case LOST_TRAVEL:
 			readPathInGraphConstraintBuilder();
-			departureStationTextBox.setText("");
 			break;
 		case NEW_TRAVEL:
 			initPathInGraphConstraintBuilder();

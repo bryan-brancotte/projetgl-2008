@@ -90,27 +90,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
 		super(ihm, upperBar, lowerBar, travelForDisplayPanel);
-		// affichageDroite = (father.getConfig(IhmReceivingStates.GRAPHIC_MODE.toString()).compareTo("true") == 0);
-		// colorList = new LinkedList<Color>();
-		// colorList.add(new Color(242, 130, 38));// Orange
-		// colorList.add(new Color(73, 12, 139));// pourpre foncé
-		// colorList.add(new Color(133, 242, 38));// Vert jeune pousse
-		// colorList.add(new Color(114, 159, 220));// Bleu clair
-		// colorList.add(new Color(208, 38, 242));// rose clair
-		// colorList.add(new Color(12, 52, 139));// Bleu marrine
-		// colorList.add(Color.cyan);
-		// colorList.add(new Color(139, 69, 12));// marront
-		// colorList.add(new Color(12, 128, 139));// Bleu turquoise
-		// colorList.add(new Color(254, 170, 52));// Orange pastel
-		// colorList.add(new Color(189, 107, 247));// violet pastel
-		// colorList.add(new Color(139, 12, 65));// bordeau
-		// colorList.add(new Color(242, 239, 38));// Jaune
-		// colorList.add(new Color(141, 207, 80));// Vert clair
-		// colorList.add(new Color(137, 12, 139));// violet foncé
-		// colorList.add(new Color(52, 52, 254));// Bleu foncé
-		// colorList.add(new Color(80, 139, 12));// Vert foncé
-		// colorList.add(new Color(38, 116, 224));// Bleu
-		// colorList.add(new Color(137, 38, 242));// pourpre
 		/***************************************************************************************************************
 		 * Création de l'image
 		 */

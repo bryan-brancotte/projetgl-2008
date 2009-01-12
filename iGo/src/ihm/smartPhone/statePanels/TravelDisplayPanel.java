@@ -3,6 +3,7 @@ package ihm.smartPhone.statePanels;
 import ihm.smartPhone.component.LowerBar;
 import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
+import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 import ihm.smartPhone.libPT.MouseListenerClickAndMoveInArea;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
 import ihm.smartPhone.tools.AbsolutLayout;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
+import java.util.Iterator;
 
 public abstract class TravelDisplayPanel extends PanelState {
 
@@ -183,14 +185,16 @@ public abstract class TravelDisplayPanel extends PanelState {
 		iconeFavArea.setBounds(1, getHeight() - sizeLargeFont * 3, sizeLargeFont, sizeLargeFont);
 		iconeWarningArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 1, sizeLargeFont, sizeLargeFont);
 		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 2, sizeLargeFont, sizeLargeFont);
-		iconeArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 4, sizeLargeFont * 2, sizeLargeFont*4);
+		iconeArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 4, sizeLargeFont * 2, sizeLargeFont * 4);
 		if (drawBackMenu) {
+			int roundRect = 5;//(sizeLargeFont >> 1);
+			System.out.println(sizeLargeFont >> 1);
 			g.setColor(father.getSkin().getColorInside());
-			g.fillRoundRect(-10, 10 + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
-					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), 10, 10);
+			g.fillRoundRect(-roundRect, roundRect + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
+					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), roundRect, roundRect);
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRoundRect(-10, 10 + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
-					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), 10, 10);
+			g.drawRoundRect(-roundRect, roundRect + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
+					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), roundRect, roundRect);
 		}
 		if (travel.isFavorite())
 			g.drawImage(imageFav, iconeFavArea.x, iconeFavArea.y, null);
@@ -235,6 +239,12 @@ public abstract class TravelDisplayPanel extends PanelState {
 			upperBar.setLeftRecCmd(father.lg("Lost"), new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					Iterator<SectionOfTravel> itDone = travel.getTravelDone();
+					SectionOfTravel sectionOfTravel = null;
+					while (itDone.hasNext())
+						sectionOfTravel = itDone.next();
+					if (sectionOfTravel != null)
+						travel.getPathClone().setOrigin(sectionOfTravel.getChangement());
 					father.setCurrentState(IhmReceivingStates.LOST_IN_TRAVEL, travel.getPathClone()
 							.getCurrentPathInGraph());
 				}
