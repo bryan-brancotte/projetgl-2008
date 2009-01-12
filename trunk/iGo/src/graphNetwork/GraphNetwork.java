@@ -143,7 +143,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * retourne les types de route existants dans le réseau
+	 * retourne les types de route existantes dans le réseau
 	 * 
 	 * @return un iterateur sur les types de route
 	 */
@@ -165,7 +165,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * Retourne un iterateur sur les routes existant dans le réseau
+	 * Retourne un iterateur sur les routes existantes dans le réseau
 	 * 
 	 * @return
 	 */
@@ -210,7 +210,7 @@ public class GraphNetwork {
 	}
 
 	/**
-	 * retourne les stations existant dans le réseau
+	 * retourne les stations existantes dans le réseau
 	 * 
 	 * @return
 	 */

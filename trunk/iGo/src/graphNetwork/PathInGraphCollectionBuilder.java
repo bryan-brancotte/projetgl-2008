@@ -1,7 +1,7 @@
 package graphNetwork;
 
 /**
- * Wrapper regroupant les Builder
+ * Wrapper regroupant les Builders
  * 
  * @author "iGo"
  * 

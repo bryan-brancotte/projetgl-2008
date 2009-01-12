@@ -10,7 +10,7 @@ public class PathInGraphConstraintBuilder {
 	protected PathInGraph currentPathInGraph;
 
 	/**
-	 * le graph dans lequel le monteur de PathInGraph est cree
+	 * le graph dans lequel le monteur de PathInGraph est créé
 	 * 
 	 * @param graph
 	 *            graph
@@ -36,7 +36,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout le type de route passé en paramètre à la liste des kind que l'on ne peut prendre
+	 * Ajoute le type de route passé en paramètre à la liste des kind que l'on ne peut pas prendre
 	 * 
 	 * @param kind
 	 *            le type en question
@@ -47,7 +47,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout à la liste des service à avoir à au moins une station où l'on pose le pied, le service passé en paramètre
+	 * Ajout à la liste des services à avoir à au moins une station où l'on pose le pied, le service passé en paramètre
 	 * 
 	 * @param service
 	 */
@@ -69,7 +69,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout à la liste des points de passages obligatoire la station passée en paramètre
+	 * Ajout à la liste des points de passage obligatoire la station passée en paramètre
 	 * 
 	 * @param station
 	 */
@@ -80,7 +80,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * retourne le trajet actuellement etudie
+	 * retourne le trajet actuellement etudié
 	 * 
 	 * @return le trajet etudie
 	 */
@@ -89,7 +89,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * En travaillant sur le PathInGraph courant, cree le chemin depuis la chaine passé en parametre. On ecrase le
+	 * En travaillant sur le PathInGraph courant, créé le chemin depuis la chaine passée en paramètre. On écrase le
 	 * contenue precedent du chemin
 	 * 
 	 * @param pathInGraph
@@ -102,8 +102,8 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * En travaillant sur le PathInGraph courant, cree le chemin depuis le chemin passé en parametre. On ecrase le
-	 * contenue precedent du chemin
+	 * En travaillant sur le PathInGraph courant, créé le chemin depuis le chemin passé en parametre. On écrase le
+	 * contenu précédent du chemin
 	 * 
 	 * @param pathInGraph
 	 *            la chaine representant le graph a importer
@@ -145,7 +145,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Ajout à la liste des service à avoir à au moins une station où l'on pose le pied, le service passé en paramètre
+	 * Ajout à la liste des services à avoir à au moins une station où l'on pose le pied, le service passé en paramètre
 	 * 
 	 * @param service
 	 */
@@ -165,7 +165,7 @@ public class PathInGraphConstraintBuilder {
 	}
 
 	/**
-	 * Retire de la liste des points de passages obligatoire la station passée en paramètre
+	 * Retire de la liste des points de passage obligatoire, la station passée en paramètre
 	 * 
 	 * @param station
 	 */

@@ -526,7 +526,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Trouve la/les jonctions entre les deux stations sur leurs routes respectives et leur applique l'état passé en
+	 * Trouve la/les jonction()s entre les deux stations sur leurs routes respectives et leur applique l'état passé en
 	 * paramètre
 	 * 
 	 * @param stationOrigin
@@ -552,7 +552,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Trouve la/les jonctions entre les deux stations sur leurs routes respectives et leur applique l'état passé en
+	 * Trouve la/les jonction()s entre les deux stations sur leurs routes respectives et leur applique l'état passé en
 	 * paramètre
 	 * 
 	 * @param stationOrigin
@@ -597,8 +597,8 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relatives aux
-	 * routes, les jonctions.
+	 * Remet les composants du réseau comme actif : on réactive les routes, les stations, les stations relatives aux
+	 * routes, aux jonctions.
 	 */
 	public void resetEnables() {
 		Iterator<Route> itRoute = currentGraphNetwork.routes.iterator();
@@ -621,7 +621,7 @@ public class GraphNetworkBuilder {
 	}
 
 	/**
-	 * Trie tous les objets (routes, stations,...) contenu par ordre alphabétique.
+	 * Trie tous les objets (routes, stations,...) contenus par ordre alphabétique.
 	 */
 	public void sortMembers() {
 		// routes services stations;

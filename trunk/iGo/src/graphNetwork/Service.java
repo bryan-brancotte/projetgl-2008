@@ -19,9 +19,9 @@ public class Service {
 	 * constructeur d'un service
 	 * 
 	 * @param id
-	 *            id du service a creer
+	 *            id du service a créer
 	 * @param sortDescritption
-	 *            description du service a creer
+	 *            description du service a créer
 	 * @return void
 	 */
 	protected Service(int id, String name) {

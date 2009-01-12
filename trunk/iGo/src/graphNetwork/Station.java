@@ -30,9 +30,9 @@ public class Station {
 	 * constructeur d'une station
 	 * 
 	 * @param id
-	 *            id de la station a creer
+	 *            id de la station a créer
 	 * @param name
-	 *            nom de la station a creer
+	 *            nom de la station a créer
 	 * @return void
 	 */
 	protected Station(int id, String name) {

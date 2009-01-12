@@ -8,7 +8,7 @@ public class PathInGraphResultBuilder {
 	protected PathInGraph currentPathInGraph;
 
 	/**
-	 * le graph dans lequel le monteur de PathInGraph est cree
+	 * le graph dans lequel le monteur de PathInGraph est créé
 	 * 
 	 * @param graph
 	 *            graph
@@ -21,7 +21,7 @@ public class PathInGraphResultBuilder {
 	}
 
 	/**
-	 * retourne le trajet actuellement etudie
+	 * retourne le trajet actuellement etudié
 	 * 
 	 * @return le trajet etudie
 	 */
@@ -30,7 +30,7 @@ public class PathInGraphResultBuilder {
 	}
 
 	/**
-	 * ajout au debut du chemin de l'inter, dans le PathInGrah courant
+	 * ajout au debut du chemin de la jonction, dans le PathInGrah courant
 	 * 
 	 * @param junction
 	 *            la jonction a ajouter au debut du chemin
@@ -40,7 +40,7 @@ public class PathInGraphResultBuilder {
 	}
 
 	/**
-	 * ajout en fin de chemin de l'inter, dans le PathInGrah courant
+	 * ajout en fin de chemin de la jonction, dans le PathInGrah courant
 	 * 
 	 * @param junction
 	 *            la jonction a ajouter a la fin du chemin
@@ -50,7 +50,7 @@ public class PathInGraphResultBuilder {
 	}
 
 	/**
-	 * En travaillant sur le PathInGraph courant, vide le chemin de ses inter.
+	 * En travaillant sur le PathInGraph courant, vide le chemin de ses jonctions.
 	 * 
 	 * @return void
 	 */
