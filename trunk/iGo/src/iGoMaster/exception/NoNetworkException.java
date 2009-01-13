@@ -1,6 +1,8 @@
 package iGoMaster.exception;
 
 @SuppressWarnings("serial")
+
+/** Exception invoquée lorsqu'il n'y pas de fichier XML représentant le réseau */
 public class NoNetworkException extends Exception{
 
 	
