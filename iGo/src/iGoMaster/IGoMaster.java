@@ -5,6 +5,7 @@ import graphNetwork.KindRoute;
 import graphNetwork.PathInGraph;
 import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
+import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
@@ -146,36 +147,30 @@ public class IGoMaster implements Master, Observer
 		{
 			boolean exception = true;
 			
-			public void dealWithExceptions(AlgoKindOfException kindOfException)
+			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service, Route route, Station station, KindRoute kindRoute)
 			{
 				if(test())System.out.println("elo --> Le master a rencontré une exception venant d'algo");
 				if(test())System.out.println(kindOfException.toString());
 				
-				ihm.returnPathAsked(null, kindOfException);
+				ihm.returnPathAsked(null, kindOfException, service, route, station, kindRoute);
 				currentAlgo=null;
 				
 				exception = false;
 			}
 			
-			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service, Station station)
+			public void dealWithRelaxation(AlgoKindOfRelaxation kindOfRelaxation,  Service service, Route route, Station station, KindRoute kindRoute)
 			{
 				if(test())System.out.println("elo --> Le master a relaché une contrainte");
 				
 				if (service!=null)
 				{	
-					ihm.infoPathAsked(kindOfException, service, null , null, null);
+					ihm.infoPathAsked(kindOfRelaxation, service, route , station, kindRoute);
 				
-					if (kindOfException==AlgoKindOfException.ServiceNotAccessible)
+					if (kindOfRelaxation==AlgoKindOfRelaxation.ServiceRelaxation)
 						collectionBuilder.getPathInGraphConstraintBuilder().removeSeviceOnce(service);
 					
 					exception = true;
 				}
-				else if (station!=null)
-				{
-					ihm.infoPathAsked(kindOfException, null, null , station, null);
-					exception = false;
-				}
-				
 			}
 			
 			public void run() 
@@ -193,14 +188,14 @@ public class IGoMaster implements Master, Observer
 						if (test())System.out.println("elo --> Aucune exception n'a été lancée par algo");
 						
 					}
-					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.NoSolution);} 
-					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.RoutesNotAccessible, null, e.getStation());} 	 
-					catch (StationNotOnRoadException e) {dealWithExceptions(AlgoKindOfException.StationNotOnGraphNetworkRoad);} 
-					catch (NonValidOriginException e) {dealWithExceptions(AlgoKindOfException.NonValidOrigin);} 
-					catch (NonValidDestinationException e) {dealWithExceptions(AlgoKindOfException.NonValidDestination);} 
-					catch (ServiceNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.ServiceNotAccessible, e.getService(),null);} 
-					catch (StationNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.StationNotAccessible,null,e.getStation());}
-					catch (Exception e){dealWithExceptions(AlgoKindOfException.UndefinedError);} 
+					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.NoSolution,null,null,null,null);} 
+					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.RoutesNotAccessible, null, null, e.getStation(),null);} 	 
+					catch (StationNotOnRoadException e) {dealWithExceptions(AlgoKindOfException.StationNotOnGraphNetworkRoad,null,null,null,null);} 
+					catch (NonValidOriginException e) {dealWithExceptions(AlgoKindOfException.NonValidOrigin,null,null,null,null);} 
+					catch (NonValidDestinationException e) {dealWithExceptions(AlgoKindOfException.NonValidDestination,null,null,null,null);} 
+					catch (ServiceNotAccessibleException e) {dealWithRelaxation(AlgoKindOfRelaxation.ServiceRelaxation, e.getService(),null,null,null);} 
+					catch (StationNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.StationNotAccessible,null,null,e.getStation(),null);}
+					catch (Exception e){dealWithExceptions(AlgoKindOfException.UndefinedError,null,null,null,null);} 
 				}
 			}
 		}.start();
@@ -364,10 +359,10 @@ public class IGoMaster implements Master, Observer
 				
 				ihm.returnPathAsked(
 						collectionBuilder.getPathInGraphConstraintBuilder(),
-						AlgoKindOfException.EverythingFine
+						AlgoKindOfException.EverythingFine,null,null,null,null
 						);	
 			}
-			else ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError);		
+			else ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError,null,null,null,null);		
 		}
 		else if (o.equals(eventInfoNetwork) && o!=null)
 		{
