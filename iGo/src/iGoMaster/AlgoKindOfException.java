@@ -34,8 +34,7 @@ public enum AlgoKindOfException {
 	/**
 	 * Il n'y a aucune solution à l'algorithme mais on ne sait pas pourquoi
 	 */
-	NoSolution(),
-	
+	NoSolution(),	
 	/**
 	 * 
 	 * L'utilisateur a demandé un service à toutes les stations mais ce dernier

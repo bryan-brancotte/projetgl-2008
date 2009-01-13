@@ -97,18 +97,11 @@ public interface IHM {
 	 * @param pathInGraphConstraintBuilder
 	 *            le builder de contraintes
 	 * @param algoKindOfException
-	 *            Si l'algo a rencontré une erreur, énum qui précise le type d'erreur. Sinon null.
+	 *            Si l'algo a rencontré une erreur, énum qui précise le type d'erreur.
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean returnPathAsked(PathInGraphConstraintBuilder pathInGraphConstraintBuilder, AlgoKindOfException algoKindOfException);
-
-	/**
-	 * Ne pas utiliser cette méthode, elle ne comporte pas assez d'information, utiliser
-	 * infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route, Station station, KindRoute
-	 * kindRoute). </br><bold>Cette fonction à été vidé de sa substance, son appel est donc sans effet</bold>
-	 */
-	@Deprecated
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service);
+	public boolean returnPathAsked(PathInGraphConstraintBuilder pathInGraphConstraintBuilder,
+			AlgoKindOfException algoKindOfException, Service service, Route route, Station station, KindRoute kindRoute);
 
 	/**
 	 * Informe l'utilisateur des relaxation de contrainte
@@ -134,5 +127,5 @@ public interface IHM {
 	 * @return vrai il y a bien un trajet en cours de visualisation, et si la mise à jour s'est déroulée correctement.
 	 */
 	public boolean updateNetwork();
-		
+
 }

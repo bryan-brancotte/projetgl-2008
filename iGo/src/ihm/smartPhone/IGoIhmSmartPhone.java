@@ -884,7 +884,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean returnPathAsked(PathInGraphConstraintBuilder path, AlgoKindOfException algoKindOfException) {
+	public boolean returnPathAsked(PathInGraphConstraintBuilder path, AlgoKindOfException algoKindOfException,
+			Service service, Route route, Station station, KindRoute kindRoute) {
 		verrou.lock();
 		try {
 			if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
@@ -945,10 +946,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_UnknownException"));
 				break;
 			default:
+				computingPanel.addMessage("TODO returnPathAsked : " + algoKindOfException);
 				break;
-			}
-			if (algoKindOfException == AlgoKindOfException.EverythingFine) {
-			} else {
 			}
 			return false;
 		} finally {
@@ -1125,11 +1124,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		errorPanel.setTitle(title);
 		errorPanel.giveControle();
 		centerPanel.validate();
-	}
-
-	@Override
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service) {
-		return false;
 	}
 
 	@Override
