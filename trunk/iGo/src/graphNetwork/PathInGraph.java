@@ -398,7 +398,7 @@ public class PathInGraph {
 
 	private String getId(Station s) {
 		if (s == null)
-			return "null";
+			return "";
 		return s.getId() + "";
 	}
 
@@ -610,11 +610,8 @@ public class PathInGraph {
 		Station station;
 		Service service;
 
-		System.err.println("\nee");
-		System.err.println(pathInString);
 		doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
 				new ByteArrayInputStream(pathInString.getBytes()));
-		System.err.println("ff");
 
 		i = 0;
 		while ((nodesPathInGraph == null) && (i < doc.getFirstChild().getChildNodes().getLength())) {
@@ -629,14 +626,14 @@ public class PathInGraph {
 					if (!node.getNodeName().startsWith("#")) {
 						if (node.getNodeName().compareTo("Origin") == 0) {
 							s = node.getAttributes().getNamedItem("id").getNodeValue();
-							if (s.compareTo("null") != 0)
+							if (s.compareTo("") != 0)
 								origin = univers.getStation(Integer.parseInt(s));
 							else
 								origin = null;
 
 						} else if (node.getNodeName().compareTo("Destination") == 0) {
 							s = node.getAttributes().getNamedItem("id").getNodeValue();
-							if (s.compareTo("null") != 0)
+							if (s.compareTo("") != 0)
 								destination = univers.getStation(Integer.parseInt(s));
 							else
 								destination = null;
