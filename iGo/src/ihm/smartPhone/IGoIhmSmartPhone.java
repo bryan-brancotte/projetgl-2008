@@ -1146,9 +1146,9 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		case RoutesNotAccessible:
 			computingPanel.addMessage(master.lg("INFO_RoutesNotAccessible"));
 			if (station != null)
-				computingPanel.addMessage(master.lg("Station")+station.getName()); 
+				computingPanel.addMessage(master.lg("Station") + station.getName());
 			break;
-			//TODO WTF !!!!!
+		// TODO WTF !!!!!
 		case EverythingFine:
 			computingPanel.addMessage(master.lg("INFO_EverythingFine"));
 			break;
@@ -1164,5 +1164,11 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public Iterator<EventInfo> getEvent() {
 		return master.getNewEventInfos();
+	}
+
+	@Override
+	public boolean hasEvent() {
+		//TODO demander au master un fonction comme ca.
+		return master.getNewEventInfos().hasNext();
 	}
 }
