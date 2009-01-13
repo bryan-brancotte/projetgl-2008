@@ -95,7 +95,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 
 				List<Element> numVersion = racine.getChildren("VersionNumber");
 				if (numVersion.size() == 1) {
-					if (Integer.parseInt(numVersion.get(0).getTextTrim()) != version) {
+					if (Integer.parseInt(numVersion.get(0).getTextTrim()) > version) {
 						synchronized (verrou) {
 
 							version = Integer.parseInt(numVersion.get(0).getTextTrim());
@@ -300,7 +300,7 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 		synchronized (verrou) {
 			status = EventInfoNetWorkWatcherStatus.STARTED;
 			watcher = new Timer(true);
-			watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 10 * 1000);
+			watcher.scheduleAtFixedRate(new WatcherInFolder(), 0, 5 * 1000);
 		}
 	}
 
