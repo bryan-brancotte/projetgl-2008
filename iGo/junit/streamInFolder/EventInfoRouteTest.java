@@ -56,6 +56,14 @@ public class EventInfoRouteTest {
 	public void idGetter() {
 		assertTrue(info.getId()==1);
 	}
+
+	/**
+	 * Test du getter de l'id de la route
+	 */
+	@Test
+	public void idRGetter() {
+		assertTrue(info.getIdRoute().compareTo("RerB")==0);
+	}
 	
 	/**
 	 * Test du getter du kind

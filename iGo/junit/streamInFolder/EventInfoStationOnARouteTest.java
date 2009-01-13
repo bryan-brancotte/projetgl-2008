@@ -50,13 +50,15 @@ public class EventInfoStationOnARouteTest {
 		
 	}
 	
+	
 	/**
-	 * Test du getter de l'ids
+	 * Test du getter des id
 	 */
 	@Test
 	public void idsGetter() {
 		assertTrue(info.getIdStation()==1);
 		assertTrue(info.getId()==2);
+		assertTrue(info.getIdRoute().compareTo("RerB")==0);
 	}
 	
 	/**

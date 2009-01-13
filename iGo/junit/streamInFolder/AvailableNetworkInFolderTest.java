@@ -17,9 +17,7 @@ public class AvailableNetworkInFolderTest {
 
 	@Before
 	public void prologueDateTest(){
-		aNetwork = new AvailableNetworkInFolder("my_name","my_path");
-		//aNetwork.setDescription("DESCRIPTION");
-		
+		aNetwork = new AvailableNetworkInFolder("my_name","my_path");		
 	}
 	
 	/**
