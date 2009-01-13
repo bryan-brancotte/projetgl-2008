@@ -1089,6 +1089,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				if (!travel.isValideFromWhereIAm()) {
 					CodeExecutor codeEx = new CodeExecutor() {
 						public void execute() {
+							System.out.println(travel.prepareToSolveAsBestAsICan());
 							if (travel.prepareToSolveAsBestAsICan())
 								setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, travel.getPathClone());
 							else {
