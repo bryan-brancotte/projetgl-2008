@@ -610,8 +610,11 @@ public class PathInGraph {
 		Station station;
 		Service service;
 
+		System.err.println("\nee");
+		System.err.println(pathInString);
 		doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
 				new ByteArrayInputStream(pathInString.getBytes()));
+		System.err.println("ff");
 
 		i = 0;
 		while ((nodesPathInGraph == null) && (i < doc.getFirstChild().getChildNodes().getLength())) {
