@@ -329,7 +329,9 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 				// e.printStackTrace();
 			} catch (IOException e) {
 				// e.printStackTrace();
-			}
+			} catch (Exception e) {
+			// e.printStackTrace();
+		}
 		}
 	}
 
@@ -387,10 +389,12 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		if (pig != null) {
 			if (pigMap.containsKey(pig) && recents.contains(pigMap.get(pig))) {
 				File toDelete = filesMap.get(pig);
-				toDelete.delete();
-				recents.remove(pigMap.get(pig));
-				filesMap.remove(pig);
-				pigMap.remove(pig);
+				if (toDelete != null) {
+					toDelete.delete();
+					recents.remove(pigMap.get(pig));
+					filesMap.remove(pig);
+					pigMap.remove(pig);
+				}
 			}
 		}
 	}
