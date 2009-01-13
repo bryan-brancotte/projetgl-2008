@@ -467,7 +467,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 							buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
 							if (drawStationNameZoom)
-								buffer.drawString(section.getStationInSection()[i], center.x - (int) (x * i)
+								buffer.drawString(section.getStationInSection()[length-i], center.x - (int) (x * i)
 										+ sizeDemiLarge, center.y - (int) (y * i)
 										+ (father.getSizeAdapteur().getSizeSmallFont() >> 1));
 						}
