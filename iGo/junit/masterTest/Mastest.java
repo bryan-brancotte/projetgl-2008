@@ -82,9 +82,9 @@ public class Mastest {
 		assertTrue("l'iterateur ne doit jamais être null", master.getNewEventInfos().hasNext() == master
 				.hasNewEventInfos());
 	}
-
+/*
 	@Test
 	public void favAndRecents() {
 		master.
-	}
+	}*/
 }
