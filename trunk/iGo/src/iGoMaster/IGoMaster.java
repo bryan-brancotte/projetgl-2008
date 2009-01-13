@@ -53,7 +53,8 @@ enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionF
 
 
 /**  
- * @author iGo
+ * Classe qui se charge de la coordination de tous les modules du logiciel
+ * @author Elodie
  */
 public class IGoMaster implements Master, Observer 
 {
@@ -72,6 +73,7 @@ public class IGoMaster implements Master, Observer
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 	private RecentsAndFavoritesPathsInGraph pathInGraphsToRemember;
 	
+	
 	/**
 	 * Etat du réseau
 	 */
@@ -87,11 +89,22 @@ public class IGoMaster implements Master, Observer
 	 */
 	private ArrayList <EventInfo> recentEventInfo = new ArrayList<EventInfo>();
 	
+	/**
+	 * Précise si il reste des évènements dont l'ihm n'a pas encore pris connaissance dans la liste
+	 * des évènements récents
+	 */
+	private boolean eventsJustArrived = false;
+	
+	
 	
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
 	/******************************************************************************/
 	
+	/**
+	 * Constructeur de IgoMaster, prend en paramètre les informations nécessaires pour trouver
+	 * le réseau et ses mises à jour.
+	 */
 	public IGoMaster(String network, String event)
 	{
 		super();
@@ -121,7 +134,7 @@ public class IGoMaster implements Master, Observer
 	
 	
 	/**  
-	 * Lancement du thread implicite qui surveillera les mises à jours du réseau tout au long de l'application
+	 * Lancement du thread implicite qui surveillera les mises à jour du réseau tout au long de l'application
 	 * Retourne faux si échec concernant l'initialisation de l'objet qui observe les mises à jour.
 	 */
 	private boolean watchEvent()
@@ -140,6 +153,7 @@ public class IGoMaster implements Master, Observer
 	
 	/**  
 	 * Thread qui va lancer le calcul d'un trajet
+	 * Relache les contraintes uniques sur les services
 	 */
 	private void launchAlgo()
 	{
@@ -339,6 +353,11 @@ public class IGoMaster implements Master, Observer
 	/******************************************************************************/
 	
 	@Override
+	/**
+	 * Les observables Algo et EventWatcher avertiront le master de la terminaison du calcul de trajet
+	 * ou encore de l'arrivée de nouveaux évènements avec la méthode notify qui aura pour conséquence
+	 * l'appel du update ci après.
+	 */
 	public void update(Observable o, Object arg) 
 	{
 		if (test())System.out.println("elo --> UPPDATEEEEEEE");
@@ -381,6 +400,8 @@ public class IGoMaster implements Master, Observer
 
 				while (itEvent.hasNext())recentEventInfo.add((EventInfo)itEvent.next());
 				
+				eventsJustArrived = true;
+				
 				eventInfoNetwork.applyInfo(graphBuilder);
 				
 				if (!ihm.updateNetwork()) System.err.print("Elo --> Mise à jour du réseau mais l'ihm n'a pas de trajet en cours de visualisation");
@@ -388,10 +409,13 @@ public class IGoMaster implements Master, Observer
 		}
 	}
 	
-	/**TODO
-	 * Tout reverifier à partir d'ici
-	 */
+	
 	@Override
+	/**
+	 * Permet la fermeture de l'application.
+	 * L'ihm appelera cette méthode qui sera chargée de stopper tous les autres modules 
+	 * encore en activité.
+	 */
 	public void stop() 
 	{
 		if (test())System.out.println("elo --> Fermeture de l'application");
@@ -401,7 +425,14 @@ public class IGoMaster implements Master, Observer
 		{System.err.print("elo --> La surveillance des événements n'était pas activée ...");}
 	
 		try{config.save();}
-		catch(Exception e){e.printStackTrace();} 	
+		catch(Exception e){e.printStackTrace();}
+		
+		if (currentAlgo!=null)
+		{
+			algo.abort();
+			try {currentAlgo.join();} 
+			catch (InterruptedException e) {e.printStackTrace();}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -463,14 +494,10 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public boolean setConfig(String key, String value) 
 	{
-		if (true/*TODO vérifier que je peux modifier les clés */)
-		{
-			config.setValue(key, value);
-			if (key == SettingsKey.LANGUAGE.toString())
-				lg.setLanguage(value);
-			return true;
-		}
-		return false;
+		config.setValue(key, value);
+		if (key == SettingsKey.LANGUAGE.toString())
+			lg.setLanguage(value);
+		return true;
 	}
 	
 	@Override
@@ -722,9 +749,16 @@ public class IGoMaster implements Master, Observer
 		}
 	
 	public Iterator<EventInfo> getNewEventInfos(){
+		eventsJustArrived = false;
 		return recentEventInfo.iterator();
 	}
 	
 	private boolean test(){return System.getProperty("user.name").compareTo("elodie") == 0;}
+
+
+	@Override
+	public boolean hasNewEventInfos() {
+		return eventsJustArrived;
+		}
 
 }
