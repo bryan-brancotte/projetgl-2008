@@ -118,7 +118,7 @@ public interface IHM {
 	 *            le type de route ayant un rappport avec le algoKindOfInformation ou null
 	 * @return true si l'IHM s'attendait a cette appel de fonction, false dans le cas contraire.
 	 */
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route,
+	public boolean infoPathAsked(AlgoKindOfRelaxation algoKindOfRelaxation, Service service, Route route,
 			Station station, KindRoute kindRoute);
 
 	/**

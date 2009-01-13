@@ -10,6 +10,7 @@ import graphNetwork.Service;
 import graphNetwork.Station;
 import iGoMaster.Algo;
 import iGoMaster.AlgoKindOfException;
+import iGoMaster.AlgoKindOfRelaxation;
 import iGoMaster.EventInfo;
 import iGoMaster.IHM;
 import iGoMaster.IHMGraphicQuality;
@@ -1127,30 +1128,30 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	}
 
 	@Override
-	public boolean infoPathAsked(AlgoKindOfException algoKindOfException, Service service, Route route,
+	public boolean infoPathAsked(AlgoKindOfRelaxation algoKindOfRelaxation, Service service, Route route,
 			Station station, KindRoute kindRoute) {
 
 		// ihm.infoPathAsked(AlgoKindOfException.ServiceNotAccessibleException, graphBuilder
 		// .getCurrentGraphNetwork().getServices().next(), null, null, null);
 		if (computingPanel == null)
 			return false;
-		switch (algoKindOfException) {
+		switch (algoKindOfRelaxation) {
 		case ServiceNotAccessible:
 			computingPanel.addMessage("Service non accessible, relaxation de ce service :");
 			computingPanel.addMessage(service.getName());
 			break;
-		case RoutesNotAccessible:
-			computingPanel.addMessage(master.lg("INFO_RoutesNotAccessible"));
-			if (station != null)
-				computingPanel.addMessage(master.lg("Station") + station.getName());
-			break;
-		// TODO WTF !!!!!
-		case EverythingFine:
-			computingPanel.addMessage(master.lg("INFO_EverythingFine"));
-			break;
+//		case RoutesNotAccessible:
+//			computingPanel.addMessage(master.lg("INFO_RoutesNotAccessible"));
+//			if (station != null)
+//				computingPanel.addMessage(master.lg("Station") + station.getName());
+//			break;
+//		// TODO WTF !!!!!
+//		case EverythingFine:
+//			computingPanel.addMessage(master.lg("INFO_EverythingFine"));
+//			break;
 		default:
 			// TODO infoPathAsked
-			computingPanel.addMessage("TODO infoPathAsked." + algoKindOfException + " : " + service + " " + route + " "
+			computingPanel.addMessage("TODO infoPathAsked." + algoKindOfRelaxation + " : " + service + " " + route + " "
 					+ station + " " + kindRoute);
 			break;
 		}
