@@ -59,8 +59,6 @@ enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionF
 public class IGoMaster implements Master, Observer 
 {
 	
-	private final int THREAD_LENGTH = (System.getProperty("user.name").compareTo("elodie") == 0)?3000:0;
-	
 	private IHM ihm;
 	private Algo algo;
 	private Language lg;
@@ -72,7 +70,6 @@ public class IGoMaster implements Master, Observer
 	private PathInGraphCollectionBuilder collectionBuilder;	
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 	private RecentsAndFavoritesPathsInGraph pathInGraphsToRemember;
-	
 	
 	/**
 	 * Etat du réseau
@@ -94,6 +91,10 @@ public class IGoMaster implements Master, Observer
 	 * des évènements récents
 	 */
 	private boolean eventsJustArrived = false;
+	
+	/** Pour tester l'affichage du chargement des différents modules avec l'ihm, il faudra augmenter
+	 * 	la valeur de THREAD_LENGTH */
+	private final int THREAD_LENGTH = 0;
 	
 	
 	
@@ -163,9 +164,6 @@ public class IGoMaster implements Master, Observer
 			
 			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service, Route route, Station station, KindRoute kindRoute)
 			{
-				if(test())System.out.println("elo --> Le master a rencontré une exception venant d'algo");
-				if(test())System.out.println(kindOfException.toString());
-				
 				ihm.returnPathAsked(null, kindOfException, service, route, station, kindRoute);
 				currentAlgo=null;
 				
@@ -174,8 +172,6 @@ public class IGoMaster implements Master, Observer
 			
 			public void dealWithRelaxation(AlgoKindOfRelaxation kindOfRelaxation,  Service service, Route route, Station station, KindRoute kindRoute)
 			{
-				if(test())System.out.println("elo --> Le master a relaché une contrainte");
-				
 				if (service!=null)
 				{	
 					ihm.infoPathAsked(kindOfRelaxation, service, route , station, kindRoute);
@@ -191,16 +187,12 @@ public class IGoMaster implements Master, Observer
 			{
 				currentAlgo=currentThread();
 				
-				if (test())System.out.println("elo --> Algo lancé");
-				
 				while (exception)
 				{	
 					try 
 					{
 						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 						exception = false;
-						if (test())System.out.println("elo --> Aucune exception n'a été lancée par algo");
-						
 					}
 					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.NoSolution,null,null,null,null);} 
 					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.RoutesNotAccessible, null, null, e.getStation(),null);} 	 
@@ -239,7 +231,6 @@ public class IGoMaster implements Master, Observer
 	{
 		this.initObservers();
 		
-		if (test())System.out.println("elo --> Start Visu");
 		ihm.start(true,4);
 		
 		new ExecMultiThread<IHM>(ihm) 
@@ -309,8 +300,6 @@ public class IGoMaster implements Master, Observer
 			if (this.graphReceiver.getAvaibleNetwork().hasNext())
 			{
 				this.network = (AvailableNetworkInFolder)(this.graphReceiver.getAvaibleNetwork().next());
-				
-				if (test())System.out.println("elo --> Récupération de " + this.network.getName());
 			}
 			else throw new NoNetworkException("Pas de réseau disponible." +
 					" L'utilisateur ne pourra pas utiliser toutes les fonctionnalités de l'application.");
@@ -360,14 +349,11 @@ public class IGoMaster implements Master, Observer
 	 */
 	public void update(Observable o, Object arg) 
 	{
-		if (test())System.out.println("elo --> UPPDATEEEEEEE");
-		
+
 		if (o.equals(algo) && o!=null)
 		{
 			if (currentAlgo!=null && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
 			{	
-				if (test())System.out.println("elo --> algorithme ok, on passe à l'ihm le chemin trouvé");
-
 				currentAlgo=null;
 
 				boolean addAsRecent = true;
@@ -418,8 +404,6 @@ public class IGoMaster implements Master, Observer
 	 */
 	public void stop() 
 	{
-		if (test())System.out.println("elo --> Fermeture de l'application");
-		
 		try{eventInfoNetwork.stopWatching();}
 		catch (NullPointerException e)
 		{System.err.print("elo --> La surveillance des événements n'était pas activée ...");}
@@ -439,15 +423,12 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) 
 	{
-		if (test())System.out.println("elo --> L'ihm demande un chemin");
-		
 		if (currentAlgo==null && pathInGraphBuidable!=null)
 		{	
 			if (collectionBuilder.getPathInGraphConstraintBuilder()!=null)
 			{	
 				if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
 				{
-					if (test())System.out.println("elo --> L'ihm étudie un builder normal");
 					this.launchAlgo();
 					return true;
 				}
@@ -456,13 +437,13 @@ public class IGoMaster implements Master, Observer
 
 			while (itRecent.hasNext())
 			{
-				if (test())System.out.println("elo --> L'ihm étudie un recent");
-				
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
 				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
-					if (test())System.out.println("elo --> recent trouvé");
+					pathInGraphsToRemember.removeFromRecents(collectionBuilder.getPathInGraph());
+					pathInGraphsToRemember.addAsRecent(collectionBuilder);
+					
 					this.launchAlgo();
 					return true;
 				}
@@ -472,13 +453,11 @@ public class IGoMaster implements Master, Observer
 
 			while (itFav.hasNext())
 			{
-				if (test())System.out.println("elo --> L'ihm étudie un favori");
-				
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
 				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
-					if (test())System.out.println("elo --> favori trouvé");
+					pathInGraphsToRemember.addAsRecent(collectionBuilder);
 					this.launchAlgo();
 					return true;
 				}
@@ -504,8 +483,6 @@ public class IGoMaster implements Master, Observer
 	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() 
 	throws NoNetworkException, GraphReceptionException, GraphConstructionException
 	{
-		if (test())System.out.println("elo --> L'ihm demande un builder de contraintes");
-		
 		if (currentAlgo!=null)
 		{
 			algo.abort();
@@ -752,9 +729,6 @@ public class IGoMaster implements Master, Observer
 		eventsJustArrived = false;
 		return recentEventInfo.iterator();
 	}
-	
-	private boolean test(){return System.getProperty("user.name").compareTo("elodie") == 0;}
-
 
 	@Override
 	public boolean hasNewEventInfos() {
