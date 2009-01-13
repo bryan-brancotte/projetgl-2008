@@ -435,7 +435,6 @@ public abstract class TravelDisplayPanel extends PanelState {
 			g.setFont(father.getSizeAdapteur().getSmallFont());
 			String[] cut = decoupeChaine(message, g, (getWidth() >> 1) + (getWidth() >> 2));
 			top += sizeLargeFont >> 1;
-			g.drawLine(0, top, 1000, top);
 			int heigthTmp = getHeightString(message, g);
 			// on décale le texte pour qu'il soit centré dans la fenetre.
 			top += getHeight() - (top << 1) - heigthTmp * (cut.length + 1) >> 1;

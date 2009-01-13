@@ -29,7 +29,7 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 	protected float entryCost;
 
 	protected int totalTime;
-	
+
 	protected boolean isFav;
 
 	LinkedList<SectionOfTravel> travel;
@@ -37,11 +37,11 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 	LinkedList<SectionOfTravel> travelDone;
 
 	public TravelForDisplayPanelImplPathInGraph(PathInGraphConstraintBuilder path,
-			PathInGraphConstraintBuilder pathClone,boolean isFav) {
+			PathInGraphConstraintBuilder pathClone, boolean isFav) {
 		super();
 		this.path = path;
 		this.pathClone = pathClone;
-		this.isFav=isFav;
+		this.isFav = isFav;
 		origin = path.getCurrentPathInGraph().getOrigin();
 		destination = path.getCurrentPathInGraph().getDestination();
 		travel = new LinkedList<SectionOfTravel>();
@@ -95,7 +95,7 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 			}
 			section.addJunction(junction);
 			station = junction.getOtherStation(station);
-			//coupure si on trouve un service qui n'est pas sur les changements
+			// coupure si on trouve un service qui n'est pas sur les changements
 			if (serviceToFind.size() > 0 && itJ.hasNext()) {
 				nextJunction = itJ.next();
 				itS = station.getServices();
@@ -106,12 +106,12 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 							section.enddingChangementCost = 0;
 						}
 			}
-			//coupure si on est sur une étape
+			// coupure si on est sur une étape
 			if (path.getCurrentPathInGraph().containsSteps(station)) {
 				section.enddingChangementTime = 0;
 				section.enddingChangementCost = 0;
 			}
-			//coupure si on change de ligne
+			// coupure si on change de ligne
 			if (section.getEnddingChangementTime() != -1) {
 				travel.add(section);
 				route = junction.getOtherRoute(route);
@@ -198,16 +198,13 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 	public boolean prepareToSolveAsBestAsICan() {
 		if (travel.isEmpty()) {
 			this.pathClone.setOrigin(this.pathClone.getCurrentPathInGraph().getDestination());
-			return true;
-		}
-		if (!((SectionOfTravelImplPathInGraph) travel.getFirst()).isValide()) {
+		} else if (!((SectionOfTravelImplPathInGraph) travel.getFirst()).isValide()) {
 			this.pathClone.setOrigin(travel.getFirst().getChangement());
-			return true;
-		}
-		if (!((SectionOfTravelImplPathInGraph) travelDone.getLast()).isValide()) {
+		} else if (travelDone.size() > 0 && !((SectionOfTravelImplPathInGraph) travelDone.getLast()).isValide()) {
 			this.pathClone.setOrigin(travelDone.getLast().getChangement());
-			return true;
 		}
+		if (this.pathClone.getCurrentPathInGraph().getOrigin().isEnable())
+			return true;
 		this.pathClone.setOrigin(null);
 		return false;
 	}
