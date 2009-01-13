@@ -55,6 +55,8 @@ public class ConfigurationXML implements Configuration {
 
 	@Override
 	public String getValue(String key) {
+		if (key == null)
+			return "";
 		String ret = conf.get(transformeToValideString(key));
 		if (ret == null)
 			return "";
