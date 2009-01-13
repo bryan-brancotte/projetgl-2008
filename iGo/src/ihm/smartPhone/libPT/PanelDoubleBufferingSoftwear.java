@@ -145,17 +145,50 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 
 	}
 
-	protected String[] decoupeChaine(String s, Graphics g, int widthMax) {
+	/**
+	 * Découpe la chaine passé en paramètre en morceau de la taille inférieur à la taille passé en paramètre. On tien
+	 * 
+	 * @param s
+	 *            la chaine à découper
+	 * @param g
+	 *            le graphique où va être dessiner la chaine
+	 * @param widthMax
+	 *            la largueur max
+	 * @return un tableau contenant la chaine découpé selon les préférence utilisateur
+	 */
+	protected String[] decoupeChaine(final String s, final Graphics g, final int widthMax) {
 		boolean containtNewLine = s.contains("\n");
 		if (!containtNewLine && getWidthString(s, g) <= widthMax)
 			return new String[] { s };
 		if (s.length() == 0)
 			return new String[0];
 
-		System.out.println(s.split("\n").length + " : " + s);
+		Vector<String> retV = new Vector<String>();
+		if (containtNewLine) {
+			String[] cut = s.split("\n");
+			for (String tmp : cut)
+				decoupeChaine(tmp, retV, g, widthMax);
+		} else
+			decoupeChaine(s, retV, g, widthMax);
+		return retV.toArray(new String[0]);
+	}
+
+	/**
+	 * Découpe la chaine passé en paramètre en morceau de la taille inférieur à la taille passé en paramètre et met les
+	 * morceau dans le vector lui aussi passé en param
+	 * 
+	 * @param s
+	 *            la chaine à découper
+	 * @param retV
+	 *            le vector acceuillant les morceaux
+	 * @param g
+	 *            le graphique où va être dessiner la chaine
+	 * @param widthMax
+	 *            la largueur max
+	 */
+	private void decoupeChaine(final String s, Vector<String> retV, final Graphics g, final int widthMax) {
 		String[] cut = s.split(" ");
 		String tmp;
-		Vector<String> retV = new Vector<String>();
 		int i = 0;
 
 		while (i < cut.length) {
@@ -169,7 +202,7 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 			}
 			retV.add(tmp);
 		}
-		return retV.toArray(new String[0]);
+
 	}
 
 	/**
