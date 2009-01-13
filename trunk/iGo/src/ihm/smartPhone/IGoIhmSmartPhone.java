@@ -891,6 +891,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		try {
 			if (actualState != IhmReceivingStates.COMPUT_TRAVEL)
 				return false;
+			String message;
 			switch (algoKindOfException) {
 			case EverythingFine:
 				// ba c'est bon quoi.
@@ -925,31 +926,42 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				this.setCurrentState(IhmReceivingStates.PREVISU_TRAVEL);
 				return true;
 			case NonValidDestination:// ba c'est pas bon =:-(
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ERROR_NonValidDestinationException"));
+				message = this.lg("ERROR_ERROR_NonValidDestinationException");
 				break;
 			case NoSolution:
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_NoSolution"));
+				message = this.lg("ERROR_NoSolution");
 				break;
 			case RoutesNotAccessible:
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_RoutesNotAccessible"));
+				message = this.lg("ERROR_RoutesNotAccessible");
 				break;
 			case ServiceNotAccessible:
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ServiceNotAccessibleException"));
+				message = this.lg("ERROR_ServiceNotAccessibleException");
 				break;
 			case StationNotAccessible:
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_ERROR_StationNotAccessibleException"));
+				message = this.lg("ERROR_StationNotAccessibleException");
 				break;
 			case StationNotOnGraphNetworkRoad:
-				// TODO ca veut dire quoi????
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_StationNotOnGraphNetworkRoad"));
+				message = this.lg("ERROR_StationNotOnGraphNetworkRoad");
 				break;
 			case UndefinedError:
-				setErrorState(this.lg("ERROR_Impossible"), this.lg("ERROR_UnknownException"));
+				message = this.lg("ERROR_UnknownException");
+				break;
+			case NonValidOrigin:
+				message = this.lg("ERROR_NonValidOrigin");
 				break;
 			default:
-				computingPanel.addMessage("TODO returnPathAsked : " + algoKindOfException);
+				message = this.lg("ERROR_Unknown") + " : " + algoKindOfException;
 				break;
 			}
+			if (service != null)
+				message += "\n" + master.lg("Service") + " : " + service;
+			if (route != null)
+				message += "\n" + master.lg("Route") + " : " + route;
+			if (station != null)
+				message += "\n" + master.lg("Station") + " : " + station;
+			if (kindRoute != null)
+				message += "\n" + master.lg("KindRoute") + " : " + kindRoute;
+			setErrorState(this.lg("ERROR_Impossible"), message);
 			return false;
 		} finally {
 			// Quoiqu'il arrive on execute ce code en fin de fonction
@@ -1130,29 +1142,20 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	@Override
 	public boolean infoPathAsked(AlgoKindOfRelaxation algoKindOfRelaxation, Service service, Route route,
 			Station station, KindRoute kindRoute) {
-
-		// ihm.infoPathAsked(AlgoKindOfException.ServiceNotAccessibleException, graphBuilder
-		// .getCurrentGraphNetwork().getServices().next(), null, null, null);
 		if (computingPanel == null)
 			return false;
 		switch (algoKindOfRelaxation) {
 		case ServiceRelaxation:
-			computingPanel.addMessage("Service non accessible, relaxation de ce service :");
+			computingPanel.addMessage(master.lg("INFO_ServiceRelaxation"));
 			computingPanel.addMessage(service.getName());
 			break;
-//		case RoutesNotAccessible:
-//			computingPanel.addMessage(master.lg("INFO_RoutesNotAccessible"));
-//			if (station != null)
-//				computingPanel.addMessage(master.lg("Station") + station.getName());
-//			break;
-//		// TODO WTF !!!!!
-//		case EverythingFine:
-//			computingPanel.addMessage(master.lg("INFO_EverythingFine"));
-//			break;
+		case EverythingFine:
+			computingPanel.addMessage(master.lg("INFO_EverythingFine"));
+			break;
 		default:
-			// TODO infoPathAsked
-			computingPanel.addMessage("TODO infoPathAsked." + algoKindOfRelaxation + " : " + service + " " + route + " "
-					+ station + " " + kindRoute);
+			computingPanel.addMessage(master.lg("ERROR_Unknown") + " : " + algoKindOfRelaxation + "\n"
+					+ master.lg("Service") + " : " + service + master.lg("Route") + " : " + route
+					+ master.lg("Station") + " : " + station + master.lg("KindRoute") + " : " + kindRoute);
 			break;
 		}
 		return true;

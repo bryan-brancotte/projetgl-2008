@@ -152,7 +152,8 @@ public abstract class PanelDoubleBufferingSoftwear extends Panel {
 		if (s.length() == 0)
 			return new String[0];
 
-		String[] cut = s.split("[ \n]");
+		System.out.println(s.split("\n").length + " : " + s);
+		String[] cut = s.split(" ");
 		String tmp;
 		Vector<String> retV = new Vector<String>();
 		int i = 0;
