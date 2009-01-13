@@ -3,6 +3,7 @@ package recentsAndFavoritesGraphsTest;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
+import java.util.Vector;
 
 import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
@@ -95,7 +96,7 @@ public class RafGraph {
 	}
 
 	@Test
-	public void testDAjout2() {
+	public void testDAjoutFav() {
 		PathInGraphCollectionBuilder pigColl = gn.getInstancePathInGraphCollectionBuilder();
 		raf.addAsRecent(pigColl);
 		raf.markAsFavorite(pigColl.getPathInGraph());
@@ -117,7 +118,7 @@ public class RafGraph {
 	}
 
 	@Test
-	public void testDAjout3() {
+	public void testAddDelInRecent() {
 		PathInGraphCollectionBuilder pigColl = gn.getInstancePathInGraphCollectionBuilder();
 		raf.addAsRecent(pigColl);
 		raf.removeFromRecents(pigColl.getPathInGraph());
@@ -131,7 +132,7 @@ public class RafGraph {
 	}
 
 	@Test
-	public void testDAjout4() {
+	public void testAddDelInFav() {
 		PathInGraphCollectionBuilder pigColl = gn.getInstancePathInGraphCollectionBuilder();
 		raf.addAsRecent(pigColl);
 		raf.markAsFavorite(pigColl.getPathInGraph());
@@ -145,4 +146,57 @@ public class RafGraph {
 		assertTrue("le trajet à été retiré des favoris, il ne devrait plus y être dans les récents", !b);
 		assertTrue("le trajet n'est pourtant plus un favoris", !raf.isFavorite(pigColl.getPathInGraph()));
 	}
+
+	@Test
+	public void testDelInFav() {
+		PathInGraphCollectionBuilder pigColl = gn.getInstancePathInGraphCollectionBuilder();
+		raf.addAsRecent(pigColl);
+		raf.markAsFavorite(pigColl.getPathInGraph());
+		raf.removeFromRecents(pigColl.getPathInGraph());
+		Iterator<PathInGraphCollectionBuilder> it;
+		it = raf.getFavoritesPaths();
+		boolean b = false;
+		while (!b && it.hasNext()) {
+			b |= it.next() == pigColl;
+		}
+		assertTrue("le trajet à été retiré des favoris, il ne devrait plus y être dans les favoris", !b);
+		assertTrue("le trajet n'est pourtant plus un favoris", !raf.isFavorite(pigColl.getPathInGraph()));
+	}
+
+	@Test
+	public void maxCapacity() {
+		Vector<PathInGraphCollectionBuilder> addPath = new Vector<PathInGraphCollectionBuilder>();
+		for (int i = 0; i < RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.addAsRecent(p);
+		}
+		Iterator<PathInGraphCollectionBuilder> it;
+		it = raf.getRecentsPaths();
+		while (it.hasNext())
+			addPath.remove(it.next());
+		assertTrue("Nous avons ajouter " + RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS
+				+ " trajet, il devrait tous être dans les récent", addPath.isEmpty());
+	}
+
+	@Test
+	public void overFlowMaxCapacity() {
+	}
+
+	@Test
+	public void orderedAdding() {
+	}
+
+	@Test
+	public void orderedDeleting() {
+	}
+
+	@Test
+	public void masiveRemove() {
+	}
+
+	@Test
+	public void favAndRecentOrdered() {
+	}
+
 }
