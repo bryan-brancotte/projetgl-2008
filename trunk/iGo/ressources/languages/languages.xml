@@ -655,7 +655,17 @@
 				<FRANCAIS value="Evenement concernant la station suivante"/>
 				<ENGLISH value="Event about the following station"/>
 				<GEEK value="S"/>
-			</EventStation>			
+			</EventStation>
+			<ERROR_GraphReceptionException>
+				<FRANCAIS value="eeeeeeeeee"/>
+				<ENGLISH value="eeeeeeeeee"/>
+				<GEEK value="eeeeeeeeee"/>
+			</ERROR_GraphReceptionException>
+			<ERROR_GraphConstructionException>
+				<FRANCAIS value="eeeeeeeeee"/>
+				<ENGLISH value="eeeeeeeeee"/>
+				<GEEK value="eeeeeeeeee"/>
+			</ERROR_GraphConstructionException>
 		</fields>
 	</root>
 

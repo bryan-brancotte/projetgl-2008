@@ -916,8 +916,16 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 						};
 					};
 					// ca à marché on dirait
-				} catch (Exception e) {
-					// Crash, on affiche l'erreur
+				} catch (NoNetworkException e) {
+					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_ReturnNoNetworkException"));
+					e.printStackTrace();
+				} catch (GraphReceptionException e) {
+					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_GraphReceptionException"));
+					e.printStackTrace();
+				} catch (GraphConstructionException e) {
+					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_GraphConstructionException"));
+					e.printStackTrace();
+				} catch (Exception e) { 
 					setErrorState(this.lg("ERROR_Problem"), this.lg("ERROR_BuildingTravelFromResult"));
 					e.printStackTrace();
 					return false;
@@ -1168,7 +1176,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean hasEvent() {
-		// TODO demander au master un fonction comme ca.
-		return master.getNewEventInfos().hasNext();
+		return master.hasNewEventInfos();
 	}
 }
