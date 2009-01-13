@@ -250,7 +250,7 @@ public class PathInGraph {
 			elt.setAttribute("size", steps.size() + "");
 			for (Station s : steps) {
 				sta = document.createElement("Station");
-				sta.setAttribute("id", s.getId() + "");
+				sta.setAttribute("id", getId(s) + "");
 				elt.appendChild(sta);
 			}
 			root.appendChild(elt);
@@ -259,7 +259,7 @@ public class PathInGraph {
 			elt.setAttribute("size", avoidStations.size() + "");
 			for (Station s : avoidStations) {
 				sta = document.createElement("Station");
-				sta.setAttribute("id", s.getId() + "");
+				sta.setAttribute("id", getId(s) + "");
 				elt.appendChild(sta);
 			}
 			root.appendChild(elt);
@@ -625,12 +625,18 @@ public class PathInGraph {
 				if ((node = nodesPathInGraph.item(i)).getNodeName().compareTo("#text") != 0) {
 					if (!node.getNodeName().startsWith("#")) {
 						if (node.getNodeName().compareTo("Origin") == 0) {
-							origin = univers.getStation(Integer.parseInt(node.getAttributes().getNamedItem("id")
-									.getNodeValue()));
+							s = node.getAttributes().getNamedItem("id").getNodeValue();
+							if (s.compareTo("null") != 0)
+								origin = univers.getStation(Integer.parseInt(s));
+							else
+								origin = null;
 
 						} else if (node.getNodeName().compareTo("Destination") == 0) {
-							destination = univers.getStation(Integer.parseInt(node.getAttributes().getNamedItem("id")
-									.getNodeValue()));
+							s = node.getAttributes().getNamedItem("id").getNodeValue();
+							if (s.compareTo("null") != 0)
+								destination = univers.getStation(Integer.parseInt(s));
+							else
+								destination = null;
 
 						} else if (node.getNodeName().compareTo("Cost") == 0) {
 							cost = Float.parseFloat(node.getAttributes().getNamedItem("value").getNodeValue());
