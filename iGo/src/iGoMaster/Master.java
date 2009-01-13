@@ -197,5 +197,13 @@ public interface Master {
 	 * @return un iterator sur les informations relatives aux nouveaux évènements
 	 */
 	public Iterator<EventInfo> getNewEventInfos();
+	
+	
+	/**
+	 * Permet de savoir s'il y a des nouveaux EventInfo 
+	 * 
+	 * @return true s'il y en a
+	 */
+	public boolean hasNewEventInfos();
 
 }
