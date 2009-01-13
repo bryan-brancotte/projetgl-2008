@@ -195,17 +195,21 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 	}
 
 	@Override
-	public boolean prepareToSolveAsBestAsICan() {
-		if (travel.isEmpty()) {
+	public boolean prepareToSolveAsBestAsICan() { 
+		if (travel.isEmpty())
 			this.pathClone.setOrigin(this.pathClone.getCurrentPathInGraph().getDestination());
-		} else if (!((SectionOfTravelImplPathInGraph) travel.getFirst()).isValide()) {
+		else if (travelDone.size() == 0)
+			this.pathClone.setOrigin(this.pathClone.getCurrentPathInGraph().getOrigin());
+		else if (((SectionOfTravelImplPathInGraph) travel.getFirst()).isValide())
 			this.pathClone.setOrigin(travel.getFirst().getChangement());
-		} else if (travelDone.size() > 0 && !((SectionOfTravelImplPathInGraph) travelDone.getLast()).isValide()) {
-			this.pathClone.setOrigin(travelDone.getLast().getChangement());
-		}
-		if (this.pathClone.getCurrentPathInGraph().getOrigin().isEnable())
+		else
+			this.pathClone.setOrigin(null);
+		// else if (travelDone.size() > 0 && !((SectionOfTravelImplPathInGraph) travelDone.getLast()).isValide()) {
+		// this.pathClone.setOrigin(travelDone.getLast().getChangement());
+		// }
+		if (this.pathClone.getCurrentPathInGraph().getOrigin() != null
+				&& this.pathClone.getCurrentPathInGraph().getOrigin().isEnable())
 			return true;
-		this.pathClone.setOrigin(null);
 		return false;
 	}
 

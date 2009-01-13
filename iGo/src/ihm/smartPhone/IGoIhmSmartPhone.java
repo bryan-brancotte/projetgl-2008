@@ -650,8 +650,8 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 			 */
 		} else if (actualState == IhmReceivingStates.NEW_TRAVEL || actualState == IhmReceivingStates.EDIT_TRAVEL
 				|| actualState == IhmReceivingStates.LOST_IN_TRAVEL) {
-			if (actualState == IhmReceivingStates.LOST_IN_TRAVEL && path == null)
-				return false;
+			// if (actualState == IhmReceivingStates.LOST_IN_TRAVEL && path == null)
+			// return false;
 			this.actualState = actualState;
 			centerPanel.removeAll();
 			newTravelPanel = null;
@@ -668,8 +668,10 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.NEW_TRAVEL);
 					break;
 				case LOST_IN_TRAVEL:
-					pathBuilder = master.getPathInGraphConstraintBuilder();
-					pathBuilder.importPath(path);
+					if (pathBuilder == null) {
+						pathBuilder = master.getPathInGraphConstraintBuilder();
+						pathBuilder.importPath(path);
+					}
 					newTravelPanel.setPathInGraphConstraintBuilder(pathBuilder, NewTravelPanelState.LOST_TRAVEL);
 					break;
 				case EDIT_TRAVEL:
@@ -1089,7 +1091,6 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 				if (!travel.isValideFromWhereIAm()) {
 					CodeExecutor codeEx = new CodeExecutor() {
 						public void execute() {
-							System.out.println(travel.prepareToSolveAsBestAsICan());
 							if (travel.prepareToSolveAsBestAsICan())
 								setCurrentState(IhmReceivingStates.COMPUT_TRAVEL, travel.getPathClone());
 							else {
@@ -1169,7 +1170,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 
 	@Override
 	public boolean hasEvent() {
-		//TODO demander au master un fonction comme ca.
+		// TODO demander au master un fonction comme ca.
 		return master.getNewEventInfos().hasNext();
 	}
 }
