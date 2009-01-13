@@ -14,6 +14,6 @@ public enum AlgoKindOfRelaxation {
 	 * 
 	 * Le services n'est pas accessible et est en passe d'être relaxé
 	 */
-	ServiceNotAccessible();
+	ServiceRelaxation();
 
 }

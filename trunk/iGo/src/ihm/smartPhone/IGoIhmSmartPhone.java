@@ -1136,7 +1136,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 		if (computingPanel == null)
 			return false;
 		switch (algoKindOfRelaxation) {
-		case ServiceNotAccessible:
+		case ServiceRelaxation:
 			computingPanel.addMessage("Service non accessible, relaxation de ce service :");
 			computingPanel.addMessage(service.getName());
 			break;
