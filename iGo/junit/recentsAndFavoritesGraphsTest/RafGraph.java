@@ -1,15 +1,16 @@
 package recentsAndFavoritesGraphsTest;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.Iterator;
-import java.util.Vector;
-
 import graphNetwork.GraphNetwork;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraphCollectionBuilder;
 import iGoMaster.IGoMaster;
 import iGoMaster.RecentsAndFavoritesPathsInGraph;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Vector;
+
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.After;
@@ -181,18 +182,131 @@ public class RafGraph {
 
 	@Test
 	public void overFlowMaxCapacity() {
+		int OVERFLOW = 35;
+		Vector<PathInGraphCollectionBuilder> addPath = new Vector<PathInGraphCollectionBuilder>();
+		Vector<PathInGraphCollectionBuilder> addPathOver = new Vector<PathInGraphCollectionBuilder>();
+		for (int i = 0; i < RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (int i = 0; i < OVERFLOW; i++)
+			addPathOver.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPathOver) {
+			raf.addAsRecent(p);
+		}
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.addAsRecent(p);
+		}
+		Iterator<PathInGraphCollectionBuilder> it;
+		it = raf.getRecentsPaths();
+		while (it.hasNext()) {
+			PathInGraphCollectionBuilder p;
+			addPath.remove(p = it.next());
+			addPathOver.remove(p);
+		}
+		assertTrue("Nous avons ajouter " + (RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS + OVERFLOW)
+				+ " trajet, il devrait en rester les " + OVERFLOW + " premier ajouté dans les récent", addPathOver
+				.size() == OVERFLOW);
+		assertTrue("Nous avons ajouter " + (RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS + OVERFLOW)
+				+ " trajet, les " + RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS
+				+ " devrait avoir disparut (rest " + addPath.size() + ")", addPath.isEmpty());
 	}
 
 	@Test
 	public void orderedAdding() {
+		int nbAdd = RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS / 2;
+		boolean b;
+		LinkedList<PathInGraphCollectionBuilder> addPath = new LinkedList<PathInGraphCollectionBuilder>();
+		Iterator<PathInGraphCollectionBuilder> it;
+		// on ajout les notre
+		for (int i = 0; i < nbAdd; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPath)
+			raf.addAsRecent(p);
+
+		it = raf.getRecentsPaths();
+		b = true;
+		for (int i = 0; i < nbAdd; i++) {
+			b &= it.next() == addPath.removeLast();
+		}
+		assertTrue("Les " + nbAdd
+				+ " premier trajet, il devrait être dans l'ordre d'ajout du pls récent au plus ancien", b);
 	}
 
 	@Test
 	public void orderedDeleting() {
+		Iterator<PathInGraphCollectionBuilder> it;
+		PathInGraphCollectionBuilder p1 = gn.getInstancePathInGraphCollectionBuilder();
+		PathInGraphCollectionBuilder p2 = gn.getInstancePathInGraphCollectionBuilder();
+		PathInGraphCollectionBuilder p3 = gn.getInstancePathInGraphCollectionBuilder();
+		raf.addAsRecent(p1);
+		raf.addAsRecent(p2);
+		raf.addAsRecent(p3);
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p2", it.next() == p2);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
+		raf.removeFromRecents(p2.getPathInGraph());
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
 	}
 
 	@Test
 	public void masiveRemove() {
+		int size = RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS / 4;
+		Vector<PathInGraphCollectionBuilder> addPath = new Vector<PathInGraphCollectionBuilder>();
+		PathInGraphCollectionBuilder p1 = gn.getInstancePathInGraphCollectionBuilder();
+		Iterator<PathInGraphCollectionBuilder> it;
+		boolean b;
+		for (int i = 0; i < size; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.addAsRecent(p);
+		}
+		raf.addAsRecent(p1);
+		for (int i = 0; i < size; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.addAsRecent(p);
+		}
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.removeFromRecents(p.getPathInGraph());
+		}
+		it = raf.getRecentsPaths();
+		b = false;
+		while (!b && it.hasNext()) {
+			b |= p1 == it.next();
+		}
+		assertTrue("Nous venons d'ajouter/supprimer plusieur chemin, mais p1 devrait toujours être là", b);
+	}
+
+	@Test
+	public void mutliAddOneRemove() {
+		int size = RecentsAndFavoritesPathsInGraph.MAX_RECENTS_PATHS / 4;
+		Vector<PathInGraphCollectionBuilder> addPath = new Vector<PathInGraphCollectionBuilder>();
+		Vector<PathInGraphCollectionBuilder> addPathClone = new Vector<PathInGraphCollectionBuilder>();
+		PathInGraphCollectionBuilder p1 = gn.getInstancePathInGraphCollectionBuilder();
+		Iterator<PathInGraphCollectionBuilder> it;
+		for (int i = 0; i < size; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.addAsRecent(p);
+		}
+		raf.addAsRecent(p1);
+		for (int i = 0; i < size; i++)
+			addPath.add(gn.getInstancePathInGraphCollectionBuilder());
+		for (PathInGraphCollectionBuilder p : addPath) {
+			raf.addAsRecent(p);
+		}
+		for (PathInGraphCollectionBuilder p : addPath) {
+			addPathClone.add(p);
+			raf.removeFromRecents(p.getPathInGraph());
+		}
+		it = raf.getRecentsPaths();
+		while (it.hasNext())
+			addPathClone.remove(it.next());
+		assertTrue(
+				"Nous venons d'ajouter plusieur fois les même chemin, il devrait pourtant disparaitre dès la première supression",
+				addPathClone.size() == size);
 	}
 
 	@Test
