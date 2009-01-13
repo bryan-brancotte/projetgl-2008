@@ -168,7 +168,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 									}
 									if (allLignes != null) {
 										if (allLignes.split("null") != null && allLignes.split("null").length >= 1) {
-											allLignes = allLignes.split("null")[0];
+											allLignes = allLignes.replaceAll("null", "");
 										}
 
 										if (fr.getName().contains("fav")) {
