@@ -284,8 +284,13 @@
 			<Services>
 				<FRANCAIS value="Services"/>
 				<ENGLISH value="Services"/>
-				<GEEK value="Groom"/>
+				<GEEK value="Grooms"/>
 			</Services>
+			<Service>
+				<FRANCAIS value="Service"/>
+				<ENGLISH value="Service"/>
+				<GEEK value="Groom"/>
+			</Service>
 			<Minimal>
 				<FRANCAIS value="Minimale"/>
 				<ENGLISH value="Minimal"/>
@@ -407,8 +412,8 @@
 				<GEEK value="Failure at 0x956834, Invalid Arrival"/>
 			</ERROR_NonValidDestinationException>
 			<ERROR_RoutesNotAccessible>
-				<FRANCAIS value="Une des stations demandées n'est pas accessible avec les types de lignes que vous autorisez"/>
-				<ENGLISH value="A station can't be reach with the kind of route you have just allowed."/>
+				<FRANCAIS value="La station affichée ci dessous n'est pas accessible avec les types de lignes que vous autorisez"/>
+				<ENGLISH value="A station displayed below can't be reach with the kind of route you have just allowed."/>
 				<GEEK value="Failure at 0x223984, Stupid User"/>
 			</ERROR_RoutesNotAccessible>
 			<ERROR_NoSolution>
@@ -466,16 +471,31 @@
 				<ENGLISH value="Unable to build a new path : The network couldn't be interpreted"/>
 				<GEEK value="Pour rome? c'est tout droit"/>
 			</ERROR_NetworkConstruction>
+			<ERROR_NonValidOrigin>
+				<FRANCAIS value="La station de départ est incorrect"/>
+				<ENGLISH value="The departure station is wrong"/>
+				<GEEK value="symbole origine manquant"/>
+			</ERROR_NonValidOrigin>
+			<ERROR_Unknown>
+				<FRANCAIS value="Erreur de type inconnue"/>
+				<ENGLISH value="Unkown kind of error"/>
+				<GEEK value="Unkown kind of error"/>
+			</ERROR_Unknown>
 			<INFO_EverythingFine>
 				<FRANCAIS value="On nous informe que tout va bien"/>
 				<ENGLISH value="Everything is fine"/>
 				<GEEK value="Chill, just relax"/>
 			</INFO_EverythingFine>
+			<INFO_ServiceRelaxation>
+				<FRANCAIS value="Service non accessible, relaxation du service suivant"/>
+				<ENGLISH value="Unreachable services, relaxation of the following service relaxing"/>
+				<GEEK value="Chill, just relax"/>
+			</INFO_ServiceRelaxation>
 			<INFO_RoutesNotAccessible>
 				<FRANCAIS value="Aucune ligne ne rejoins la station précisée ci dessous, vous avez du interdire trop de types de route."/>
 				<ENGLISH value="There's no route for the station showed right down. You may have forbidden too much kind of routes."/>
-				<GEEK value="L'A86? C'est en cours de prolongation"/>
-			</INFO_RoutesNotAccessible>
+				<GEEK value="L'A886? C'est en cours de prolongation"/>
+			</INFO_RoutesNotAccessible>	
 			<White>
 				<FRANCAIS value="Classique"/>
 				<ENGLISH value="Classical"/>
@@ -606,6 +626,11 @@
 				<ENGLISH value="Station"/>
 				<GEEK value="Station"/>
 			</Station>
+			<KindRoute>
+				<FRANCAIS value="Type de ligne"/>
+				<ENGLISH value="Kind of route"/>
+				<GEEK value="Kind of route"/>
+			</KindRoute>
 			<RecentsEvents>
 				<FRANCAIS value="Evenements récents"/>
 				<ENGLISH value="Recents Events"/>
