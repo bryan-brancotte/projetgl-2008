@@ -1516,7 +1516,10 @@ public class NewTravelPanel extends PanelState {
 	protected void readPathInGraphConstraintBuilder() {
 		PathInGraph p = pathBuilder.getCurrentPathInGraph();
 
-		this.departureStationTextBox.setText(p.getOrigin().getName());
+		if (p.getOrigin() != null)
+			this.departureStationTextBox.setText(p.getOrigin().getName());
+		else
+			this.departureStationTextBox.setText("");
 		this.arrivalStationTextBox.setText(p.getDestination().getName());
 		/***************************************************************************************************************
 		 * Travel Criteria
