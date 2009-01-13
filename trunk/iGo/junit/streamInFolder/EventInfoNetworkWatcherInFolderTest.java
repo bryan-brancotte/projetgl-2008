@@ -18,6 +18,7 @@ public class EventInfoNetworkWatcherInFolderTest {
 
 	@After
 	public void epilogueDateTest() {
+		watcher.stopWatching();
 	}
 
 	@Before

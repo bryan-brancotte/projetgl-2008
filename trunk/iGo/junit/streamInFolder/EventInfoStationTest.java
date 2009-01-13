@@ -57,6 +57,7 @@ public class EventInfoStationTest {
 	@Test
 	public void idGetter() {
 		assertTrue(info.getId()==2);
+		assertTrue(info.getIdStation()==1);
 	}
 	
 	/**
