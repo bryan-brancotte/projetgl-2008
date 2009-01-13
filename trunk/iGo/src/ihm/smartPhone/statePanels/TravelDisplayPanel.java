@@ -182,25 +182,33 @@ public abstract class TravelDisplayPanel extends PanelState {
 			imageFav = ImageLoader.getRessourcesImageIcone("fav", sizeLargeFont, sizeLargeFont).getImage();
 			imageNoFav = ImageLoader.getRessourcesImageIcone("fav-no", sizeLargeFont, sizeLargeFont).getImage();
 		}
-		iconeFavArea.setBounds(1, getHeight() - sizeLargeFont * 3, sizeLargeFont, sizeLargeFont);
-		iconeWarningArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 1, sizeLargeFont, sizeLargeFont);
-		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 2, sizeLargeFont, sizeLargeFont);
-		iconeArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 4, sizeLargeFont * 2, sizeLargeFont * 4);
+		iconeFavArea.setBounds(1, getHeight() - sizeLargeFont * ((father.hasEvent()) ? 3 : 2), sizeLargeFont,
+				sizeLargeFont);
+		if (father.hasEvent())
+			iconeWarningArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * 1, sizeLargeFont, sizeLargeFont);
+		else
+			iconeWarningArea.setBounds(0, 0, 0, 0);
+		changeStateArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * ((father.hasEvent()) ? 2 : 1),
+				sizeLargeFont, sizeLargeFont);
+		iconeArea.setBounds(iconeFavArea.x, getHeight() - sizeLargeFont * ((father.hasEvent()) ? 4 : 3),
+				sizeLargeFont * 2, sizeLargeFont * 4);
 		if (drawBackMenu) {
-			int roundRect = 5;//(sizeLargeFont >> 1);
-			System.out.println(sizeLargeFont >> 1);
+			int roundRect = sizeLargeFont >> 1;
 			g.setColor(father.getSkin().getColorInside());
-			g.fillRoundRect(-roundRect, roundRect + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
-					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), roundRect, roundRect);
+			g.fillRoundRect(0 - roundRect, getHeight() - sizeLargeFont * ((father.hasEvent()) ? 3 : 2) - 3, 2
+					+ sizeLargeFont + roundRect + 3, sizeLargeFont * ((father.hasEvent()) ? 3 : 2) + roundRect + 3,
+					roundRect, roundRect);
 			g.setColor(father.getSkin().getColorLetter());
-			g.drawRoundRect(-roundRect, roundRect + getHeight() - sizeLargeFont * 3 - (sizeLargeFont >> 1), sizeLargeFont
-					+ (sizeLargeFont >> 1), sizeLargeFont * 3 + (sizeLargeFont >> 1), roundRect, roundRect);
+			g.drawRoundRect(0 - roundRect, getHeight() - sizeLargeFont * ((father.hasEvent()) ? 3 : 2) - 3, 2
+					+ sizeLargeFont + roundRect + 3, sizeLargeFont * ((father.hasEvent()) ? 3 : 2) + roundRect + 3,
+					roundRect, roundRect);
 		}
 		if (travel.isFavorite())
 			g.drawImage(imageFav, iconeFavArea.x, iconeFavArea.y, null);
 		else
 			g.drawImage(imageNoFav, iconeFavArea.x, iconeFavArea.y, null);
-		g.drawImage(imageWarning, iconeFavArea.x, iconeWarningArea.y, null);
+		if (father.hasEvent())
+			g.drawImage(imageWarning, iconeFavArea.x, iconeWarningArea.y, null);
 		g.drawImage(imageMode, iconeFavArea.x, changeStateArea.y, null);
 		if (popUpMessage.isActiveMessage()) {
 			popUpMessage.paint(g);

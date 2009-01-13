@@ -200,4 +200,13 @@ public interface IhmReceivingPanelState {
 	 * @return un iterateur, jamais null
 	 */
 	public Iterator<EventInfo> getEvent();
+
+	/**
+	 * Retourne un boolean permettant de savoir s'il y a ou non des evenements à afficher. Cela permet donc de ne pas
+	 * demander un objet à chaque fois pour le voir vide. L'appelle de cette fonction est équivaut à
+	 * getEvent().hasNext()
+	 * 
+	 * @return true s'il y a des evenements.
+	 */
+	public boolean hasEvent();
 }
