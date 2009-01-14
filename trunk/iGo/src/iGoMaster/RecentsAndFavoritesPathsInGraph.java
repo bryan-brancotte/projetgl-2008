@@ -68,6 +68,9 @@ public interface RecentsAndFavoritesPathsInGraph {
 
 	/**
 	 * Donne tous les itinéraires stockés en mémoire (récents + favoris)
+	 * C'est a dire les MAX_RECENTS fichiers recents
+	 * Les fichiers favoris renvoyes sont ceux presents dans les MAX_RECENTS fichiers recents
+	 * Il peut donc y avoir des fichiers favoris qui ne sont pas renvoyes par cette fonction parce qu'ils sont trop vieux
 	 * 
 	 * @return Iterator sur un PathInGraphCollectionBuilder
 	 */
