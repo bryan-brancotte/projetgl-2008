@@ -392,8 +392,12 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 				if (toDelete != null) {
 					toDelete.delete();
 					recents.remove(pigMap.get(pig));
+					if (isFavorite(pig)) {
+						favorites.remove(pigMap.get(pig));
+					}
 					filesMap.remove(pig);
 					pigMap.remove(pig);
+					removeFromFavorites(pig);
 				}
 			}
 		}
