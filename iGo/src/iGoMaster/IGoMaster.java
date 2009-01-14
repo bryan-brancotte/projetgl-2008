@@ -441,8 +441,11 @@ public class IGoMaster implements Master, Observer
 				
 				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
 				{
+					boolean b =pathInGraphsToRemember.isFavorite(collectionBuilder.getPathInGraph()); 
 					pathInGraphsToRemember.removeFromRecents(collectionBuilder.getPathInGraph());
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
+					if(b)
+						pathInGraphsToRemember.markAsFavorite(collectionBuilder.getPathInGraph());
 					
 					this.launchAlgo();
 					return true;
