@@ -8,6 +8,7 @@ import ihm.smartPhone.component.UpperBar;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel;
 import ihm.smartPhone.interfaces.TravelForDisplayPanel.SectionOfTravel;
 import ihm.smartPhone.libPT.PanelDoubleBufferingSoftwear;
+import ihm.smartPhone.tools.ImageLoader;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -86,6 +87,12 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 	 * La dernière ordonnée du pointeur
 	 */
 	protected int yLastPointeur;
+
+	/**
+	 * les icones indiquant qu'il reste du trajet
+	 */
+	protected Image imageUp;
+	protected Image imageDown;
 
 	public TravelGraphicDisplayPanel(IhmReceivingPanelState ihm, UpperBar upperBar, LowerBar lowerBar,
 			TravelForDisplayPanel travelForDisplayPanel) {
@@ -253,6 +260,16 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				|| (buffer.getHeigthViewPort() != getHeight())) {
 			buffer.setSizeViewPort(getWidth(), getHeight());
 			currentQuality = PanelDoubleBufferingSoftwear.getQuality();
+			imageUp = null;
+			imageDown = null;
+		}
+		if (imageUp == null || imageDown == null) {
+			imageUp = ImageLoader.getRessourcesImageIcone("button_up",
+					father.getSizeAdapteur().getSizeIntermediateFont(),
+					father.getSizeAdapteur().getSizeIntermediateFont()).getImage();
+			imageDown = ImageLoader.getRessourcesImageIcone("button_down",
+					father.getSizeAdapteur().getSizeIntermediateFont(),
+					father.getSizeAdapteur().getSizeIntermediateFont()).getImage();
 		}
 		if (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge) {
 			buffer.setSizeImage(0, travel.getTotalTime() * sizeQuartLarge);
@@ -286,15 +303,8 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		polygon.addPoint(getWidth() - (father.getSizeAdapteur().getSizeSmallFont() >> 1), (father.getSizeAdapteur()
 				.getSizeSmallFont() >> 1)
 				+ father.getSizeAdapteur().getSizeLargeFont());
-		if (heightImageDrawn < 0) {
-			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.fillPolygon(polygon);
-		} else {
-			buffer.setColor(father.getSkin().getColorSubAreaInside());
-			buffer.fillPolygon(polygon);
-			buffer.setColor(father.getSkin().getColorLetter());
-			buffer.drawPolygon(polygon);
-		}
+		if (heightImageDrawn < 0)
+			buffer.getBuffer().drawImage(imageUp, getWidth() - imageUp.getWidth(null), 1, null);
 		polygon.reset();
 		// on définit le début du dessin
 		center.setLocation(sizeDemiLarge + sizeDemiLine + buffer.getX(), sizeDemiLarge + sizeDemiLine + buffer.getY());
@@ -303,7 +313,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		polygon.addPoint(center.x, center.y);
 		polygon.addPoint(center.x, center.y);
 
-		// System.out.println("\n\n\n\n\n\n\n\n");
 		// si le dessin bien au dessus du bas de l'image
 		thisFont = new Font("AdaptedSmallFont", Font.PLAIN,
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg()));
@@ -533,6 +542,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 			if (buffer.getHeigthImage() - buffer.getHeigthViewPort() > 0)
 				new SlowMove(-buffer.getY());
 		}
+		if (heightImageDrawn > getHeight())
+			buffer.getBuffer().drawImage(imageDown, getWidth() - imageUp.getWidth(null),
+					getHeight() - imageUp.getHeight(null) - 1, null);
+
 		if (affichageDroite && orientation % 2 == 0) {
 			buffer.setColor(father.getSkin().getColorSubAreaInside());
 			// drawDelayedRect(buffer, center.x, center.y - sizeDemiLine, sizeQuadLarge, sizeLine );
