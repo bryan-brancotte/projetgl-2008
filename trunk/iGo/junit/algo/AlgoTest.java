@@ -15,9 +15,6 @@ import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Algo;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
-import iGoMaster.exception.ServiceNotAccessibleException;
-import iGoMaster.exception.StationNotAccessibleException;
-import iGoMaster.exception.VoidPathException;
 
 import java.util.Iterator;
 import java.util.MissingResourceException;
@@ -28,9 +25,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import algorithm.Dijkstra;
-import algorithm.exception.NonValidPathException;
-import algorithm.exception.NullCriteriousException;
-import algorithm.exception.NullStationException;
 
 public class AlgoTest {
 
