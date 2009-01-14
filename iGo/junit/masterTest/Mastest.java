@@ -2,9 +2,6 @@ package masterTest;
 
 import static org.junit.Assert.assertTrue;
 import iGoMaster.IGoMaster;
-import iGoMaster.exception.GraphConstructionException;
-import iGoMaster.exception.GraphReceptionException;
-import iGoMaster.exception.NoNetworkException;
 import junit.framework.JUnit4TestAdapter;
 
 import org.junit.After;
