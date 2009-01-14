@@ -259,37 +259,39 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	public EventInfoNetworkWatcherInFolder(String path) {
 		super();
-		eventInfosNotApplied = new LinkedList<EventInfo>();
-		path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + "TravelAltertGL2008.xml").replace("\\", "/");
-		File folder = new File((System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/"));
-		if (!folder.isDirectory())
-			folder.mkdir();
-		fichier = new File(path);
-		if (fichier.length() == 0) {
-			try {
-				InputStream source = this.getClass().getClassLoader().getResourceAsStream("xml/TravelAltertGL2008.xml");
+		if (path != null) {
+			eventInfosNotApplied = new LinkedList<EventInfo>();
+			path = (System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR + "TravelAltertGL2008.xml").replace("\\", "/");
+			File folder = new File((System.getProperty("user.home") + PATH_TO_CONFIG_HOME_DIR).replace("\\", "/"));
+			if (!folder.isDirectory())
+				folder.mkdir();
+			fichier = new File(path);
+			if (fichier.length() == 0) {
 				try {
-					FileOutputStream out = new FileOutputStream(path);
+					InputStream source = this.getClass().getClassLoader().getResourceAsStream("xml/TravelAltertGL2008.xml");
 					try {
-						// Init
-						// Lecture par segment de 0.5Mo
-						byte buffer[] = new byte[512 * 1024];
-						int nbLecture;
+						FileOutputStream out = new FileOutputStream(path);
+						try {
+							// Init
+							// Lecture par segment de 0.5Mo
+							byte buffer[] = new byte[512 * 1024];
+							int nbLecture;
 
-						while ((nbLecture = source.read(buffer)) != -1) {
-							out.write(buffer, 0, nbLecture);
+							while ((nbLecture = source.read(buffer)) != -1) {
+								out.write(buffer, 0, nbLecture);
+							}
+						} finally {
+							out.close();
 						}
 					} finally {
-						out.close();
+						source.close();
 					}
-				} finally {
-					source.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
+			version = 0;
 		}
-		version = 0;
 	}
 
 	/**
@@ -328,11 +330,13 @@ public class EventInfoNetworkWatcherInFolder extends EventInfoNetworkWatcher {
 	 */
 	@Override
 	public void applyInfo(GraphNetworkBuilder graph) {
-		for (EventInfo ev : getNewEventInfo())
-			ev.applyInfo(graph);
-		for (EventInfo ev : getNewEventInfo())
-			if (ev.isApplied())
-				eventInfosNotApplied.remove(ev);
+		if (graph != null) {
+			for (EventInfo ev : getNewEventInfo())
+				ev.applyInfo(graph);
+			for (EventInfo ev : getNewEventInfo())
+				if (ev.isApplied())
+					eventInfosNotApplied.remove(ev);
+		}
 	}
 
 	/**
