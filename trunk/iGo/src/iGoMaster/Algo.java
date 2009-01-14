@@ -56,39 +56,11 @@ public abstract class Algo extends Observable {
 	NonValidDestinationException,
 	NullStationException,
 	NullCriteriousException;
-
-	/**
-	 * @uml.property name="iGoMaster"
-	 * @uml.associationEnd inverse="algo1:iGoMaster.IGoMaster"
-	 */
-	private IGoMaster goMaster;
-
-	/**
-	 * Getter of the property <tt>iGoMaster</tt>
-	 * 
-	 * @return Returns the goMaster.
-	 * @uml.property name="iGoMaster"
-	 */
-	public IGoMaster getIGoMaster() {
-		return goMaster;
-	}
 	
 	/**
 	 * Permet au master d'arrêter proprement un algorithme en cours.
 	 */
 	public abstract void abort();
-	
-
-	/**
-	 * Setter of the property <tt>iGoMaster</tt>
-	 * 
-	 * @param iGoMaster
-	 *            The goMaster to set.
-	 * @uml.property name="iGoMaster"
-	 */
-	public void setIGoMaster(IGoMaster goMaster) {
-		this.goMaster = goMaster;
-	}
 
 	public enum CriteriousForLowerPath {
 		NOT_DEFINED(-1), COST(0), TIME(1), CHANGE(2);

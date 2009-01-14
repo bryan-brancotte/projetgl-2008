@@ -1,7 +1,6 @@
 package master;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import iGoMaster.Algo;
 import iGoMaster.IGoMaster;
 import iGoMaster.IHM;
@@ -82,14 +81,9 @@ public class MasterTest {
 	 */
 	@Test
 	public void algo() {
-		try {
-			master.getAlgo().getIGoMaster();
-		}
-		catch (NullPointerException e){fail ("erreur non traitée");}
 		Algo a = new Dijkstra();
 		master.setAlgo(a);
-		assertTrue("mauvais lien",master.getAlgo()==a);
-		assertTrue("lien vers iGoMaster non valide",master.getAlgo().getIGoMaster()==master);
+		assertTrue("mauvais lien vers l'algo",master.getAlgo()==a);
 	}
 
 	/**
