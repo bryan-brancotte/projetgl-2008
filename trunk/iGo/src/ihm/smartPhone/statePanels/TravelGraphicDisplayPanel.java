@@ -257,9 +257,10 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		if (buffer.getHeigthImage() != travel.getTotalTime() * sizeQuartLarge) {
 			buffer.setSizeImage(0, travel.getTotalTime() * sizeQuartLarge);
 		}
-		// else if (!buffer.isNeededRepaint()) {
-		// return;
-		// }
+
+		// netoyage de l'image
+		buffer.setColor(father.getSkin().getColorInside());
+		buffer.fillRect(0, 0, getWidth(), getHeight());
 
 		SectionOfTravel section = null;
 		Iterator<SectionOfTravel> iterTravel;
@@ -276,6 +277,25 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 		// Iterator<Color> iterColor = colorList.iterator();
 		int heightImageDrawn = buffer.getY();
 		polygon.reset();
+		polygon.addPoint(getWidth() - (father.getSizeAdapteur().getSizeLargeFont() >> 1)
+				- (father.getSizeAdapteur().getSizeSmallFont() >> 1),
+				(father.getSizeAdapteur().getSizeSmallFont() >> 1));
+		polygon.addPoint(getWidth() - father.getSizeAdapteur().getSizeLargeFont()
+				- (father.getSizeAdapteur().getSizeSmallFont() >> 1),
+				(father.getSizeAdapteur().getSizeSmallFont() >> 1) + father.getSizeAdapteur().getSizeLargeFont());
+		polygon.addPoint(getWidth() - (father.getSizeAdapteur().getSizeSmallFont() >> 1), (father.getSizeAdapteur()
+				.getSizeSmallFont() >> 1)
+				+ father.getSizeAdapteur().getSizeLargeFont());
+		if (heightImageDrawn < 0) {
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.fillPolygon(polygon);
+		} else {
+			buffer.setColor(father.getSkin().getColorSubAreaInside());
+			buffer.fillPolygon(polygon);
+			buffer.setColor(father.getSkin().getColorLetter());
+			buffer.drawPolygon(polygon);
+		}
+		polygon.reset();
 		// on définit le début du dessin
 		center.setLocation(sizeDemiLarge + sizeDemiLine + buffer.getX(), sizeDemiLarge + sizeDemiLine + buffer.getY());
 		polygon.addPoint(center.x, center.y);
@@ -289,8 +309,6 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 				(int) (father.getSizeAdapteur().getSizeSmallFont() * 4 * buffer.getScallImg()));
 		buffer.setFont(thisFont);
 		drawStationNameZoom = thisFont.getSize() > 15;
-		buffer.setColor(father.getSkin().getColorInside());
-		buffer.fillRect(0, 0, getWidth(), getHeight());
 		if (heightImageDrawn >= -buffer.getHeigthViewPort()) {
 			drawDelayedOval(buffer, center.x - sizeDemiLarge - 1, center.y - sizeDemiLarge, sizeLarge, sizeLarge);
 			buffer.setColor(father.getSkin().getColorLetter());
@@ -467,7 +485,7 @@ public class TravelGraphicDisplayPanel extends TravelDisplayPanel {
 							buffer.drawOval(center.x - (int) (x * i) - (sizeQuartLarge >> 1), center.y - (int) (y * i)
 									- (sizeQuartLarge >> 1), sizeQuartLarge, sizeQuartLarge);
 							if (drawStationNameZoom)
-								buffer.drawString(section.getStationInSection()[length-i], center.x - (int) (x * i)
+								buffer.drawString(section.getStationInSection()[length - i], center.x - (int) (x * i)
 										+ sizeDemiLarge, center.y - (int) (y * i)
 										+ (father.getSizeAdapteur().getSizeSmallFont() >> 1));
 						}
