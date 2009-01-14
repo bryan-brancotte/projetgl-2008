@@ -43,12 +43,13 @@ public class LanguageTest {
 	}
 
 	/**
-	 * Test si la langue par défaut es bien mise si on utilise une langue inconnue
+	 * Test si la langue par défaut (préférence système, puis anglais) est bien mise si on utilise une langue inconnue
 	 */
 	@Test
 	public void langueParDefautQuandLangueInconnue() {
 		lang = new LanguageXML("tagada");
-		assertTrue(lang.getLanguage().compareTo(Language.DEFAULT_LANGUAGE) == 0);
+		LanguageXML l2 = new LanguageXML();
+		assertTrue(lang.getLanguage().compareTo(l2.getLanguage()) == 0);
 	}
 
 	/**
@@ -56,8 +57,9 @@ public class LanguageTest {
 	 */
 	@Test
 	public void setLanguage() {
-		lang = new LanguageXML("eeee");
-		assertTrue(lang.getLanguage().compareTo(Language.DEFAULT_LANGUAGE) == 0);
+		lang = new LanguageXML("english");
+		lang.setLanguage("eee");
+		assertTrue(lang.getLanguage().compareTo("English") == 0);
 		lang.setLanguage("aze");
 		lang.setLanguage("Français");
 		assertTrue(lang.getLanguage().compareTo("Français") == 0);

@@ -19,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PIGBuilderRobustesse {
+public class PIGResultBuilderRobustesse {
 	protected GraphNetworkBuilder bob;
 	protected GraphNetwork sncf;
 	protected PathInGraphCollectionBuilder pigColB;
@@ -39,7 +39,7 @@ public class PIGBuilderRobustesse {
 	}
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(PIGBuilderRobustesse.class);
+		return new JUnit4TestAdapter(PIGResultBuilderRobustesse.class);
 	}
 
 	/**
