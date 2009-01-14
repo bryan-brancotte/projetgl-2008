@@ -12,6 +12,8 @@ import java.util.Observable;
 
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
+import algorithm.exception.NullCriteriousException;
+import algorithm.exception.NullStationException;
 
 
 
@@ -51,7 +53,9 @@ public abstract class Algo extends Observable {
 	NoRouteForStationException,
 	VoidPathException,
 	NonValidOriginException,
-	NonValidDestinationException;
+	NonValidDestinationException,
+	NullStationException,
+	NullCriteriousException;
 
 	/**
 	 * @uml.property name="iGoMaster"

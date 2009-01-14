@@ -6,6 +6,7 @@ import graphNetwork.Route;
 import graphNetwork.Service;
 import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
+import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.util.Vector;
 import algorithm.exception.NodeNotFoundException;
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
+import algorithm.exception.NullCriteriousException;
+import algorithm.exception.NullStationException;
 
 public class GraphAlgo {
 
@@ -32,9 +35,16 @@ public class GraphAlgo {
 	 * @throws NodeNotFoundException
 	 * @throws NonValidOriginException 
 	 * @throws NonValidDestinationException 
+	 * @throws NullStationException 
+	 * @throws NullCriteriousException 
 	 */
-	protected void refreshGraph(PathInGraph _p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
+	protected void refreshGraph(PathInGraph _p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException, NullStationException, NullCriteriousException {
+		
 		p = _p;
+		if (p.getOrigin()==null || p.getDestination()==null)
+			throw new NullStationException();
+		if (p.getMainCriterious()==CriteriousForLowerPath.NOT_DEFINED || p.getMinorCriterious()==CriteriousForLowerPath.NOT_DEFINED)
+			throw new NullCriteriousException();
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
 		// Initialisation du graph

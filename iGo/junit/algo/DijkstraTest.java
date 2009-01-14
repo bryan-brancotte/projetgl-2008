@@ -1,27 +1,29 @@
 package algo;
 
-import static org.junit.Assert.*;
-
-import java.util.NoSuchElementException;
-
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.fail;
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
-import graphNetwork.Station;
 import graphNetwork.Service;
+import graphNetwork.Station;
 import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Algo;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import algorithm.Dijkstra;
 import algorithm.exception.NonValidOriginException;
+import algorithm.exception.NullCriteriousException;
+import algorithm.exception.NullStationException;
 
 public class DijkstraTest {
 
@@ -132,6 +134,9 @@ public class DijkstraTest {
 		{
 			constraintBuilder.setOrigin(s0);
 			constraintBuilder.setDestination(s14);
+			constraintBuilder.setMainCriterious(CriteriousForLowerPath.TIME);
+			constraintBuilder.setMinorCriterious(CriteriousForLowerPath.CHANGE);
+			
 			algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
@@ -170,7 +175,8 @@ public class DijkstraTest {
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
 		catch (NullPointerException e){fail ("erreur non traitée");}
-		catch (Exception e){}
+		catch (NullStationException e) {}
+		catch (Exception e){fail ("Erreur mal traitée");}
 	}
 	
 	@Test
@@ -186,7 +192,7 @@ public class DijkstraTest {
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
 		catch (NullPointerException e){fail ("erreur non traitée");}
-		catch (NoRouteForStationException e){}
+		catch (NullStationException e){}
 		catch (Exception e){fail ("Erreur mal traitée");}
 	}
 	
@@ -203,8 +209,9 @@ public class DijkstraTest {
 			
 			algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 		}
+		catch (NullCriteriousException e) {}
 		catch (NoSuchElementException e){fail ("Pas de traitement adapté à l'exception");}
-		catch (Exception e){}
+		catch (Exception e) {e.printStackTrace();}
 	}
 	
 	@Test
