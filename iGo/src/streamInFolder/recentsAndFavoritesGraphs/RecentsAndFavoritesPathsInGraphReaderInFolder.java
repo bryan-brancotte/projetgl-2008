@@ -296,10 +296,12 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			ArrayList<String> cof = new ArrayList<String>();
 			for (File f : folder.listFiles()) {
 				cof.add(f.getAbsolutePath().replace("\\", "/"));
-				if (f.getAbsolutePath().replace("\\", "/").split("\\.xml") != null && f.getAbsolutePath().replace("\\", "/").split("\\.xml").length >= 1){
+				if (f.getAbsolutePath().replace("\\", "/").split("\\.xml") != null
+						&& f.getAbsolutePath().replace("\\", "/").split("\\.xml").length >= 1) {
 					cof.add(f.getAbsolutePath().replace("\\", "/").split("\\.xml")[0] + "_fav.xml");
 				}
-				if (f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml") != null && f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml").length >=1) {
+				if (f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml") != null
+						&& f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml").length >= 1) {
 					cof.add(f.getAbsolutePath().replace("\\", "/").split("_fav\\.xml")[0] + ".xml");
 				}
 			}
@@ -330,8 +332,8 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			} catch (IOException e) {
 				// e.printStackTrace();
 			} catch (Exception e) {
-			// e.printStackTrace();
-		}
+				// e.printStackTrace();
+			}
 		}
 	}
 
@@ -366,7 +368,7 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	 */
 	@Override
 	public void removeFromFavorites(PathInGraph pig) {
-		if (pig !=null) {
+		if (pig != null) {
 			if (isFavorite(pig)) {
 				File source = filesMap.get(pig);
 				String name = source.getAbsolutePath().split("_fav\\.xml")[0] + ".xml";
@@ -411,7 +413,8 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 		if (pig != null) {
 			return (pigMap.containsKey(pig) && favorites.contains(pigMap.get(pig)));
 		}
-		else return false;
+		else
+			return false;
 	}
 
 }
