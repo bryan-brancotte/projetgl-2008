@@ -29,6 +29,8 @@ import org.junit.Test;
 
 import algorithm.Dijkstra;
 import algorithm.exception.NonValidPathException;
+import algorithm.exception.NullCriteriousException;
+import algorithm.exception.NullStationException;
 
 public class AlgoTest {
 
@@ -602,15 +604,7 @@ public class AlgoTest {
 		long begin = System.currentTimeMillis();
 		try {
 			bob.findPath(prb);
-		} catch (VoidPathException e) {
-			e.printStackTrace();
-		} catch (ServiceNotAccessibleException e) {
-			e.printStackTrace();
-		} catch (StationNotAccessibleException e) {
-			e.printStackTrace();
-		} catch (StationNotOnRoadException e) {
-			e.printStackTrace();
-		} catch (NonValidPathException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		long end = System.currentTimeMillis();

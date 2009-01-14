@@ -21,6 +21,8 @@ import algorithm.GraphAlgo.Node;
 import algorithm.exception.NodeNotFoundException;
 import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
+import algorithm.exception.NullCriteriousException;
+import algorithm.exception.NullStationException;
 
 public class Dijkstra extends Algo {
 
@@ -40,8 +42,9 @@ public class Dijkstra extends Algo {
 	private Node currentPosition;
 	private ArrayList<Junction> betterPath;
 
-	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidOriginException, NonValidDestinationException {
-
+	public void findPath(PathInGraphResultBuilder prb) throws NoRouteForStationException, VoidPathException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NonValidOriginException, NonValidDestinationException, NullStationException, NullCriteriousException {
+		if (prb == null)
+			throw new VoidPathException();
 		prb.flush();
 		isAborted = false;
 		betterPath = null;
@@ -49,18 +52,6 @@ public class Dijkstra extends Algo {
 		try {
 			// Initialisation des contraintes
 			initConstraints(prb);
-/*
-			System.out.println("--------------");
-			for (int i=0;i<graph.getListClone().size();i++) {
-				Node nTmp = graph.getListClone().get(i);
-				System.out.print(nTmp.getStation()+" | ");
-				Iterator<Link> it = nTmp.getToIter();
-				while (it.hasNext()){
-					System.out.print(it.next().getJunction()+" || ");
-				}
-				System.out.println();
-			}
-*/			
 			// Création de l'ensemble des étapes obligatoires
 			ArrayList<ArrayList<Station>> allSteps = createAllSteps();
 
@@ -73,7 +64,6 @@ public class Dijkstra extends Algo {
 			System.err.println("Le noeud du couple " + e.getStation() + "-" + e.getRoute() + " n'existe pas");
 		}
 
-		
 		if (betterPath == null)
 			throw new VoidPathException();
 
@@ -116,8 +106,10 @@ public class Dijkstra extends Algo {
 	 * @throws NodeNotFoundException
 	 * @throws NonValidDestinationException
 	 * @throws NonValidOriginException
+	 * @throws NullStationException
+	 * @throws NullCriteriousException 
 	 */
-	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException {
+	private void initConstraints(PathInGraphResultBuilder prb) throws NoRouteForStationException, ServiceNotAccessibleException, StationNotAccessibleException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException, NullStationException, NullCriteriousException {
 		p = prb.getCurrentPathInGraph();
 		graph = GraphAlgo.getInstance(p);
 
@@ -305,7 +297,7 @@ public class Dijkstra extends Algo {
 				Route rArrivee = itArrivee.next();
 				Node nd = graph.getNode(depart, rDepart);
 				Node na = graph.getNode(arrivee, rArrivee);
-				if (na!=null && nd!=null) {
+				if (na != null && nd != null) {
 					ArrayList<Junction> currentPath = new ArrayList<Junction>(algo(nd, na, true));
 					if (Tools.betterPath(currentPath, returnPath, p.getMainCriterious(), p.getMinorCriterious())) {
 						returnPath = currentPath;
