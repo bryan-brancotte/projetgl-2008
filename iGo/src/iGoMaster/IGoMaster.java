@@ -43,22 +43,21 @@ import algorithm.exception.NonValidDestinationException;
 import algorithm.exception.NonValidOriginException;
 
 /**
- * Enumération : 
- * "NetworkOk" si le réseau a bien été récupéré. 
- * "NetworkDoesntExist" si aucun réseau n'a été trouvé. 
- * "ConstructionFailed" si la transformation du réseau en graphNetwork a échoué. 
- * "ReceptionFailed" si le réseau a été mal réceptionné. 
+ * Enumération : "NetworkOk" si le réseau a bien été récupéré. "NetworkDoesntExist" si aucun réseau n'a été trouvé.
+ * "ConstructionFailed" si la transformation du réseau en graphNetwork a échoué. "ReceptionFailed" si le réseau a été
+ * mal réceptionné.
  */
-enum StateNetwork {NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionFailed};
+enum StateNetwork {
+	NetworkOk, NetworkDoesntExist, ConstructionFailed, ReceptionFailed
+};
 
-
-/**  
+/**
  * Classe qui se charge de la coordination de tous les modules du logiciel
- * @author Elodie
+ * 
+ * @author iGo
  */
-public class IGoMaster implements Master, Observer 
-{
-	
+public class IGoMaster implements Master, Observer {
+
 	private IHM ihm;
 	private Algo algo;
 	private Language lg;
@@ -67,482 +66,472 @@ public class IGoMaster implements Master, Observer
 	private GraphNetworkBuilder graphBuilder;
 	private GraphNetworkReceiver graphReceiver;
 	private EventInfoNetworkWatcher eventInfoNetwork;
-	private PathInGraphCollectionBuilder collectionBuilder;	
+	private PathInGraphCollectionBuilder collectionBuilder;
 	private GraphNetworkCostReceiver graphNetworkCostReceiver;
 	private RecentsAndFavoritesPathsInGraph pathInGraphsToRemember;
-	
+
 	/**
 	 * Etat du réseau
 	 */
 	private StateNetwork stateNetwork;
-	
+
 	/**
 	 * Identification du thread actif utilisé pour le calcul d'un chemin
 	 */
 	private Thread currentAlgo = null;
-		
+
 	/**
 	 * Liste des evenements à l'origine de la dernière mise à jour du réseau
 	 */
-	private ArrayList <EventInfo> recentEventInfo = new ArrayList<EventInfo>();
-	
+	private ArrayList<EventInfo> recentEventInfo = new ArrayList<EventInfo>();
+
 	/**
-	 * Précise si il reste des évènements dont l'ihm n'a pas encore pris connaissance dans la liste
-	 * des évènements récents
+	 * Précise si il reste des évènements dont l'ihm n'a pas encore pris connaissance dans la liste des évènements
+	 * récents
 	 */
 	private boolean eventsJustArrived = false;
-	
-	/** Pour tester l'affichage du chargement des différents modules avec l'ihm, il faudra augmenter
-	 * 	la valeur de THREAD_LENGTH */
+
+	/**
+	 * Pour tester l'affichage du chargement des différents modules avec l'ihm, il faudra augmenter la valeur de
+	 * THREAD_LENGTH
+	 */
 	private final int THREAD_LENGTH = 0;
-	
-	
-	
+
 	/******************************************************************************/
 	/***************************** CONSTRUCTEUR ***********************************/
 	/******************************************************************************/
-	
+
 	/**
-	 * Constructeur de IgoMaster, prend en paramètre les informations nécessaires pour trouver
-	 * le réseau et ses mises à jour.
+	 * Constructeur de IgoMaster, prend en paramètre les informations nécessaires pour trouver le réseau et ses mises à
+	 * jour.
 	 */
-	public IGoMaster(String network, String event)
-	{
+	public IGoMaster(String network, String event) {
 		super();
-		
+
 		this.algo = new Dijkstra();
 		this.config = new ConfigurationXML();
-		this.lg = new LanguageXML( config.getValue(SettingsKey.LANGUAGE.toString()));
+		this.lg = new LanguageXML(config.getValue(SettingsKey.LANGUAGE.toString()));
 		this.ihm = new IGoIhmSmartPhone(this);
 		this.graphBuilder = new GraphNetworkBuilder();
 		this.graphReceiver = new GraphNetworkReceiverFolder(network);
 		this.eventInfoNetwork = new EventInfoNetworkWatcherInFolder(event);
 		this.graphNetworkCostReceiver = new GraphNetworkCostReceiverHardWritten();
-		
-		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver(
-				this.graphBuilder, 
+
+		this.pathInGraphsToRemember = new RecentsAndFavoritesPathsInGraphReceiver(this.graphBuilder,
 				new RecentsAndFavoritesPathsInGraphReaderInFolder());
-		
+
 		this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
-		
-        this.process();
+
+		this.process();
 	}
-	
-	
+
 	/******************************************************************************/
 	/********************************** THREADS ***********************************/
 	/******************************************************************************/
-	
-	
-	/**  
-	 * Lancement du thread implicite qui surveillera les mises à jour du réseau tout au long de l'application
-	 * Retourne faux si échec concernant l'initialisation de l'objet qui observe les mises à jour.
+
+	/**
+	 * Lancement du thread implicite qui surveillera les mises à jour du réseau tout au long de l'application Retourne
+	 * faux si échec concernant l'initialisation de l'objet qui observe les mises à jour.
 	 */
-	private boolean watchEvent()
-	{
-		try 
-		{
+	private boolean watchEvent() {
+		try {
 			eventInfoNetwork.startWatching();
 			return true;
-		} 
-		catch (ImpossibleStartingException e) {}
-		catch (Exception e){}
-		
+		} catch (ImpossibleStartingException e) {
+		} catch (Exception e) {
+		}
+
 		System.err.println("Attention les mises à jour du réseau ne seront pas prises en charge");
 		return false;
 	}
-	
-	/**  
-	 * Thread qui va lancer le calcul d'un trajet
-	 * Relache les contraintes uniques sur les services
+
+	/**
+	 * Thread qui va lancer le calcul d'un trajet Relache les contraintes uniques sur les services
 	 */
-	private void launchAlgo()
-	{
-		new Thread() 
-		{
+	private void launchAlgo() {
+		new Thread() {
 			boolean exception = true;
-			
-			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service, Route route, Station station, KindRoute kindRoute)
-			{
+
+			public void dealWithExceptions(AlgoKindOfException kindOfException, Service service, Route route,
+					Station station, KindRoute kindRoute) {
 				ihm.returnPathAsked(null, kindOfException, service, route, station, kindRoute);
-				currentAlgo=null;
-				
+				currentAlgo = null;
+
 				exception = false;
 			}
-			
-			public void dealWithRelaxation(AlgoKindOfRelaxation kindOfRelaxation,  Service service, Route route, Station station, KindRoute kindRoute)
-			{
-				if (service!=null)
-				{	
-					ihm.infoPathAsked(kindOfRelaxation, service, route , station, kindRoute);
-				
-					if (kindOfRelaxation==AlgoKindOfRelaxation.ServiceRelaxation)
+
+			public void dealWithRelaxation(AlgoKindOfRelaxation kindOfRelaxation, Service service, Route route,
+					Station station, KindRoute kindRoute) {
+				if (service != null) {
+					ihm.infoPathAsked(kindOfRelaxation, service, route, station, kindRoute);
+
+					if (kindOfRelaxation == AlgoKindOfRelaxation.ServiceRelaxation)
 						collectionBuilder.getPathInGraphConstraintBuilder().removeSeviceOnce(service);
-					
+
 					exception = true;
 				}
 			}
-			
-			public void run() 
-			{
-				currentAlgo=currentThread();
-				
-				while (exception)
-				{	
-					try 
-					{
+
+			public void run() {
+				currentAlgo = currentThread();
+
+				while (exception) {
+					try {
 						algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 						exception = false;
+					} catch (VoidPathException e) {
+						dealWithExceptions(AlgoKindOfException.NoSolution, null, null, null, null);
+					} catch (NoRouteForStationException e) {
+						dealWithExceptions(AlgoKindOfException.RoutesNotAccessible, null, null, e.getStation(), null);
+					} catch (StationNotOnRoadException e) {
+						dealWithExceptions(AlgoKindOfException.StationNotOnGraphNetworkRoad, null, null, null, null);
+					} catch (NonValidOriginException e) {
+						dealWithExceptions(AlgoKindOfException.NonValidOrigin, null, null, null, null);
+					} catch (NonValidDestinationException e) {
+						dealWithExceptions(AlgoKindOfException.NonValidDestination, null, null, null, null);
+					} catch (ServiceNotAccessibleException e) {
+						dealWithRelaxation(AlgoKindOfRelaxation.ServiceRelaxation, e.getService(), null, null, null);
+					} catch (StationNotAccessibleException e) {
+						dealWithExceptions(AlgoKindOfException.StationNotAccessible, null, null, e.getStation(), null);
+					} catch (Exception e) {
+						dealWithExceptions(AlgoKindOfException.UndefinedError, null, null, null, null);
 					}
-					catch (VoidPathException e) {dealWithExceptions(AlgoKindOfException.NoSolution,null,null,null,null);} 
-					catch (NoRouteForStationException e) {dealWithExceptions(AlgoKindOfException.RoutesNotAccessible, null, null, e.getStation(),null);} 	 
-					catch (StationNotOnRoadException e) {dealWithExceptions(AlgoKindOfException.StationNotOnGraphNetworkRoad,null,null,null,null);} 
-					catch (NonValidOriginException e) {dealWithExceptions(AlgoKindOfException.NonValidOrigin,null,null,null,null);} 
-					catch (NonValidDestinationException e) {dealWithExceptions(AlgoKindOfException.NonValidDestination,null,null,null,null);} 
-					catch (ServiceNotAccessibleException e) {dealWithRelaxation(AlgoKindOfRelaxation.ServiceRelaxation, e.getService(),null,null,null);} 
-					catch (StationNotAccessibleException e) {dealWithExceptions(AlgoKindOfException.StationNotAccessible,null,null,e.getStation(),null);}
-					catch (Exception e){dealWithExceptions(AlgoKindOfException.UndefinedError,null,null,null,null);} 
 				}
 			}
 		}.start();
 	}
 
-	
 	/******************************************************************************/
 	/********************************** PRIVATE ***********************************/
 	/******************************************************************************/
-	
+
 	/**
 	 * Définit si le réseau a bien été receptionné et transformé en GraphNetwork.
 	 */
-	private void setStateNetwork(StateNetwork state) {this.stateNetwork = state;}
+	private void setStateNetwork(StateNetwork state) {
+		this.stateNetwork = state;
+	}
 
 	/**
 	 * Description de l'état du réseau.
+	 * 
 	 * @return son état
 	 */
-	private StateNetwork getStateNetwork() {return stateNetwork;}
-	
-	/**  
-	 * Lancement des modules essentiels au fonctionnement de l'application
-	 * Si on a pas de réseau on ne lance pas la surveillance des évènements
+	private StateNetwork getStateNetwork() {
+		return stateNetwork;
+	}
+
+	/**
+	 * Lancement des modules essentiels au fonctionnement de l'application Si on a pas de réseau on ne lance pas la
+	 * surveillance des évènements
 	 */
-	private void process()
-	{
+	private void process() {
 		this.initObservers();
-		
-		ihm.start(true,4);
-		
-		new ExecMultiThread<IHM>(ihm) 
-		{
-			
-			public void haveRest()
-			{
+
+		ihm.start(true, 4);
+
+		new ExecMultiThread<IHM>(ihm) {
+
+			public void haveRest() {
 				currentThread();
-				
-				try 
-				{
+
+				try {
 					Thread.sleep(THREAD_LENGTH);
-				} 
-				catch (InterruptedException e) 
-				{
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
-			
-			public void run() 
-			{
+
+			public void run() {
 				this.origine.showMessageSplashScreen("Réseau en cours de chargement");
 
 				this.haveRest();
-				
-				if (getNetwork())
-				{	
+
+				if (getNetwork()) {
 					this.origine.showMessageSplashScreen("Le réseau a bien été trouvé");
-					
+
 					this.haveRest();
-					
-					if (watchEvent())this.origine.showMessageSplashScreen("Surveillance des mises à jour du réseau activée");
-					else this.origine.showMessageSplashScreen("Attention mises à jour du réseau NON supportées");
-				}
-				else this.origine.showMessageSplashScreen("Réseau indisponible ou mal formé");
-					
+
+					if (watchEvent())
+						this.origine.showMessageSplashScreen("Surveillance des mises à jour du réseau activée");
+					else
+						this.origine.showMessageSplashScreen("Attention mises à jour du réseau NON supportées");
+				} else
+					this.origine.showMessageSplashScreen("Réseau indisponible ou mal formé");
+
 				this.haveRest();
-					
+
 				this.origine.showMessageSplashScreen("Chargement de l'interface principale ...");
-					 
+
 				this.haveRest();
-				 
+
 				this.origine.endSplashScreen();
 			}
 		}.start();
 	}
-	
-	/**  
+
+	/**
 	 * Les classes observées par le master ajoutent ce dernier à leur liste d'observeurs.
 	 */
-	private void initObservers() 
-	{
-		eventInfoNetwork.addObserver(this);	
-	    algo.addObserver(this);
+	private void initObservers() {
+		eventInfoNetwork.addObserver(this);
+		algo.addObserver(this);
 	}
-	
-	/**  
-	 * Le master récupère le réseau spécifié par le fichier XML.
-	 * Retourne vrai si le réseau au format XML a bien été transformé en un objet JAVA 
-	 * utilisable pour le calcul des trajets.
+
+	/**
+	 * Le master récupère le réseau spécifié par le fichier XML. Retourne vrai si le réseau au format XML a bien été
+	 * transformé en un objet JAVA utilisable pour le calcul des trajets.
 	 */
-	private boolean getNetwork()
-	{
-		
-		try 
-		{
-			if (this.graphReceiver.getAvaibleNetwork().hasNext())
-			{
-				this.network = (AvailableNetworkInFolder)(this.graphReceiver.getAvaibleNetwork().next());
-			}
-			else throw new NoNetworkException("Pas de réseau disponible." +
-					" L'utilisateur ne pourra pas utiliser toutes les fonctionnalités de l'application.");
-			
-			this.graphReceiver.buildNewGraphNetwork(
-					this.graphBuilder,
-					this.network.getName(),
-					this.graphNetworkCostReceiver
-			);	
-			
+	private boolean getNetwork() {
+
+		try {
+			if (this.graphReceiver.getAvaibleNetwork().hasNext()) {
+				this.network = (AvailableNetworkInFolder) (this.graphReceiver.getAvaibleNetwork().next());
+			} else
+				throw new NoNetworkException("Pas de réseau disponible."
+						+ " L'utilisateur ne pourra pas utiliser toutes les fonctionnalités de l'application.");
+
+			this.graphReceiver.buildNewGraphNetwork(this.graphBuilder, this.network.getName(),
+					this.graphNetworkCostReceiver);
+
 			setStateNetwork(StateNetwork.NetworkOk);
 			return true;
-		} 
-		catch (NoNetworkException e) 
-		{
+		} catch (NoNetworkException e) {
 			setStateNetwork(StateNetwork.NetworkDoesntExist);
 			System.err.print(e.getMessage());
-		}
-		catch (GraphReceptionException e) 
-		{
+		} catch (GraphReceptionException e) {
 			setStateNetwork(StateNetwork.ReceptionFailed);
 			System.err.print("Erreur de réception du graphe");
-		}
-		catch (GraphConstructionException e) 
-		{
+		} catch (GraphConstructionException e) {
 			setStateNetwork(StateNetwork.ConstructionFailed);
 			System.err.print("Graphe mal formé");
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.err.print("Attention une erreur inconnue est survenue suite à la récupération du réseau");
 		}
-		
+
 		return false;
 	}
-	
 
 	/******************************************************************************/
 	/********************************** PUBLIC ************************************/
 	/******************************************************************************/
-	
-	@Override
-	/**
-	 * Les observables Algo et EventWatcher avertiront le master de la terminaison du calcul de trajet
-	 * ou encore de l'arrivée de nouveaux évènements avec la méthode notify qui aura pour conséquence
-	 * l'appel du update ci après.
-	 */
-	public void update(Observable o, Object arg) 
-	{
 
-		if (o.equals(algo) && o!=null)
-		{
-			if (currentAlgo!=null && arg!=null && arg.equals(collectionBuilder.getPathInGraph()))
-			{	
-				currentAlgo=null;
+	@Override
+	/*
+	 * Les observables Algo et EventWatcher avertiront le master de la terminaison du calcul de trajet ou encore de
+	 * l'arrivée de nouveaux évènements avec la méthode notify qui aura pour conséquence l'appel du update ci après.
+	 */
+	public void update(Observable o, Object arg) {
+
+		if (o.equals(algo) && o != null) {
+			if (currentAlgo != null && arg != null && arg.equals(collectionBuilder.getPathInGraph())) {
+				currentAlgo = null;
 
 				boolean addAsRecent = true;
-				Iterator<PathInGraphCollectionBuilder> itRecents = pathInGraphsToRemember.getRecentsPaths(); 
-				
-				while(addAsRecent&&itRecents.hasNext())addAsRecent&=itRecents.next()!=collectionBuilder;
-				if(addAsRecent)pathInGraphsToRemember.addAsRecent(collectionBuilder);
-				
-				ihm.returnPathAsked(
-						collectionBuilder.getPathInGraphConstraintBuilder(),
-						AlgoKindOfException.EverythingFine,null,null,null,null
-						);	
-			}
-			else ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError,null,null,null,null);		
-		}
-		else if (o.equals(eventInfoNetwork) && o!=null)
-		{
-			if (currentAlgo!=null)
-			{
+				Iterator<PathInGraphCollectionBuilder> itRecents = pathInGraphsToRemember.getRecentsPaths();
+
+				while (addAsRecent && itRecents.hasNext())
+					addAsRecent &= itRecents.next() != collectionBuilder;
+				if (addAsRecent)
+					pathInGraphsToRemember.addAsRecent(collectionBuilder);
+
+				ihm.returnPathAsked(collectionBuilder.getPathInGraphConstraintBuilder(),
+						AlgoKindOfException.EverythingFine, null, null, null, null);
+			} else
+				ihm.returnPathAsked(null, AlgoKindOfException.UndefinedError, null, null, null, null);
+		} else if (o.equals(eventInfoNetwork) && o != null) {
+			if (currentAlgo != null) {
 				algo.abort();
-				try {currentAlgo.join();} 
-				catch (InterruptedException e) {e.printStackTrace();}
-				currentAlgo=null;
+				try {
+					currentAlgo.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				currentAlgo = null;
 			}
-			
-			if (eventInfoNetwork.getNewEventInfo()!=null)
-			{
-				Iterator <EventInfo> itEvent = eventInfoNetwork.getNewEventInfo().iterator();
+
+			if (eventInfoNetwork.getNewEventInfo() != null) {
+				Iterator<EventInfo> itEvent = eventInfoNetwork.getNewEventInfo().iterator();
 				recentEventInfo.clear();
 
-				while (itEvent.hasNext())recentEventInfo.add((EventInfo)itEvent.next());
-				
+				while (itEvent.hasNext())
+					recentEventInfo.add((EventInfo) itEvent.next());
+
 				eventsJustArrived = true;
-				
+
 				eventInfoNetwork.applyInfo(graphBuilder);
-				
-				if (!ihm.updateNetwork()) System.err.print("Elo --> Mise à jour du réseau mais l'ihm n'a pas de trajet en cours de visualisation");
+
+				ihm.updateNetwork();
+				// TODO j'ai commenté ici
+				// if (!ihm.updateNetwork())
+				// System.err.print("Elo --> Mise à jour du réseau mais l'ihm n'a pas de trajet en cours de visualisation");
 			}
 		}
 	}
-	
-	
+
 	@Override
-	/**
-	 * Permet la fermeture de l'application.
-	 * L'ihm appelera cette méthode qui sera chargée de stopper tous les autres modules 
-	 * encore en activité.
+	/*
+	 * Permet la fermeture de l'application. L'ihm appelera cette méthode qui sera chargée de stopper tous les autres
+	 * modules encore en activité.
 	 */
-	public void stop() 
-	{
-		try{eventInfoNetwork.stopWatching();}
-		catch (NullPointerException e)
-		{System.err.print("elo --> La surveillance des événements n'était pas activée ...");}
-	
-		try{config.save();}
-		catch(Exception e){e.printStackTrace();}
-		
-		if (currentAlgo!=null)
-		{
+	public void stop() {
+		try {
+			eventInfoNetwork.stopWatching();
+		} catch (NullPointerException e) {
+			System.err.print("elo --> La surveillance des événements n'était pas activée ...");
+		}
+
+		try {
+			config.save();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (currentAlgo != null) {
 			algo.abort();
-			try {currentAlgo.join();} 
-			catch (InterruptedException e) {e.printStackTrace();}
+			try {
+				currentAlgo.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) 
-	{
-		if (currentAlgo==null && pathInGraphBuidable!=null)
-		{	
-			if (collectionBuilder.getPathInGraphConstraintBuilder()!=null)
-			{	
-				if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder()))
-				{
+	public boolean askForATravel(PathInGraphConstraintBuilder pathInGraphBuidable) {
+		if (currentAlgo == null && pathInGraphBuidable != null) {
+			if (collectionBuilder.getPathInGraphConstraintBuilder() != null) {
+				if (pathInGraphBuidable.equals(collectionBuilder.getPathInGraphConstraintBuilder())) {
 					this.launchAlgo();
 					return true;
 				}
 			}
 			Iterator itRecent = pathInGraphsToRemember.getRecentsPaths();
 
-			while (itRecent.hasNext())
-			{
+			while (itRecent.hasNext()) {
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itRecent.next();
-				
-				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
-				{
-					boolean b =pathInGraphsToRemember.isFavorite(collectionBuilder.getPathInGraph()); 
+
+				if (this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable)) {
+					boolean b = pathInGraphsToRemember.isFavorite(collectionBuilder.getPathInGraph());
 					pathInGraphsToRemember.removeFromRecents(collectionBuilder.getPathInGraph());
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
-					if(b)
+					if (b)
 						pathInGraphsToRemember.markAsFavorite(collectionBuilder.getPathInGraph());
-					
+
 					this.launchAlgo();
 					return true;
 				}
 			}
-			
+
 			Iterator itFav = pathInGraphsToRemember.getFavoritesPaths();
 
-			while (itFav.hasNext())
-			{
+			while (itFav.hasNext()) {
 				this.collectionBuilder = (PathInGraphCollectionBuilder) itFav.next();
-				
-				if(this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable))
-				{
+
+				if (this.collectionBuilder.getPathInGraphConstraintBuilder().equals(pathInGraphBuidable)) {
 					pathInGraphsToRemember.addAsRecent(collectionBuilder);
 					this.launchAlgo();
 					return true;
 				}
 			}
-		 }
-		
+		}
+
 		return false;
 	}
 
 	@Override
-	public String lg(String key) {return lg.lg(key);}
+	public String lg(String key) {
+		return lg.lg(key);
+	}
 
 	@Override
-	public boolean setConfig(String key, String value) 
-	{
+	public boolean setConfig(String key, String value) {
 		config.setValue(key, value);
 		if (key == SettingsKey.LANGUAGE.toString())
 			lg.setLanguage(value);
 		return true;
 	}
-	
+
 	@Override
-	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() 
-	throws NoNetworkException, GraphReceptionException, GraphConstructionException
-	{
-		if (currentAlgo!=null)
-		{
+	public PathInGraphConstraintBuilder getPathInGraphConstraintBuilder() throws NoNetworkException,
+			GraphReceptionException, GraphConstructionException {
+		if (currentAlgo != null) {
 			algo.abort();
-			try {currentAlgo.join();} 
-			catch (InterruptedException e) {e.printStackTrace();}
-			currentAlgo=null;
+			try {
+				currentAlgo.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			currentAlgo = null;
 		}
-		
-		if (getStateNetwork() == StateNetwork.ConstructionFailed) throw new GraphConstructionException();
-		if (getStateNetwork() == StateNetwork.NetworkDoesntExist) throw new NoNetworkException();
-		if (getStateNetwork() == StateNetwork.ReceptionFailed) throw new GraphReceptionException();
-		
+
+		if (getStateNetwork() == StateNetwork.ConstructionFailed)
+			throw new GraphConstructionException();
+		if (getStateNetwork() == StateNetwork.NetworkDoesntExist)
+			throw new NoNetworkException();
+		if (getStateNetwork() == StateNetwork.ReceptionFailed)
+			throw new GraphReceptionException();
+
 		this.collectionBuilder = this.graphBuilder.getCurrentGraphNetwork().getInstancePathInGraphCollectionBuilder();
-		
+
 		return this.collectionBuilder.getPathInGraphConstraintBuilder();
 	}
-	
-	@Override
-	public String config(String key) {return getConfig(key);}
-	
-	@Override
-	public String getConfig(String key) {return this.config.getValue(key);}
 
 	@Override
-	public Iterator<KindRoute> getKindRoutes() {return this.graphBuilder.getCurrentGraphNetwork().getKinds();}
+	public String config(String key) {
+		return getConfig(key);
+	}
 
 	@Override
-	public Iterator<Service> getServices() {return this.graphBuilder.getCurrentGraphNetwork().getServices();}
+	public String getConfig(String key) {
+		return this.config.getValue(key);
+	}
 
 	@Override
-	public Iterator<Station> getStations() {return this.graphBuilder.getCurrentGraphNetwork().getStations();}
-	
-	@Override
-	public Iterator<String> getLanguages() {return lg.getLanguages().iterator();}
+	public Iterator<KindRoute> getKindRoutes() {
+		return this.graphBuilder.getCurrentGraphNetwork().getKinds();
+	}
 
 	@Override
-	public void markAsFavorite(PathInGraph pig) {this.pathInGraphsToRemember.markAsFavorite(pig);}
+	public Iterator<Service> getServices() {
+		return this.graphBuilder.getCurrentGraphNetwork().getServices();
+	}
 
 	@Override
-	public void removeFromFavorites(PathInGraph pig) {this.pathInGraphsToRemember.removeFromFavorites(pig);}
+	public Iterator<Station> getStations() {
+		return this.graphBuilder.getCurrentGraphNetwork().getStations();
+	}
 
+	@Override
+	public Iterator<String> getLanguages() {
+		return lg.getLanguages().iterator();
+	}
+
+	@Override
+	public void markAsFavorite(PathInGraph pig) {
+		this.pathInGraphsToRemember.markAsFavorite(pig);
+	}
+
+	@Override
+	public void removeFromFavorites(PathInGraph pig) {
+		this.pathInGraphsToRemember.removeFromFavorites(pig);
+	}
 
 	@Override
 	public boolean isFavoritesPaths(PathInGraphCollectionBuilder path) {
 		return this.pathInGraphsToRemember.isFavorite(path.getPathInGraph());
 	}
-	
+
 	@Override
 	public boolean isFavoritesPaths(PathInGraph path) {
 		return this.pathInGraphsToRemember.isFavorite(path);
 	}
-	
+
 	/******************************************************************************/
-	/************************SETTERS ET GETTERS ***********************************/
+	/************************ SETTERS ET GETTERS ***********************************/
 	/******************************************************************************/
-	
-	
+
 	/**
 	 * Getter of the property <tt>ihm</tt>
 	 * 
@@ -563,7 +552,7 @@ public class IGoMaster implements Master, Observer
 	public void setIhm(IHM ihm) {
 		this.ihm = ihm;
 	}
-	
+
 	/**
 	 * Getter of the property <tt>graphReader</tt>
 	 * 
@@ -573,7 +562,7 @@ public class IGoMaster implements Master, Observer
 	public GraphNetworkReceiver getGraphReader() {
 		return graphReceiver;
 	}
-	
+
 	/**
 	 * Setter of the property <tt>graphReader</tt>
 	 * 
@@ -584,7 +573,7 @@ public class IGoMaster implements Master, Observer
 	public void setGraphReader(GraphNetworkReceiver graphReceiver) {
 		this.graphReceiver = graphReceiver;
 	}
-	
+
 	/**
 	 * Getter of the property <tt>config</tt>
 	 * 
@@ -626,8 +615,7 @@ public class IGoMaster implements Master, Observer
 	public void setLang(Language lg) {
 		this.lg = lg;
 	}
-	
-	
+
 	/**
 	 * Getter of the property <tt>algo</tt>
 	 * 
@@ -648,7 +636,6 @@ public class IGoMaster implements Master, Observer
 	public void setAlgo(Algo algo) {
 		this.algo = algo;
 	}
-	
 
 	/**
 	 * Getter of the property <tt>graphNetworkBuilder</tt>
@@ -716,19 +703,20 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public void delete(PathInGraph pig) {
 		this.pathInGraphsToRemember.removeFromFavorites(pig);
-		this.pathInGraphsToRemember.removeFromRecents(pig);	
+		this.pathInGraphsToRemember.removeFromRecents(pig);
 	}
 
 	@Override
-	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths(){return this.pathInGraphsToRemember.getFavoritesPaths();}
-
+	public Iterator<PathInGraphCollectionBuilder> getFavoritesPaths() {
+		return this.pathInGraphsToRemember.getFavoritesPaths();
+	}
 
 	@Override
 	public Iterator<PathInGraphCollectionBuilder> getRecentsPaths() {
 		return this.pathInGraphsToRemember.getRecentsPaths();
-		}
-	
-	public Iterator<EventInfo> getNewEventInfos(){
+	}
+
+	public Iterator<EventInfo> getNewEventInfos() {
 		eventsJustArrived = false;
 		return recentEventInfo.iterator();
 	}
@@ -736,6 +724,6 @@ public class IGoMaster implements Master, Observer
 	@Override
 	public boolean hasNewEventInfos() {
 		return eventsJustArrived;
-		}
+	}
 
 }

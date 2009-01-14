@@ -116,8 +116,7 @@ public class IGoIhmSmartPhone extends Frame implements IHM, IhmReceivingPanelSta
 	public IGoIhmSmartPhone(Master master, iGoSmartPhoneSkin skin) {
 		super(master.lg("ProgName"));
 		sizeAdapteur = new IGoFlowLayout();
-		networkColorManager = new NetworkColorManagerPseudoRandom(master);
-		System.out.println(sizeAdapteur);
+		networkColorManager = new NetworkColorManagerPseudoRandom(master); 
 		this.setLayout(sizeAdapteur);
 		this.master = master;
 		this.skin = iGoSmartPhoneSkin.White;
