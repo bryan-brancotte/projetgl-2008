@@ -7,6 +7,7 @@ import graphNetwork.PathInGraphCollectionBuilder;
 import iGoMaster.IGoMaster;
 import iGoMaster.RecentsAndFavoritesPathsInGraph;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Vector;
@@ -311,6 +312,65 @@ public class RafGraph {
 
 	@Test
 	public void favAndRecentOrdered() {
+		Iterator<PathInGraphCollectionBuilder> it;
+		PathInGraphCollectionBuilder p1 = gn.getInstancePathInGraphCollectionBuilder();
+		PathInGraphCollectionBuilder p2 = gn.getInstancePathInGraphCollectionBuilder();
+		PathInGraphCollectionBuilder p3 = gn.getInstancePathInGraphCollectionBuilder();
+		raf.addAsRecent(p1);
+		raf.addAsRecent(p2);
+		raf.addAsRecent(p3);
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p2", it.next() == p2);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
+		raf.markAsFavorite(p2.getPathInGraph());
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p2", it.next() == p2);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
+	}
+
+	@Test
+	public void keepOrder() {
+		Iterator<PathInGraphCollectionBuilder> it;
+		PathInGraphCollectionBuilder p1 = gn.getInstancePathInGraphCollectionBuilder();
+		PathInGraphCollectionBuilder p2 = gn.getInstancePathInGraphCollectionBuilder();
+		PathInGraphCollectionBuilder p3 = gn.getInstancePathInGraphCollectionBuilder();
+		raf.addAsRecent(p1);
+		raf.addAsRecent(p2);
+		raf.addAsRecent(p3);
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p2", it.next() == p2);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
+		raf.markAsFavorite(p2.getPathInGraph());
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p2", it.next() == p2);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
+		raf.removeFromFavorites(p2.getPathInGraph());
+		it = raf.getRecentsPaths();
+		assertTrue("Le chemin le plus récent est le p3", it.next() == p3);
+		assertTrue("Ensuite c'est le p2", it.next() == p2);
+		assertTrue("Ensuite c'est le p1", it.next() == p1);
+	}
+
+	@Test
+	public void keepFolderClear() {
+		Iterator<PathInGraphCollectionBuilder> it;
+		it = raf.getRecentsPaths();
+		int nbFile = 0;
+		while (it.hasNext()) {
+			nbFile++;
+			it.next();
+		}
+		String path = (System.getProperty("user.home")
+				+ RecentsAndFavoritesPathsInGraphReaderInFolder.PATH_TO_CONFIG_HOME_DIR + RecentsAndFavoritesPathsInGraphReaderInFolder.PIG_DIR)
+				.replace("\\", "/");
+		File folder = new File(path);
+		assertTrue("Le nombre de fichier doit être le nombre de trajet, pas de fantome svp. ici "
+				+ folder.listFiles().length + " or on ne devrais en avoir que " + nbFile,
+				folder.listFiles().length == nbFile);
 	}
 
 }
