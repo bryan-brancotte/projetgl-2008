@@ -257,8 +257,6 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 			boolean max = false;
 			long minL = 999999999999999999L;
 			int min = 99999999;
-			System.out.println();
-			System.out.println("Nb files " + nbFiles);
 			if (nbFiles > MAX_RECENTS_PATHS) {
 				if (folder.isDirectory()) {
 					try {
@@ -270,7 +268,6 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 											if (!fr.getName().contains("fav")) {
 												int num = Integer.parseInt(fr.getName().split("\\.")[0].split("_")[1]);
 												if (fr.lastModified() < minL) {
-													System.out.println("KIKOOLOL");
 													min = num;
 													minL = fr.lastModified();
 												}
