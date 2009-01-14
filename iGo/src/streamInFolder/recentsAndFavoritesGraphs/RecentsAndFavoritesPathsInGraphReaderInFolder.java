@@ -89,12 +89,12 @@ public class RecentsAndFavoritesPathsInGraphReaderInFolder implements RecentsAnd
 	/**
 	 * Dossier "iGo"
 	 */
-	private static String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
+	public static String PATH_TO_CONFIG_HOME_DIR = "/.iGo/";
 
 	/**
 	 * Dossier contenant les chemins
 	 */
-	private static String PIG_DIR = "paths/";
+	public static String PIG_DIR = "paths/";
 
 	/**
 	 * Constructeur de RecentsAndFavoritesPathsInGraphReaderInFolder
