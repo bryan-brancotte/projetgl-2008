@@ -1,29 +1,27 @@
 package algo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
+import java.util.NoSuchElementException;
+
+
 import graphNetwork.GraphNetworkBuilder;
 import graphNetwork.PathInGraphCollectionBuilder;
 import graphNetwork.PathInGraphConstraintBuilder;
 import graphNetwork.Route;
-import graphNetwork.Service;
 import graphNetwork.Station;
+import graphNetwork.Service;
 import graphNetwork.exception.ImpossibleValueException;
 import graphNetwork.exception.ViolationOfUnicityInIdentificationException;
 import iGoMaster.Algo;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
 
-import java.util.NoSuchElementException;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import algorithm.Dijkstra;
 import algorithm.exception.NonValidOriginException;
-import algorithm.exception.NullCriteriousException;
-import algorithm.exception.NullStationException;
 
 public class DijkstraTest {
 
@@ -109,7 +107,7 @@ public class DijkstraTest {
 	
 	@Test
 	/**
-	 * Si l'origine et la destination sont les mêmes
+	 * Test d'une station origine identique à la destination
 	 */
 	public void test0FindPath() {
 		
@@ -126,27 +124,28 @@ public class DijkstraTest {
 
 	@Test
 	/**
-	 * Si on passe une station sans route à algo
+	 * Passage d'une station sans route à algo
 	 */
 	public void test1FindPath() {
 		
 		try
 		{
-			constraintBuilder.setOrigin(s0);
-			constraintBuilder.setDestination(s14);
 			constraintBuilder.setMainCriterious(CriteriousForLowerPath.TIME);
 			constraintBuilder.setMinorCriterious(CriteriousForLowerPath.CHANGE);
+			
+			constraintBuilder.setOrigin(s0);
+			constraintBuilder.setDestination(s14);
 			
 			algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
 		catch (NoRouteForStationException e){}
-		catch (Exception e){fail ("Erreur mal traitée");}
+		catch (Exception e){e.printStackTrace();fail ("Erreur mal traitée");}
 	}
 	
 	@Test
 	/**
-	 * Si on passe un resultBuilder null à algo
+	 * Passage d'un resultBuilder null à algo
 	 */
 	public void test2FindPath() {
 		
@@ -157,14 +156,17 @@ public class DijkstraTest {
 			algo.findPath(null);
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
-		catch (NullPointerException e){fail ("erreur non traitée");}
+		catch (NullPointerException e){
+			fail ("Un argument null a été passé en paramètre de " +
+					"findPath mais l'exception n'est pas correctement" +
+					" gérée");}
 		catch (Exception e){}
 	}
 	
 
 	@Test
 	/**
-	 * PathInGraph sans origine 
+	 * Scenario où aucune station origine n'est definie
 	 */
 	public void test3FindPath() {
 		
@@ -174,14 +176,15 @@ public class DijkstraTest {
 			algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
-		catch (NullPointerException e){fail ("erreur non traitée");}
-		catch (NullStationException e) {}
-		catch (Exception e){fail ("Erreur mal traitée");}
+		catch (NullPointerException e){fail ("Une station d'origine nulle a été passée à " +
+				"l'algorithme mais l'exception n'est pas correctement gérée");
+		}
+		catch (Exception e){}
 	}
 	
 	@Test
 	/**
-	 * PathInGraph sans dest
+	 * Scenario où aucune destination n'est definie
 	 */
 	public void test4FindPath() {
 		
@@ -192,13 +195,13 @@ public class DijkstraTest {
 			fail ("l'algorithme n'aurait pas du terminer");
 		}
 		catch (NullPointerException e){fail ("erreur non traitée");}
-		catch (NullStationException e){}
-		catch (Exception e){fail ("Erreur mal traitée");}
+		catch (NoRouteForStationException e){}
+		catch (Exception e){}
 	}
 	
 	@Test
 	/**
-	 * PathInGraph sans criterious
+	 * Scenario avec un PathInGraph où aucun critère de résolution ne serait défini
 	 */
 	public void test5FindPath() {
 		
@@ -209,14 +212,15 @@ public class DijkstraTest {
 			
 			algo.findPath(collectionBuilder.getPathInGraphResultBuilder());
 		}
-		catch (NullCriteriousException e) {}
-		catch (NoSuchElementException e){fail ("Pas de traitement adapté à l'exception");}
-		catch (Exception e) {e.printStackTrace();}
+		catch (NoSuchElementException e){fail ("Lorsqu'il n'y a pas de critère défini pour la résolution (ex : chemin le plus court)" +
+				" un traitement de l'exception doit être effectué");
+				}
+		catch (Exception e){}
 	}
 	
 	@Test
 	/**
-	 * Test chemin entre deux stations
+	 * Scenario d'un chemin entre deux stations
 	 */
 	public void test6FindPath() {
 		
@@ -317,7 +321,7 @@ public class DijkstraTest {
 	@Test
 	/**
 	 * 
-	 * Service partout
+	 * Scenario avec un service requis sur toutes les stations étape
 	 */
 	public void test10FindPath() {
 		
@@ -347,7 +351,7 @@ public class DijkstraTest {
 	@Test
 	/**
 	 * 
-	 * Service à un endroit
+	 * Scenario avec un service requis sur une station étape au moins
 	 */
 	public void test11FindPath() {
 		
@@ -374,8 +378,7 @@ public class DijkstraTest {
 	
 	@Test
 	/**
-	 * 
-	 * Step station
+	 * Scenario avec station ou il faudra obligatoirement passer
 	 */
 	public void test12FindPath() {
 		
@@ -403,7 +406,7 @@ public class DijkstraTest {
 	
 	@Test
 	/**
-	 * Avoid station
+	 * Scenario avec stations à éviter
 	 */
 	public void test13FindPath() {
 		
@@ -446,6 +449,7 @@ public class DijkstraTest {
 				
 				try {algo.findPath(collectionBuilder.getPathInGraphResultBuilder());} 
 				catch (Exception e) {e.printStackTrace();}	
+				
 				algoRunning = false;
 			}
 		}.start();
