@@ -589,7 +589,7 @@ public class NewTravelPanel extends PanelState {
 	}
 
 	protected void recordChangedSetting(int familly, Station station) {
-		System.out.println("NewTravelPanel.recordChangedSetting(" + familly + "," + station + ")");
+//		System.out.println("NewTravelPanel.recordChangedSetting(" + familly + "," + station + ")");
 		switch (familly) {
 		case intermediatesStationsAdd:
 			if (station != null
