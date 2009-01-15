@@ -86,6 +86,7 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 		// création du parcourt
 		station = origin;
 		itJ = path.getCurrentPathInGraph().getJunctions();
+		remainingTime = 0;
 		while (itJ.hasNext()) {
 			if (nextJunction != null) {
 				junction = nextJunction;
@@ -93,6 +94,7 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 			} else {
 				junction = itJ.next();
 			}
+			remainingTime += junction.getTimeBetweenStations();
 			section.addJunction(junction);
 			station = junction.getOtherStation(station);
 			// coupure si on trouve un service qui n'est pas sur les changements
@@ -107,7 +109,7 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 						}
 			}
 			// coupure si on est sur une étape
-			if (path.getCurrentPathInGraph().containsSteps(station)) {
+			if (section.getEnddingChangementTime() == -1 && path.getCurrentPathInGraph().containsSteps(station)) {
 				section.enddingChangementTime = 0;
 				section.enddingChangementCost = 0;
 			}
@@ -195,7 +197,7 @@ public abstract class TravelForDisplayPanelImplPathInGraph implements TravelForD
 	}
 
 	@Override
-	public boolean prepareToSolveAsBestAsICan() { 
+	public boolean prepareToSolveAsBestAsICan() {
 		if (travel.isEmpty())
 			this.pathClone.setOrigin(this.pathClone.getCurrentPathInGraph().getDestination());
 		else if (travelDone.size() == 0)

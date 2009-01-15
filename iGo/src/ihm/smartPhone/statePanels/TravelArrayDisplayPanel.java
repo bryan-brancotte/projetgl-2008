@@ -428,7 +428,7 @@ public class TravelArrayDisplayPanel extends TravelDisplayPanel {
 
 		public SlowMove(int deroulement) {
 			super();
-			System.out.println(deroulement);
+//			System.out.println(deroulement);
 			this.deroulement = deroulement >> 1;
 			if (father.getConfig(SettingsKey.AUTO_SCROLL.toString()).compareTo(SettingsValue.DISABLE.toString()) != 0)
 				this.start();
