@@ -412,8 +412,8 @@
 				<GEEK value="Failure at 0x956834, Invalid Arrival"/>
 			</ERROR_NonValidDestinationException>
 			<ERROR_RoutesNotAccessible>
-				<FRANCAIS value="La station affichée ci dessous n'est pas accessible avec les types de lignes que vous autorisez"/>
-				<ENGLISH value="A station displayed below can't be reach with the kind of route you have just allowed."/>
+				<FRANCAIS value="La station affichée ci dessous n'est pas accessible"/>
+				<ENGLISH value="The station displayed below can't be reached."/>
 				<GEEK value="Failure at 0x223984, Stupid User"/>
 			</ERROR_RoutesNotAccessible>
 			<ERROR_NoSolution>
@@ -472,7 +472,7 @@
 				<GEEK value="Pour rome? c'est tout droit"/>
 			</ERROR_NetworkConstruction>
 			<ERROR_NonValidOrigin>
-				<FRANCAIS value="La station de départ est incorrect"/>
+				<FRANCAIS value="La station de départ est incorrecte"/>
 				<ENGLISH value="The departure station is wrong"/>
 				<GEEK value="symbole origine manquant"/>
 			</ERROR_NonValidOrigin>
@@ -492,7 +492,7 @@
 				<GEEK value="Chill, just relax"/>
 			</INFO_ServiceRelaxation>
 			<INFO_RoutesNotAccessible>
-				<FRANCAIS value="Aucune ligne ne rejoins la station précisée ci dessous, vous avez du interdire trop de types de route."/>
+				<FRANCAIS value="Aucune ligne ne rejoint la station précisée ci dessous, vous avez du interdire trop de types de route."/>
 				<ENGLISH value="There's no route for the station showed right down. You may have forbidden too much kind of routes."/>
 				<GEEK value="L'A886? C'est en cours de prolongation"/>
 			</INFO_RoutesNotAccessible>	
