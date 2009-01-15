@@ -51,11 +51,15 @@ public abstract class TravelForTravelPanelImplPathInGraph implements TravelForTr
 
 	@Override
 	public String getDestination() {
+		if (path.getCurrentPathInGraph().getDestination() == null)
+			return "";
 		return path.getCurrentPathInGraph().getDestination().getName();
 	}
 
 	@Override
 	public String getOrigine() {
+		if (path.getCurrentPathInGraph().getOrigin() == null)
+			return "";
 		return path.getCurrentPathInGraph().getOrigin().getName();
 	}
 
