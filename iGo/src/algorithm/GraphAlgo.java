@@ -8,7 +8,6 @@ import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
-import iGoMaster.exception.VoidPathException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,17 +33,17 @@ public class GraphAlgo {
 	 * @throws NoRouteForStationException
 	 * @throws StationNotOnRoadException
 	 * @throws NodeNotFoundException
-	 * @throws NonValidOriginException 
-	 * @throws NonValidDestinationException 
-	 * @throws NullStationException 
-	 * @throws NullCriteriousException 
+	 * @throws NonValidOriginException
+	 * @throws NonValidDestinationException
+	 * @throws NullStationException
+	 * @throws NullCriteriousException
 	 */
 	protected void refreshGraph(PathInGraph _p) throws NoRouteForStationException, StationNotOnRoadException, NodeNotFoundException, NonValidOriginException, NonValidDestinationException, NullStationException, NullCriteriousException {
-		
+
 		p = _p;
-		if (p.getOrigin()==null || p.getDestination()==null)
+		if (p.getOrigin() == null || p.getDestination() == null)
 			throw new NullStationException();
-		if (p.getMainCriterious()==CriteriousForLowerPath.NOT_DEFINED || p.getMinorCriterious()==CriteriousForLowerPath.NOT_DEFINED)
+		if (p.getMainCriterious() == CriteriousForLowerPath.NOT_DEFINED || p.getMinorCriterious() == CriteriousForLowerPath.NOT_DEFINED)
 			throw new NullCriteriousException();
 		avoidStations = p.getAvoidStationsArray();
 		always = p.getServicesAlwaysArray();
@@ -52,55 +51,57 @@ public class GraphAlgo {
 		graph = new ArrayList<Node>();
 		Station s = p.getOrigin();
 		Node n;
-		Iterator<Route> itRoute = s.getRoutes(); 
+		Iterator<Route> itRoute = s.getRoutes();
 		Route r = itRoute.next();
-		boolean nonValidRoute = isRefusedRoute(r); 
+		boolean nonValidRoute = isRefusedRoute(r);
 		while (nonValidRoute && itRoute.hasNext()) {
-			r=itRoute.next();
+			r = itRoute.next();
 			nonValidRoute = isRefusedRoute(r);
 		}
-		if (isRefusedRoute(r)) r=null; 
-		if (r!=null)
+		if (isRefusedRoute(r))
+			r = null;
+		if (r != null)
 			n = new Node(s, r);
 		else {
-			for (int i=0;i<avoidStations.length;i++)
-				if (s.getId()==avoidStations[i].getId())
+			for (int i = 0; i < avoidStations.length; i++)
+				if (s.getId() == avoidStations[i].getId())
 					return;
 			throw new NoRouteForStationException(s);
 		}
 		if (allServicesIn(p.getOrigin()) && allServicesIn(p.getDestination())) {
 			graph.add(n);
 			addLink(n);
-		}
-		else {
-			// Verification que l'origine et la destination répondent bien aux contraintes "toujours"
+		} else {
+			// Verification que l'origine et la destination répondent bien aux
+			// contraintes "toujours"
 			if (!allServicesIn(p.getOrigin())) {
 				ArrayList<Service> list = new ArrayList<Service>();
-				for(Service service : always) {
-					boolean found=false;
+				for (Service service : always) {
+					boolean found = false;
 					Iterator<Service> it = p.getOrigin().getServices();
 					while (it.hasNext()) {
-						if (it.next()==service) {
-							found=true;
+						if (it.next() == service) {
+							found = true;
 							break;
 						}
 					}
-					if (!found) list.add(service);
+					if (!found)
+						list.add(service);
 				}
 				throw new NonValidOriginException(list);
-			}
-			else {
+			} else {
 				ArrayList<Service> list = new ArrayList<Service>();
-				for(Service service : always) {
-					boolean found=false;
+				for (Service service : always) {
+					boolean found = false;
 					Iterator<Service> it = p.getDestination().getServices();
 					while (it.hasNext()) {
-						if (it.next()==service) {
-							found=true;
+						if (it.next() == service) {
+							found = true;
 							break;
 						}
 					}
-					if (!found) list.add(service);
+					if (!found)
+						list.add(service);
 				}
 				throw new NonValidDestinationException(list);
 			}
@@ -198,24 +199,21 @@ public class GraphAlgo {
 	private boolean validChange(Node node, Junction junction) {
 		Station station = node.getStation();
 		Station otherStation = junction.getOtherStation(station);
-		if (
-				isRefusedRoute(junction.getOtherRoute(node.getRoute())) ||
-				isStationIn(otherStation, avoidStations) || 
-				!otherStation.isEnable() || 
-				(!junction.isRouteLink() && (!allServicesIn(station)))
-			)
+		if (isRefusedRoute(junction.getOtherRoute(node.getRoute())) || isStationIn(otherStation, avoidStations) || !otherStation.isEnable() || (!junction.isRouteLink() && (!allServicesIn(station))))
 			return false;
 		else
 			return true;
 	}
-	
-	private boolean isRefusedRoute (Route r) {
-		if (r==null) return false;
-		for (int i=0;i<p.getRefusedKindRouteArray().length;i++) {
-			if (r.getKindRoute()==p.getRefusedKindRouteArray()[i]) return true;
+
+	private boolean isRefusedRoute(Route r) {
+		if (r == null)
+			return false;
+		for (int i = 0; i < p.getRefusedKindRouteArray().length; i++) {
+			if (r.getKindRoute() == p.getRefusedKindRouteArray()[i])
+				return true;
 		}
 		return false;
-		
+
 	}
 
 	/**
@@ -262,9 +260,10 @@ public class GraphAlgo {
 				return graph.get(i);
 		}
 		if (n == null) {
-			if (s==p.getDestination()) return null;
-			for (int i=0;i<avoidStations.length;i++)
-				if (s.getId()==avoidStations[i].getId())
+			if (s == p.getDestination())
+				return null;
+			for (int i = 0; i < avoidStations.length; i++)
+				if (s.getId() == avoidStations[i].getId())
 					return null;
 			throw new NoRouteForStationException(s);
 		}
@@ -307,7 +306,8 @@ public class GraphAlgo {
 		private Station station;
 		private Route route;
 		private Vector<Link> to;
-		// Argument pour une éventuelle évolution de methode de calcul avec heuristique
+		// Argument pour une éventuelle évolution de methode de calcul avec
+		// heuristique
 		private int relevance;
 		private int time;
 		private int changes;
@@ -323,9 +323,9 @@ public class GraphAlgo {
 		public void initValue() {
 			from = null;
 			relevance = 0;
-			time = Integer.MAX_VALUE/2;
-			changes = Integer.MAX_VALUE/2;
-			cost = Float.MAX_VALUE/2;
+			time = Integer.MAX_VALUE / 2;
+			changes = Integer.MAX_VALUE / 2;
+			cost = Float.MAX_VALUE / 2;
 		}
 
 		public void addTo(Junction j, Node n) {
@@ -395,9 +395,9 @@ public class GraphAlgo {
 		public Iterator<Link> getToIter() {
 			return to.iterator();
 		}
-		
-		public String toString () {
-			return "["+station+","+route+"]";
+
+		public String toString() {
+			return "[" + station + "," + route + "]";
 		}
 	}
 
