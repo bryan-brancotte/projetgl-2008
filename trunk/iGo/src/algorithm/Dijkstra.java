@@ -121,10 +121,15 @@ public class Dijkstra extends Algo {
 			throw new StationNotAccessibleException(p.getOrigin());
 		else
 			origin = p.getOrigin();
-		if (graph.getFirstNode(p.getDestination()) == null)
+		System.out.println("toto");
+		if (graph.getFirstNode(p.getDestination()) == null){
+			System.out.println("toto");
 			throw new StationNotAccessibleException(p.getDestination());
+		}
 		else
 			destination = p.getDestination();
+
+		System.out.println("toto");
 		steps = p.getStepsArray();
 		for (int i = 0; i < steps.length; i++) {
 			if (graph.getFirstNode(steps[i]) == null)
@@ -304,7 +309,6 @@ public class Dijkstra extends Algo {
 					}
 				}
 			}
-			System.out.println("route suivante");
 		}
 		return returnPath;
 	}

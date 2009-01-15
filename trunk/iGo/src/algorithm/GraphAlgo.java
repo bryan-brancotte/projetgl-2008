@@ -8,6 +8,7 @@ import graphNetwork.Station;
 import graphNetwork.exception.StationNotOnRoadException;
 import iGoMaster.Algo.CriteriousForLowerPath;
 import iGoMaster.exception.NoRouteForStationException;
+import iGoMaster.exception.VoidPathException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,8 +62,12 @@ public class GraphAlgo {
 		if (isRefusedRoute(r)) r=null; 
 		if (r!=null)
 			n = new Node(s, r);
-		else
+		else {
+			for (int i=0;i<avoidStations.length;i++)
+				if (s.getId()==avoidStations[i].getId())
+					return;
 			throw new NoRouteForStationException(s);
+		}
 		if (allServicesIn(p.getOrigin()) && allServicesIn(p.getDestination())) {
 			graph.add(n);
 			addLink(n);
@@ -256,8 +261,13 @@ public class GraphAlgo {
 			if (s == graph.get(i).getStation())
 				return graph.get(i);
 		}
-		if (n == null)
+		if (n == null) {
+			if (s==p.getDestination()) return null;
+			for (int i=0;i<avoidStations.length;i++)
+				if (s.getId()==avoidStations[i].getId())
+					return null;
 			throw new NoRouteForStationException(s);
+		}
 		return null;
 	}
 
