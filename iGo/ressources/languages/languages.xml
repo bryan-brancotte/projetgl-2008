@@ -612,8 +612,8 @@
 				<GEEK value="network updated, update needed"/>
 			</UpdateNetworkMessage>
 			<UpdateNetworkTitle>
-				<FRANCAIS value="Network update"/>
-				<ENGLISH value="Mise à jour du réseau"/>
+				<FRANCAIS value="Mise à jour du réseau"/>
+				<ENGLISH value="Network update"/>
 				<GEEK value="Refresh"/>
 			</UpdateNetworkTitle>
 			<Route>
